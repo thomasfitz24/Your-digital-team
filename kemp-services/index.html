@@ -140,6 +140,15 @@
   .statement{padding:200px 0 0;}
   .statement h2{font-size:clamp(34px,4.6vw,64px);max-width:19em;color:var(--black);}
   .statement h2 .hl{color:var(--blue);}
+  .about-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:44px;}
+  .about-cols p + p{margin-top:14px;}
+  .about-cols .lead-line{color:var(--ink);font-weight:700;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+  .chip{
+    font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
+    border:1.5px solid var(--sky);background:var(--sky-soft);border-radius:999px;
+    padding:8px 16px;color:var(--blue);
+  }
   .statcards{
     display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
     margin-top:64px;align-items:start;
@@ -273,6 +282,7 @@
     .hero-side{order:1;padding-bottom:0;}
     .hero-media{order:2;max-width:520px;margin:8px auto -96px;}
     .statement{padding-top:170px;}
+    .about-cols{grid-template-columns:1fr;gap:24px;}
     .statcards{grid-template-columns:1fr 1fr;}
     .scard:nth-child(2),.scard:nth-child(3){margin-top:0;}
     .svc-grid{grid-template-columns:1fr 1fr;}
@@ -340,7 +350,7 @@
                alt="A Kemp Services cleaning operative in gloves and mask cleaning a window" width="1000" height="860" fetchpriority="high">
         </div>
         <div class="hero-side hero-fade">
-          <p class="pitch">At Kemp Services we build long-term relationships with our commercial cleaning clients — so you always know your premises are in expert hands. Professional, high-quality cleaning from a flexible, responsive team.</p>
+          <p class="pitch">At Kemp Services, we want to build a long-term relationship with our commercial cleaning clients — so you know you can concentrate on running your business and leave the cleaning to us. Our specialist London commercial cleaning contractors are ready to help you.</p>
           <div class="hero-ctas">
             <a class="btn btn-sky" href="https://saxophone-herring-yzej.squarespace.com/pricing-1-1#quote" target="_blank" rel="noopener">
               Get a quote today
@@ -361,6 +371,23 @@
   <section class="statement" aria-labelledby="statement-h">
     <div class="wrap">
       <h2 id="statement-h" class="disp" data-reveal>We make a difference to the properties we clean <span class="hl">and the clients we work with.</span></h2>
+
+      <div class="about-cols">
+        <div data-reveal>
+          <p class="lead-line">Our specialist London commercial cleaning contractors are ready to help you.</p>
+          <p>Kemp Services is a commercial cleaning company based in east London. With over 30 years' experience, our team of experts can assist with all your commercial cleaning needs. Our clients are mainly based across London, Essex, Kent, Surrey, Middlesex and Hertfordshire — and we also have contracts in Manchester, Newcastle, Nottingham, Liverpool, Cardiff and Birmingham.</p>
+        </div>
+        <div data-reveal style="transition-delay:.1s">
+          <p>We offer a professional, high-quality service and pride ourselves on being a flexible and responsive commercial cleaning contractor.</p>
+          <p>Clean and presentable premises not only make a difference to the general health and wellbeing of staff — they also create a positive first impression for visitors. Regardless of the type of property, we can help keep your premises looking sparkling clean at all times.</p>
+          <div class="chip-row">
+            <span class="chip">Office</span>
+            <span class="chip">Retail</span>
+            <span class="chip">Welfare facilities</span>
+            <span class="chip">Warehouse</span>
+          </div>
+        </div>
+      </div>
 
       <div class="statcards">
         <article class="scard navy on-dark" data-reveal>
@@ -448,7 +475,7 @@
           <div class="inner">
             <p class="tag">Offices · Retail · Commercial</p>
             <h3>Contract Cleaning</h3>
-            <p>Bespoke, flexible contract cleaning for office, retail, construction and commercial clients in London and across England — an impeccable standard at competitive prices, with regular site visits to keep you satisfied.</p>
+            <p>Bespoke and flexible contract cleaning for office, retail, construction and commercial clients in London and across England — an impeccable standard of cleaning and excellent customer service at competitive prices. Our contract cleaners are dedicated, smart and certified, and we conduct regular site visits to ensure our customers are always satisfied.</p>
             <a class="arrowlink" href="https://saxophone-herring-yzej.squarespace.com/pricing-1-1#" target="_blank" rel="noopener">
               Find out more
               <span class="cir"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></span>
@@ -461,7 +488,7 @@
           <div class="inner">
             <p class="tag">Daily · Weekly · Evenings</p>
             <h3>Office Cleaning</h3>
-            <p>A clean office gives a great first impression to visitors and lifts your staff's wellbeing. Our vetted, trained team works to reduce allergens, dust and mould — and to keep your premises safe.</p>
+            <p>Office cleaning gives a good first impression to your customers and visitors, and enhances your staff's physical and emotional wellbeing. Our professional office cleaning staff are vetted, trained and supported by our experienced management team — working to reduce allergens, dust and mould, and to keep your premises safe against Covid.</p>
             <a class="arrowlink" href="https://saxophone-herring-yzej.squarespace.com/pricing-1-1#" target="_blank" rel="noopener">
               Find out more
               <span class="cir"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></span>
@@ -474,7 +501,7 @@
           <div class="inner">
             <p class="tag">Final clean · Sparkle clean</p>
             <h3>Builders Clean</h3>
-            <p>The last trade on site before handover is us — your specialist post-construction cleaners. Projects of every size, in London and across the UK, cleared of dust and grime before that all-important handover.</p>
+            <p>At the end of any new build, refurbishment or renovation project, the last trade on site before that all-important handover is us — your specialist post-construction cleaners. We've worked on projects of varying sizes in London and across the UK, removing the dust and grime with a professional, quality after builders clean — also known as a 'final clean', 'sparkle clean' or 'construction site clean'.</p>
             <a class="arrowlink" href="https://saxophone-herring-yzej.squarespace.com/pricing-1-1#" target="_blank" rel="noopener">
               Find out more
               <span class="cir"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></span>
@@ -494,8 +521,8 @@
           <h2 id="comfort-h" class="disp" data-reveal>We bring the clean, you keep the comfort.</h2>
         </div>
         <div class="colcopy" data-reveal style="transition-delay:.1s">
-          <p><strong>All our commercial cleaning staff are fully vetted.</strong> Prefer us to clean while your premises are empty? We'll work outside your usual business hours.</p>
-          <p>Or our cleaners can work alongside your staff — without disrupting them.</p>
+          <p><strong>All our commercial cleaning staff are fully vetted.</strong> When it comes to working hours and patterns, we offer great flexibility — if you would prefer us to clean when your premises are empty, we can work outside of usual business hours.</p>
+          <p>Alternatively, our commercial cleaners can work alongside your staff without disrupting them.</p>
         </div>
       </div>
 
@@ -570,7 +597,7 @@
       <div class="cta-grid">
         <h2 id="cta-h" class="disp" data-reveal>Signing up is <span class="hl">100% risk-free.</span></h2>
         <div class="cta-copy" data-reveal style="transition-delay:.1s">
-          <p>We are confident in the services we provide. If you are not completely satisfied in the first month of your cleaning contract, we will refund that month in full — <strong>100% guaranteed</strong>.</p>
+          <p>We are confident in the services we provide, which is why we make signing up with us a risk-free process. If you are not completely satisfied with our service in the first month of your cleaning contract, we will provide you a <strong>full refund</strong> for that month* — <strong>100% guaranteed!</strong></p>
           <a class="btn btn-sky" href="https://saxophone-herring-yzej.squarespace.com/pricing-1-1#quote" target="_blank" rel="noopener">
             Get a quote today
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 13L13 3M6 3h7v7"/></svg>
