@@ -104,27 +104,16 @@
   }
 
   .hero-lower{
-    display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);
-    gap:56px;align-items:center;margin-top:44px;
+    display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+    gap:48px;align-items:center;margin-top:36px;
   }
-  .hero-media{position:relative;margin-bottom:-104px;z-index:2;}
-  /* angular cut-paper slab sitting behind and up-left of the photograph */
-  .hero-media .slab{
-    position:absolute;inset:-5% 32% 12% -14%;background:var(--paper);
-    clip-path:polygon(16% 0%,100% 12%,88% 94%,0% 76%);
-  }
-  /* soft rounded shape peeking out low-left, echoing the smaller lobe */
-  .hero-media .backblob{
-    position:absolute;inset:52% 62% -6% -12%;background:rgba(255,255,255,0.88);
-    clip-path:url(#blobB);
-  }
-  .hero-media img{
-    position:relative;z-index:2;width:100%;height:auto;aspect-ratio:100/78;
-    object-fit:cover;object-position:18% 38%;
-    clip-path:url(#heroMask);
-  }
+  /* The photograph is carried by an inline SVG so that the outline's
+     rotations scale with the viewBox, rather than skewing as they would
+     under objectBoundingBox units on a non-square box. */
+  .hero-media{position:relative;margin-bottom:-120px;z-index:2;}
+  .hero-media svg{display:block;width:100%;height:auto;}
 
-  .hero-side{padding-bottom:96px;}
+  .hero-side{padding-bottom:56px;}
   .hero-side .pitch{color:rgba(255,255,255,0.9);font-size:16px;line-height:1.6;max-width:40ch;}
   .ctarow{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-top:26px;}
   .ctarow .price{display:flex;flex-direction:column;line-height:1.3;}
@@ -198,17 +187,18 @@
 
 <svg width="0" height="0" aria-hidden="true" style="position:absolute">
   <defs>
-    <!-- Two-lobe silhouette. A clipPath unions its children, so two ellipses
-         give the exact shape: a large lobe carrying the subject and a smaller
-         one dropping away bottom-right, leaving the top-right corner open.
-         The radii are pre-stretched (ry = rx x 100/78) so that the element's
-         landscape aspect ratio renders them as true circles. -->
-    <clipPath id="heroMask" clipPathUnits="objectBoundingBox">
-      <ellipse cx="0.34" cy="0.42" rx="0.33" ry="0.42"/>
-      <ellipse cx="0.70" cy="0.72" rx="0.21" ry="0.27"/>
-    </clipPath>
-    <clipPath id="blobB" clipPathUnits="objectBoundingBox">
-      <path d="M0.5,0.04 C0.64,0 0.82,0.02 0.9,0.13 C0.98,0.24 0.97,0.4 0.97,0.55 C0.97,0.7 0.99,0.87 0.88,0.94 C0.77,1.01 0.6,0.97 0.45,0.97 C0.3,0.97 0.13,1 0.06,0.9 C-0.01,0.8 0.02,0.64 0.02,0.5 C0.02,0.36 0,0.2 0.09,0.11 C0.18,0.02 0.36,0.08 0.5,0.04 Z"/>
+    <!-- Hero silhouette, traced from the supplied outline vector. It is a
+         union of five pieces (a clipPath unions its children): a sharp wedge
+         tail at far left continuing into a rounded cap top-left, two rounded
+         bands crossing through the middle, and a sharp ribbon running out to
+         the bottom-right. Coordinates are userSpaceOnUse in the 2000x1230
+         viewBox of the SVG that carries the photograph. -->
+    <clipPath id="heroShape">
+      <rect x="0" y="0" width="520" height="403" transform="translate(0,465) rotate(-34.5)"/>
+      <rect x="280" y="0" width="680" height="403" rx="201" transform="translate(0,465) rotate(-34.5)"/>
+      <rect x="-295" y="-295" width="1617" height="590" rx="295" transform="translate(600,905) rotate(-36.1)"/>
+      <rect x="-201" y="-201" width="1253" height="402" rx="201" transform="translate(739,202) rotate(58.8)"/>
+      <polygon points="1290,600 1990,458 1740,1078 1040,1220"/>
     </clipPath>
     <clipPath id="cloudMask" clipPathUnits="objectBoundingBox">
       <path d="M0.07,0.42 C0.07,0.18 0.16,0.04 0.3,0.05 C0.38,0.0 0.62,0.0 0.7,0.05 C0.84,0.04 0.93,0.18 0.93,0.42 C0.99,0.46 1.0,0.62 0.96,0.72 C0.98,0.88 0.9,0.98 0.78,0.94 C0.72,1.0 0.62,1.0 0.56,0.94 C0.5,1.0 0.4,1.0 0.34,0.94 C0.28,1.0 0.18,1.0 0.12,0.93 C0.03,0.9 0.0,0.78 0.04,0.68 C0.0,0.58 0.02,0.46 0.07,0.42 Z"/>
@@ -244,13 +234,17 @@
 
       <div class="hero-lower">
         <div class="hero-media hero-fade">
-          <div class="slab" aria-hidden="true"></div>
-          <div class="backblob" aria-hidden="true"></div>
-          <!-- Source is deliberately wider than the display box so that
-               object-position can pan the shadowed right-hand wall out of
-               the smaller lobe. -->
-          <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1500&h=780&fit=crop&auto=format&q=72"
-               alt="A cleaner in gloves wiping down a bright window in a living room" width="1500" height="780" fetchpriority="high">
+          <svg viewBox="0 0 2000 1230" role="img"
+               aria-label="A bright, freshly cleaned living room with plants and morning light">
+            <!-- The source is cropped to the outline's own aspect ratio, so it
+                 fills every lobe. An evenly lit frame matters more here than
+                 usual: this outline spreads across the whole image, so any
+                 large shadow reads as a separate black shape inside it. -->
+            <image href="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1600&h=985&fit=crop&auto=format&q=72"
+                   x="0" y="0" width="2000" height="1230"
+                   preserveAspectRatio="xMidYMid slice"
+                   clip-path="url(#heroShape)"/>
+          </svg>
         </div>
 
         <div class="hero-side hero-fade">
