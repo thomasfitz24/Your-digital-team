@@ -108,21 +108,21 @@
     gap:56px;align-items:center;margin-top:44px;
   }
   .hero-media{position:relative;margin-bottom:-104px;z-index:2;}
-  .hero-media .backblob{
-    position:absolute;inset:2% -5% -6% 5%;background:var(--paper);
-    clip-path:url(#heroMask);transform:rotate(-9deg);
+  /* angular cut-paper slab sitting behind and up-left of the photograph */
+  .hero-media .slab{
+    position:absolute;inset:-5% 32% 12% -14%;background:var(--paper);
+    clip-path:polygon(16% 0%,100% 12%,88% 94%,0% 76%);
   }
-  .hero-media .backblob2{
-    position:absolute;inset:22% 46% -2% -5%;background:rgba(255,255,255,0.88);
-    clip-path:url(#blobB);transform:rotate(12deg);
+  /* soft rounded shape peeking out low-left, echoing the smaller lobe */
+  .hero-media .backblob{
+    position:absolute;inset:52% 62% -6% -12%;background:rgba(255,255,255,0.88);
+    clip-path:url(#blobB);
   }
   .hero-media img{
-    position:relative;z-index:2;width:100%;height:auto;aspect-ratio:100/78;object-fit:cover;
+    position:relative;z-index:2;width:100%;height:auto;aspect-ratio:100/78;
+    object-fit:cover;object-position:18% 38%;
     clip-path:url(#heroMask);
   }
-  .hero-media .chunk{position:absolute;background:var(--paper);z-index:3;}
-  .hero-media .chunk1{width:30%;height:20%;left:-6%;bottom:1%;border-radius:44px;transform:rotate(24deg);}
-  .hero-media .chunk2{width:17%;aspect-ratio:1;right:2%;top:-5%;border-radius:50%;}
 
   .hero-side{padding-bottom:96px;}
   .hero-side .pitch{color:rgba(255,255,255,0.9);font-size:16px;line-height:1.6;max-width:40ch;}
@@ -198,8 +198,14 @@
 
 <svg width="0" height="0" aria-hidden="true" style="position:absolute">
   <defs>
+    <!-- Two-lobe silhouette. A clipPath unions its children, so two ellipses
+         give the exact shape: a large lobe carrying the subject and a smaller
+         one dropping away bottom-right, leaving the top-right corner open.
+         The radii are pre-stretched (ry = rx x 100/78) so that the element's
+         landscape aspect ratio renders them as true circles. -->
     <clipPath id="heroMask" clipPathUnits="objectBoundingBox">
-      <path d="M0.52,0.02 C0.7,-0.02 0.9,0.08 0.96,0.24 C1.01,0.38 0.97,0.5 0.88,0.6 L0.6,0.95 C0.5,1.02 0.3,1.0 0.17,0.9 C0.04,0.81 -0.02,0.62 0.02,0.45 C0.06,0.28 0.14,0.1 0.32,0.05 C0.39,0.03 0.45,0.04 0.52,0.02 Z"/>
+      <ellipse cx="0.34" cy="0.42" rx="0.33" ry="0.42"/>
+      <ellipse cx="0.70" cy="0.72" rx="0.21" ry="0.27"/>
     </clipPath>
     <clipPath id="blobB" clipPathUnits="objectBoundingBox">
       <path d="M0.5,0.04 C0.64,0 0.82,0.02 0.9,0.13 C0.98,0.24 0.97,0.4 0.97,0.55 C0.97,0.7 0.99,0.87 0.88,0.94 C0.77,1.01 0.6,0.97 0.45,0.97 C0.3,0.97 0.13,1 0.06,0.9 C-0.01,0.8 0.02,0.64 0.02,0.5 C0.02,0.36 0,0.2 0.09,0.11 C0.18,0.02 0.36,0.08 0.5,0.04 Z"/>
@@ -238,12 +244,13 @@
 
       <div class="hero-lower">
         <div class="hero-media hero-fade">
+          <div class="slab" aria-hidden="true"></div>
           <div class="backblob" aria-hidden="true"></div>
-          <div class="backblob2" aria-hidden="true"></div>
-          <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1000&h=860&fit=crop&auto=format&q=72"
-               alt="A cleaner in an apron wiping down a wooden sideboard in a bright living room" width="1000" height="860" fetchpriority="high">
-          <div class="chunk chunk1" aria-hidden="true"></div>
-          <div class="chunk chunk2" aria-hidden="true"></div>
+          <!-- Source is deliberately wider than the display box so that
+               object-position can pan the shadowed right-hand wall out of
+               the smaller lobe. -->
+          <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1500&h=780&fit=crop&auto=format&q=72"
+               alt="A cleaner in gloves wiping down a bright window in a living room" width="1500" height="780" fetchpriority="high">
         </div>
 
         <div class="hero-side hero-fade">
