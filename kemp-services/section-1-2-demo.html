@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sections 1 &amp; 2 — build demo</title>
+<meta name="description" content="Hero and stats sections rebuilt from the reference design: pill navigation, blob-masked photography and staggered percentage cards.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#2C5D51;
+    --green-deep:#1F473D;
+    --lime:#D7E85E;
+    --lime-bright:#E2F075;
+    --ink:#101410;
+    --paper:#FFFFFF;
+    --grey:#F2F2F0;
+    --muted:#5A6360;
+    --disp:'Archivo Black',Impact,sans-serif;
+    --body:'Plus Jakarta Sans',system-ui,sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
+  html,body{overflow-x:clip;}
+  body{
+    font-family:var(--body);background:var(--paper);color:var(--ink);
+    font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%;}
+  a{color:inherit;}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--green);outline-offset:3px;}
+  .on-dark a:focus-visible{outline-color:var(--lime);}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+  .disp{
+    font-family:var(--disp);font-weight:400;text-transform:uppercase;
+    line-height:1.0;letter-spacing:-0.005em;text-wrap:balance;
+  }
+  p{color:var(--muted);}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--body);font-weight:800;font-size:15px;
+    text-decoration:none;border-radius:10px;padding:16px 30px;
+    transition:transform .18s ease,background-color .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-lime{background:var(--lime);color:var(--ink);}
+  .btn-lime:hover{background:var(--lime-bright);}
+
+  /* ---------- reveal ---------- */
+  .js [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.65,.25,1);}
+  .js [data-reveal].on{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .js [data-reveal]{opacity:1;transform:none;transition:none;}
+  }
+
+  /* ================= SECTION 1 — HERO ================= */
+  .hero{background:var(--green);color:#fff;padding:18px 0 0;position:relative;overflow-x:clip;}
+
+  .topbar{
+    position:relative;z-index:6;
+    background:#fff;border-radius:999px;
+    padding:9px 10px 9px 28px;
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+    box-shadow:0 16px 38px -18px rgba(6,30,22,0.45);
+  }
+  .wordmark{display:inline-flex;align-items:baseline;text-decoration:none;color:var(--ink);
+    font-size:27px;font-weight:800;letter-spacing:-0.02em;}
+  .wordmark .dot{position:relative;}
+  .wordmark .dot svg{position:absolute;left:50%;bottom:0.86em;width:15px;height:15px;transform:translateX(-42%);color:var(--green);}
+  .topbar nav{display:flex;align-items:center;gap:26px;}
+  .topbar nav a{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:14px;font-weight:700;color:var(--ink);text-decoration:none;
+    padding:4px 0;border-bottom:2.5px solid transparent;transition:color .15s,border-color .15s;
+  }
+  .topbar nav a:hover{color:var(--green);}
+  .topbar nav a[aria-current]{border-color:var(--lime);}
+  .topbar nav a svg{width:9px;height:9px;opacity:.55;}
+  .topbar .btn{padding:13px 26px;font-size:14px;}
+
+  .hero h1{
+    font-size:clamp(34px,5.5vw,74px);
+    text-align:center;color:#fff;margin-top:56px;line-height:1.04;
+  }
+  .hero h1 .hline{white-space:nowrap;}
+  @media (max-width:560px){ .hero h1 .hline{white-space:normal;} }
+  .js .hline{display:block;overflow:hidden;padding-bottom:0.08em;margin-bottom:-0.08em;}
+  .js .hline > span{display:inline-block;transform:translateY(115%);transition:transform .9s cubic-bezier(.19,.7,.22,1);}
+  .js .hline:nth-child(2) > span{transition-delay:.08s;}
+  .js.loaded .hline > span{transform:none;}
+  .js .hero-fade{opacity:0;transform:translateY(16px);transition:opacity .8s ease .5s,transform .8s cubic-bezier(.2,.65,.25,1) .5s;}
+  .js.loaded .hero-fade{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    .js .hline > span{transform:none;transition:none;}
+    .js .hero-fade{opacity:1;transform:none;transition:none;}
+  }
+
+  .hero-lower{
+    display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);
+    gap:56px;align-items:center;margin-top:44px;
+  }
+  .hero-media{position:relative;margin-bottom:-104px;z-index:2;}
+  .hero-media .backblob{
+    position:absolute;inset:2% -5% -6% 5%;background:var(--paper);
+    clip-path:url(#heroMask);transform:rotate(-9deg);
+  }
+  .hero-media .backblob2{
+    position:absolute;inset:22% 46% -2% -5%;background:rgba(255,255,255,0.88);
+    clip-path:url(#blobB);transform:rotate(12deg);
+  }
+  .hero-media img{
+    position:relative;z-index:2;width:100%;height:auto;aspect-ratio:100/78;object-fit:cover;
+    clip-path:url(#heroMask);
+  }
+  .hero-media .chunk{position:absolute;background:var(--paper);z-index:3;}
+  .hero-media .chunk1{width:30%;height:20%;left:-6%;bottom:1%;border-radius:44px;transform:rotate(24deg);}
+  .hero-media .chunk2{width:17%;aspect-ratio:1;right:2%;top:-5%;border-radius:50%;}
+
+  .hero-side{padding-bottom:96px;}
+  .hero-side .pitch{color:rgba(255,255,255,0.9);font-size:16px;line-height:1.6;max-width:40ch;}
+  .ctarow{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-top:26px;}
+  .ctarow .price{display:flex;flex-direction:column;line-height:1.3;}
+  .ctarow .price .a{font-family:var(--disp);font-size:20px;color:#fff;letter-spacing:-0.01em;}
+  .ctarow .price .b{font-size:13px;font-weight:600;color:rgba(255,255,255,0.7);}
+
+  .ratingrow{display:flex;align-items:center;gap:12px;margin-top:30px;flex-wrap:wrap;}
+  .stars{display:flex;gap:3px;color:var(--lime);}
+  .stars svg{width:16px;height:16px;}
+  .ratingrow .score{font-family:var(--disp);font-size:19px;color:var(--lime);}
+  .trusted{font-size:13.5px;font-weight:600;color:rgba(255,255,255,0.78);margin-top:8px;}
+  .trusted strong{color:var(--lime);font-weight:800;}
+
+  /* ================= SECTION 2 — STATEMENT + CARDS ================= */
+  .statement{padding:210px 0 120px;}
+  .statement h2{font-size:clamp(28px,4.05vw,54px);max-width:26em;color:var(--ink);}
+
+  .cards{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:24px;margin-top:70px;align-items:start;
+  }
+  .card{
+    background:var(--grey);border-radius:8px;padding:26px 26px 30px;
+    display:flex;flex-direction:column;
+  }
+  .card.a{background:var(--green);color:#fff;margin-top:38px;padding-bottom:34px;}
+  .card.b{margin-top:0;}
+  .card.c{margin-top:76px;}
+
+  .card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;}
+  .card .num{font-family:var(--disp);font-size:clamp(34px,3.4vw,46px);line-height:1;color:var(--green);letter-spacing:-0.02em;}
+  .card.a .num{color:var(--lime);}
+  .card .spark{width:34px;height:34px;flex:none;color:var(--lime);}
+
+  .card .blobwrap{position:relative;margin:24px 0 26px;}
+  .card .blobwrap .backblob{
+    position:absolute;inset:-5% 6% 5% -6%;background:var(--green);
+    clip-path:url(#cloudMask);
+  }
+  .card.a .blobwrap .backblob{background:var(--paper);}
+  .card .blobwrap img{
+    position:relative;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;
+    clip-path:url(#cloudMask);
+  }
+  .card.a .blobwrap img{aspect-ratio:4/5;}
+
+  .card .cap{font-weight:700;font-size:15.5px;line-height:1.45;color:var(--ink);margin-top:auto;max-width:22ch;}
+  .card.a .cap{color:#fff;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1020px){
+    .topbar nav{display:none;}
+    .hero-lower{grid-template-columns:1fr;gap:36px;}
+    .hero-side{order:1;padding-bottom:0;}
+    .hero-media{order:2;margin-bottom:-90px;}
+    .statement{padding-top:160px;}
+    .cards{grid-template-columns:1fr 1fr;gap:20px;}
+    .card,.card.a,.card.b,.card.c{margin-top:0;}
+  }
+  @media (max-width:660px){
+    .wrap{padding:0 20px;}
+    .topbar{padding:8px 8px 8px 20px;}
+    .hero h1{margin-top:38px;}
+    .cards{grid-template-columns:1fr;}
+    .card .cap{max-width:none;}
+    .ctarow{gap:18px;}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <clipPath id="heroMask" clipPathUnits="objectBoundingBox">
+      <path d="M0.52,0.02 C0.7,-0.02 0.9,0.08 0.96,0.24 C1.01,0.38 0.97,0.5 0.88,0.6 L0.6,0.95 C0.5,1.02 0.3,1.0 0.17,0.9 C0.04,0.81 -0.02,0.62 0.02,0.45 C0.06,0.28 0.14,0.1 0.32,0.05 C0.39,0.03 0.45,0.04 0.52,0.02 Z"/>
+    </clipPath>
+    <clipPath id="blobB" clipPathUnits="objectBoundingBox">
+      <path d="M0.5,0.04 C0.64,0 0.82,0.02 0.9,0.13 C0.98,0.24 0.97,0.4 0.97,0.55 C0.97,0.7 0.99,0.87 0.88,0.94 C0.77,1.01 0.6,0.97 0.45,0.97 C0.3,0.97 0.13,1 0.06,0.9 C-0.01,0.8 0.02,0.64 0.02,0.5 C0.02,0.36 0,0.2 0.09,0.11 C0.18,0.02 0.36,0.08 0.5,0.04 Z"/>
+    </clipPath>
+    <clipPath id="cloudMask" clipPathUnits="objectBoundingBox">
+      <path d="M0.07,0.42 C0.07,0.18 0.16,0.04 0.3,0.05 C0.38,0.0 0.62,0.0 0.7,0.05 C0.84,0.04 0.93,0.18 0.93,0.42 C0.99,0.46 1.0,0.62 0.96,0.72 C0.98,0.88 0.9,0.98 0.78,0.94 C0.72,1.0 0.62,1.0 0.56,0.94 C0.5,1.0 0.4,1.0 0.34,0.94 C0.28,1.0 0.18,1.0 0.12,0.93 C0.03,0.9 0.0,0.78 0.04,0.68 C0.0,0.58 0.02,0.46 0.07,0.42 Z"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<main>
+
+  <!-- ================= SECTION 1 ================= -->
+  <section class="hero on-dark" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="topbar">
+        <a class="wordmark" href="#top" id="top">ra<span class="dot">i<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg></span>se</a>
+
+        <nav aria-label="Primary">
+          <a href="#about" aria-current="page">About us</a>
+          <a href="#services">Services <svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5"/></svg></a>
+          <a href="#team">Team</a>
+          <a href="#apps">Our apps</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#location">Location <svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5"/></svg></a>
+        </nav>
+
+        <a class="btn btn-lime" href="#contact">Contact Us</a>
+      </div>
+
+      <h1 id="hero-h" class="disp">
+        <span class="hline"><span>Making homes shine</span></span>
+        <span class="hline"><span>Professionally cleaned</span></span>
+      </h1>
+
+      <div class="hero-lower">
+        <div class="hero-media hero-fade">
+          <div class="backblob" aria-hidden="true"></div>
+          <div class="backblob2" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1000&h=860&fit=crop&auto=format&q=72"
+               alt="A cleaner in an apron wiping down a wooden sideboard in a bright living room" width="1000" height="860" fetchpriority="high">
+          <div class="chunk chunk1" aria-hidden="true"></div>
+          <div class="chunk chunk2" aria-hidden="true"></div>
+        </div>
+
+        <div class="hero-side hero-fade">
+          <p class="pitch">To provide reliable, eco-friendly, as well as affordable cleaning services that free up your time and bring peace to your home.</p>
+
+          <div class="ctarow">
+            <a class="btn btn-lime" href="#book">Book Now</a>
+            <span class="price">
+              <span class="a">$150&ndash;$10000</span>
+              <span class="b">Starting projects</span>
+            </span>
+          </div>
+
+          <div class="ratingrow">
+            <span class="stars" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+            </span>
+            <span class="score">4.9</span>
+          </div>
+          <p class="trusted">Trusted by <strong>1000+</strong> Happy Customers</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECTION 2 ================= -->
+  <section class="statement" id="about" aria-labelledby="statement-h">
+    <div class="wrap">
+      <h2 id="statement-h" class="disp" data-reveal>Let us take care of the mess so you can enjoy a sparkling clean.</h2>
+
+      <div class="cards">
+        <article class="card a on-dark" data-reveal>
+          <div class="top">
+            <div class="num">80%</div>
+            <svg class="spark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M13 12l12 5-5 2-2 5z" fill="currentColor" stroke-linejoin="round"/>
+              <path d="M7 6l1.6 3.4M4 12h3.4M8 18l2.4-2.4"/>
+            </svg>
+          </div>
+          <div class="blobwrap">
+            <div class="backblob" aria-hidden="true"></div>
+            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=760&h=950&fit=crop&auto=format&q=72"
+                 alt="Two members of the local team celebrating together at a desk" width="760" height="950" loading="lazy">
+          </div>
+          <p class="cap">Locally owned as well as operated by our team</p>
+        </article>
+
+        <article class="card b" data-reveal style="transition-delay:.1s">
+          <div class="top"><div class="num">90%</div></div>
+          <div class="blobwrap">
+            <div class="backblob" aria-hidden="true"></div>
+            <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=760&h=760&fit=crop&auto=format&q=72"
+                 alt="A cleaner carrying a basket of eco-friendly cleaning supplies in a kitchen" width="760" height="760" loading="lazy">
+          </div>
+          <p class="cap">Loyalty Rewards as well as Referral always Program.</p>
+        </article>
+
+        <article class="card c" data-reveal style="transition-delay:.2s">
+          <div class="top"><div class="num">100%</div></div>
+          <div class="blobwrap">
+            <div class="backblob" aria-hidden="true"></div>
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=760&h=760&fit=crop&auto=format&q=72"
+                 alt="A spotless, freshly cleaned room after a professional visit" width="760" height="760" loading="lazy">
+          </div>
+          <p class="cap">Satisfaction guaranteed by our consumer ratings.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  document.documentElement.classList.add('js');
+  window.addEventListener('load', function(){
+    requestAnimationFrame(function(){ document.documentElement.classList.add('loaded'); });
+  });
+  (function(){
+    var els = document.querySelectorAll('[data-reveal]');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(el){ el.classList.add('on'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -30px 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
