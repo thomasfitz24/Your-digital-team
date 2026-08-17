@@ -20,6 +20,9 @@
     --card-line: rgba(255, 255, 255, 0.05);
     --accent: #ffffff;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    /* the menu panel and its icon open on one shared curve */
+    --menu-dur: 1.15s;
+    --menu-ease: cubic-bezier(0.62, 0.02, 0.2, 1);
     --font: 'NB International Pro', 'Inter', 'Arial', sans-serif;
   }
 
@@ -111,7 +114,7 @@
     -webkit-backdrop-filter: blur(28px) saturate(140%);
     border: none;
     box-shadow: 0 4px 34px rgba(0, 0, 0, 0.45);
-    transition: background 0.5s var(--ease);
+    transition: background var(--menu-dur) var(--menu-ease);
   }
   @media (min-width: 768px) { .ydt-header__pill { padding: 16px 28px; } }
   /* the panel darkens as it opens so the large links stay legible */
@@ -189,7 +192,7 @@
   .ydt-header__grid-btn:hover { color: var(--white); }
   /* the grid turns to a diamond rather than an X */
   .ydt-header__grid-btn svg {
-    transition: transform 1.15s cubic-bezier(0.62, 0.02, 0.2, 1);
+    transition: transform var(--menu-dur) var(--menu-ease);
     transform-origin: center;
   }
   /* a turn and a half of the icon's own symmetry (90 + 45), landing on the diamond */
@@ -228,7 +231,7 @@
     overflow: hidden;
     max-height: 0;
     opacity: 0;
-    transition: max-height 0.7s var(--ease), opacity 0.5s var(--ease);
+    transition: max-height var(--menu-dur) var(--menu-ease), opacity var(--menu-dur) var(--menu-ease);
   }
   .ydt-header--dropdown-open .ydt-header__dropdown { max-height: 560px; opacity: 1; }
 
@@ -1506,6 +1509,7 @@
   var gridBtn = document.getElementById('ydtGridBtn');
   var burger = document.getElementById('ydtBurger');
   var backdrop = document.getElementById('ydtBackdrop');
+  var dropdown = document.getElementById('ydtDropdown');
   var underline = document.getElementById('ydtUnderline');
   var navLinks = document.querySelectorAll('.ydt-header__nav-link');
   var isOpen = false;
@@ -1516,6 +1520,7 @@
     gridBtn.setAttribute('aria-expanded', 'true');
     gridBtn.setAttribute('aria-label', 'Close menu');
     burger.setAttribute('aria-expanded', 'true');
+    if (dropdown) dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
     backdrop.classList.add('ydt-backdrop--visible');
     document.body.style.overflow = 'hidden';
   }
@@ -1525,6 +1530,7 @@
     gridBtn.setAttribute('aria-expanded', 'false');
     gridBtn.setAttribute('aria-label', 'Open menu');
     burger.setAttribute('aria-expanded', 'false');
+    if (dropdown) dropdown.style.maxHeight = '0px';
     backdrop.classList.remove('ydt-backdrop--visible');
     document.body.style.removeProperty('overflow');
   }
@@ -1570,7 +1576,10 @@
   if (navEl) {
     navEl.addEventListener('mouseleave', function () { navHovered = false; placeUnderline(activeNavLink); });
   }
-  window.addEventListener('resize', function () { placeUnderline(navHovered ? null : activeNavLink); });
+  window.addEventListener('resize', function () {
+    placeUnderline(navHovered ? null : activeNavLink);
+    if (isOpen && dropdown) dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
+  });
 
   /* ══════ CURSOR SPOTLIGHT (lerped) ══════ */
   var spot = document.getElementById('spotlight');
