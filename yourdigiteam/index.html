@@ -109,15 +109,14 @@
     background: rgba(255, 255, 255, 0.07);
     backdrop-filter: blur(28px) saturate(140%);
     -webkit-backdrop-filter: blur(28px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    border: none;
     box-shadow: 0 4px 34px rgba(0, 0, 0, 0.45);
-    transition: background 0.5s var(--ease), border-color 0.5s var(--ease);
+    transition: background 0.5s var(--ease);
   }
   @media (min-width: 768px) { .ydt-header__pill { padding: 16px 28px; } }
   /* the panel darkens as it opens so the large links stay legible */
   .ydt-header--dropdown-open .ydt-header__pill {
     background: rgba(12, 12, 12, 0.62);
-    border-color: rgba(255, 255, 255, 0.12);
   }
 
   .ydt-header__row { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
@@ -843,29 +842,33 @@
   }
   .ydt-services__card--hovered .ydt-services__card-desc { transform: translateY(0); opacity: 1; }
 
-  /* the circular arrow that lands in the middle of the colour */
+  /* the circular arrow rides the cursor across the card */
   .ydt-services__card-orb {
+    --orb: clamp(76px, 9.5vw, 116px);
     position: absolute;
-    top: 50%; left: 50%;
-    width: clamp(84px, 11vw, 128px);
-    height: clamp(84px, 11vw, 128px);
-    margin: -6% 0 0 0;
-    transform: translate(-50%, -50%) scale(0.3);
-    border-radius: 50%;
-    /* dark reads against every accent in the palette, including the light one */
-    background: #0d0d0d;
+    top: 0; left: 0;
+    width: var(--orb);
+    height: var(--orb);
+    margin-top: calc(var(--orb) / -2);
+    margin-left: calc(var(--orb) / -2);
+    z-index: 4;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .ydt-services__card-orb-in {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* dark reads against every accent in the palette, including the light one */
+    background: #0d0d0d;
+    transform: scale(0.2);
     opacity: 0;
-    z-index: 4;
-    pointer-events: none;
-    transition: transform 0.6s 0.24s var(--ease), opacity 0.5s 0.24s var(--ease);
+    transition: transform 0.55s var(--ease), opacity 0.4s var(--ease);
   }
-  .ydt-services__card--hovered .ydt-services__card-orb {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
+  .ydt-services__card--hovered .ydt-services__card-orb-in { transform: scale(1); opacity: 1; }
   .ydt-services__card-orb svg { width: 30%; height: 30%; color: #fff; }
 
   .ydt-services__card-pills {
@@ -1904,7 +1907,7 @@
       '</div>' +
 
       /* ── hovered face: the colour ── */
-      '<div class="ydt-services__card-orb" aria-hidden="true">' + arrow() + '</div>' +
+      '<div class="ydt-services__card-orb" aria-hidden="true"><span class="ydt-services__card-orb-in">' + arrow() + '</span></div>' +
       '<div class="ydt-services__card-hovered">' +
         '<div>' +
           '<div class="ydt-services__card-row">' +
@@ -1936,17 +1939,46 @@
         y: (((e.clientY - r.top) / r.height) * 100).toFixed(2)
       };
     }
+    /* the arrow trails the pointer inside the card */
+    var orb = card.querySelector('.ydt-services__card-orb');
+    var tx = 0, ty = 0, ox = 0, oy = 0, orbRaf = null;
+
+    function drawOrb() {
+      ox += (tx - ox) * 0.18;
+      oy += (ty - oy) * 0.18;
+      orb.style.transform = 'translate3d(' + ox.toFixed(1) + 'px,' + oy.toFixed(1) + 'px,0)';
+      if (Math.abs(tx - ox) > 0.3 || Math.abs(ty - oy) > 0.3) {
+        orbRaf = requestAnimationFrame(drawOrb);
+      } else {
+        orbRaf = null;
+      }
+    }
+    function pointTo(e, snap) {
+      var r = card.getBoundingClientRect();
+      tx = e.clientX - r.left;
+      ty = e.clientY - r.top;
+      if (snap || reduceMotion) {
+        ox = tx; oy = ty;
+        orb.style.transform = 'translate3d(' + ox + 'px,' + oy + 'px,0)';
+        return;
+      }
+      if (!orbRaf) orbRaf = requestAnimationFrame(drawOrb);
+    }
+
     card.addEventListener('mouseenter', function (e) {
       var o = origin(e);
       hoverLayer.style.transition = reduceMotion ? 'none' : 'clip-path 0.9s ' + EASE;
       hoverLayer.style.clipPath = 'circle(150% at ' + o.x + '% ' + o.y + '%)';
+      pointTo(e, true);
       card.classList.add('ydt-services__card--hovered');
     });
+    card.addEventListener('mousemove', function (e) { pointTo(e); });
     card.addEventListener('mouseleave', function (e) {
       var o = origin(e);
       hoverLayer.style.transition = reduceMotion ? 'none' : 'clip-path 0.9s ' + EASE;
       hoverLayer.style.clipPath = 'circle(0% at ' + o.x + '% ' + o.y + '%)';
       card.classList.remove('ydt-services__card--hovered');
+      if (orbRaf) { cancelAnimationFrame(orbRaf); orbRaf = null; }
     });
   });
 
