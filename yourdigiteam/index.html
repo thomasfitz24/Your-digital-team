@@ -393,34 +393,7 @@
     color: var(--gray5);
     line-height: 1.625;
     max-width: 30rem;
-    margin-bottom: 48px;
   }
-
-  .hero-meta { display: flex; gap: 48px; margin-top: 72px; flex-wrap: wrap; }
-  .hero-meta .m { display: flex; flex-direction: column; gap: 8px; }
-  .hero-meta .m b { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
-  .hero-meta .m span { font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--gray6); }
-
-  .scroll-cue {
-    position: absolute;
-    bottom: 28px; left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    color: var(--gray6);
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-  }
-  .scroll-cue .line-v {
-    width: 1px; height: 40px;
-    background: linear-gradient(rgba(255,255,255,0.3), transparent);
-    animation: cue 2s var(--ease) infinite;
-    transform-origin: top;
-  }
-  @keyframes cue { 50% { transform: scaleY(0.4); opacity: 0.4; } }
 
   /* ══════════ SEARCH-BAR CTA ══════════ */
   .ydt-cta__inner { max-width: 512px; }
@@ -525,53 +498,36 @@
   .sec-title .dim { color: var(--w25); }
   .sec-sub { font-size: 16px; color: var(--w30); line-height: 1.625; }
 
-  /* ══════════ SERVICES (pinned horizontal) ══════════ */
-  .services { border-bottom: 1px solid var(--line); }
-  .services .pin-wrap { overflow: hidden; padding: 100px 0; }
-  @media (min-width: 961px) {
-    .services .pin-wrap {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 120px 0 60px;
-    }
+  /* ══════════ CAPABILITIES ══════════ */
+  .capabilities {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--line);
   }
-  .services .sec-row {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 24px;
-    margin-bottom: 56px;
+  @media (min-width: 768px) { .capabilities { padding: 128px 0; } }
+
+  .cap-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
-  .services .sec-head { margin-bottom: 0; }
-  .services-hint {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gray6);
-    white-space: nowrap;
-    padding-bottom: 8px;
-  }
-  .track { display: flex; gap: 20px; padding: 4px 24px; width: max-content; will-change: transform; }
-  .svc {
+  @media (min-width: 768px) { .cap-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
+  @media (min-width: 1024px) { .cap-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .cap {
     position: relative;
-    width: clamp(300px, 30vw, 400px);
     border-radius: 20px;
     overflow: hidden;
     background: var(--card-bg);
     border: 1px solid var(--card-line);
-    padding: 28px;
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.5s;
+    padding: 24px;
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease),
+                filter 0.8s var(--ease), border-color 0.5s;
   }
-  .svc:hover { border-color: rgba(255, 255, 255, 0.10); }
-  .svc-icon-box {
+  @media (min-width: 768px) { .cap { padding: 28px; } }
+  .cap:hover { border-color: rgba(255, 255, 255, 0.10); }
+
+  .cap-icon-wrap { margin-bottom: 20px; }
+  .cap-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -579,29 +535,20 @@
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--line);
-    margin-bottom: 20px;
-    align-self: flex-start;
     transition: background 0.5s, border-color 0.5s;
   }
-  .svc-icon-box svg { width: 20px; height: 20px; color: var(--w30); transition: color 0.5s; }
-  .svc:hover .svc-icon-box { background: rgba(200, 121, 65, 0.08); border-color: rgba(200, 121, 65, 0.20); }
-  .svc:hover .svc-icon-box svg { color: var(--copper); }
-  .svc-num {
-    position: absolute;
-    top: 28px; right: 28px;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: rgba(255,255,255,0.15);
-  }
-  .svc h3 {
+  .cap-icon svg { width: 20px; height: 20px; color: var(--w30); transition: color 0.5s; }
+  .cap:hover .cap-icon { background: rgba(200, 121, 65, 0.08); border-color: rgba(200, 121, 65, 0.20); }
+  .cap:hover .cap-icon svg { color: var(--copper); }
+
+  .cap-title {
     font-size: 18px;
     font-weight: 700;
     letter-spacing: -0.02em;
     margin-bottom: 8px;
     text-transform: uppercase;
-    margin-top: auto;
   }
-  .svc p { font-size: 13px; color: var(--w30); line-height: 1.625; }
+  .cap-desc { font-size: 13px; color: var(--w30); line-height: 1.625; }
 
   /* ══════════ FOUNDATION — the centrepiece ══════════ */
   .foundation { border-bottom: 1px solid var(--line); padding: 150px 0 160px; }
@@ -670,6 +617,7 @@
     inset: 0;
     background: rgba(255, 255, 255, 0.025);
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border: 1px solid var(--line);
     border-radius: 16px;
     transition: border-color 0.5s;
@@ -692,12 +640,12 @@
   .feat-content {
     position: relative;
     z-index: 10;
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
     padding: 22px;
   }
+  .feat-content > .feat-desc { margin-top: auto; padding-top: 18px; }
   @media (min-width: 768px) { .feat-content { padding: 28px; } }
 
   .feat-idx {
@@ -899,7 +847,6 @@
     html { scroll-behavior: auto; }
     [data-reveal], .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
     .css-marquee .ticker-track { animation: none; }
-    .scroll-cue .line-v { animation: none; }
     .grain { animation: none; }
     .spotlight { display: none; }
   }
@@ -907,10 +854,6 @@
   /* ══════════ RESPONSIVE ══════════ */
   @media (max-width: 960px) {
     .hero { min-height: 0; }
-    .scroll-cue { display: none; }
-    .services .track-clip { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-    .track { padding-bottom: 24px; }
-    .svc { scroll-snap-align: start; }
     .step { grid-template-columns: auto minmax(0, 1fr); }
     .step-badge { display: none; }
     .foundation { padding: 100px 0; }
@@ -921,7 +864,6 @@
   @media (max-width: 480px) {
     .sec { padding: 80px 0; }
     .step { position: static; }
-    .hero-meta { gap: 28px; }
   }
 </style>
 </head>
@@ -1022,30 +964,7 @@
         that turn searches into customers — measured in revenue, reported in plain English.
       </p>
 
-      <div class="ydt-cta__inner" data-reveal>
-        <div class="ydt-cta__bar" id="heroCtaBar" role="button" tabindex="0" aria-label="Start a project — go to contact">
-          <div class="ydt-cta__search-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </div>
-          <div class="ydt-cta__placeholder-wrap" aria-hidden="true">
-            <span class="ydt-cta__placeholder" id="heroPlaceholder">Start a project...</span>
-          </div>
-          <div class="ydt-cta__go">
-            <a href="#contact" class="ydt-cta__go-btn" aria-label="Go to contact" onclick="event.stopPropagation()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-meta" data-reveal>
-        <div class="m"><b><span class="count" data-to="40" data-suffix="+">40+</span></b><span>Active clients</span></div>
-        <div class="m"><b><span class="count" data-to="312" data-prefix="+" data-suffix="%">+312%</span></b><span>Avg. traffic growth</span></div>
-        <div class="m"><b><span class="count" data-to="97" data-suffix="%">97%</span></b><span>Client retention</span></div>
-      </div>
     </div>
-
-    <div class="scroll-cue" aria-hidden="true"><span class="line-v"></span> Scroll</div>
   </section>
 
   <!-- ══════════ MARQUEE ══════════ -->
@@ -1058,59 +977,96 @@
     </div>
   </div>
 
-  <!-- ══════════ SERVICES ══════════ -->
-  <section class="services" id="services" aria-labelledby="svcTitle">
-    <div class="pin-wrap">
-      <div class="container sec-row">
-        <div class="sec-head">
-          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-text">What We Do</span></div>
-          <h2 class="sec-title" id="svcTitle" data-reveal>Full-spectrum <span class="dim">growth services.</span></h2>
-          <p class="sec-sub" data-reveal>Every channel that moves the needle — engineered to compound, not to look busy.</p>
-        </div>
-        <span class="services-hint">
-          Keep scrolling
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-        </span>
+  <!-- ══════════ CAPABILITIES ══════════ -->
+  <section class="capabilities" id="services" aria-labelledby="capTitle">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <div class="sec-eyebrow"><span class="sec-eyebrow-text">What We Do</span></div>
+        <h2 class="sec-title" id="capTitle">Full-spectrum <span class="dim">SEO services.</span></h2>
+        <p class="sec-sub">Every element of technical SEO, content strategy, and authority building — engineered to compound organic growth over time.</p>
       </div>
-      <div class="track-clip">
-        <div class="track">
-          <article class="svc">
-            <span class="svc-num">01</span>
-            <div class="svc-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-            <h3>Search Engine Optimization</h3>
-            <p>Technical audits, content strategy and authority building that put you at the top of the searches your customers actually type.</p>
-          </article>
-          <article class="svc">
-            <span class="svc-num">02</span>
-            <div class="svc-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-            <h3>Paid Media</h3>
-            <p>Google and Meta campaigns engineered around one number: what a customer costs you versus what they're worth.</p>
-          </article>
-          <article class="svc">
-            <span class="svc-num">03</span>
-            <div class="svc-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
-            <h3>Local SEO</h3>
-            <p>Dominate your geographic market with Google Business Profile optimization and local citation building.</p>
-          </article>
-          <article class="svc">
-            <span class="svc-num">04</span>
-            <div class="svc-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
-            <h3>Link Building</h3>
-            <p>High-authority backlink campaigns through PR, outreach, and content that earns natural links.</p>
-          </article>
-          <article class="svc">
-            <span class="svc-num">05</span>
-            <div class="svc-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-            <h3>Content Strategy</h3>
-            <p>Intent-based keyword mapping and content written to rank and convert — never filler, never AI sludge.</p>
-          </article>
-          <article class="svc">
-            <span class="svc-num">06</span>
-            <div class="svc-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-            <h3>Web Design &amp; Build</h3>
-            <p>Fast, sharp websites built to sell — because sending traffic to a slow, dated site is burning money.</p>
-          </article>
-        </div>
+
+      <div class="cap-grid">
+        <article class="cap" data-reveal>
+          <div class="cap-icon-wrap">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <circle cx="10" cy="15" r="3"/>
+                <line x1="16" y1="19" x2="13.5" y2="16.5"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="cap-title">Technical Audits</h3>
+          <p class="cap-desc">Deep-dive into site architecture, indexing issues, and technical debt that throttles organic growth.</p>
+        </article>
+
+        <article class="cap" data-reveal>
+          <div class="cap-icon-wrap">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="cap-title">Local SEO</h3>
+          <p class="cap-desc">Dominate your geographic market with Google Business Profile optimization and local citation building.</p>
+        </article>
+
+        <article class="cap" data-reveal>
+          <div class="cap-icon-wrap">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                <polyline points="17 6 23 6 23 12"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="cap-title">Link Building</h3>
+          <p class="cap-desc">High-authority backlink campaigns through PR, outreach, and content that earns natural links.</p>
+        </article>
+
+        <article class="cap" data-reveal>
+          <div class="cap-icon-wrap">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="cap-title">Core Web Vitals</h3>
+          <p class="cap-desc">Performance optimization for speed, responsiveness, and visual stability — the ranking factors that matter.</p>
+        </article>
+
+        <article class="cap" data-reveal>
+          <div class="cap-icon-wrap">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="cap-title">Schema Markup</h3>
+          <p class="cap-desc">Structured data implementation that earns rich results and dominates SERP real estate.</p>
+        </article>
+
+        <article class="cap" data-reveal>
+          <div class="cap-icon-wrap">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="cap-title">Keyword Strategy</h3>
+          <p class="cap-desc">Intent-based keyword mapping aligned to your business goals and revenue targets.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -1431,6 +1387,10 @@
   document.querySelectorAll('.feat-card').forEach(function (card, i) {
     card.style.transitionDelay = (0.08 * i) + 's';
   });
+  /* capability cards ripple left-to-right across each row */
+  document.querySelectorAll('.cap').forEach(function (card, i) {
+    card.style.transitionDelay = (0.07 * (i % 3)) + 's';
+  });
 
   /* ══════ HEADLINE WORD CYCLER ══════ */
   var cycler = document.getElementById('cycler');
@@ -1538,7 +1498,6 @@
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
     });
   }
-  initCtaBar('heroCtaBar', 'heroPlaceholder', '#contact');
   initCtaBar('footCtaBar', 'footPlaceholder', 'mailto:hello@yourdigiteam.com');
 
   /* ══════ CHAPTER RAIL: active section ══════ */
@@ -1578,11 +1537,12 @@
       }
     });
 
-    gsap.timeline({
+    gsap.to('.hero-inner', {
+      yPercent: -10,
+      opacity: 0.25,
+      ease: 'none',
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 }
-    })
-      .to('.hero-inner', { yPercent: -10, opacity: 0.25 }, 0)
-      .to('.scroll-cue', { opacity: 0 }, 0);
+    });
 
     document.querySelectorAll('.count').forEach(function (el) {
       var to = parseFloat(el.dataset.toDecimal || el.dataset.to);
@@ -1596,24 +1556,6 @@
         ease: 'power2.out',
         scrollTrigger: { trigger: el, start: 'top 90%' },
         onUpdate: function () { el.textContent = prefix + obj.v.toFixed(decimals) + suffix; }
-      });
-    });
-
-    mm.add('(min-width: 961px)', function () {
-      var svcTrack = document.querySelector('.services .track');
-      var getDistance = function () { return svcTrack.scrollWidth - document.documentElement.clientWidth; };
-      gsap.to(svcTrack, {
-        x: function () { return -getDistance(); },
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.services',
-          start: 'top top',
-          end: function () { return '+=' + (getDistance() + window.innerHeight * 0.25); },
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true
-        }
       });
     });
 
