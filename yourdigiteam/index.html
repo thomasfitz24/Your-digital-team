@@ -843,6 +843,10 @@
   .ydt-services__card--hovered .ydt-services__card-desc { transform: translateY(0); opacity: 1; }
 
   /* the circular arrow rides the cursor across the card */
+  /* the arrow stands in for the pointer, so hide the real one while it's up */
+  .ydt-services__card--hovered,
+  .ydt-services__card--hovered * { cursor: none; }
+
   .ydt-services__card-orb {
     --orb: clamp(76px, 9.5vw, 116px);
     position: absolute;
