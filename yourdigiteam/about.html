@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — yourdigitalteam</title>
+<meta name="description" content="Your Digital Team helps businesses grow by combining creativity, innovation and data-driven strategy. Here's how we got here, and what we stand for.">
+<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/nb-international-pro">
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<style>
+  /* ══════════════════════════════════════════════════════════
+     Same tokens as the home page — keep these two files in step
+     ══════════════════════════════════════════════════════════ */
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --w25: rgba(255, 255, 255, 0.25);
+    --w30: rgba(255, 255, 255, 0.30);
+    --gray5: #6b7280;
+    --gray6: #4b5563;
+    --line: rgba(255, 255, 255, 0.06);
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --card-line: rgba(255, 255, 255, 0.05);
+    --accent: #ffffff;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'NB International Pro', 'Inter', 'Arial', sans-serif;
+    /* clearance for the site header that wraps this page */
+    --header-h: 92px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: rgba(255, 255, 255, 0.22); color: var(--black); }
+
+  a { color: inherit; }
+  :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+
+  .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+
+  .micro {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--gray6);
+    font-weight: 500;
+  }
+
+  /* ══════════ ATMOSPHERE ══════════ */
+  .grain {
+    position: fixed;
+    inset: -120px;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+  }
+  @keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); }
+    16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); }
+    50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); }
+    83% { transform: translate(-12px, -10px); }
+  }
+
+  .spotlight {
+    position: fixed;
+    top: 0; left: 0;
+    width: 620px; height: 620px;
+    margin: -310px 0 0 -310px;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease;
+    will-change: transform;
+  }
+  .spotlight--on { opacity: 1; }
+
+  /* ══════════ REVEAL PRIMITIVES ══════════ */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+  }
+  [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+  .clip { overflow: hidden; }
+  .clip > .slide {
+    display: block;
+    transform: translateY(105%);
+    transition: transform 1s var(--ease);
+  }
+  .clip.in-view > .slide { transform: translateY(0); }
+
+  /* ══════════ SECTION FURNITURE ══════════ */
+  section { position: relative; z-index: 2; }
+  .sec { padding: 120px 0; }
+  @media (max-width: 700px) { .sec { padding: 80px 0; } }
+
+  .sec-head { max-width: 700px; margin-bottom: 64px; }
+  .sec-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .sec-eyebrow::before { content: ''; width: 28px; height: 1px; background: rgba(255,255,255,0.18); }
+  .sec-eyebrow-text {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--w25);
+    font-weight: 500;
+  }
+  .sec-title {
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .sec-title .dim { color: var(--w25); }
+  .sec-sub { font-size: 16px; color: var(--w30); line-height: 1.7; }
+
+  /* ══════════ INTRO ══════════ */
+  .intro {
+    position: relative;
+    padding: calc(var(--header-h) + 90px) 0 110px;
+    overflow: hidden;
+  }
+  .intro-statement {
+    font-size: clamp(1.9rem, 4.4vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    max-width: 22ch;
+  }
+  .intro-statement .dim { color: var(--w25); }
+  .intro-sub {
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    color: var(--gray5);
+    line-height: 1.7;
+    max-width: 34rem;
+    margin-top: 32px;
+  }
+  .intro-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 44px;
+  }
+  .chip {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.6);
+    border: 1px solid var(--line);
+    border-radius: 9999px;
+    padding: 9px 16px;
+    transition: border-color 0.4s, color 0.4s;
+  }
+  .chip:hover { border-color: rgba(255,255,255,0.2); color: #fff; }
+
+  /* ══════════ JOURNEY — sticky stack ══════════ */
+  .journey { border-top: 1px solid var(--line); }
+  .stack { display: grid; gap: 24px; }
+  .milestone {
+    position: sticky;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 60px);
+    align-items: start;
+    padding: clamp(28px, 3.4vw, 46px);
+    border-radius: 20px;
+    background: #050505;
+    border: 1px solid var(--card-line);
+    will-change: transform;
+  }
+  .milestone:nth-child(1) { top: calc(var(--header-h) + 26px); }
+  .milestone:nth-child(2) { top: calc(var(--header-h) + 44px); }
+  .milestone:nth-child(3) { top: calc(var(--header-h) + 62px); }
+  .milestone:nth-child(4) { top: calc(var(--header-h) + 80px); }
+
+  .milestone-year {
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--w25);
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+  .milestone h3 {
+    font-size: clamp(1.15rem, 2vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .milestone p { font-size: 15px; line-height: 1.75; color: var(--w30); max-width: 46rem; }
+
+  @media (max-width: 640px) {
+    .milestone { grid-template-columns: 1fr; position: static; gap: 14px; }
+  }
+
+  /* ══════════ VALUES — flood cards ══════════ */
+  .values { border-top: 1px solid var(--line); }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 14px;
+  }
+  @media (min-width: 768px) { .values-grid { gap: 16px; } }
+  @media (max-width: 639px) { .values-grid { grid-template-columns: 1fr; } }
+
+  .value {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    isolation: isolate;
+  }
+  .value-base {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.025);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    transition: border-color 0.5s;
+  }
+  .value:hover .value-base { border-color: rgba(255,255,255,0.12); }
+  .value-flood { position: absolute; inset: 0; clip-path: circle(0% at 50% 50%); }
+  .value-body {
+    position: relative;
+    z-index: 10;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 26px;
+  }
+  @media (min-width: 768px) { .value-body { padding: 30px; } }
+  .value-idx {
+    position: absolute;
+    top: 26px; right: 28px;
+    z-index: 11;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: rgba(255,255,255,0.16);
+    transition: color 0.7s;
+  }
+  @media (min-width: 768px) { .value-idx { top: 30px; right: 32px; } }
+  .value--hovered .value-idx { color: rgba(0,0,0,0.35); }
+  .value-icon {
+    display: inline-flex;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--line);
+    align-self: flex-start;
+    transition: background 0.5s, border-color 0.5s;
+  }
+  .value-icon svg { width: 22px; height: 22px; color: var(--gray5); transition: color 0.7s; }
+  .value h3 {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 10px;
+    transition: color 0.7s;
+  }
+  .value p {
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--gray6);
+    opacity: 0.75;
+    margin-top: auto;
+    padding-top: 14px;
+    transition: color 0.7s, opacity 0.5s;
+  }
+  .value--hovered .value-icon { background: rgba(0,0,0,0.08); border-color: rgba(0,0,0,0.08); }
+  .value--hovered .value-icon svg { color: rgba(0,0,0,0.62); }
+  .value--hovered h3 { color: rgba(0,0,0,0.85); }
+  .value--hovered p { color: rgba(0,0,0,0.55); opacity: 1; }
+
+  /* ══════════ FOUNDER ══════════ */
+  .founder { border-top: 1px solid var(--line); }
+  .founder-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    gap: clamp(36px, 6vw, 80px);
+    align-items: start;
+  }
+  @media (max-width: 900px) { .founder-grid { grid-template-columns: 1fr; } }
+
+  .founder-card {
+    border-radius: 20px;
+    border: 1px solid var(--card-line);
+    background: var(--card-bg);
+    padding: 26px;
+    position: sticky;
+    top: calc(var(--header-h) + 30px);
+  }
+  @media (max-width: 900px) { .founder-card { position: static; } }
+  .founder-portrait {
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    background:
+      radial-gradient(circle at 32% 26%, rgba(255,255,255,0.16), transparent 58%),
+      radial-gradient(circle at 74% 78%, rgba(255,255,255,0.08), transparent 55%),
+      #0d0d0d;
+    display: grid;
+    place-items: center;
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 20px;
+  }
+  .founder-role { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--gray6); }
+  .founder-name {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-top: 8px;
+  }
+
+  .founder-quote { position: relative; padding-top: 6px; }
+  .founder-quote .mark {
+    font-size: clamp(4rem, 9vw, 7rem);
+    line-height: 0.6;
+    color: rgba(255,255,255,0.12);
+    display: block;
+    margin-bottom: 14px;
+  }
+  .founder-quote p {
+    font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+    line-height: 1.62;
+    color: rgba(255,255,255,0.82);
+    letter-spacing: -0.005em;
+  }
+  .founder-quote p + p { margin-top: 26px; color: rgba(255,255,255,0.62); }
+  .founder-quote .mark--end { text-align: right; margin: 10px 0 0; }
+
+  /* ══════════ WHAT SETS US APART ══════════ */
+  .apart { border-top: 1px solid var(--line); }
+  .apart-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  @media (min-width: 1024px) { .apart-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (max-width: 639px) { .apart-grid { grid-template-columns: 1fr; } }
+
+  .apart-item {
+    padding: 34px 26px 40px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  @media (min-width: 640px) {
+    .apart-item { padding-left: 26px; border-left: 1px solid var(--line); }
+    .apart-item:nth-child(1) { padding-left: 0; border-left: none; }
+    .apart-item:nth-child(3) { padding-left: 0; border-left: none; }
+  }
+  @media (min-width: 1024px) {
+    .apart-item:nth-child(3) { padding-left: 26px; border-left: 1px solid var(--line); }
+  }
+  .apart-num {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.22);
+    display: block;
+    margin-bottom: 22px;
+  }
+  .apart-item h3 {
+    font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .apart-item p { font-size: 13.5px; line-height: 1.75; color: var(--w30); }
+  .apart-item::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -1px;
+    height: 1px; width: 0;
+    background: rgba(255,255,255,0.5);
+    transition: width 0.7s var(--ease);
+  }
+  .apart-item:hover::after { width: 100%; }
+
+  /* ══════════ JOIN ══════════ */
+  .join { border-top: 1px solid var(--line); padding: 130px 0; text-align: center; }
+  @media (max-width: 700px) { .join { padding: 90px 0; } }
+  .join .sec-eyebrow { justify-content: center; }
+  .join .sec-title { margin-bottom: 18px; }
+  .join .sec-sub { max-width: 34rem; margin: 0 auto 44px; }
+
+  .cta-inner { max-width: 512px; margin: 0 auto; }
+  .cta-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.30);
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+  .cta-bar:hover, .cta-bar:focus-visible {
+    border-color: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 4px 30px rgba(0,0,0,0.4);
+  }
+  .cta-icon { padding-left: 18px; display: flex; align-items: center; flex-shrink: 0; }
+  .cta-icon svg { width: 16px; height: 16px; color: rgba(255,255,255,0.20); }
+  .cta-ph-wrap { flex: 1; padding: 15px 0 15px 10px; overflow: hidden; text-align: left; }
+  .cta-ph {
+    display: block;
+    font-size: 13.5px;
+    color: var(--w25);
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.35s, transform 0.35s;
+  }
+  .cta-go { padding-right: 6px; }
+  .cta-go-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; height: 40px;
+    background: var(--white);
+    color: var(--black);
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: background 0.3s;
+    flex-shrink: 0;
+  }
+  .cta-go-btn:hover { background: rgba(255,255,255,0.85); }
+  .cta-go-btn svg { width: 16px; height: 16px; transition: transform 0.3s; }
+  .cta-go-btn:hover svg { transform: translateX(1px); }
+  .join-note { margin-top: 18px; font-size: 12px; color: var(--gray6); }
+
+  /* ══════════ MOTION FALLBACKS ══════════ */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    [data-reveal], .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .grain { animation: none; }
+    .spotlight { display: none; }
+    .milestone { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main id="about-top">
+
+  <!-- ══════════ INTRO ══════════ -->
+  <section class="intro">
+    <div class="container">
+      <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-text">About Us</span></div>
+
+      <h1 class="intro-statement">
+        <span class="clip"><span class="slide">We help businesses</span></span>
+        <span class="clip"><span class="slide">grow — and build a</span></span>
+        <span class="clip"><span class="slide"><span class="dim">future of shared success.</span></span></span>
+      </h1>
+
+      <p class="intro-sub" data-reveal>
+        At Your Digital Team, we help businesses grow by combining creativity, innovation,
+        and data-driven strategies. Together, we build a future of shared success.
+      </p>
+
+      <div class="intro-meta" data-reveal>
+        <span class="chip">Founded 2024</span>
+        <span class="chip">Two co-founders</span>
+        <span class="chip">Truth in delivery</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ OUR JOURNEY ══════════ -->
+  <section class="journey sec" aria-labelledby="journeyTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-text">Our Journey</span></div>
+        <h2 class="sec-title" id="journeyTitle" data-reveal>From one frustrated founder <span class="dim">to a full-service agency.</span></h2>
+        <p class="sec-sub" data-reveal>Here's how Your Digital Team came to be.</p>
+      </div>
+
+      <div class="stack">
+        <article class="milestone">
+          <span class="milestone-year" aria-hidden="true">2024</span>
+          <div>
+            <h3>The Beginning</h3>
+            <p>I started Your Digital Team because I was sick of seeing companies around me paying for a service and not getting anywhere near what they were paying for. Whether it was miscommunication, missed deadlines, or simply never delivering, businesses were spending real money and seeing zero results.</p>
+          </div>
+        </article>
+
+        <article class="milestone">
+          <span class="milestone-year" aria-hidden="true">2025</span>
+          <div>
+            <h3>Starting Out</h3>
+            <p>It is a common occurrence that a customer does not get what they pay for. That is broken. Clients work with us because we actually deliver the service they wish they were receiving when they first started out. We are true and honest. If something is not working we will tell you, because we believe truth in delivery is better than no delivery.</p>
+          </div>
+        </article>
+
+        <article class="milestone">
+          <span class="milestone-year" aria-hidden="true">Late '25</span>
+          <div>
+            <h3>Katie Joins</h3>
+            <p>Katie joined as Co-Founder. We built something different. We built an agency that treats your budget like our own, communicates like a partner, and only measures success by what actually moves your business forward.</p>
+          </div>
+        </article>
+
+        <article class="milestone">
+          <span class="milestone-year" aria-hidden="true">2026</span>
+          <div>
+            <h3>Building a Company</h3>
+            <p>No disappearing acts. No vanity reports. No excuses. Just honest work that delivers.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CORE VALUES ══════════ -->
+  <section class="values sec" aria-labelledby="valuesTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-text">Core Values</span></div>
+        <h2 class="sec-title" id="valuesTitle" data-reveal>At the heart of everything <span class="dim">we do.</span></h2>
+      </div>
+
+      <div class="values-grid">
+        <article class="value" data-accent="#a0e8c4" data-reveal>
+          <div class="value-base"></div>
+          <div class="value-flood" aria-hidden="true"></div>
+          <span class="value-idx" aria-hidden="true">01</span>
+          <div class="value-body">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </div>
+            <h3>Client Success First</h3>
+            <p>We are dedicated to achieving measurable results for our clients. Every digital marketing strategy — from technical SEO and content creation to targeted PPC — is meticulously tailored to meet your unique business goals, drive organic traffic, and secure long-term online success.</p>
+          </div>
+        </article>
+
+        <article class="value" data-accent="#a0b4e8" data-reveal>
+          <div class="value-base"></div>
+          <div class="value-flood" aria-hidden="true"></div>
+          <span class="value-idx" aria-hidden="true">02</span>
+          <div class="value-body">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <h3>Innovation</h3>
+            <p>We constantly strive to stay ahead of the curve. By leveraging cutting-edge search engine algorithms, advanced analytics, and emerging marketing trends, we ensure your brand remains highly competitive and adaptable in an ever-evolving digital landscape.</p>
+          </div>
+        </article>
+
+        <article class="value" data-accent="#b8a0e8" data-reveal>
+          <div class="value-base"></div>
+          <div class="value-flood" aria-hidden="true"></div>
+          <span class="value-idx" aria-hidden="true">03</span>
+          <div class="value-body">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Collaboration</h3>
+            <p>We believe in the power of transparent teamwork and strategic partnership. Our dedicated digital experts work seamlessly alongside your internal teams to align search engine optimization and marketing goals with your core business vision.</p>
+          </div>
+        </article>
+
+        <article class="value" data-accent="#e8a0b4" data-reveal>
+          <div class="value-base"></div>
+          <div class="value-flood" aria-hidden="true"></div>
+          <span class="value-idx" aria-hidden="true">04</span>
+          <div class="value-body">
+            <div class="value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <h3>Transparency</h3>
+            <p>Open, honest communication is the cornerstone of our agency. We provide comprehensive, jargon-free reporting on your SEO rankings, ad campaigns, and website analytics, keeping you fully informed every step of the way to ensure complete trust and clarity.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FOUNDER ══════════ -->
+  <section class="founder sec" aria-labelledby="founderTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-text">From the Founder</span></div>
+        <h2 class="sec-title" id="founderTitle" data-reveal>Breaking <span class="dim">the cycle.</span></h2>
+      </div>
+
+      <div class="founder-grid">
+        <aside class="founder-card" data-reveal>
+          <div class="founder-portrait" aria-hidden="true">TF</div>
+          <p class="founder-role">Founder</p>
+          <p class="founder-name">Thomas Fitzgerald</p>
+        </aside>
+
+        <blockquote class="founder-quote" data-reveal>
+          <span class="mark" aria-hidden="true">“</span>
+          <p>Years ago, when I first stepped into the world of startups, I saw the system from the inside. Before I fully understood how the industry worked, I watched multiple agencies work for us. None of them were ever able to deliver to a satisfying standard. They would always leave a destructive footprint for the next agency to pick up.</p>
+          <p>That is why I wanted to change the system. I saw the cycle of failure and decided to build a product that actually works for you. At Your Digital Team, we are not just another agency in the rotation. We are the ones who break the cycle by delivering a service built on truth and real results.</p>
+          <span class="mark mark--end" aria-hidden="true">”</span>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ WHAT SETS US APART ══════════ -->
+  <section class="apart sec" aria-labelledby="apartTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-text">The Difference</span></div>
+        <h2 class="sec-title" id="apartTitle" data-reveal>What sets <span class="dim">us apart.</span></h2>
+        <p class="sec-sub" data-reveal>We don't sell hope. We build systems that deliver measurable outcomes — and we're transparent about every step.</p>
+      </div>
+
+      <div class="apart-grid">
+        <article class="apart-item" data-reveal>
+          <span class="apart-num">01</span>
+          <h3>Built by engineers,<br>not marketers</h3>
+          <p>We are a team of engineers, strategists, and operators who believe marketing should work like product development: measurable, iterative, and accountable to real business outcomes.</p>
+        </article>
+
+        <article class="apart-item" data-reveal>
+          <span class="apart-num">02</span>
+          <h3>Systems,<br>not packages</h3>
+          <p>Most agencies sell packages. We build systems. Systems that compound. Systems that scale. Systems designed to make you the category leader in your market.</p>
+        </article>
+
+        <article class="apart-item" data-reveal>
+          <span class="apart-num">03</span>
+          <h3>Revenue-first<br>approach</h3>
+          <p>Every engagement starts with one question: what will actually move the needle for your business? Not clicks. Not impressions. Revenue. Market share. Competitive advantage.</p>
+        </article>
+
+        <article class="apart-item" data-reveal>
+          <span class="apart-num">04</span>
+          <h3>Selective<br>partnerships</h3>
+          <p>We do not take every client. If we cannot deliver 2x ROI within 12 months, we will tell you upfront and recommend someone who can.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ JOIN OUR TEAM ══════════ -->
+  <section class="join" id="join" aria-labelledby="joinTitle">
+    <div class="container">
+      <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-text">Careers</span></div>
+      <h2 class="sec-title" id="joinTitle" data-reveal>Join our <span class="dim">team.</span></h2>
+      <p class="sec-sub" data-reveal>At Your Digital Team, we thrive on innovation and collaboration. We're always looking for passionate individuals to join our team and help businesses grow. Ready to make an impact?</p>
+
+      <div class="cta-inner" data-reveal>
+        <div class="cta-bar" id="joinBar" role="button" tabindex="0" aria-label="Get in touch about joining the team">
+          <div class="cta-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="cta-ph-wrap" aria-hidden="true">
+            <span class="cta-ph" id="joinPh">Tell us what you do...</span>
+          </div>
+          <div class="cta-go">
+            <a href="mailto:hello@yourdigiteam.com?subject=Joining%20Your%20Digital%20Team" class="cta-go-btn" aria-label="Email us about joining" onclick="event.stopPropagation()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+        <p class="join-note">No open roles listed? Tell us what you'd do here anyway.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ cursor spotlight ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09;
+      cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ reveals ══════ */
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  if (reduceMotion) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+  }
+
+  /* stagger the value cards and the difference columns */
+  document.querySelectorAll('.value').forEach(function (el, i) {
+    el.style.transitionDelay = (0.08 * i) + 's';
+  });
+  document.querySelectorAll('.apart-item').forEach(function (el, i) {
+    el.style.transitionDelay = (0.07 * i) + 's';
+  });
+
+  /* ══════ value cards: cursor-origin colour flood ══════ */
+  document.querySelectorAll('.value').forEach(function (card) {
+    var flood = card.querySelector('.value-flood');
+    var accent = card.getAttribute('data-accent') || '#a0e8c4';
+    if (flood) flood.style.backgroundColor = accent;
+
+    function origin(e) {
+      var r = card.getBoundingClientRect();
+      return {
+        x: (((e.clientX - r.left) / r.width) * 100).toFixed(2),
+        y: (((e.clientY - r.top) / r.height) * 100).toFixed(2)
+      };
+    }
+    card.addEventListener('mouseenter', function (e) {
+      if (!flood || reduceMotion) return;
+      var o = origin(e);
+      flood.style.transition = 'clip-path 0.9s ' + EASE;
+      flood.style.clipPath = 'circle(150% at ' + o.x + '% ' + o.y + '%)';
+      card.classList.add('value--hovered');
+    });
+    card.addEventListener('mouseleave', function (e) {
+      if (!flood || reduceMotion) return;
+      var o = origin(e);
+      flood.style.transition = 'clip-path 0.9s ' + EASE;
+      flood.style.clipPath = 'circle(0% at ' + o.x + '% ' + o.y + '%)';
+      card.classList.remove('value--hovered');
+    });
+  });
+
+  /* ══════ join bar: cycling placeholder ══════ */
+  var phrases = [
+    'Tell us what you do...',
+    'Send us your portfolio...',
+    'I write content...',
+    'I build websites...',
+    'I run paid media...'
+  ];
+  var bar = document.getElementById('joinBar');
+  var ph = document.getElementById('joinPh');
+  var mailto = 'mailto:hello@yourdigiteam.com?subject=Joining%20Your%20Digital%20Team';
+
+  if (ph && !reduceMotion) {
+    var idx = 0;
+    setInterval(function () {
+      ph.style.opacity = '0';
+      ph.style.transform = 'translateY(-6px)';
+      setTimeout(function () {
+        idx = (idx + 1) % phrases.length;
+        ph.textContent = phrases[idx];
+        ph.style.transform = 'translateY(6px)';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            ph.style.opacity = '1';
+            ph.style.transform = 'translateY(0)';
+          });
+        });
+      }, 350);
+    }, 3000);
+  }
+  if (bar) {
+    bar.addEventListener('click', function () { window.location.href = mailto; });
+    bar.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.location.href = mailto; }
+    });
+  }
+
+  /* ══════ scroll choreography ══════ */
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  var mm = gsap.matchMedia();
+  mm.add('(prefers-reduced-motion: no-preference)', function () {
+
+    /* intro drifts away as you leave it */
+    gsap.to('.intro .container', {
+      yPercent: -8,
+      opacity: 0.3,
+      ease: 'none',
+      scrollTrigger: { trigger: '.intro', start: 'top top', end: 'bottom top', scrub: 0.6 }
+    });
+
+    /* milestones scale back as the next one covers them */
+    mm.add('(min-width: 641px)', function () {
+      var items = gsap.utils.toArray('.milestone');
+      items.forEach(function (item, i) {
+        if (i === items.length - 1) return;
+        gsap.to(item, {
+          scale: 0.96 - (items.length - 2 - i) * 0.01,
+          opacity: 0.4,
+          transformOrigin: 'center top',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top ' + (120 + i * 18) + 'px',
+            end: 'bottom top',
+            scrub: 0.5
+          }
+        });
+      });
+    });
+  });
+
+  window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
