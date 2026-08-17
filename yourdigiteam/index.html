@@ -31,7 +31,7 @@
     font-family: var(--font);
     background: var(--black);
     color: var(--white);
-    overflow-x: hidden;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -498,57 +498,343 @@
   .sec-title .dim { color: var(--w25); }
   .sec-sub { font-size: 16px; color: var(--w30); line-height: 1.625; }
 
-  /* ══════════ CAPABILITIES ══════════ */
-  .capabilities {
-    padding: 80px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  @media (min-width: 768px) { .capabilities { padding: 128px 0; } }
+  /* ══════════ SERVICES — sticky panel + scroll-driven filmstrip ══════════ */
+  .ydt-services { position: relative; background: var(--black); color: var(--white); }
 
-  .cap-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  @media (min-width: 768px) { .cap-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; } }
-  @media (min-width: 1024px) { .cap-grid { grid-template-columns: repeat(3, 1fr); } }
-
-  .cap {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    background: var(--card-bg);
-    border: 1px solid var(--card-line);
-    padding: 24px;
-    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease),
-                filter 0.8s var(--ease), border-color 0.5s;
-  }
-  @media (min-width: 768px) { .cap { padding: 28px; } }
-  .cap:hover { border-color: rgba(255, 255, 255, 0.10); }
-
-  .cap-icon-wrap { margin-bottom: 20px; }
-  .cap-icon {
-    display: inline-flex;
+  .ydt-services__intro {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 48px; height: 48px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--line);
-    transition: background 0.5s, border-color 0.5s;
+    padding: 96px 24px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.6s var(--ease);
   }
-  .cap-icon svg { width: 20px; height: 20px; color: var(--w30); transition: color 0.5s; }
-  .cap:hover .cap-icon { background: rgba(200, 121, 65, 0.08); border-color: rgba(200, 121, 65, 0.20); }
-  .cap:hover .cap-icon svg { color: var(--copper); }
+  .ydt-services__intro.ydt-in-view { opacity: 1; }
 
-  .cap-title {
+  .ydt-services__intro-eyebrow {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--gray6);
+    display: block;
+    margin-bottom: 32px;
+  }
+  .ydt-services__intro-title-clip { overflow: hidden; margin-bottom: 24px; }
+  .ydt-services__intro-title {
+    font-size: clamp(2.25rem, 6vw, 3.75rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    max-width: 900px;
+    transform: translateY(100%);
+    transition: transform 1s var(--ease);
+  }
+  .ydt-services__intro.ydt-in-view .ydt-services__intro-title { transform: translateY(0); }
+
+  .ydt-services__intro-sub {
     font-size: 18px;
+    color: var(--gray5);
+    max-width: 672px;
+    margin: 0 auto;
+    line-height: 1.625;
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+    transition: opacity 0.8s 0.3s var(--ease), transform 0.8s 0.3s var(--ease), filter 0.8s 0.3s var(--ease);
+  }
+  .ydt-services__intro.ydt-in-view .ydt-services__intro-sub {
+    opacity: 1; transform: translateY(0); filter: blur(0px);
+  }
+
+  /* outer sentinel — height set by JS (one viewport per service) */
+  .ydt-services__scroll-section { position: relative; background: var(--black); }
+
+  .ydt-services__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* top clearance keeps the panel out from under the fixed header pill */
+    padding: 84px 12px 12px;
+  }
+  @media (min-width: 768px) { .ydt-services__sticky { padding: 104px 20px 20px; } }
+
+  .ydt-services__panel {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    height: 100%;
+    background: #1c1c1c;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  @media (min-width: 1024px) {
+    .ydt-services__panel { flex-direction: row; border-radius: 28px; }
+  }
+
+  /* ── left column ── */
+  .ydt-services__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px 20px 20px;
+    flex-shrink: 0;
+  }
+  @media (min-width: 1024px) { .ydt-services__left { width: 48%; padding: 40px 56px; } }
+  @media (min-width: 1280px) { .ydt-services__left { width: 45%; } }
+
+  .ydt-services__label { font-size: 11px; color: #9ca3af; display: block; margin-bottom: 4px; }
+  @media (min-width: 1024px) { .ydt-services__label { font-size: 13px; margin-bottom: 8px; } }
+
+  .ydt-services__desc {
+    font-size: 11px;
+    color: var(--gray5);
+    max-width: 280px;
+    line-height: 1.625;
+    margin-bottom: 16px;
+  }
+  @media (min-width: 1024px) { .ydt-services__desc { font-size: 14px; margin-bottom: 32px; } }
+
+  .ydt-services__titles { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-bottom: 8px; }
+  @media (min-width: 1024px) {
+    .ydt-services__titles { flex-direction: column; flex-wrap: nowrap; gap: 0; margin-bottom: 0; }
+  }
+  .ydt-services__title-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    display: block;
+    font-family: inherit;
+  }
+  .ydt-services__title-text {
+    font-size: clamp(1.3rem, 3.5vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+    text-transform: uppercase;
+    color: #3a3a3a;
+    transition: color 0.7s;
+    display: block;
+  }
+  .ydt-services__title-text.ydt-active { color: var(--white); }
+  @media (min-width: 1024px) {
+    .ydt-services__title-btn:hover .ydt-services__title-text:not(.ydt-active) { color: #555555; }
+  }
+
+  .ydt-services__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--white);
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    transition: background 0.3s, border-color 0.3s;
+    width: fit-content;
+    margin-top: 16px;
+  }
+  @media (min-width: 1024px) {
+    .ydt-services__cta { padding: 12px 24px; font-size: 11px; margin-top: 32px; }
+  }
+  .ydt-services__cta:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.15); }
+  .ydt-services__cta svg { width: 12px; height: 12px; transition: transform 0.3s; }
+  .ydt-services__cta:hover svg { transform: translateX(4px); }
+
+  /* ── right column: filmstrip ── */
+  .ydt-services__right { flex: 1; overflow: hidden; position: relative; padding: 0 12px 12px; }
+  @media (min-width: 1024px) { .ydt-services__right { padding: 16px 16px 16px 0; } }
+
+  .ydt-services__strip {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    will-change: transform;
+  }
+  @media (min-width: 1024px) {
+    .ydt-services__strip { top: 16px; left: 0; right: 16px; gap: 12px; }
+  }
+
+  .ydt-services__card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .ydt-services__card-base { position: absolute; inset: 0; }
+  .ydt-services__card-hover { position: absolute; inset: 0; clip-path: circle(0% at 50% 50%); }
+
+  .ydt-services__card-default,
+  .ydt-services__card-hovered {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    transition: opacity 0.5s var(--ease);
+  }
+  @media (min-width: 768px) {
+    .ydt-services__card-default, .ydt-services__card-hovered { padding: 36px; }
+  }
+  .ydt-services__card-default { z-index: 2; }
+  .ydt-services__card-hovered { z-index: 3; opacity: 0; }
+  .ydt-services__card--hovered .ydt-services__card-default { opacity: 0; }
+  .ydt-services__card--hovered .ydt-services__card-hovered { opacity: 1; }
+
+  .ydt-services__card-service-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(0,0,0,0.40);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .ydt-services__card-headline,
+  .ydt-services__card-headline--hover {
+    font-size: clamp(1.1rem, 2.5vw, 1.7rem);
     font-weight: 700;
     letter-spacing: -0.02em;
-    margin-bottom: 8px;
+    line-height: 1.15;
     text-transform: uppercase;
   }
-  .cap-desc { font-size: 13px; color: var(--w30); line-height: 1.625; }
+  .ydt-services__card-headline { color: rgba(0,0,0,0.80); max-width: 85%; }
+  .ydt-services__card-headline--hover {
+    color: rgba(0,0,0,0.85);
+    margin-bottom: 16px;
+    transform: translateY(12px);
+    opacity: 0;
+    transition: transform 0.5s 0.36s var(--ease), opacity 0.5s 0.36s var(--ease);
+  }
+  .ydt-services__card--hovered .ydt-services__card-headline--hover { transform: translateY(0); opacity: 1; }
+
+  .ydt-services__card-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(0,0,0,0.50);
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.5s 0.44s var(--ease), opacity 0.5s 0.44s var(--ease);
+  }
+  .ydt-services__card--hovered .ydt-services__card-desc { transform: translateY(0); opacity: 1; }
+
+  .ydt-services__card-stat-large {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: rgba(0,0,0,0.20);
+    letter-spacing: -0.02em;
+    display: block;
+  }
+  .ydt-services__card-stat-label {
+    font-size: 11px;
+    color: rgba(0,0,0,0.30);
+    font-weight: 500;
+    display: block;
+    margin-top: 4px;
+  }
+  .ydt-services__card-arrow-circle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ydt-services__card-arrow-circle svg { width: 16px; height: 16px; color: rgba(0,0,0,0.30); }
+
+  .ydt-services__card-contact {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    transform: scale(0.5);
+    opacity: 0;
+    transition: transform 0.5s 0.38s var(--ease), opacity 0.5s 0.38s var(--ease), background 0.3s;
+  }
+  @media (min-width: 768px) { .ydt-services__card-contact { width: 56px; height: 56px; } }
+  .ydt-services__card--hovered .ydt-services__card-contact { transform: scale(1); opacity: 1; }
+  .ydt-services__card-contact:hover { background: rgba(0,0,0,0.25); }
+  .ydt-services__card-contact svg { width: 20px; height: 20px; color: rgba(0,0,0,0.70); }
+
+  .ydt-services__card-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.5s 0.48s var(--ease), opacity 0.5s 0.48s var(--ease);
+  }
+  .ydt-services__card--hovered .ydt-services__card-pills { transform: translateY(0); opacity: 1; }
+  .ydt-services__card-pill {
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.50);
+    background: rgba(0,0,0,0.08);
+    border-radius: 9999px;
+    padding: 6px 12px;
+  }
+  @media (min-width: 768px) { .ydt-services__card-pill { font-size: 11px; } }
+
+  .ydt-services__card-stat-hover {
+    flex-shrink: 0;
+    text-align: right;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.5s 0.52s var(--ease), opacity 0.5s 0.52s var(--ease);
+  }
+  .ydt-services__card--hovered .ydt-services__card-stat-hover { transform: translateY(0); opacity: 1; }
+
+  /* reduced motion: no scroll-jack — the panel becomes a plain stack */
+  .ydt-services--static .ydt-services__intro { opacity: 1; }
+  .ydt-services--static .ydt-services__intro-title { transform: none; }
+  .ydt-services--static .ydt-services__intro-sub { opacity: 1; transform: none; filter: none; }
+  .ydt-services--static .ydt-services__scroll-section { height: auto !important; }
+  .ydt-services--static .ydt-services__sticky { position: static; height: auto; padding: 12px; }
+  .ydt-services--static .ydt-services__card { height: 340px; }
+  .ydt-services--static .ydt-services__panel { height: auto; }
+  .ydt-services--static .ydt-services__right { padding: 12px; }
+  .ydt-services--static .ydt-services__strip { position: static; transform: none !important; }
+  .ydt-services--static .ydt-services__card { height: 340px; }
+  .ydt-services--static .ydt-services__card-hover,
+  .ydt-services--static .ydt-services__card-default,
+  .ydt-services--static .ydt-services__card-hovered,
+  .ydt-services--static .ydt-services__card-headline--hover,
+  .ydt-services--static .ydt-services__card-desc,
+  .ydt-services--static .ydt-services__card-pills,
+  .ydt-services--static .ydt-services__card-contact,
+  .ydt-services--static .ydt-services__card-stat-hover { transition: none; }
 
   /* ══════════ FOUNDATION — the centrepiece ══════════ */
   .foundation { border-bottom: 1px solid var(--line); padding: 150px 0 160px; }
@@ -977,99 +1263,50 @@
     </div>
   </div>
 
-  <!-- ══════════ CAPABILITIES ══════════ -->
-  <section class="capabilities" id="services" aria-labelledby="capTitle">
-    <div class="container">
-      <div class="sec-head" data-reveal>
-        <div class="sec-eyebrow"><span class="sec-eyebrow-text">What We Do</span></div>
-        <h2 class="sec-title" id="capTitle">Full-spectrum <span class="dim">SEO services.</span></h2>
-        <p class="sec-sub">Every element of technical SEO, content strategy, and authority building — engineered to compound organic growth over time.</p>
+  <!-- ══════════ SERVICES (sticky panel + scroll-driven filmstrip) ══════════ -->
+  <div class="ydt-services" id="services">
+
+    <div class="ydt-services__intro" id="ydtServicesIntro">
+      <span class="ydt-services__intro-eyebrow">What We Do</span>
+      <div class="ydt-services__intro-title-clip">
+        <h2 class="ydt-services__intro-title">Comprehensive Capabilities.</h2>
       </div>
+      <p class="ydt-services__intro-sub">
+        Everything you need to dominate your market, all in one place.
+      </p>
+    </div>
 
-      <div class="cap-grid">
-        <article class="cap" data-reveal>
-          <div class="cap-icon-wrap">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <circle cx="10" cy="15" r="3"/>
-                <line x1="16" y1="19" x2="13.5" y2="16.5"/>
-              </svg>
-            </div>
-          </div>
-          <h3 class="cap-title">Technical Audits</h3>
-          <p class="cap-desc">Deep-dive into site architecture, indexing issues, and technical debt that throttles organic growth.</p>
-        </article>
+    <div class="ydt-services__scroll-section" id="ydtScrollSection">
+      <div class="ydt-services__sticky">
+        <div class="ydt-services__panel">
 
-        <article class="cap" data-reveal>
-          <div class="cap-icon-wrap">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/>
-                <circle cx="12" cy="12" r="6"/>
-                <circle cx="12" cy="12" r="2"/>
-              </svg>
+          <div class="ydt-services__left">
+            <div>
+              <span class="ydt-services__label">Featured Services</span>
+              <p class="ydt-services__desc">
+                We craft tailored strategies across SEO, content, PR, and development to help brands grow and dominate their markets.
+              </p>
             </div>
-          </div>
-          <h3 class="cap-title">Local SEO</h3>
-          <p class="cap-desc">Dominate your geographic market with Google Business Profile optimization and local citation building.</p>
-        </article>
 
-        <article class="cap" data-reveal>
-          <div class="cap-icon-wrap">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-                <polyline points="17 6 23 6 23 12"/>
-              </svg>
-            </div>
-          </div>
-          <h3 class="cap-title">Link Building</h3>
-          <p class="cap-desc">High-authority backlink campaigns through PR, outreach, and content that earns natural links.</p>
-        </article>
+            <div class="ydt-services__titles" id="ydtTitles"></div>
 
-        <article class="cap" data-reveal>
-          <div class="cap-icon-wrap">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            <a href="#contact" class="ydt-services__cta">
+              View Our Services
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
               </svg>
-            </div>
+            </a>
           </div>
-          <h3 class="cap-title">Core Web Vitals</h3>
-          <p class="cap-desc">Performance optimization for speed, responsiveness, and visual stability — the ranking factors that matter.</p>
-        </article>
 
-        <article class="cap" data-reveal>
-          <div class="cap-icon-wrap">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="11" cy="11" r="8"/>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-              </svg>
-            </div>
+          <div class="ydt-services__right">
+            <div class="ydt-services__strip" id="ydtStrip"></div>
           </div>
-          <h3 class="cap-title">Schema Markup</h3>
-          <p class="cap-desc">Structured data implementation that earns rich results and dominates SERP real estate.</p>
-        </article>
 
-        <article class="cap" data-reveal>
-          <div class="cap-icon-wrap">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="18" y1="20" x2="18" y2="10"/>
-                <line x1="12" y1="20" x2="12" y2="4"/>
-                <line x1="6" y1="20" x2="6" y2="14"/>
-              </svg>
-            </div>
-          </div>
-          <h3 class="cap-title">Keyword Strategy</h3>
-          <p class="cap-desc">Intent-based keyword mapping aligned to your business goals and revenue targets.</p>
-        </article>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- ══════════ FOUNDATION ══════════ -->
   <section class="foundation" id="foundation" aria-labelledby="foundationTitle">
@@ -1387,10 +1624,6 @@
   document.querySelectorAll('.feat-card').forEach(function (card, i) {
     card.style.transitionDelay = (0.08 * i) + 's';
   });
-  /* capability cards ripple left-to-right across each row */
-  document.querySelectorAll('.cap').forEach(function (card, i) {
-    card.style.transitionDelay = (0.07 * (i % 3)) + 's';
-  });
 
   /* ══════ HEADLINE WORD CYCLER ══════ */
   var cycler = document.getElementById('cycler');
@@ -1580,6 +1813,207 @@
   });
 
   window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+})();
+</script>
+
+<script>
+/* ══════════ SERVICES: sticky panel + scroll-driven filmstrip ══════════ */
+(function () {
+  'use strict';
+
+  var EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var services = [
+    { title: 'SEO',        label: 'Search Engine Optimization', headline: 'Dominate search results with technical precision', description: 'Technical audits, on-page optimization, and local SEO strategies that drive measurable organic growth across every vertical.', accent: '#c87941', accentHover: '#7ecfc0', stat: '100+',  statLabel: 'Organic',                 capabilities: ['Technical Audits','Local SEO','Link Building','Schema Markup'] },
+    { title: 'Content',    label: 'Content Strategy',           headline: 'Content that ranks, engages, and converts',        description: 'Data-driven content strategies built around search intent, topical authority, and conversion-focused copy that compounds over time.', accent: '#e8c4a0', accentHover: '#a0b4e8', stat: '100%',  statLabel: 'Improvement On Clicks',    capabilities: ['Blog Strategy','Copywriting','Content Clusters','Editorial Planning'] },
+    { title: 'Digital PR', label: 'Public Relations',           headline: 'Earn coverage that moves the needle',              description: 'Creative campaigns and journalist outreach that earn high-authority backlinks and real brand visibility at scale.', accent: '#7ecfc0', accentHover: '#e8a0b4', stat: 'Top 3', statLabel: 'Backlinks Earned',         capabilities: ['Media Outreach','Reactive PR','Campaign Strategy','Digital Assets'] },
+    { title: 'Paid Media', label: 'Performance Marketing',      headline: 'Performance campaigns that maximize ROI',          description: 'Full-funnel paid strategies across Google, Meta, and programmatic channels — optimized daily for maximum return.', accent: '#a0b4e8', accentHover: '#c87941', stat: '5.2x',  statLabel: 'Average ROAS',             capabilities: ['Google Ads','Meta Ads','Programmatic','Conversion Tracking'] },
+    { title: 'Analytics',  label: 'Data & Insights',            headline: 'Deep-dive data that drives decisions',             description: 'Custom dashboards, GA4 implementation, and attribution modeling that turns raw data into clear strategic direction.', accent: '#b8a0e8', accentHover: '#a0e8c4', stat: '98%',   statLabel: 'Reporting Accuracy',       capabilities: ['GA4 Setup','Custom Dashboards','Attribution','Tag Management'] },
+    { title: 'Branding',   label: 'Brand Identity',             headline: 'Brands that stand out in crowded markets',         description: 'Complete identity systems from strategy through execution — logos, guidelines, and visual language that resonates.', accent: '#e8a0b4', accentHover: '#b8a0e8', stat: '100%',  statLabel: 'Custom Systems',           capabilities: ['Logo Design','Brand Guidelines','Visual Identity','Brand Strategy'] },
+    { title: 'Web Dev',    label: 'Development',                headline: 'High-performance sites built to convert',          description: 'Blazing-fast, accessible websites built on modern stacks — engineered for Core Web Vitals and conversion rates.', accent: '#a0e8c4', accentHover: '#e8c4a0', stat: '<1s',   statLabel: 'Load Times',               capabilities: ['React / Next.js','Performance','Accessibility','CMS Integration'] }
+  ];
+
+  var COUNT = services.length;
+  var root = document.getElementById('services');
+  var titlesEl = document.getElementById('ydtTitles');
+  var stripEl = document.getElementById('ydtStrip');
+  var scrollSection = document.getElementById('ydtScrollSection');
+  if (!root || !titlesEl || !stripEl || !scrollSection) return;
+
+  if (reduceMotion) root.classList.add('ydt-services--static');
+
+  function arrow() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>';
+  }
+  function esc(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  /* ── title list ── */
+  services.forEach(function (s, i) {
+    var btn = document.createElement('button');
+    btn.className = 'ydt-services__title-btn';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Jump to ' + s.title);
+    var span = document.createElement('span');
+    span.className = 'ydt-services__title-text' + (i === 0 ? ' ydt-active' : '');
+    span.textContent = s.title;
+    btn.appendChild(span);
+    btn.addEventListener('click', function () { scrollToIndex(i); });
+    titlesEl.appendChild(btn);
+  });
+
+  /* ── cards ── */
+  services.forEach(function (s) {
+    var card = document.createElement('article');
+    card.className = 'ydt-services__card';
+    card.innerHTML =
+      '<div class="ydt-services__card-base" style="background:' + s.accent + '"></div>' +
+      '<div class="ydt-services__card-hover" style="background:' + s.accentHover + '"></div>' +
+      '<div class="ydt-services__card-default">' +
+        '<div>' +
+          '<span class="ydt-services__card-service-label">' + esc(s.label) + '</span>' +
+          '<h3 class="ydt-services__card-headline">' + esc(s.headline) + '</h3>' +
+        '</div>' +
+        '<div style="display:flex;align-items:flex-end;justify-content:space-between;">' +
+          '<div>' +
+            '<span class="ydt-services__card-stat-large">' + esc(s.stat) + '</span>' +
+            '<span class="ydt-services__card-stat-label">' + esc(s.statLabel) + '</span>' +
+          '</div>' +
+          '<div class="ydt-services__card-arrow-circle">' + arrow() + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ydt-services__card-hovered">' +
+        '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">' +
+          '<div style="max-width:75%;">' +
+            '<span class="ydt-services__card-service-label">' + esc(s.label) + '</span>' +
+            '<h3 class="ydt-services__card-headline--hover">' + esc(s.headline) + '</h3>' +
+            '<p class="ydt-services__card-desc">' + esc(s.description) + '</p>' +
+          '</div>' +
+          '<a href="#contact" class="ydt-services__card-contact" aria-label="Enquire about ' + esc(s.title) + '" onclick="event.stopPropagation()">' + arrow() + '</a>' +
+        '</div>' +
+        '<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;">' +
+          '<div class="ydt-services__card-pills">' +
+            s.capabilities.map(function (c) { return '<span class="ydt-services__card-pill">' + esc(c) + '</span>'; }).join('') +
+          '</div>' +
+          '<div class="ydt-services__card-stat-hover">' +
+            '<span class="ydt-services__card-stat-large">' + esc(s.stat) + '</span>' +
+            '<span class="ydt-services__card-stat-label">' + esc(s.statLabel) + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    stripEl.appendChild(card);
+
+    /* cursor-origin colour reveal */
+    var hoverLayer = card.querySelector('.ydt-services__card-hover');
+    function origin(e) {
+      var r = card.getBoundingClientRect();
+      return {
+        x: (((e.clientX - r.left) / r.width) * 100).toFixed(2),
+        y: (((e.clientY - r.top) / r.height) * 100).toFixed(2)
+      };
+    }
+    card.addEventListener('mouseenter', function (e) {
+      var o = origin(e);
+      hoverLayer.style.transition = reduceMotion ? 'none' : 'clip-path 0.9s ' + EASE;
+      hoverLayer.style.clipPath = 'circle(150% at ' + o.x + '% ' + o.y + '%)';
+      card.classList.add('ydt-services__card--hovered');
+    });
+    card.addEventListener('mouseleave', function (e) {
+      var o = origin(e);
+      hoverLayer.style.transition = reduceMotion ? 'none' : 'clip-path 0.9s ' + EASE;
+      hoverLayer.style.clipPath = 'circle(0% at ' + o.x + '% ' + o.y + '%)';
+      card.classList.remove('ydt-services__card--hovered');
+    });
+  });
+
+  var cards = stripEl.querySelectorAll('.ydt-services__card');
+  var cardStep = 0;
+
+  function isMobile() { return window.innerWidth < 1024; }
+
+  var rightEl = document.querySelector('.ydt-services__right');
+
+  function resize() {
+    if (reduceMotion) return;
+    var vh = window.innerHeight;
+    /* measure the real strip container so this stays correct if the padding changes */
+    var availH = rightEl.clientHeight;
+    var cardH = Math.round(availH * (isMobile() ? 0.52 : 0.7));
+    var gap = isMobile() ? 10 : 12;
+    cardStep = cardH + gap;
+    cards.forEach(function (c) { c.style.height = cardH + 'px'; });
+    scrollSection.style.height = (COUNT * vh) + 'px';
+    lastY = null;
+    update();
+  }
+
+  /* ── scroll driver ── */
+  var activeIndex = 0;
+  var lastY = null;
+  var rafId = null;
+
+  function update() {
+    if (reduceMotion) return;
+    var rect = scrollSection.getBoundingClientRect();
+    var sectionTop = rect.top + window.scrollY;
+    var sectionH = scrollSection.offsetHeight - window.innerHeight;
+    var scrolled = window.scrollY - sectionTop;
+    var progress = sectionH > 0 ? Math.max(0, Math.min(1, scrolled / sectionH)) : 0;
+
+    var translateY = -progress * (COUNT - 1) * cardStep;
+    if (translateY !== lastY) {
+      stripEl.style.transform = 'translateY(' + translateY + 'px)';
+      lastY = translateY;
+    }
+
+    var newIndex = Math.min(COUNT - 1, Math.max(0, Math.floor(progress * COUNT)));
+    if (newIndex !== activeIndex) {
+      activeIndex = newIndex;
+      titlesEl.querySelectorAll('.ydt-services__title-text').forEach(function (sp, i) {
+        sp.classList.toggle('ydt-active', i === activeIndex);
+      });
+    }
+    rafId = null;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!rafId) rafId = requestAnimationFrame(update);
+  }, { passive: true });
+  window.addEventListener('resize', resize);
+
+  function scrollToIndex(index) {
+    if (reduceMotion) {
+      cards[index].scrollIntoView({ behavior: 'auto', block: 'center' });
+      return;
+    }
+    var sectionTop = scrollSection.getBoundingClientRect().top + window.scrollY;
+    var sectionH = scrollSection.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: sectionTop + (index / COUNT) * sectionH + 1, behavior: 'smooth' });
+  }
+
+  resize();
+
+  /* ── intro reveal ── */
+  var intro = document.getElementById('ydtServicesIntro');
+  if (intro) {
+    if (reduceMotion) {
+      intro.classList.add('ydt-in-view');
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { intro.classList.add('ydt-in-view'); io.disconnect(); }
+        });
+      }, { threshold: 0.3 });
+      io.observe(intro);
+    }
+  }
+
+  /* the section changes page height once sized — let ScrollTrigger recompute */
+  window.addEventListener('load', function () {
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+  });
 })();
 </script>
 </body>
