@@ -528,14 +528,14 @@
         <span class="clip"><span class="slide"><span class="dim">in one place.</span></span></span>
       </h1>
       <p class="intro-body" data-reveal>
-        Seven disciplines, run by one team. We don't sell packages off a shelf — we build
+        Six disciplines, run by one team. We don't sell packages off a shelf — we build
         the combination that moves your numbers, then report on it in plain English every week.
       </p>
       <p class="intro-body" data-reveal>
         Scroll through to see how each one works, what it includes, and what it has delivered.
       </p>
       <div class="intro-meta" data-reveal>
-        <span class="chip">Seven services</span>
+        <span class="chip">Six services</span>
         <span class="chip">One team</span>
         <span class="chip">Measured in revenue</span>
       </div>
@@ -553,7 +553,7 @@
             <div>
               <span class="ydt-services__label">All Services</span>
               <p class="ydt-services__desc">
-                We craft tailored strategies across SEO, content, PR, and development to help brands grow and dominate their markets.
+                We craft tailored strategies across SEO, paid media, social, email, content and development to help brands grow and dominate their markets.
               </p>
             </div>
 
@@ -640,13 +640,12 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var services = [
-    { title: 'SEO',        search: 'seo agency', label: 'Search Engine Optimization', headline: 'Dominate search results with technical precision', description: 'Technical audits, on-page optimization, and local SEO strategies that drive measurable organic growth across every vertical.', accent: '#e9e9e9', accentHover: '#7ecfc0', stat: '100+',  statLabel: 'Organic',                 capabilities: ['Technical Audits','Local SEO','Link Building','Schema Markup'], image: '' },
-    { title: 'Content',    search: 'content strategy', label: 'Content Strategy',           headline: 'Content that ranks, engages, and converts',        description: 'Data-driven content strategies built around search intent, topical authority, and conversion-focused copy that compounds over time.', accent: '#e8c4a0', accentHover: '#a0b4e8', stat: '100%',  statLabel: 'Improvement On Clicks',    capabilities: ['Blog Strategy','Copywriting','Content Clusters','Editorial Planning'], image: '' },
-    { title: 'Digital PR', search: 'digital pr', label: 'Public Relations',           headline: 'Earn coverage that moves the needle',              description: 'Creative campaigns and journalist outreach that earn high-authority backlinks and real brand visibility at scale.', accent: '#7ecfc0', accentHover: '#e8a0b4', stat: 'Top 3', statLabel: 'Backlinks Earned',         capabilities: ['Media Outreach','Reactive PR','Campaign Strategy','Digital Assets'], image: '' },
-    { title: 'Paid Media', search: 'ppc management', label: 'Performance Marketing',      headline: 'Performance campaigns that maximize ROI',          description: 'Full-funnel paid strategies across Google, Meta, and programmatic channels — optimized daily for maximum return.', accent: '#a0b4e8', accentHover: '#e9e9e9', stat: '5.2x',  statLabel: 'Average ROAS',             capabilities: ['Google Ads','Meta Ads','Programmatic','Conversion Tracking'], image: '' },
-    { title: 'Analytics',  search: 'ga4 analytics', label: 'Data & Insights',            headline: 'Deep-dive data that drives decisions',             description: 'Custom dashboards, GA4 implementation, and attribution modeling that turns raw data into clear strategic direction.', accent: '#b8a0e8', accentHover: '#a0e8c4', stat: '98%',   statLabel: 'Reporting Accuracy',       capabilities: ['GA4 Setup','Custom Dashboards','Attribution','Tag Management'], image: '' },
-    { title: 'Branding',   search: 'brand identity', label: 'Brand Identity',             headline: 'Brands that stand out in crowded markets',         description: 'Complete identity systems from strategy through execution — logos, guidelines, and visual language that resonates.', accent: '#e8a0b4', accentHover: '#b8a0e8', stat: '100%',  statLabel: 'Custom Systems',           capabilities: ['Logo Design','Brand Guidelines','Visual Identity','Brand Strategy'], image: '' },
-    { title: 'Web Dev',    search: 'web development', label: 'Development',                headline: 'High-performance sites built to convert',          description: 'Blazing-fast, accessible websites built on modern stacks — engineered for Core Web Vitals and conversion rates.', accent: '#a0e8c4', accentHover: '#e8c4a0', stat: '<1s',   statLabel: 'Load Times',               capabilities: ['React / Next.js','Performance','Accessibility','CMS Integration'], image: '' }
+    { title: 'SEO',     label: 'Search Engine Optimisation', search: 'seo agency',          headline: 'Dominate search results with technical precision', description: 'We help businesses rank higher on Google through technical SEO, on-page optimisation, link building, and local SEO strategies that drive measurable organic growth.', accent: '#e9e9e9', accentHover: '#7ecfc0', stat: '100+', statLabel: 'Organic',           capabilities: ['Technical SEO','Local SEO','Link Building','Schema Markup'], image: '' },
+    { title: 'PPC',     label: 'Pay-Per-Click Advertising',  search: 'ppc management',      headline: 'Performance campaigns that maximise ROI',          description: 'Our PPC specialists manage high-performance paid search and social campaigns across Google Ads and Meta, optimised daily to maximise your return on ad spend.', accent: '#a0b4e8', accentHover: '#e9e9e9', stat: '5.2x', statLabel: 'Average ROAS',      capabilities: ['Google Ads','Meta Ads','Programmatic','Conversion Tracking'], image: '' },
+    { title: 'Social',  label: 'Social Media Marketing',     search: 'social media agency', headline: 'Content people actually stop scrolling for',       description: 'We create and manage social media strategies across Instagram, Facebook, LinkedIn, and TikTok that grow your audience and convert followers into customers.', accent: '#e8a0b4', accentHover: '#b8a0e8', stat: '4',    statLabel: 'Platforms Managed', capabilities: ['Instagram','TikTok','LinkedIn','Content Production'], image: '' },
+    { title: 'Email',   label: 'Email Marketing',            search: 'email marketing',     headline: 'Turn your list into repeat revenue',               description: 'From automated drip campaigns to newsletters and promotional emails, we build email marketing systems that nurture your leads and drive repeat revenue.', accent: '#e8c4a0', accentHover: '#a0b4e8', stat: '3x',   statLabel: 'Repeat Revenue',    capabilities: ['Drip Campaigns','Newsletters','Automation','Segmentation'], image: '' },
+    { title: 'Content', label: 'Content Creation',           search: 'content agency',      headline: 'Content that ranks, engages, and converts',        description: 'We produce data-driven blog posts, landing pages, and marketing copy built around search intent and topical authority so your content ranks and converts.', accent: '#7ecfc0', accentHover: '#e8a0b4', stat: '100%', statLabel: 'More Clicks',       capabilities: ['Blog Strategy','Landing Pages','Copywriting','Topical Authority'], image: '' },
+    { title: 'Web Dev', label: 'Web Development & Analytics',search: 'web development',     headline: 'High-performance sites built to convert',          description: 'We build responsive websites, optimise user experiences, and develop custom digital platforms that turn your online presence into a powerful engine for measurable business growth.', accent: '#a0e8c4', accentHover: '#e8c4a0', stat: '<1s',  statLabel: 'Load Times',        capabilities: ['Responsive Build','Performance','GA4 & Analytics','CMS Integration'], image: '' }
   ];
 
   var COUNT = services.length;
