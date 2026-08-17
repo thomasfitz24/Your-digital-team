@@ -313,50 +313,6 @@
     z-index: 51;
   }
 
-  /* ══════════ CHAPTER RAIL ══════════ */
-  .rail {
-    position: fixed;
-    right: 26px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 40;
-    display: none;
-    flex-direction: column;
-    gap: 18px;
-    align-items: flex-end;
-  }
-  @media (min-width: 1240px) { .rail { display: flex; } }
-  /* labels need real gutter room — below that the rail is ticks only */
-  .rail a .lbl { display: none; }
-  @media (min-width: 1500px) { .rail a .lbl { display: block; } }
-  .rail a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.18);
-    transition: color 0.4s var(--ease);
-  }
-  .rail a .lbl {
-    opacity: 0;
-    transform: translateX(6px);
-    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
-  }
-  .rail a .tick {
-    display: block;
-    width: 16px; height: 1px;
-    background: currentColor;
-    transition: width 0.4s var(--ease);
-  }
-  .rail a:hover { color: rgba(255,255,255,0.6); }
-  .rail a:hover .lbl { opacity: 1; transform: translateX(0); }
-  .rail a.active { color: var(--accent); }
-  .rail a.active .lbl { opacity: 1; transform: translateX(0); }
-  .rail a.active .tick { width: 30px; }
-
   /* ══════════ REVEAL PRIMITIVES ══════════ */
   [data-reveal] {
     opacity: 0;
@@ -1244,15 +1200,6 @@
   </div>
 </header>
 
-<!-- ══════════ CHAPTER RAIL ══════════ -->
-<nav class="rail" id="rail" aria-label="Section navigation">
-  <a href="#top" data-target="top"><span class="lbl">Intro</span><span class="tick" aria-hidden="true"></span></a>
-  <a href="#services" data-target="services"><span class="lbl">Services</span><span class="tick" aria-hidden="true"></span></a>
-  <a href="#foundation" data-target="foundation"><span class="lbl">Foundation</span><span class="tick" aria-hidden="true"></span></a>
-  <a href="#process" data-target="process"><span class="lbl">Process</span><span class="tick" aria-hidden="true"></span></a>
-  <a href="#contact" data-target="contact"><span class="lbl">Contact</span><span class="tick" aria-hidden="true"></span></a>
-</nav>
-
 <main id="top">
   <!-- ══════════ HERO ══════════ -->
   <section class="hero">
@@ -1736,20 +1683,17 @@
   }
   initCtaBar('footCtaBar', 'footPlaceholder', 'mailto:hello@yourdigiteam.com');
 
-  /* ══════ CHAPTER RAIL: active section ══════ */
-  var railLinks = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
-  if (railLinks.length) {
-    var sections = railLinks.map(function (a) { return document.getElementById(a.dataset.target); });
-    var railObs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var i = sections.indexOf(entry.target);
-        railLinks.forEach(function (a, j) { a.classList.toggle('active', j === i); });
-        if (i > -1) setActiveNav('#' + railLinks[i].dataset.target);
-      });
-    }, { rootMargin: '-45% 0px -45% 0px' });
-    sections.forEach(function (s) { if (s) railObs.observe(s); });
-  }
+  /* ══════ track the section in view so the header underline follows ══════ */
+  var sectionIds = ['top', 'services', 'foundation', 'process', 'contact'];
+  var sections = sectionIds.map(function (id) { return document.getElementById(id); });
+  var secObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      var i = sections.indexOf(entry.target);
+      if (i > -1) setActiveNav('#' + sectionIds[i]);
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  sections.forEach(function (sec) { if (sec) secObs.observe(sec); });
 
   /* ══════ GSAP SCROLL CHOREOGRAPHY ══════ */
   if (!window.gsap || !window.ScrollTrigger) return;
