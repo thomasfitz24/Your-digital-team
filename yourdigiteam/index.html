@@ -360,15 +360,11 @@
   }
   .hero-inner { position: relative; }
 
-  .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
-  .hero-eyebrow .dash { width: 32px; height: 1px; background: rgba(255,255,255,0.15); }
-
   .hero h1 {
     font-weight: 700;
     font-size: clamp(2.5rem, 7.4vw, 6.2rem);
-    line-height: 0.95;
-    letter-spacing: -0.045em;
-    text-transform: uppercase;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
     margin-bottom: 40px;
   }
   .hero h1 .dim { color: var(--w25); }
@@ -490,10 +486,9 @@
   .sec-title {
     font-size: clamp(2rem, 4vw, 3.5rem);
     font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 0.95;
+    letter-spacing: -0.03em;
+    line-height: 1;
     margin-bottom: 16px;
-    text-transform: uppercase;
   }
   .sec-title .dim { color: var(--w25); }
   .sec-sub { font-size: 16px; color: var(--w30); line-height: 1.625; }
@@ -529,8 +524,7 @@
     font-size: clamp(2.25rem, 6vw, 3.75rem);
     font-weight: 700;
     letter-spacing: -0.03em;
-    line-height: 1.2;
-    text-transform: uppercase;
+    line-height: 1.15;
     max-width: 900px;
     transform: translateY(100%);
     transition: transform 1s var(--ease);
@@ -622,9 +616,8 @@
   .ydt-services__title-text {
     font-size: clamp(1.3rem, 3.5vw, 4.2rem);
     font-weight: 700;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.035em;
     line-height: 1.15;
-    text-transform: uppercase;
     color: #3a3a3a;
     transition: color 0.7s;
     display: block;
@@ -708,6 +701,70 @@
   .ydt-services__card--hovered .ydt-services__card-default { opacity: 0; }
   .ydt-services__card--hovered .ydt-services__card-hovered { opacity: 1; }
 
+  /* card detail elements — hairline rules and micro labels, as elsewhere on the page */
+  .ydt-services__card-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .ydt-services__card-index {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(0,0,0,0.30);
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .ydt-services__card-rule {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.16);
+    margin-bottom: 16px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s var(--ease);
+  }
+  .ydt-services__card-default .ydt-services__card-rule { transform: scaleX(1); }
+  .ydt-services__card--hovered .ydt-services__card-hovered .ydt-services__card-rule {
+    transform: scaleX(1);
+    transition: transform 0.6s 0.42s var(--ease);
+  }
+  .ydt-services__card-preview {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.40);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .ydt-services__card-metrics {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .ydt-services__card-included {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.38);
+    margin-bottom: 12px;
+    opacity: 0;
+    transition: opacity 0.5s 0.46s var(--ease);
+  }
+  .ydt-services__card--hovered .ydt-services__card-included { opacity: 1; }
+  .ydt-services__card-hint {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.30);
+    white-space: nowrap;
+  }
+  /* there is no hover on touch — don't promise one */
+  @media (hover: none) { .ydt-services__card-hint { display: none; } }
+
   .ydt-services__card-service-label {
     font-size: 11px;
     text-transform: uppercase;
@@ -722,10 +779,9 @@
     font-size: clamp(1.1rem, 2.5vw, 1.7rem);
     font-weight: 700;
     letter-spacing: -0.02em;
-    line-height: 1.15;
-    text-transform: uppercase;
+    line-height: 1.2;
   }
-  .ydt-services__card-headline { color: rgba(0,0,0,0.80); max-width: 85%; }
+  .ydt-services__card-headline { color: rgba(0,0,0,0.80); max-width: 90%; }
   .ydt-services__card-headline--hover {
     color: rgba(0,0,0,0.85);
     margin-bottom: 16px;
@@ -736,7 +792,8 @@
   .ydt-services__card--hovered .ydt-services__card-headline--hover { transform: translateY(0); opacity: 1; }
 
   .ydt-services__card-desc {
-    font-size: 13px;
+    font-size: 13.5px;
+    max-width: 34rem;
     line-height: 1.6;
     color: rgba(0,0,0,0.50);
     transform: translateY(10px);
@@ -951,7 +1008,6 @@
     line-height: 1.25;
     margin-bottom: 8px;
     color: var(--white);
-    text-transform: uppercase;
     transition: color 0.7s;
   }
   @media (min-width: 768px) { .feat-title { font-size: 16px; } }
@@ -992,7 +1048,6 @@
   .step h3 {
     font-size: clamp(1.05rem, 1.8vw, 1.4rem);
     font-weight: 700;
-    text-transform: uppercase;
     letter-spacing: -0.02em;
     margin-bottom: 10px;
   }
@@ -1194,11 +1249,6 @@
   <!-- ══════════ HERO ══════════ -->
   <section class="hero">
     <div class="container hero-inner">
-      <div class="hero-eyebrow" data-reveal>
-        <span class="dash" aria-hidden="true"></span>
-        <span class="micro" style="color: var(--w25)">Growth Marketing · SEO · Web</span>
-      </div>
-
       <h1>
         <span class="clip"><span class="slide">We build</span></span>
         <span class="clip"><span class="slide">digital growth</span></span>
@@ -1808,41 +1858,62 @@
   });
 
   /* ── cards ── */
-  services.forEach(function (s) {
+  services.forEach(function (s, idx) {
     var card = document.createElement('article');
     card.className = 'ydt-services__card';
+    var index = String(idx + 1).padStart(2, '0') + ' / ' + String(COUNT).padStart(2, '0');
+    var preview = s.capabilities.slice(0, 3).join('  ·  ');
+
     card.innerHTML =
       '<div class="ydt-services__card-base" style="background:' + s.accent + '"></div>' +
       '<div class="ydt-services__card-hover" style="background:' + s.accentHover + '"></div>' +
+
+      /* ── default face ── */
       '<div class="ydt-services__card-default">' +
         '<div>' +
-          '<span class="ydt-services__card-service-label">' + esc(s.label) + '</span>' +
+          '<div class="ydt-services__card-row">' +
+            '<span class="ydt-services__card-service-label" style="margin-bottom:0">' + esc(s.label) + '</span>' +
+            '<span class="ydt-services__card-index">' + index + '</span>' +
+          '</div>' +
           '<h3 class="ydt-services__card-headline">' + esc(s.headline) + '</h3>' +
         '</div>' +
-        '<div style="display:flex;align-items:flex-end;justify-content:space-between;">' +
-          '<div>' +
-            '<span class="ydt-services__card-stat-large">' + esc(s.stat) + '</span>' +
-            '<span class="ydt-services__card-stat-label">' + esc(s.statLabel) + '</span>' +
+        '<div>' +
+          '<hr class="ydt-services__card-rule">' +
+          '<p class="ydt-services__card-preview">' + esc(preview) + '</p>' +
+          '<div class="ydt-services__card-metrics">' +
+            '<div>' +
+              '<span class="ydt-services__card-stat-large">' + esc(s.stat) + '</span>' +
+              '<span class="ydt-services__card-stat-label">' + esc(s.statLabel) + '</span>' +
+            '</div>' +
+            '<div class="ydt-services__card-metrics" style="gap:14px">' +
+              '<span class="ydt-services__card-hint">Hover for detail</span>' +
+              '<div class="ydt-services__card-arrow-circle">' + arrow() + '</div>' +
+            '</div>' +
           '</div>' +
-          '<div class="ydt-services__card-arrow-circle">' + arrow() + '</div>' +
         '</div>' +
       '</div>' +
+
+      /* ── hover face ── */
       '<div class="ydt-services__card-hovered">' +
-        '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">' +
-          '<div style="max-width:75%;">' +
-            '<span class="ydt-services__card-service-label">' + esc(s.label) + '</span>' +
-            '<h3 class="ydt-services__card-headline--hover">' + esc(s.headline) + '</h3>' +
-            '<p class="ydt-services__card-desc">' + esc(s.description) + '</p>' +
+        '<div>' +
+          '<div class="ydt-services__card-row">' +
+            '<span class="ydt-services__card-service-label" style="margin-bottom:0">' + esc(s.label) + '</span>' +
+            '<a href="#contact" class="ydt-services__card-contact" aria-label="Enquire about ' + esc(s.title) + '" onclick="event.stopPropagation()">' + arrow() + '</a>' +
           '</div>' +
-          '<a href="#contact" class="ydt-services__card-contact" aria-label="Enquire about ' + esc(s.title) + '" onclick="event.stopPropagation()">' + arrow() + '</a>' +
+          '<h3 class="ydt-services__card-headline--hover">' + esc(s.headline) + '</h3>' +
+          '<p class="ydt-services__card-desc">' + esc(s.description) + '</p>' +
         '</div>' +
-        '<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;">' +
-          '<div class="ydt-services__card-pills">' +
-            s.capabilities.map(function (c) { return '<span class="ydt-services__card-pill">' + esc(c) + '</span>'; }).join('') +
-          '</div>' +
-          '<div class="ydt-services__card-stat-hover">' +
-            '<span class="ydt-services__card-stat-large">' + esc(s.stat) + '</span>' +
-            '<span class="ydt-services__card-stat-label">' + esc(s.statLabel) + '</span>' +
+        '<div>' +
+          '<hr class="ydt-services__card-rule">' +
+          '<span class="ydt-services__card-included">What\'s included</span>' +
+          '<div class="ydt-services__card-metrics">' +
+            '<div class="ydt-services__card-pills">' +
+              s.capabilities.map(function (c) { return '<span class="ydt-services__card-pill">' + esc(c) + '</span>'; }).join('') +
+            '</div>' +
+            '<div class="ydt-services__card-stat-hover">' +
+              '<span class="ydt-services__card-stat-large">' + esc(s.stat) + '</span>' +
+              '<span class="ydt-services__card-stat-label">' + esc(s.statLabel) + '</span>' +
+            '</div>' +
           '</div>' +
         '</div>' +
       '</div>';
