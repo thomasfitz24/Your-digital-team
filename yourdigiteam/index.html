@@ -89,11 +89,11 @@
     position: fixed;
     inset: 0;
     z-index: 39;
-    background: rgba(0, 0, 0, 0.40);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
     opacity: 0;
-    transition: opacity 0.25s ease;
+    transition: opacity 0.35s var(--ease);
   }
   .ydt-backdrop--visible { display: block; opacity: 1; }
 
@@ -103,58 +103,72 @@
   @media (min-width: 1200px) { .ydt-header__shell { padding: 20px 20%; } }
 
   .ydt-header__pill {
-    border-radius: 12px;
-    padding: 14px 24px;
+    border-radius: 14px;
+    padding: 16px 22px;
     position: relative;
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.40);
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(28px) saturate(140%);
+    -webkit-backdrop-filter: blur(28px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow: 0 4px 34px rgba(0, 0, 0, 0.45);
+    transition: background 0.5s var(--ease), border-color 0.5s var(--ease);
   }
-  @media (min-width: 768px) { .ydt-header__pill { padding: 14px 40px; } }
+  @media (min-width: 768px) { .ydt-header__pill { padding: 16px 28px; } }
+  /* the panel darkens as it opens so the large links stay legible */
+  .ydt-header--dropdown-open .ydt-header__pill {
+    background: rgba(12, 12, 12, 0.62);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
 
-  .ydt-header__row { display: flex; align-items: center; justify-content: space-between; }
+  .ydt-header__row { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 
   .ydt-header__logo {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.11em;
     color: var(--white);
     text-decoration: none;
     position: relative;
     z-index: 60;
+    white-space: nowrap;
   }
-  @media (min-width: 768px) { .ydt-header__logo { font-size: 12px; } }
+  @media (min-width: 768px) { .ydt-header__logo { font-size: 13.5px; } }
 
   .ydt-header__nav {
     display: none;
     align-items: center;
-    gap: 20px;
+    gap: 26px;
     position: relative;
     height: 18px;
+    margin-left: auto;
+    margin-right: 12px;
+    transition: opacity 0.35s var(--ease);
   }
   @media (min-width: 768px) { .ydt-header__nav { display: flex; } }
+  /* inline links step aside for the open panel */
+  .ydt-header--dropdown-open .ydt-header__nav { opacity: 0; pointer-events: none; }
+
   .ydt-header__nav-link {
-    font-size: 11px;
+    font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-weight: 500;
-    color: #9ca3af;
+    letter-spacing: 0.09em;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.62);
     text-decoration: none;
     transition: color 0.3s;
     position: relative;
+    white-space: nowrap;
   }
   .ydt-header__nav-link:hover { color: var(--white); }
 
   .ydt-header__underline {
     position: absolute;
-    bottom: -4px;
-    height: 1.5px;
+    bottom: -7px;
+    height: 2px;
     background: var(--white);
     opacity: 0;
-    transition: left 0.3s var(--ease), width 0.3s var(--ease), opacity 0.2s;
+    transition: left 0.4s var(--ease), width 0.4s var(--ease), opacity 0.25s;
     pointer-events: none;
   }
 
@@ -164,16 +178,23 @@
     display: none;
     align-items: center;
     justify-content: center;
-    width: 24px; height: 24px;
+    width: 26px; height: 26px;
     border: none;
     background: transparent;
     cursor: pointer;
-    color: #9ca3af;
-    transition: color 0.2s;
-    position: relative;
+    color: rgba(255, 255, 255, 0.62);
+    transition: color 0.25s;
+    padding: 0;
   }
   @media (min-width: 768px) { .ydt-header__grid-btn { display: flex; } }
   .ydt-header__grid-btn:hover { color: var(--white); }
+  /* the grid turns to a diamond rather than an X */
+  .ydt-header__grid-btn svg {
+    transition: transform 0.6s var(--ease);
+    transform-origin: center;
+  }
+  .ydt-header--dropdown-open .ydt-header__grid-btn svg { transform: rotate(45deg); }
+  .ydt-header--dropdown-open .ydt-header__grid-btn { color: var(--white); }
 
   .ydt-header__burger {
     display: flex;
@@ -188,8 +209,7 @@
   }
   @media (min-width: 768px) { .ydt-header__burger { display: none; } }
 
-  .ydt-header__icon-wrap { position: relative; width: 14px; height: 14px; }
-  .ydt-header__burger .ydt-header__icon-wrap { width: 16px; height: 16px; }
+  .ydt-header__icon-wrap { position: relative; width: 16px; height: 16px; }
   .ydt-header__icon {
     position: absolute;
     inset: 0;
@@ -203,36 +223,33 @@
   .ydt-header--dropdown-open .ydt-header__icon--open { opacity: 0; transform: scale(0) rotate(180deg); }
   .ydt-header--dropdown-open .ydt-header__icon--close { opacity: 1; transform: scale(1) rotate(0deg); }
 
+  /* ── dropdown panel ── */
   .ydt-header__dropdown {
     overflow: hidden;
     max-height: 0;
     opacity: 0;
-    transition: max-height 0.625s var(--ease), opacity 0.625s var(--ease);
+    transition: max-height 0.7s var(--ease), opacity 0.5s var(--ease);
   }
-  .ydt-header--dropdown-open .ydt-header__dropdown { max-height: 400px; opacity: 1; }
-  .ydt-header__dropdown-inner { padding: 16px 8px 12px; }
-  .ydt-header__dropdown-divider {
-    border: none;
-    border-top: 1px solid var(--line);
-    margin-bottom: 16px;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.625s 0.156s var(--ease);
-  }
-  .ydt-header--dropdown-open .ydt-header__dropdown-divider { transform: scaleX(1); }
-  .ydt-header__dropdown-links { display: flex; flex-direction: column; gap: 2px; }
+  .ydt-header--dropdown-open .ydt-header__dropdown { max-height: 560px; opacity: 1; }
+
+  .ydt-header__dropdown-inner { padding: 34px 0 4px; }
+  @media (min-width: 768px) { .ydt-header__dropdown-inner { padding: 44px 0 6px; } }
+
+  .ydt-header__dropdown-links { display: flex; flex-direction: column; }
+
   .ydt-header__dropdown-item {
     opacity: 0;
-    transform: translateX(-20px);
-    filter: blur(4px);
-    transition: opacity 0.625s var(--ease), transform 0.625s var(--ease), filter 0.625s var(--ease);
+    transform: translateX(-24px);
+    filter: blur(6px);
+    transition: opacity 0.65s var(--ease), transform 0.65s var(--ease), filter 0.65s var(--ease);
   }
   .ydt-header--dropdown-open .ydt-header__dropdown-item { opacity: 1; transform: translateX(0); filter: blur(0px); }
-  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(1) { transition-delay: 0.24s; }
-  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(2) { transition-delay: 0.31s; }
-  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(3) { transition-delay: 0.38s; }
-  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(4) { transition-delay: 0.45s; }
-  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(5) { transition-delay: 0.52s; }
+  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(1) { transition-delay: 0.12s; }
+  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(2) { transition-delay: 0.19s; }
+  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(3) { transition-delay: 0.26s; }
+  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(4) { transition-delay: 0.33s; }
+  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(5) { transition-delay: 0.40s; }
+
   .ydt-header__dropdown-btn {
     display: block;
     width: 100%;
@@ -240,41 +257,48 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 6px 0;
+    padding: 5px 0;
     font-family: inherit;
     text-decoration: none;
   }
   .ydt-header__dropdown-label {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--white);
-    transition: color 0.2s, letter-spacing 0.2s;
     display: block;
+    font-size: clamp(1.5rem, 3.6vw, 2rem);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 1.32;
+    color: var(--white);
+    transition: color 0.3s var(--ease), transform 0.4s var(--ease);
   }
-  @media (min-width: 768px) { .ydt-header__dropdown-label { font-size: 15px; } }
-  .ydt-header__dropdown-btn:hover .ydt-header__dropdown-label { color: var(--gray5); letter-spacing: 0.12em; }
+  .ydt-header__dropdown-btn:hover .ydt-header__dropdown-label {
+    color: rgba(255, 255, 255, 0.45);
+    transform: translateX(8px);
+  }
+
+  /* ── social row ── */
   .ydt-header__dropdown-social {
-    border-top: 1px solid var(--line);
-    margin-top: 12px;
-    padding-top: 12px;
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
     opacity: 0;
-    transition: opacity 0.3s 0.78s;
+    transform: translateY(8px);
+    transition: opacity 0.5s 0.5s var(--ease), transform 0.5s 0.5s var(--ease);
   }
-  .ydt-header--dropdown-open .ydt-header__dropdown-social { opacity: 1; }
+  .ydt-header--dropdown-open .ydt-header__dropdown-social { opacity: 1; transform: translateY(0); }
   .ydt-header__social-link {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--gray5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.55);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.25s, transform 0.25s var(--ease);
   }
-  .ydt-header__social-link:hover { color: var(--white); }
+  .ydt-header__social-link svg { width: 16px; height: 16px; display: block; }
+  .ydt-header__social-link:hover { color: var(--white); transform: translateY(-2px); }
 
   .progress {
     position: fixed;
@@ -1141,23 +1165,21 @@
         </nav>
 
         <div class="ydt-header__controls">
-          <button class="ydt-header__grid-btn" id="ydtGridBtn" aria-expanded="false" aria-controls="ydtDropdown" aria-label="More navigation">
-            <div class="ydt-header__icon-wrap">
-              <span class="ydt-header__icon ydt-header__icon--open" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-              </span>
-              <span class="ydt-header__icon ydt-header__icon--close" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              </span>
-            </div>
+          <button class="ydt-header__grid-btn" id="ydtGridBtn" aria-expanded="false" aria-controls="ydtDropdown" aria-label="Open menu">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect x="2" y="2" width="8.5" height="8.5" rx="1.4"/>
+              <rect x="13.5" y="2" width="8.5" height="8.5" rx="1.4"/>
+              <rect x="2" y="13.5" width="8.5" height="8.5" rx="1.4"/>
+              <rect x="13.5" y="13.5" width="8.5" height="8.5" rx="1.4"/>
+            </svg>
           </button>
           <button class="ydt-header__burger" id="ydtBurger" aria-expanded="false" aria-controls="ydtDropdown" aria-label="Toggle menu">
             <div class="ydt-header__icon-wrap">
               <span class="ydt-header__icon ydt-header__icon--open" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
               </span>
               <span class="ydt-header__icon ydt-header__icon--close" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </span>
             </div>
           </button>
@@ -1166,18 +1188,32 @@
 
       <div class="ydt-header__dropdown" id="ydtDropdown" role="menu" aria-label="Site pages">
         <div class="ydt-header__dropdown-inner">
-          <hr class="ydt-header__dropdown-divider" aria-hidden="true" />
           <div class="ydt-header__dropdown-links">
             <div class="ydt-header__dropdown-item" role="none"><a href="#services" class="ydt-header__dropdown-btn" role="menuitem"><span class="ydt-header__dropdown-label">Services</span></a></div>
             <div class="ydt-header__dropdown-item" role="none"><a href="#process" class="ydt-header__dropdown-btn" role="menuitem"><span class="ydt-header__dropdown-label">Our Process</span></a></div>
             <div class="ydt-header__dropdown-item" role="none"><a href="#foundation" class="ydt-header__dropdown-btn" role="menuitem"><span class="ydt-header__dropdown-label">Website Builder</span></a></div>
             <div class="ydt-header__dropdown-item" role="none"><a href="#contact" class="ydt-header__dropdown-btn" role="menuitem"><span class="ydt-header__dropdown-label">Contact</span></a></div>
           </div>
+
           <div class="ydt-header__dropdown-social" aria-label="Social links">
-            <a href="#" class="ydt-header__social-link">Facebook</a>
-            <a href="#" class="ydt-header__social-link">Instagram</a>
-            <a href="#" class="ydt-header__social-link">X</a>
-            <a href="#" class="ydt-header__social-link">LinkedIn</a>
+            <a href="#" class="ydt-header__social-link" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
+            </a>
+            <a href="#" class="ydt-header__social-link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.8s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.5.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></svg>
+            </a>
+            <a href="#" class="ydt-header__social-link" aria-label="X">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 2.3h3.3l-7.2 8.2L22.8 22h-6.6l-5.2-6.8L5.1 22H1.8l7.7-8.8L1.5 2.3h6.8l4.7 6.2 5.2-6.2zm-1.2 17.7h1.8L7.1 4.2H5.2L17 20z"/></svg>
+            </a>
+            <a href="#" class="ydt-header__social-link" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.6a2.9 2.9 0 0 0-2-2.1C19.1 5 12 5 12 5s-7.1 0-8.9.5a2.9 2.9 0 0 0-2.1 2.1A30 30 0 0 0 .5 12a30 30 0 0 0 .5 4.4 2.9 2.9 0 0 0 2.1 2.1c1.8.5 8.9.5 8.9.5s7.1 0 8.9-.5a2.9 2.9 0 0 0 2.1-2.1 30 30 0 0 0 .5-4.4 30 30 0 0 0-.5-4.4zM9.8 15.3V8.7l5.7 3.3z"/></svg>
+            </a>
+            <a href="#" class="ydt-header__social-link" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.8a4.8 4.8 0 0 1-1.2-3.2h-3.3v13.1a2.7 2.7 0 1 1-1.9-2.6V9.7a5.9 5.9 0 1 0 5.2 5.9V9.2A8 8 0 0 0 20 10.7V7.5a4.8 4.8 0 0 1-3.4-1.7z"/></svg>
+            </a>
+            <a href="#" class="ydt-header__social-link" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.3v1.6h.1a3.7 3.7 0 0 1 3.3-1.8c3.6 0 4.3 2.3 4.3 5.4v6.2zM5.3 7.4a2.1 2.1 0 1 1 2.1-2.1 2.1 2.1 0 0 1-2.1 2.1zm1.8 13H3.6V9h3.5v11.4zM22.2 0H1.8A1.8 1.8 0 0 0 0 1.8v20.4A1.8 1.8 0 0 0 1.8 24h20.4a1.8 1.8 0 0 0 1.8-1.8V1.8A1.8 1.8 0 0 0 22.2 0z"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -1458,6 +1494,7 @@
     isOpen = true;
     header.classList.add('ydt-header--dropdown-open');
     gridBtn.setAttribute('aria-expanded', 'true');
+    gridBtn.setAttribute('aria-label', 'Close menu');
     burger.setAttribute('aria-expanded', 'true');
     backdrop.classList.add('ydt-backdrop--visible');
     document.body.style.overflow = 'hidden';
@@ -1466,6 +1503,7 @@
     isOpen = false;
     header.classList.remove('ydt-header--dropdown-open');
     gridBtn.setAttribute('aria-expanded', 'false');
+    gridBtn.setAttribute('aria-label', 'Open menu');
     burger.setAttribute('aria-expanded', 'false');
     backdrop.classList.remove('ydt-backdrop--visible');
     document.body.style.removeProperty('overflow');
@@ -1485,16 +1523,34 @@
     a.addEventListener('click', closeDropdown);
   });
 
-  navLinks.forEach(function (link) {
-    link.addEventListener('mouseenter', function () {
-      var rect = link.getBoundingClientRect();
-      var navRect = link.parentElement.getBoundingClientRect();
-      underline.style.left = (rect.left - navRect.left) + 'px';
-      underline.style.width = rect.width + 'px';
-      underline.style.opacity = '1';
+  /* the underline rests on the section you're in and follows the cursor on hover */
+  var navEl = document.querySelector('.ydt-header__nav');
+  var activeNavLink = null;
+  var navHovered = false;
+
+  function placeUnderline(link) {
+    if (!link || !navEl) { underline.style.opacity = '0'; return; }
+    var rect = link.getBoundingClientRect();
+    var navRect = navEl.getBoundingClientRect();
+    underline.style.left = (rect.left - navRect.left) + 'px';
+    underline.style.width = rect.width + 'px';
+    underline.style.opacity = '1';
+  }
+  function setActiveNav(hash) {
+    activeNavLink = null;
+    navLinks.forEach(function (l) {
+      if (l.getAttribute('href') === hash) activeNavLink = l;
     });
-    link.addEventListener('mouseleave', function () { underline.style.opacity = '0'; });
+    if (!navHovered) placeUnderline(activeNavLink);
+  }
+
+  navLinks.forEach(function (link) {
+    link.addEventListener('mouseenter', function () { navHovered = true; placeUnderline(link); });
   });
+  if (navEl) {
+    navEl.addEventListener('mouseleave', function () { navHovered = false; placeUnderline(activeNavLink); });
+  }
+  window.addEventListener('resize', function () { placeUnderline(navHovered ? null : activeNavLink); });
 
   /* ══════ CURSOR SPOTLIGHT (lerped) ══════ */
   var spot = document.getElementById('spotlight');
@@ -1660,6 +1716,7 @@
         if (!entry.isIntersecting) return;
         var i = sections.indexOf(entry.target);
         railLinks.forEach(function (a, j) { a.classList.toggle('active', j === i); });
+        if (i > -1) setActiveNav('#' + railLinks[i].dataset.target);
       });
     }, { rootMargin: '-45% 0px -45% 0px' });
     sections.forEach(function (s) { if (s) railObs.observe(s); });
