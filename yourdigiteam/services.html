@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — yourdigitalteam</title>
+<meta name="description" content="Every service Your Digital Team offers — SEO, content, digital PR, paid media, analytics, branding and web development.">
+<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/nb-international-pro">
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<style>
+  /* ══════════════════════════════════════════════════════════
+     Same tokens as the home page — keep these files in step
+     ══════════════════════════════════════════════════════════ */
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --w25: rgba(255, 255, 255, 0.25);
+    --w30: rgba(255, 255, 255, 0.30);
+    --gray5: #6b7280;
+    --gray6: #4b5563;
+    --line: rgba(255, 255, 255, 0.06);
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --card-line: rgba(255, 255, 255, 0.05);
+    --accent: #ffffff;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'NB International Pro', 'Inter', 'Arial', sans-serif;
+    /* clearance for the site header that wraps this page */
+    --header-h: 92px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: rgba(255, 255, 255, 0.22); color: var(--black); }
+
+  a { color: inherit; }
+  :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+
+  .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+
+  /* ══════════ ATMOSPHERE ══════════ */
+  .grain {
+    position: fixed;
+    inset: -120px;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+  }
+  @keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); }
+    16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); }
+    50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); }
+    83% { transform: translate(-12px, -10px); }
+  }
+
+  .spotlight {
+    position: fixed;
+    top: 0; left: 0;
+    width: 620px; height: 620px;
+    margin: -310px 0 0 -310px;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease;
+    will-change: transform;
+  }
+  .spotlight--on { opacity: 1; }
+
+  /* ══════════ REVEAL PRIMITIVES ══════════ */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+  }
+  [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+  .clip { overflow: hidden; }
+  .clip > .slide {
+    display: block;
+    transform: translateY(105%);
+    transition: transform 1s var(--ease);
+  }
+  .clip.in-view > .slide { transform: translateY(0); }
+
+  /* ══════════ INTRO ══════════ */
+  .intro {
+    position: relative;
+    z-index: 2;
+    padding: calc(var(--header-h) + 90px) 0 100px;
+    overflow: hidden;
+  }
+  .intro-title {
+    font-size: clamp(1.9rem, 4.4vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    max-width: 20ch;
+  }
+  .intro-title .dim { color: var(--w25); }
+  .intro-body {
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    color: var(--gray5);
+    line-height: 1.7;
+    max-width: 36rem;
+    margin-top: 32px;
+  }
+  .intro-body + .intro-body { margin-top: 20px; color: var(--gray6); }
+  .intro-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 44px; }
+  .chip {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.6);
+    border: 1px solid var(--line);
+    border-radius: 9999px;
+    padding: 9px 16px;
+    transition: border-color 0.4s, color 0.4s;
+  }
+  .chip:hover { border-color: rgba(255,255,255,0.2); color: #fff; }
+
+  /* ══════════ SERVICES — sticky panel + scroll-driven filmstrip ══════════ */
+  .ydt-services { position: relative; background: var(--black); color: var(--white); }
+
+  /* outer sentinel — height set by JS (one viewport per service) */
+  .ydt-services__scroll-section { position: relative; background: var(--black); }
+
+  .ydt-services__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* top clearance keeps the panel out from under the fixed header pill */
+    padding: 84px 12px 12px;
+  }
+  @media (min-width: 768px) { .ydt-services__sticky { padding: 104px 20px 20px; } }
+
+  .ydt-services__panel {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    height: 100%;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  @media (min-width: 1024px) {
+    .ydt-services__panel { flex-direction: row; border-radius: 28px; }
+  }
+
+  /* ── left column ── */
+  .ydt-services__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px 20px 20px;
+    flex-shrink: 0;
+  }
+  @media (min-width: 1024px) { .ydt-services__left { width: 48%; padding: 40px 56px; } }
+  @media (min-width: 1280px) { .ydt-services__left { width: 45%; } }
+
+  .ydt-services__label { font-size: 11px; color: #9ca3af; display: block; margin-bottom: 4px; }
+  @media (min-width: 1024px) { .ydt-services__label { font-size: 13px; margin-bottom: 8px; } }
+
+  .ydt-services__desc {
+    font-size: 11px;
+    color: var(--gray5);
+    max-width: 280px;
+    line-height: 1.625;
+    margin-bottom: 16px;
+  }
+  @media (min-width: 1024px) { .ydt-services__desc { font-size: 14px; margin-bottom: 32px; } }
+
+  .ydt-services__titles { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-bottom: 8px; }
+  @media (min-width: 1024px) {
+    .ydt-services__titles { flex-direction: column; flex-wrap: nowrap; gap: 0; margin-bottom: 0; }
+  }
+  .ydt-services__title-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    display: block;
+    font-family: inherit;
+  }
+  .ydt-services__title-text {
+    font-size: clamp(1.3rem, 3.5vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+    color: #3a3a3a;
+    transition: color 0.7s;
+    display: block;
+  }
+  .ydt-services__title-text.ydt-active { color: var(--white); }
+  @media (min-width: 1024px) {
+    .ydt-services__title-btn:hover .ydt-services__title-text:not(.ydt-active) { color: #555555; }
+  }
+
+  .ydt-services__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--white);
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    transition: background 0.3s, border-color 0.3s;
+    width: fit-content;
+    margin-top: 16px;
+  }
+  @media (min-width: 1024px) {
+    .ydt-services__cta { padding: 12px 24px; font-size: 11px; margin-top: 32px; }
+  }
+  .ydt-services__cta:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.15); }
+  .ydt-services__cta svg { width: 12px; height: 12px; transition: transform 0.3s; }
+  .ydt-services__cta:hover svg { transform: translateX(4px); }
+
+  /* ── right column: filmstrip ── */
+  .ydt-services__right { flex: 1; overflow: hidden; position: relative; padding: 0 12px 12px; }
+  @media (min-width: 1024px) { .ydt-services__right { padding: 16px 16px 16px 0; } }
+
+  .ydt-services__strip {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    will-change: transform;
+  }
+  @media (min-width: 1024px) {
+    .ydt-services__strip { top: 16px; left: 0; right: 16px; gap: 12px; }
+  }
+
+  .ydt-services__card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+    background: #0f0f0f;
+  }
+
+  /* the photograph sits underneath everything */
+  .ydt-services__card-media {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.02);
+    transition: transform 1.1s var(--ease), filter 0.7s var(--ease);
+  }
+  .ydt-services__card:hover .ydt-services__card-media { transform: scale(1.06); }
+  /* scrim so white type holds over any photograph */
+  .ydt-services__card-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.12) 42%, rgba(0,0,0,0.55) 100%);
+  }
+
+  /* the colour floods in from the cursor */
+  .ydt-services__card-hover { position: absolute; inset: 0; clip-path: circle(0% at 50% 50%); z-index: 1; }
+
+  .ydt-services__card-default,
+  .ydt-services__card-hovered {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    transition: opacity 0.5s var(--ease);
+  }
+  @media (min-width: 768px) {
+    .ydt-services__card-default, .ydt-services__card-hovered { padding: 32px; }
+  }
+  .ydt-services__card-default { z-index: 2; }
+  .ydt-services__card-hovered { z-index: 3; opacity: 0; }
+  .ydt-services__card--hovered .ydt-services__card-default { opacity: 0; }
+  .ydt-services__card--hovered .ydt-services__card-hovered { opacity: 1; }
+
+  /* ── default face: over photography, so white ── */
+  .ydt-services__card-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .ydt-services__card-eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+  }
+  .ydt-services__card-idx {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.5);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .ydt-services__card-name {
+    font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #fff;
+    margin-top: 10px;
+    max-width: 80%;
+  }
+
+  /* search pill, bottom right on both faces */
+  .ydt-services__card-search {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 15px;
+    border-radius: 9999px;
+    font-size: 12.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    color: #fff;
+  }
+  .ydt-services__card-search svg { width: 13px; height: 13px; flex-shrink: 0; opacity: 0.8; }
+  .ydt-services__card-hovered .ydt-services__card-search {
+    background: rgba(0,0,0,0.10);
+    border-color: rgba(0,0,0,0.14);
+    color: rgba(0,0,0,0.72);
+  }
+
+  .ydt-services__card-foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  /* ── hover face: over solid colour, so black ── */
+  .ydt-services__card-headline--hover {
+    font-size: clamp(1.2rem, 2.6vw, 1.9rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.18;
+    color: rgba(0,0,0,0.85);
+    max-width: 88%;
+    transform: translateY(12px);
+    opacity: 0;
+    transition: transform 0.5s 0.3s var(--ease), opacity 0.5s 0.3s var(--ease);
+  }
+  .ydt-services__card--hovered .ydt-services__card-headline--hover { transform: translateY(0); opacity: 1; }
+
+  .ydt-services__card-service-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: rgba(0,0,0,0.42);
+    font-weight: 500;
+    display: block;
+  }
+
+  .ydt-services__card-desc {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: rgba(0,0,0,0.55);
+    max-width: 30rem;
+    margin-top: 12px;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.5s 0.38s var(--ease), opacity 0.5s 0.38s var(--ease);
+  }
+  .ydt-services__card--hovered .ydt-services__card-desc { transform: translateY(0); opacity: 1; }
+
+  /* the circular arrow rides the cursor across the card */
+  /* the arrow stands in for the pointer, so hide the real one while it's up */
+  .ydt-services__card--hovered,
+  .ydt-services__card--hovered * { cursor: none; }
+
+  .ydt-services__card-orb {
+    --orb: clamp(76px, 9.5vw, 116px);
+    position: absolute;
+    top: 0; left: 0;
+    width: var(--orb);
+    height: var(--orb);
+    margin-top: calc(var(--orb) / -2);
+    margin-left: calc(var(--orb) / -2);
+    z-index: 4;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .ydt-services__card-orb-in {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* dark reads against every accent in the palette, including the light one */
+    background: #0d0d0d;
+    transform: scale(0.2);
+    opacity: 0;
+    transition: transform 0.38s var(--ease), opacity 0.25s var(--ease);
+  }
+  .ydt-services__card--hovered .ydt-services__card-orb-in { transform: scale(1); opacity: 1; }
+  .ydt-services__card-orb svg { width: 30%; height: 30%; color: #fff; }
+
+  .ydt-services__card-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.5s 0.44s var(--ease), opacity 0.5s 0.44s var(--ease);
+  }
+  .ydt-services__card--hovered .ydt-services__card-pills { transform: translateY(0); opacity: 1; }
+  .ydt-services__card-pill {
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.55);
+    background: rgba(0,0,0,0.08);
+    border-radius: 9999px;
+    padding: 6px 12px;
+  }
+  @media (min-width: 768px) { .ydt-services__card-pill { font-size: 11px; } }
+
+  .ydt-services__card-stat-large {
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    font-weight: 700;
+    color: rgba(0,0,0,0.30);
+    letter-spacing: -0.02em;
+    display: block;
+  }
+  .ydt-services__card-stat-label {
+    font-size: 11px;
+    color: rgba(0,0,0,0.38);
+    font-weight: 500;
+    display: block;
+    margin-top: 3px;
+  }
+  .ydt-services__card-stat-hover {
+    flex-shrink: 0;
+    text-align: right;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.5s 0.5s var(--ease), opacity 0.5s 0.5s var(--ease);
+  }
+  .ydt-services__card--hovered .ydt-services__card-stat-hover { transform: translateY(0); opacity: 1; }
+
+  /* reduced motion: no scroll-jack — the panel becomes a plain stack */
+  .ydt-services--static .ydt-services__intro { opacity: 1; }
+  .ydt-services--static .ydt-services__intro-title { transform: none; }
+  .ydt-services--static .ydt-services__intro-sub { opacity: 1; transform: none; filter: none; }
+  .ydt-services--static .ydt-services__scroll-section { height: auto !important; }
+  .ydt-services--static .ydt-services__sticky { position: static; height: auto; padding: 12px; }
+  .ydt-services--static .ydt-services__card { height: 340px; }
+  .ydt-services--static .ydt-services__panel { height: auto; }
+  .ydt-services--static .ydt-services__right { padding: 12px; }
+  .ydt-services--static .ydt-services__strip { position: static; transform: none !important; }
+  .ydt-services--static .ydt-services__card { height: 340px; }
+  .ydt-services--static .ydt-services__card-hover,
+  .ydt-services--static .ydt-services__card-default,
+  .ydt-services--static .ydt-services__card-hovered,
+  .ydt-services--static .ydt-services__card-headline--hover,
+  .ydt-services--static .ydt-services__card-desc,
+  .ydt-services--static .ydt-services__card-pills,
+  .ydt-services--static .ydt-services__card-contact,
+  .ydt-services--static .ydt-services__card-stat-hover { transition: none; }
+
+
+  /* ══════════ MOTION FALLBACKS ══════════ */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    [data-reveal], .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .grain { animation: none; }
+    .spotlight { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main id="services-top">
+
+  <!-- ══════════ INTRO ══════════ -->
+  <section class="intro">
+    <div class="container">
+      <h1 class="intro-title">
+        <span class="clip"><span class="slide">Everything we do,</span></span>
+        <span class="clip"><span class="slide"><span class="dim">in one place.</span></span></span>
+      </h1>
+      <p class="intro-body" data-reveal>
+        Seven disciplines, run by one team. We don't sell packages off a shelf — we build
+        the combination that moves your numbers, then report on it in plain English every week.
+      </p>
+      <p class="intro-body" data-reveal>
+        Scroll through to see how each one works, what it includes, and what it has delivered.
+      </p>
+      <div class="intro-meta" data-reveal>
+        <span class="chip">Seven services</span>
+        <span class="chip">One team</span>
+        <span class="chip">Measured in revenue</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SERVICES (sticky panel + scroll-driven filmstrip) ══════════ -->
+  <div class="ydt-services" id="services">
+
+    <div class="ydt-services__scroll-section" id="ydtScrollSection">
+      <div class="ydt-services__sticky">
+        <div class="ydt-services__panel">
+
+          <div class="ydt-services__left">
+            <div>
+              <span class="ydt-services__label">All Services</span>
+              <p class="ydt-services__desc">
+                We craft tailored strategies across SEO, content, PR, and development to help brands grow and dominate their markets.
+              </p>
+            </div>
+
+            <div class="ydt-services__titles" id="ydtTitles"></div>
+
+            <a href="/contact" class="ydt-services__cta">
+              Start a project
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="ydt-services__right">
+            <div class="ydt-services__strip" id="ydtStrip"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script>
+/* ══════════ page atmosphere + reveals ══════════ */
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09;
+      cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  if (reduceMotion) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('in-view'); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+  }
+
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', function () {
+      gsap.to('.intro .container', {
+        yPercent: -8, opacity: 0.3, ease: 'none',
+        scrollTrigger: { trigger: '.intro', start: 'top top', end: 'bottom top', scrub: 0.6 }
+      });
+    });
+  }
+})();
+</script>
+
+<script>
+/* ══════════ SERVICES: sticky panel + scroll-driven filmstrip ══════════ */
+(function () {
+  'use strict';
+
+  var EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var services = [
+    { title: 'SEO',        search: 'seo agency', label: 'Search Engine Optimization', headline: 'Dominate search results with technical precision', description: 'Technical audits, on-page optimization, and local SEO strategies that drive measurable organic growth across every vertical.', accent: '#e9e9e9', accentHover: '#7ecfc0', stat: '100+',  statLabel: 'Organic',                 capabilities: ['Technical Audits','Local SEO','Link Building','Schema Markup'], image: '' },
+    { title: 'Content',    search: 'content strategy', label: 'Content Strategy',           headline: 'Content that ranks, engages, and converts',        description: 'Data-driven content strategies built around search intent, topical authority, and conversion-focused copy that compounds over time.', accent: '#e8c4a0', accentHover: '#a0b4e8', stat: '100%',  statLabel: 'Improvement On Clicks',    capabilities: ['Blog Strategy','Copywriting','Content Clusters','Editorial Planning'], image: '' },
+    { title: 'Digital PR', search: 'digital pr', label: 'Public Relations',           headline: 'Earn coverage that moves the needle',              description: 'Creative campaigns and journalist outreach that earn high-authority backlinks and real brand visibility at scale.', accent: '#7ecfc0', accentHover: '#e8a0b4', stat: 'Top 3', statLabel: 'Backlinks Earned',         capabilities: ['Media Outreach','Reactive PR','Campaign Strategy','Digital Assets'], image: '' },
+    { title: 'Paid Media', search: 'ppc management', label: 'Performance Marketing',      headline: 'Performance campaigns that maximize ROI',          description: 'Full-funnel paid strategies across Google, Meta, and programmatic channels — optimized daily for maximum return.', accent: '#a0b4e8', accentHover: '#e9e9e9', stat: '5.2x',  statLabel: 'Average ROAS',             capabilities: ['Google Ads','Meta Ads','Programmatic','Conversion Tracking'], image: '' },
+    { title: 'Analytics',  search: 'ga4 analytics', label: 'Data & Insights',            headline: 'Deep-dive data that drives decisions',             description: 'Custom dashboards, GA4 implementation, and attribution modeling that turns raw data into clear strategic direction.', accent: '#b8a0e8', accentHover: '#a0e8c4', stat: '98%',   statLabel: 'Reporting Accuracy',       capabilities: ['GA4 Setup','Custom Dashboards','Attribution','Tag Management'], image: '' },
+    { title: 'Branding',   search: 'brand identity', label: 'Brand Identity',             headline: 'Brands that stand out in crowded markets',         description: 'Complete identity systems from strategy through execution — logos, guidelines, and visual language that resonates.', accent: '#e8a0b4', accentHover: '#b8a0e8', stat: '100%',  statLabel: 'Custom Systems',           capabilities: ['Logo Design','Brand Guidelines','Visual Identity','Brand Strategy'], image: '' },
+    { title: 'Web Dev',    search: 'web development', label: 'Development',                headline: 'High-performance sites built to convert',          description: 'Blazing-fast, accessible websites built on modern stacks — engineered for Core Web Vitals and conversion rates.', accent: '#a0e8c4', accentHover: '#e8c4a0', stat: '<1s',   statLabel: 'Load Times',               capabilities: ['React / Next.js','Performance','Accessibility','CMS Integration'], image: '' }
+  ];
+
+  var COUNT = services.length;
+  var root = document.getElementById('services');
+  var titlesEl = document.getElementById('ydtTitles');
+  var stripEl = document.getElementById('ydtStrip');
+  var scrollSection = document.getElementById('ydtScrollSection');
+  if (!root || !titlesEl || !stripEl || !scrollSection) return;
+
+  if (reduceMotion) root.classList.add('ydt-services--static');
+
+  function arrow() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>';
+  }
+  function esc(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function searchGlyph() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>';
+  }
+  function trendGlyph() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>';
+  }
+  /* Stand-in artwork until real photography is dropped into `image`.
+     Two soft blooms in the service's own colours over near-black. */
+  function standIn(a, b) {
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" preserveAspectRatio="xMidYMid slice">' +
+      '<defs>' +
+        '<radialGradient id="a" cx="28%" cy="24%" r="62%">' +
+          '<stop offset="0" stop-color="' + a + '" stop-opacity="0.85"/>' +
+          '<stop offset="1" stop-color="' + a + '" stop-opacity="0"/></radialGradient>' +
+        '<radialGradient id="b" cx="78%" cy="76%" r="58%">' +
+          '<stop offset="0" stop-color="' + b + '" stop-opacity="0.7"/>' +
+          '<stop offset="1" stop-color="' + b + '" stop-opacity="0"/></radialGradient>' +
+        '<linearGradient id="c" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0" stop-color="#ffffff" stop-opacity="0.06"/>' +
+          '<stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient>' +
+      '</defs>' +
+      '<rect width="900" height="700" fill="#0d0d0d"/>' +
+      '<rect width="900" height="700" fill="url(#a)"/>' +
+      '<rect width="900" height="700" fill="url(#b)"/>' +
+      '<rect width="900" height="700" fill="url(#c)"/>' +
+      '<g stroke="#ffffff" stroke-opacity="0.07" stroke-width="1">' +
+        '<path d="M0 175h900M0 350h900M0 525h900M225 0v700M450 0v700M675 0v700"/>' +
+      '</g></svg>';
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  }
+
+  /* ── title list ── */
+  services.forEach(function (s, i) {
+    var btn = document.createElement('button');
+    btn.className = 'ydt-services__title-btn';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Jump to ' + s.title);
+    var span = document.createElement('span');
+    span.className = 'ydt-services__title-text' + (i === 0 ? ' ydt-active' : '');
+    span.textContent = s.title;
+    btn.appendChild(span);
+    btn.addEventListener('click', function () { scrollToIndex(i); });
+    titlesEl.appendChild(btn);
+  });
+
+  /* ── cards ── */
+  services.forEach(function (s, idx) {
+    var card = document.createElement('article');
+    card.className = 'ydt-services__card';
+    var index = String(idx + 1).padStart(2, '0') + ' / ' + String(COUNT).padStart(2, '0');
+    var art = s.image || standIn(s.accent, s.accentHover);
+    var pill = '<span class="ydt-services__card-search">' + searchGlyph() + esc(s.search) + trendGlyph() + '</span>';
+
+    card.innerHTML =
+      '<div class="ydt-services__card-media" style="background-image:url(\'' + art + '\')"></div>' +
+      '<div class="ydt-services__card-hover" style="background:' + s.accent + '"></div>' +
+
+      /* ── resting face: the photograph ── */
+      '<div class="ydt-services__card-default">' +
+        '<div>' +
+          '<div class="ydt-services__card-row">' +
+            '<span class="ydt-services__card-eyebrow">' + esc(s.label) + '</span>' +
+            '<span class="ydt-services__card-idx">' + index + '</span>' +
+          '</div>' +
+          '<h3 class="ydt-services__card-name">' + esc(s.title) + '</h3>' +
+        '</div>' +
+        '<div class="ydt-services__card-foot">' +
+          '<span></span>' + pill +
+        '</div>' +
+      '</div>' +
+
+      /* ── hovered face: the colour ── */
+      '<div class="ydt-services__card-orb" aria-hidden="true"><span class="ydt-services__card-orb-in">' + arrow() + '</span></div>' +
+      '<div class="ydt-services__card-hovered">' +
+        '<div>' +
+          '<div class="ydt-services__card-row">' +
+            '<span class="ydt-services__card-service-label">' + esc(s.label) + '</span>' +
+            '<a href="/contact" class="ydt-services__card-idx" style="color:rgba(0,0,0,0.4);text-decoration:none" onclick="event.stopPropagation()">' + index + '</a>' +
+          '</div>' +
+          '<h3 class="ydt-services__card-headline--hover">' + esc(s.headline) + '</h3>' +
+          '<p class="ydt-services__card-desc">' + esc(s.description) + '</p>' +
+        '</div>' +
+        '<div class="ydt-services__card-foot">' +
+          '<div class="ydt-services__card-pills">' +
+            s.capabilities.map(function (c) { return '<span class="ydt-services__card-pill">' + esc(c) + '</span>'; }).join('') +
+          '</div>' +
+          '<div class="ydt-services__card-stat-hover">' +
+            '<span class="ydt-services__card-stat-large">' + esc(s.stat) + '</span>' +
+            '<span class="ydt-services__card-stat-label">' + esc(s.statLabel) + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    stripEl.appendChild(card);
+
+    /* cursor-origin colour reveal */
+    var hoverLayer = card.querySelector('.ydt-services__card-hover');
+    function origin(e) {
+      var r = card.getBoundingClientRect();
+      return {
+        x: (((e.clientX - r.left) / r.width) * 100).toFixed(2),
+        y: (((e.clientY - r.top) / r.height) * 100).toFixed(2)
+      };
+    }
+    /* the arrow trails the pointer inside the card */
+    var orb = card.querySelector('.ydt-services__card-orb');
+    var tx = 0, ty = 0, ox = 0, oy = 0, orbRaf = null;
+
+    function drawOrb() {
+      ox += (tx - ox) * 0.42;
+      oy += (ty - oy) * 0.42;
+      orb.style.transform = 'translate3d(' + ox.toFixed(1) + 'px,' + oy.toFixed(1) + 'px,0)';
+      if (Math.abs(tx - ox) > 0.1 || Math.abs(ty - oy) > 0.1) {
+        orbRaf = requestAnimationFrame(drawOrb);
+      } else {
+        orbRaf = null;
+      }
+    }
+    function pointTo(e, snap) {
+      var r = card.getBoundingClientRect();
+      tx = e.clientX - r.left;
+      ty = e.clientY - r.top;
+      if (snap || reduceMotion) {
+        ox = tx; oy = ty;
+        orb.style.transform = 'translate3d(' + ox + 'px,' + oy + 'px,0)';
+        return;
+      }
+      if (!orbRaf) orbRaf = requestAnimationFrame(drawOrb);
+    }
+
+    card.addEventListener('mouseenter', function (e) {
+      var o = origin(e);
+      hoverLayer.style.transition = reduceMotion ? 'none' : 'clip-path 0.9s ' + EASE;
+      hoverLayer.style.clipPath = 'circle(150% at ' + o.x + '% ' + o.y + '%)';
+      pointTo(e, true);
+      card.classList.add('ydt-services__card--hovered');
+    });
+    card.addEventListener('mousemove', function (e) { pointTo(e); });
+    card.addEventListener('mouseleave', function (e) {
+      var o = origin(e);
+      hoverLayer.style.transition = reduceMotion ? 'none' : 'clip-path 0.9s ' + EASE;
+      hoverLayer.style.clipPath = 'circle(0% at ' + o.x + '% ' + o.y + '%)';
+      card.classList.remove('ydt-services__card--hovered');
+      if (orbRaf) { cancelAnimationFrame(orbRaf); orbRaf = null; }
+    });
+  });
+
+  var cards = stripEl.querySelectorAll('.ydt-services__card');
+  var cardStep = 0;
+
+  function isMobile() { return window.innerWidth < 1024; }
+
+  var rightEl = document.querySelector('.ydt-services__right');
+
+  function resize() {
+    if (reduceMotion) return;
+    var vh = window.innerHeight;
+    /* measure the real strip container so this stays correct if the padding changes */
+    var availH = rightEl.clientHeight;
+    var cardH = Math.round(availH * (isMobile() ? 0.52 : 0.7));
+    var gap = isMobile() ? 10 : 12;
+    cardStep = cardH + gap;
+    cards.forEach(function (c) { c.style.height = cardH + 'px'; });
+    scrollSection.style.height = (COUNT * vh) + 'px';
+    lastY = null;
+    update();
+  }
+
+  /* ── scroll driver ── */
+  var activeIndex = 0;
+  var lastY = null;
+  var rafId = null;
+
+  function update() {
+    if (reduceMotion) return;
+    var rect = scrollSection.getBoundingClientRect();
+    var sectionTop = rect.top + window.scrollY;
+    var sectionH = scrollSection.offsetHeight - window.innerHeight;
+    var scrolled = window.scrollY - sectionTop;
+    var progress = sectionH > 0 ? Math.max(0, Math.min(1, scrolled / sectionH)) : 0;
+
+    var translateY = -progress * (COUNT - 1) * cardStep;
+    if (translateY !== lastY) {
+      stripEl.style.transform = 'translateY(' + translateY + 'px)';
+      lastY = translateY;
+    }
+
+    var newIndex = Math.min(COUNT - 1, Math.max(0, Math.floor(progress * COUNT)));
+    if (newIndex !== activeIndex) {
+      activeIndex = newIndex;
+      titlesEl.querySelectorAll('.ydt-services__title-text').forEach(function (sp, i) {
+        sp.classList.toggle('ydt-active', i === activeIndex);
+      });
+    }
+    rafId = null;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!rafId) rafId = requestAnimationFrame(update);
+  }, { passive: true });
+  window.addEventListener('resize', resize);
+
+  function scrollToIndex(index) {
+    if (reduceMotion) {
+      cards[index].scrollIntoView({ behavior: 'auto', block: 'center' });
+      return;
+    }
+    var sectionTop = scrollSection.getBoundingClientRect().top + window.scrollY;
+    var sectionH = scrollSection.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: sectionTop + (index / COUNT) * sectionH + 1, behavior: 'smooth' });
+  }
+
+  resize();
+
+  /* ── intro reveal ── */
+  var intro = document.getElementById('ydtServicesIntro');
+  if (intro) {
+    if (reduceMotion) {
+      intro.classList.add('ydt-in-view');
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { intro.classList.add('ydt-in-view'); io.disconnect(); }
+        });
+      }, { threshold: 0.3 });
+      io.observe(intro);
+    }
+  }
+
+  /* the section changes page height once sized — let ScrollTrigger recompute */
+  window.addEventListener('load', function () {
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+  });
+})();
+</script>
+</body>
+</html>
