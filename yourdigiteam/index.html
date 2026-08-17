@@ -870,7 +870,7 @@
     background: #0d0d0d;
     transform: scale(0.2);
     opacity: 0;
-    transition: transform 0.55s var(--ease), opacity 0.4s var(--ease);
+    transition: transform 0.38s var(--ease), opacity 0.25s var(--ease);
   }
   .ydt-services__card--hovered .ydt-services__card-orb-in { transform: scale(1); opacity: 1; }
   .ydt-services__card-orb svg { width: 30%; height: 30%; color: #fff; }
@@ -1948,10 +1948,10 @@
     var tx = 0, ty = 0, ox = 0, oy = 0, orbRaf = null;
 
     function drawOrb() {
-      ox += (tx - ox) * 0.18;
-      oy += (ty - oy) * 0.18;
+      ox += (tx - ox) * 0.42;
+      oy += (ty - oy) * 0.42;
       orb.style.transform = 'translate3d(' + ox.toFixed(1) + 'px,' + oy.toFixed(1) + 'px,0)';
-      if (Math.abs(tx - ox) > 0.3 || Math.abs(ty - oy) > 0.3) {
+      if (Math.abs(tx - ox) > 0.1 || Math.abs(ty - oy) > 0.1) {
         orbRaf = requestAnimationFrame(drawOrb);
       } else {
         orbRaf = null;
