@@ -6,6 +6,7 @@ Eight static pages sharing one header and one footer.
 index.html        home — hero, services filmstrip, foundation, process, contact
 about.html        about
 services.html     all services (the filmstrip on its own page)
+contact.html      contact page + enquiry form
 seo.html          ┐
 ppc.html          │
 social.html       ├ service pages
@@ -47,12 +48,29 @@ Links are written as `index.html#contact`. When the visitor is already on
 scrolling and the underline spy keep working instead of reloading the page.
 A link whose file matches the current page gets `aria-current="page"`.
 
+## The contact form
+
+`contact.html` has no back end. It works two ways, set by the form's
+`data-endpoint` attribute:
+
+- **Empty (the default).** The fields are composed into a prefilled email and
+  the visitor's mail client opens with everything written out. Works today,
+  nothing to set up.
+- **Set to a form endpoint** (Formspree, Basin, Netlify Forms, your own
+  handler). The fields POST there as JSON and the confirmation panel shows on
+  success. Set it on the `<form id="contactForm" data-endpoint="">` tag.
+
+Validation, the honeypot and the confirmation panel behave the same either way.
+
 ## Known gaps
 
 - **No Web Development page.** The home page's `#foundation` section is the web
   development content, so the Web Dev card and the footer link both point there.
   A dedicated `web-development.html` would slot straight in.
 - The five service pages carry placeholder copy in some process steps.
+- **The phone number and office hours on `contact.html` are placeholders**
+  (+44 1234 567890, Mon-Fri 9am-5:30pm). Replace them before the page goes
+  live — search contact.html for `tel:`.
 - `assets/logos/` is empty, so the home page marquee shows client names as text
   wordmarks. Drop the artwork in and it swaps over — `assets/logos/README.md`
   lists the exact file names.

@@ -24,19 +24,19 @@
     { href: 'about.html',            label: 'About' },
     { href: 'index.html#process',    label: 'Our Process' },
     { href: 'index.html#foundation', label: 'Website Builder' },
-    { href: 'index.html#contact',    label: 'Contact' }
+    { href: 'contact.html',          label: 'Contact' }
   ];
   var PILL_NAV = [
     { href: 'index.html#services', label: 'Services' },
     { href: 'index.html#process',  label: 'Our Process' },
-    { href: 'index.html#contact',  label: 'Contact' }
+    { href: 'contact.html',        label: 'Contact' }
   ];
   var COMPANY = [
     { href: 'index.html',         label: 'Home' },
     { href: 'about.html',         label: 'About' },
     { href: 'services.html',      label: 'All Services' },
     { href: 'index.html#process', label: 'Our Process' },
-    { href: 'index.html#contact', label: 'Contact' }
+    { href: 'contact.html',       label: 'Contact' }
   ];
   var SOCIALS = [
     { label: 'Facebook',  href: '#', path: 'M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z' },
