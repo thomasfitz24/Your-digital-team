@@ -7,6 +7,7 @@
 <meta name="description" content="Every service Your Digital Team offers — SEO, content, digital PR, paid media, analytics, branding and web development.">
 <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/nb-international-pro">
 <link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="vendor/site-chrome.css">
 <style>
   /* ══════════════════════════════════════════════════════════
      Same tokens as the home page — keep these files in step
@@ -266,6 +267,9 @@
 
   .ydt-services__card {
     position: relative;
+    display: block;
+    text-decoration: none;
+    color: inherit;
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
@@ -559,7 +563,7 @@
 
             <div class="ydt-services__titles" id="ydtTitles"></div>
 
-            <a href="/contact" class="ydt-services__cta">
+            <a href="index.html#contact" class="ydt-services__cta">
               Start a project
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="5" y1="12" x2="19" y2="12"/>
@@ -640,12 +644,12 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var services = [
-    { title: 'SEO',     label: 'Search Engine Optimisation', search: 'seo agency',          headline: 'Dominate search results with technical precision', description: 'We help businesses rank higher on Google through technical SEO, on-page optimisation, link building, and local SEO strategies that drive measurable organic growth.', accent: '#e9e9e9', accentHover: '#7ecfc0', stat: '100+', statLabel: 'Organic',           capabilities: ['Technical SEO','Local SEO','Link Building','Schema Markup'], image: '' },
-    { title: 'PPC',     label: 'Pay-Per-Click Advertising',  search: 'ppc management',      headline: 'Performance campaigns that maximise ROI',          description: 'Our PPC specialists manage high-performance paid search and social campaigns across Google Ads and Meta, optimised daily to maximise your return on ad spend.', accent: '#a0b4e8', accentHover: '#e9e9e9', stat: '5.2x', statLabel: 'Average ROAS',      capabilities: ['Google Ads','Meta Ads','Programmatic','Conversion Tracking'], image: '' },
-    { title: 'Social',  label: 'Social Media Marketing',     search: 'social media agency', headline: 'Content people actually stop scrolling for',       description: 'We create and manage social media strategies across Instagram, Facebook, LinkedIn, and TikTok that grow your audience and convert followers into customers.', accent: '#e8a0b4', accentHover: '#b8a0e8', stat: '4',    statLabel: 'Platforms Managed', capabilities: ['Instagram','TikTok','LinkedIn','Content Production'], image: '' },
-    { title: 'Email',   label: 'Email Marketing',            search: 'email marketing',     headline: 'Turn your list into repeat revenue',               description: 'From automated drip campaigns to newsletters and promotional emails, we build email marketing systems that nurture your leads and drive repeat revenue.', accent: '#e8c4a0', accentHover: '#a0b4e8', stat: '3x',   statLabel: 'Repeat Revenue',    capabilities: ['Drip Campaigns','Newsletters','Automation','Segmentation'], image: '' },
-    { title: 'Content', label: 'Content Creation',           search: 'content agency',      headline: 'Content that ranks, engages, and converts',        description: 'We produce data-driven blog posts, landing pages, and marketing copy built around search intent and topical authority so your content ranks and converts.', accent: '#7ecfc0', accentHover: '#e8a0b4', stat: '100%', statLabel: 'More Clicks',       capabilities: ['Blog Strategy','Landing Pages','Copywriting','Topical Authority'], image: '' },
-    { title: 'Web Dev', label: 'Web Development & Analytics',search: 'web development',     headline: 'High-performance sites built to convert',          description: 'We build responsive websites, optimise user experiences, and develop custom digital platforms that turn your online presence into a powerful engine for measurable business growth.', accent: '#a0e8c4', accentHover: '#e8c4a0', stat: '<1s',  statLabel: 'Load Times',        capabilities: ['Responsive Build','Performance','GA4 & Analytics','CMS Integration'], image: '' }
+    { title: 'SEO', href: 'seo.html',     label: 'Search Engine Optimisation', search: 'seo agency',          headline: 'Dominate search results with technical precision', description: 'We help businesses rank higher on Google through technical SEO, on-page optimisation, link building, and local SEO strategies that drive measurable organic growth.', accent: '#e9e9e9', accentHover: '#7ecfc0', stat: '100+', statLabel: 'Organic',           capabilities: ['Technical SEO','Local SEO','Link Building','Schema Markup'], image: '' },
+    { title: 'PPC', href: 'ppc.html',     label: 'Pay-Per-Click Advertising',  search: 'ppc management',      headline: 'Performance campaigns that maximise ROI',          description: 'Our PPC specialists manage high-performance paid search and social campaigns across Google Ads and Meta, optimised daily to maximise your return on ad spend.', accent: '#a0b4e8', accentHover: '#e9e9e9', stat: '5.2x', statLabel: 'Average ROAS',      capabilities: ['Google Ads','Meta Ads','Programmatic','Conversion Tracking'], image: '' },
+    { title: 'Social', href: 'social.html',  label: 'Social Media Marketing',     search: 'social media agency', headline: 'Content people actually stop scrolling for',       description: 'We create and manage social media strategies across Instagram, Facebook, LinkedIn, and TikTok that grow your audience and convert followers into customers.', accent: '#e8a0b4', accentHover: '#b8a0e8', stat: '4',    statLabel: 'Platforms Managed', capabilities: ['Instagram','TikTok','LinkedIn','Content Production'], image: '' },
+    { title: 'Email', href: 'email.html',   label: 'Email Marketing',            search: 'email marketing',     headline: 'Turn your list into repeat revenue',               description: 'From automated drip campaigns to newsletters and promotional emails, we build email marketing systems that nurture your leads and drive repeat revenue.', accent: '#e8c4a0', accentHover: '#a0b4e8', stat: '3x',   statLabel: 'Repeat Revenue',    capabilities: ['Drip Campaigns','Newsletters','Automation','Segmentation'], image: '' },
+    { title: 'Content', href: 'content.html', label: 'Content Creation',           search: 'content agency',      headline: 'Content that ranks, engages, and converts',        description: 'We produce data-driven blog posts, landing pages, and marketing copy built around search intent and topical authority so your content ranks and converts.', accent: '#7ecfc0', accentHover: '#e8a0b4', stat: '100%', statLabel: 'More Clicks',       capabilities: ['Blog Strategy','Landing Pages','Copywriting','Topical Authority'], image: '' },
+    { title: 'Web Dev', href: 'index.html#foundation', label: 'Web Development & Analytics',search: 'web development',     headline: 'High-performance sites built to convert',          description: 'We build responsive websites, optimise user experiences, and develop custom digital platforms that turn your online presence into a powerful engine for measurable business growth.', accent: '#a0e8c4', accentHover: '#e8c4a0', stat: '<1s',  statLabel: 'Load Times',        capabilities: ['Responsive Build','Performance','GA4 & Analytics','CMS Integration'], image: '' }
   ];
 
   var COUNT = services.length;
@@ -710,8 +714,10 @@
 
   /* ── cards ── */
   services.forEach(function (s, idx) {
-    var card = document.createElement('article');
+    var card = document.createElement('a');
     card.className = 'ydt-services__card';
+    card.href = s.href;
+    card.setAttribute('aria-label', s.title + ' — ' + s.label);
     var index = String(idx + 1).padStart(2, '0') + ' / ' + String(COUNT).padStart(2, '0');
     var art = s.image || standIn(s.accent, s.accentHover);
     var pill = '<span class="ydt-services__card-search">' + searchGlyph() + esc(s.search) + trendGlyph() + '</span>';
@@ -740,7 +746,7 @@
         '<div>' +
           '<div class="ydt-services__card-row">' +
             '<span class="ydt-services__card-service-label">' + esc(s.label) + '</span>' +
-            '<a href="/contact" class="ydt-services__card-idx" style="color:rgba(0,0,0,0.4);text-decoration:none" onclick="event.stopPropagation()">' + index + '</a>' +
+            '<span class="ydt-services__card-idx" style="color:rgba(0,0,0,0.4)">' + index + '</span>' +
           '</div>' +
           '<h3 class="ydt-services__card-headline--hover">' + esc(s.headline) + '</h3>' +
           '<p class="ydt-services__card-desc">' + esc(s.description) + '</p>' +
@@ -898,5 +904,6 @@
   });
 })();
 </script>
+<script src="vendor/site-chrome.js" defer></script>
 </body>
 </html>

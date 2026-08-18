@@ -7,6 +7,7 @@
 <meta name="description" content="Your Digital Team is a growth marketing agency. SEO, paid media and web builds engineered to compound.">
 <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/nb-international-pro">
 <link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="vendor/site-chrome.css">
 <style>
   :root {
     --black: #000000;
@@ -86,222 +87,7 @@
   }
   .spotlight--on { opacity: 1; }
 
-  /* ══════════ HEADER (glass pill) ══════════ */
-  .ydt-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 39;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    opacity: 0;
-    transition: opacity 0.35s var(--ease);
-  }
-  .ydt-backdrop--visible { display: block; opacity: 1; }
-
-  .ydt-header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; }
-  .ydt-header__shell { padding: 16px; }
-  @media (min-width: 768px) { .ydt-header__shell { padding: 20px 14%; } }
-  @media (min-width: 1200px) { .ydt-header__shell { padding: 20px 20%; } }
-
-  .ydt-header__pill {
-    border-radius: 14px;
-    padding: 16px 22px;
-    position: relative;
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(28px) saturate(140%);
-    -webkit-backdrop-filter: blur(28px) saturate(140%);
-    border: none;
-    box-shadow: 0 4px 34px rgba(0, 0, 0, 0.45);
-    transition: background var(--menu-dur) var(--menu-ease);
-  }
-  @media (min-width: 768px) { .ydt-header__pill { padding: 16px 28px; } }
-  /* the panel darkens as it opens so the large links stay legible */
-  .ydt-header--dropdown-open .ydt-header__pill {
-    background: rgba(12, 12, 12, 0.62);
-  }
-
-  .ydt-header__row { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-
-  .ydt-header__logo {
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.11em;
-    color: var(--white);
-    text-decoration: none;
-    position: relative;
-    z-index: 60;
-    white-space: nowrap;
-  }
-  @media (min-width: 768px) { .ydt-header__logo { font-size: 13.5px; } }
-
-  .ydt-header__nav {
-    display: none;
-    align-items: center;
-    gap: 26px;
-    position: relative;
-    height: 18px;
-    margin-left: auto;
-    margin-right: 12px;
-    transition: opacity 0.35s var(--ease);
-  }
-  @media (min-width: 768px) { .ydt-header__nav { display: flex; } }
-  /* inline links step aside for the open panel */
-  .ydt-header--dropdown-open .ydt-header__nav { opacity: 0; pointer-events: none; }
-
-  .ydt-header__nav-link {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.62);
-    text-decoration: none;
-    transition: color 0.3s;
-    position: relative;
-    white-space: nowrap;
-  }
-  .ydt-header__nav-link:hover { color: var(--white); }
-
-  .ydt-header__underline {
-    position: absolute;
-    bottom: -7px;
-    height: 2px;
-    background: var(--white);
-    opacity: 0;
-    transition: left 0.4s var(--ease), width 0.4s var(--ease), opacity 0.25s;
-    pointer-events: none;
-  }
-
-  .ydt-header__controls { display: flex; align-items: center; z-index: 60; position: relative; }
-
-  .ydt-header__grid-btn {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 26px; height: 26px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.62);
-    transition: color 0.25s;
-    padding: 0;
-  }
-  @media (min-width: 768px) { .ydt-header__grid-btn { display: flex; } }
-  .ydt-header__grid-btn:hover { color: var(--white); }
-  /* the grid turns to a diamond rather than an X */
-  .ydt-header__grid-btn svg {
-    transition: transform var(--menu-dur) var(--menu-ease);
-    transform-origin: center;
-  }
-  /* a turn and a half of the icon's own symmetry (90 + 45), landing on the diamond */
-  .ydt-header--dropdown-open .ydt-header__grid-btn svg { transform: rotate(135deg); }
-  .ydt-header--dropdown-open .ydt-header__grid-btn { color: var(--white); }
-
-  .ydt-header__burger {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px; height: 28px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    color: var(--white);
-    padding: 4px;
-  }
-  @media (min-width: 768px) { .ydt-header__burger { display: none; } }
-
-  .ydt-header__icon-wrap { position: relative; width: 16px; height: 16px; }
-  .ydt-header__icon {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
-  }
-  .ydt-header__icon--open { opacity: 1; transform: scale(1) rotate(0deg); }
-  .ydt-header__icon--close { opacity: 0; transform: scale(0) rotate(-180deg); }
-  .ydt-header--dropdown-open .ydt-header__icon--open { opacity: 0; transform: scale(0) rotate(180deg); }
-  .ydt-header--dropdown-open .ydt-header__icon--close { opacity: 1; transform: scale(1) rotate(0deg); }
-
-  /* ── dropdown panel ── */
-  .ydt-header__dropdown {
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    transition: max-height var(--menu-dur) var(--menu-ease), opacity var(--menu-dur) var(--menu-ease);
-  }
-  .ydt-header--dropdown-open .ydt-header__dropdown { max-height: 560px; opacity: 1; }
-
-  .ydt-header__dropdown-inner { padding: 34px 0 4px; }
-  @media (min-width: 768px) { .ydt-header__dropdown-inner { padding: 44px 0 6px; } }
-
-  .ydt-header__dropdown-links { display: flex; flex-direction: column; }
-
-  .ydt-header__dropdown-item {
-    opacity: 0;
-    transform: translateX(-24px);
-    filter: blur(6px);
-    transition: opacity 0.65s var(--ease), transform 0.65s var(--ease), filter 0.65s var(--ease);
-  }
-  .ydt-header--dropdown-open .ydt-header__dropdown-item { opacity: 1; transform: translateX(0); filter: blur(0px); }
-  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(1) { transition-delay: 0.12s; }
-  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(2) { transition-delay: 0.19s; }
-  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(3) { transition-delay: 0.26s; }
-  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(4) { transition-delay: 0.33s; }
-  .ydt-header--dropdown-open .ydt-header__dropdown-item:nth-child(5) { transition-delay: 0.40s; }
-
-  .ydt-header__dropdown-btn {
-    display: block;
-    width: 100%;
-    text-align: left;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 5px 0;
-    font-family: inherit;
-    text-decoration: none;
-  }
-  .ydt-header__dropdown-label {
-    display: block;
-    font-size: clamp(1.5rem, 3.6vw, 2rem);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-    line-height: 1.32;
-    color: var(--white);
-    transition: color 0.3s var(--ease), transform 0.4s var(--ease);
-  }
-  .ydt-header__dropdown-btn:hover .ydt-header__dropdown-label {
-    color: rgba(255, 255, 255, 0.45);
-    transform: translateX(8px);
-  }
-
-  /* ── social row ── */
-  .ydt-header__dropdown-social {
-    margin-top: 26px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.5s 0.5s var(--ease), transform 0.5s 0.5s var(--ease);
-  }
-  .ydt-header--dropdown-open .ydt-header__dropdown-social { opacity: 1; transform: translateY(0); }
-  .ydt-header__social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, 0.55);
-    text-decoration: none;
-    transition: color 0.25s, transform 0.25s var(--ease);
-  }
-  .ydt-header__social-link svg { width: 16px; height: 16px; display: block; }
-  .ydt-header__social-link:hover { color: var(--white); transform: translateY(-2px); }
+  /* Header styling now lives in vendor/site-chrome.css (shared by every page). */
 
   .progress {
     position: fixed;
@@ -659,6 +445,9 @@
 
   .ydt-services__card {
     position: relative;
+    display: block;
+    text-decoration: none;
+    color: inherit;
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
@@ -1073,29 +862,7 @@
   .final-cta .sec-title { margin-bottom: 20px; }
   .final-cta .sec-sub { max-width: 30rem; margin: 0 auto 48px; }
 
-  /* ══════════ FOOTER ══════════ */
-  .site-footer { border-top: 1px solid var(--line); position: relative; z-index: 2; }
-  .footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 24px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .footer-inner span { font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray6); }
-  .footer-nav { display: flex; gap: 20px; flex-wrap: wrap; }
-  .footer-nav a {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--gray5);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-nav a:hover { color: var(--white); }
+  /* Footer styling now lives in vendor/site-chrome.css (shared by every page). */
 
   /* ══════════ MOTION FALLBACKS ══════════ */
   @media (prefers-reduced-motion: reduce) {
@@ -1127,78 +894,7 @@
 <div class="spotlight" id="spotlight" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"></div>
-<div class="ydt-backdrop" id="ydtBackdrop" aria-hidden="true"></div>
-
-<!-- ══════════ HEADER ══════════ -->
-<header class="ydt-header" id="ydtHeader" role="banner">
-  <div class="ydt-header__shell">
-    <div class="ydt-header__pill" id="ydtPill">
-      <div class="ydt-header__row">
-        <a href="#top" class="ydt-header__logo" aria-label="yourdigitalteam home">yourdigitalteam.</a>
-
-        <nav class="ydt-header__nav" aria-label="Primary navigation">
-          <div class="ydt-header__underline" id="ydtUnderline" aria-hidden="true"></div>
-          <a href="#services" class="ydt-header__nav-link">Services</a>
-          <a href="#process" class="ydt-header__nav-link">Our Process</a>
-          <a href="#contact" class="ydt-header__nav-link">Contact</a>
-        </nav>
-
-        <div class="ydt-header__controls">
-          <button class="ydt-header__grid-btn" id="ydtGridBtn" aria-expanded="false" aria-controls="ydtDropdown" aria-label="Open menu">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <rect x="2" y="2" width="8.5" height="8.5" rx="1.4"/>
-              <rect x="13.5" y="2" width="8.5" height="8.5" rx="1.4"/>
-              <rect x="2" y="13.5" width="8.5" height="8.5" rx="1.4"/>
-              <rect x="13.5" y="13.5" width="8.5" height="8.5" rx="1.4"/>
-            </svg>
-          </button>
-          <button class="ydt-header__burger" id="ydtBurger" aria-expanded="false" aria-controls="ydtDropdown" aria-label="Toggle menu">
-            <div class="ydt-header__icon-wrap">
-              <span class="ydt-header__icon ydt-header__icon--open" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-              </span>
-              <span class="ydt-header__icon ydt-header__icon--close" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              </span>
-            </div>
-          </button>
-        </div>
-      </div>
-
-      <div class="ydt-header__dropdown" id="ydtDropdown" role="menu" aria-label="Site pages">
-        <div class="ydt-header__dropdown-inner">
-          <div class="ydt-header__dropdown-links">
-            <div class="ydt-header__dropdown-item" role="none"><a href="#services" class="ydt-header__dropdown-btn" role="menuitem"><span class="ydt-header__dropdown-label">Services</span></a></div>
-            <div class="ydt-header__dropdown-item" role="none"><a href="#process" class="ydt-header__dropdown-btn" role="menuitem"><span class="ydt-header__dropdown-label">Our Process</span></a></div>
-            <div class="ydt-header__dropdown-item" role="none"><a href="#foundation" class="ydt-header__dropdown-btn" role="menuitem"><span class="ydt-header__dropdown-label">Website Builder</span></a></div>
-            <div class="ydt-header__dropdown-item" role="none"><a href="#contact" class="ydt-header__dropdown-btn" role="menuitem"><span class="ydt-header__dropdown-label">Contact</span></a></div>
-          </div>
-
-          <div class="ydt-header__dropdown-social" aria-label="Social links">
-            <a href="#" class="ydt-header__social-link" aria-label="Facebook">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
-            </a>
-            <a href="#" class="ydt-header__social-link" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.8s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.5.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></svg>
-            </a>
-            <a href="#" class="ydt-header__social-link" aria-label="X">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 2.3h3.3l-7.2 8.2L22.8 22h-6.6l-5.2-6.8L5.1 22H1.8l7.7-8.8L1.5 2.3h6.8l4.7 6.2 5.2-6.2zm-1.2 17.7h1.8L7.1 4.2H5.2L17 20z"/></svg>
-            </a>
-            <a href="#" class="ydt-header__social-link" aria-label="YouTube">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.6a2.9 2.9 0 0 0-2-2.1C19.1 5 12 5 12 5s-7.1 0-8.9.5a2.9 2.9 0 0 0-2.1 2.1A30 30 0 0 0 .5 12a30 30 0 0 0 .5 4.4 2.9 2.9 0 0 0 2.1 2.1c1.8.5 8.9.5 8.9.5s7.1 0 8.9-.5a2.9 2.9 0 0 0 2.1-2.1 30 30 0 0 0 .5-4.4 30 30 0 0 0-.5-4.4zM9.8 15.3V8.7l5.7 3.3z"/></svg>
-            </a>
-            <a href="#" class="ydt-header__social-link" aria-label="TikTok">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.8a4.8 4.8 0 0 1-1.2-3.2h-3.3v13.1a2.7 2.7 0 1 1-1.9-2.6V9.7a5.9 5.9 0 1 0 5.2 5.9V9.2A8 8 0 0 0 20 10.7V7.5a4.8 4.8 0 0 1-3.4-1.7z"/></svg>
-            </a>
-            <a href="#" class="ydt-header__social-link" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.3v1.6h.1a3.7 3.7 0 0 1 3.3-1.8c3.6 0 4.3 2.3 4.3 5.4v6.2zM5.3 7.4a2.1 2.1 0 1 1 2.1-2.1 2.1 2.1 0 0 1-2.1 2.1zm1.8 13H3.6V9h3.5v11.4zM22.2 0H1.8A1.8 1.8 0 0 0 0 1.8v20.4A1.8 1.8 0 0 0 1.8 24h20.4a1.8 1.8 0 0 0 1.8-1.8V1.8A1.8 1.8 0 0 0 22.2 0z"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
+<!-- header + backdrop are injected by vendor/site-chrome.js -->
 
 <main id="top">
   <!-- ══════════ HERO ══════════ -->
@@ -1427,18 +1123,7 @@
   </section>
 </main>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <span>© 2026 yourdigitalteam. All rights reserved.</span>
-    <nav class="footer-nav" aria-label="Footer">
-      <a href="#services">Services</a>
-      <a href="#process">Our Process</a>
-      <a href="#contact">Contact</a>
-      <a href="#">Instagram</a>
-      <a href="#">LinkedIn</a>
-    </nav>
-  </div>
-</footer>
+<!-- footer is injected by vendor/site-chrome.js -->
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
@@ -1450,83 +1135,7 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(pointer: fine)').matches;
 
-  /* ══════ HEADER: dropdown ══════ */
-  var header = document.getElementById('ydtHeader');
-  var pill = document.getElementById('ydtPill');
-  var gridBtn = document.getElementById('ydtGridBtn');
-  var burger = document.getElementById('ydtBurger');
-  var backdrop = document.getElementById('ydtBackdrop');
-  var dropdown = document.getElementById('ydtDropdown');
-  var underline = document.getElementById('ydtUnderline');
-  var navLinks = document.querySelectorAll('.ydt-header__nav-link');
-  var isOpen = false;
-
-  function openDropdown() {
-    isOpen = true;
-    header.classList.add('ydt-header--dropdown-open');
-    gridBtn.setAttribute('aria-expanded', 'true');
-    gridBtn.setAttribute('aria-label', 'Close menu');
-    burger.setAttribute('aria-expanded', 'true');
-    if (dropdown) dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
-    backdrop.classList.add('ydt-backdrop--visible');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeDropdown() {
-    isOpen = false;
-    header.classList.remove('ydt-header--dropdown-open');
-    gridBtn.setAttribute('aria-expanded', 'false');
-    gridBtn.setAttribute('aria-label', 'Open menu');
-    burger.setAttribute('aria-expanded', 'false');
-    if (dropdown) dropdown.style.maxHeight = '0px';
-    backdrop.classList.remove('ydt-backdrop--visible');
-    document.body.style.removeProperty('overflow');
-  }
-  function toggleDropdown() { isOpen ? closeDropdown() : openDropdown(); }
-
-  gridBtn.addEventListener('click', toggleDropdown);
-  burger.addEventListener('click', toggleDropdown);
-  backdrop.addEventListener('click', closeDropdown);
-  document.addEventListener('mousedown', function (e) {
-    if (isOpen && !pill.contains(e.target)) closeDropdown();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && isOpen) closeDropdown();
-  });
-  document.querySelectorAll('.ydt-header__dropdown a').forEach(function (a) {
-    a.addEventListener('click', closeDropdown);
-  });
-
-  /* the underline rests on the section you're in and follows the cursor on hover */
-  var navEl = document.querySelector('.ydt-header__nav');
-  var activeNavLink = null;
-  var navHovered = false;
-
-  function placeUnderline(link) {
-    if (!link || !navEl) { underline.style.opacity = '0'; return; }
-    var rect = link.getBoundingClientRect();
-    var navRect = navEl.getBoundingClientRect();
-    underline.style.left = (rect.left - navRect.left) + 'px';
-    underline.style.width = rect.width + 'px';
-    underline.style.opacity = '1';
-  }
-  function setActiveNav(hash) {
-    activeNavLink = null;
-    navLinks.forEach(function (l) {
-      if (l.getAttribute('href') === hash) activeNavLink = l;
-    });
-    if (!navHovered) placeUnderline(activeNavLink);
-  }
-
-  navLinks.forEach(function (link) {
-    link.addEventListener('mouseenter', function () { navHovered = true; placeUnderline(link); });
-  });
-  if (navEl) {
-    navEl.addEventListener('mouseleave', function () { navHovered = false; placeUnderline(activeNavLink); });
-  }
-  window.addEventListener('resize', function () {
-    placeUnderline(navHovered ? null : activeNavLink);
-    if (isOpen && dropdown) dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
-  });
+  /* the header (pill, dropdown, underline) is built by vendor/site-chrome.js */
 
   /* ══════ CURSOR SPOTLIGHT (lerped) ══════ */
   var spot = document.getElementById('spotlight');
@@ -1683,17 +1292,7 @@
   }
   initCtaBar('footCtaBar', 'footPlaceholder', 'mailto:hello@yourdigiteam.com');
 
-  /* ══════ track the section in view so the header underline follows ══════ */
-  var sectionIds = ['top', 'services', 'foundation', 'process', 'contact'];
-  var sections = sectionIds.map(function (id) { return document.getElementById(id); });
-  var secObs = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
-      var i = sections.indexOf(entry.target);
-      if (i > -1) setActiveNav('#' + sectionIds[i]);
-    });
-  }, { rootMargin: '-45% 0px -45% 0px' });
-  sections.forEach(function (sec) { if (sec) secObs.observe(sec); });
+  /* the header underline spy now lives in vendor/site-chrome.js */
 
   /* ══════ GSAP SCROLL CHOREOGRAPHY ══════ */
   if (!window.gsap || !window.ScrollTrigger) return;
@@ -1768,12 +1367,12 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var services = [
-    { title: 'SEO',     label: 'Search Engine Optimisation', search: 'seo agency',          headline: 'Dominate search results with technical precision', description: 'We help businesses rank higher on Google through technical SEO, on-page optimisation, link building, and local SEO strategies that drive measurable organic growth.', accent: '#e9e9e9', accentHover: '#7ecfc0', stat: '100+', statLabel: 'Organic',           capabilities: ['Technical SEO','Local SEO','Link Building','Schema Markup'], image: '' },
-    { title: 'PPC',     label: 'Pay-Per-Click Advertising',  search: 'ppc management',      headline: 'Performance campaigns that maximise ROI',          description: 'Our PPC specialists manage high-performance paid search and social campaigns across Google Ads and Meta, optimised daily to maximise your return on ad spend.', accent: '#a0b4e8', accentHover: '#e9e9e9', stat: '5.2x', statLabel: 'Average ROAS',      capabilities: ['Google Ads','Meta Ads','Programmatic','Conversion Tracking'], image: '' },
-    { title: 'Social',  label: 'Social Media Marketing',     search: 'social media agency', headline: 'Content people actually stop scrolling for',       description: 'We create and manage social media strategies across Instagram, Facebook, LinkedIn, and TikTok that grow your audience and convert followers into customers.', accent: '#e8a0b4', accentHover: '#b8a0e8', stat: '4',    statLabel: 'Platforms Managed', capabilities: ['Instagram','TikTok','LinkedIn','Content Production'], image: '' },
-    { title: 'Email',   label: 'Email Marketing',            search: 'email marketing',     headline: 'Turn your list into repeat revenue',               description: 'From automated drip campaigns to newsletters and promotional emails, we build email marketing systems that nurture your leads and drive repeat revenue.', accent: '#e8c4a0', accentHover: '#a0b4e8', stat: '3x',   statLabel: 'Repeat Revenue',    capabilities: ['Drip Campaigns','Newsletters','Automation','Segmentation'], image: '' },
-    { title: 'Content', label: 'Content Creation',           search: 'content agency',      headline: 'Content that ranks, engages, and converts',        description: 'We produce data-driven blog posts, landing pages, and marketing copy built around search intent and topical authority so your content ranks and converts.', accent: '#7ecfc0', accentHover: '#e8a0b4', stat: '100%', statLabel: 'More Clicks',       capabilities: ['Blog Strategy','Landing Pages','Copywriting','Topical Authority'], image: '' },
-    { title: 'Web Dev', label: 'Web Development & Analytics',search: 'web development',     headline: 'High-performance sites built to convert',          description: 'We build responsive websites, optimise user experiences, and develop custom digital platforms that turn your online presence into a powerful engine for measurable business growth.', accent: '#a0e8c4', accentHover: '#e8c4a0', stat: '<1s',  statLabel: 'Load Times',        capabilities: ['Responsive Build','Performance','GA4 & Analytics','CMS Integration'], image: '' }
+    { title: 'SEO', href: 'seo.html',     label: 'Search Engine Optimisation', search: 'seo agency',          headline: 'Dominate search results with technical precision', description: 'We help businesses rank higher on Google through technical SEO, on-page optimisation, link building, and local SEO strategies that drive measurable organic growth.', accent: '#e9e9e9', accentHover: '#7ecfc0', stat: '100+', statLabel: 'Organic',           capabilities: ['Technical SEO','Local SEO','Link Building','Schema Markup'], image: '' },
+    { title: 'PPC', href: 'ppc.html',     label: 'Pay-Per-Click Advertising',  search: 'ppc management',      headline: 'Performance campaigns that maximise ROI',          description: 'Our PPC specialists manage high-performance paid search and social campaigns across Google Ads and Meta, optimised daily to maximise your return on ad spend.', accent: '#a0b4e8', accentHover: '#e9e9e9', stat: '5.2x', statLabel: 'Average ROAS',      capabilities: ['Google Ads','Meta Ads','Programmatic','Conversion Tracking'], image: '' },
+    { title: 'Social', href: 'social.html',  label: 'Social Media Marketing',     search: 'social media agency', headline: 'Content people actually stop scrolling for',       description: 'We create and manage social media strategies across Instagram, Facebook, LinkedIn, and TikTok that grow your audience and convert followers into customers.', accent: '#e8a0b4', accentHover: '#b8a0e8', stat: '4',    statLabel: 'Platforms Managed', capabilities: ['Instagram','TikTok','LinkedIn','Content Production'], image: '' },
+    { title: 'Email', href: 'email.html',   label: 'Email Marketing',            search: 'email marketing',     headline: 'Turn your list into repeat revenue',               description: 'From automated drip campaigns to newsletters and promotional emails, we build email marketing systems that nurture your leads and drive repeat revenue.', accent: '#e8c4a0', accentHover: '#a0b4e8', stat: '3x',   statLabel: 'Repeat Revenue',    capabilities: ['Drip Campaigns','Newsletters','Automation','Segmentation'], image: '' },
+    { title: 'Content', href: 'content.html', label: 'Content Creation',           search: 'content agency',      headline: 'Content that ranks, engages, and converts',        description: 'We produce data-driven blog posts, landing pages, and marketing copy built around search intent and topical authority so your content ranks and converts.', accent: '#7ecfc0', accentHover: '#e8a0b4', stat: '100%', statLabel: 'More Clicks',       capabilities: ['Blog Strategy','Landing Pages','Copywriting','Topical Authority'], image: '' },
+    { title: 'Web Dev', href: 'index.html#foundation', label: 'Web Development & Analytics',search: 'web development',     headline: 'High-performance sites built to convert',          description: 'We build responsive websites, optimise user experiences, and develop custom digital platforms that turn your online presence into a powerful engine for measurable business growth.', accent: '#a0e8c4', accentHover: '#e8c4a0', stat: '<1s',  statLabel: 'Load Times',        capabilities: ['Responsive Build','Performance','GA4 & Analytics','CMS Integration'], image: '' }
   ];
 
   var COUNT = services.length;
@@ -1838,8 +1437,10 @@
 
   /* ── cards ── */
   services.forEach(function (s, idx) {
-    var card = document.createElement('article');
+    var card = document.createElement('a');
     card.className = 'ydt-services__card';
+    card.href = s.href;
+    card.setAttribute('aria-label', s.title + ' — ' + s.label);
     var index = String(idx + 1).padStart(2, '0') + ' / ' + String(COUNT).padStart(2, '0');
     var art = s.image || standIn(s.accent, s.accentHover);
     var pill = '<span class="ydt-services__card-search">' + searchGlyph() + esc(s.search) + trendGlyph() + '</span>';
@@ -1868,7 +1469,7 @@
         '<div>' +
           '<div class="ydt-services__card-row">' +
             '<span class="ydt-services__card-service-label">' + esc(s.label) + '</span>' +
-            '<a href="#contact" class="ydt-services__card-idx" style="color:rgba(0,0,0,0.4);text-decoration:none" onclick="event.stopPropagation()">' + index + '</a>' +
+            '<span class="ydt-services__card-idx" style="color:rgba(0,0,0,0.4)">' + index + '</span>' +
           '</div>' +
           '<h3 class="ydt-services__card-headline--hover">' + esc(s.headline) + '</h3>' +
           '<p class="ydt-services__card-desc">' + esc(s.description) + '</p>' +
@@ -2026,5 +1627,6 @@
   });
 })();
 </script>
+<script src="vendor/site-chrome.js" defer></script>
 </body>
 </html>
