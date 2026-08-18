@@ -1,0 +1,42 @@
+# Publishes yourdigiteam/ to GitHub Pages so the site can be viewed on a real
+# URL before it goes to its own domain.
+name: Deploy preview to GitHub Pages
+
+on:
+  push:
+    branches:
+      - claude/install-ui-ux-pro-max-skill-0dys4s
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # The preview lives on a github.io subpath. The pages themselves carry
+      # canonical tags pointing at the real domain, so keep crawlers off the
+      # preview rather than letting it compete with the live site.
+      - name: Block indexing of the preview
+        run: |
+          printf 'User-agent: *\nDisallow: /\n' > yourdigiteam/robots.txt
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: yourdigiteam
+      - id: deployment
+        uses: actions/deploy-pages@v4
