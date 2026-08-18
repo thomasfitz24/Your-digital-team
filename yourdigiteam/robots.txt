@@ -1,0 +1,8 @@
+# yourdigiteam.com
+User-agent: *
+Allow: /
+
+# nothing here worth crawling
+Disallow: /header-snippet.html
+
+Sitemap: https://www.yourdigiteam.com/sitemap.xml

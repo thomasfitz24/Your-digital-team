@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found — yourdigitalteam</title>
+<meta name="description" content="That page does not exist. Head back to the home page or pick a service.">
+<meta name="robots" content="noindex">
+
+<!-- ── icons ── -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#000000">
+
+<!-- ── social cards ── -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Your Digital Team">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="Search Engine Optimisation — yourdigitalteam">
+<meta property="og:description" content="Data-driven search engine optimisation systems engineered to dominate your market, scale organic reach and turn visibility into predictable revenue.">
+<meta property="og:image" content="https://www.yourdigiteam.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Your Digital Team — we build digital growth that compounds.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Search Engine Optimisation — yourdigitalteam">
+<meta name="twitter:description" content="Data-driven search engine optimisation systems engineered to dominate your market, scale organic reach and turn visibility into predictable revenue.">
+<meta name="twitter:image" content="https://www.yourdigiteam.com/assets/og-image.png">
+<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/nb-international-pro">
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="vendor/site-chrome.css">
+<style>
+  /* ══════════════════════════════════════════════════════════
+     Same tokens as the home page — keep these files in step
+     ══════════════════════════════════════════════════════════ */
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --w25: rgba(255, 255, 255, 0.25);
+    --w30: rgba(255, 255, 255, 0.30);
+    --gray5: #6b7280;
+    --gray6: #4b5563;
+    --line: rgba(255, 255, 255, 0.06);
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --card-line: rgba(255, 255, 255, 0.05);
+    --accent: #ffffff;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'NB International Pro', 'Inter', 'Arial', sans-serif;
+    /* clearance for the site header that wraps this page */
+    --header-h: 92px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: rgba(255, 255, 255, 0.22); color: var(--black); }
+
+  a { color: inherit; }
+  :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+
+  .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+
+  /* ══════════ ATMOSPHERE ══════════ */
+  .grain {
+    position: fixed;
+    inset: -120px;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+  }
+  @keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); }
+    16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); }
+    50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); }
+    83% { transform: translate(-12px, -10px); }
+  }
+
+  .spotlight {
+    position: fixed;
+    top: 0; left: 0;
+    width: 620px; height: 620px;
+    margin: -310px 0 0 -310px;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease;
+    will-change: transform;
+  }
+  .spotlight--on { opacity: 1; }
+
+  /* ══════════ REVEAL PRIMITIVES ══════════ */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+  }
+  [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+  .clip { overflow: hidden; }
+  .clip > .slide {
+    display: block;
+    transform: translateY(105%);
+    transition: transform 1s var(--ease);
+  }
+  .clip.in-view > .slide { transform: translateY(0); }
+
+  /* ══════════ SECTION FURNITURE ══════════ */
+  section { position: relative; z-index: 2; }
+  .sec { padding: 120px 0; }
+  @media (max-width: 700px) { .sec { padding: 80px 0; } }
+
+  .sec-head { max-width: 720px; margin-bottom: 64px; }
+  .sec-title {
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    margin-bottom: 18px;
+  }
+  .sec-title .dim { color: var(--w25); }
+  .sec-sub { font-size: 16px; color: var(--w30); line-height: 1.7; }
+
+  .glass-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 16px 32px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: var(--white);
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.30);
+    transition: background 0.3s, border-color 0.3s, transform 0.3s var(--ease);
+    cursor: pointer;
+  }
+  .glass-btn:hover { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.20); }
+  .glass-btn .icn { display: inline-flex; align-items: center; margin-left: 14px; transition: transform 0.3s; }
+  .glass-btn:hover .icn { transform: translateX(4px); }
+
+  /* ══════════ 404 ══════════ */
+  .nf {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: calc(var(--header-h) + 80px) 0 100px;
+  }
+  .nf-code {
+    font-size: clamp(5rem, 18vw, 11rem);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+    color: var(--w25);
+    margin-bottom: 26px;
+  }
+  .nf h1 {
+    font-size: clamp(1.8rem, 4.4vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.06;
+    margin-bottom: 20px;
+  }
+  .nf p { font-size: 16px; color: var(--w30); line-height: 1.75; max-width: 34rem; margin-bottom: 44px; }
+  .nf-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 44px;
+    padding-top: 34px;
+    border-top: 1px solid var(--line);
+  }
+  .nf-links a {
+    padding: 11px 18px;
+    border: 1px solid var(--card-line);
+    background: var(--card-bg);
+    border-radius: 999px;
+    font-size: 12px;
+    color: var(--w30);
+    text-decoration: none;
+    transition: color 0.28s var(--ease), border-color 0.28s var(--ease), transform 0.28s var(--ease);
+  }
+  .nf-links a:hover { color: var(--white); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+  <section class="nf">
+    <div class="container">
+      <div class="nf-code" aria-hidden="true">404</div>
+      <h1>
+        <span class="clip"><span class="slide">That page isn't here.</span></span>
+      </h1>
+      <p data-reveal>
+        It may have moved, or the link may have been mistyped. Nothing is broken on your
+        end — here is everything that does exist.
+      </p>
+      <a class="glass-btn" href="index.html" data-magnetic data-reveal>
+        Back to the home page
+        <span class="icn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
+      </a>
+      <nav class="nf-links" aria-label="All pages" data-reveal>
+        <a href="services.html">All services</a>
+        <a href="seo.html">SEO</a>
+        <a href="ppc.html">PPC</a>
+        <a href="social.html">Social</a>
+        <a href="email.html">Email</a>
+        <a href="content.html">Content</a>
+        <a href="index.html#foundation">Web development</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) raf = requestAnimationFrame(loop);
+      else raf = null;
+    }
+  }
+
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  if (reduceMotion) { revealEls.forEach(function (el) { el.classList.add('in-view'); }); }
+  else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+  }
+})();
+</script>
+<script src="vendor/site-chrome.js" defer></script>
+</body>
+</html>

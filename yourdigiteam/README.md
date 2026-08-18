@@ -7,6 +7,8 @@ index.html        home — hero, services filmstrip, foundation, process, contac
 about.html        about
 services.html     all services (the filmstrip on its own page)
 contact.html      contact page + enquiry form
+privacy.html      privacy policy
+404.html          not-found page
 seo.html          ┐
 ppc.html          │
 social.html       ├ service pages
@@ -62,15 +64,38 @@ A link whose file matches the current page gets `aria-current="page"`.
 
 Validation, the honeypot and the confirmation panel behave the same either way.
 
+## Analytics
+
+Off by default — the site sets no cookies and shows no banner. To switch it on,
+put your GA4 measurement ID in `GA_ID` near the bottom of `vendor/site-chrome.js`.
+The consent banner then appears and nothing loads until the visitor accepts;
+the choice is stored in localStorage and can be reset from `privacy.html`.
+
+A cookieless tool (Plausible, Fathom) needs no banner at all — swap the body of
+`loadAnalytics` for their script and drop the `consentBanner()` call in `mount`.
+
+## SEO furniture
+
+Canonical, Open Graph, Twitter card and icon tags are injected per page. JSON-LD
+lives in each page's `<head>`: `ProfessionalService` + `WebSite` on the home
+page, `ProfessionalService` + `BreadcrumbList` on about/services/contact, and
+`Service` + `BreadcrumbList` on the five service pages. `sitemap.xml` and
+`robots.txt` both hardcode `https://www.yourdigiteam.com` — change them together
+if the domain changes.
+
 ## Known gaps
 
 - **No Web Development page.** The home page's `#foundation` section is the web
   development content, so the Web Dev card and the footer link both point there.
   A dedicated `web-development.html` would slot straight in.
 - The five service pages carry placeholder copy in some process steps.
-- **The phone number and office hours on `contact.html` are placeholders**
-  (+44 1234 567890, Mon-Fri 9am-5:30pm). Replace them before the page goes
-  live — search contact.html for `tel:`.
+- **The office hours on `contact.html` are a guess** (Mon-Fri, 9am-5:30pm).
+- **`privacy.html` needs the proprietor's legal name and an address for
+  service** before launch, and `PROPRIETOR` / `SERVICE_ADDRESS` in
+  `vendor/site-chrome.js` need the same so the footer carries them.
+- **The NB International Pro licence is unverified.** It is loading from
+  cdnfonts; it is a commercial Neubau typeface. Confirm a web licence before
+  the site goes live commercially.
 - `assets/logos/` is empty, so the home page marquee shows client names as text
   wordmarks. Drop the artwork in and it swaps over — `assets/logos/README.md`
   lists the exact file names.

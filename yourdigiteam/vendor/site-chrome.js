@@ -36,8 +36,15 @@
     { href: 'about.html',         label: 'About' },
     { href: 'services.html',      label: 'All Services' },
     { href: 'index.html#process', label: 'Our Process' },
-    { href: 'contact.html',       label: 'Contact' }
+    { href: 'contact.html',       label: 'Contact' },
+    { href: 'privacy.html',       label: 'Privacy' }
   ];
+
+  /* Sole trader, not a limited company. UK business-names rules still require
+     the proprietor's name and an address for service to be shown. */
+  var TRADING_NAME = 'Your Digital Team';
+  var PROPRIETOR = '';          /* TODO: your full legal name */
+  var SERVICE_ADDRESS = '';     /* TODO: an address where documents can be served */
   var SOCIALS = [
     { label: 'Facebook',  href: '#', path: 'M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z' },
     { label: 'Instagram', href: '#', path: 'M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.8s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.5.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z' },
@@ -46,7 +53,7 @@
     { label: 'TikTok',    href: '#', path: 'M16.6 5.8a4.8 4.8 0 0 1-1.2-3.2h-3.3v13.1a2.7 2.7 0 1 1-1.9-2.6V9.7a5.9 5.9 0 1 0 5.2 5.9V9.2A8 8 0 0 0 20 10.7V7.5a4.8 4.8 0 0 1-3.4-1.7z' },
     { label: 'LinkedIn',  href: '#', path: 'M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.3v1.6h.1a3.7 3.7 0 0 1 3.3-1.8c3.6 0 4.3 2.3 4.3 5.4v6.2zM5.3 7.4a2.1 2.1 0 1 1 2.1-2.1 2.1 2.1 0 0 1-2.1 2.1zm1.8 13H3.6V9h3.5v11.4zM22.2 0H1.8A1.8 1.8 0 0 0 0 1.8v20.4A1.8 1.8 0 0 0 1.8 24h20.4a1.8 1.8 0 0 0 1.8-1.8V1.8A1.8 1.8 0 0 0 22.2 0z' }
   ];
-  var EMAIL = 'hello@yourdigiteam.com';
+  var EMAIL = 'thomas@yourdigiteam.com';
 
   /* ── which page are we on ── */
   var HERE = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
@@ -156,7 +163,10 @@
         '</div>' +
       '</div>' +
       '<div class="site-footer__bar">' +
-        '<span class="site-footer__copy">© ' + new Date().getFullYear() + ' yourdigitalteam. All rights reserved.</span>' +
+        '<span class="site-footer__copy">© ' + new Date().getFullYear() + ' yourdigitalteam. ' +
+          (PROPRIETOR ? esc(PROPRIETOR) + ' trading as ' + esc(TRADING_NAME) + '. ' : '') +
+          (SERVICE_ADDRESS ? esc(SERVICE_ADDRESS) + '. ' : '') +
+          'All rights reserved.</span>' +
         '<div class="site-footer__socials">' +
           SOCIALS.map(function (s) {
             return '<a href="' + esc(s.href) + '" aria-label="' + esc(s.label) + '">' +
@@ -193,6 +203,7 @@
     else document.body.appendChild(footer);
 
     wire(header, backdrop);
+    consentBanner();
   }
 
   /* ══════════ BEHAVIOUR ══════════ */
@@ -294,6 +305,79 @@
     }
     trackSections();
   }
+
+  /* ══════════════════════════════════════════════════════════════
+     ANALYTICS + CONSENT
+
+     Paste your GA4 measurement ID into GA_ID below (looks like
+     "G-XXXXXXXXXX") and analytics switches on. Leave it empty and
+     nothing loads and no banner appears — the site stays entirely
+     cookie-free, which is why it ships that way.
+
+     GA4 sets cookies, so under UK GDPR / PECR it may not run until
+     the visitor agrees. Nothing is loaded before "Accept" is
+     clicked, and the choice is remembered in localStorage. Decline
+     is as easy as accept, which is the part most banners get wrong.
+
+     If you would rather not have a banner at all, a cookieless
+     analytics tool (Plausible, Fathom) needs no consent — swap the
+     loadAnalytics body for their one-line script and delete the
+     banner call.
+     ══════════════════════════════════════════════════════════════ */
+  var GA_ID = '';                       /* e.g. 'G-XXXXXXXXXX' */
+  var CONSENT_KEY = 'ydt-consent';
+
+  function loadAnalytics() {
+    if (!GA_ID || window.__ydtAnalytics) return;
+    window.__ydtAnalytics = true;
+    var s1 = document.createElement('script');
+    s1.async = true;
+    s1.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s1);
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA_ID, { anonymize_ip: true });
+  }
+
+  function consentBanner() {
+    if (!GA_ID) return;                                  /* nothing to consent to */
+    var stored = null;
+    try { stored = localStorage.getItem(CONSENT_KEY); } catch (e) {}
+    if (stored === 'granted') { loadAnalytics(); return; }
+    if (stored === 'denied') return;
+
+    var el = document.createElement('div');
+    el.className = 'ydt-consent';
+    el.setAttribute('role', 'dialog');
+    el.setAttribute('aria-label', 'Cookies');
+    el.innerHTML =
+      '<p>We would like to use analytics cookies to see which pages are useful. ' +
+      'Nothing loads unless you agree, and you can change your mind any time. ' +
+      '<a href="privacy.html">How we handle data</a>.</p>' +
+      '<div class="ydt-consent__row">' +
+        '<button type="button" class="ydt-consent__yes">Accept</button>' +
+        '<button type="button" class="ydt-consent__no">Decline</button>' +
+      '</div>';
+    document.body.appendChild(el);
+    requestAnimationFrame(function () { el.classList.add('is-in'); });
+
+    function choose(value) {
+      try { localStorage.setItem(CONSENT_KEY, value); } catch (e) {}
+      if (value === 'granted') loadAnalytics();
+      el.classList.remove('is-in');
+      setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 500);
+    }
+    el.querySelector('.ydt-consent__yes').addEventListener('click', function () { choose('granted'); });
+    el.querySelector('.ydt-consent__no').addEventListener('click', function () { choose('denied'); });
+  }
+
+  /* let the privacy page offer a way back out */
+  window.ydtResetConsent = function () {
+    try { localStorage.removeItem(CONSENT_KEY); } catch (e) {}
+    location.reload();
+  };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
   else mount();
