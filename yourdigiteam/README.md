@@ -53,6 +53,9 @@ A link whose file matches the current page gets `aria-current="page"`.
   development content, so the Web Dev card and the footer link both point there.
   A dedicated `web-development.html` would slot straight in.
 - The five service pages carry placeholder copy in some process steps.
+- `assets/logos/` is empty, so the home page marquee shows client names as text
+  wordmarks. Drop the artwork in and it swaps over — `assets/logos/README.md`
+  lists the exact file names.
 - `header-snippet.html` is a *separate copy* for pasting into a CMS that already
   has its own layout. It does not read from `site-chrome.js`, so a nav change
   made here has to be repeated there.

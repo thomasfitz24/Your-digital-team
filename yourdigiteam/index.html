@@ -214,30 +214,72 @@
   @media (min-width: 768px) { .ydt-cta__go-btn svg { width: 16px; height: 16px; } }
   .ydt-cta__go-btn:hover svg { transform: translateX(1px); }
 
-  /* ══════════ MARQUEE ══════════ */
+  /* ══════════ MARQUEE (client logos) ══════════ */
   .ticker {
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
     overflow: hidden;
-    padding: 18px 0;
+    padding: 30px 0;
     position: relative;
     z-index: 2;
+    /* the row dissolves into the page at both ends instead of being cut off */
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+  .ticker-label {
+    display: block;
+    text-align: center;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gray6);
+    margin-bottom: 26px;
   }
   .ticker-track { display: flex; width: max-content; will-change: transform; }
-  .ticker-item {
+  .ticker-group {
     display: flex;
     align-items: center;
-    gap: 48px;
-    padding-right: 48px;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.18);
+    gap: 56px;
+    padding-right: 56px;
+    flex-shrink: 0;
+  }
+  @media (min-width: 768px) { .ticker-group { gap: 76px; padding-right: 76px; } }
+
+  .ticker-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    flex-shrink: 0;
+    opacity: 0.42;
+    transition: opacity 0.35s var(--ease);
+  }
+  @media (min-width: 768px) { .ticker-logo { height: 36px; } }
+  .ticker-track:hover .ticker-logo { opacity: 0.22; }
+  .ticker-track:hover .ticker-logo:hover { opacity: 1; }
+
+  /* every logo is flattened to one white silhouette, so a black wordmark, a
+     coloured mark and a near-white monogram all read the same on the black */
+  .ticker-logo img {
+    height: 100%;
+    width: auto;
+    max-width: 190px;
+    object-fit: contain;
+    display: block;
+    filter: brightness(0) invert(1);
+  }
+  /* shown when the logo file is not in assets/logos yet */
+  .ticker-logo__name {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--white);
     white-space: nowrap;
   }
-  .ticker-item .sep { color: rgba(255, 255, 255, 0.45); }
-  .css-marquee .ticker-track { animation: ticker 30s linear infinite; }
+  @media (min-width: 768px) { .ticker-logo__name { font-size: 17px; } }
+
+  .css-marquee .ticker-track { animation: ticker 46s linear infinite; }
   @keyframes ticker { to { transform: translateX(-50%); } }
 
   /* ══════════ SECTIONS ══════════ */
@@ -914,15 +956,11 @@
     </div>
   </section>
 
-  <!-- ══════════ MARQUEE ══════════ -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track">
-      <span class="ticker-item">SEO <span class="sep">✦</span> PPC <span class="sep">✦</span> Social <span class="sep">✦</span> Email <span class="sep">✦</span> Content <span class="sep">✦</span> Web Dev <span class="sep">✦</span></span>
-      <span class="ticker-item">SEO <span class="sep">✦</span> PPC <span class="sep">✦</span> Social <span class="sep">✦</span> Email <span class="sep">✦</span> Content <span class="sep">✦</span> Web Dev <span class="sep">✦</span></span>
-      <span class="ticker-item">SEO <span class="sep">✦</span> PPC <span class="sep">✦</span> Social <span class="sep">✦</span> Email <span class="sep">✦</span> Content <span class="sep">✦</span> Web Dev <span class="sep">✦</span></span>
-      <span class="ticker-item">SEO <span class="sep">✦</span> PPC <span class="sep">✦</span> Social <span class="sep">✦</span> Email <span class="sep">✦</span> Content <span class="sep">✦</span> Web Dev <span class="sep">✦</span></span>
-    </div>
-  </div>
+  <!-- ══════════ MARQUEE (client logos — see assets/logos/README.md) ══════════ -->
+  <section class="ticker" aria-label="Brands we work with">
+    <span class="ticker-label">Trusted by</span>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </section>
 
   <!-- ══════════ SERVICES (sticky panel + scroll-driven filmstrip) ══════════ -->
   <div class="ydt-services" id="services">
@@ -1292,6 +1330,59 @@
   }
   initCtaBar('footCtaBar', 'footPlaceholder', 'mailto:hello@yourdigiteam.com');
 
+  /* ══════ CLIENT LOGO MARQUEE ══════ */
+  /* Add a client by adding one line here. Drop the artwork in assets/logos/
+     under the same file name and it replaces the text wordmark automatically. */
+  var clients = [
+    { name: 'Senttr',               file: 'senttr.svg' },
+    { name: 'Fitzgerald Capital',   file: 'fitzgerald-capital.svg' },
+    { name: 'SVD',                  file: 'svd.svg' },
+    { name: 'Punt Caravan Parking', file: 'punt-caravan-parking.svg' },
+    { name: 'PilotQ',               file: 'pilotq.svg' },
+    { name: 'Gutters.co.uk',        file: 'gutters-co-uk.svg' },
+    { name: '911 Backdate',         file: '911-backdate.svg' },
+    { name: 'Heating',              file: 'heating.svg' }
+  ];
+
+  var tickerTrack = document.getElementById('tickerTrack');
+  if (tickerTrack && clients.length) {
+    var buildGroup = function (decorative) {
+      var group = document.createElement('div');
+      group.className = 'ticker-group';
+      if (decorative) group.setAttribute('aria-hidden', 'true');
+      clients.forEach(function (c) {
+        var cell = document.createElement('div');
+        cell.className = 'ticker-logo';
+        var img = document.createElement('img');
+        img.src = 'assets/logos/' + c.file;
+        img.alt = decorative ? '' : c.name;
+        /* no lazy loading here: an offscreen image never resolves, so a missing
+           file would never fall back to the wordmark below */
+        img.addEventListener('error', function () {
+          var span = document.createElement('span');
+          span.className = 'ticker-logo__name';
+          span.textContent = c.name;
+          if (img.parentNode === cell) cell.replaceChild(span, img);
+        });
+        cell.appendChild(img);
+        group.appendChild(cell);
+      });
+      return group;
+    };
+
+    /* One pass of the list can be narrower than the screen, which would show a
+       gap mid-loop. Repeat it until it covers the viewport, then mirror the
+       whole thing — the animation travels exactly -50%, so it never seams.
+       Each group is built fresh rather than cloned, because cloneNode and
+       innerHTML both drop the error listeners the fallback depends on. */
+    tickerTrack.appendChild(buildGroup(false));
+    var groupWidth = tickerTrack.firstChild.getBoundingClientRect().width;
+    var copies = groupWidth > 0 ? Math.max(1, Math.ceil(window.innerWidth / groupWidth)) : 1;
+    var n;
+    for (n = 1; n < copies; n++) tickerTrack.appendChild(buildGroup(true));
+    for (n = 0; n < copies; n++) tickerTrack.appendChild(buildGroup(true));
+  }
+
   /* the header underline spy now lives in vendor/site-chrome.js */
 
   /* ══════ GSAP SCROLL CHOREOGRAPHY ══════ */
@@ -1309,7 +1400,12 @@
 
     document.body.classList.remove('css-marquee');
     var track = document.querySelector('.ticker-track');
-    var tickerTween = gsap.to(track, { xPercent: -50, ease: 'none', duration: 30, repeat: -1 });
+    /* hold a constant px/sec however many logos are in the row */
+    var travel = track ? track.getBoundingClientRect().width / 2 : 0;
+    var tickerTween = gsap.to(track, {
+      xPercent: -50, ease: 'none', repeat: -1,
+      duration: travel > 0 ? travel / 46 : 30
+    });
     ScrollTrigger.create({
       onUpdate: function (self) {
         var v = 1 + Math.min(Math.abs(self.getVelocity()) / 1200, 2);
