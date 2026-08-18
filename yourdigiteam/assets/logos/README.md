@@ -17,7 +17,7 @@ The "Trusted by" marquee on the home page loads its artwork from this folder.
 | PilotQ                | `pilotq.svg`               |
 | Gutters.co.uk         | `gutters-co-uk.svg`        |
 | 911 Backdate          | `911-backdate.svg`         |
-| Heating               | `heating.svg`              |
+| Smart Plus Heating    | `smart-plus-heating.svg`   |
 
 To add, remove or reorder clients, edit the `clients` array in `index.html`
 (search for `CLIENT LOGO MARQUEE`). One line per client.
@@ -40,6 +40,5 @@ To add, remove or reorder clients, edit the `clients` array in `index.html`
 
 ## Note
 
-The red "HEATING" logo was supplied cropped — the company name above the word
-"HEATING" was cut off. It is listed as "Heating" for now; rename it in the
-`clients` array once the full name is known.
+Gutters.co.uk is in the logo set but is not one of the nine projects on
+`web-development.html`. Add it there too if that work belongs in the portfolio.

@@ -16,7 +16,7 @@
     { href: 'social.html',         label: 'Social Media' },
     { href: 'email.html',          label: 'Email Marketing' },
     { href: 'content.html',        label: 'Content' },
-    { href: 'index.html#foundation', label: 'Web Development' }
+    { href: 'web-development.html', label: 'Web Development' }
   ];
   var MENU = [
     { href: 'index.html',            label: 'Home' },
