@@ -5,7 +5,7 @@
 
      Design system — "signal":
        base #050505 · panels #0b0a09 (warm-shifted) · hairlines at 7% white
-       type: NB International Pro (display/body) + IBM Plex Mono (data)
+       type: Inter (display/body) + IBM Plex Mono (data)
        accent ramp — signal red #ff4536 → #d81e0d. Used for performance data
        (sparklines, deltas, live-dots, checks), the primary CTA, and the
        ambient glow. Never on body copy, never two accents on one screen.
@@ -33,7 +33,7 @@
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --menu-dur: 1.15s;
     --menu-ease: cubic-bezier(0.62, 0.02, 0.2, 1);
-    --font: 'NB International Pro', 'Inter', 'Arial', sans-serif;
+    --font: 'Inter', 'Arial', sans-serif;
     --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   }
 .ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -108,7 +108,7 @@
   }
 .ydt-page .clip.in-view > .slide { transform: translateY(0); }
 
-/* the lime live-dot — one of the few places colour is allowed */
+/* the live-dot — one of the few places colour is allowed */
 .ydt-page .live-dot {
     display: inline-block;
     width: 6px; height: 6px;
@@ -826,7 +826,7 @@
 .ydt-page .bento-plan-row--now { color: rgba(255, 255, 255, 0.85); border-color: rgba(255, 255, 255, 0.16); }
 .ydt-page .bento-plan-row--next { opacity: 0.55; }
 .ydt-page .bento-plan-when { margin-left: auto; font-size: 9.5px; color: var(--gray6); }
-/* — the asterisk pill row — */
+/* — the dot pill row — */
 .ydt-page .bento-pills {
     display: flex;
     flex-wrap: wrap;
@@ -1519,6 +1519,17 @@
   .ydt-page .sec-eyebrow-text { font-size: 10px; letter-spacing: 0.1em; }
   .ydt-page .kpi-label { letter-spacing: 0.06em; }
 
+  /* the five channel tiles overflowed a phone — the labels carry it alone */
+  .ydt-page .bento-ch-tile { display: none; }
+  .ydt-page .bento-channels { gap: 8px; flex-wrap: wrap; }
+  .ydt-page .bento-ch span {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 5px 12px;
+    border-radius: 99px;
+    color: var(--white);
+  }
+
   /* the numeral had its own column, leaving the copy a narrow gutter */
   .ydt-page .step {
     grid-template-columns: 1fr;
@@ -1696,7 +1707,7 @@
   <section class="bento sec" id="why" aria-labelledby="bentoTitle">
     <div class="container">
       <div class="sec-head sec-head--center">
-        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">✳</span><span class="sec-eyebrow-text">What you get</span></div>
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">What you get</span></div>
         <h2 class="sec-title" id="bentoTitle" data-reveal>Marketing you can <span class="dim">hold to account.</span></h2>
         <p class="sec-sub" data-reveal>Every hour we bill maps to a number you can check. Here's what that looks like in practice.</p>
       </div>
@@ -1764,12 +1775,12 @@
         </article>
       </div>
       <div class="bento-pills" data-reveal>
-        <span class="bento-pill"><b>✳</b>Audit first</span>
-        <span class="bento-pill"><b>✳</b>No long contracts</span>
-        <span class="bento-pill"><b>✳</b>Weekly updates</span>
-        <span class="bento-pill"><b>✳</b>Plain-English reporting</span>
-        <span class="bento-pill"><b>✳</b>UK-based</span>
-        <span class="bento-pill"><b>✳</b>Measured in revenue</span>
+        <span class="bento-pill"><b>●</b>Audit first</span>
+        <span class="bento-pill"><b>●</b>No long contracts</span>
+        <span class="bento-pill"><b>●</b>Weekly updates</span>
+        <span class="bento-pill"><b>●</b>Plain-English reporting</span>
+        <span class="bento-pill"><b>●</b>UK-based</span>
+        <span class="bento-pill"><b>●</b>Measured in revenue</span>
       </div>
     </div>
   </section>
@@ -1779,7 +1790,7 @@
   <section class="work" id="projects" aria-labelledby="workTitle">
       <div class="container work-intro">
         <div class="sec-head">
-          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">✳</span><span class="sec-eyebrow-text">Selected work</span></div>
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Selected work</span></div>
           <h2 class="sec-title" id="workTitle" data-reveal>Sites built to <span class="dim">be found.</span></h2>
           <p class="sec-sub" data-reveal>Nine builds across trades, storage, motoring and finance — each one designed around how its customers actually search.</p>
         </div>
@@ -1806,7 +1817,7 @@
   <section class="ydt-page-services-standalone" id="services" aria-labelledby="servicesTitle">
       <div class="container">
         <div class="sec-head">
-          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">✳</span><span class="sec-eyebrow-text">Services</span></div>
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Services</span></div>
           <h2 class="sec-title" id="servicesTitle" data-reveal>Our digital <span class="dim">marketing services.</span></h2>
           <p class="sec-sub" data-reveal>Explore our comprehensive suite of digital marketing and search engine optimisation services engineered to scale your business and drive predictable revenue.</p>
         </div>
@@ -1909,7 +1920,7 @@
   <section class="process sec" id="process" aria-labelledby="processTitle">
     <div class="container">
       <div class="sec-head">
-        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">✳</span><span class="sec-eyebrow-text">How it works</span></div>
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">How it works</span></div>
         <h2 class="sec-title" id="processTitle" data-reveal>No mystery. <span class="dim">Just method.</span></h2>
       </div>
       <div class="step-stack">
@@ -1957,7 +1968,7 @@
   <section class="journal sec" id="journal" aria-labelledby="journalTitle">
     <div class="container">
       <div class="sec-head">
-        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">✳</span><span class="sec-eyebrow-text">Journal</span></div>
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Journal</span></div>
         <h2 class="sec-title" id="journalTitle" data-reveal>Latest from <span class="dim">the blog.</span></h2>
         <p class="sec-sub" data-reveal>Practical notes on search, paid media and building sites that convert.</p>
       </div>
@@ -1982,7 +1993,7 @@
     <div class="container">
       <div class="app-promo__inner" data-reveal>
         <div class="app-promo__copy">
-          <div class="sec-eyebrow"><span class="sec-eyebrow-mark" aria-hidden="true">✳</span><span class="sec-eyebrow-text">Our platform</span></div>
+          <div class="sec-eyebrow"><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Our platform</span></div>
           <h2 class="sec-title" id="appTitle">Your rankings, <span class="dim">in your pocket.</span></h2>
           <p class="sec-sub">
             Every client gets the app. Track your keywords, traffic and leads whenever
@@ -2013,7 +2024,7 @@
   <!-- ══════════ FINAL CTA ══════════ -->
   <section class="final-cta" id="contact" aria-labelledby="ctaTitle">
     <div class="container">
-      <div class="sec-eyebrow" style="justify-content: center;" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">✳</span><span class="sec-eyebrow-text">Start here</span></div>
+      <div class="sec-eyebrow" style="justify-content: center;" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
       <h2 class="sec-title" id="ctaTitle" data-reveal>Ready when <span class="dim">you are.</span></h2>
       <p class="sec-sub" data-reveal>Free 30-minute growth plan. Keep it whether you hire us or not.</p>
       <div class="qcloud" data-reveal aria-label="Common questions — pick one to start with">

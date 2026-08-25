@@ -1,0 +1,877 @@
+<!-- ═══════════════════════════════════════════════════════════
+     contact.html  →  Squarespace page /contact
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     ── SETUP ────────────────────────────────────────────────
+     This page styles Squarespace's own Form Block so submissions
+     land in Squarespace, not a third party. On the /contact page:
+
+       1. Add a FORM BLOCK anywhere on the page (above or below
+          this Code Block — the script moves it into place).
+       2. Give it these fields, in this order:
+            Name (name)          · required
+            Email (email)        · required
+            Phone (phone)
+            Website (text)
+            Budget (select)      · options as you like
+            What do you need? (checkbox) — SEO, PPC, Social,
+                               Email, Content, Website, Not sure
+            Tell us more (textarea)
+       3. Set the form's storage (Squarespace / email / Google Sheet).
+
+     Field names are free — the styling keys off field TYPE, so any
+     order or wording works. If the Form Block is missing or fails
+     to load, the page shows an email fallback instead of a blank
+     space.
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- runs before paint: only hide the raw form when JS is definitely alive -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+/* ══════════════════════════════════════════════════════════
+   Same tokens as the homepage. Contact adds nothing new to the
+   system — it reuses the panel, the card, the ember button, the
+   mono micro-label and the single red accent.
+   ══════════════════════════════════════════════════════════ */
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { text-decoration: none; color: inherit; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ SHARED PRIMITIVES ══════════ */
+.ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+.ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+.ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+.ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.6rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.02; margin-bottom: 18px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.65; }
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s, transform 0.6s var(--ease);
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+
+/* ══════════ HERO ══════════ */
+.ydt-page .hero {
+    position: relative;
+    padding: calc(var(--header-h) + 88px) 0 88px;
+    overflow: hidden;
+    z-index: 2;
+}
+/* the same light thrown from behind the top of the frame as the homepage */
+.ydt-page .hero-ember {
+    position: absolute; top: -52vh; left: 50%;
+    width: 190vw; height: 112vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.34) 0%, rgba(216, 30, 13, 0.16) 34%, rgba(118, 20, 10, 0.06) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .hero-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-height: 1180px; max-width: 1180px;
+    transform: translateX(-50%); border-radius: 50%;
+    pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.26);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .hero .container { position: relative; z-index: 2; }
+.ydt-page .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 34px;
+}
+.ydt-page .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4.6rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; max-width: 15ch;
+}
+.ydt-page .hero h1 .dim { color: var(--w25); }
+.ydt-page .hero-body {
+    font-size: 16px; color: var(--gray5); line-height: 1.7;
+    max-width: 36rem; margin-top: 30px;
+}
+/* the three facts a visitor weighs before filling anything in */
+.ydt-page .hero-meta {
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+    margin-top: 42px; max-width: 720px;
+}
+@media (min-width: 620px) { .ydt-page .hero-meta { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .hero-meta div {
+    display: flex; flex-direction: column; gap: 8px;
+    padding: 18px 20px; border-radius: 14px;
+    background: var(--panel); border: 1px solid var(--card-line);
+}
+.ydt-page .hero-meta dt {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--gray6); font-weight: 500;
+}
+.ydt-page .hero-meta dd { font-size: 14px; font-weight: 500; color: var(--white); margin: 0; letter-spacing: -0.01em; }
+
+/* ══════════ CONTACT GRID ══════════ */
+.ydt-page .contact { border-top: 1px solid var(--line2); padding: 104px 0; }
+.ydt-page .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 56px; }
+@media (min-width: 960px) {
+    .ydt-page .contact-grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 72px; align-items: start; }
+}
+.ydt-page .form-head { margin-bottom: 38px; }
+.ydt-page .form-head h2 {
+    font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 14px;
+}
+.ydt-page .form-head p { font-size: 15px; color: var(--gray5); line-height: 1.7; }
+.ydt-page .form-head b { color: var(--data); font-weight: 500; }
+
+/* shown only if the Form Block is missing or never renders */
+.ydt-page .form-fallback {
+    display: none;
+    padding: 30px; border-radius: 18px;
+    background: var(--panel); border: 1px solid var(--card-line);
+}
+.ydt-page .form-fallback.is-on { display: block; }
+.ydt-page .form-fallback p { font-size: 15px; color: var(--gray5); line-height: 1.7; margin-bottom: 22px; }
+
+/* ══════════ SIDEBAR CARDS ══════════ */
+.ydt-page .aside-card {
+    border: 1px solid var(--card-line); background: var(--panel);
+    border-radius: 20px; padding: 32px 28px; transition: border-color 0.5s;
+}
+.ydt-page .aside-card:hover { border-color: rgba(255, 255, 255, 0.14); }
+.ydt-page .aside-card + .aside-card { margin-top: 16px; }
+.ydt-page .aside-card h3 {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--gray6); font-weight: 500; margin-bottom: 24px;
+}
+.ydt-page .direct { display: flex; flex-direction: column; gap: 20px; }
+.ydt-page .direct a, .ydt-page .direct span.row { display: flex; align-items: flex-start; gap: 14px; }
+.ydt-page .direct svg {
+    width: 16px; height: 16px; flex-shrink: 0; margin-top: 3px;
+    color: var(--gray5); transition: color 0.28s, transform 0.3s var(--ease);
+}
+.ydt-page .direct a:hover svg { color: var(--data); transform: scale(1.1); }
+.ydt-page .direct b { display: block; font-size: 15px; font-weight: 500; color: var(--white); letter-spacing: -0.01em; transition: color 0.28s; }
+.ydt-page .direct a:hover b { color: rgba(255, 255, 255, 0.72); }
+.ydt-page .direct small { display: block; font-size: 12px; color: var(--gray6); margin-top: 3px; }
+
+/* the same numbered-chip sequence as "How it works" on the homepage */
+.ydt-page .steps { counter-reset: s; display: flex; flex-direction: column; gap: 22px; }
+.ydt-page .step { display: flex; gap: 15px; align-items: flex-start; }
+.ydt-page .step-n {
+    counter-increment: s; flex-shrink: 0; width: 34px; height: 34px;
+    border-radius: 10px; background: var(--panel2); border: 1px solid var(--card-line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--data); line-height: 1;
+}
+.ydt-page .step-n::before { content: "0" counter(s); }
+.ydt-page .step b { display: block; font-size: 15px; font-weight: 600; margin-bottom: 5px; letter-spacing: -0.01em; }
+.ydt-page .step p { font-size: 13.5px; color: var(--gray5); line-height: 1.65; }
+
+/* ══════════ TRUSTED BY — the homepage band, verbatim ══════════ */
+.ydt-page .trusted { padding: 0 12px; position: relative; z-index: 2; }
+.ydt-page .trusted__inner {
+    max-width: 1200px; margin: 0 auto; background: var(--panel);
+    border: 1px solid var(--card-line); border-radius: 24px;
+    padding: 34px 0 36px; overflow: hidden;
+}
+.ydt-page .trusted__head {
+    display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap;
+    gap: 6px 10px; padding: 0 28px; margin-bottom: 30px; text-align: center;
+}
+.ydt-page .trusted__label {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray6);
+}
+.ydt-page .trusted__count { color: var(--data); }
+.ydt-page .ticker {
+    overflow: hidden; position: relative;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.ydt-page .ticker-track { display: flex; width: max-content; will-change: transform; }
+.ydt-page .ticker-group { display: flex; align-items: center; gap: 56px; padding-right: 56px; flex-shrink: 0; }
+@media (min-width: 768px) { .ydt-page .ticker-group { gap: 76px; padding-right: 76px; } }
+.ydt-page .ticker-logo {
+    display: flex; align-items: center; justify-content: center;
+    height: 30px; min-width: 110px; flex-shrink: 0;
+    opacity: 0.4; transition: opacity 0.35s var(--ease);
+}
+@media (min-width: 768px) { .ydt-page .ticker-logo { height: 36px; min-width: 130px; } }
+.ydt-page .ticker-track:hover .ticker-logo { opacity: 0.2; }
+.ydt-page .ticker-track:hover .ticker-logo:hover { opacity: 1; }
+.ydt-page .ticker-logo img {
+    height: 100%; width: auto; max-width: 190px; object-fit: contain;
+    display: block; filter: brightness(0) invert(1);
+}
+.ydt-page .ticker-logo__name { font-size: 15px; font-weight: 600; color: var(--white); white-space: nowrap; }
+@media (min-width: 768px) { .ydt-page .ticker-logo__name { font-size: 17px; } }
+.ydt-page .css-marquee .ticker-track { animation: ticker 46s linear infinite; }
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* ══════════ FAQ — the objections that stop people sending ══════════ */
+.ydt-page .faq { padding: 120px 0; }
+.ydt-page .faq .sec-head { max-width: 640px; margin-bottom: 52px; }
+.ydt-page .faq-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 700px)  { .ydt-page .faq-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (min-width: 1024px) { .ydt-page .faq-grid { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .faq-card {
+    background: var(--panel); border: 1px solid var(--card-line);
+    border-radius: 18px; padding: 28px; transition: border-color 0.5s;
+    display: flex; flex-direction: column;
+}
+.ydt-page .faq-card:hover { border-color: rgba(255, 255, 255, 0.14); }
+.ydt-page .faq-card h3 {
+    font-size: 16px; font-weight: 700; letter-spacing: -0.02em;
+    line-height: 1.35; margin-bottom: 12px;
+}
+.ydt-page .faq-card p { font-size: 13.5px; line-height: 1.7; color: var(--gray5); }
+.ydt-page .faq-q {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--data); margin-bottom: 14px; display: block;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SQUARESPACE FORM BLOCK OVERRIDES
+   The native block is relocated into #ydt-form-target and
+   restyled. Everything is keyed off field TYPE, so the field
+   order and wording can change without touching this CSS.
+   ══════════════════════════════════════════════════════════ */
+/* only hide the raw block when JS is running to move it — otherwise
+   a script failure would leave the page with no form at all */
+html.ydt-js .sqs-block-form { display: none; }
+html.ydt-js #ydt-form-target .sqs-block-form,
+html.ydt-js .sqs-block-form.ydt-form-rescued { display: block; }
+
+#ydt-form-target .sqs-block-content,
+#ydt-form-target .form-wrapper,
+#ydt-form-target .form-inner-wrapper {
+    padding: 0 !important; margin: 0 !important; background: none !important; border: none !important;
+}
+#ydt-form-target .description { display: none !important; }
+
+/* the native asterisk becomes the site's red dot */
+#ydt-form-target span.required { visibility: hidden !important; position: relative; width: 14px; display: inline-block; margin-left: 2px; }
+#ydt-form-target span.required::after {
+    content: '●'; color: var(--data); visibility: visible;
+    position: absolute; left: 4px; top: 0; font-size: 11px;
+}
+
+#ydt-form-target .field-list {
+    display: grid !important; grid-template-columns: 1fr;
+    gap: 22px !important; margin: 0 !important;
+}
+@media (min-width: 620px) {
+    #ydt-form-target .field-list { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    #ydt-form-target .form-item.text,
+    #ydt-form-target .form-item.email,
+    #ydt-form-target .form-item.phone,
+    #ydt-form-target .form-item.number,
+    #ydt-form-target .form-item.select { grid-column: span 1 !important; }
+    #ydt-form-target .form-item.textarea,
+    #ydt-form-target .form-item.checkbox,
+    #ydt-form-target .form-item.radio,
+    #ydt-form-target .form-item.name { grid-column: span 2 !important; }
+}
+/* first/last name sit side by side inside their own sub-list */
+#ydt-form-target .name .field-list {
+    display: flex !important; flex-direction: row !important;
+    gap: 22px !important; width: 100% !important;
+}
+#ydt-form-target .name .field { width: 100% !important; margin: 0 !important; }
+#ydt-form-target .form-item, #ydt-form-target .field { margin: 0 !important; padding: 0 !important; }
+
+#ydt-form-target .title,
+#ydt-form-target label.title,
+#ydt-form-target .caption-text {
+    font-family: var(--mono) !important; font-size: 10px !important;
+    text-transform: uppercase !important; letter-spacing: 0.14em !important;
+    color: var(--gray6) !important; font-weight: 500 !important;
+    margin-bottom: 9px !important; display: block !important;
+}
+
+#ydt-form-target input[type="text"],
+#ydt-form-target input[type="email"],
+#ydt-form-target input[type="tel"],
+#ydt-form-target input[type="number"],
+#ydt-form-target select,
+#ydt-form-target textarea {
+    font-family: var(--font) !important; font-size: 15px !important; color: var(--white) !important;
+    background: var(--panel2) !important; border: 1px solid var(--line2) !important;
+    border-radius: 12px !important; padding: 15px 17px !important; width: 100% !important;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease) !important;
+    -webkit-appearance: none; appearance: none; box-sizing: border-box !important; outline: none !important;
+}
+#ydt-form-target textarea { resize: vertical !important; min-height: 148px !important; line-height: 1.65 !important; }
+#ydt-form-target input::placeholder, #ydt-form-target textarea::placeholder { color: rgba(255, 255, 255, 0.22) !important; }
+#ydt-form-target input:hover, #ydt-form-target select:hover, #ydt-form-target textarea:hover { border-color: rgba(255, 255, 255, 0.14) !important; }
+#ydt-form-target input:focus, #ydt-form-target select:focus, #ydt-form-target textarea:focus {
+    border-color: rgba(255, 255, 255, 0.42) !important; background: rgba(255, 255, 255, 0.04) !important;
+}
+#ydt-form-target select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23918a84' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important; background-position: right 15px center !important;
+    background-size: 17px !important; padding-right: 44px !important; cursor: pointer;
+}
+#ydt-form-target select option { background: #100e0c !important; color: var(--white) !important; }
+
+/* Squarespace wraps checkbox and radio groups in a <fieldset>, whose
+   default browser border and legend inset cut across the chip row */
+#ydt-form-target fieldset {
+    border: 0 !important; padding: 0 !important; margin: 0 !important;
+    min-width: 0 !important; display: block !important;
+}
+#ydt-form-target legend {
+    padding: 0 !important; margin: 0 !important;
+    float: left !important; width: 100% !important;   /* keeps it above, not inset */
+}
+#ydt-form-target legend + * { clear: both; }
+
+/* checkboxes become the same chips the console uses for channels */
+#ydt-form-target .checkbox .option-list,
+#ydt-form-target .radio .option-list {
+    display: flex !important; flex-wrap: wrap !important; gap: 9px !important; padding-top: 4px;
+}
+#ydt-form-target .checkbox .option, #ydt-form-target .radio .option { margin: 0 !important; position: relative; }
+#ydt-form-target .checkbox label, #ydt-form-target .radio label {
+    display: block !important; padding: 10px 17px !important;
+    border: 1px solid var(--line) !important; border-radius: 999px !important;
+    font-family: var(--mono) !important; font-size: 11.5px !important;
+    letter-spacing: 0.06em !important; text-transform: uppercase !important;
+    color: var(--gray5) !important; background: rgba(255, 255, 255, 0.02) !important;
+    margin: 0 !important; cursor: pointer !important;
+    transition: color 0.28s var(--ease), border-color 0.28s var(--ease), background 0.28s var(--ease) !important;
+}
+#ydt-form-target .checkbox input[type="checkbox"],
+#ydt-form-target .radio input[type="radio"] {
+    position: absolute !important; opacity: 0 !important; width: 1px !important; height: 1px !important; margin: 0 !important;
+}
+#ydt-form-target .checkbox label:hover, #ydt-form-target .radio label:hover {
+    color: var(--white) !important; border-color: rgba(255, 255, 255, 0.18) !important;
+}
+/* :has() does the work in modern browsers; the JS mirror below covers the rest */
+#ydt-form-target .checkbox label:has(input:checked),
+#ydt-form-target .radio label:has(input:checked),
+#ydt-form-target .option.is-checked label {
+    color: var(--data) !important; background: var(--data-dim) !important;
+    border-color: rgba(255, 69, 54, 0.4) !important;
+}
+/* keyboard users need to see where they are, since the box itself is hidden */
+#ydt-form-target .checkbox input:focus-visible + span,
+#ydt-form-target .checkbox .option:focus-within label,
+#ydt-form-target .radio .option:focus-within label {
+    outline: 1.5px solid rgba(255,255,255,0.5) !important; outline-offset: 3px !important;
+}
+
+#ydt-form-target .form-button-wrapper { margin-top: 26px !important; }
+#ydt-form-target input[type="submit"], #ydt-form-target .button {
+    display: inline-flex !important; padding: 15px 30px !important; border-radius: 9999px !important;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep)) !important; border: none !important;
+    color: #1c0503 !important; font-family: var(--font) !important;
+    font-size: 14px !important; font-weight: 700 !important;
+    text-transform: none !important; letter-spacing: -0.01em !important;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+    cursor: pointer !important; width: auto !important; height: auto !important; line-height: 1 !important;
+    transition: filter 0.3s, box-shadow 0.3s !important;
+}
+#ydt-form-target input[type="submit"]:hover, #ydt-form-target .button:hover {
+    filter: brightness(1.07) !important;
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32) !important;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep)) !important;
+}
+#ydt-form-target .field-error {
+    font-family: var(--mono) !important; color: #ff8b8b !important;
+    font-size: 11px !important; letter-spacing: 0.04em !important; margin-top: 7px !important;
+}
+#ydt-form-target .form-item.error input,
+#ydt-form-target .form-item.error textarea,
+#ydt-form-target .form-item.error select { border-color: rgba(255, 139, 139, 0.55) !important; }
+/* the post-submit message, so success does not land on unstyled text */
+#ydt-form-target .form-submission-text, #ydt-form-target .form-submission-html {
+    font-size: 15px !important; color: var(--gray5) !important; line-height: 1.7 !important;
+    padding: 26px !important; border-radius: 16px !important;
+    background: var(--panel) !important; border: 1px solid var(--card-line) !important;
+}
+
+/* ══════════ MOTION FALLBACKS ══════════ */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page [data-reveal], .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    .ydt-page .css-marquee .ticker-track { animation: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .hero { padding: calc(var(--header-h) + 56px) 0 64px; }
+    .ydt-page .contact { padding: 76px 0; }
+    .ydt-page .faq { padding: 84px 0; }
+    .ydt-page .aside-card { padding: 26px 22px; }
+    /* nothing below 10px, same rule as the homepage */
+    .ydt-page .hero-meta dt,
+    .ydt-page .aside-card h3,
+    .ydt-page .faq-q,
+    .ydt-page .trusted__label,
+    .ydt-page .sec-eyebrow-text { font-size: 10px; letter-spacing: 0.12em; }
+    .ydt-page .ticker-logo { height: 24px; min-width: 84px; }
+    .ydt-page .ticker-logo__name { font-size: 13px; }
+    .ydt-page .ticker-group { gap: 40px; padding-right: 40px; }
+    .ydt-page .trusted__inner { padding: 28px 0 30px; }
+    .ydt-page .trusted__head { margin-bottom: 24px; }
+    /* first/last name stack rather than squeeze into a phone */
+    #ydt-form-target .name .field-list { flex-direction: column !important; gap: 22px !important; }
+    #ydt-form-target input[type="text"],
+    #ydt-form-target input[type="email"],
+    #ydt-form-target input[type="tel"],
+    #ydt-form-target select,
+    #ydt-form-target textarea { font-size: 16px !important; }  /* 16px stops iOS zooming on focus */
+    #ydt-form-target input[type="submit"], #ydt-form-target .button { width: 100% !important; justify-content: center !important; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+/* out-specify Squarespace's own typography */
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+.ydt-page a { text-decoration: none; }
+</style>
+
+<div class="ydt-page ydt-page--contact">
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+
+<main id="contact-top">
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero">
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Free growth plan&nbsp;·&nbsp;No obligation</p>
+      <h1>
+        <span class="clip"><span class="slide">Tell us what</span></span>
+        <span class="clip"><span class="slide">you're trying <span class="dim">to grow.</span></span></span>
+      </h1>
+      <p class="hero-body" data-reveal>
+        No pitch deck, no six-week discovery phase. Send us the shape of the problem and
+        we'll come back with a free 30-minute growth plan — the actual plan, yours to keep
+        whether you hire us or not.
+      </p>
+      <dl class="hero-meta" data-reveal>
+        <div><dt>Reply time</dt><dd>Within one working day</dd></div>
+        <div><dt>Based in</dt><dd>United Kingdom</dd></div>
+        <div><dt>Working with</dt><dd>Founders &amp; marketing leads</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTACT ══════════ -->
+  <section class="contact" aria-labelledby="formTitle">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div>
+          <div class="form-head" data-reveal>
+            <h2 id="formTitle">Start a project</h2>
+            <p>Fields marked with a red dot (<b>●</b>) are the ones we genuinely need. Everything
+               else just helps us come back with something useful rather than generic.</p>
+          </div>
+
+          <!-- the Squarespace Form Block is moved in here on load -->
+          <div id="ydt-form-target" data-reveal></div>
+
+          <!-- shown only if that never happens -->
+          <div class="form-fallback" id="ydtFormFallback">
+            <p>The form isn't loading right now — sorry. Email us instead and you'll get
+               the same reply, usually within a working day.</p>
+            <a href="mailto:thomas@yourdigiteam.com" class="ember-btn">
+              Email us
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <aside>
+          <div class="aside-card" data-reveal>
+            <h3>Go direct</h3>
+            <div class="direct">
+              <a href="mailto:thomas@yourdigiteam.com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+                <span><b>thomas@yourdigiteam.com</b><small>Best for anything with detail</small></span>
+              </a>
+              <a href="tel:+447877411092">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+                <span><b>07877 411092</b><small>Mon–Fri, 9am–5:30pm</small></span>
+              </a>
+              <span class="row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span><b>United Kingdom</b><small>Remote-first, on site when it matters</small></span>
+              </span>
+            </div>
+          </div>
+
+          <div class="aside-card" data-reveal>
+            <h3>What happens next</h3>
+            <div class="steps">
+              <div class="step">
+                <span class="step-n" aria-hidden="true"></span>
+                <div>
+                  <b>We read it, not a bot</b>
+                  <p>One of us goes through what you sent and looks at your site and your search visibility before replying.</p>
+                </div>
+              </div>
+              <div class="step">
+                <span class="step-n" aria-hidden="true"></span>
+                <div>
+                  <b>A 30-minute call</b>
+                  <p>We walk you through what we found and where the quickest wins are. No deck, no pressure.</p>
+                </div>
+              </div>
+              <div class="step">
+                <span class="step-n" aria-hidden="true"></span>
+                <div>
+                  <b>You keep the plan</b>
+                  <p>Whether you work with us or hand it to someone else, the plan is yours. That's the whole offer.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ TRUSTED BY ══════════ -->
+  <section class="trusted" aria-label="Brands we work with">
+    <div class="trusted__inner">
+      <div class="trusted__head">
+        <span class="trusted__label">Trusted by the teams behind</span>
+        <span class="trusted__label trusted__count">9 UK &amp; international brands</span>
+      </div>
+      <div class="ticker">
+        <div class="ticker-track" id="tickerTrack"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FAQ ══════════ -->
+  <section class="faq" id="faq" aria-labelledby="faqTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Before you send</span></div>
+        <h2 class="sec-title" id="faqTitle" data-reveal>The questions <span class="dim">we always get.</span></h2>
+        <p class="sec-sub" data-reveal>Answered here so you don't have to ask them in the form.</p>
+      </div>
+      <div class="faq-grid">
+        <article class="faq-card" data-reveal>
+          <span class="faq-q">Cost</span>
+          <h3>What will this cost me?</h3>
+          <p>The audit and the plan cost nothing. If you go ahead, we price the work monthly against what the plan says we're doing — you'll see the number before you commit to anything.</p>
+        </article>
+        <article class="faq-card" data-reveal>
+          <span class="faq-q">Commitment</span>
+          <h3>Am I tied into a contract?</h3>
+          <p>No long tie-ins. We work month to month, because an agency that has to keep earning your business tends to behave better than one that doesn't.</p>
+        </article>
+        <article class="faq-card" data-reveal>
+          <span class="faq-q">Timing</span>
+          <h3>How quickly can you start?</h3>
+          <p>The audit lands in the first two weeks, the plan in week three. Work starts as soon as you've signed the plan off — usually inside a month of first contact.</p>
+        </article>
+        <article class="faq-card" data-reveal>
+          <span class="faq-q">Incumbents</span>
+          <h3>We already have an agency.</h3>
+          <p>Then take the free audit anyway and hold them to it. Plenty of people use it as a second opinion and stay where they are. That's a fine outcome.</p>
+        </article>
+        <article class="faq-card" data-reveal>
+          <span class="faq-q">Scope</span>
+          <h3>We only need a website.</h3>
+          <p>That's fine — we build them. We'd still rather build one designed around how your customers search than one that just looks the part.</p>
+        </article>
+        <article class="faq-card" data-reveal>
+          <span class="faq-q">Location</span>
+          <h3>Do you work outside the UK?</h3>
+          <p>Yes. We're UK-based and most clients are too, but we run work in Spain and the US already. Remote-first, on site when it actually matters.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ MOVE THE SQUARESPACE FORM INTO THE LAYOUT ══════
+     The raw block is hidden by CSS only while JS is alive. If we can't
+     find it, or it renders late and we miss it, the page must not be
+     left with an empty column — hence the observer, the deadline and
+     the email fallback. */
+  var target   = document.getElementById('ydt-form-target');
+  var fallback = document.getElementById('ydtFormFallback');
+  var moved    = false;
+
+  function findForm() {
+    var blocks = document.querySelectorAll(".sqs-block-form, .form-block, [data-block-type='form']");
+    for (var i = 0; i < blocks.length; i++) {
+      /* skip anything already inside our target */
+      if (target && !target.contains(blocks[i])) return blocks[i];
+    }
+    return null;
+  }
+  function placeForm() {
+    if (moved || !target) return false;
+    var form = findForm();
+    if (!form) return false;
+    target.appendChild(form);
+    moved = true;
+    if (fallback) fallback.classList.remove('is-on');
+    mirrorChecks();
+    return true;
+  }
+
+  placeForm();
+
+  if (!moved && target) {
+    /* watch for a late-rendering block, but not forever */
+    var obs = new MutationObserver(function () { if (placeForm()) obs.disconnect(); });
+    obs.observe(document.body, { childList: true, subtree: true });
+    setTimeout(function () {
+      obs.disconnect();
+      if (moved) return;
+      /* last resort: un-hide the block wherever it is, or offer email */
+      var stray = findForm();
+      if (stray) { stray.classList.add('ydt-form-rescued'); }
+      else if (fallback) { fallback.classList.add('is-on'); }
+    }, 4000);
+  }
+
+  /* ── selected-chip state for browsers without :has() ── */
+  function mirrorChecks() {
+    if (!target) return;
+    var boxes = target.querySelectorAll('.checkbox input, .radio input');
+    function sync(input) {
+      var opt = input.closest('.option');
+      if (opt) opt.classList.toggle('is-checked', input.checked);
+    }
+    boxes.forEach(function (input) {
+      sync(input);
+      input.addEventListener('change', function () {
+        if (input.type === 'radio') {
+          target.querySelectorAll('input[name="' + input.name + '"]').forEach(sync);
+        } else { sync(input); }
+      });
+    });
+  }
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ REVEALS ══════ */
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  if (reduceMotion) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obsR = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('in-view'); obsR.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obsR.observe(el); });
+    document.querySelectorAll('.faq-card').forEach(function (el, i) {
+      el.style.transitionDelay = (0.07 * (i % 3)) + 's';
+    });
+  }
+
+  /* ══════ CLIENT LOGO MARQUEE (same list as the homepage) ══════ */
+  var clients = [
+    { name: 'Shoreline',            url: 'https://images.squarespace-cdn.com/content/v1/63442a2828b8715c23f372db/ec0cc688-138e-4e7f-aadd-61d659af3f0e/Shoreline+Logo.png?format=1500w' },
+    { name: '911 Backdate',         url: 'https://images.squarespace-cdn.com/content/v1/67bda98c724d7129951677a2/b0b6078c-04f5-43e6-929b-a69c9f3028a1/911+Backdate+Logo.png?format=1500w' },
+    { name: 'Gutters.co.uk',        url: 'https://gutters.co.uk/cdn/shop/files/logo_5fdd1851-578e-4b8a-8cd1-99a7c42c303a_255x@2x.png?v=1614289059' },
+    { name: 'PilotQ',               url: 'https://images.squarespace-cdn.com/content/v1/658ef3e386dfa356ea183419/a3695729-7dc0-48b3-9384-be3f7fbbb135/PIQ-Final_Logo_1.png?format=1500w' },
+    { name: 'Punt Caravan Parking', url: 'https://imagedelivery.net/xaKlCos5cTg_1RWzIu_h-A/149d250f-4d6c-4b49-895b-357cb0b28200/publicContain' },
+    { name: 'SVD Group',            url: 'https://images.squarespace-cdn.com/content/v1/688335a79371f70534db64ae/edebe164-d1a5-432f-ac3e-9bc04243051a/SVD+Group+Motif+%281%29.png?format=1500w' },
+    { name: 'Fitzgerald Capital',   url: 'https://images.squarespace-cdn.com/content/v1/6a0b07fd7264f855a35e730d/3fd00de8-88bc-45c7-b8ed-ab60ab48a7ab/Logo-type-black.png?format=1500w' },
+    { name: 'Senttr',               url: 'https://images.squarespace-cdn.com/content/v1/69d4ede9d18f114398958000/48f14a20-2671-40ca-8996-86ea0727a96f/Senttr+Logo-01.png?format=1500w' },
+    { name: 'Smart Plus Heating',   url: 'https://images.squarespace-cdn.com/content/v1/6999b4fe9f1df46ad43b830d/b4ced7c8-4606-42dc-b2e6-67c2abac93bf/Smart-Plus-Landscape-Logo-BLK-Heating-1-300x87.png?format=1500w' }
+  ];
+  var tickerTrack = document.getElementById('tickerTrack');
+  if (tickerTrack && clients.length) {
+    var buildGroup = function (decorative) {
+      var group = document.createElement('div');
+      group.className = 'ticker-group';
+      if (decorative) group.setAttribute('aria-hidden', 'true');
+      clients.forEach(function (c) {
+        var cell = document.createElement('div');
+        cell.className = 'ticker-logo';
+        var img = document.createElement('img');
+        img.src = c.url;
+        img.alt = decorative ? '' : c.name;
+        img.addEventListener('error', function () {
+          var span = document.createElement('span');
+          span.className = 'ticker-logo__name';
+          span.textContent = c.name;
+          if (img.parentNode === cell) cell.replaceChild(span, img);
+        });
+        cell.appendChild(img);
+        group.appendChild(cell);
+      });
+      return group;
+    };
+    document.body.classList.add('css-marquee');
+    tickerTrack.appendChild(buildGroup(false));
+    var groupWidth = tickerTrack.firstChild.getBoundingClientRect().width;
+    var copies = groupWidth > 0 ? Math.max(1, Math.ceil(window.innerWidth / groupWidth)) : 1;
+    var n;
+    for (n = 1; n < copies; n++) tickerTrack.appendChild(buildGroup(true));
+    for (n = 0; n < copies; n++) tickerTrack.appendChild(buildGroup(true));
+  }
+
+  /* ══════ GSAP ══════ */
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.to('.progress', {
+    scaleX: 1, ease: 'none',
+    scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+  });
+  var mm = gsap.matchMedia();
+  mm.add('(prefers-reduced-motion: no-preference)', function () {
+    document.body.classList.remove('css-marquee');
+    var track = document.querySelector('.ticker-track');
+    var travel = track ? track.getBoundingClientRect().width / 2 : 0;
+    var tickerTween = gsap.to(track, {
+      xPercent: -50, ease: 'none', repeat: -1,
+      duration: travel > 0 ? travel / 46 : 30
+    });
+    ScrollTrigger.create({
+      onUpdate: function (self) {
+        var v = 1 + Math.min(Math.abs(self.getVelocity()) / 1200, 2);
+        gsap.to(tickerTween, { timeScale: (self.direction || 1) * v, duration: 0.4, overwrite: true });
+      }
+    });
+    /* the hero recedes as the form comes up, same as the homepage */
+    gsap.to('.hero .container', {
+      yPercent: -8, opacity: 0.3, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 }
+    });
+  });
+  window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+})();
+</script>
