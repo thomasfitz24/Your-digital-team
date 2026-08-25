@@ -551,9 +551,9 @@
     color: var(--gray6);
   }
 @media (max-width: 640px) {
+/* the KPI label size is set in the mobile corrections block below */
 .ydt-page .console-note { display: none; }
 .ydt-page .kpi { padding: 16px 12px; }
-.ydt-page .kpi-label { font-size: 8.5px; letter-spacing: 0.08em; }
 .ydt-page .kpi-delta-note { display: none; }
 }
 
@@ -750,7 +750,7 @@
 .ydt-page .bento-note-card--front { transform: translateY(-6px); position: relative; z-index: 2; }
 .ydt-page .bento-note-tag {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--data);
@@ -802,7 +802,7 @@
 .ydt-page .bento-ch-tile svg { width: 20px; height: 20px; }
 .ydt-page .bento-ch span {
     font-family: var(--mono);
-    font-size: 8.5px;
+    font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--gray6);
@@ -1495,6 +1495,58 @@
 .ydt-page .final-cta { padding: 110px 0; }
 .ydt-page .step { position: static; }
 .ydt-page .console-wrap { margin-top: 56px; }
+}
+
+/* ══════════ MOBILE CORRECTIONS ══════════
+   Findings from a phone (390) and tablet (768) pass. The page never
+   scrolled horizontally at either width; these fix legibility and the
+   two layouts that squeezed. */
+@media (max-width: 767px) {
+  /* nothing sits below 10px on a phone — several mono micro-labels did */
+  .ydt-page .kpi-label,
+  .ydt-page .bento-note-tag,
+  .ydt-page .bento-ch span,
+  .ydt-page .work-card__sector,
+  .ydt-page .work-card__tag,
+  .ydt-page .journal-card__meta,
+  .ydt-page .step-badge,
+  .ydt-page .svc-idx,
+  .ydt-page .console-chip,
+  .ydt-page .console-chart-label,
+  .ydt-page .console-live,
+  .ydt-page .app-mock__bar,
+  .ydt-page .trusted__label,
+  .ydt-page .sec-eyebrow-text { font-size: 10px; letter-spacing: 0.1em; }
+  .ydt-page .kpi-label { letter-spacing: 0.06em; }
+
+  /* the numeral had its own column, leaving the copy a narrow gutter */
+  .ydt-page .step {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+  .ydt-page .step-num { width: 46px; height: 46px; font-size: 13px; border-radius: 12px; }
+  .ydt-page .step-out { width: 100%; }
+
+  /* keywords were truncating to "boiler installa…" */
+  .ydt-page .app-mock__row { gap: 10px; padding: 13px 14px; }
+  .ydt-page .app-mock__kw { font-size: 11px; }
+  .ydt-page .app-mock__pos { padding: 4px 7px; font-size: 10.5px; }
+  .ydt-page .app-mock__delta { min-width: 34px; font-size: 10.5px; }
+
+  /* smaller marks let three brands share the row instead of two */
+  .ydt-page .ticker-logo { height: 24px; min-width: 84px; }
+  .ydt-page .ticker-logo__name { font-size: 13px; }
+  .ydt-page .ticker-group { gap: 40px; padding-right: 40px; }
+  .ydt-page .trusted__inner { padding: 28px 0 30px; }
+  .ydt-page .trusted__head { margin-bottom: 24px; }
+
+  /* nine cards stack on a phone, so give each a shorter window */
+  .ydt-page .work-card__media { aspect-ratio: 16 / 9; }
+  .ydt-page .work-card__body { padding: 20px; }
+
+  /* the two-line title had a tight measure at this size */
+  .ydt-page .hero h1 { letter-spacing: -0.035em; }
 }
 
 /* ── break out of Squarespace's content column ── */
