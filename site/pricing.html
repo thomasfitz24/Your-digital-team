@@ -1,0 +1,965 @@
+<!-- ═══════════════════════════════════════════════════════════
+     pricing.html  →  Squarespace page /pricing
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Every graphic on this page is inline SVG or CSS — no image
+     files, nothing to re-upload, nothing that can 404. The old
+     Space Grotesk / purple version's linked images are gone.
+
+     Design system — "signal", same as the homepage:
+       base #050505 · panels #0b0a09 · hairlines at 7% white
+       Inter (display/body) + IBM Plex Mono (data)
+       signal red #ff4536 → #d81e0d for data, the primary CTA and
+       the ambient glow. Never on body copy.
+     ═══════════════════════════════════════════════════════════ -->
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { text-decoration: none; color: inherit; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ PRIMITIVES ══════════ */
+.ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+.ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+.ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+.ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-head { max-width: 672px; margin-bottom: 56px; }
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.6rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.02; margin-bottom: 18px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.65; }
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+.ydt-page .ghost-btn svg { width: 14px; height: 14px; }
+
+/* ══════════ HERO ══════════ */
+.ydt-page .hero {
+    position: relative; padding: calc(var(--header-h) + 84px) 0 84px;
+    overflow: hidden; z-index: 2;
+}
+.ydt-page .hero-ember {
+    position: absolute; top: -52vh; left: 50%;
+    width: 190vw; height: 112vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.36) 0%, rgba(216, 30, 13, 0.17) 34%, rgba(118, 20, 10, 0.06) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .hero-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-height: 1180px; max-width: 1180px;
+    transform: translateX(-50%); border-radius: 50%;
+    pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.26);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .hero .container { position: relative; z-index: 2; }
+.ydt-page .hero-inner { text-align: center; max-width: 900px; margin: 0 auto; }
+.ydt-page .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 32px;
+}
+.ydt-page .hero h1 {
+    font-size: clamp(2.5rem, 6.4vw, 5rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 26px;
+}
+.ydt-page .hero h1 .dim { color: var(--w25); }
+.ydt-page .hero-sub {
+    font-size: 16px; color: var(--gray5); line-height: 1.7;
+    max-width: 40rem; margin: 0 auto 40px;
+}
+/* the three tiers as a price rail — the page's headline fact, up front */
+.ydt-page .rail {
+    display: grid; grid-template-columns: 1fr; gap: 10px;
+    max-width: 760px; margin: 0 auto;
+}
+@media (min-width: 620px) { .ydt-page .rail { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .rail a {
+    display: flex; flex-direction: column; align-items: center; gap: 7px;
+    padding: 18px 16px; border-radius: 16px;
+    background: var(--panel); border: 1px solid var(--card-line);
+    transition: border-color 0.35s, transform 0.5s var(--ease), background 0.35s;
+}
+.ydt-page .rail a:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-3px); }
+.ydt-page .rail a.is-key { border-color: rgba(255, 69, 54, 0.34); background: linear-gradient(180deg, rgba(255,69,54,0.06), transparent 70%), var(--panel); }
+.ydt-page .rail b {
+    font-size: 22px; font-weight: 700; letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums; line-height: 1;
+}
+.ydt-page .rail a.is-key b { color: var(--data); }
+.ydt-page .rail span {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5); text-align: center;
+}
+
+/* ══════════ BACK LINK ══════════ */
+.ydt-page .backrow { padding: 0 0 12px; }
+.ydt-page .back {
+    display: inline-flex; align-items: center; gap: 11px;
+    padding: 5px 4px;   /* lifts the hit area past the 36px minimum */
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5); transition: color 0.28s;
+}
+.ydt-page .back:hover { color: var(--white); }
+.ydt-page .back i {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    border: 1px solid var(--card-line); background: var(--panel);
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.28s, transform 0.35s var(--ease);
+}
+.ydt-page .back:hover i { border-color: rgba(255,255,255,0.22); transform: translateX(-3px); }
+.ydt-page .back svg { width: 13px; height: 13px; }
+
+/* ══════════ PLANS ══════════ */
+.ydt-page .plans { padding: 104px 0 0; }
+.ydt-page .plan-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 900px) { .ydt-page .plan-grid { grid-template-columns: repeat(2, 1fr); } }
+.ydt-page .plan {
+    position: relative; display: flex; flex-direction: column;
+    background: var(--card-bg); border: 1px solid var(--card-line);
+    border-radius: 22px; padding: 30px; overflow: hidden;
+    transition: border-color 0.5s, box-shadow 0.5s;
+}
+.ydt-page .plan:hover { border-color: rgba(255, 255, 255, 0.15); box-shadow: 0 18px 44px rgba(0,0,0,0.45); }
+/* the recommended tier is lit from behind rather than colour-inverted */
+.ydt-page .plan--key { border-color: rgba(255, 69, 54, 0.3); }
+.ydt-page .plan--key::before {
+    content: ''; position: absolute; top: -40%; left: 50%;
+    width: 90%; height: 70%; transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.24), transparent 72%);
+    filter: blur(48px); pointer-events: none; z-index: 0;
+}
+.ydt-page .plan > * { position: relative; z-index: 1; }
+.ydt-page .plan-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 20px; }
+.ydt-page .plan-num {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); border-radius: 9999px; padding: 6px 13px;
+}
+.ydt-page .plan--key .plan-num {
+    color: var(--data); border-color: rgba(255, 69, 54, 0.4); background: var(--data-dim);
+}
+.ydt-page .plan-flag {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--data);
+}
+
+/* ── graphic: what actually lands each month ── */
+.ydt-page .drop {
+    border-radius: 16px; background: var(--panel2);
+    border: 1px solid var(--line2); padding: 20px 20px 18px; margin-bottom: 24px;
+}
+.ydt-page .drop-head {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray6); margin-bottom: 16px;
+}
+.ydt-page .drop-rows { display: grid; gap: 12px; }
+.ydt-page .drop-row { display: flex; align-items: center; gap: 12px; }
+.ydt-page .drop-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gray5);
+    width: 58px; flex-shrink: 0;
+}
+.ydt-page .drop-tiles { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
+/* each tile is one deliverable — count them and you have the allowance */
+.ydt-page .drop-tiles i {
+    width: 15px; height: 19px; border-radius: 3px; display: block;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transform: scaleY(0.2); transform-origin: bottom;
+    transition: transform 0.5s var(--ease), background 0.5s;
+}
+.ydt-page .plan.in-view .drop-tiles i { transform: scaleY(1); }
+.ydt-page .drop-row--lit .drop-tiles i {
+    background: linear-gradient(180deg, var(--data), rgba(255, 69, 54, 0.45));
+    border-color: transparent;
+}
+/* changes are a denser unit, so they read as dots not documents */
+.ydt-page .drop-tiles--dots i { width: 8px; height: 8px; border-radius: 50%; transform: scale(0.2); }
+.ydt-page .plan.in-view .drop-tiles--dots i { transform: scale(1); }
+.ydt-page .drop-count {
+    font-family: var(--mono); font-size: 11px; color: var(--white);
+    font-variant-numeric: tabular-nums; flex-shrink: 0; width: 26px; text-align: right;
+}
+
+.ydt-page .plan-name {
+    font-size: 21px; font-weight: 700; letter-spacing: -0.025em;
+    line-height: 1.2; margin-bottom: 8px;
+}
+.ydt-page .plan-for { font-size: 13px; color: var(--gray5); line-height: 1.6; margin-bottom: 22px; }
+.ydt-page .plan-price { display: flex; align-items: baseline; gap: 8px; margin-bottom: 24px; }
+.ydt-page .plan-price b {
+    font-size: 42px; font-weight: 700; letter-spacing: -0.04em;
+    line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .plan-price span { font-family: var(--mono); font-size: 12px; color: var(--gray5); }
+.ydt-page .plan-list {
+    list-style: none; display: grid; gap: 11px;
+    padding-top: 22px; margin-bottom: 24px;
+    border-top: 1px solid var(--line2);
+}
+.ydt-page .plan-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13.5px; line-height: 1.55; color: var(--gray5);
+}
+.ydt-page .plan-list svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px; color: var(--data); }
+
+/* ── the accordion, kept from the original ── */
+.ydt-page .more { margin-top: auto; }
+.ydt-page .more-toggle {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    width: 100%; cursor: pointer; background: none; border: none;
+    border-top: 1px solid var(--line2); padding: 16px 0;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5); text-align: left;
+    transition: color 0.28s;
+}
+.ydt-page .more-toggle:hover { color: var(--white); }
+.ydt-page .more-icon {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    border: 1px solid var(--card-line); display: flex; align-items: center; justify-content: center;
+    transition: transform 0.35s var(--ease), border-color 0.28s, background 0.28s;
+}
+.ydt-page .more-icon svg { width: 11px; height: 11px; }
+.ydt-page .plan.is-open .more-icon {
+    transform: rotate(45deg); border-color: rgba(255, 69, 54, 0.45);
+    background: var(--data-dim); color: var(--data);
+}
+/* height animates, so the card grows rather than snapping */
+.ydt-page .more-body {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s var(--ease);
+}
+.ydt-page .plan.is-open .more-body { grid-template-rows: 1fr; }
+.ydt-page .more-body > div { overflow: hidden; }
+.ydt-page .more-item {
+    background: rgba(255, 255, 255, 0.025); border: 1px solid var(--line2);
+    border-radius: 13px; padding: 15px 17px;
+}
+.ydt-page .more-item + .more-item { margin-top: 10px; }
+.ydt-page .more-item b {
+    display: block; font-size: 13.5px; font-weight: 600;
+    letter-spacing: -0.01em; margin-bottom: 6px; color: var(--white);
+}
+.ydt-page .plan--key .more-item b { color: var(--data); }
+.ydt-page .more-item p { font-size: 13px; line-height: 1.65; color: var(--gray5); }
+.ydt-page .plan-cta { margin-top: 20px; width: 100%; }
+
+/* ══════════ ALLOWANCE COMPARISON ══════════ */
+.ydt-page .compare { padding: 112px 0; }
+.ydt-page .compare-panel {
+    background: var(--panel); border: 1px solid var(--card-line);
+    border-radius: 24px; padding: 34px 30px;
+}
+@media (min-width: 768px) { .ydt-page .compare-panel { padding: 40px 44px; } }
+.ydt-page .compare-legend {
+    display: flex; flex-wrap: wrap; gap: 18px;
+    padding-bottom: 24px; margin-bottom: 28px;
+    border-bottom: 1px solid var(--line2);
+}
+.ydt-page .compare-legend span {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray5);
+}
+.ydt-page .compare-legend i { width: 11px; height: 11px; border-radius: 3px; display: block; }
+.ydt-page .swatch-1 { background: rgba(255, 255, 255, 0.24); }
+.ydt-page .swatch-2 { background: linear-gradient(180deg, var(--data), var(--data-deep)); }
+.ydt-page .metric + .metric { margin-top: 26px; }
+.ydt-page .metric-name {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--gray6); margin-bottom: 12px;
+}
+.ydt-page .bar { display: flex; align-items: center; gap: 14px; }
+.ydt-page .bar + .bar { margin-top: 8px; }
+.ydt-page .bar-key {
+    font-family: var(--mono); font-size: 10.5px; color: var(--gray5);
+    width: 52px; flex-shrink: 0;
+}
+/* both are <span>s: without display:block the fill stays inline and
+   ignores width entirely, which renders an empty track */
+.ydt-page .bar-track {
+    display: block; flex: 1; height: 12px; border-radius: 6px;
+    background: rgba(255,255,255,0.045); overflow: hidden;
+}
+.ydt-page .bar-fill {
+    display: block; height: 100%; border-radius: 6px; width: 0;
+    transition: width 1.1s var(--ease);
+}
+.ydt-page .compare-panel.in-view .bar-fill { width: var(--w); }
+.ydt-page .bar-1 { background: rgba(255, 255, 255, 0.24); }
+.ydt-page .bar-2 { background: linear-gradient(90deg, var(--data), var(--data-deep)); }
+.ydt-page .bar-val {
+    font-family: var(--mono); font-size: 12px; color: var(--white);
+    font-variant-numeric: tabular-nums; width: 30px; text-align: right; flex-shrink: 0;
+}
+.ydt-page .compare-note {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em;
+    color: var(--gray6); margin-top: 28px; padding-top: 22px;
+    border-top: 1px solid var(--line2); line-height: 1.7;
+}
+
+/* ══════════ REBUILD BANNER ══════════ */
+.ydt-page .rebuild { padding-bottom: 112px; }
+.ydt-page .rebuild-panel {
+    position: relative; overflow: hidden;
+    background: var(--panel); border: 1px solid var(--card-line);
+    border-radius: 24px; padding: 40px 30px;
+    display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center;
+}
+@media (min-width: 900px) {
+    .ydt-page .rebuild-panel { grid-template-columns: 1.15fr 1fr; padding: 52px 56px; gap: 52px; }
+}
+.ydt-page .rebuild-panel::before {
+    content: ''; position: absolute; top: -50%; right: -10%;
+    width: 60%; height: 130%;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.16), transparent 70%);
+    filter: blur(52px); pointer-events: none;
+}
+.ydt-page .rebuild-panel > * { position: relative; }
+.ydt-page .rebuild h3 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.1; margin: 16px 0 14px;
+}
+.ydt-page .rebuild p { font-size: 14px; line-height: 1.7; color: var(--gray5); margin-bottom: 26px; }
+/* graphic: a broken layout becoming a clean one */
+.ydt-page .wire { width: 100%; height: auto; display: block; }
+.ydt-page .wire .old rect { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.10); }
+.ydt-page .wire .new rect { fill: rgba(255,255,255,0.07); stroke: rgba(255,255,255,0.16); }
+.ydt-page .wire .new rect.hot { fill: var(--data-dim); stroke: rgba(255,69,54,0.45); }
+.ydt-page .wire .cap {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; fill: var(--gray6);
+}
+.ydt-page .wire .cap-hot { fill: var(--data); }
+.ydt-page .wire .arrow { stroke: rgba(255,69,54,0.7); fill: none; stroke-width: 1.4; }
+
+/* ══════════ CTA ══════════ */
+.ydt-page .cta { padding-bottom: 128px; }
+.ydt-page .cta-panel {
+    position: relative; overflow: hidden; isolation: isolate;
+    background: var(--panel); border: 1px solid var(--card-line);
+    border-radius: 24px; padding: 44px 30px;
+    display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center;
+}
+@media (min-width: 900px) {
+    .ydt-page .cta-panel { grid-template-columns: 1.1fr 1fr; padding: 60px 56px; gap: 56px; }
+}
+.ydt-page .cta-panel::after {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(circle at 82% 12%, rgba(216, 30, 13, 0.1), transparent 58%);
+}
+.ydt-page .cta h2 {
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.05; margin-bottom: 16px;
+}
+.ydt-page .cta h2 .dim { color: var(--w25); }
+.ydt-page .cta p { font-size: 15px; line-height: 1.7; color: var(--gray5); margin-bottom: 14px; }
+.ydt-page .cta .lead { color: rgba(255,255,255,0.86); font-weight: 500; margin-bottom: 30px; }
+.ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+/* graphic: the three tiers plotted on one curve */
+.ydt-page .curve { width: 100%; height: auto; display: block; }
+.ydt-page .curve .grid-l { stroke: rgba(255,255,255,0.06); stroke-width: 1; }
+.ydt-page .curve .area { fill: url(#ydtPriceFill); opacity: 0; transition: opacity 1s 0.7s; }
+.ydt-page .curve.in-view .area { opacity: 1; }
+.ydt-page .curve .line {
+    fill: none; stroke: var(--data); stroke-width: 2.4; stroke-linecap: round;
+    stroke-dasharray: 620; stroke-dashoffset: 620;
+    transition: stroke-dashoffset 1.6s 0.15s var(--ease);
+}
+.ydt-page .curve.in-view .line { stroke-dashoffset: 0; }
+.ydt-page .curve .node { fill: #050505; stroke: var(--data); stroke-width: 2; }
+.ydt-page .curve .lbl {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; fill: var(--gray5);
+}
+.ydt-page .curve .val { font-family: var(--mono); font-size: 12px; fill: var(--white); }
+
+/* ══════════ MOTION FALLBACKS ══════════ */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page [data-reveal], .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    .ydt-page .drop-tiles i { transform: none !important; transition: none; }
+    .ydt-page .bar-fill { transition: none; width: var(--w); }
+    .ydt-page .curve .line { stroke-dashoffset: 0; transition: none; }
+    .ydt-page .curve .area { opacity: 1; transition: none; }
+    .ydt-page .more-body { transition: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .hero { padding: calc(var(--header-h) + 52px) 0 60px; }
+    .ydt-page .plans { padding-top: 72px; }
+    .ydt-page .compare { padding: 80px 0; }
+    .ydt-page .rebuild { padding-bottom: 80px; }
+    .ydt-page .cta { padding-bottom: 88px; }
+    .ydt-page .plan { padding: 24px 22px; }
+    .ydt-page .plan-price b { font-size: 36px; }
+    /* nothing under 10px on a phone, same rule as the homepage */
+    .ydt-page .sec-eyebrow-text, .ydt-page .rail span, .ydt-page .plan-num,
+    .ydt-page .plan-flag, .ydt-page .drop-head, .ydt-page .drop-label,
+    .ydt-page .metric-name, .ydt-page .bar-key, .ydt-page .compare-note,
+    .ydt-page .more-toggle, .ydt-page .back { font-size: 10px; letter-spacing: 0.1em; }
+    .ydt-page .drop-label { width: 52px; }
+    .ydt-page .bar-key { width: 46px; }
+    .ydt-page .cta-actions .ember-btn,
+    .ydt-page .cta-actions .ghost-btn { width: 100%; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+.ydt-page a { text-decoration: none; }
+.ydt-page button { font-family: var(--font); }
+</style>
+
+<div class="ydt-page ydt-page--pricing">
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+
+<main id="pricing-top">
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero">
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Every plan includes SEO as standard</p>
+        <h1>
+          <span class="clip"><span class="slide">Simple, transparent</span></span>
+          <span class="clip"><span class="slide"><span class="dim">pricing plans.</span></span></span>
+        </h1>
+        <p class="hero-sub" data-reveal>
+          Whether you need pure SEO, ongoing site fixes, growth support or a full rebuild —
+          there's a plan that matches exactly where your website is right now.
+        </p>
+        <div class="rail" data-reveal>
+          <a href="#plan-1"><b>£500</b><span>SEO + fixes + growth</span></a>
+          <a href="#plan-2" class="is-key"><b>£950</b><span>Heavy build &amp; update</span></a>
+          <a href="#rebuild"><b>Quoted</b><span>Website rebuild</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PLANS ══════════ -->
+  <section class="plans" id="plans" aria-labelledby="plansTitle">
+    <div class="container">
+      <div class="backrow" data-reveal>
+        <a href="/services" class="back">
+          <i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></i>
+          <span>All services</span>
+        </a>
+      </div>
+
+      <div class="sec-head" style="margin-top:32px;">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Monthly plans</span></div>
+        <h2 class="sec-title" id="plansTitle" data-reveal>Pick the level that <span class="dim">matches your site.</span></h2>
+        <p class="sec-sub" data-reveal>Every plan includes SEO as standard. Each tier builds on the one before it — the graphics below show exactly what lands each month.</p>
+      </div>
+
+      <div class="plan-grid">
+
+        <!-- ── PLAN 1 ── -->
+        <article class="plan" id="plan-1" data-reveal>
+          <div class="plan-top">
+            <span class="plan-num">Plan 1</span>
+          </div>
+
+          <!-- graphic: one tile per deliverable, so the allowance is countable -->
+          <div class="drop" aria-hidden="true">
+            <div class="drop-head"><span>Lands every month</span><span>Plan 1</span></div>
+            <div class="drop-rows">
+              <div class="drop-row drop-row--lit">
+                <span class="drop-label">Blogs</span>
+                <span class="drop-tiles"><i></i><i></i><i></i><i></i></span>
+                <span class="drop-count">4</span>
+              </div>
+              <div class="drop-row drop-row--lit">
+                <span class="drop-label">Pages</span>
+                <span class="drop-tiles"><i></i><i></i></span>
+                <span class="drop-count">2</span>
+              </div>
+              <div class="drop-row">
+                <span class="drop-label">Changes</span>
+                <span class="drop-tiles drop-tiles--dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="drop-count">10</span>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="plan-name">SEO + Fixes + Growth</h3>
+          <p class="plan-for">For clients actively growing, not just maintaining.</p>
+          <div class="plan-price"><b>£500</b><span>/ month</span></div>
+
+          <ul class="plan-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SEO content, on-page optimisation &amp; fundamentals fixes</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 blogs a month</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 new page builds a month included</li>
+          </ul>
+
+          <div class="more">
+            <button class="more-toggle" type="button" aria-expanded="false" aria-controls="detail-1">
+              <span>Full plan details</span>
+              <span class="more-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="more-body" id="detail-1"><div>
+              <div class="more-item">
+                <b>Content &amp; on-page SEO</b>
+                <p>Ongoing content creation and on-page optimisation across existing pages, aimed at improving rankings for target keywords, plus re-optimisation whenever Google publishes a core update.</p>
+              </div>
+              <div class="more-item">
+                <b>Up to 10 website updates / month</b>
+                <p>Changes to pages, blog posts, or products — edits, layout tweaks, content swaps, anything within normal update scope.</p>
+              </div>
+              <div class="more-item">
+                <b>Fundamentals fixes</b>
+                <p>Fixing broken or poorly-built code and layout issues so pages can actually be crawled, read, and ranked by Google — whether the site is technically sound already or needs the repair work.</p>
+              </div>
+              <div class="more-item">
+                <b>4 blogs / month</b>
+                <p>Four blog posts written and published each month, targeted at keywords your customers are searching for. Blogs are one of the most effective ways to build topical authority and rank for a wider spread of search terms — fresh, regular content signals to Google that a site is active and worth crawling more often, which compounds rankings over time.</p>
+              </div>
+              <div class="more-item">
+                <b>2 new page builds / month</b>
+                <p>Two new pages built per month as standard, included in the price (e.g. new landing pages, service pages, or product pages). If more pages are needed than the plan covers in a given month, the extra pages are built and billed on the following month's invoice.</p>
+              </div>
+            </div></div>
+          </div>
+
+          <a href="/contact" class="ember-btn plan-cta">
+            Get started
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </article>
+
+        <!-- ── PLAN 2 ── -->
+        <article class="plan plan--key" id="plan-2" data-reveal>
+          <div class="plan-top">
+            <span class="plan-num">Plan 2</span>
+            <span class="plan-flag"><span class="live-dot" aria-hidden="true"></span>Most chosen</span>
+          </div>
+
+          <div class="drop" aria-hidden="true">
+            <div class="drop-head"><span>Lands every month</span><span>Plan 2</span></div>
+            <div class="drop-rows">
+              <div class="drop-row drop-row--lit">
+                <span class="drop-label">Blogs</span>
+                <span class="drop-tiles"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="drop-count">8</span>
+              </div>
+              <div class="drop-row drop-row--lit">
+                <span class="drop-label">Pages</span>
+                <span class="drop-tiles"><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="drop-count">5</span>
+              </div>
+              <div class="drop-row">
+                <span class="drop-label">Changes</span>
+                <span class="drop-tiles drop-tiles--dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="drop-count">25</span>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="plan-name">Heavy Build &amp; Update</h3>
+          <p class="plan-for">For clients needing frequent rebuilds and high-volume edits.</p>
+          <div class="plan-price"><b>£950</b><span>/ month</span></div>
+
+          <ul class="plan-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Everything in Plan 1</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Ads management</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>8 blogs a month</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>5 page rebuilds a month</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 25 changes a month</li>
+          </ul>
+
+          <div class="more">
+            <button class="more-toggle" type="button" aria-expanded="false" aria-controls="detail-2">
+              <span>Full plan details</span>
+              <span class="more-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="more-body" id="detail-2"><div>
+              <div class="more-item">
+                <b>Everything in Plan 1</b>
+                <p>Full SEO, fundamentals fixes, and 2 page builds a month, all included.</p>
+              </div>
+              <div class="more-item">
+                <b>Google Ads management</b>
+                <p>Ongoing management of the client's Google Ads campaigns.</p>
+              </div>
+              <div class="more-item">
+                <b>8 blogs / month</b>
+                <p>Eight blog posts written and published each month — double Plan 1's allowance. Blogs are one of the most effective ways to build topical authority and rank for a wider spread of search terms — fresh, regular content signals to Google that a site is active and worth crawling more often, which compounds rankings over time. At this volume, it's suited to sites actively competing for a broad range of keywords.</p>
+              </div>
+              <div class="more-item">
+                <b>5 page rebuilds / month</b>
+                <p>Five page builds or rebuilds included per month — well beyond Plan 1's allowance. If more pages are needed than the plan covers in a given month, the extra pages are built and billed on the following month's invoice.</p>
+              </div>
+              <div class="more-item">
+                <b>Up to 25 changes / month</b>
+                <p>A higher-volume allowance for page, blog, and product edits, on top of the page rebuilds.</p>
+              </div>
+            </div></div>
+          </div>
+
+          <a href="/contact" class="ember-btn plan-cta">
+            Get started
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ ALLOWANCE COMPARISON ══════════ -->
+  <section class="compare" aria-labelledby="compareTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Side by side</span></div>
+        <h2 class="sec-title" id="compareTitle" data-reveal>What the extra <span class="dim">£450 buys.</span></h2>
+        <p class="sec-sub" data-reveal>The same three allowances, drawn to scale. Plan 2 roughly doubles the content and more than doubles the build and edit volume.</p>
+      </div>
+
+      <div class="compare-panel" id="comparePanel">
+        <div class="compare-legend" aria-hidden="true">
+          <span><i class="swatch-1"></i>Plan 1 — £500</span>
+          <span><i class="swatch-2"></i>Plan 2 — £950</span>
+        </div>
+
+        <div class="metric">
+          <p class="metric-name">Blogs published / month</p>
+          <div class="bar"><span class="bar-key">Plan 1</span><span class="bar-track"><span class="bar-fill bar-1" style="--w:32%"></span></span><span class="bar-val">4</span></div>
+          <div class="bar"><span class="bar-key">Plan 2</span><span class="bar-track"><span class="bar-fill bar-2" style="--w:64%"></span></span><span class="bar-val">8</span></div>
+        </div>
+
+        <div class="metric">
+          <p class="metric-name">Page builds &amp; rebuilds / month</p>
+          <div class="bar"><span class="bar-key">Plan 1</span><span class="bar-track"><span class="bar-fill bar-1" style="--w:16%"></span></span><span class="bar-val">2</span></div>
+          <div class="bar"><span class="bar-key">Plan 2</span><span class="bar-track"><span class="bar-fill bar-2" style="--w:40%"></span></span><span class="bar-val">5</span></div>
+        </div>
+
+        <div class="metric">
+          <p class="metric-name">Site changes / month</p>
+          <div class="bar"><span class="bar-key">Plan 1</span><span class="bar-track"><span class="bar-fill bar-1" style="--w:40%"></span></span><span class="bar-val">10</span></div>
+          <div class="bar"><span class="bar-key">Plan 2</span><span class="bar-track"><span class="bar-fill bar-2" style="--w:100%"></span></span><span class="bar-val">25</span></div>
+        </div>
+
+        <p class="compare-note">
+          Plan 2 also adds Google Ads management. Go over an allowance in a given month and the
+          extra work is built and billed on the following month's invoice — nothing stops mid-month.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ WEBSITE REBUILD ══════════ -->
+  <section class="rebuild" id="rebuild" aria-labelledby="rebuildTitle">
+    <div class="container">
+      <div class="rebuild-panel" data-reveal>
+        <div>
+          <div class="sec-eyebrow"><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Plan 3 · quoted per project</span></div>
+          <h3 id="rebuildTitle">Website Rebuild</h3>
+          <p>
+            Got an outdated site, or poor mobile and desktop layouts? We'll build you a brand new
+            website and layout, quoted per project. Pages are built with on-page SEO fundamentals in
+            place from the start — structure, code and layout all built to be readable and rankable
+            by Google — but this is a one-off build, not ongoing optimisation. No continued content
+            or re-optimisation work is included. On completion, SEO&nbsp;+&nbsp;Fixes&nbsp;+&nbsp;Growth or
+            Heavy Build&nbsp;&amp;&nbsp;Update is recommended as the natural next step to keep improving
+            rankings after launch.
+          </p>
+          <a href="/contact" class="ember-btn">
+            Get a quote
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <!-- graphic: a broken layout rebuilt into a clean, crawlable one -->
+        <svg class="wire" viewBox="0 0 420 260" fill="none" aria-hidden="true">
+          <g class="old">
+            <text class="cap" x="0" y="12">Before</text>
+            <rect x="0"  y="26"  width="112" height="20" rx="4"/>
+            <rect x="0"  y="54"  width="150" height="9"  rx="3"/>
+            <rect x="0"  y="70"  width="128" height="9"  rx="3"/>
+            <rect x="0"  y="94"  width="66"  height="52" rx="5"/>
+            <rect x="74" y="102" width="76"  height="44" rx="5"/>
+            <rect x="0"  y="158" width="96"  height="9"  rx="3"/>
+            <rect x="0"  y="174" width="150" height="9"  rx="3"/>
+            <rect x="0"  y="198" width="54"  height="26" rx="6"/>
+          </g>
+          <path class="arrow" d="M182 128 h44" stroke-linecap="round"/>
+          <path class="arrow" d="M218 121 l8 7 -8 7" stroke-linecap="round" stroke-linejoin="round"/>
+          <g class="new" transform="translate(258,0)">
+            <text class="cap cap-hot" x="0" y="12">After</text>
+            <rect class="hot" x="0" y="26" width="162" height="24" rx="6"/>
+            <rect x="0"   y="58"  width="162" height="9" rx="3"/>
+            <rect x="0"   y="74"  width="118" height="9" rx="3"/>
+            <rect x="0"   y="98"  width="50"  height="50" rx="6"/>
+            <rect x="56"  y="98"  width="50"  height="50" rx="6"/>
+            <rect x="112" y="98"  width="50"  height="50" rx="6"/>
+            <rect x="0"   y="158" width="162" height="9" rx="3"/>
+            <rect x="0"   y="174" width="134" height="9" rx="3"/>
+            <rect class="hot" x="0" y="198" width="86" height="28" rx="8"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CTA ══════════ -->
+  <section class="cta" id="contact" aria-labelledby="ctaTitle">
+    <div class="container">
+      <div class="cta-panel" data-reveal>
+        <div>
+          <div class="sec-eyebrow"><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Not sure which fits</span></div>
+          <h2 id="ctaTitle">Tell us where your <span class="dim">site is today.</span></h2>
+          <p>
+            Every business is different, and your website's needs might sit between plans. Tell us
+            where your site is today and we'll recommend the right level of support — no pressure,
+            no upselling.
+          </p>
+          <p class="lead">If a cheaper plan is the right one, that's the one we'll say.</p>
+          <div class="cta-actions">
+            <a href="/contact" class="ember-btn">
+              Book a free consultation
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="mailto:thomas@yourdigiteam.com" class="ghost-btn">Email us instead</a>
+          </div>
+        </div>
+
+        <!-- graphic: the three tiers plotted as one rising curve -->
+        <svg class="curve" id="priceCurve" viewBox="0 0 420 250" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="ydtPriceFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ff4536" stop-opacity="0.22"/>
+              <stop offset="1" stop-color="#ff4536" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <g class="grid-l">
+            <line x1="0" y1="60"  x2="420" y2="60"/>
+            <line x1="0" y1="120" x2="420" y2="120"/>
+            <line x1="0" y1="180" x2="420" y2="180"/>
+          </g>
+          <path class="area" d="M44 186 C120 178 150 150 216 116 C280 84 320 58 386 40 L386 210 L44 210 Z"/>
+          <path class="line" d="M44 186 C120 178 150 150 216 116 C280 84 320 58 386 40"/>
+          <circle class="node" cx="44"  cy="186" r="5.5"/>
+          <circle class="node" cx="216" cy="116" r="5.5"/>
+          <circle class="node" cx="386" cy="40"  r="5.5"/>
+          <text class="val" x="14"  y="216">£500</text>
+          <text class="lbl" x="14"  y="232">Plan 1</text>
+          <text class="val" x="188" y="216">£950</text>
+          <text class="lbl" x="188" y="232">Plan 2</text>
+          <text class="val" x="336" y="216">Quoted</text>
+          <text class="lbl" x="336" y="232">Rebuild</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ ACCORDION ══════
+     Buttons, not divs with onclick — so they are reachable by keyboard
+     and announce their state. */
+  document.querySelectorAll('.ydt-page .more-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var plan = btn.closest('.plan');
+      var open = plan.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.querySelector('span').textContent = open ? 'Hide plan details' : 'Full plan details';
+    });
+  });
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ REVEALS + GRAPHIC TRIGGERS ══════ */
+  var watch = document.querySelectorAll('[data-reveal], .clip, .plan, #comparePanel, #priceCurve');
+  if (reduceMotion) {
+    watch.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    watch.forEach(function (el) { obs.observe(el); });
+
+    /* the deliverable tiles pop in sequence, like the bento bars */
+    document.querySelectorAll('.ydt-page .drop-tiles').forEach(function (row) {
+      row.querySelectorAll('i').forEach(function (tile, i) {
+        tile.style.transitionDelay = (0.03 * i + 0.1) + 's';
+      });
+    });
+    document.querySelectorAll('.ydt-page .bar-fill').forEach(function (fill, i) {
+      fill.style.transitionDelay = (0.09 * i) + 's';
+    });
+  }
+
+  /* ══════ SMOOTH JUMP FROM THE PRICE RAIL ══════ */
+  document.querySelectorAll('.ydt-page .rail a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var t = document.querySelector(a.getAttribute('href'));
+      if (!t) return;
+      e.preventDefault();
+      window.scrollTo({
+        top: t.getBoundingClientRect().top + window.scrollY - 110,
+        behavior: reduceMotion ? 'auto' : 'smooth'
+      });
+    });
+  });
+
+  /* ══════ GSAP ══════ */
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.to('.progress', {
+    scaleX: 1, ease: 'none',
+    scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+  });
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', function () {
+    gsap.to('.hero-inner', {
+      yPercent: -8, opacity: 0.3, ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 }
+    });
+  });
+  window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+})();
+</script>
