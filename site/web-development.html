@@ -1,0 +1,1421 @@
+<!-- ═══════════════════════════════════════════════════════════
+     web-development.html  →  Squarespace page /web-development
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Design system — "signal", same as every other page:
+       base #050505 · panels #0b0a09 · Inter + IBM Plex Mono
+       signal red #ff4536 → #d81e0d, ember glow, film grain.
+
+     Six purpose-built instruments, all CSS and inline SVG:
+       1  the nine live projects
+       2  Core Web Vitals, before and after
+       3  what a slow site actually costs
+       4  the tracking plan — events, not pageviews
+       5  the accessibility audit
+       6  the redirect map that protects your rankings
+
+     NOTE ON IMAGES — the previous version of this page referenced a
+     global called YDT_ASSETS that is defined nowhere on the site. That
+     threw a ReferenceError partway through the page script, which took
+     the process accordion and the project list down with it. Project
+     artwork is now generated from each brand's own colours, and real
+     screenshots are opt-in through PROJECT_IMAGES below.
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- Runs before paint. Everything hidden by default is scoped to this
+     class, so a script error leaves the page readable rather than blank. -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page { scroll-behavior: smooth; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { color: inherit; text-decoration: none; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; scroll-margin-top: 110px; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ PRIMITIVES ══════════ */
+html.ydt-js .ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+html.ydt-js .ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+html.ydt-js .ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+
+/* ══════════ SECTION SCAFFOLD ══════════ */
+.ydt-page .sec { padding: 112px 0; border-top: 1px solid var(--line2); }
+.ydt-page .sec-head { max-width: 672px; margin-bottom: 56px; }
+.ydt-page .sec-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.ydt-page .sec-head--center .sec-eyebrow { justify-content: center; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.03; margin-bottom: 16px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.68; }
+
+/* two-up: copy one side, instrument the other */
+.ydt-page .duo { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+@media (min-width: 1024px) {
+    .ydt-page .duo { grid-template-columns: 0.8fr 1.2fr; gap: 60px; }
+    .ydt-page .duo--flip .duo-copy { order: 2; }
+    .ydt-page .duo--flip .duo-art { order: 1; }
+}
+/* A `1fr` track is minmax(auto, 1fr), and that auto minimum is min-content —
+   which for any nowrap string is the whole string. Without this a single
+   keyword row sizes the whole track past the viewport on a phone. */
+.ydt-page .duo-copy, .ydt-page .duo-art { min-width: 0; }
+.ydt-page .duo-copy p { font-size: 15px; color: var(--gray5); line-height: 1.72; }
+.ydt-page .duo-copy p + p { margin-top: 14px; }
+.ydt-page .duo-list { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .duo-list li { display: flex; gap: 11px; font-size: 14px; color: var(--gray5); line-height: 1.55; }
+.ydt-page .duo-list svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; margin-top: 3px; }
+
+/* ══════════ HERO ══════════ */
+.ydt-page .hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + 78px) 0 84px; }
+.ydt-page .hero-ember {
+    position: absolute; top: -48vh; left: 50%; width: 180vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.32) 0%, rgba(216, 30, 13, 0.15) 34%, rgba(118, 20, 10, 0.05) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .hero-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-width: 1180px; max-height: 1180px;
+    transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.22);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .hero .container { position: relative; z-index: 2; }
+.ydt-page .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 28px;
+}
+.ydt-page .hero h1 {
+    font-size: clamp(2.1rem, 5.4vw, 4rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; max-width: 17ch;
+}
+.ydt-page .hero h1 .dim { color: var(--w25); }
+.ydt-page .hero-body {
+    font-size: clamp(1rem, 1.25vw, 1.1rem); color: var(--gray5);
+    line-height: 1.7; max-width: 36rem; margin-top: 28px;
+}
+.ydt-page .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.ydt-page .back {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 26px;
+    /* 12px block padding clears the 36px touch minimum */
+    padding: 12px 0; transition: color 0.3s;
+}
+.ydt-page .back:hover { color: var(--white); }
+.ydt-page .back svg { width: 13px; height: 13px; transition: transform 0.3s var(--ease); }
+.ydt-page .back:hover svg { transform: translateX(-3px); }
+
+/* ══════════ PROOF BAND ══════════ */
+.ydt-page .band {
+    margin-top: 62px; border: 1px solid var(--line); border-radius: 18px;
+    background: var(--panel); overflow: hidden;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 860px) { .ydt-page .band { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .band-cell { padding: 24px 22px; border-top: 1px solid var(--line2); border-left: 1px solid var(--line2); }
+.ydt-page .band-cell:nth-child(-n+2) { border-top: none; }
+.ydt-page .band-cell:nth-child(odd) { border-left: none; }
+@media (min-width: 860px) {
+    .ydt-page .band-cell { border-top: none; border-left: 1px solid var(--line2); }
+    .ydt-page .band-cell:first-child { border-left: none; }
+}
+.ydt-page .band-v {
+    display: block; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; margin-bottom: 9px;
+}
+.ydt-page .band-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SHARED PANEL CHROME
+   ══════════════════════════════════════════════════════════════ */
+.ydt-page .duo-art, .ydt-page .art-hold { position: relative; }
+.ydt-page .duo-art::before, .ydt-page .art-hold::before {
+    content: ''; position: absolute; left: 50%; top: 4%;
+    width: 80%; height: 76%; transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.22), transparent 72%);
+    filter: blur(58px); pointer-events: none; z-index: 0;
+}
+.ydt-page .art {
+    position: relative; z-index: 1;
+    background: var(--panel); border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 76, 0.04);
+}
+.ydt-page .art-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line2); background: var(--panel2);
+}
+.ydt-page .art-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.ydt-page .art-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+.ydt-page .art-url {
+    font-family: var(--mono); font-size: 10.5px; color: var(--gray6); min-width: 0;
+    letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .art-live {
+    display: inline-flex; align-items: center; gap: 7px; margin-left: auto; flex-shrink: 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--data);
+}
+.ydt-page .art-body { padding: 22px 20px; }
+@media (min-width: 560px) { .ydt-page .art-body { padding: 24px; } }
+.ydt-page .art-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); margin-bottom: 8px;
+}
+.ydt-page .art-v {
+    display: block; font-size: clamp(1.35rem, 2.6vw, 1.85rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .art-cap {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6);
+}
+.ydt-page .art-delta {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .art-delta svg { width: 10px; height: 10px; }
+.ydt-page .art-foot {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 13px 20px; border-top: 1px solid var(--line2); background: rgba(255,255,255,0.012);
+}
+@media (min-width: 560px) { .ydt-page .art-foot { padding: 13px 24px; } }
+
+
+
+
+
+
+/* ══════════ 01 · THE PROJECTS ══════════
+   A container-width grid, not a scroll-jacked filmstrip. Nine live sites,
+   each with artwork generated from its own brand colours so there is no
+   image file that can go missing. */
+.ydt-page .pj-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 640px) { .ydt-page .pj-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .ydt-page .pj-grid { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .pj {
+    position: relative; display: flex; flex-direction: column; min-width: 0;
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 16px; overflow: hidden;
+    transition: border-color 0.5s var(--ease), transform 0.6s var(--ease);
+}
+.ydt-page .pj:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-3px); }
+.ydt-page .pj-art { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #0d0c0b; }
+.ydt-page .pj-art i {
+    position: absolute; inset: 0; display: block;
+    background-size: cover; background-position: center top;
+    transform: scale(1.02); transition: transform 1.1s var(--ease);
+}
+.ydt-page .pj:hover .pj-art i { transform: scale(1.06); }
+/* the scrim keeps the index legible over any artwork */
+.ydt-page .pj-art::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.42) 0%, transparent 38%, rgba(0,0,0,0.30) 100%);
+}
+.ydt-page .pj-idx {
+    position: absolute; top: 14px; left: 16px; z-index: 2;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.62);
+}
+.ydt-page .pj-live {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    color: var(--white); background: rgba(10,9,8,0.62);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.14); border-radius: 9999px; padding: 6px 11px;
+}
+.ydt-page .pj-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.ydt-page .pj-label {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray6); margin-bottom: 10px; line-height: 1.5;
+}
+.ydt-page .pj-name { font-size: 17px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 9px; }
+.ydt-page .pj-desc { font-size: 13px; color: var(--gray5); line-height: 1.62; margin-bottom: 16px; }
+.ydt-page .pj-stat {
+    display: inline-flex; align-items: baseline; gap: 8px; margin-bottom: 16px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gray6);
+}
+.ydt-page .pj-stat b { font-size: 15px; color: var(--data); letter-spacing: -0.01em; }
+.ydt-page .pj-caps { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
+.ydt-page .pj-caps span {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em;
+    border: 1px solid var(--card-line); background: var(--panel2); color: var(--gray5);
+    border-radius: 7px; padding: 5px 8px;
+}
+.ydt-page .pj-foot {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 13px 20px; border-top: 1px solid var(--line2); background: rgba(255,255,255,0.012);
+}
+.ydt-page .pj-dom { font-family: var(--mono); font-size: 10.5px; color: var(--gray5); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ydt-page .pj:hover .pj-dom { color: var(--white); }
+.ydt-page .pj-go { width: 14px; height: 14px; color: var(--gray6); flex-shrink: 0; transition: transform 0.3s var(--ease), color 0.3s; }
+.ydt-page .pj:hover .pj-go { color: var(--data); transform: translate(2px, -2px); }
+html.ydt-js .ydt-page .pj { opacity: 0; transform: translateY(14px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), border-color 0.5s; }
+html.ydt-js .ydt-page .pj.pj-in { opacity: 1; transform: translateY(0); }
+
+/* ══════════ 02 · CORE WEB VITALS ══════════ */
+.ydt-page .cwv { display: flex; flex-direction: column; gap: 22px; }
+.ydt-page .cwv-row { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: baseline; }
+.ydt-page .cwv-k { font-size: 13px; color: var(--white); font-weight: 600; }
+.ydt-page .cwv-k span { display: block; font-family: var(--mono); font-size: 10px; color: var(--gray6); font-weight: 400; margin-top: 4px; }
+.ydt-page .cwv-v { font-family: var(--mono); font-size: 12px; color: var(--gray5); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ydt-page .cwv-v b { color: var(--data); font-weight: 500; }
+/* two bars per metric: what it was, and what it is. Both are spans, so
+   without display:block the fill stays inline and ignores width entirely. */
+.ydt-page .cwv-bars { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px; }
+.ydt-page .cwv-track { display: block; height: 10px; border-radius: 5px; background: rgba(255,255,255,0.045); overflow: hidden; }
+.ydt-page .cwv-fill { display: block; height: 100%; border-radius: 5px; width: var(--w); }
+.ydt-page .cwv-fill--before { background: rgba(255,255,255,0.20); }
+.ydt-page .cwv-fill--after { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+html.ydt-js .ydt-page .cwv-fill { width: 0; transition: width 1.1s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .cwv-fill { width: var(--w); }
+html.ydt-js .ydt-page .art.in-view .cwv-row:nth-child(2) .cwv-fill { transition-delay: 0.15s; }
+html.ydt-js .ydt-page .art.in-view .cwv-row:nth-child(3) .cwv-fill { transition-delay: 0.30s; }
+.ydt-page .cwv-keys { display: flex; flex-wrap: wrap; gap: 14px; }
+.ydt-page .cwv-key { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; color: var(--gray6); }
+.ydt-page .cwv-key i { width: 12px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.ydt-page .cwv-key--b i { background: rgba(255,255,255,0.20); }
+.ydt-page .cwv-key--a i { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+
+/* ══════════ 03 · WHAT SLOW COSTS ══════════ */
+.ydt-page .sl-rows { list-style: none; display: flex; flex-direction: column; gap: 13px; margin-bottom: 22px; }
+.ydt-page .sl-row { display: grid; grid-template-columns: 42px 1fr 56px; gap: 12px; align-items: center; }
+.ydt-page .sl-t { font-family: var(--mono); font-size: 11.5px; color: var(--gray5); font-variant-numeric: tabular-nums; }
+.ydt-page .sl-row--here .sl-t { color: var(--white); }
+.ydt-page .sl-track { display: block; height: 22px; border-radius: 6px; background: rgba(255,255,255,0.045); overflow: hidden; }
+.ydt-page .sl-fill { display: block; height: 100%; border-radius: 6px; width: var(--w); background: rgba(255,255,255,0.14); }
+.ydt-page .sl-row--here .sl-fill { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+html.ydt-js .ydt-page .sl-fill { width: 0; transition: width 0.9s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .sl-fill { width: var(--w); }
+.ydt-page .sl-n { font-family: var(--mono); font-size: 11.5px; color: var(--gray5); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .sl-row--here .sl-n { color: var(--data); }
+.ydt-page .sl-sum {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: center;
+    border: 1px solid rgba(255,69,54,0.24); background: var(--data-dim);
+    border-radius: 13px; padding: 16px;
+}
+.ydt-page .sl-sum .art-k { margin-bottom: 7px; }
+.ydt-page .sl-sum b { display: block; font-family: var(--mono); font-size: clamp(1rem, 2.2vw, 1.3rem); color: var(--white); font-variant-numeric: tabular-nums; }
+.ydt-page .sl-sum .gain b { color: var(--data); }
+.ydt-page .sl-arrow { color: var(--gray6); }
+.ydt-page .sl-arrow svg { width: 18px; height: 18px; display: block; }
+.ydt-page .sl-note { display: block; margin-top: 16px; font-family: var(--mono); font-size: 10px; color: var(--gray6); line-height: 1.65; }
+
+/* ══════════ 04–06 · THE SMALLER INSTRUMENTS ══════════ */
+.ydt-page .tri { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 900px) { .ydt-page .tri { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .tri > * { min-width: 0; }
+.ydt-page .tri .art { height: 100%; display: flex; flex-direction: column; }
+.ydt-page .tri .art-body { flex: 1; }
+.ydt-page .tri-h { font-size: 15px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 6px; }
+.ydt-page .tri-p { font-size: 13px; color: var(--gray5); line-height: 1.6; margin-bottom: 20px; }
+
+/* 04 · the tracking plan */
+.ydt-page .tp { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 18px; }
+.ydt-page .tp-row {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center;
+    border: 1px solid var(--card-line); background: var(--panel2);
+    border-radius: 11px; padding: 11px 12px;
+}
+.ydt-page .tp-row--real { border-color: rgba(255,69,54,0.26); background: var(--data-dim); }
+.ydt-page .tp-ico { width: 14px; height: 14px; flex-shrink: 0; color: var(--gray6); }
+.ydt-page .tp-row--real .tp-ico { color: var(--data); }
+.ydt-page .tp-t { min-width: 0; }
+.ydt-page .tp-t b { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--white); letter-spacing: 0.04em; }
+.ydt-page .tp-t span { display: block; font-family: var(--mono); font-size: 9.5px; color: var(--gray6); margin-top: 4px; }
+.ydt-page .tp-v { font-family: var(--mono); font-size: 11px; color: var(--gray6); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ydt-page .tp-row--real .tp-v { color: var(--data); }
+.ydt-page .tp-note { display: block; font-family: var(--mono); font-size: 10px; color: var(--gray6); line-height: 1.65; }
+.ydt-page .tp-note b { color: var(--data); font-weight: 500; }
+
+/* 05 · the accessibility audit */
+.ydt-page .ax { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.ydt-page .ax-row { display: grid; grid-template-columns: auto 1fr auto; gap: 11px; align-items: center; }
+.ydt-page .ax-ico { width: 15px; height: 15px; flex-shrink: 0; color: var(--data); }
+.ydt-page .ax-ico--open { color: var(--gray6); }
+.ydt-page .ax-t { font-size: 12.5px; color: var(--white); min-width: 0; }
+.ydt-page .ax-row--open .ax-t { color: var(--gray5); }
+.ydt-page .ax-n { font-family: var(--mono); font-size: 10.5px; color: var(--gray6); white-space: nowrap; }
+.ydt-page .ax-row--fixed .ax-n { color: var(--data); }
+/* the contrast sample proves the ratio rather than just claiming it */
+.ydt-page .ax-swatch { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ydt-page .ax-swatch div { border-radius: 10px; padding: 12px 11px; border: 1px solid var(--card-line); }
+.ydt-page .ax-swatch .bad { background: #0b0a09; }
+.ydt-page .ax-swatch .good { background: #0b0a09; border-color: rgba(255,69,54,0.26); }
+.ydt-page .ax-swatch b { display: block; font-size: 12px; font-weight: 600; margin-bottom: 7px; }
+.ydt-page .ax-swatch .bad b { color: #4b4642; }
+.ydt-page .ax-swatch .good b { color: var(--white); }
+.ydt-page .ax-swatch span {
+    display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gray6);
+}
+.ydt-page .ax-swatch .good span { color: var(--data); }
+
+/* 06 · the redirect map */
+.ydt-page .rd { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.ydt-page .rd-row {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 9px; align-items: center;
+    font-family: var(--mono); font-size: 10px;
+}
+.ydt-page .rd-from { color: var(--gray6); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-decoration: line-through; text-decoration-color: rgba(255,255,255,0.22); }
+.ydt-page .rd-to { color: var(--white); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ydt-page .rd-arrow { color: var(--data); flex-shrink: 0; }
+.ydt-page .rd-arrow svg { width: 11px; height: 11px; display: block; }
+.ydt-page .rd-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ydt-page .rd-stats div { border: 1px solid var(--card-line); border-radius: 10px; padding: 12px 8px; text-align: center; }
+.ydt-page .rd-stats b { display: block; font-family: var(--mono); font-size: 13px; color: var(--data); font-variant-numeric: tabular-nums; }
+.ydt-page .rd-stats span {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gray6); margin-top: 6px; line-height: 1.4;
+}
+html.ydt-js .ydt-page .tp-row,
+html.ydt-js .ydt-page .ax-row,
+html.ydt-js .ydt-page .rd-row { opacity: 0; transform: translateY(6px); transition: opacity 0.45s var(--ease), transform 0.45s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .tp-row,
+html.ydt-js .ydt-page .art.in-view .ax-row,
+html.ydt-js .ydt-page .art.in-view .rd-row { opacity: 1; transform: translateY(0); }
+/* ══════════ PROCESS ACCORDION ══════════ */
+.ydt-page .acc { border-top: 1px solid var(--line); }
+.ydt-page .acc-item { border-bottom: 1px solid var(--line); }
+.ydt-page .acc-head {
+    width: 100%; background: none; border: none; cursor: pointer;
+    font-family: inherit; color: inherit; text-align: left;
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(16px, 4vw, 44px); align-items: center; padding: 26px 0;
+}
+.ydt-page .acc-num {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em;
+    color: var(--gray6); transition: color 0.4s;
+}
+.ydt-page .acc-title {
+    font-size: clamp(1.05rem, 2vw, 1.5rem); font-weight: 700;
+    letter-spacing: -0.028em; line-height: 1.25; color: var(--gray5); transition: color 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-title, .ydt-page .acc-head:hover .acc-title { color: var(--white); }
+.ydt-page .acc-item.is-open .acc-num { color: var(--data); }
+.ydt-page .acc-sign { position: relative; width: 17px; height: 17px; flex-shrink: 0; color: var(--gray6); transition: color 0.4s; }
+.ydt-page .acc-sign::before, .ydt-page .acc-sign::after {
+    content: ''; position: absolute; background: currentColor; left: 50%; top: 50%;
+}
+.ydt-page .acc-sign::before { width: 15px; height: 1.5px; margin: -0.75px 0 0 -7.5px; }
+.ydt-page .acc-sign::after {
+    width: 1.5px; height: 15px; margin: -7.5px 0 0 -0.75px;
+    transition: transform 0.5s var(--ease), opacity 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-sign { color: var(--data); }
+.ydt-page .acc-item.is-open .acc-sign::after { transform: scaleY(0); opacity: 0; }
+/* Gated on JS. The collapse is entirely script-driven, so without this a
+   script error left all five process descriptions permanently unreadable
+   at max-height:0. With no JS every panel is simply open. */
+.ydt-page .acc-panel { overflow: hidden; }
+html.ydt-js .ydt-page .acc-panel {
+    max-height: 0; opacity: 0;
+    transition: max-height 0.7s var(--ease), opacity 0.5s var(--ease);
+}
+html.ydt-js .ydt-page .acc-item.is-open .acc-panel { opacity: 1; }
+html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
+.ydt-page .acc-inner {
+    padding: 0 0 30px; display: grid;
+    grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 4vw, 44px);
+}
+.ydt-page .acc-inner p { font-size: 15px; line-height: 1.78; color: var(--gray5); max-width: 46rem; }
+.ydt-page .acc-inner .spacer { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; visibility: hidden; }
+@media (max-width: 640px) {
+    .ydt-page .acc-head { gap: 14px; }
+    .ydt-page .acc-inner { grid-template-columns: 1fr; gap: 0; }
+    .ydt-page .acc-inner .spacer { display: none; }
+}
+
+/* ══════════ SERVICES GRID ══════════ */
+.ydt-page .svc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .ydt-page .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (min-width: 1024px) { .ydt-page .svc-grid { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .svc {
+    position: relative; display: flex; flex-direction: column; min-width: 0;
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 16px; padding: 26px; overflow: hidden;
+    transition: border-color 0.5s, transform 0.6s var(--ease);
+}
+.ydt-page .svc:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); }
+.ydt-page .svc--here { border-color: rgba(255,69,54,0.32); background: linear-gradient(180deg, var(--data-dim), var(--card-bg) 62%); }
+.ydt-page .svc-idx {
+    position: absolute; top: 24px; right: 24px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--gray6);
+}
+.ydt-page .svc--here .svc-idx { color: var(--data); }
+.ydt-page .svc-icon {
+    display: inline-flex; align-self: flex-start; padding: 9px; border-radius: 10px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--line); margin-bottom: 18px;
+}
+.ydt-page .svc-icon svg { width: 19px; height: 19px; color: var(--gray5); }
+.ydt-page .svc--here .svc-icon { background: var(--data-dim); border-color: rgba(255,69,54,0.28); }
+.ydt-page .svc--here .svc-icon svg { color: var(--data); }
+.ydt-page .svc h3 { font-size: 16px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 9px; }
+.ydt-page .svc p { font-size: 13px; line-height: 1.65; color: var(--gray5); }
+.ydt-page .svc-here-tag {
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 16px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--data);
+}
+
+/* ══════════ FINAL CTA ══════════ */
+.ydt-page .cta { position: relative; overflow: hidden; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
+.ydt-page .cta-ember {
+    position: absolute; bottom: -56vh; left: 50%; width: 170vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.24) 0%, rgba(216, 30, 13, 0.11) 36%, transparent 72%);
+    filter: blur(30px);
+}
+.ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
+.ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+
+/* ══════════ MOTION FALLBACKS ══════════
+   These carry the html.ydt-js prefix on purpose — they have to out-specify
+   the gated hidden states above, and a media query adds no specificity. */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page { scroll-behavior: auto; }
+    html.ydt-js .ydt-page [data-reveal],
+    html.ydt-js .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    html.ydt-js .ydt-page .pj,
+    html.ydt-js .ydt-page .tp-row,
+    html.ydt-js .ydt-page .ax-row,
+    html.ydt-js .ydt-page .rd-row { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .cwv-fill,
+    html.ydt-js .ydt-page .sl-fill { width: var(--w); transition: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .sec { padding: 78px 0; }
+    .ydt-page .hero { padding: calc(var(--header-h) + 48px) 0 56px; }
+    .ydt-page .cta { padding: 80px 0 88px; }
+    .ydt-page .hero-actions .ember-btn, .ydt-page .hero-actions .ghost-btn,
+    .ydt-page .cta-actions .ember-btn, .ydt-page .cta-actions .ghost-btn { width: 100%; }
+    /* nothing under 10px, same floor as every other page */
+    .ydt-page .art-cap, .ydt-page .art-k, .ydt-page .band-k,
+    .ydt-page .pj-idx, .ydt-page .pj-live, .ydt-page .pj-label, .ydt-page .pj-caps span,
+    .ydt-page .pj-stat, .ydt-page .cwv-key, .ydt-page .cwv-k span, .ydt-page .sl-note,
+    .ydt-page .tp-t span, .ydt-page .tp-note, .ydt-page .ax-n, .ydt-page .ax-swatch span,
+    .ydt-page .rd-row, .ydt-page .rd-stats span, .ydt-page .svc-here-tag,
+    .ydt-page .svc-idx, .ydt-page .back { font-size: 10px; letter-spacing: 0.1em; }
+    .ydt-page .sl-sum { grid-template-columns: 1fr; text-align: center; gap: 10px; }
+    .ydt-page .sl-arrow { transform: rotate(90deg); margin: 0 auto; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page .art-url, .ydt-page .art-live, .ydt-page .art-k, .ydt-page .art-cap,
+.ydt-page .art-delta, .ydt-page .pj-idx, .ydt-page .pj-live, .ydt-page .pj-label,
+.ydt-page .pj-caps span, .ydt-page .pj-stat, .ydt-page .pj-dom, .ydt-page .cwv-v,
+.ydt-page .cwv-k span, .ydt-page .cwv-key, .ydt-page .sl-t, .ydt-page .sl-n,
+.ydt-page .sl-sum b, .ydt-page .sl-note, .ydt-page .tp-t b, .ydt-page .tp-t span,
+.ydt-page .tp-v, .ydt-page .tp-note, .ydt-page .ax-n, .ydt-page .ax-swatch span,
+.ydt-page .rd-row, .ydt-page .rd-stats b, .ydt-page .rd-stats span,
+.ydt-page .acc-num, .ydt-page .band-k,
+.ydt-page .svc-idx, .ydt-page .svc-here-tag, .ydt-page .sec-eyebrow-text,
+.ydt-page .hero-eyebrow, .ydt-page .back { font-family: var(--mono); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+.ydt-page button { font-family: var(--font); }
+</style>
+
+<div class="ydt-page ydt-page--web-development">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <a class="back" href="/services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>
+        All services
+      </a>
+      <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Web development &amp; analytics</p>
+      <h1 id="heroTitle">
+        <span class="clip"><span class="slide">Fast sites, and the</span></span>
+        <span class="clip"><span class="slide"><span class="dim">tracking to prove it.</span></span></span>
+      </h1>
+      <p class="hero-body" data-reveal>
+        A site that takes four seconds to load has lost a quarter of its visitors before it
+        gets to make its case. We build for speed first, measure it against Google's own
+        thresholds, and wire up the analytics so every enquiry traces back to what produced it.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a class="ember-btn" href="/contact">
+          Get a free site audit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a class="ghost-btn" href="#projects">See the work</a>
+      </div>
+
+      <div class="band" data-reveal>
+        <div class="band-cell"><span class="band-v">0.8s</span><span class="band-k">Largest contentful<br>paint</span></div>
+        <div class="band-cell"><span class="band-v">100</span><span class="band-k">Accessibility,<br>Lighthouse</span></div>
+        <div class="band-cell"><span class="band-v">9</span><span class="band-k">Live sites you<br>can go and open</span></div>
+        <div class="band-cell"><span class="band-v">Yours</span><span class="band-k">You own the code<br>and the hosting</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 01 · THE PROJECTS ══════════ -->
+  <section class="sec" id="projects" aria-labelledby="pjTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">01 · What we've built</span></div>
+        <h2 class="sec-title" id="pjTitle" data-reveal>Nine live sites. <span class="dim">Go and open them.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Every one of these is in production right now, serving a real business. That's a
+          deliberately higher bar than a portfolio of concepts — you can check the load times yourself.
+        </p>
+      </div>
+
+      <!-- The nine projects are plain HTML, artwork and all, so the section is
+           never empty without JavaScript and the outbound links are always in
+           the markup. The script below only enhances them: the reveal, and the
+           optional swap to real screenshots. -->
+      <div class="pj-grid" id="pjGrid">
+        <a class="pj" href="https://pilotiq.co.uk" target="_blank" rel="noopener" data-slug="pilotiq"
+           aria-label="Pilot IQ — Managed IT & Cybersecurity — London (opens in a new tab)">
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%231e1b5e%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e1b5e%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e0a92b%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e0a92b%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+            <span class="pj-idx">01 / 9</span>
+            <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+          </span>
+          <span class="pj-body">
+            <span class="pj-label">Managed IT &amp; Cybersecurity — London</span>
+            <span class="pj-name">Pilot IQ</span>
+            <span class="pj-desc">Managed IT for UK SMEs, built to reassure a non-technical buyer that risk goes down and uptime goes up.</span>
+            <span class="pj-caps"><span>Managed IT</span><span>Cybersecurity</span><span>Lead capture</span><span>GA4</span></span>
+          </span>
+          <span class="pj-foot"><span class="pj-dom">pilotiq.co.uk</span><svg class="pj-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+        <a class="pj" href="https://smartplusheating.com" target="_blank" rel="noopener" data-slug="smart-plus-heating"
+           aria-label="Smart Plus Heating — Heating & Air Conditioning — Dartford (opens in a new tab)">
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e12228%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e12228%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+            <span class="pj-idx">02 / 9</span>
+            <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+          </span>
+          <span class="pj-body">
+            <span class="pj-label">Heating &amp; Air Conditioning — Dartford</span>
+            <span class="pj-name">Smart Plus Heating</span>
+            <span class="pj-desc">Gas Safe engineers across Kent. The build puts Gas Safe, Which? Trusted Trader and British Gas Partner where they carry the most weight.</span>
+            <span class="pj-stat"><b>9,000+</b>Boilers installed</span><span class="pj-caps"><span>Local SEO</span><span>Quote funnel</span><span>Trust signals</span><span>Call tracking</span></span>
+          </span>
+          <span class="pj-foot"><span class="pj-dom">smartplusheating.com</span><svg class="pj-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+        <a class="pj" href="https://punt-caravan-parking.com" target="_blank" rel="noopener" data-slug="punt-caravan-parking"
+           aria-label="Punt Caravan Parking — Caravan Storage — Costa Brava, Spain (opens in a new tab)">
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%231b4f9c%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231b4f9c%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+            <span class="pj-idx">03 / 9</span>
+            <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+          </span>
+          <span class="pj-body">
+            <span class="pj-label">Caravan Storage — Costa Brava, Spain</span>
+            <span class="pj-name">Punt Caravan Parking</span>
+            <span class="pj-desc">Secure indoor and outdoor storage with servicing and delivery, for a customer base arriving from across Europe.</span>
+            <span class="pj-caps"><span>Booking flow</span><span>Multilingual</span><span>Local SEO</span><span>Service cards</span></span>
+          </span>
+          <span class="pj-foot"><span class="pj-dom">punt-caravan-parking.com</span><svg class="pj-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+        <a class="pj" href="https://shorelinevehicles.com" target="_blank" rel="noopener" data-slug="shoreline-vehicles"
+           aria-label="Shoreline Vehicle Design — Bespoke Land Rover Defenders — UK & Miami (opens in a new tab)">
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+            <span class="pj-idx">04 / 9</span>
+            <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+          </span>
+          <span class="pj-body">
+            <span class="pj-label">Bespoke Land Rover Defenders — UK &amp; Miami</span>
+            <span class="pj-name">Shoreline Vehicle Design</span>
+            <span class="pj-desc">Defender restorations built from the bare chassis up. Photography-led, because in this market the last build is the entire pitch.</span>
+            <span class="pj-caps"><span>Build gallery</span><span>Editorial layout</span><span>Image pipeline</span><span>Enquiry flow</span></span>
+          </span>
+          <span class="pj-foot"><span class="pj-dom">shorelinevehicles.com</span><svg class="pj-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+        <a class="pj" href="https://shoreline911.com" target="_blank" rel="noopener" data-slug="shoreline-911"
+           aria-label="Shoreline 911 — Porsche 911 Backdates — Miami (opens in a new tab)">
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238fa9c4%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%238fa9c4%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+            <span class="pj-idx">05 / 9</span>
+            <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+          </span>
+          <span class="pj-body">
+            <span class="pj-label">Porsche 911 Backdates — Miami</span>
+            <span class="pj-name">Shoreline 911</span>
+            <span class="pj-desc">Hand-built air-cooled backdate commissions, on a site engineered to hold its own against the cars it sells.</span>
+            <span class="pj-caps"><span>Inventory</span><span>Editorial</span><span>Core Web Vitals</span><span>Enquiry flow</span></span>
+          </span>
+          <span class="pj-foot"><span class="pj-dom">shoreline911.com</span><svg class="pj-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+        <a class="pj" href="https://senttr.com" target="_blank" rel="noopener" data-slug="senttr"
+           aria-label="Senttr — AI & Automation Platform — London (opens in a new tab)">
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f0e6d2%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f0e6d2%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+            <span class="pj-idx">06 / 9</span>
+            <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+          </span>
+          <span class="pj-body">
+            <span class="pj-label">AI &amp; Automation Platform — London</span>
+            <span class="pj-name">Senttr</span>
+            <span class="pj-desc">Digital workers that take on the operational tasks slowing teams down. The hard part was explaining an unfamiliar product before the visitor scrolled away.</span>
+            <span class="pj-caps"><span>Product marketing</span><span>Demo funnel</span><span>Illustration</span><span>Analytics</span></span>
+          </span>
+          <span class="pj-foot"><span class="pj-dom">senttr.com</span><svg class="pj-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+        <a class="pj" href="https://svd-group.com" target="_blank" rel="noopener" data-slug="svd-group"
+           aria-label="SVD — Classic Vehicle Restoration (opens in a new tab)">
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%236f7d8c%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%236f7d8c%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+            <span class="pj-idx">07 / 9</span>
+            <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+          </span>
+          <span class="pj-body">
+            <span class="pj-label">Classic Vehicle Restoration</span>
+            <span class="pj-name">SVD</span>
+            <span class="pj-desc">A restoration group bringing Defenders and air-cooled Porsches back as everyday cars. Inspired by the past, built for now.</span>
+            <span class="pj-caps"><span>Brand site</span><span>Portfolio</span><span>Performance</span><span>Structured data</span></span>
+          </span>
+          <span class="pj-foot"><span class="pj-dom">svd-group.com</span><svg class="pj-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+        <a class="pj" href="https://fitzgeraldcap.com" target="_blank" rel="noopener" data-slug="fitzgerald-capital"
+           aria-label="Fitzgerald Capital — Private Investment Group — London (opens in a new tab)">
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%230d3b2a%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230d3b2a%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f2efe6%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f2efe6%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+            <span class="pj-idx">08 / 9</span>
+            <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+          </span>
+          <span class="pj-body">
+            <span class="pj-label">Private Investment Group — London</span>
+            <span class="pj-name">Fitzgerald Capital</span>
+            <span class="pj-desc">Authenticity and real partnership over noise. Quiet by design, because the audience distrusts the alternative.</span>
+            <span class="pj-caps"><span>Editorial</span><span>Portfolio</span><span>Typography</span><span>Accessibility</span></span>
+          </span>
+          <span class="pj-foot"><span class="pj-dom">fitzgeraldcap.com</span><svg class="pj-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+        <a class="pj" href="https://sweepsisters.co.uk" target="_blank" rel="noopener" data-slug="sweep-sisters"
+           aria-label="Sweep Sisters — Chimney & Property Services — Essex & Herts (opens in a new tab)">
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f26522%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f26522%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+            <span class="pj-idx">09 / 9</span>
+            <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+          </span>
+          <span class="pj-body">
+            <span class="pj-label">Chimney &amp; Property Services — Essex &amp; Herts</span>
+            <span class="pj-name">Sweep Sisters</span>
+            <span class="pj-desc">HETAS certified sweeping, wood burner servicing and safety inspections, with same-day booking front and centre.</span>
+            <span class="pj-caps"><span>Booking flow</span><span>Local SEO</span><span>Service areas</span><span>Reviews</span></span>
+          </span>
+          <span class="pj-foot"><span class="pj-dom">sweepsisters.co.uk</span><svg class="pj-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 · CORE WEB VITALS ══════════ -->
+  <section class="sec" id="vitals" aria-labelledby="cwvTitle">
+    <div class="container">
+      <div class="duo">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">02 · How we measure it</span></div>
+          <h2 class="sec-title" id="cwvTitle" data-reveal>Google's numbers, <span class="dim">not ours.</span></h2>
+          <p data-reveal>
+            "Fast" is not a matter of opinion. Google publishes three thresholds and measures every
+            site against them using data from real Chrome users — not a lab test on our machine,
+            which is how most agencies quietly report a good score.
+          </p>
+          <ul class="duo-list" data-reveal>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span><b>LCP</b> — how long until the main thing appears. Under 2.5s.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span><b>CLS</b> — how much the page jumps about while loading. Under 0.1.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span><b>INP</b> — how quickly it responds when tapped. Under 200ms.</span></li>
+          </ul>
+          <p data-reveal style="margin-top:20px">
+            These are a ranking factor, but that's almost beside the point. They are a proxy for
+            whether the site feels broken on a phone on mobile data, which is where most of your
+            visitors actually are.
+          </p>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">core web vitals · field data</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Passing</span>
+            </div>
+            <div class="art-body">
+              <div class="cwv">
+                <div class="cwv-row">
+                  <span class="cwv-k">Largest contentful paint<span>Threshold 2.5s</span></span>
+                  <span class="cwv-v">4.1s &rarr; <b>0.8s</b></span>
+                  <span class="cwv-bars">
+                    <span class="cwv-track"><span class="cwv-fill cwv-fill--before" style="--w:82%"></span></span>
+                    <span class="cwv-track"><span class="cwv-fill cwv-fill--after" style="--w:16%"></span></span>
+                  </span>
+                </div>
+                <div class="cwv-row">
+                  <span class="cwv-k">Cumulative layout shift<span>Threshold 0.10</span></span>
+                  <span class="cwv-v">0.34 &rarr; <b>0.00</b></span>
+                  <span class="cwv-bars">
+                    <span class="cwv-track"><span class="cwv-fill cwv-fill--before" style="--w:68%"></span></span>
+                    <span class="cwv-track"><span class="cwv-fill cwv-fill--after" style="--w:2%"></span></span>
+                  </span>
+                </div>
+                <div class="cwv-row">
+                  <span class="cwv-k">Interaction to next paint<span>Threshold 200ms</span></span>
+                  <span class="cwv-v">410ms &rarr; <b>42ms</b></span>
+                  <span class="cwv-bars">
+                    <span class="cwv-track"><span class="cwv-fill cwv-fill--before" style="--w:68%"></span></span>
+                    <span class="cwv-track"><span class="cwv-fill cwv-fill--after" style="--w:7%"></span></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap cwv-key cwv-key--b"><i aria-hidden="true"></i>Before</span>
+              <span class="art-cap cwv-key cwv-key--a"><i aria-hidden="true"></i>After</span>
+              <span class="art-cap" style="margin-left:auto">Shorter is better</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 · WHAT SLOW COSTS ══════════ -->
+  <section class="sec" id="cost" aria-labelledby="slTitle">
+    <div class="container">
+      <div class="duo duo--flip">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">03 · How it actually works</span></div>
+          <h2 class="sec-title" id="slTitle" data-reveal>Every second <span class="dim">has a price.</span></h2>
+          <p data-reveal>
+            This is the part that turns speed from a technical detail into a line on the P&amp;L.
+            The share of visitors who give up climbs steeply with load time — and the steepest
+            part of that curve is between one and three seconds, which is exactly where most
+            business sites sit.
+          </p>
+          <p data-reveal>
+            The reason it matters more than it used to is that you are usually paying for those
+            visitors. Every one lost to a slow page is spend you have already committed, and it is
+            almost always cheaper to fix the page than to buy replacements for the people it lost.
+          </p>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">bounce rate by load time</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Field</span>
+            </div>
+            <div class="art-body">
+              <span class="art-k">Visitors who leave before the page finishes</span>
+              <ul class="sl-rows">
+                <li class="sl-row">
+                  <span class="sl-t">1s</span>
+                  <span class="sl-track"><span class="sl-fill" style="--w:9%"></span></span>
+                  <span class="sl-n">9%</span>
+                </li>
+                <li class="sl-row">
+                  <span class="sl-t">2s</span>
+                  <span class="sl-track"><span class="sl-fill" style="--w:17%"></span></span>
+                  <span class="sl-n">17%</span>
+                </li>
+                <li class="sl-row sl-row--here">
+                  <span class="sl-t">4s</span>
+                  <span class="sl-track"><span class="sl-fill" style="--w:38%"></span></span>
+                  <span class="sl-n">38%</span>
+                </li>
+                <li class="sl-row">
+                  <span class="sl-t">6s</span>
+                  <span class="sl-track"><span class="sl-fill" style="--w:56%"></span></span>
+                  <span class="sl-n">56%</span>
+                </li>
+                <li class="sl-row">
+                  <span class="sl-t">8s</span>
+                  <span class="sl-track"><span class="sl-fill" style="--w:71%"></span></span>
+                  <span class="sl-n">71%</span>
+                </li>
+              </ul>
+
+              <div class="sl-sum">
+                <div>
+                  <span class="art-k">At 4 seconds</span>
+                  <b>6,200 of 10,000</b>
+                </div>
+                <span class="sl-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </span>
+                <div class="gain">
+                  <span class="art-k">At 0.8 seconds</span>
+                  <b>9,100 of 10,000</b>
+                </div>
+              </div>
+              <span class="sl-note">Same traffic, same ad spend, 2,900 more people who actually saw the page &mdash; a 47% increase in visitors who stayed.</span>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Bounce rate by load time</span>
+              <span class="art-cap" style="margin-left:auto">Mobile, 4G</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04–06 ══════════ -->
+  <section class="sec" id="build" aria-labelledby="bdTitle">
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">04–06 · What "finished" means</span></div>
+        <h2 class="sec-title" id="bdTitle" data-reveal>A site isn't done <span class="dim">when it looks right.</span></h2>
+        <p class="sec-sub" data-reveal>These three are where most builds are quietly signed off unfinished, and all three are expensive to retrofit.</p>
+      </div>
+
+      <div class="tri">
+        <!-- 04 · the tracking plan -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">ga4 · events, last 30 days</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>04</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Events, not pageviews</h3>
+              <p class="tri-p">A pageview tells you somebody arrived. These tell you what they did, and which campaign paid for it.</p>
+              <ul class="tp">
+                <li class="tp-row tp-row--real">
+                  <svg class="tp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+                  <span class="tp-t"><b>call_click</b><span>Tap-to-call from a mobile</span></span>
+                  <span class="tp-v">214</span>
+                </li>
+                <li class="tp-row tp-row--real">
+                  <svg class="tp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                  <span class="tp-t"><b>form_submit</b><span>Enquiry, with the source attached</span></span>
+                  <span class="tp-v">186</span>
+                </li>
+                <li class="tp-row tp-row--real">
+                  <svg class="tp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  <span class="tp-t"><b>booking_complete</b><span>Slot confirmed, value passed</span></span>
+                  <span class="tp-v">92</span>
+                </li>
+                <li class="tp-row">
+                  <svg class="tp-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <span class="tp-t"><b>page_view</b><span>What most setups stop at</span></span>
+                  <span class="tp-v">41,200</span>
+                </li>
+              </ul>
+              <span class="tp-note">The top three are <b>492 outcomes</b> you can put a value on. The fourth is a number that has never closed a sale.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 · accessibility -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">accessibility · wcag 2.2 aa</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>05</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Usable by everyone</h3>
+              <p class="tri-p">It's a legal requirement in the UK, and it overlaps almost entirely with just being easier to use.</p>
+              <ul class="ax">
+                <li class="ax-row ax-row--fixed">
+                  <svg class="ax-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="ax-t">Colour contrast</span><span class="ax-n">31 &rarr; 0</span>
+                </li>
+                <li class="ax-row ax-row--fixed">
+                  <svg class="ax-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="ax-t">Keyboard navigable</span><span class="ax-n">All</span>
+                </li>
+                <li class="ax-row ax-row--fixed">
+                  <svg class="ax-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="ax-t">Form labels &amp; alt text</span><span class="ax-n">148 &rarr; 0</span>
+                </li>
+                <li class="ax-row ax-row--fixed">
+                  <svg class="ax-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="ax-t">Respects reduced motion</span><span class="ax-n">Yes</span>
+                </li>
+              </ul>
+              <div class="ax-swatch">
+                <div class="bad"><b>Before</b><span>2.1 : 1 &mdash; fails</span></div>
+                <div class="good"><b>After</b><span>14.8 : 1 &mdash; passes</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 · the redirect map -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">migration · 301 map</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>06</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Rankings survive the move</h3>
+              <p class="tri-p">The most expensive way to get a new site is to launch one that drops every ranking the old one had.</p>
+              <ul class="rd">
+                <li class="rd-row">
+                  <span class="rd-from">/services.php?id=4</span>
+                  <span class="rd-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                  <span class="rd-to">/boiler-installation</span>
+                </li>
+                <li class="rd-row">
+                  <span class="rd-from">/old-blog/2019/06/tips</span>
+                  <span class="rd-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                  <span class="rd-to">/journal/heating-tips</span>
+                </li>
+                <li class="rd-row">
+                  <span class="rd-from">/index.html</span>
+                  <span class="rd-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                  <span class="rd-to">/</span>
+                </li>
+                <li class="rd-row">
+                  <span class="rd-from">/contact-us-page</span>
+                  <span class="rd-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                  <span class="rd-to">/contact</span>
+                </li>
+              </ul>
+              <div class="rd-stats">
+                <div><b>412</b><span>URLs<br>mapped</span></div>
+                <div><b>0</b><span>Rankings<br>lost</span></div>
+                <div><b>0</b><span>404s at<br>launch</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROCESS ══════════ -->
+  <section class="sec" id="process" aria-labelledby="procTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">How we work</span></div>
+        <h2 class="sec-title" id="procTitle" data-reveal>The order <span class="dim">we do it in.</span></h2>
+        <p class="sec-sub" data-reveal>Design first and you get a site that looks right and doesn't sell. Structure first and the design has something to decorate.</p>
+      </div>
+
+      <div class="acc" id="acc">
+        <div class="acc-item is-open" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="true" aria-controls="accp1">
+            <span class="acc-num">01</span>
+            <span class="acc-title">Audit what you have before proposing a rebuild</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp1">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">01</span>
+              <p>Hosting, page speed, crawlability, tracking, and every place the current build loses people. Sometimes the honest answer is that you don't need a new site — you need four templates fixed and the tracking rebuilt, at a fraction of the cost. We'd rather tell you that than sell you a project you didn't need.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp2">
+            <span class="acc-num">02</span>
+            <span class="acc-title">Design the route before the look</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp2">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">02</span>
+              <p>Wireframes settle what each page has to do, in what order, and what question it answers before the visitor is asked for anything. Getting that wrong is not fixable with better photography, and it is far cheaper to argue about at the wireframe stage than after the build.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp3">
+            <span class="acc-num">03</span>
+            <span class="acc-title">Build for a mid-range phone on mobile data</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp3">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">03</span>
+              <p>Not for the laptop it was designed on. Images sized and served properly, fonts that don't block the first paint, no framework loaded to animate one button. Accessible by default, and structured so you can edit the content without calling us every time a price changes.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp4">
+            <span class="acc-num">04</span>
+            <span class="acc-title">Wire the analytics to outcomes, not pageviews</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp4">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">04</span>
+              <p>GA4 events on calls, forms and bookings, with values attached and the source carried through. If you can't tell which page and which campaign produced an enquiry, the build isn't finished — and every marketing decision after launch is a guess wearing a dashboard.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp5">
+            <span class="acc-num">05</span>
+            <span class="acc-title">Launch without losing what you already ranked for</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp5">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">05</span>
+              <p>Every old URL mapped to its new home before the switch, tested on real devices and browsers, Core Web Vitals checked against field data rather than a lab score. A rebuild that costs you your rankings is the most expensive kind of new website there is, and it is entirely avoidable with a redirect map and an afternoon of care.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SERVICES ══════════ -->
+  <section class="sec" id="services" aria-labelledby="svcTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">The rest of it</span></div>
+        <h2 class="sec-title" id="svcTitle" data-reveal>The site is where <span class="dim">it all lands.</span></h2>
+        <p class="sec-sub" data-reveal>Every other channel spends money sending people here. This is the page that either converts them or doesn't.</p>
+      </div>
+
+      <div class="svc-grid">
+        <a class="svc" href="/seo" data-reveal>
+          <span class="svc-idx" aria-hidden="true">01</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <h3>Search engine optimisation</h3>
+          <p>Half of technical SEO is web development. This is where the crawl fixes actually get made.</p>
+        </a>
+
+        <a class="svc" href="/ppc" data-reveal>
+          <span class="svc-idx" aria-hidden="true">02</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <h3>Pay-per-click</h3>
+          <p>A faster, more relevant landing page lowers your cost per click directly. It's the cheapest lever in the account.</p>
+        </a>
+
+        <a class="svc" href="/social" data-reveal>
+          <span class="svc-idx" aria-hidden="true">03</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Social media</h3>
+          <p>The page the bio link points at, usually opened on a phone with one bar of signal.</p>
+        </a>
+
+        <a class="svc" href="/email" data-reveal>
+          <span class="svc-idx" aria-hidden="true">04</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+          <h3>Email marketing</h3>
+          <p>Where the sign-up form and the basket live — the two places every automation gets triggered from.</p>
+        </a>
+
+        <a class="svc" href="/content" data-reveal>
+          <span class="svc-idx" aria-hidden="true">05</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11a4 4 0 0 1 0 8H4z"/><path d="M4 12h13a4 4 0 0 1 0 8H4z"/></svg></div>
+          <h3>Content creation</h3>
+          <p>The words the templates are built to hold. A fast page with nothing to say still doesn't rank.</p>
+        </a>
+
+        <article class="svc svc--here" aria-current="page" data-reveal>
+          <span class="svc-idx" aria-hidden="true">06</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <h3>Web development</h3>
+          <p>Built for speed, measured against Google's thresholds, with the tracking wired to real outcomes.</p>
+          <span class="svc-here-tag"><span class="live-dot" aria-hidden="true"></span>You're here</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section class="cta" aria-labelledby="ctaTitle">
+    <div class="cta-ember" aria-hidden="true"></div>
+    <div class="container">
+      <div class="sec-head sec-head--center" style="margin-bottom:0">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
+        <h2 class="sec-title" id="ctaTitle" data-reveal>Find out what <span class="dim">the site is losing.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Send us the URL and we'll come back with your real Core Web Vitals, what your tracking
+          is currently missing, and whether you need a rebuild or four templates fixed — before
+          you've committed to anything.
+        </p>
+        <div class="cta-actions" data-reveal>
+          <a class="ember-btn" href="/contact">
+            Get a free site audit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="ghost-btn" href="/services">All services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ THE PROJECTS ══════
+     The nine cards are in the HTML above, artwork included, so they survive
+     with JavaScript off and their outbound links are always crawlable. This
+     only enhances them.
+
+     TO USE REAL SCREENSHOTS: upload them somewhere on the site and set
+     PROJECT_IMAGES to that folder, e.g. '/s/projects/'. Each card then looks
+     for <folder><data-slug>.jpg and swaps it in only once it has actually
+     loaded, so a missing file leaves the generated artwork in place rather
+     than breaking the card. Leave it as '' to use the artwork everywhere.
+
+     The previous version of this page built these paths from a global called
+     YDT_ASSETS which is defined nowhere on the site. That threw a
+     ReferenceError right here and killed everything after it in this script —
+     including the process accordion, which is why none of its panels opened. */
+  var PROJECT_IMAGES = '';
+
+  var pjCards = [].slice.call(document.querySelectorAll('.pj'));
+
+  if (PROJECT_IMAGES) {
+    pjCards.forEach(function (card) {
+      var slug = card.getAttribute('data-slug');
+      if (!slug) return;
+      var src = PROJECT_IMAGES + slug + '.jpg';
+      /* a background-image cannot report a 404, so load it first and only
+         swap on success */
+      var probe = new Image();
+      probe.onload = function () {
+        var art = card.querySelector('.pj-art i');
+        if (art) art.style.backgroundImage = 'url(\'' + src + '\')';
+      };
+      probe.src = src;
+    });
+  }
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    pjCards.forEach(function (c) { c.classList.add('pj-in'); });
+  } else {
+    var pjObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.style.transitionDelay = (0.07 * (pjCards.indexOf(e.target) % 3)) + 's';
+        e.target.classList.add('pj-in');
+        pjObs.unobserve(e.target);
+      });
+    }, { threshold: 0.14 });
+    pjCards.forEach(function (c) { pjObs.observe(c); });
+  }
+
+  /* ══════ REVEALS ══════
+     Copy reveals at 15%; an instrument waits until enough of its panel is
+     on screen to be worth watching. */
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  var artEls = document.querySelectorAll('[data-art]');
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    artEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+
+    var artObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); artObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.22 });
+    artEls.forEach(function (el) { artObs.observe(el); });
+  }
+
+  /* ══════ PROCESS ACCORDION ══════ */
+  var items = [].slice.call(document.querySelectorAll('.acc-item'));
+
+  function setOpen(item, open) {
+    var panel = item.querySelector('.acc-panel');
+    var head = item.querySelector('.acc-head');
+    item.classList.toggle('is-open', open);
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0px';
+  }
+
+  items.forEach(function (item) {
+    item.querySelector('.acc-head').addEventListener('click', function () {
+      var willOpen = !item.classList.contains('is-open');
+      items.forEach(function (other) { if (other !== item) setOpen(other, false); });
+      setOpen(item, willOpen);
+    });
+  });
+
+  function sizeOpen() {
+    items.forEach(function (item) { setOpen(item, item.classList.contains('is-open')); });
+  }
+  sizeOpen();
+  window.addEventListener('load', sizeOpen);
+  window.addEventListener('resize', function () {
+    items.forEach(function (item) {
+      if (!item.classList.contains('is-open')) return;
+      var p = item.querySelector('.acc-panel');
+      p.style.maxHeight = p.scrollHeight + 'px';
+    });
+  });
+
+  /* ══════ SCROLL PROGRESS ══════ */
+  var bar = document.getElementById('progress');
+  if (bar && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
+  } else if (bar) {
+    var tick = null;
+    window.addEventListener('scroll', function () {
+      if (tick) return;
+      tick = requestAnimationFrame(function () {
+        var max = document.body.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        tick = null;
+      });
+    }, { passive: true });
+  }
+})();
+</script>
