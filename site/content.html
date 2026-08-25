@@ -1,0 +1,1427 @@
+<!-- ═══════════════════════════════════════════════════════════
+     content.html  →  Squarespace page /content
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Design system — "signal", same as every other page:
+       base #050505 · panels #0b0a09 · Inter + IBM Plex Mono
+       signal red #ff4536 → #d81e0d, ember glow, film grain.
+
+     Six purpose-built instruments, all CSS and inline SVG — nothing
+     to upload, nothing that can 404:
+       1  the library, switchable across five kinds of page
+       2  how content compounds — traffic by publication cohort
+       3  decay, and what a refresh does about it
+       4  what is actually in a brief before anyone writes
+       5  intent match: ranking first for the wrong thing
+       6  the pipeline, brief to published
+
+     The tokens and furniture below are shared with the other service
+     pages — keep them in step.
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- Runs before paint. Everything hidden by default is scoped to this
+     class, so a script error leaves the page readable rather than blank. -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page { scroll-behavior: smooth; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { color: inherit; text-decoration: none; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; scroll-margin-top: 110px; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ PRIMITIVES ══════════ */
+html.ydt-js .ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+html.ydt-js .ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+html.ydt-js .ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+
+/* ══════════ SECTION SCAFFOLD ══════════ */
+.ydt-page .sec { padding: 112px 0; border-top: 1px solid var(--line2); }
+.ydt-page .sec-head { max-width: 672px; margin-bottom: 56px; }
+.ydt-page .sec-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.ydt-page .sec-head--center .sec-eyebrow { justify-content: center; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.03; margin-bottom: 16px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.68; }
+
+/* two-up: copy one side, instrument the other */
+.ydt-page .duo { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+@media (min-width: 1024px) {
+    .ydt-page .duo { grid-template-columns: 0.8fr 1.2fr; gap: 60px; }
+    .ydt-page .duo--flip .duo-copy { order: 2; }
+    .ydt-page .duo--flip .duo-art { order: 1; }
+}
+/* A `1fr` track is minmax(auto, 1fr), and that auto minimum is min-content —
+   which for any nowrap string is the whole string. Without this a single
+   keyword row sizes the whole track past the viewport on a phone. */
+.ydt-page .duo-copy, .ydt-page .duo-art { min-width: 0; }
+.ydt-page .duo-copy p { font-size: 15px; color: var(--gray5); line-height: 1.72; }
+.ydt-page .duo-copy p + p { margin-top: 14px; }
+.ydt-page .duo-list { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .duo-list li { display: flex; gap: 11px; font-size: 14px; color: var(--gray5); line-height: 1.55; }
+.ydt-page .duo-list svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; margin-top: 3px; }
+
+/* ══════════ HERO ══════════ */
+.ydt-page .hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + 78px) 0 84px; }
+.ydt-page .hero-ember {
+    position: absolute; top: -48vh; left: 50%; width: 180vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.32) 0%, rgba(216, 30, 13, 0.15) 34%, rgba(118, 20, 10, 0.05) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .hero-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-width: 1180px; max-height: 1180px;
+    transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.22);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .hero .container { position: relative; z-index: 2; }
+.ydt-page .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 28px;
+}
+.ydt-page .hero h1 {
+    font-size: clamp(2.1rem, 5.4vw, 4rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; max-width: 17ch;
+}
+.ydt-page .hero h1 .dim { color: var(--w25); }
+.ydt-page .hero-body {
+    font-size: clamp(1rem, 1.25vw, 1.1rem); color: var(--gray5);
+    line-height: 1.7; max-width: 36rem; margin-top: 28px;
+}
+.ydt-page .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.ydt-page .back {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 26px;
+    /* 12px block padding clears the 36px touch minimum */
+    padding: 12px 0; transition: color 0.3s;
+}
+.ydt-page .back:hover { color: var(--white); }
+.ydt-page .back svg { width: 13px; height: 13px; transition: transform 0.3s var(--ease); }
+.ydt-page .back:hover svg { transform: translateX(-3px); }
+
+/* ══════════ PROOF BAND ══════════ */
+.ydt-page .band {
+    margin-top: 62px; border: 1px solid var(--line); border-radius: 18px;
+    background: var(--panel); overflow: hidden;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 860px) { .ydt-page .band { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .band-cell { padding: 24px 22px; border-top: 1px solid var(--line2); border-left: 1px solid var(--line2); }
+.ydt-page .band-cell:nth-child(-n+2) { border-top: none; }
+.ydt-page .band-cell:nth-child(odd) { border-left: none; }
+@media (min-width: 860px) {
+    .ydt-page .band-cell { border-top: none; border-left: 1px solid var(--line2); }
+    .ydt-page .band-cell:first-child { border-left: none; }
+}
+.ydt-page .band-v {
+    display: block; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; margin-bottom: 9px;
+}
+.ydt-page .band-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SHARED PANEL CHROME
+   ══════════════════════════════════════════════════════════════ */
+.ydt-page .duo-art, .ydt-page .art-hold { position: relative; }
+.ydt-page .duo-art::before, .ydt-page .art-hold::before {
+    content: ''; position: absolute; left: 50%; top: 4%;
+    width: 80%; height: 76%; transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.22), transparent 72%);
+    filter: blur(58px); pointer-events: none; z-index: 0;
+}
+.ydt-page .art {
+    position: relative; z-index: 1;
+    background: var(--panel); border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 76, 0.04);
+}
+.ydt-page .art-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line2); background: var(--panel2);
+}
+.ydt-page .art-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.ydt-page .art-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+.ydt-page .art-url {
+    font-family: var(--mono); font-size: 10.5px; color: var(--gray6); min-width: 0;
+    letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .art-live {
+    display: inline-flex; align-items: center; gap: 7px; margin-left: auto; flex-shrink: 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--data);
+}
+.ydt-page .art-body { padding: 22px 20px; }
+@media (min-width: 560px) { .ydt-page .art-body { padding: 24px; } }
+.ydt-page .art-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); margin-bottom: 8px;
+}
+.ydt-page .art-v {
+    display: block; font-size: clamp(1.35rem, 2.6vw, 1.85rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .art-cap {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6);
+}
+.ydt-page .art-delta {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .art-delta svg { width: 10px; height: 10px; }
+.ydt-page .art-foot {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 13px 20px; border-top: 1px solid var(--line2); background: rgba(255,255,255,0.012);
+}
+@media (min-width: 560px) { .ydt-page .art-foot { padding: 13px 24px; } }
+
+
+
+
+
+/* ══════════ 01 · THE LIBRARY ══════════
+   The tab strip swaps the whole content type: different pages, targets and
+   numbers, and the summary above is derived from the rows. */
+.ydt-page .lb-tabs {
+    display: flex; gap: 4px; padding: 10px 12px; overflow-x: auto;
+    scrollbar-width: none; border-bottom: 1px solid var(--line2);
+}
+.ydt-page .lb-tabs::-webkit-scrollbar { display: none; }
+.ydt-page .lb-tab {
+    flex: 0 0 auto; padding: 12px 14px; border-radius: 9999px; border: 1px solid transparent;
+    background: none; cursor: pointer; white-space: nowrap;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray5);
+    transition: color 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.ydt-page .lb-tab:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.ydt-page .lb-tab[aria-selected="true"] {
+    color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,0.28);
+}
+.ydt-page .lb-sum { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line2); }
+@media (min-width: 640px) { .ydt-page .lb-sum { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .lb-cell { background: var(--panel); padding: 16px 16px 18px; min-width: 0; }
+.ydt-page .lb-cell .art-k { margin-bottom: 9px; }
+.ydt-page .lb-cell .art-v { font-size: clamp(1.1rem, 2.1vw, 1.45rem); }
+.ydt-page .lb-cols, .ydt-page .lb-row {
+    display: grid; grid-template-columns: 1fr 56px 36px 50px; gap: 12px; align-items: center;
+}
+@media (min-width: 700px) { .ydt-page .lb-cols, .ydt-page .lb-row { grid-template-columns: 1.6fr 118px 68px 62px 40px 58px; } }
+.ydt-page .lb-cols { padding-bottom: 12px; border-bottom: 1px solid var(--line2); }
+.ydt-page .lb-col {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray6); white-space: nowrap;
+}
+.ydt-page .lb-col--n { text-align: right; }
+.ydt-page .lb-hide { display: none; }
+@media (min-width: 700px) { .ydt-page .lb-hide { display: block; } }
+.ydt-page .lb-list { list-style: none; }
+.ydt-page .lb-row { padding: 13px 0; border-bottom: 1px solid var(--line2); }
+.ydt-page .lb-row:last-child { border-bottom: none; }
+.ydt-page .lb-t { font-size: 13px; color: var(--white); min-width: 0; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ydt-page .lb-t span { display: block; font-family: var(--mono); font-size: 9.5px; color: var(--gray6); margin-top: 3px; }
+/* the target query this page was written to answer */
+.ydt-page .lb-kw { min-width: 0; }
+.ydt-page .lb-kw b {
+    display: block; font-family: var(--mono); font-weight: 400; font-size: 10px;
+    color: var(--gray5); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .lb-n { font-family: var(--mono); font-size: 11.5px; color: var(--gray5); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .lb-pos { font-family: var(--mono); font-size: 13px; color: var(--white); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .lb-pos.win { color: var(--data); }
+html.ydt-js .ydt-page .lb-row { opacity: 0; transform: translateY(8px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .lb-row, html.ydt-js .ydt-page .lb-row.lb-in { opacity: 1; transform: translateY(0); }
+
+/* ══════════ 02 · HOW IT COMPOUNDS ══════════
+   Traffic by the quarter a piece was published. Older cohorts keep
+   contributing, which is the whole argument for the channel. */
+.ydt-page .cp-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+.ydt-page .cp-svg { display: block; width: 100%; height: 200px; }
+@media (min-width: 860px) { .ydt-page .cp-svg { height: 224px; } }
+.ydt-page .cp-svg .grid { stroke: rgba(255,255,255,0.05); stroke-width: 1; }
+.ydt-page .cp-svg .c1 { fill: rgba(255, 69, 54, 0.68); }
+.ydt-page .cp-svg .c2 { fill: rgba(255, 69, 54, 0.46); }
+.ydt-page .cp-svg .c3 { fill: rgba(255, 69, 54, 0.28); }
+.ydt-page .cp-svg .c4 { fill: rgba(255, 255, 255, 0.14); }
+html.ydt-js .ydt-page .cp-in {
+    -webkit-clip-path: inset(0 100% 0 0); clip-path: inset(0 100% 0 0);
+    transition: -webkit-clip-path 1.5s 0.35s var(--ease), clip-path 1.5s 0.35s var(--ease);
+}
+html.ydt-js .ydt-page .art.in-view .cp-in { -webkit-clip-path: inset(0 0 0 0); clip-path: inset(0 0 0 0); }
+.ydt-page .cp-x { display: flex; justify-content: space-between; margin-top: 10px; }
+.ydt-page .cp-x span { font-family: var(--mono); font-size: 10px; color: var(--gray6); }
+.ydt-page .cp-keys { display: flex; flex-wrap: wrap; gap: 12px; }
+.ydt-page .cp-key { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; color: var(--gray6); white-space: nowrap; }
+.ydt-page .cp-key i { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+.ydt-page .cp-key--1 i { background: rgba(255, 69, 54, 0.68); }
+.ydt-page .cp-key--2 i { background: rgba(255, 69, 54, 0.46); }
+.ydt-page .cp-key--3 i { background: rgba(255, 69, 54, 0.28); }
+.ydt-page .cp-key--4 i { background: rgba(255, 255, 255, 0.14); }
+
+/* ══════════ 03 · DECAY AND REFRESH ══════════ */
+.ydt-page .dc-marks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 20px; }
+.ydt-page .dc-mark { border: 1px solid var(--card-line); background: var(--panel2); border-radius: 12px; padding: 14px 15px; }
+.ydt-page .dc-mark--hot { border-color: rgba(255,69,54,0.28); background: var(--data-dim); }
+.ydt-page .dc-mark b { display: block; font-size: clamp(1.2rem, 2.4vw, 1.6rem); font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.ydt-page .dc-mark--hot b { color: var(--data); }
+.ydt-page .dc-mark .art-k { margin-bottom: 8px; }
+.ydt-page .dc-mark em { display: block; font-family: var(--mono); font-size: 10px; font-style: normal; color: var(--gray6); margin-top: 7px; }
+.ydt-page .dc-svg { display: block; width: 100%; height: 154px; }
+@media (min-width: 860px) { .ydt-page .dc-svg { height: 172px; } }
+.ydt-page .dc-svg .grid { stroke: rgba(255,255,255,0.05); stroke-width: 1; }
+.ydt-page .dc-svg .band { fill: url(#dcBand); }
+.ydt-page .dc-svg .curve { fill: none; stroke: var(--data); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+/* the shape the page would have kept without the refresh */
+.ydt-page .dc-svg .ghost { fill: none; stroke: rgba(255,255,255,0.26); stroke-width: 1.4; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
+.ydt-page .dc-svg .mark { stroke: rgba(255,255,255,0.34); stroke-width: 1; stroke-dasharray: 3 3; }
+html.ydt-js .ydt-page .dc-in {
+    -webkit-clip-path: inset(0 100% 0 0); clip-path: inset(0 100% 0 0);
+    transition: -webkit-clip-path 1.4s 0.4s var(--ease), clip-path 1.4s 0.4s var(--ease);
+}
+html.ydt-js .ydt-page .art.in-view .dc-in { -webkit-clip-path: inset(0 0 0 0); clip-path: inset(0 0 0 0); }
+/* the month markers are HTML, not SVG <text> — an SVG label scales with the
+   viewBox and would render well under 10px on a phone. Each sits at its true
+   fraction of the run rather than being spaced evenly. */
+.ydt-page .dc-x { position: relative; height: 14px; margin-top: 10px; }
+.ydt-page .dc-x span {
+    position: absolute; left: var(--x); transform: translateX(-50%);
+    font-family: var(--mono); font-size: 10px; color: var(--gray6); white-space: nowrap;
+}
+.ydt-page .dc-x span:first-child { transform: translateX(0); }
+.ydt-page .dc-x span:last-child { transform: translateX(-100%); }
+.ydt-page .dc-x span.mark { color: var(--data); }
+
+/* ══════════ 04–06 · THE SMALLER INSTRUMENTS ══════════ */
+.ydt-page .tri { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 900px) { .ydt-page .tri { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .tri > * { min-width: 0; }
+.ydt-page .tri .art { height: 100%; display: flex; flex-direction: column; }
+.ydt-page .tri .art-body { flex: 1; }
+.ydt-page .tri-h { font-size: 15px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 6px; }
+.ydt-page .tri-p { font-size: 13px; color: var(--gray5); line-height: 1.6; margin-bottom: 20px; }
+
+/* 04 · what is in a brief */
+.ydt-page .bf { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.ydt-page .bf-row {
+    display: grid; grid-template-columns: 66px 1fr; gap: 12px; align-items: start;
+    padding-bottom: 12px; border-bottom: 1px solid var(--line2);
+}
+.ydt-page .bf-row:last-child { border-bottom: none; padding-bottom: 0; }
+.ydt-page .bf-k {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray6); padding-top: 2px;
+}
+.ydt-page .bf-v { font-size: 12.5px; color: var(--gray5); line-height: 1.55; min-width: 0; }
+.ydt-page .bf-v b { color: var(--white); font-weight: 600; }
+.ydt-page .bf-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.ydt-page .bf-chips span {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.04em;
+    border: 1px solid var(--card-line); background: var(--panel2); color: var(--gray5);
+    border-radius: 7px; padding: 5px 8px;
+}
+.ydt-page .bf-chips span.on { border-color: rgba(255,69,54,0.28); background: var(--data-dim); color: var(--data); }
+html.ydt-js .ydt-page .bf-row { opacity: 0; transform: translateY(6px); transition: opacity 0.45s var(--ease), transform 0.45s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .bf-row { opacity: 1; transform: translateY(0); }
+
+/* 05 · intent match */
+.ydt-page .im { display: flex; flex-direction: column; gap: 11px; margin-bottom: 18px; }
+.ydt-page .im-item { border: 1px solid var(--card-line); border-radius: 12px; padding: 13px 14px; background: var(--panel2); }
+.ydt-page .im-item--good { border-color: rgba(255,69,54,0.30); background: var(--data-dim); }
+.ydt-page .im-q { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--white); margin-bottom: 10px; }
+.ydt-page .im-nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.ydt-page .im-nums div { min-width: 0; }
+.ydt-page .im-nums span {
+    display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gray6); margin-bottom: 5px;
+}
+.ydt-page .im-nums b { display: block; font-family: var(--mono); font-size: 12.5px; color: var(--gray5); font-variant-numeric: tabular-nums; }
+.ydt-page .im-nums .lead b { color: var(--white); }
+.ydt-page .im-item--good .im-nums .lead b { color: var(--data); }
+.ydt-page .im-note { display: block; font-family: var(--mono); font-size: 10px; color: var(--gray6); line-height: 1.65; }
+.ydt-page .im-note b { color: var(--data); font-weight: 500; }
+
+/* 06 · the pipeline */
+.ydt-page .pp { display: flex; flex-direction: column; gap: 10px; }
+.ydt-page .pp-lane {
+    border: 1px solid var(--card-line); background: var(--panel2);
+    border-radius: 12px; padding: 12px 13px;
+}
+.ydt-page .pp-lane--live { border-color: rgba(255,69,54,0.26); background: var(--data-dim); }
+.ydt-page .pp-k { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.ydt-page .pp-k span {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray6);
+}
+.ydt-page .pp-lane--live .pp-k span { color: var(--data); }
+.ydt-page .pp-k b { font-family: var(--mono); font-size: 12px; color: var(--white); font-variant-numeric: tabular-nums; }
+/* one tile per piece in the lane — the count and the shape agree by construction */
+.ydt-page .pp-tiles { display: flex; flex-wrap: wrap; gap: 4px; }
+.ydt-page .pp-tiles i {
+    display: block; width: 15px; height: 15px; border-radius: 4px;
+    background: rgba(255,255,255,0.10);
+}
+.ydt-page .pp-lane--live .pp-tiles i { background: linear-gradient(160deg, #ff6152, var(--data-deep)); }
+html.ydt-js .ydt-page .pp-tiles i { opacity: 0; transform: scale(0.6); transition: opacity 0.35s var(--ease), transform 0.35s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .pp-tiles i { opacity: 1; transform: scale(1); }
+.ydt-page .pp-note { display: block; margin-top: 16px; font-family: var(--mono); font-size: 10px; color: var(--gray6); line-height: 1.6; }
+.ydt-page .pp-note b { color: var(--data); font-weight: 500; }
+/* ══════════ PROCESS ACCORDION ══════════ */
+.ydt-page .acc { border-top: 1px solid var(--line); }
+.ydt-page .acc-item { border-bottom: 1px solid var(--line); }
+.ydt-page .acc-head {
+    width: 100%; background: none; border: none; cursor: pointer;
+    font-family: inherit; color: inherit; text-align: left;
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(16px, 4vw, 44px); align-items: center; padding: 26px 0;
+}
+.ydt-page .acc-num {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em;
+    color: var(--gray6); transition: color 0.4s;
+}
+.ydt-page .acc-title {
+    font-size: clamp(1.05rem, 2vw, 1.5rem); font-weight: 700;
+    letter-spacing: -0.028em; line-height: 1.25; color: var(--gray5); transition: color 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-title, .ydt-page .acc-head:hover .acc-title { color: var(--white); }
+.ydt-page .acc-item.is-open .acc-num { color: var(--data); }
+.ydt-page .acc-sign { position: relative; width: 17px; height: 17px; flex-shrink: 0; color: var(--gray6); transition: color 0.4s; }
+.ydt-page .acc-sign::before, .ydt-page .acc-sign::after {
+    content: ''; position: absolute; background: currentColor; left: 50%; top: 50%;
+}
+.ydt-page .acc-sign::before { width: 15px; height: 1.5px; margin: -0.75px 0 0 -7.5px; }
+.ydt-page .acc-sign::after {
+    width: 1.5px; height: 15px; margin: -7.5px 0 0 -0.75px;
+    transition: transform 0.5s var(--ease), opacity 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-sign { color: var(--data); }
+.ydt-page .acc-item.is-open .acc-sign::after { transform: scaleY(0); opacity: 0; }
+/* Gated on JS. The collapse is entirely script-driven, so without this a
+   script error left all five process descriptions permanently unreadable
+   at max-height:0. With no JS every panel is simply open. */
+.ydt-page .acc-panel { overflow: hidden; }
+html.ydt-js .ydt-page .acc-panel {
+    max-height: 0; opacity: 0;
+    transition: max-height 0.7s var(--ease), opacity 0.5s var(--ease);
+}
+html.ydt-js .ydt-page .acc-item.is-open .acc-panel { opacity: 1; }
+html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
+.ydt-page .acc-inner {
+    padding: 0 0 30px; display: grid;
+    grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 4vw, 44px);
+}
+.ydt-page .acc-inner p { font-size: 15px; line-height: 1.78; color: var(--gray5); max-width: 46rem; }
+.ydt-page .acc-inner .spacer { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; visibility: hidden; }
+@media (max-width: 640px) {
+    .ydt-page .acc-head { gap: 14px; }
+    .ydt-page .acc-inner { grid-template-columns: 1fr; gap: 0; }
+    .ydt-page .acc-inner .spacer { display: none; }
+}
+
+/* ══════════ SERVICES GRID ══════════ */
+.ydt-page .svc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .ydt-page .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (min-width: 1024px) { .ydt-page .svc-grid { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .svc {
+    position: relative; display: flex; flex-direction: column; min-width: 0;
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 16px; padding: 26px; overflow: hidden;
+    transition: border-color 0.5s, transform 0.6s var(--ease);
+}
+.ydt-page .svc:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); }
+.ydt-page .svc--here { border-color: rgba(255,69,54,0.32); background: linear-gradient(180deg, var(--data-dim), var(--card-bg) 62%); }
+.ydt-page .svc-idx {
+    position: absolute; top: 24px; right: 24px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--gray6);
+}
+.ydt-page .svc--here .svc-idx { color: var(--data); }
+.ydt-page .svc-icon {
+    display: inline-flex; align-self: flex-start; padding: 9px; border-radius: 10px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--line); margin-bottom: 18px;
+}
+.ydt-page .svc-icon svg { width: 19px; height: 19px; color: var(--gray5); }
+.ydt-page .svc--here .svc-icon { background: var(--data-dim); border-color: rgba(255,69,54,0.28); }
+.ydt-page .svc--here .svc-icon svg { color: var(--data); }
+.ydt-page .svc h3 { font-size: 16px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 9px; }
+.ydt-page .svc p { font-size: 13px; line-height: 1.65; color: var(--gray5); }
+.ydt-page .svc-here-tag {
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 16px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--data);
+}
+
+/* ══════════ FINAL CTA ══════════ */
+.ydt-page .cta { position: relative; overflow: hidden; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
+.ydt-page .cta-ember {
+    position: absolute; bottom: -56vh; left: 50%; width: 170vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.24) 0%, rgba(216, 30, 13, 0.11) 36%, transparent 72%);
+    filter: blur(30px);
+}
+.ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
+.ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+
+/* ══════════ MOTION FALLBACKS ══════════
+   These carry the html.ydt-js prefix on purpose — they have to out-specify
+   the gated hidden states above, and a media query adds no specificity. */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page { scroll-behavior: auto; }
+    html.ydt-js .ydt-page [data-reveal],
+    html.ydt-js .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    html.ydt-js .ydt-page .lb-row,
+    html.ydt-js .ydt-page .bf-row { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .pp-tiles i { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .cp-in,
+    html.ydt-js .ydt-page .dc-in { -webkit-clip-path: none; clip-path: none; transition: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .sec { padding: 78px 0; }
+    .ydt-page .hero { padding: calc(var(--header-h) + 48px) 0 56px; }
+    .ydt-page .cta { padding: 80px 0 88px; }
+    .ydt-page .hero-actions .ember-btn, .ydt-page .hero-actions .ghost-btn,
+    .ydt-page .cta-actions .ember-btn, .ydt-page .cta-actions .ghost-btn { width: 100%; }
+    /* nothing under 10px, same floor as every other page */
+    .ydt-page .lb-col, .ydt-page .lb-tab, .ydt-page .art-cap, .ydt-page .art-k,
+    .ydt-page .band-k, .ydt-page .lb-t span, .ydt-page .lb-kw b, .ydt-page .cp-x span,
+    .ydt-page .cp-key, .ydt-page .dc-x span, .ydt-page .dc-mark em, .ydt-page .bf-k,
+    .ydt-page .bf-chips span, .ydt-page .im-nums span, .ydt-page .im-note,
+    .ydt-page .pp-k span, .ydt-page .pp-note, .ydt-page .svc-here-tag,
+    .ydt-page .svc-idx, .ydt-page .back { font-size: 10px; letter-spacing: 0.1em; }
+    .ydt-page .dc-marks { grid-template-columns: 1fr; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page .art-url, .ydt-page .art-live, .ydt-page .art-k, .ydt-page .art-cap,
+.ydt-page .art-delta, .ydt-page .lb-tab, .ydt-page .lb-col, .ydt-page .lb-n,
+.ydt-page .lb-pos, .ydt-page .lb-t span, .ydt-page .lb-kw b, .ydt-page .cp-x span,
+.ydt-page .cp-key, .ydt-page .dc-x span, .ydt-page .dc-mark em, .ydt-page .bf-k,
+.ydt-page .bf-chips span, .ydt-page .im-q, .ydt-page .im-nums span, .ydt-page .im-nums b,
+.ydt-page .im-note, .ydt-page .pp-k span, .ydt-page .pp-k b, .ydt-page .pp-note,
+.ydt-page .acc-num, .ydt-page .band-k,
+.ydt-page .svc-idx, .ydt-page .svc-here-tag, .ydt-page .sec-eyebrow-text,
+.ydt-page .hero-eyebrow, .ydt-page .back { font-family: var(--mono); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+.ydt-page button { font-family: var(--font); }
+</style>
+
+<div class="ydt-page ydt-page--content">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <a class="back" href="/services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>
+        All services
+      </a>
+      <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Content creation</p>
+      <h1 id="heroTitle">
+        <span class="clip"><span class="slide">Pages that answer</span></span>
+        <span class="clip"><span class="slide"><span class="dim">the actual question.</span></span></span>
+      </h1>
+      <p class="hero-body" data-reveal>
+        Every brief starts with the search, not with a word count. We map what people are really
+        asking around a topic, structure the page to answer it in the order they ask, and write it
+        so it reads like a person wrote it — because that is what keeps ranking.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a class="ember-btn" href="/contact">
+          Get a free content audit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a class="ghost-btn" href="/pricing">See pricing</a>
+      </div>
+
+      <div class="band" data-reveal>
+        <div class="band-cell"><span class="band-v">94%</span><span class="band-k">Intent match on<br>published pages</span></div>
+        <div class="band-cell"><span class="band-v">18 mo</span><span class="band-k">Before a piece<br>needs refreshing</span></div>
+        <div class="band-cell"><span class="band-v">Briefed</span><span class="band-k">Before anyone<br>writes a word</span></div>
+        <div class="band-cell"><span class="band-v">Compounds</span><span class="band-k">Old pages still<br>earning today</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 01 · THE LIBRARY ══════════ -->
+  <section class="sec" id="library" aria-labelledby="lbTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">01 · What we write</span></div>
+        <h2 class="sec-title" id="lbTitle" data-reveal>Five kinds of page, <span class="dim">five different jobs.</span></h2>
+        <p class="sec-sub" data-reveal>
+          A buying guide and a comparison page are not the same thing and should never be written
+          the same way. Switch type to see what we make and what each one returns.
+        </p>
+      </div>
+
+      <div class="art-hold" data-reveal>
+        <div class="art" data-art>
+          <div class="art-bar">
+            <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="art-url" id="lbUrl">library · blog posts · last 30 days</span>
+            <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Published</span>
+          </div>
+
+          <div class="lb-tabs" role="tablist" aria-label="Content type">
+            <button class="lb-tab" type="button" role="tab" aria-selected="true"  data-v="blog">Blog posts</button>
+            <button class="lb-tab" type="button" role="tab" aria-selected="false" data-v="landing">Landing pages</button>
+            <button class="lb-tab" type="button" role="tab" aria-selected="false" data-v="compare">Comparisons</button>
+            <button class="lb-tab" type="button" role="tab" aria-selected="false" data-v="guide">Buying guides</button>
+            <button class="lb-tab" type="button" role="tab" aria-selected="false" data-v="case">Case studies</button>
+          </div>
+
+          <div class="lb-sum">
+            <div class="lb-cell"><span class="art-k">Monthly traffic</span><span class="art-v" id="lbTraffic">17,660</span></div>
+            <div class="lb-cell"><span class="art-k">Enquiries</span><span class="art-v" id="lbConv">117</span></div>
+            <div class="lb-cell"><span class="art-k">Conversion</span><span class="art-v" id="lbRate">0.7%</span></div>
+            <div class="lb-cell"><span class="art-k">Avg position</span><span class="art-v" id="lbPos" style="color:var(--data)">1.7</span></div>
+          </div>
+
+          <div class="art-body">
+            <div class="lb-cols" aria-hidden="true">
+              <span class="lb-col">Page</span>
+              <span class="lb-col lb-hide">Target query</span>
+              <span class="lb-col lb-col--n">Traffic</span>
+              <span class="lb-col lb-col--n lb-hide">Words</span>
+              <span class="lb-col lb-col--n">Enq</span>
+              <span class="lb-col lb-col--n">Pos</span>
+            </div>
+            <!-- The blog rows in plain HTML so the table is not empty without
+                 JavaScript. The script replaces them on load and owns every tab
+                 switch after that — if you edit the `blog` dataset in the script
+                 below, edit these to match. -->
+            <ol class="lb-list" id="lbList" aria-live="polite">
+              <li class="lb-row">
+                <span class="lb-t">Smart heating, explained<span>1,840 words</span></span>
+                <span class="lb-kw lb-hide"><b>what is smart heating</b></span>
+                <span class="lb-n">4,180</span>
+                <span class="lb-n lb-hide">1,840</span>
+                <span class="lb-n">6</span>
+                <span class="lb-pos win">1</span>
+              </li>
+              <li class="lb-row">
+                <span class="lb-t">What a full install actually costs<span>1,620 words</span></span>
+                <span class="lb-kw lb-hide"><b>smart heating cost</b></span>
+                <span class="lb-n">2,960</span>
+                <span class="lb-n lb-hide">1,620</span>
+                <span class="lb-n">41</span>
+                <span class="lb-pos win">2</span>
+              </li>
+              <li class="lb-row">
+                <span class="lb-t">Grants you can still claim in 2026<span>2,140 words</span></span>
+                <span class="lb-kw lb-hide"><b>heating grants uk</b></span>
+                <span class="lb-n">3,410</span>
+                <span class="lb-n lb-hide">2,140</span>
+                <span class="lb-n">28</span>
+                <span class="lb-pos win">3</span>
+              </li>
+              <li class="lb-row">
+                <span class="lb-t">Heat pump vs combi, honestly<span>1,980 words</span></span>
+                <span class="lb-kw lb-hide"><b>heat pump or combi boiler</b></span>
+                <span class="lb-n">1,870</span>
+                <span class="lb-n lb-hide">1,980</span>
+                <span class="lb-n">33</span>
+                <span class="lb-pos win">2</span>
+              </li>
+              <li class="lb-row">
+                <span class="lb-t">Why your radiator is cold at the bottom<span>1,120 words</span></span>
+                <span class="lb-kw lb-hide"><b>radiator cold at bottom</b></span>
+                <span class="lb-n">5,240</span>
+                <span class="lb-n lb-hide">1,120</span>
+                <span class="lb-n">9</span>
+                <span class="lb-pos win">1</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="art-foot">
+            <span class="art-cap" id="lbFoot">5 pages</span>
+            <span class="art-cap" style="margin-left:auto" id="lbBest">Best converter &middot; heat pump or combi boiler</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 · HOW IT COMPOUNDS ══════════ -->
+  <section class="sec" id="compound" aria-labelledby="cpTitle">
+    <div class="container">
+      <div class="duo">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">02 · Why it's worth it</span></div>
+          <h2 class="sec-title" id="cpTitle" data-reveal>Last year's pages <span class="dim">are still working.</span></h2>
+          <p data-reveal>
+            This is the argument for content, and it's the one that takes patience to believe.
+            Each band is a quarter's worth of publishing. The bands don't disappear — the pages
+            written eighteen months ago are still bringing people in this month, for nothing.
+          </p>
+          <p data-reveal>
+            That's the opposite of paid, where traffic stops the day the budget does. It's also why
+            the first three months of content feel like nothing is happening, and why the businesses
+            that quit at month four never see the part that makes it worthwhile.
+          </p>
+          <ul class="duo-list" data-reveal>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>You own every page. There's no rent, and no algorithm to be evicted by.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>The cost per visit falls every month a piece stays live.</span></li>
+          </ul>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">organic traffic by publish quarter</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+            </div>
+            <div class="art-body">
+              <div class="cp-head">
+                <div>
+                  <span class="art-k">Monthly organic sessions</span>
+                  <span class="art-v">41,200</span>
+                </div>
+                <span class="art-delta">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>
+                  from 4,900
+                </span>
+              </div>
+              <svg class="cp-svg" viewBox="0 0 360 200" preserveAspectRatio="none" aria-label="Monthly organic traffic stacked by the quarter each page was published">
+                <g class="grid"><path d="M0 50h360M0 100h360M0 150h360"/></g>
+                <g class="cp-in">
+                  <!-- oldest cohort at the bottom: it never stops contributing -->
+                  <path class="c4" d="M0 176 L72 172 L144 170 L216 169 L288 168 L360 167 L360 200 L0 200 Z"/>
+                  <path class="c3" d="M72 172 L144 141 L216 133 L288 129 L360 127 L360 167 L288 168 L216 169 L144 170 L72 172 Z"/>
+                  <path class="c2" d="M144 141 L216 92 L288 82 L360 78 L360 127 L288 129 L216 133 L144 141 Z"/>
+                  <path class="c1" d="M216 92 L288 40 L360 26 L360 78 L288 82 L216 92 Z"/>
+                </g>
+              </svg>
+              <div class="cp-x" aria-hidden="true"><span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span><span>Q5</span><span>Q6</span></div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap cp-key cp-key--1"><i aria-hidden="true"></i>Newest</span>
+              <span class="art-cap cp-key cp-key--2"><i aria-hidden="true"></i>2 qtrs ago</span>
+              <span class="art-cap cp-key cp-key--3"><i aria-hidden="true"></i>3 qtrs</span>
+              <span class="art-cap cp-key cp-key--4"><i aria-hidden="true"></i>Oldest</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 · DECAY AND REFRESH ══════════ -->
+  <section class="sec" id="decay" aria-labelledby="dcTitle">
+    <div class="container">
+      <div class="duo duo--flip">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">03 · How it actually works</span></div>
+          <h2 class="sec-title" id="dcTitle" data-reveal>Your best page <span class="dim">is dying quietly.</span></h2>
+          <p data-reveal>
+            Nobody warns you about this one. A page peaks somewhere around month eight, and then
+            starts losing perhaps <b style="color:var(--white);font-weight:600">3% of its traffic a
+            month</b> — slowly enough that nobody notices, because everyone is looking at the total
+            rather than at individual pages.
+          </p>
+          <p data-reveal>
+            It isn't that the writing got worse. Competitors published something newer, the facts
+            aged, and the search itself shifted. Left alone for two years a strong page quietly
+            halves.
+          </p>
+          <p data-reveal>
+            A refresh — updated figures, the questions people now ask, a restructure to match what
+            currently ranks — costs a fraction of a new piece and usually recovers more traffic than
+            a new piece would have won. Which is why we budget for maintaining the library, not just
+            for adding to it.
+          </p>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">page traffic · 24 months</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Refreshed</span>
+            </div>
+            <div class="art-body">
+              <div class="dc-marks">
+                <div class="dc-mark">
+                  <span class="art-k">Decay before refresh</span>
+                  <b>&minus;3%</b>
+                  <em>Every month, from month 8</em>
+                </div>
+                <div class="dc-mark dc-mark--hot">
+                  <span class="art-k">Recovered by refresh</span>
+                  <b>+69%</b>
+                  <em>Within two months</em>
+                </div>
+              </div>
+              <svg class="dc-svg" viewBox="0 0 360 154" preserveAspectRatio="none" aria-label="A page's monthly traffic over 24 months: a climb, a slow decay, then recovery after a refresh at month 18">
+                <defs>
+                  <linearGradient id="dcBand" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#ff4536" stop-opacity="0.22"/>
+                    <stop offset="1" stop-color="#ff4536" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <g class="grid"><path d="M0 39h360M0 77h360M0 115h360"/></g>
+                <g class="dc-in">
+                  <!-- climb to a peak at month 8, slow decay, refresh at 18, recovery -->
+                  <path class="band" d="M0 148 L30 130 L60 96 L90 62 L120 45 L150 51 L180 58 L210 63 L240 69 L270 74 L300 19 L330 20 L360 23 L360 154 L0 154 Z"/>
+                  <path class="curve" d="M0 148 L30 130 L60 96 L90 62 L120 45 L150 51 L180 58 L210 63 L240 69 L270 74 L300 19 L330 20 L360 23"/>
+                  <!-- what it would have kept doing without the refresh -->
+                  <path class="ghost" d="M270 74 L300 78 L330 83 L360 87"/>
+                  <path class="mark" d="M270 0 L270 154"/>
+                </g>
+              </svg>
+              <div class="dc-x" aria-hidden="true">
+                <span style="--x:0%">M0</span>
+                <span style="--x:33.3%">M8 peak</span>
+                <span style="--x:75%" class="mark">M18 refresh</span>
+                <span style="--x:100%">M24</span>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Dashed line · left alone</span>
+              <span class="art-cap" style="margin-left:auto">Refresh cost &lt; new piece</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04–06 ══════════ -->
+  <section class="sec" id="craft" aria-labelledby="crTitle">
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">04–06 · Before anyone writes</span></div>
+        <h2 class="sec-title" id="crTitle" data-reveal>Most content fails <span class="dim">at the brief.</span></h2>
+        <p class="sec-sub" data-reveal>By the time a draft is bad it's too late — the decisions that made it bad were taken before anyone opened a document.</p>
+      </div>
+
+      <div class="tri">
+        <!-- 04 · the brief -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">brief · smart-heating-cost</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>04</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">What a brief contains</h3>
+              <p class="tri-p">Every one of these is decided from what already ranks, not from an opinion about what would be nice to write.</p>
+              <ul class="bf">
+                <li class="bf-row">
+                  <span class="bf-k">Query</span>
+                  <span class="bf-v"><b>"how much does smart heating cost"</b><br>Informational, comparing before buying</span>
+                </li>
+                <li class="bf-row">
+                  <span class="bf-k">Length</span>
+                  <span class="bf-v"><b>1,600&ndash;1,900 words</b><br>Median of the current top five, not a target we invented</span>
+                </li>
+                <li class="bf-row">
+                  <span class="bf-k">Answer</span>
+                  <span class="bf-v">A price range <b>in the first 80 words</b>. Bury it and they go back to the results.</span>
+                </li>
+                <li class="bf-row">
+                  <span class="bf-k">Cover</span>
+                  <span class="bf-v bf-chips">
+                    <span class="on">Install cost</span><span class="on">Running cost</span>
+                    <span class="on">Grants</span><span>Payback</span><span>Which system</span>
+                  </span>
+                </li>
+                <li class="bf-row">
+                  <span class="bf-k">Links</span>
+                  <span class="bf-v">Three internal, to the pages that sell</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 · intent match -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">intent · two pages, one topic</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>05</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Right topic, wrong intent</h3>
+              <p class="tri-p">Both of these rank. Only one is written for somebody who is about to spend money.</p>
+              <div class="im">
+                <div class="im-item">
+                  <span class="im-q">"what is smart heating"</span>
+                  <div class="im-nums">
+                    <div><span>Pos</span><b>1</b></div>
+                    <div><span>Traffic</span><b>4,180</b></div>
+                    <div class="lead"><span>Enquiries</span><b>6</b></div>
+                  </div>
+                </div>
+                <div class="im-item im-item--good">
+                  <span class="im-q">"smart heating installer near me"</span>
+                  <div class="im-nums">
+                    <div><span>Pos</span><b>3</b></div>
+                    <div><span>Traffic</span><b>640</b></div>
+                    <div class="lead"><span>Enquiries</span><b>71</b></div>
+                  </div>
+                </div>
+              </div>
+              <span class="im-note">The first page gets <b>6.5&times;</b> the traffic and a twelfth of the enquiries. Ranking is not the goal — it's just how you get in front of the right person.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 · the pipeline -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">pipeline · this month</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>06</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Always something moving</h3>
+              <p class="tri-p">A month's work sits at four different stages at once, so publishing never depends on one person having a good week.</p>
+              <div class="pp">
+                <div class="pp-lane">
+                  <div class="pp-k"><span>Briefed</span><b>6</b></div>
+                  <div class="pp-tiles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                </div>
+                <div class="pp-lane">
+                  <div class="pp-k"><span>Drafting</span><b>4</b></div>
+                  <div class="pp-tiles" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                </div>
+                <div class="pp-lane">
+                  <div class="pp-k"><span>With you for review</span><b>3</b></div>
+                  <div class="pp-tiles" aria-hidden="true"><i></i><i></i><i></i></div>
+                </div>
+                <div class="pp-lane pp-lane--live">
+                  <div class="pp-k"><span>Published</span><b>5</b></div>
+                  <div class="pp-tiles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                </div>
+              </div>
+              <span class="pp-note">Plus <b>2 refreshes</b> a month on pages already live — the maintenance most agencies never budget for.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROCESS ══════════ -->
+  <section class="sec" id="process" aria-labelledby="procTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">How we work</span></div>
+        <h2 class="sec-title" id="procTitle" data-reveal>The order <span class="dim">we do it in.</span></h2>
+        <p class="sec-sub" data-reveal>Publishing more is the easiest thing to sell and the least likely to work. Everything here happens before volume.</p>
+      </div>
+
+      <div class="acc" id="acc">
+        <div class="acc-item is-open" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="true" aria-controls="accp1">
+            <span class="acc-num">01</span>
+            <span class="acc-title">Audit what you already have first</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp1">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">01</span>
+              <p>Most sites we take on are already sitting on pages that could rank and don't. We inventory everything, measure what each piece actually earns, and separate the ones worth refreshing from the ones worth merging or deleting. Thin pages competing with each other for the same query are a common and completely fixable problem — and fixing it costs nothing to write.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp2">
+            <span class="acc-num">02</span>
+            <span class="acc-title">Choose topics by intent, not by volume</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp2">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">02</span>
+              <p>A page can rank first for a term with four thousand searches a month and produce almost nothing, while a page ranking third for six hundred fills your diary. We prioritise by what the searcher is trying to do, and we'll show you the working — including when the honest answer is that a topic isn't worth writing about.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp3">
+            <span class="acc-num">03</span>
+            <span class="acc-title">Brief it properly, before anyone writes</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp3">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">03</span>
+              <p>The query, the intent behind it, the questions that must be answered and in what order, a length taken from what currently ranks rather than invented, and the internal links it has to carry. Nearly every piece of content that fails, fails here — by the time a draft is wrong, the decisions that made it wrong were taken days earlier.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp4">
+            <span class="acc-num">04</span>
+            <span class="acc-title">Write it so a person would finish it</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp4">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">04</span>
+              <p>Answer in the first eighty words. Structure so it can be skimmed and still make sense. One clear action. No throat-clearing introduction about how important the topic is. Search engines have spent years getting better at spotting content written for search engines, and the defence against that has always been the same: write for the person.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp5">
+            <span class="acc-num">05</span>
+            <span class="acc-title">Maintain the library, not just the calendar</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp5">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">05</span>
+              <p>Published is not finished. Pages decay from about month eight, and a refresh usually recovers more traffic than a new piece would have won for less than the cost. Part of every month goes on updating what's already live — which is the part almost nobody budgets for and the reason most content libraries quietly shrink.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SERVICES ══════════ -->
+  <section class="sec" id="services" aria-labelledby="svcTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">The rest of it</span></div>
+        <h2 class="sec-title" id="svcTitle" data-reveal>Content feeds <span class="dim">everything else.</span></h2>
+        <p class="sec-sub" data-reveal>Almost every other channel is downstream of having something worth reading. This is where that gets made.</p>
+      </div>
+
+      <div class="svc-grid">
+        <a class="svc" href="/seo" data-reveal>
+          <span class="svc-idx" aria-hidden="true">01</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <h3>Search engine optimisation</h3>
+          <p>Decides which pages are worth writing. Content is how the SEO roadmap actually gets built.</p>
+        </a>
+
+        <a class="svc" href="/ppc" data-reveal>
+          <span class="svc-idx" aria-hidden="true">02</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <h3>Pay-per-click</h3>
+          <p>Tells us which messages convert before we commit a quarter to ranking for them.</p>
+        </a>
+
+        <a class="svc" href="/social" data-reveal>
+          <span class="svc-idx" aria-hidden="true">03</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Social media</h3>
+          <p>One long piece cuts into a month of posts, so the same research pays twice.</p>
+        </a>
+
+        <a class="svc" href="/email" data-reveal>
+          <span class="svc-idx" aria-hidden="true">04</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+          <h3>Email marketing</h3>
+          <p>The thing worth subscribing for, and the material every newsletter is cut from.</p>
+        </a>
+
+        <article class="svc svc--here" aria-current="page" data-reveal>
+          <span class="svc-idx" aria-hidden="true">05</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11a4 4 0 0 1 0 8H4z"/><path d="M4 12h13a4 4 0 0 1 0 8H4z"/></svg></div>
+          <h3>Content creation</h3>
+          <p>Briefed from what already ranks, written for the person, and maintained after publishing.</p>
+          <span class="svc-here-tag"><span class="live-dot" aria-hidden="true"></span>You're here</span>
+        </article>
+
+        <a class="svc" href="/web-development" data-reveal>
+          <span class="svc-idx" aria-hidden="true">06</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <h3>Web development</h3>
+          <p>A slow page loses the reader before the first paragraph, however good the writing is.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section class="cta" aria-labelledby="ctaTitle">
+    <div class="cta-ember" aria-hidden="true"></div>
+    <div class="container">
+      <div class="sec-head sec-head--center" style="margin-bottom:0">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
+        <h2 class="sec-title" id="ctaTitle" data-reveal>Find out what's <span class="dim">worth writing.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Send us the domain and we'll come back with which of your existing pages are decaying,
+          which are competing with each other, and the five briefs we'd write first — before
+          you've committed to anything.
+        </p>
+        <div class="cta-actions" data-reveal>
+          <a class="ember-btn" href="/contact">
+            Get a free content audit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="ghost-btn" href="/services">All services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ THE LIBRARY — five kinds of page ══════
+     Switching tab swaps the pages, the target queries and the numbers. The
+     four figures above the table are derived from the rows rather than typed
+     beside them, so the two can never drift apart. */
+  var DATA = {
+    blog: {
+      url: 'library · blog posts · last 30 days',
+      rows: [
+        { t: 'Smart heating, explained',            kw: 'what is smart heating',        words: 1840, traffic: 4180, conv:  6, pos: 1 },
+        { t: 'What a full install actually costs',  kw: 'smart heating cost',           words: 1620, traffic: 2960, conv: 41, pos: 2 },
+        { t: 'Grants you can still claim in 2026',  kw: 'heating grants uk',            words: 2140, traffic: 3410, conv: 28, pos: 3 },
+        { t: 'Heat pump vs combi, honestly',        kw: 'heat pump or combi boiler',    words: 1980, traffic: 1870, conv: 33, pos: 2 },
+        { t: 'Why your radiator is cold at the bottom', kw: 'radiator cold at bottom',  words: 1120, traffic: 5240, conv:  9, pos: 1 }
+      ]
+    },
+    landing: {
+      url: 'library · landing pages · last 30 days',
+      rows: [
+        { t: 'Smart heating installation',          kw: 'smart heating installer',      words: 960, traffic: 640, conv: 71, pos: 3 },
+        { t: 'Emergency callout, Manchester',       kw: 'emergency plumber manchester', words: 820, traffic: 910, conv: 96, pos: 1 },
+        { t: 'Boiler replacement',                  kw: 'new boiler quote',             words: 880, traffic: 1240, conv: 84, pos: 2 },
+        { t: 'Commercial retrofit',                 kw: 'commercial heating retrofit',  words: 1040, traffic: 280, conv: 22, pos: 4 }
+      ]
+    },
+    compare: {
+      url: 'library · comparisons · last 30 days',
+      rows: [
+        { t: 'Hive vs Nest vs Tado',                kw: 'hive vs nest',                 words: 2280, traffic: 6120, conv: 38, pos: 2 },
+        { t: 'Air source vs ground source',         kw: 'air source vs ground source',  words: 2040, traffic: 2140, conv: 26, pos: 3 },
+        { t: 'Us vs the national installers',       kw: 'best heating installer uk',    words: 1460, traffic:  780, conv: 44, pos: 5 },
+        { t: 'Lease vs buy a heat pump',            kw: 'heat pump finance',            words: 1680, traffic: 1320, conv: 31, pos: 4 }
+      ]
+    },
+    guide: {
+      url: 'library · buying guides · last 30 days',
+      rows: [
+        { t: 'The complete smart heating guide',    kw: 'smart heating guide',          words: 4200, traffic: 3860, conv: 52, pos: 1 },
+        { t: 'Choosing a system for an old house',  kw: 'heating for period property',  words: 3140, traffic: 1640, conv: 37, pos: 2 },
+        { t: 'Every grant, in one place',           kw: 'heating grant checklist',      words: 2960, traffic: 2480, conv: 45, pos: 2 },
+        { t: 'Installation, step by step',          kw: 'heat pump installation process', words: 2620, traffic: 1180, conv: 24, pos: 3 }
+      ]
+    },
+    case: {
+      url: 'library · case studies · last 30 days',
+      rows: [
+        { t: '1930s semi, Didsbury',                kw: 'heat pump 1930s house',        words: 1240, traffic: 690, conv: 34, pos: 3 },
+        { t: 'Retrofit across 14 rentals',          kw: 'landlord heating upgrade',     words: 1380, traffic: 420, conv: 29, pos: 4 },
+        { t: 'Listed cottage, no cavity',           kw: 'listed building heating',      words: 1160, traffic: 310, conv: 18, pos: 5 },
+        { t: 'Office block, 40% bill cut',          kw: 'commercial heating savings',   words: 1420, traffic: 260, conv: 21, pos: 4 }
+      ]
+    }
+  };
+
+  var lbList    = document.getElementById('lbList');
+  var lbUrl     = document.getElementById('lbUrl');
+  var lbFoot    = document.getElementById('lbFoot');
+  var lbBest    = document.getElementById('lbBest');
+  var lbTraffic = document.getElementById('lbTraffic');
+  var lbConv    = document.getElementById('lbConv');
+  var lbRate    = document.getElementById('lbRate');
+  var lbPos     = document.getElementById('lbPos');
+  var lbTabs    = [].slice.call(document.querySelectorAll('.lb-tab'));
+
+  function esc(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function commas(n) {
+    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function renderLibrary(key, animate) {
+    var set = DATA[key];
+    if (!set || !lbList) return;
+
+    var traffic = 0, conv = 0, weightedPos = 0, best = null, bestRate = -1;
+    set.rows.forEach(function (r) {
+      traffic += r.traffic; conv += r.conv;
+      weightedPos += r.pos * r.traffic;   /* weighted, or a tiny page skews it */
+      var rate = r.conv / r.traffic;
+      if (rate > bestRate) { bestRate = rate; best = r; }
+    });
+
+    lbList.innerHTML = set.rows.map(function (r) {
+      return '<li class="lb-row">' +
+        '<span class="lb-t">' + esc(r.t) + '<span>' + commas(r.words) + ' words</span></span>' +
+        '<span class="lb-kw lb-hide"><b>' + esc(r.kw) + '</b></span>' +
+        '<span class="lb-n">' + commas(r.traffic) + '</span>' +
+        '<span class="lb-n lb-hide">' + commas(r.words) + '</span>' +
+        '<span class="lb-n">' + r.conv + '</span>' +
+        '<span class="lb-pos' + (r.pos <= 3 ? ' win' : '') + '">' + r.pos + '</span>' +
+      '</li>';
+    }).join('');
+
+    if (lbUrl)     lbUrl.textContent = set.url;
+    if (lbTraffic) lbTraffic.textContent = commas(traffic);
+    if (lbConv)    lbConv.textContent = commas(conv);
+    if (lbRate)    lbRate.textContent = (conv / traffic * 100).toFixed(1) + '%';
+    if (lbPos)     lbPos.textContent = (weightedPos / traffic).toFixed(1);
+    if (lbFoot)    lbFoot.textContent = set.rows.length + ' pages';
+    /* the page that converts best, which is rarely the one with most traffic */
+    if (lbBest)    lbBest.textContent = 'Best converter · ' + best.kw;
+
+    /* On a tab switch the panel is already on screen, so the rows have to be
+       told to play — the observer that normally does it fired long ago. */
+    if (animate && !reduceMotion) {
+      lbList.querySelectorAll('.lb-row').forEach(function (row, i) {
+        row.style.transitionDelay = (0.05 * i) + 's';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { row.classList.add('lb-in'); });
+        });
+      });
+    } else {
+      lbList.querySelectorAll('.lb-row').forEach(function (row) { row.classList.add('lb-in'); });
+    }
+  }
+
+  lbTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      lbTabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+      renderLibrary(tab.getAttribute('data-v'), true);
+    });
+  });
+  /* first paint is not animated here — the panel observer handles that */
+  renderLibrary('blog', false);
+  if (reduceMotion) {
+    lbList.querySelectorAll('.lb-row').forEach(function (r) { r.classList.add('lb-in'); });
+  }
+
+  /* ══════ REVEALS ══════
+     Copy reveals at 15%; an instrument waits until enough of its panel is
+     on screen to be worth watching. */
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  var artEls = document.querySelectorAll('[data-art]');
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    artEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+
+    var artObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); artObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.22 });
+    artEls.forEach(function (el) { artObs.observe(el); });
+  }
+
+  /* ══════ PROCESS ACCORDION ══════ */
+  var items = [].slice.call(document.querySelectorAll('.acc-item'));
+
+  function setOpen(item, open) {
+    var panel = item.querySelector('.acc-panel');
+    var head = item.querySelector('.acc-head');
+    item.classList.toggle('is-open', open);
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0px';
+  }
+
+  items.forEach(function (item) {
+    item.querySelector('.acc-head').addEventListener('click', function () {
+      var willOpen = !item.classList.contains('is-open');
+      items.forEach(function (other) { if (other !== item) setOpen(other, false); });
+      setOpen(item, willOpen);
+    });
+  });
+
+  function sizeOpen() {
+    items.forEach(function (item) { setOpen(item, item.classList.contains('is-open')); });
+  }
+  sizeOpen();
+  window.addEventListener('load', sizeOpen);
+  window.addEventListener('resize', function () {
+    items.forEach(function (item) {
+      if (!item.classList.contains('is-open')) return;
+      var p = item.querySelector('.acc-panel');
+      p.style.maxHeight = p.scrollHeight + 'px';
+    });
+  });
+
+  /* ══════ SCROLL PROGRESS ══════ */
+  var bar = document.getElementById('progress');
+  if (bar && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
+  } else if (bar) {
+    var tick = null;
+    window.addEventListener('scroll', function () {
+      if (tick) return;
+      tick = requestAnimationFrame(function () {
+        var max = document.body.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        tick = null;
+      });
+    }, { passive: true });
+  }
+})();
+</script>
