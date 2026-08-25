@@ -256,47 +256,6 @@
 .ydt-page .step b { display: block; font-size: 15px; font-weight: 600; margin-bottom: 5px; letter-spacing: -0.01em; }
 .ydt-page .step p { font-size: 13.5px; color: var(--gray5); line-height: 1.65; }
 
-/* ══════════ TRUSTED BY — the homepage band, verbatim ══════════ */
-.ydt-page .trusted { padding: 0 12px; position: relative; z-index: 2; }
-.ydt-page .trusted__inner {
-    max-width: 1200px; margin: 0 auto; background: var(--panel);
-    border: 1px solid var(--card-line); border-radius: 24px;
-    padding: 34px 0 36px; overflow: hidden;
-}
-.ydt-page .trusted__head {
-    display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap;
-    gap: 6px 10px; padding: 0 28px; margin-bottom: 30px; text-align: center;
-}
-.ydt-page .trusted__label {
-    font-family: var(--mono); font-size: 10.5px; font-weight: 500;
-    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray6);
-}
-.ydt-page .trusted__count { color: var(--data); }
-.ydt-page .ticker {
-    overflow: hidden; position: relative;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-.ydt-page .ticker-track { display: flex; width: max-content; will-change: transform; }
-.ydt-page .ticker-group { display: flex; align-items: center; gap: 56px; padding-right: 56px; flex-shrink: 0; }
-@media (min-width: 768px) { .ydt-page .ticker-group { gap: 76px; padding-right: 76px; } }
-.ydt-page .ticker-logo {
-    display: flex; align-items: center; justify-content: center;
-    height: 30px; min-width: 110px; flex-shrink: 0;
-    opacity: 0.4; transition: opacity 0.35s var(--ease);
-}
-@media (min-width: 768px) { .ydt-page .ticker-logo { height: 36px; min-width: 130px; } }
-.ydt-page .ticker-track:hover .ticker-logo { opacity: 0.2; }
-.ydt-page .ticker-track:hover .ticker-logo:hover { opacity: 1; }
-.ydt-page .ticker-logo img {
-    height: 100%; width: auto; max-width: 190px; object-fit: contain;
-    display: block; filter: brightness(0) invert(1);
-}
-.ydt-page .ticker-logo__name { font-size: 15px; font-weight: 600; color: var(--white); white-space: nowrap; }
-@media (min-width: 768px) { .ydt-page .ticker-logo__name { font-size: 17px; } }
-.ydt-page .css-marquee .ticker-track { animation: ticker 46s linear infinite; }
-@keyframes ticker { to { transform: translateX(-50%); } }
-
 /* ══════════ FAQ — the objections that stop people sending ══════════ */
 .ydt-page .faq { padding: 120px 0; }
 .ydt-page .faq .sec-head { max-width: 640px; margin-bottom: 52px; }
@@ -487,7 +446,6 @@ html.ydt-js .sqs-block-form.ydt-form-rescued { display: block; }
     .ydt-page .grain { animation: none; }
     .ydt-page .spotlight { display: none; }
     .ydt-page .live-dot { animation: none; }
-    .ydt-page .css-marquee .ticker-track { animation: none; }
 }
 
 /* ══════════ MOBILE ══════════ */
@@ -500,13 +458,7 @@ html.ydt-js .sqs-block-form.ydt-form-rescued { display: block; }
     .ydt-page .hero-meta dt,
     .ydt-page .aside-card h3,
     .ydt-page .faq-q,
-    .ydt-page .trusted__label,
     .ydt-page .sec-eyebrow-text { font-size: 10px; letter-spacing: 0.12em; }
-    .ydt-page .ticker-logo { height: 24px; min-width: 84px; }
-    .ydt-page .ticker-logo__name { font-size: 13px; }
-    .ydt-page .ticker-group { gap: 40px; padding-right: 40px; }
-    .ydt-page .trusted__inner { padding: 28px 0 30px; }
-    .ydt-page .trusted__head { margin-bottom: 24px; }
     /* first/last name stack rather than squeeze into a phone */
     #ydt-form-target .name .field-list { flex-direction: column !important; gap: 22px !important; }
     #ydt-form-target input[type="text"],
@@ -570,8 +522,8 @@ html.ydt-js .sqs-block-form.ydt-form-rescued { display: block; }
         <div>
           <div class="form-head" data-reveal>
             <h2 id="formTitle">Start a project</h2>
-            <p>Fields marked with a red dot (<b>●</b>) are the ones we genuinely need. Everything
-               else just helps us come back with something useful rather than generic.</p>
+            <p>Tell us as much or as little as you like. The more detail you give us,
+               the more specific we can be when we come back to you.</p>
           </div>
 
           <!-- the Squarespace Form Block is moved in here on load -->
@@ -635,19 +587,6 @@ html.ydt-js .sqs-block-form.ydt-form-rescued { display: block; }
           </div>
         </aside>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ TRUSTED BY ══════════ -->
-  <section class="trusted" aria-label="Brands we work with">
-    <div class="trusted__inner">
-      <div class="trusted__head">
-        <span class="trusted__label">Trusted by the teams behind</span>
-        <span class="trusted__label trusted__count">9 UK &amp; international brands</span>
-      </div>
-      <div class="ticker">
-        <div class="ticker-track" id="tickerTrack"></div>
       </div>
     </div>
   </section>
@@ -800,50 +739,6 @@ html.ydt-js .sqs-block-form.ydt-form-rescued { display: block; }
     });
   }
 
-  /* ══════ CLIENT LOGO MARQUEE (same list as the homepage) ══════ */
-  var clients = [
-    { name: 'Shoreline',            url: 'https://images.squarespace-cdn.com/content/v1/63442a2828b8715c23f372db/ec0cc688-138e-4e7f-aadd-61d659af3f0e/Shoreline+Logo.png?format=1500w' },
-    { name: '911 Backdate',         url: 'https://images.squarespace-cdn.com/content/v1/67bda98c724d7129951677a2/b0b6078c-04f5-43e6-929b-a69c9f3028a1/911+Backdate+Logo.png?format=1500w' },
-    { name: 'Gutters.co.uk',        url: 'https://gutters.co.uk/cdn/shop/files/logo_5fdd1851-578e-4b8a-8cd1-99a7c42c303a_255x@2x.png?v=1614289059' },
-    { name: 'PilotQ',               url: 'https://images.squarespace-cdn.com/content/v1/658ef3e386dfa356ea183419/a3695729-7dc0-48b3-9384-be3f7fbbb135/PIQ-Final_Logo_1.png?format=1500w' },
-    { name: 'Punt Caravan Parking', url: 'https://imagedelivery.net/xaKlCos5cTg_1RWzIu_h-A/149d250f-4d6c-4b49-895b-357cb0b28200/publicContain' },
-    { name: 'SVD Group',            url: 'https://images.squarespace-cdn.com/content/v1/688335a79371f70534db64ae/edebe164-d1a5-432f-ac3e-9bc04243051a/SVD+Group+Motif+%281%29.png?format=1500w' },
-    { name: 'Fitzgerald Capital',   url: 'https://images.squarespace-cdn.com/content/v1/6a0b07fd7264f855a35e730d/3fd00de8-88bc-45c7-b8ed-ab60ab48a7ab/Logo-type-black.png?format=1500w' },
-    { name: 'Senttr',               url: 'https://images.squarespace-cdn.com/content/v1/69d4ede9d18f114398958000/48f14a20-2671-40ca-8996-86ea0727a96f/Senttr+Logo-01.png?format=1500w' },
-    { name: 'Smart Plus Heating',   url: 'https://images.squarespace-cdn.com/content/v1/6999b4fe9f1df46ad43b830d/b4ced7c8-4606-42dc-b2e6-67c2abac93bf/Smart-Plus-Landscape-Logo-BLK-Heating-1-300x87.png?format=1500w' }
-  ];
-  var tickerTrack = document.getElementById('tickerTrack');
-  if (tickerTrack && clients.length) {
-    var buildGroup = function (decorative) {
-      var group = document.createElement('div');
-      group.className = 'ticker-group';
-      if (decorative) group.setAttribute('aria-hidden', 'true');
-      clients.forEach(function (c) {
-        var cell = document.createElement('div');
-        cell.className = 'ticker-logo';
-        var img = document.createElement('img');
-        img.src = c.url;
-        img.alt = decorative ? '' : c.name;
-        img.addEventListener('error', function () {
-          var span = document.createElement('span');
-          span.className = 'ticker-logo__name';
-          span.textContent = c.name;
-          if (img.parentNode === cell) cell.replaceChild(span, img);
-        });
-        cell.appendChild(img);
-        group.appendChild(cell);
-      });
-      return group;
-    };
-    document.body.classList.add('css-marquee');
-    tickerTrack.appendChild(buildGroup(false));
-    var groupWidth = tickerTrack.firstChild.getBoundingClientRect().width;
-    var copies = groupWidth > 0 ? Math.max(1, Math.ceil(window.innerWidth / groupWidth)) : 1;
-    var n;
-    for (n = 1; n < copies; n++) tickerTrack.appendChild(buildGroup(true));
-    for (n = 0; n < copies; n++) tickerTrack.appendChild(buildGroup(true));
-  }
-
   /* ══════ GSAP ══════ */
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
@@ -853,19 +748,6 @@ html.ydt-js .sqs-block-form.ydt-form-rescued { display: block; }
   });
   var mm = gsap.matchMedia();
   mm.add('(prefers-reduced-motion: no-preference)', function () {
-    document.body.classList.remove('css-marquee');
-    var track = document.querySelector('.ticker-track');
-    var travel = track ? track.getBoundingClientRect().width / 2 : 0;
-    var tickerTween = gsap.to(track, {
-      xPercent: -50, ease: 'none', repeat: -1,
-      duration: travel > 0 ? travel / 46 : 30
-    });
-    ScrollTrigger.create({
-      onUpdate: function (self) {
-        var v = 1 + Math.min(Math.abs(self.getVelocity()) / 1200, 2);
-        gsap.to(tickerTween, { timeScale: (self.direction || 1) * v, duration: 0.4, overwrite: true });
-      }
-    });
     /* the hero recedes as the form comes up, same as the homepage */
     gsap.to('.hero .container', {
       yPercent: -8, opacity: 0.3, ease: 'none',
