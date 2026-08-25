@@ -1,0 +1,388 @@
+<!-- ═══════════════════════════════════════════════════════════
+     404.html  →  Squarespace page /404
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Design system — "signal", same as every other page:
+       base #050505 · panels #0b0a09 · Inter + IBM Plex Mono
+       signal red #ff4536 → #d81e0d, ember glow, horizon arc.
+
+     Deliberately one screen. A 404 has one job — get the visitor
+     somewhere useful — so the whole page is the recovery, with no
+     scrolling required to reach a link.
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- Runs before paint. Everything that starts hidden is scoped to this
+     class, so if the page script never runs the content is simply
+     visible rather than a blank screen — on a 404 above all, the links
+     are the entire point of the page. -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { text-decoration: none; color: inherit; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+
+/* ══════════ PRIMITIVES ══════════ */
+html.ydt-js .ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+html.ydt-js .ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+html.ydt-js .ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+
+/* ══════════ 404 ══════════ */
+.ydt-page .nf {
+    position: relative; overflow: hidden;
+    min-height: 100svh; display: flex; align-items: center;
+    padding: calc(var(--header-h) + 56px) 0 72px;
+}
+.ydt-page .nf-ember {
+    position: absolute; top: -50vh; left: 50%;
+    width: 190vw; height: 112vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.34) 0%, rgba(216, 30, 13, 0.16) 34%, rgba(118, 20, 10, 0.06) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .nf-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-height: 1180px; max-width: 1180px;
+    transform: translateX(-50%); border-radius: 50%;
+    pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.24);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .nf .container { position: relative; z-index: 2; }
+.ydt-page .nf-inner { max-width: 720px; }
+
+.ydt-page .nf-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 28px;
+}
+
+/* the numeral and the trail read as one object: a route that stops */
+.ydt-page .nf-code {
+    /* block, not inline-block: the eyebrow above it is an inline-flex pill,
+       so an inline-level numeral would share its line box and sit beside it */
+    position: relative; display: block; width: -moz-fit-content; width: fit-content;
+    font-size: clamp(4.6rem, 15vw, 9rem);
+    font-weight: 700; letter-spacing: -0.055em; line-height: 0.86;
+    color: var(--w25); margin-bottom: 6px;
+    font-variant-numeric: tabular-nums;
+}
+/* graphic: the trail climbs, breaks, and terminates — the site's own
+   chart language saying the route ends rather than a broken-robot cliché */
+/* the label is HTML, not <text>: an SVG label scales with the viewBox, so on
+   a phone "Route ends" would render at ~8px however it is specified */
+.ydt-page .nf-trail { --trail-w: min(300px, 60vw); position: relative; margin: -12px 0 30px; }
+.ydt-page .nf-trail-svg { display: block; width: var(--trail-w); height: auto; overflow: visible; }
+.ydt-page .nf-trail .run {
+    fill: none; stroke: url(#nfRun); stroke-width: 2; stroke-linecap: round;
+}
+html.ydt-js .ydt-page .nf-trail .run {
+    stroke-dasharray: 100; stroke-dashoffset: 100;
+    transition: stroke-dashoffset 1.2s 0.2s var(--ease);
+}
+.ydt-page .nf.is-in .nf-trail .run { stroke-dashoffset: 0; }
+.ydt-page .nf-trail .stub { fill: none; stroke: var(--data); stroke-width: 2; stroke-linecap: round; }
+.ydt-page .nf-trail .end { fill: #050505; stroke: var(--data); stroke-width: 2; }
+.ydt-page .nf-trail .halo { fill: rgba(255, 69, 54, 0.16); }
+html.ydt-js .ydt-page .nf-trail .stub { opacity: 0; transition: opacity 0.5s 1.25s; }
+html.ydt-js .ydt-page .nf-trail .end  { opacity: 0; transition: opacity 0.5s 1.35s; }
+html.ydt-js .ydt-page .nf-trail .halo { opacity: 0; transition: opacity 0.6s 1.4s; }
+html.ydt-js .ydt-page .nf.is-in .nf-trail .stub,
+html.ydt-js .ydt-page .nf.is-in .nf-trail .end,
+html.ydt-js .ydt-page .nf.is-in .nf-trail .halo { opacity: 1; }
+.ydt-page .nf-tag {
+    /* 22.58% == the node's cy (14) over the viewBox height (62), so the label
+       tracks the node at any scale rather than centring on the whole box */
+    position: absolute; left: var(--trail-w); top: 22.58%;
+    transform: translateY(-50%); margin-left: 10px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; white-space: nowrap;
+    text-transform: uppercase; color: var(--gray5);
+}
+html.ydt-js .ydt-page .nf-tag { opacity: 0; transition: opacity 0.5s 1.5s; }
+html.ydt-js .ydt-page .nf.is-in .nf-tag { opacity: 1; }
+
+.ydt-page .nf h1 {
+    font-size: clamp(1.9rem, 4.6vw, 3.2rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.04; margin-bottom: 18px;
+}
+.ydt-page .nf h1 .dim { color: var(--w25); }
+.ydt-page .nf-body { font-size: 16px; color: var(--gray5); line-height: 1.7; max-width: 34rem; margin-bottom: 34px; }
+.ydt-page .nf-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ══════════ WHERE TO GO INSTEAD ══════════ */
+.ydt-page .nf-nav {
+    margin-top: 48px; padding-top: 34px;
+    border-top: 1px solid var(--line2);
+    display: grid; grid-template-columns: 1fr; gap: 26px;
+}
+@media (min-width: 620px) { .ydt-page .nf-nav { grid-template-columns: repeat(2, 1fr); gap: 34px; } }
+.ydt-page .nf-group h2 {
+    font-family: var(--mono); font-size: 10px; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gray6); margin-bottom: 14px;
+}
+.ydt-page .nf-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.ydt-page .nf-pills a {
+    padding: 10px 16px; border-radius: 9999px;
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    font-size: 13px; color: var(--gray5);
+    transition: color 0.28s var(--ease), border-color 0.28s var(--ease),
+                background 0.28s var(--ease), transform 0.28s var(--ease);
+}
+.ydt-page .nf-pills a:hover {
+    color: var(--white); border-color: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05); transform: translateY(-2px);
+}
+
+/* ══════════ MOTION FALLBACKS ══════════ */
+/* these selectors carry the html.ydt-js prefix on purpose — they have to
+   out-specify the gated hidden states above, and a media query adds none */
+@media (prefers-reduced-motion: reduce) {
+    html.ydt-js .ydt-page [data-reveal],
+    html.ydt-js .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    html.ydt-js .ydt-page .nf-trail .run { stroke-dashoffset: 0; transition: none; }
+    html.ydt-js .ydt-page .nf-trail .stub,
+    html.ydt-js .ydt-page .nf-trail .end,
+    html.ydt-js .ydt-page .nf-trail .halo,
+    html.ydt-js .ydt-page .nf-tag { opacity: 1; transition: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .nf { padding: calc(var(--header-h) + 40px) 0 56px; min-height: 0; }
+    .ydt-page .nf-actions .ember-btn, .ydt-page .nf-actions .ghost-btn { width: 100%; }
+    /* nothing under 10px, same rule as every other page */
+    .ydt-page .nf-eyebrow, .ydt-page .nf-group h2, .ydt-page .nf-tag { font-size: 10px; letter-spacing: 0.12em; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page h1, .ydt-page h2 { font-weight: 700; }
+.ydt-page a { text-decoration: none; }
+</style>
+
+<div class="ydt-page ydt-page--404">
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+  <section class="nf" id="nf">
+    <div class="nf-ember" aria-hidden="true"></div>
+    <div class="nf-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <div class="nf-inner">
+
+        <p class="nf-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Error 404 · page not found</p>
+
+        <div class="nf-code" aria-hidden="true">404</div>
+
+        <!-- graphic: the trail climbs, then stops -->
+        <div class="nf-trail" aria-hidden="true">
+          <svg class="nf-trail-svg" viewBox="0 0 250 62" fill="none">
+            <defs>
+              <linearGradient id="nfRun" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.05"/>
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0.42"/>
+              </linearGradient>
+            </defs>
+            <path class="run" pathLength="100" vector-effect="non-scaling-stroke"
+                  d="M3 52 C38 50 60 41 100 31 C130 24 148 20 174 17"/>
+            <path class="stub" vector-effect="non-scaling-stroke" d="M198 15 h11"/>
+            <circle class="halo" cx="232" cy="14" r="13"/>
+            <circle class="end" cx="232" cy="14" r="5" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <span class="nf-tag">Route ends</span>
+        </div>
+
+        <h1>
+          <span class="clip"><span class="slide">That page isn't here.</span></span>
+        </h1>
+        <p class="nf-body" data-reveal>
+          It may have moved, or the link may have been mistyped. Nothing is broken on your
+          end — here's everything that does exist.
+        </p>
+
+        <div class="nf-actions" data-reveal>
+          <a class="ember-btn" href="/">
+            Back to the homepage
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="ghost-btn" href="/contact">Tell us what you were after</a>
+        </div>
+
+        <div class="nf-nav" data-reveal>
+          <nav class="nf-group" aria-labelledby="nf-svc">
+            <h2 id="nf-svc">Services</h2>
+            <div class="nf-pills">
+              <a href="/seo">SEO</a>
+              <a href="/ppc">PPC</a>
+              <a href="/social">Social</a>
+              <a href="/email">Email</a>
+              <a href="/content">Content</a>
+              <a href="/web-development">Web development</a>
+            </div>
+          </nav>
+          <nav class="nf-group" aria-labelledby="nf-co">
+            <h2 id="nf-co">Company</h2>
+            <div class="nf-pills">
+              <a href="/">Home</a>
+              <a href="/services">All services</a>
+              <a href="/pricing">Pricing</a>
+              <a href="/about">About</a>
+              <a href="/blog">Journal</a>
+              <a href="/contact">Contact</a>
+            </div>
+          </nav>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ REVEALS ══════
+     The page fits one screen, so nothing here waits on a scroll that
+     may never happen — it plays on load. */
+  var els = document.querySelectorAll('[data-reveal], .clip');
+  var nf = document.getElementById('nf');
+  if (reduceMotion) {
+    els.forEach(function (el) { el.classList.add('in-view'); });
+    if (nf) nf.classList.add('is-in');
+  } else {
+    els.forEach(function (el, i) { el.style.transitionDelay = (0.08 * i) + 's'; });
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        els.forEach(function (el) { el.classList.add('in-view'); });
+        if (nf) nf.classList.add('is-in');
+      });
+    });
+  }
+})();
+</script>
