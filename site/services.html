@@ -1,0 +1,1527 @@
+<!-- ═══════════════════════════════════════════════════════════
+     services.html  →  Squarespace page /services
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Design system — "signal", same as every other page:
+       base #050505 · panels #0b0a09 · Inter + IBM Plex Mono
+       signal red #ff4536 → #d81e0d, ember glow, film grain.
+
+     Each service gets its own purpose-built interface rather than a
+     stock photograph: SEO is a rank tracker, PPC a campaign manager,
+     social a reel, email an automation flow, content an editor, and
+     development a terminal. Nothing here is an image file, so nothing
+     can 404 and there is nothing to upload.
+
+     The old version scroll-jacked a sticky filmstrip. This one is an
+     ordinary page — six sections, normal scroll, container width.
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- Runs before paint. Everything that starts hidden is scoped to this
+     class, so a script error leaves the page readable rather than blank. -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --panel3: #151210;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page { scroll-behavior: smooth; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { color: inherit; text-decoration: none; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; scroll-margin-top: 132px; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ PRIMITIVES ══════════ */
+html.ydt-js .ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+html.ydt-js .ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+html.ydt-js .ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+
+/* ══════════ SECTION SCAFFOLD ══════════ */
+.ydt-page .sec { padding: 118px 0; }
+.ydt-page .sec-head { max-width: 672px; margin-bottom: 60px; }
+.ydt-page .sec-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.ydt-page .sec-head--center .sec-eyebrow { justify-content: center; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.4rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.03; margin-bottom: 18px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.65; }
+
+/* ══════════ INTRO ══════════ */
+.ydt-page .intro { position: relative; overflow: hidden; padding: calc(var(--header-h) + 84px) 0 78px; }
+.ydt-page .intro-ember {
+    position: absolute; top: -46vh; left: 50%; width: 180vw; height: 104vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.30) 0%, rgba(216, 30, 13, 0.14) 34%, rgba(118, 20, 10, 0.05) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .intro-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-width: 1180px; max-height: 1180px;
+    transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.22);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .intro .container { position: relative; z-index: 2; }
+.ydt-page .intro-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 30px;
+}
+.ydt-page .intro-title {
+    font-size: clamp(2.1rem, 5.4vw, 4.1rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; max-width: 17ch;
+}
+.ydt-page .intro-title .dim { color: var(--w25); }
+.ydt-page .intro-body {
+    font-size: clamp(1rem, 1.25vw, 1.1rem); color: var(--gray5);
+    line-height: 1.7; max-width: 36rem; margin-top: 30px;
+}
+
+/* the intro ledger — six services as one measured strip */
+.ydt-page .intro-ledger {
+    margin-top: 54px; border: 1px solid var(--line); border-radius: 18px;
+    background: var(--panel); overflow: hidden;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 700px) { .ydt-page .intro-ledger { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .ydt-page .intro-ledger { grid-template-columns: repeat(6, 1fr); } }
+.ydt-page .led {
+    padding: 22px 20px; border-top: 1px solid var(--line2); border-left: 1px solid var(--line2);
+    display: block; transition: background 0.4s var(--ease);
+}
+.ydt-page .led:hover { background: var(--panel2); }
+.ydt-page .led:nth-child(-n+2) { border-top: none; }
+.ydt-page .led:nth-child(odd) { border-left: none; }
+@media (min-width: 700px) {
+    .ydt-page .led:nth-child(-n+3) { border-top: none; }
+    .ydt-page .led:nth-child(odd) { border-left: 1px solid var(--line2); }
+    .ydt-page .led:nth-child(3n+1) { border-left: none; }
+}
+@media (min-width: 1024px) {
+    .ydt-page .led { border-top: none; border-left: 1px solid var(--line2); }
+    .ydt-page .led:first-child { border-left: none; }
+    .ydt-page .led:nth-child(3n+1) { border-left: 1px solid var(--line2); }
+    .ydt-page .led:first-child { border-left: none; }
+}
+.ydt-page .led-idx {
+    display: block; font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 12px;
+}
+.ydt-page .led-name { display: block; font-size: 15px; font-weight: 650; letter-spacing: -0.02em; }
+.ydt-page .led-stat {
+    display: block; font-family: var(--mono); font-size: 11px;
+    color: var(--data); margin-top: 8px;
+}
+
+/* ══════════ STICKY SERVICE RAIL ══════════
+   A six-section page needs a way back to the top of the list. Sticky, so
+   it stays reachable; if a Squarespace wrapper ever defeats position:sticky
+   it simply sits inline and still works as a jump list. */
+/* position:sticky is bounded by the PARENT's box, not the viewport. The rail
+   used to live in its own short .container, so it had nothing to stick within
+   and scrolled away the moment you left the top of the page. Its parent is now
+   .svc-zone, which spans every service section. */
+.ydt-page .svc-zone { position: relative; }
+.ydt-page .rail-wrap {
+    position: sticky; top: calc(var(--header-h) + 6px); z-index: 20;
+    padding: 10px 0 4px;
+}
+.ydt-page .rail {
+    display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+    padding: 6px; border-radius: 9999px;
+    border: 1px solid var(--line);
+    background: rgba(10, 9, 8, 0.82);
+    -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+}
+.ydt-page .rail::-webkit-scrollbar { display: none; }
+.ydt-page .rail a {
+    /* 12px block padding puts these over the 36px touch minimum */
+    flex: 0 0 auto; padding: 12px 16px; border-radius: 9999px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray5); white-space: nowrap;
+    transition: color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.ydt-page .rail a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.ydt-page .rail a.is-active { color: var(--data); background: var(--data-dim); }
+
+/* ══════════ SERVICE SECTION ══════════ */
+.ydt-page .svc { padding: 96px 0; border-top: 1px solid var(--line2); }
+.ydt-page .svc:first-of-type { border-top: none; }
+.ydt-page .svc-grid { display: grid; grid-template-columns: 1fr; gap: 44px; align-items: center; }
+/* Grid tracks sized `1fr` are really `minmax(auto, 1fr)`, and that auto
+   minimum is the item's min-content — which, for anything holding a
+   white-space:nowrap string, is the whole string. One nowrap result title
+   inside the SEO panel was sizing the track to 408px inside a 342px phone,
+   and every section inherited it. min-width:0 lets the track shrink and
+   hands the clamping back to the ellipsis rules that were written for it. */
+.ydt-page .svc-copy, .ydt-page .svc-art { min-width: 0; }
+.ydt-page .art-url, .ydt-page .seo-text, .ydt-page .ppc-name, .ydt-page .ppc-row,
+.ydt-page .soc-side, .ydt-page .soc-metric, .ydt-page .cnt-outline, .ydt-page .cnt-doc,
+.ydt-page .fl-step > span:last-child, .ydt-page .dev-code, .ydt-page .dev-score { min-width: 0; }
+@media (min-width: 1024px) {
+    .ydt-page .svc-grid { grid-template-columns: 0.85fr 1.15fr; gap: 64px; }
+    /* alternate which side the interface sits on, so six sections do not
+       read as six copies of the same slide */
+    .ydt-page .svc--flip .svc-copy { order: 2; }
+    .ydt-page .svc--flip .svc-art  { order: 1; }
+}
+.ydt-page .svc-idx {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gray6);
+}
+.ydt-page .svc-idx b { color: var(--data); font-weight: 500; }
+.ydt-page .svc-idx i { flex: 1; height: 1px; background: var(--line); font-style: normal; }
+.ydt-page .svc-name {
+    font-size: clamp(2rem, 4.6vw, 3.1rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 14px;
+}
+.ydt-page .svc-lede { font-size: 17px; color: var(--white); line-height: 1.55; margin-bottom: 16px; letter-spacing: -0.01em; }
+.ydt-page .svc-body { font-size: 15px; color: var(--gray5); line-height: 1.72; }
+.ydt-page .svc-caps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+.ydt-page .svc-cap {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray5); border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 9999px; padding: 7px 13px;
+}
+.ydt-page .svc-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 30px; }
+.ydt-page .svc-link {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 13px; font-weight: 600; color: var(--white);
+    border-bottom: 1px solid rgba(255,255,255,0.22);
+    /* padding, not just a bottom rule — an 19px-tall link is not a touch target */
+    padding: 10px 0 11px;
+    transition: border-color 0.3s, gap 0.3s var(--ease);
+}
+.ydt-page .svc-link:hover { border-color: var(--data); gap: 13px; }
+.ydt-page .svc-link svg { width: 13px; height: 13px; }
+.ydt-page .svc-stat { font-family: var(--mono); font-size: 11px; color: var(--gray6); }
+.ydt-page .svc-stat b { color: var(--data); font-weight: 500; }
+
+/* ══════════════════════════════════════════════════════════════
+   THE INTERFACES
+   One shared chrome, six different instruments inside it. Every one
+   is CSS and inline SVG — no image files, nothing to upload, nothing
+   that can 404.
+   ══════════════════════════════════════════════════════════════ */
+.ydt-page .svc-art { position: relative; }
+/* ember pooling behind the panel, as if it is lit from the back */
+.ydt-page .svc-art::before {
+    content: ''; position: absolute; left: 50%; top: 4%;
+    width: 80%; height: 76%; transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.22), transparent 72%);
+    filter: blur(58px); pointer-events: none; z-index: 0;
+}
+.ydt-page .art {
+    position: relative; z-index: 1;
+    background: var(--panel); border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 76, 0.04);
+}
+.ydt-page .art-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line2); background: var(--panel2);
+}
+.ydt-page .art-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.ydt-page .art-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+.ydt-page .art-url {
+    font-family: var(--mono); font-size: 10.5px; color: var(--gray6);
+    letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .art-live {
+    display: inline-flex; align-items: center; gap: 7px; margin-left: auto; flex-shrink: 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--data);
+}
+.ydt-page .art-body { padding: 22px 20px; }
+@media (min-width: 560px) { .ydt-page .art-body { padding: 26px 24px; } }
+.ydt-page .art-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); margin-bottom: 8px;
+}
+.ydt-page .art-v {
+    display: block; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .art-cap {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6);
+}
+.ydt-page .art-delta {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .art-delta svg { width: 10px; height: 10px; }
+.ydt-page .art-foot {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 13px 20px; border-top: 1px solid var(--line2); background: rgba(255,255,255,0.012);
+}
+@media (min-width: 560px) { .ydt-page .art-foot { padding: 13px 24px; } }
+
+/* ── 01 · SEO — a rank tracker, mid-climb ─────────────────────── */
+.ydt-page .seo-search {
+    display: flex; align-items: center; gap: 11px;
+    border: 1px solid var(--line); border-radius: 9999px;
+    background: var(--panel2); padding: 11px 16px; margin-bottom: 18px;
+}
+.ydt-page .seo-search > svg { width: 14px; height: 14px; color: var(--gray6); flex-shrink: 0; }
+.ydt-page .seo-q {
+    font-family: var(--mono); font-size: 12px; color: var(--white);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .seo-caret {
+    display: inline-block; width: 1.5px; height: 12px; margin-left: 3px;
+    background: var(--data); vertical-align: -2px; animation: caretBlink 1.1s steps(1) infinite;
+}
+@keyframes caretBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+/* the rows are equal height so the climb reads as an overtake, not a jumble */
+.ydt-page .seo-list { list-style: none; overflow: hidden; }
+.ydt-page .seo-res {
+    display: flex; align-items: center; gap: 13px; height: 54px;
+    padding: 0 13px; border-radius: 11px; border: 1px solid transparent;
+}
+.ydt-page .seo-res + .seo-res { margin-top: 7px; }
+.ydt-page .seo-pos {
+    font-family: var(--mono); font-size: 12px; color: var(--gray6);
+    width: 15px; flex-shrink: 0; text-align: center;
+}
+.ydt-page .seo-text { min-width: 0; flex: 1; }
+.ydt-page .seo-dom { display: block; font-family: var(--mono); font-size: 10px; color: var(--gray6); letter-spacing: 0.04em; }
+.ydt-page .seo-title {
+    display: block; font-size: 13px; color: var(--gray5); margin-top: 3px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .seo-res--you {
+    background: var(--data-dim); border-color: rgba(255, 69, 54, 0.30);
+}
+.ydt-page .seo-res--you .seo-pos { color: var(--data); }
+.ydt-page .seo-res--you .seo-title { color: var(--white); }
+.ydt-page .seo-move {
+    display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .seo-move svg { width: 9px; height: 9px; }
+/* one row climbs, the rest are pushed down — 61px is row height + gap */
+html.ydt-js .ydt-page .seo-res { transition: transform 1.15s 0.25s var(--ease); }
+html.ydt-js .ydt-page .seo-res--you { transform: translateY(183px); }
+html.ydt-js .ydt-page .seo-res--rival { transform: translateY(-61px); }
+html.ydt-js .ydt-page .art.in-view .seo-res { transform: translateY(0); }
+.ydt-page .seo-chart { margin-top: 18px; }
+.ydt-page .seo-spark { display: block; width: 100%; height: 66px; }
+.ydt-page .seo-spark .ln {
+    fill: none; stroke: var(--data); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.ydt-page .seo-spark .ar { fill: url(#seoFade); }
+/* Swept with clip-path rather than stroke-dashoffset. This viewBox is drawn
+   with preserveAspectRatio="none", so the horizontal and vertical scales
+   differ wildly — dash lengths under that are unpredictable, and the stroke
+   was stopping two-thirds along while the area fill completed. A clip sweep
+   is immune to how the viewBox is scaled, and takes the line and its fill
+   together. */
+html.ydt-js .ydt-page .seo-chart {
+    -webkit-clip-path: inset(0 100% 0 0); clip-path: inset(0 100% 0 0);
+    transition: -webkit-clip-path 1.4s 0.45s var(--ease), clip-path 1.4s 0.45s var(--ease);
+}
+html.ydt-js .ydt-page .art.in-view .seo-chart {
+    -webkit-clip-path: inset(0 0 0 0); clip-path: inset(0 0 0 0);
+}
+.ydt-page .seo-spark .gd { stroke: rgba(255,255,255,0.06); stroke-width: 1; }
+
+/* ── 02 · PPC — a campaign manager, spend against revenue ─────── */
+.ydt-page .ppc-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+.ydt-page .ppc-rows { display: flex; flex-direction: column; gap: 14px; }
+.ydt-page .ppc-row { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; }
+.ydt-page .ppc-name { font-size: 12.5px; color: var(--gray5); }
+.ydt-page .ppc-mult { font-family: var(--mono); font-size: 12px; color: var(--white); font-variant-numeric: tabular-nums; }
+.ydt-page .ppc-bars { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 5px; }
+/* both of these are spans. Without display:block the fill stays inline,
+   ignores width entirely, and every bar renders empty. */
+.ydt-page .ppc-track {
+    display: block; height: 9px; border-radius: 5px;
+    background: rgba(255, 255, 255, 0.045); overflow: hidden;
+}
+.ydt-page .ppc-fill { display: block; height: 100%; border-radius: 5px; width: var(--w); }
+.ydt-page .ppc-fill--spend { background: rgba(255, 255, 255, 0.20); }
+.ydt-page .ppc-fill--rev { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+html.ydt-js .ydt-page .ppc-fill { width: 0; transition: width 1.15s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .ppc-fill { width: var(--w); }
+html.ydt-js .ydt-page .art.in-view .ppc-row:nth-child(1) .ppc-fill { transition-delay: 0.25s; }
+html.ydt-js .ydt-page .art.in-view .ppc-row:nth-child(2) .ppc-fill { transition-delay: 0.35s; }
+html.ydt-js .ydt-page .art.in-view .ppc-row:nth-child(3) .ppc-fill { transition-delay: 0.45s; }
+html.ydt-js .ydt-page .art.in-view .ppc-row:nth-child(4) .ppc-fill { transition-delay: 0.55s; }
+.ydt-page .ppc-key { display: flex; align-items: center; gap: 7px; }
+.ydt-page .ppc-key i { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+.ydt-page .ppc-key--spend i { background: rgba(255, 255, 255, 0.20); }
+.ydt-page .ppc-key--rev i { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+.ydt-page .ppc-tick { margin-left: auto; font-family: var(--mono); font-size: 10px; color: var(--gray6); }
+
+/* ── 03 · Social — a reel, with the numbers beside it ─────────── */
+.ydt-page .soc { display: grid; grid-template-columns: 128px 1fr; gap: 20px; align-items: stretch; }
+@media (min-width: 560px) { .ydt-page .soc { grid-template-columns: 168px 1fr; gap: 24px; } }
+.ydt-page .soc-phone {
+    position: relative; border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--line); background: var(--panel2);
+    aspect-ratio: 9 / 16; display: flex; flex-direction: column;
+}
+/* Stand-in frame — deliberately abstract, but structured rather than a
+   soft blur, which just read as mud at this size. */
+.ydt-page .soc-media {
+    position: absolute; inset: 0;
+    background:
+        repeating-linear-gradient(115deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 14px),
+        radial-gradient(46% 30% at 34% 26%, rgba(255, 140, 124, 0.62), transparent 68%),
+        radial-gradient(52% 34% at 72% 72%, rgba(216, 30, 13, 0.52), transparent 70%),
+        linear-gradient(165deg, #241614, #0a0908 72%);
+}
+.ydt-page .soc-media::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 34%, rgba(0,0,0,0.72) 100%);
+}
+.ydt-page .soc-prog { position: relative; z-index: 2; display: flex; gap: 3px; padding: 9px 9px 0; }
+.ydt-page .soc-prog i { flex: 1; height: 2px; border-radius: 2px; background: rgba(255,255,255,0.22); overflow: hidden; }
+.ydt-page .soc-prog i.on { background: rgba(255,255,255,0.22); }
+.ydt-page .soc-prog i.on::after {
+    content: ''; display: block; height: 100%; width: 100%; background: var(--white);
+    transform-origin: 0 50%; transform: scaleX(0);
+}
+html.ydt-js .ydt-page .art.in-view .soc-prog i.on::after { animation: socProg 4.2s 0.3s var(--ease) forwards; }
+@keyframes socProg { to { transform: scaleX(1); } }
+.ydt-page .soc-foot { position: relative; z-index: 2; margin-top: auto; padding: 10px; }
+.ydt-page .soc-handle { display: block; font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.72); letter-spacing: 0.04em; }
+/* two lines, always — a third line grew the caption up into the action rail */
+.ydt-page .soc-cap {
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; line-height: 1.4;
+}
+/* the engagement rail rides up the right edge of the frame */
+.ydt-page .soc-rail { position: absolute; right: 8px; bottom: 96px; z-index: 3; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.ydt-page .soc-act { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.ydt-page .soc-act svg { width: 16px; height: 16px; color: var(--white); }
+.ydt-page .soc-act .heart { color: var(--data); }
+.ydt-page .soc-act span { font-family: var(--mono); font-size: 9.5px; color: rgba(255,255,255,0.75); }
+/* hearts drifting off the like button */
+.ydt-page .soc-pop { position: absolute; right: 14px; bottom: 118px; z-index: 3; pointer-events: none; }
+.ydt-page .soc-pop i {
+    position: absolute; display: block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--data); opacity: 0;
+}
+html.ydt-js .ydt-page .art.in-view .soc-pop i { animation: socRise 3.4s var(--ease) infinite; }
+.ydt-page .soc-pop i:nth-child(1) { animation-delay: 0.6s; }
+.ydt-page .soc-pop i:nth-child(2) { animation-delay: 1.7s; left: 9px; }
+.ydt-page .soc-pop i:nth-child(3) { animation-delay: 2.6s; left: -8px; }
+@keyframes socRise {
+    0% { transform: translateY(0) scale(0.4); opacity: 0; }
+    18% { opacity: 0.9; }
+    100% { transform: translateY(-58px) scale(1); opacity: 0; }
+}
+.ydt-page .soc-side { display: flex; flex-direction: column; justify-content: space-between; gap: 18px; min-width: 0; }
+.ydt-page .soc-metrics { display: flex; flex-direction: column; gap: 14px; }
+.ydt-page .soc-metric { display: grid; grid-template-columns: 1fr auto; gap: 5px 10px; align-items: baseline; }
+.ydt-page .soc-metric .art-k { margin-bottom: 0; }
+.ydt-page .soc-num { font-family: var(--mono); font-size: 13px; color: var(--white); font-variant-numeric: tabular-nums; }
+.ydt-page .soc-bar { grid-column: 1 / -1; display: block; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.045); overflow: hidden; }
+.ydt-page .soc-bar i { display: block; height: 100%; border-radius: 3px; width: var(--w); background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+html.ydt-js .ydt-page .soc-bar i { width: 0; transition: width 1.1s 0.4s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .soc-bar i { width: var(--w); }
+.ydt-page .soc-plats { display: flex; flex-wrap: wrap; gap: 6px; }
+.ydt-page .soc-plat {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray5); border: 1px solid var(--card-line); border-radius: 9999px; padding: 6px 10px;
+}
+
+/* ── 04 · Email — the automation, drawn as a flow ─────────────── */
+.ydt-page .fl { list-style: none; }
+.ydt-page .fl-step {
+    position: relative; display: flex; align-items: center; gap: 13px;
+    border: 1px solid var(--card-line); background: var(--panel2);
+    border-radius: 12px; padding: 13px 15px;
+}
+.ydt-page .fl-node {
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 30px; height: 30px; border-radius: 9px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--line);
+}
+.ydt-page .fl-node svg { width: 14px; height: 14px; color: var(--gray5); }
+.ydt-page .fl-step--live .fl-node { background: var(--data-dim); border-color: rgba(255,69,54,0.3); }
+.ydt-page .fl-step--live .fl-node svg { color: var(--data); }
+.ydt-page .fl-t { display: block; font-size: 12.5px; font-weight: 600; letter-spacing: -0.01em; }
+.ydt-page .fl-s { display: block; font-family: var(--mono); font-size: 10px; color: var(--gray6); margin-top: 4px; letter-spacing: 0.04em; }
+.ydt-page .fl-s b { color: var(--data); font-weight: 500; }
+/* connectors are drawn with borders — no SVG needed, and they reflow */
+.ydt-page .fl-link { position: relative; height: 20px; }
+.ydt-page .fl-link::before {
+    content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 1px; background: var(--line);
+}
+.ydt-page .fl-wait {
+    position: relative; height: 30px; display: flex; align-items: center; padding-left: 30px;
+}
+.ydt-page .fl-wait::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 1px; background: var(--line); }
+.ydt-page .fl-wait span {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray6); background: var(--panel); padding: 0 8px;
+}
+/* the fork: a trunk, a crossbar, and a drop into each branch */
+.ydt-page .fl-fork { position: relative; padding-top: 40px; }
+.ydt-page .fl-fork::before { content: ''; position: absolute; left: 15px; top: 0; height: 20px; width: 1px; background: var(--line); }
+.ydt-page .fl-split { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+/* The crossbar and the drop into the second branch were both set to
+   `right: 25%`, but of different containing blocks — the split for one, a
+   single branch for the other — so they landed in different places and the
+   connector visibly missed the card. Both are now pinned to the node column
+   (15px) of each branch: with a 10px gutter the second branch starts at
+   50% + 5px, so the crossbar has to stop 50% - 5px - 15px from the right. */
+.ydt-page .fl-split::before {
+    content: ''; position: absolute; left: 15px; right: calc(50% - 20px);
+    top: -20px; height: 1px; background: var(--line);
+}
+.ydt-page .fl-branch { position: relative; }
+.ydt-page .fl-branch::before {
+    content: ''; position: absolute; left: 15px; top: -20px;
+    height: 20px; width: 1px; background: var(--line);
+}
+.ydt-page .fl-card {
+    border: 1px solid var(--card-line); background: var(--panel2);
+    border-radius: 12px; padding: 12px 13px; height: 100%;
+}
+.ydt-page .fl-tag {
+    display: inline-block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gray6); margin-bottom: 8px;
+}
+.ydt-page .fl-card--win { border-color: rgba(255,69,54,0.28); background: var(--data-dim); }
+.ydt-page .fl-card--win .fl-tag { color: var(--data); }
+html.ydt-js .ydt-page .fl > li, html.ydt-js .ydt-page .fl-branch {
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+html.ydt-js .ydt-page .art.in-view .fl > li,
+html.ydt-js .ydt-page .art.in-view .fl-branch { opacity: 1; transform: translateY(0); }
+html.ydt-js .ydt-page .art.in-view .fl > li:nth-child(1) { transition-delay: 0.15s; }
+html.ydt-js .ydt-page .art.in-view .fl > li:nth-child(2) { transition-delay: 0.28s; }
+html.ydt-js .ydt-page .art.in-view .fl > li:nth-child(3) { transition-delay: 0.41s; }
+html.ydt-js .ydt-page .art.in-view .fl > li:nth-child(4) { transition-delay: 0.54s; }
+html.ydt-js .ydt-page .art.in-view .fl > li:nth-child(5) { transition-delay: 0.67s; }
+html.ydt-js .ydt-page .art.in-view .fl-branch:nth-child(1) { transition-delay: 0.74s; }
+html.ydt-js .ydt-page .art.in-view .fl-branch:nth-child(2) { transition-delay: 0.84s; }
+
+/* ── 05 · Content — the draft, with its outline beside it ─────── */
+.ydt-page .cnt { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 560px) { .ydt-page .cnt { grid-template-columns: 0.72fr 1fr; gap: 24px; } }
+.ydt-page .cnt-outline { border-right: none; }
+@media (min-width: 560px) { .ydt-page .cnt-outline { border-right: 1px solid var(--line2); padding-right: 22px; } }
+.ydt-page .cnt-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .cnt-list li {
+    display: flex; align-items: flex-start; gap: 9px;
+    font-size: 11.5px; line-height: 1.45; color: var(--gray6);
+}
+.ydt-page .cnt-list li b { font-family: var(--mono); font-size: 9.5px; color: var(--gray6); flex-shrink: 0; padding-top: 1px; }
+.ydt-page .cnt-list li.on { color: var(--white); }
+.ydt-page .cnt-list li.on b { color: var(--data); }
+.ydt-page .cnt-h {
+    font-size: clamp(1rem, 2vw, 1.3rem); font-weight: 700; letter-spacing: -0.03em;
+    line-height: 1.2; margin-bottom: 16px;
+}
+.ydt-page .cnt-caret {
+    display: inline-block; width: 2px; height: 0.95em; margin-left: 3px;
+    background: var(--data); vertical-align: -2px; animation: caretBlink 1.1s steps(1) infinite;
+}
+.ydt-page .cnt-lines { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
+.ydt-page .cnt-lines i { display: block; height: 7px; border-radius: 4px; background: rgba(255,255,255,0.055); width: var(--w); }
+html.ydt-js .ydt-page .cnt-lines i { width: 0; transition: width 0.7s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .cnt-lines i { width: var(--w); }
+html.ydt-js .ydt-page .art.in-view .cnt-lines i:nth-child(1) { transition-delay: 0.25s; }
+html.ydt-js .ydt-page .art.in-view .cnt-lines i:nth-child(2) { transition-delay: 0.35s; }
+html.ydt-js .ydt-page .art.in-view .cnt-lines i:nth-child(3) { transition-delay: 0.45s; }
+html.ydt-js .ydt-page .art.in-view .cnt-lines i:nth-child(4) { transition-delay: 0.55s; }
+html.ydt-js .ydt-page .art.in-view .cnt-lines i:nth-child(5) { transition-delay: 0.65s; }
+.ydt-page .cnt-meters { display: flex; flex-direction: column; gap: 13px; }
+.ydt-page .cnt-meter { display: grid; grid-template-columns: 1fr auto; gap: 5px 10px; align-items: baseline; }
+.ydt-page .cnt-meter .art-k { margin-bottom: 0; }
+.ydt-page .cnt-meter b { font-family: var(--mono); font-size: 12px; color: var(--data); font-weight: 500; }
+.ydt-page .cnt-track { grid-column: 1 / -1; display: block; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.045); overflow: hidden; }
+.ydt-page .cnt-track i { display: block; height: 100%; border-radius: 3px; width: var(--w); background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+html.ydt-js .ydt-page .cnt-track i { width: 0; transition: width 1.1s 0.6s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .cnt-track i { width: var(--w); }
+
+/* ── 06 · Web development — the build, then the scores ────────── */
+.ydt-page .dev-code {
+    font-family: var(--mono); font-size: 11px; line-height: 1.85;
+    background: #060505; border: 1px solid var(--line2); border-radius: 12px;
+    padding: 15px 16px; overflow-x: auto; white-space: pre; -webkit-overflow-scrolling: touch;
+}
+.ydt-page .dev-code .l { display: block; }
+.ydt-page .dev-code .p { color: var(--data); }
+.ydt-page .dev-code .c { color: var(--white); }
+.ydt-page .dev-code .m { color: var(--gray6); }
+.ydt-page .dev-code .g { color: var(--gray5); }
+.ydt-page .dev-code .ok { color: var(--data); }
+html.ydt-js .ydt-page .dev-code .l { opacity: 0; transform: translateX(-5px); transition: opacity 0.34s var(--ease), transform 0.34s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .dev-code .l { opacity: 1; transform: translateX(0); }
+html.ydt-js .ydt-page .art.in-view .dev-code .l:nth-child(1) { transition-delay: 0.20s; }
+html.ydt-js .ydt-page .art.in-view .dev-code .l:nth-child(2) { transition-delay: 0.34s; }
+html.ydt-js .ydt-page .art.in-view .dev-code .l:nth-child(3) { transition-delay: 0.48s; }
+html.ydt-js .ydt-page .art.in-view .dev-code .l:nth-child(4) { transition-delay: 0.62s; }
+html.ydt-js .ydt-page .art.in-view .dev-code .l:nth-child(5) { transition-delay: 0.76s; }
+html.ydt-js .ydt-page .art.in-view .dev-code .l:nth-child(6) { transition-delay: 0.90s; }
+.ydt-page .dev-scores { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+.ydt-page .dev-score { text-align: center; }
+.ydt-page .dev-ring { position: relative; width: 100%; max-width: 56px; margin: 0 auto 9px; }
+.ydt-page .dev-ring svg { display: block; width: 100%; height: auto; transform: rotate(-90deg); }
+.ydt-page .dev-ring .bg { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 3; }
+.ydt-page .dev-ring .fg {
+    fill: none; stroke: var(--data); stroke-width: 3; stroke-linecap: round;
+    stroke-dasharray: 100; stroke-dashoffset: calc(100 - var(--p));
+}
+html.ydt-js .ydt-page .dev-ring .fg { stroke-dashoffset: 100; transition: stroke-dashoffset 1.2s 0.7s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .dev-ring .fg { stroke-dashoffset: calc(100 - var(--p)); }
+.ydt-page .dev-ring b {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--white);
+}
+.ydt-page .dev-score span {
+    display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gray6); line-height: 1.35;
+}
+
+/* ══════════ HOW THEY COMBINE ══════════ */
+.ydt-page .cmb-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 700px) { .ydt-page .cmb-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+.ydt-page .cmb-card {
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 18px; padding: 26px; transition: border-color 0.5s;
+}
+.ydt-page .cmb-card:hover { border-color: rgba(255, 255, 255, 0.14); }
+.ydt-page .cmb-k {
+    display: flex; align-items: center; gap: 9px; margin-bottom: 16px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--gray6);
+}
+.ydt-page .cmb-k b { color: var(--data); font-weight: 500; }
+.ydt-page .cmb-card h3 { font-size: 17px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 10px; }
+.ydt-page .cmb-card p { font-size: 14px; color: var(--gray5); line-height: 1.68; }
+.ydt-page .cmb-mix { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+.ydt-page .cmb-mix span {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--data); background: var(--data-dim); border-radius: 9999px; padding: 5px 10px;
+}
+
+/* ══════════ FINAL CTA ══════════ */
+.ydt-page .cta { position: relative; overflow: hidden; padding: 118px 0 128px; border-top: 1px solid var(--line2); }
+.ydt-page .cta-ember {
+    position: absolute; bottom: -56vh; left: 50%; width: 170vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.24) 0%, rgba(216, 30, 13, 0.11) 36%, transparent 72%);
+    filter: blur(30px);
+}
+.ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
+.ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 34px; }
+
+/* ══════════ MOTION FALLBACKS ══════════
+   These carry the html.ydt-js prefix on purpose — they have to
+   out-specify the gated hidden states above, and a media query adds none. */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page { scroll-behavior: auto; }
+    html.ydt-js .ydt-page [data-reveal],
+    html.ydt-js .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    .ydt-page .seo-caret, .ydt-page .cnt-caret { animation: none; }
+    html.ydt-js .ydt-page .seo-res { transform: none; transition: none; }
+    html.ydt-js .ydt-page .seo-chart { -webkit-clip-path: none; clip-path: none; transition: none; }
+    html.ydt-js .ydt-page .ppc-fill,
+    html.ydt-js .ydt-page .soc-bar i,
+    html.ydt-js .ydt-page .cnt-lines i,
+    html.ydt-js .ydt-page .cnt-track i { width: var(--w); transition: none; }
+    html.ydt-js .ydt-page .fl > li,
+    html.ydt-js .ydt-page .fl-branch,
+    html.ydt-js .ydt-page .dev-code .l { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .dev-ring .fg { stroke-dashoffset: calc(100 - var(--p)); transition: none; }
+    html.ydt-js .ydt-page .soc-prog i.on::after { animation: none; transform: scaleX(1); }
+    html.ydt-js .ydt-page .soc-pop i { animation: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .sec { padding: 84px 0; }
+    .ydt-page .svc { padding: 72px 0; }
+    .ydt-page .intro { padding: calc(var(--header-h) + 52px) 0 56px; }
+    .ydt-page .cta { padding: 84px 0 92px; }
+    .ydt-page .cta-actions .ember-btn, .ydt-page .cta-actions .ghost-btn { width: 100%; }
+    .ydt-page .rail-wrap { top: calc(var(--header-h) - 14px); }
+    /* nothing under 10px, same floor as every other page */
+    .ydt-page .soc-act span, .ydt-page .soc-plat, .ydt-page .fl-tag, .ydt-page .fl-wait span,
+    .ydt-page .dev-score span, .ydt-page .cmb-mix span, .ydt-page .cnt-list li b,
+    .ydt-page .art-cap, .ydt-page .art-k { font-size: 10px; letter-spacing: 0.1em; }
+    .ydt-page .dev-scores { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .ydt-page .soc { grid-template-columns: 116px 1fr; gap: 16px; }
+    /* a 116px frame is only ~206px tall — the rail has to shrink to clear the caption */
+    .ydt-page .soc-rail { bottom: 74px; gap: 8px; }
+    .ydt-page .soc-act svg { width: 14px; height: 14px; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+/* Squarespace wraps every block in containers. An ancestor with a
+   non-visible overflow becomes a scroll container, and a scroll container
+   is what breaks the sticky service rail. */
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page .art-url, .ydt-page .art-live, .ydt-page .art-k, .ydt-page .art-cap,
+.ydt-page .art-delta, .ydt-page .dev-code, .ydt-page .dev-code *,
+.ydt-page .seo-q, .ydt-page .seo-pos, .ydt-page .seo-dom, .ydt-page .seo-move,
+.ydt-page .ppc-mult, .ydt-page .ppc-tick, .ydt-page .soc-handle, .ydt-page .soc-num,
+.ydt-page .soc-act span, .ydt-page .soc-plat, .ydt-page .fl-s, .ydt-page .fl-tag,
+.ydt-page .fl-wait span, .ydt-page .cnt-list li b, .ydt-page .cnt-meter b,
+.ydt-page .dev-ring b, .ydt-page .dev-score span, .ydt-page .cmb-k, .ydt-page .cmb-mix span,
+.ydt-page .rail a, .ydt-page .led-idx, .ydt-page .led-stat, .ydt-page .svc-idx,
+.ydt-page .svc-cap, .ydt-page .svc-stat, .ydt-page .sec-eyebrow-text,
+.ydt-page .intro-eyebrow { font-family: var(--mono); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+</style>
+
+<div class="ydt-page ydt-page--services">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ══════════ INTRO ══════════ -->
+  <section class="intro" aria-labelledby="introTitle">
+    <div class="intro-ember" aria-hidden="true"></div>
+    <div class="intro-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <p class="intro-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Six disciplines · one team</p>
+      <h1 class="intro-title" id="introTitle">
+        <span class="clip"><span class="slide">Everything we do,</span></span>
+        <span class="clip"><span class="slide"><span class="dim">in one place.</span></span></span>
+      </h1>
+      <p class="intro-body" data-reveal>
+        We don't sell packages off a shelf. We build the combination that moves your
+        numbers, run it as one system, and report on it in plain English every week.
+        Below is each discipline, what it actually looks like day to day, and what it has returned.
+      </p>
+
+      <div class="intro-ledger" data-reveal>
+        <a class="led" href="#seo"><span class="led-idx">01</span><span class="led-name">SEO</span><span class="led-stat">+212% organic</span></a>
+        <a class="led" href="#ppc"><span class="led-idx">02</span><span class="led-name">PPC</span><span class="led-stat">5.2× ROAS</span></a>
+        <a class="led" href="#social"><span class="led-idx">03</span><span class="led-name">Social</span><span class="led-stat">214k reach</span></a>
+        <a class="led" href="#email"><span class="led-idx">04</span><span class="led-name">Email</span><span class="led-stat">3× repeat</span></a>
+        <a class="led" href="#content"><span class="led-idx">05</span><span class="led-name">Content</span><span class="led-stat">94% intent</span></a>
+        <a class="led" href="#web-development"><span class="led-idx">06</span><span class="led-name">Web dev</span><span class="led-stat">0.8s LCP</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SERVICES ══════════
+       The rail and all six sections share one parent so the rail can stay
+       stuck for the whole run rather than for its own height. -->
+  <div class="svc-zone">
+
+  <div class="rail-wrap">
+    <div class="container">
+      <nav class="rail" id="rail" aria-label="Jump to a service">
+        <a href="#seo">SEO</a>
+        <a href="#ppc">PPC</a>
+        <a href="#social">Social</a>
+        <a href="#email">Email</a>
+        <a href="#content">Content</a>
+        <a href="#web-development">Web dev</a>
+        <a href="#combine">How they combine</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ══════════ 01 · SEO ══════════ -->
+  <section class="svc" id="seo" aria-labelledby="seoName">
+    <div class="container">
+      <div class="svc-grid">
+        <div class="svc-copy">
+          <p class="svc-idx" data-reveal><b>01</b> Search engine optimisation <i aria-hidden="true"></i></p>
+          <h2 class="svc-name" id="seoName" data-reveal>SEO</h2>
+          <p class="svc-lede" data-reveal>Own the searches your customers already make.</p>
+          <p class="svc-body" data-reveal>
+            We fix what's holding the site back technically, build the pages that match
+            real search intent, and earn the links that make them stick. Rankings are
+            tracked daily against a named competitor set, so progress is a number you
+            can check rather than a claim you have to take on trust.
+          </p>
+          <div class="svc-caps" data-reveal>
+            <span class="svc-cap">Technical SEO</span><span class="svc-cap">Local SEO</span>
+            <span class="svc-cap">Link building</span><span class="svc-cap">Schema markup</span>
+          </div>
+          <div class="svc-foot" data-reveal>
+            <a class="svc-link" href="/seo">See how we do SEO
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <span class="svc-stat"><b>+212%</b> organic sessions · 9 months</span>
+          </div>
+        </div>
+
+        <div class="svc-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">rank-tracker · smart-heating.co.uk</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Daily</span>
+            </div>
+            <div class="art-body">
+              <div class="seo-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+                <span class="seo-q">smart heating installer near me<span class="seo-caret" aria-hidden="true"></span></span>
+              </div>
+              <ol class="seo-list">
+                <li class="seo-res seo-res--you">
+                  <span class="seo-pos">1</span>
+                  <span class="seo-text">
+                    <span class="seo-dom">smart-heating.co.uk</span>
+                    <span class="seo-title">Smart heating installation across the North West</span>
+                  </span>
+                  <span class="seo-move"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>8</span>
+                </li>
+                <li class="seo-res seo-res--rival">
+                  <span class="seo-pos">2</span>
+                  <span class="seo-text"><span class="seo-dom">competitor-one.co.uk</span><span class="seo-title">Heating engineers &amp; boiler installation</span></span>
+                </li>
+                <li class="seo-res seo-res--rival">
+                  <span class="seo-pos">3</span>
+                  <span class="seo-text"><span class="seo-dom">directory-listing.com</span><span class="seo-title">Find a heating installer in your area</span></span>
+                </li>
+                <li class="seo-res seo-res--rival">
+                  <span class="seo-pos">4</span>
+                  <span class="seo-text"><span class="seo-dom">competitor-two.co.uk</span><span class="seo-title">Smart thermostats fitted from £249</span></span>
+                </li>
+              </ol>
+              <div class="seo-chart">
+                <svg class="seo-spark" viewBox="0 0 300 66" preserveAspectRatio="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="seoFade" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#ff4536" stop-opacity="0.22"/>
+                      <stop offset="1" stop-color="#ff4536" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <g class="gd"><path d="M0 16h300M0 33h300M0 50h300"/></g>
+                  <path class="ar" d="M0 60 L40 57 L80 49 L120 44 L160 31 L200 24 L240 14 L300 8 L300 66 L0 66 Z"/>
+                  <path class="ln" vector-effect="non-scaling-stroke" d="M0 60 L40 57 L80 49 L120 44 L160 31 L200 24 L240 14 L300 8"/>
+                </svg>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Position 9 → 1</span>
+              <span class="art-cap" style="margin-left:auto">90 days</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 · PPC ══════════ -->
+  <section class="svc svc--flip" id="ppc" aria-labelledby="ppcName">
+    <div class="container">
+      <div class="svc-grid">
+        <div class="svc-copy">
+          <p class="svc-idx" data-reveal><b>02</b> Pay-per-click advertising <i aria-hidden="true"></i></p>
+          <h2 class="svc-name" id="ppcName" data-reveal>PPC</h2>
+          <p class="svc-lede" data-reveal>Buy the clicks that pay for themselves.</p>
+          <p class="svc-body" data-reveal>
+            Google Ads and Meta, managed daily rather than set and forgotten. Every
+            campaign is tied to revenue in the analytics, not to clicks — so when we cut
+            spend on a keyword you can see exactly what it was costing you, and when we
+            push budget somewhere you can see what came back.
+          </p>
+          <div class="svc-caps" data-reveal>
+            <span class="svc-cap">Google Ads</span><span class="svc-cap">Meta Ads</span>
+            <span class="svc-cap">Shopping</span><span class="svc-cap">Conversion tracking</span>
+          </div>
+          <div class="svc-foot" data-reveal>
+            <a class="svc-link" href="/ppc">See how we run PPC
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <span class="svc-stat"><b>5.2×</b> average return on ad spend</span>
+          </div>
+        </div>
+
+        <div class="svc-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">campaigns · last 30 days</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Optimising</span>
+            </div>
+            <div class="art-body">
+              <div class="ppc-head">
+                <div>
+                  <span class="art-k">Return on ad spend</span>
+                  <span class="art-v">5.2&times;</span>
+                </div>
+                <span class="art-delta">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>
+                  41% vs last quarter
+                </span>
+              </div>
+              <div class="ppc-rows">
+                <div class="ppc-row">
+                  <span class="ppc-name">Search — brand</span><span class="ppc-mult">8.4&times;</span>
+                  <span class="ppc-bars"><span class="ppc-track"><span class="ppc-fill ppc-fill--spend" style="--w:18%"></span></span><span class="ppc-track"><span class="ppc-fill ppc-fill--rev" style="--w:94%"></span></span></span>
+                </div>
+                <div class="ppc-row">
+                  <span class="ppc-name">Search — non-brand</span><span class="ppc-mult">4.1&times;</span>
+                  <span class="ppc-bars"><span class="ppc-track"><span class="ppc-fill ppc-fill--spend" style="--w:46%"></span></span><span class="ppc-track"><span class="ppc-fill ppc-fill--rev" style="--w:71%"></span></span></span>
+                </div>
+                <div class="ppc-row">
+                  <span class="ppc-name">Shopping</span><span class="ppc-mult">5.6&times;</span>
+                  <span class="ppc-bars"><span class="ppc-track"><span class="ppc-fill ppc-fill--spend" style="--w:31%"></span></span><span class="ppc-track"><span class="ppc-fill ppc-fill--rev" style="--w:64%"></span></span></span>
+                </div>
+                <div class="ppc-row">
+                  <span class="ppc-name">Meta — retargeting</span><span class="ppc-mult">3.8&times;</span>
+                  <span class="ppc-bars"><span class="ppc-track"><span class="ppc-fill ppc-fill--spend" style="--w:24%"></span></span><span class="ppc-track"><span class="ppc-fill ppc-fill--rev" style="--w:42%"></span></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap ppc-key ppc-key--spend"><i aria-hidden="true"></i>Spend</span>
+              <span class="art-cap ppc-key ppc-key--rev"><i aria-hidden="true"></i>Revenue</span>
+              <span class="ppc-tick">14:02 · mobile bid &minus;12%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 · SOCIAL ══════════ -->
+  <section class="svc" id="social" aria-labelledby="socialName">
+    <div class="container">
+      <div class="svc-grid">
+        <div class="svc-copy">
+          <p class="svc-idx" data-reveal><b>03</b> Social media marketing <i aria-hidden="true"></i></p>
+          <h2 class="svc-name" id="socialName" data-reveal>Social</h2>
+          <p class="svc-lede" data-reveal>Content people actually stop scrolling for.</p>
+          <p class="svc-body" data-reveal>
+            Instagram, TikTok, LinkedIn and Facebook, planned as one calendar and made
+            in-house. We shoot, edit and schedule it, then read what the platform tells
+            us and make more of whatever earned the saves and shares — because saves and
+            shares, not follower counts, are what turn into customers.
+          </p>
+          <div class="svc-caps" data-reveal>
+            <span class="svc-cap">Instagram</span><span class="svc-cap">TikTok</span>
+            <span class="svc-cap">LinkedIn</span><span class="svc-cap">Content production</span>
+          </div>
+          <div class="svc-foot" data-reveal>
+            <a class="svc-link" href="/social">See how we run social
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <span class="svc-stat"><b>214k</b> monthly reach · 4 platforms</span>
+          </div>
+        </div>
+
+        <div class="svc-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">content calendar · week 32</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Posted</span>
+            </div>
+            <div class="art-body">
+              <div class="soc">
+                <div class="soc-phone" aria-hidden="true">
+                  <div class="soc-media"></div>
+                  <div class="soc-prog"><i class="on"></i><i></i><i></i></div>
+                  <div class="soc-rail">
+                    <span class="soc-act">
+                      <svg class="heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-8-4.9-8-10.4A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 8 3.6C20 16.1 12 21 12 21z"/></svg>
+                      <span>12.4k</span>
+                    </span>
+                    <span class="soc-act">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg>
+                      <span>318</span>
+                    </span>
+                    <span class="soc-act">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><polyline points="8 7 12 3 16 7"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                      <span>1.2k</span>
+                    </span>
+                  </div>
+                  <div class="soc-pop"><i></i><i></i><i></i></div>
+                  <div class="soc-foot">
+                    <span class="soc-handle">@yourdigitalteam</span>
+                    <span class="soc-cap">Three things every installer gets wrong on a quote</span>
+                  </div>
+                </div>
+
+                <div class="soc-side">
+                  <div class="soc-metrics">
+                    <div class="soc-metric">
+                      <span class="art-k">Reach</span><span class="soc-num">214,800</span>
+                      <span class="soc-bar"><i style="--w:88%"></i></span>
+                    </div>
+                    <div class="soc-metric">
+                      <span class="art-k">Saves</span><span class="soc-num">6,410</span>
+                      <span class="soc-bar"><i style="--w:64%"></i></span>
+                    </div>
+                    <div class="soc-metric">
+                      <span class="art-k">Shares</span><span class="soc-num">1,204</span>
+                      <span class="soc-bar"><i style="--w:41%"></i></span>
+                    </div>
+                    <div class="soc-metric">
+                      <span class="art-k">Profile taps</span><span class="soc-num">3,980</span>
+                      <span class="soc-bar"><i style="--w:52%"></i></span>
+                    </div>
+                  </div>
+                  <div class="soc-plats">
+                    <span class="soc-plat">Instagram</span><span class="soc-plat">TikTok</span>
+                    <span class="soc-plat">LinkedIn</span><span class="soc-plat">Facebook</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Best performer this week</span>
+              <span class="art-delta" style="margin-left:auto">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>
+                3.1&times; account average
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04 · EMAIL ══════════ -->
+  <section class="svc svc--flip" id="email" aria-labelledby="emailName">
+    <div class="container">
+      <div class="svc-grid">
+        <div class="svc-copy">
+          <p class="svc-idx" data-reveal><b>04</b> Email marketing <i aria-hidden="true"></i></p>
+          <h2 class="svc-name" id="emailName" data-reveal>Email</h2>
+          <p class="svc-lede" data-reveal>Turn a list you already own into repeat revenue.</p>
+          <p class="svc-body" data-reveal>
+            Most businesses sit on a list they email twice a year. We build the
+            automations that run without you — welcome series, abandoned baskets,
+            win-backs — segment the list so people only get what's relevant, and
+            attribute every send to revenue so you know what the channel is worth.
+          </p>
+          <div class="svc-caps" data-reveal>
+            <span class="svc-cap">Automation</span><span class="svc-cap">Segmentation</span>
+            <span class="svc-cap">Newsletters</span><span class="svc-cap">Lifecycle flows</span>
+          </div>
+          <div class="svc-foot" data-reveal>
+            <a class="svc-link" href="/email">See how we run email
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <span class="svc-stat"><b>3×</b> repeat revenue from owned audience</span>
+          </div>
+        </div>
+
+        <div class="svc-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">automations / welcome-series</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Running</span>
+            </div>
+            <div class="art-body">
+              <ol class="fl">
+                <li class="fl-step fl-step--live">
+                  <span class="fl-node" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-8 0v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                  <span><span class="fl-t">Someone joins the list</span><span class="fl-s">Trigger · <b>1,284</b> entered this month</span></span>
+                </li>
+                <li class="fl-wait"><span>Wait 20 minutes</span></li>
+                <li class="fl-step">
+                  <span class="fl-node" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></span>
+                  <span><span class="fl-t">Welcome email</span><span class="fl-s">Opened by <b>61%</b> · 1 of 4</span></span>
+                </li>
+                <li class="fl-fork">
+                  <div class="fl-split">
+                    <div class="fl-branch">
+                      <div class="fl-card fl-card--win">
+                        <span class="fl-tag">Opened</span>
+                        <span class="fl-t">Offer, day 3</span>
+                        <span class="fl-s">Clicked by <b>24%</b></span>
+                      </div>
+                    </div>
+                    <div class="fl-branch">
+                      <div class="fl-card">
+                        <span class="fl-tag">Didn't open</span>
+                        <span class="fl-t">Resend, new subject</span>
+                        <span class="fl-s">Recovers 18%</span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Attributed revenue</span>
+              <span class="art-delta" style="margin-left:auto">&pound;48,200 this quarter</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 05 · CONTENT ══════════ -->
+  <section class="svc" id="content" aria-labelledby="contentName">
+    <div class="container">
+      <div class="svc-grid">
+        <div class="svc-copy">
+          <p class="svc-idx" data-reveal><b>05</b> Content creation <i aria-hidden="true"></i></p>
+          <h2 class="svc-name" id="contentName" data-reveal>Content</h2>
+          <p class="svc-lede" data-reveal>Pages built around what people are actually asking.</p>
+          <p class="svc-body" data-reveal>
+            Every brief starts with the search, not with a word count. We map the
+            questions around a topic, structure the page to answer them in the order
+            people ask, and write it so it reads like a person wrote it. That's what
+            builds topical authority — and it's why these pages keep ranking.
+          </p>
+          <div class="svc-caps" data-reveal>
+            <span class="svc-cap">Blog strategy</span><span class="svc-cap">Landing pages</span>
+            <span class="svc-cap">Copywriting</span><span class="svc-cap">Topical authority</span>
+          </div>
+          <div class="svc-foot" data-reveal>
+            <a class="svc-link" href="/content">See how we plan content
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <span class="svc-stat"><b>94%</b> intent match on published pages</span>
+          </div>
+        </div>
+
+        <div class="svc-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">drafts / smart-heating-explained.md</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Drafting</span>
+            </div>
+            <div class="art-body">
+              <div class="cnt">
+                <aside class="cnt-outline">
+                  <span class="art-k">Outline</span>
+                  <ul class="cnt-list">
+                    <li class="on"><b>H1</b>Smart heating, explained</li>
+                    <li><b>H2</b>What it actually costs</li>
+                    <li><b>H2</b>Which system fits your house</li>
+                    <li><b>H2</b>Installation, step by step</li>
+                    <li><b>H2</b>Grants you can claim</li>
+                    <li><b>FAQ</b>Six questions people ask</li>
+                  </ul>
+                </aside>
+                <div class="cnt-doc">
+                  <h3 class="cnt-h">Smart heating, explained<span class="cnt-caret" aria-hidden="true"></span></h3>
+                  <div class="cnt-lines" aria-hidden="true">
+                    <i style="--w:100%"></i><i style="--w:94%"></i><i style="--w:97%"></i><i style="--w:72%"></i><i style="--w:88%"></i>
+                  </div>
+                  <div class="cnt-meters">
+                    <div class="cnt-meter">
+                      <span class="art-k">Search intent match</span><b>94%</b>
+                      <span class="cnt-track"><i style="--w:94%"></i></span>
+                    </div>
+                    <div class="cnt-meter">
+                      <span class="art-k">Topical coverage</span><b>82%</b>
+                      <span class="cnt-track"><i style="--w:82%"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Target · 14 questions covered</span>
+              <span class="art-cap" style="margin-left:auto">1,840 words</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 06 · WEB DEVELOPMENT ══════════ -->
+  <section class="svc svc--flip" id="web-development" aria-labelledby="devName">
+    <div class="container">
+      <div class="svc-grid">
+        <div class="svc-copy">
+          <p class="svc-idx" data-reveal><b>06</b> Web development &amp; analytics <i aria-hidden="true"></i></p>
+          <h2 class="svc-name" id="devName" data-reveal>Web dev</h2>
+          <p class="svc-lede" data-reveal>Fast sites, and the tracking to prove they work.</p>
+          <p class="svc-body" data-reveal>
+            A site that takes four seconds to load loses the visitor before it gets to
+            make its case. We build for speed first, measure it against Google's own
+            thresholds, and wire up GA4 properly so every enquiry can be traced back to
+            the campaign that produced it.
+          </p>
+          <div class="svc-caps" data-reveal>
+            <span class="svc-cap">Responsive build</span><span class="svc-cap">Core Web Vitals</span>
+            <span class="svc-cap">GA4 &amp; analytics</span><span class="svc-cap">CMS integration</span>
+          </div>
+          <div class="svc-foot" data-reveal>
+            <a class="svc-link" href="/web-development">See how we build
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <span class="svc-stat"><b>0.8s</b> largest contentful paint</span>
+          </div>
+        </div>
+
+        <div class="svc-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">~/clientsite — zsh</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Build</span>
+            </div>
+            <div class="art-body">
+              <pre class="dev-code" aria-label="Build output"><code><span class="l"><span class="p">$</span> <span class="c">npm run build</span></span><span class="l"><span class="m">  vite v5.4.2 building for production…</span></span><span class="l"><span class="g">  ✓ 214 modules transformed</span></span><span class="l"><span class="g">  dist/index.html          </span><span class="m">2.1 kB │ gzip  0.9 kB</span></span><span class="l"><span class="g">  dist/assets/index.css    </span><span class="m">9.4 kB │ gzip  2.6 kB</span></span><span class="l"><span class="ok">  ✓ built in 1.42s</span></span></code></pre>
+              <div class="dev-scores">
+                <div class="dev-score">
+                  <div class="dev-ring">
+                    <svg viewBox="0 0 36 36" aria-hidden="true"><circle class="bg" cx="18" cy="18" r="15.9155"/><circle class="fg" cx="18" cy="18" r="15.9155" pathLength="100" style="--p:99"/></svg>
+                    <b>99</b>
+                  </div>
+                  <span>Perfor&shy;mance</span>
+                </div>
+                <div class="dev-score">
+                  <div class="dev-ring">
+                    <svg viewBox="0 0 36 36" aria-hidden="true"><circle class="bg" cx="18" cy="18" r="15.9155"/><circle class="fg" cx="18" cy="18" r="15.9155" pathLength="100" style="--p:100"/></svg>
+                    <b>100</b>
+                  </div>
+                  <span>Access&shy;ibility</span>
+                </div>
+                <div class="dev-score">
+                  <div class="dev-ring">
+                    <svg viewBox="0 0 36 36" aria-hidden="true"><circle class="bg" cx="18" cy="18" r="15.9155"/><circle class="fg" cx="18" cy="18" r="15.9155" pathLength="100" style="--p:100"/></svg>
+                    <b>100</b>
+                  </div>
+                  <span>Best practices</span>
+                </div>
+                <div class="dev-score">
+                  <div class="dev-ring">
+                    <svg viewBox="0 0 36 36" aria-hidden="true"><circle class="bg" cx="18" cy="18" r="15.9155"/><circle class="fg" cx="18" cy="18" r="15.9155" pathLength="100" style="--p:100"/></svg>
+                    <b>100</b>
+                  </div>
+                  <span>SEO</span>
+                </div>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">LCP 0.8s</span>
+              <span class="art-cap">CLS 0.00</span>
+              <span class="art-cap">INP 42ms</span>
+              <span class="art-cap" style="margin-left:auto">Lighthouse · mobile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ HOW THEY COMBINE ══════════ -->
+  <section class="sec" id="combine" aria-labelledby="cmbTitle">
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">How they combine</span></div>
+        <h2 class="sec-title" id="cmbTitle" data-reveal>Six services. <span class="dim">One system.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Nobody needs all six on day one. What you need depends on where the bottleneck
+          is — here are the three shapes this usually takes.
+        </p>
+      </div>
+      <div class="cmb-grid">
+        <article class="cmb-card" data-reveal>
+          <p class="cmb-k"><b>A</b> Nobody can find you</p>
+          <h3>Build the demand</h3>
+          <p>
+            Traffic is the constraint. We start with technical SEO and content to earn
+            the searches, and run paid alongside it so you aren't waiting six months for
+            the first enquiry.
+          </p>
+          <div class="cmb-mix"><span>SEO</span><span>Content</span><span>PPC</span></div>
+        </article>
+        <article class="cmb-card" data-reveal>
+          <p class="cmb-k"><b>B</b> They find you and leave</p>
+          <h3>Fix the conversion</h3>
+          <p>
+            The traffic is already there and it isn't converting. We rebuild the pages
+            that matter, get the site fast, and put proper tracking behind it so we can
+            see exactly where people drop out.
+          </p>
+          <div class="cmb-mix"><span>Web dev</span><span>Content</span><span>Analytics</span></div>
+        </article>
+        <article class="cmb-card" data-reveal>
+          <p class="cmb-k"><b>C</b> They buy once and vanish</p>
+          <h3>Own the audience</h3>
+          <p>
+            Acquisition works but nothing brings people back. We build the email
+            automations and the social presence that keep you in front of customers you
+            have already paid to win.
+          </p>
+          <div class="cmb-mix"><span>Email</span><span>Social</span><span>Content</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  </div><!-- /.svc-zone -->
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section class="cta" aria-labelledby="ctaTitle">
+    <div class="cta-ember" aria-hidden="true"></div>
+    <div class="container">
+      <div class="sec-head sec-head--center" style="margin-bottom:0">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
+        <h2 class="sec-title" id="ctaTitle" data-reveal>Not sure which of these <span class="dim">you need?</span></h2>
+        <p class="sec-sub" data-reveal>
+          Tell us what the business is trying to do and we'll tell you honestly which of
+          the six would move it — including when the answer is fewer than you expected.
+        </p>
+        <div class="cta-actions" data-reveal>
+          <a class="ember-btn" href="/contact">
+            Talk to us
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="ghost-btn" href="/pricing">See pricing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ REVEALS ══════
+     Two observers on purpose. Copy reveals early, at 15% — but an
+     interface is 500px tall and its instruments should not start playing
+     until enough of the panel is on screen to watch them. */
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  var artEls = document.querySelectorAll('[data-art]');
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    artEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('in-view'); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+
+    var artObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('in-view'); artObs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.28 });
+    artEls.forEach(function (el) { artObs.observe(el); });
+  }
+
+  /* ══════ SCROLL PROGRESS ══════ */
+  var bar = document.getElementById('progress');
+  if (bar && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
+  } else if (bar) {
+    var tick = null;
+    window.addEventListener('scroll', function () {
+      if (tick) return;
+      tick = requestAnimationFrame(function () {
+        var max = document.body.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        tick = null;
+      });
+    }, { passive: true });
+  }
+
+  /* ══════ SERVICE RAIL — mark the section you are actually reading ══════
+     Driven from scroll position rather than an IntersectionObserver: with
+     seven targets, several are on screen at once and "whichever fired last"
+     is not the same as "the one you are looking at". */
+  var rail = document.getElementById('rail');
+  if (rail) {
+    var links = [].slice.call(rail.querySelectorAll('a'));
+    var targets = links.map(function (a) {
+      return document.getElementById(a.getAttribute('href').slice(1));
+    });
+    var railTick = null;
+    var lastBest = -1;
+
+    function markRail() {
+      var line = window.scrollY + window.innerHeight * 0.35;
+      var best = 0;
+      targets.forEach(function (el, i) {
+        if (el && el.getBoundingClientRect().top + window.scrollY <= line) best = i;
+      });
+      links.forEach(function (a, i) { a.classList.toggle('is-active', i === best); });
+
+      /* On a phone the rail scrolls sideways and only four pills fit, so by
+         the sixth section the marked one is off-screen and the rail looks
+         broken. Bring it back into view — but only when the active section
+         actually changes, so this never fights a swipe in progress. */
+      if (best !== lastBest) {
+        lastBest = best;
+        if (rail.scrollWidth > rail.clientWidth + 4) {
+          var a = links[best];
+          rail.scrollTo({
+            left: Math.max(0, a.offsetLeft - (rail.clientWidth - a.offsetWidth) / 2),
+            behavior: reduceMotion ? 'auto' : 'smooth'
+          });
+        }
+      }
+      railTick = null;
+    }
+    window.addEventListener('scroll', function () {
+      if (!railTick) railTick = requestAnimationFrame(markRail);
+    }, { passive: true });
+    markRail();
+
+    /* the rail is sticky, so an anchor jump lands under it without this */
+    links.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var el = document.getElementById(a.getAttribute('href').slice(1));
+        if (!el) return;
+        e.preventDefault();
+        var top = el.getBoundingClientRect().top + window.scrollY - 132;
+        window.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
+      });
+    });
+  }
+
+  /* the ledger jumps to the same places, with the same offset */
+  document.querySelectorAll('.led').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var el = document.getElementById(a.getAttribute('href').slice(1));
+      if (!el) return;
+      e.preventDefault();
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 132, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+  });
+})();
+</script>
