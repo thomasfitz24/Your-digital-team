@@ -3,10 +3,10 @@
      Paste the whole of this into ONE Code Block on that page.
      Requires the header injection (see header-injection.html).
 
-     Design system — "ember":
+     Design system — "signal":
        base #050505 · panels #0b0a09 (warm-shifted) · hairlines at 7% white
        type: NB International Pro (display/body) + IBM Plex Mono (data)
-       accent ramp — ember #ff9346 → #f4640e. Used for performance data
+       accent ramp — signal red #ff4536 → #d81e0d. Used for performance data
        (sparklines, deltas, live-dots, checks), the primary CTA, and the
        ambient glow. Never on body copy, never two accents on one screen.
        The page sits inside a warm edge vignette, like light thrown from
@@ -26,10 +26,10 @@
     --line2: rgba(255, 255, 255, 0.05);
     --card-bg: #0b0a09;
     --card-line: rgba(255, 255, 255, 0.07);
-    --data: #ff9346;
-    --data-deep: #f4640e;
-    --data-dim: rgba(255, 147, 70, 0.14);
-    --ember-glow: rgba(244, 100, 14, 0.5);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --glow: rgba(216, 30, 13, 0.5);
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --menu-dur: 1.15s;
     --menu-ease: cubic-bezier(0.62, 0.02, 0.2, 1);
@@ -45,7 +45,7 @@
     overflow-x: clip;
     -webkit-font-smoothing: antialiased;
   }
-.ydt-page ::selection { background: rgba(255, 147, 70, 0.9); color: #050505; }
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
 .ydt-page a { color: inherit; }
 .ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
 .ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
@@ -77,7 +77,7 @@
     z-index: 1;
     pointer-events: none;
     opacity: 0;
-    background: radial-gradient(circle closest-side, rgba(255, 170, 110, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
     transition: opacity 0.6s ease;
     will-change: transform;
   }
@@ -86,7 +86,7 @@
     position: fixed;
     top: 0; left: 0;
     height: 2px; width: 100%;
-    background: linear-gradient(90deg, #ffb057, #f4640e);
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
     transform-origin: 0 50%;
     transform: scaleX(0);
     z-index: 51;
@@ -114,14 +114,14 @@
     width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--data);
-    box-shadow: 0 0 0 0 rgba(255, 147, 70, 0.45);
+    box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
     animation: livePulse 2.2s infinite;
     flex-shrink: 0;
   }
 @keyframes livePulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 147, 70, 0.45); }
-    70% { box-shadow: 0 0 0 7px rgba(255, 147, 70, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 147, 70, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
   }
 
 /* the shared pill button (journal foot, app promo) */
@@ -166,7 +166,7 @@
     pointer-events: none;
     z-index: 0;
     background:
-      radial-gradient(50% 50% at 50% 50%, rgba(255, 138, 48, 0.42) 0%, rgba(244, 100, 14, 0.20) 34%, rgba(140, 46, 6, 0.07) 58%, transparent 76%);
+      radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.42) 0%, rgba(216, 30, 13, 0.20) 34%, rgba(118, 20, 10, 0.07) 58%, transparent 76%);
     filter: blur(28px);
   }
 /* the horizon line the glow sits on — a single lit arc */
@@ -179,7 +179,7 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 0;
-    border-top: 1px solid rgba(255, 175, 120, 0.30);
+    border-top: 1px solid rgba(255, 128, 114, 0.30);
     -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
             mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
   }
@@ -220,7 +220,7 @@
     width: 7px; height: 7px;
     border-radius: 50%;
     background: var(--data);
-    box-shadow: 0 0 10px rgba(255, 147, 70, 0.9);
+    box-shadow: 0 0 10px rgba(255, 69, 54, 0.9);
     flex-shrink: 0;
   }
 .ydt-page .hero-stat b {
@@ -365,16 +365,16 @@
     align-items: center;
     justify-content: center;
     width: 36px; height: 36px;
-    background: linear-gradient(180deg, #ffa055, var(--data-deep));
-    color: #1a0c02;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503;
     border-radius: 9999px;
     text-decoration: none;
     transition: filter 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 16px rgba(244, 100, 14, 0.42);
+    box-shadow: 0 4px 16px rgba(216, 30, 13, 0.42);
     flex-shrink: 0;
   }
 @media (min-width: 768px) { .ydt-page .ydt-cta__go-btn { width: 40px; height: 40px; } }
-.ydt-page .ydt-cta__go-btn:hover { filter: brightness(1.08); box-shadow: 0 6px 22px rgba(244, 100, 14, 0.6); }
+.ydt-page .ydt-cta__go-btn:hover { filter: brightness(1.08); box-shadow: 0 6px 22px rgba(216, 30, 13, 0.6); }
 
 /* ── primary ember button (hero + section CTAs) ── */
 .ydt-page .ember-btn {
@@ -384,20 +384,20 @@
     padding: 15px 30px;
     border-radius: 9999px;
     border: none;
-    background: linear-gradient(180deg, #ffa055, var(--data-deep));
-    color: #1a0c02;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503;
     font-family: var(--font);
     font-size: 14px;
     font-weight: 700;
     letter-spacing: -0.01em;
     text-decoration: none;
     cursor: pointer;
-    box-shadow: 0 6px 24px rgba(244, 100, 14, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
     transition: filter 0.3s, box-shadow 0.3s, transform 0.6s var(--ease);
   }
 .ydt-page .ember-btn:hover {
     filter: brightness(1.07);
-    box-shadow: 0 10px 34px rgba(244, 100, 14, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
   }
 .ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
 .ydt-page .ember-btn:hover svg { transform: translateX(3px); }
@@ -417,7 +417,7 @@
     left: 50%; top: -6%;
     width: 76%; height: 74%;
     transform: translateX(-50%);
-    background: radial-gradient(50% 50% at 50% 50%, rgba(244, 100, 14, 0.30), transparent 72%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.30), transparent 72%);
     filter: blur(60px);
     pointer-events: none;
     z-index: -1;
@@ -427,7 +427,7 @@
     border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 150, 90, 0.05);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 76, 0.05);
   }
 .ydt-page .console-bar {
     display: flex;
@@ -541,7 +541,7 @@
   }
 .ydt-page .console-chip--on {
     color: var(--data);
-    border-color: rgba(255, 147, 70, 0.4);
+    border-color: rgba(255, 69, 54, 0.4);
     background: var(--data-dim);
   }
 .ydt-page .console-note {
@@ -557,28 +557,42 @@
 .ydt-page .kpi-delta-note { display: none; }
 }
 
-/* ══════════ MARQUEE (client logos) ══════════ */
-.ydt-page .ticker {
-    border-top: 1px solid var(--line2);
-    border-bottom: 1px solid var(--line2);
+/* ══════════ TRUSTED BY — a panel band, not a bare strip ══════════ */
+.ydt-page .trusted { padding: 0 12px; position: relative; z-index: 2; }
+.ydt-page .trusted__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--panel);
+    border: 1px solid var(--card-line);
+    border-radius: 24px;
+    padding: 34px 0 36px;
     overflow: hidden;
-    padding: 34px 0;
-    position: relative;
-    z-index: 2;
-    /* the row dissolves into the page at both ends instead of being cut off */
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-            mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
   }
-.ydt-page .ticker-label {
-    display: block;
+.ydt-page .trusted__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    padding: 0 28px;
+    margin-bottom: 30px;
     text-align: center;
+  }
+.ydt-page .trusted__label {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 10.5px;
     font-weight: 500;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gray6);
-    margin-bottom: 28px;
+  }
+.ydt-page .trusted__count { color: var(--data); }
+.ydt-page .ticker {
+    overflow: hidden;
+    position: relative;
+    /* the row dissolves into the panel at both ends instead of being cut off */
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   }
 .ydt-page .ticker-track { display: flex; width: max-content; will-change: transform; }
 .ydt-page .ticker-group {
@@ -713,7 +727,7 @@
 .ydt-page .bento-bars i {
     flex: 0 1 14px;
     border-radius: 3px 3px 0 0;
-    background: linear-gradient(180deg, var(--data), rgba(255, 147, 70, 0.45));
+    background: linear-gradient(180deg, var(--data), rgba(255, 69, 54, 0.45));
     transform-origin: bottom;
   }
 /* — visual 2: report stack — */
@@ -756,7 +770,7 @@
 /* — visual 3: compounding curve — */
 .ydt-page .bento-curve { width: 100%; height: 100%; display: block; }
 .ydt-page .bento-curve .curve-dot { fill: var(--data); }
-.ydt-page .bento-curve .curve-glow { fill: rgba(255, 147, 70, 0.14); }
+.ydt-page .bento-curve .curve-glow { fill: rgba(255, 69, 54, 0.14); }
 /* — visual 4: channel tiles — */
 .ydt-page .bento-channels {
     display: flex;
@@ -855,6 +869,40 @@
 .ydt-page .bento-card.in-view .curve-line { stroke-dashoffset: 0; }
 }
 
+/* ── selected work: section intro above the sticky panel ── */
+/* the preceding section already carries its own bottom padding */
+.ydt-page .work-intro { padding-top: 0; padding-bottom: 48px; }
+.ydt-page .work-intro .sec-head { margin-bottom: 32px; }
+.ydt-page .work-intro__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+.ydt-page .work-intro__stat {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 9px;
+    padding: 11px 18px;
+    border-radius: 9999px;
+    border: 1px solid var(--card-line);
+    background: var(--panel);
+  }
+.ydt-page .work-intro__stat b {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--data);
+    font-variant-numeric: tabular-nums;
+  }
+.ydt-page .work-intro__stat span {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gray5);
+  }
+@media (max-width: 480px) { .ydt-page .work-intro { padding-bottom: 34px; } }
+
 /* ── projects / filmstrip wrapper ── */
 .ydt-page-new-wrapper {
     --edge: 12px;
@@ -914,7 +962,7 @@
     position: absolute;
     top: -30%; left: -10%;
     width: 70%; height: 90%;
-    background: radial-gradient(50% 50% at 50% 50%, rgba(244, 100, 14, 0.16), transparent 70%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.16), transparent 70%);
     filter: blur(50px);
     pointer-events: none;
     z-index: 0;
@@ -1422,7 +1470,7 @@
     border-radius: 18px;
     overflow: hidden;
     cursor: pointer;
-    min-height: 260px;
+    min-height: 340px;
     display: flex;
     flex-direction: column;
     isolation: isolate;
@@ -1491,14 +1539,60 @@
     line-height: 1.7;
     color: var(--svc-copy);
     opacity: 0.78;
-    margin-top: auto;
-    padding-top: 14px;
     transition: color 0.7s, opacity 0.5s;
 }
+/* what the service actually ships — the detail the old card was missing */
+.ydt-page .svc-list {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 16px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    display: grid;
+    gap: 8px;
+    transition: border-color 0.7s;
+}
+.ydt-page .svc-list li {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gray5);
+    transition: color 0.7s;
+}
+.ydt-page .svc-list li::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--data);
+    flex-shrink: 0;
+    transition: background 0.7s;
+}
+.ydt-page .svc-foot {
+    margin-top: auto;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray5);
+    transition: color 0.5s;
+}
+.ydt-page .svc-foot svg { width: 13px; height: 13px; transition: transform 0.35s var(--ease); }
+.ydt-page .svc:hover .svc-foot svg { transform: translateX(4px); }
 .ydt-page .svc--hovered .svc-icon { background: rgba(0, 0, 0, 0.08); border-color: transparent; }
 .ydt-page .svc--hovered .svc-icon svg { color: rgba(0, 0, 0, 0.62); }
-.ydt-page .svc--hovered h3 { color: rgba(0, 0, 0, 0.85); }
-.ydt-page .svc--hovered p { color: rgba(0, 0, 0, 0.55); opacity: 1; }
+.ydt-page .svc--hovered h3 { color: rgba(0, 0, 0, 0.88); }
+.ydt-page .svc--hovered p { color: rgba(0, 0, 0, 0.58); opacity: 1; }
+.ydt-page .svc--hovered .svc-list { border-color: rgba(0, 0, 0, 0.12); }
+.ydt-page .svc--hovered .svc-list li { color: rgba(0, 0, 0, 0.55); }
+.ydt-page .svc--hovered .svc-list li::before { background: var(--data-deep); }
+.ydt-page .svc--hovered .svc-foot { color: rgba(0, 0, 0, 0.72); }
 
 /* ══════════ PROCESS ══════════ */
 .ydt-page .process { border-bottom: 1px solid var(--line2); }
@@ -1519,21 +1613,58 @@
 .ydt-page .step:nth-child(2) { top: 128px; }
 .ydt-page .step:nth-child(3) { top: 146px; }
 .ydt-page .step:nth-child(4) { top: 164px; }
+/* the numeral sits in a chip on its own rail, so the four cards read
+   as one sequence rather than four unrelated panels */
 .ydt-page .step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px; height: 54px;
+    border-radius: 14px;
+    background: var(--panel2);
+    border: 1px solid var(--card-line);
     font-family: var(--mono);
-    font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+    font-size: 15px;
     font-weight: 500;
-    letter-spacing: -0.02em;
-    color: var(--w25);
+    letter-spacing: 0.02em;
+    color: var(--data);
     line-height: 1;
+    align-self: start;
+    flex-shrink: 0;
   }
 .ydt-page .step h3 {
-    font-size: clamp(1.05rem, 1.8vw, 1.4rem);
+    font-size: clamp(1.15rem, 1.9vw, 1.5rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     margin-bottom: 10px;
   }
 .ydt-page .step p { font-size: 14px; line-height: 1.7; color: var(--gray5); max-width: 46rem; }
+/* what lands on the client's desk at the end of the step */
+.ydt-page .step-out {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding: 9px 15px 9px 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--line2);
+  }
+.ydt-page .step-out svg { width: 13px; height: 13px; color: var(--data); flex-shrink: 0; }
+.ydt-page .step-out span {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray5);
+  }
+.ydt-page .step-out b {
+    color: rgba(255, 255, 255, 0.86);
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0.01em;
+    font-size: 11.5px;
+  }
 .ydt-page .step-badge {
     font-family: var(--mono);
     font-size: 9.5px;
@@ -1653,7 +1784,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 85% 10%, rgba(244, 100, 14, 0.08), transparent 55%);
+    background: radial-gradient(circle at 85% 10%, rgba(216, 30, 13, 0.08), transparent 55%);
     z-index: -1;
     pointer-events: none;
   }
@@ -1885,12 +2016,12 @@
               <svg class="console-spark" viewBox="0 0 640 190" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
                   <linearGradient id="ydtSparkFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stop-color="#ff9346" stop-opacity="0.20"/>
-                    <stop offset="1" stop-color="#ff9346" stop-opacity="0"/>
+                    <stop offset="0" stop-color="#ff4536" stop-opacity="0.20"/>
+                    <stop offset="1" stop-color="#ff4536" stop-opacity="0"/>
                   </linearGradient>
                 </defs>
                 <path class="spark-area" d="M0 158 C55 148 85 152 125 130 C165 108 200 124 240 102 C280 80 320 94 360 68 C400 48 440 62 480 40 C520 22 580 28 640 8 L640 190 L0 190 Z" fill="url(#ydtSparkFill)"/>
-                <path class="spark-line" d="M0 158 C55 148 85 152 125 130 C165 108 200 124 240 102 C280 80 320 94 360 68 C400 48 440 62 480 40 C520 22 580 28 640 8" fill="none" stroke="#ff9346" stroke-width="2.5" stroke-linecap="round"/>
+                <path class="spark-line" d="M0 158 C55 148 85 152 125 130 C165 108 200 124 240 102 C280 80 320 94 360 68 C400 48 440 62 480 40 C520 22 580 28 640 8" fill="none" stroke="#ff4536" stroke-width="2.5" stroke-linecap="round"/>
               </svg>
               <span class="console-chart-label">Organic clicks — trailing 12 months</span>
             </div>
@@ -1908,10 +2039,17 @@
     </div>
   </section>
 
-  <!-- ══════════ MARQUEE (client logos — edit the `clients` array below) ══════════ -->
-  <section class="ticker" aria-label="Brands we work with">
-    <span class="ticker-label">Trusted by</span>
-    <div class="ticker-track" id="tickerTrack"></div>
+  <!-- ══════════ TRUSTED BY (client logos — edit the `clients` array below) ══════════ -->
+  <section class="trusted" aria-label="Brands we work with">
+    <div class="trusted__inner">
+      <div class="trusted__head">
+        <span class="trusted__label">Trusted by the teams behind</span>
+        <span class="trusted__label trusted__count">9 UK &amp; international brands</span>
+      </div>
+      <div class="ticker">
+        <div class="ticker-track" id="tickerTrack"></div>
+      </div>
+    </div>
   </section>
 
   <!-- ══════════ BENTO — what you get ══════════ -->
@@ -1951,7 +2089,7 @@
         <article class="bento-card bento-card--third" data-reveal>
           <div class="bento-visual" aria-hidden="true">
             <svg class="bento-curve" viewBox="0 0 320 150" preserveAspectRatio="none">
-              <path class="curve-line" d="M12 130 C70 128 110 120 160 96 C210 72 250 44 302 20" fill="none" stroke="#ff9346" stroke-width="2.2" stroke-linecap="round"/>
+              <path class="curve-line" d="M12 130 C70 128 110 120 160 96 C210 72 250 44 302 20" fill="none" stroke="#ff4536" stroke-width="2.2" stroke-linecap="round"/>
               <circle class="curve-glow" cx="302" cy="20" r="14"/>
               <circle class="curve-dot" cx="302" cy="20" r="4"/>
             </svg>
@@ -1998,6 +2136,19 @@
 
   <!-- ══════════ FEATURED PROJECTS (sticky filmstrip) ══════════ -->
   <div class="ydt-page-new-wrapper">
+    <!-- the section gets the same billing as every other one -->
+    <div class="container work-intro">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">✳</span><span class="sec-eyebrow-text">Selected work</span></div>
+        <h2 class="sec-title" data-reveal>Sites built to <span class="dim">be found.</span></h2>
+        <p class="sec-sub" data-reveal>Nine builds across trades, storage, motoring and finance — each one designed around how its customers actually search.</p>
+      </div>
+      <div class="work-intro__meta" data-reveal>
+        <span class="work-intro__stat"><b>09</b><span>live builds</span></span>
+        <span class="work-intro__stat"><b>4</b><span>sectors</span></span>
+        <span class="work-intro__stat"><b>2</b><span>countries</span></span>
+      </div>
+    </div>
     <div class="ydt-projects-standalone">
       <div class="ydt-services" id="projects">
         <div class="ydt-services__scroll-section" id="ydtScrollSection">
@@ -2038,58 +2189,94 @@
           <p class="sec-sub" data-reveal>Explore our comprehensive suite of digital marketing and search engine optimisation services engineered to scale your business and drive predictable revenue.</p>
         </div>
         <div class="svc-grid">
-          <article class="svc" aria-current="page" data-accent="#a0e8c4" data-reveal>
+          <article class="svc" aria-current="page" data-accent="#f2ece6" data-reveal>
             <div class="svc-base"></div><div class="svc-flood" aria-hidden="true"></div>
             <span class="svc-idx" aria-hidden="true">01</span>
             <div class="svc-body">
               <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
               <h3>Search Engine Optimisation</h3>
               <p>We help businesses rank higher on Google through technical SEO, on-page optimisation, link building, and local SEO strategies that drive measurable organic growth.</p>
+              <ul class="svc-list">
+                <li>Technical audits</li>
+                <li>Content strategy</li>
+                <li>Local &amp; link building</li>
+              </ul>
+              <span class="svc-foot">You are here<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
             </div>
           </article>
-          <a class="svc" href="/ppc" data-accent="#a0b4e8" data-reveal>
+          <a class="svc" href="/ppc" data-accent="#f2ece6" data-reveal>
             <div class="svc-base"></div><div class="svc-flood" aria-hidden="true"></div>
             <span class="svc-idx" aria-hidden="true">02</span>
             <div class="svc-body">
               <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
               <h3>Pay-Per-Click Advertising</h3>
               <p>Our PPC specialists manage high-performance paid search and social campaigns across Google Ads and Meta, optimised daily to maximise your return on ad spend.</p>
+              <ul class="svc-list">
+                <li>Google Ads</li>
+                <li>Meta &amp; paid social</li>
+                <li>Landing page tests</li>
+              </ul>
+              <span class="svc-foot">Explore PPC<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
             </div>
           </a>
-          <a class="svc" href="/social" data-accent="#b8a0e8" data-reveal>
+          <a class="svc" href="/social" data-accent="#f2ece6" data-reveal>
             <div class="svc-base"></div><div class="svc-flood" aria-hidden="true"></div>
             <span class="svc-idx" aria-hidden="true">03</span>
             <div class="svc-body">
               <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
               <h3>Social Media Marketing</h3>
               <p>We create and manage social media strategies across Instagram, Facebook, LinkedIn, and TikTok that grow your audience and convert followers into customers.</p>
+              <ul class="svc-list">
+                <li>Content calendars</li>
+                <li>Community management</li>
+                <li>Paid social</li>
+              </ul>
+              <span class="svc-foot">Explore social<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
             </div>
           </a>
-          <a class="svc" href="/email" data-accent="#e8a0b4" data-reveal>
+          <a class="svc" href="/email" data-accent="#f2ece6" data-reveal>
             <div class="svc-base"></div><div class="svc-flood" aria-hidden="true"></div>
             <span class="svc-idx" aria-hidden="true">04</span>
             <div class="svc-body">
               <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
               <h3>Email Marketing</h3>
               <p>From automated drip campaigns to newsletters and promotional emails, we build email marketing systems that nurture your leads and drive repeat revenue.</p>
+              <ul class="svc-list">
+                <li>Automated flows</li>
+                <li>Newsletters</li>
+                <li>List segmentation</li>
+              </ul>
+              <span class="svc-foot">Explore email<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
             </div>
           </a>
-          <a class="svc" href="/content" data-accent="#e8c4a0" data-reveal>
+          <a class="svc" href="/content" data-accent="#f2ece6" data-reveal>
             <div class="svc-base"></div><div class="svc-flood" aria-hidden="true"></div>
             <span class="svc-idx" aria-hidden="true">05</span>
             <div class="svc-body">
               <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h11a4 4 0 0 1 0 8H4z"/><path d="M4 12h13a4 4 0 0 1 0 8H4z"/></svg></div>
               <h3>Content Creation</h3>
               <p>We produce data-driven blog posts, landing pages, and marketing copy built around search intent and topical authority so your SEO content ranks and converts.</p>
+              <ul class="svc-list">
+                <li>Keyword research</li>
+                <li>Blog &amp; landing copy</li>
+                <li>Topical authority</li>
+              </ul>
+              <span class="svc-foot">Explore content<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
             </div>
           </a>
-          <a class="svc" href="/web-development" data-accent="#7ecfc0" data-reveal>
+          <a class="svc" href="/web-development" data-accent="#f2ece6" data-reveal>
             <div class="svc-base"></div><div class="svc-flood" aria-hidden="true"></div>
             <span class="svc-idx" aria-hidden="true">06</span>
             <div class="svc-body">
               <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
               <h3>Web Development &amp; Analytics</h3>
               <p>We build responsive websites, optimise user experiences, and develop custom digital platforms that turn your online presence into a powerful engine for measurable business growth.</p>
+              <ul class="svc-list">
+                <li>Responsive builds</li>
+                <li>Core Web Vitals</li>
+                <li>GA4 &amp; tracking</li>
+              </ul>
+              <span class="svc-foot">Explore web build<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
             </div>
           </a>
         </div>
@@ -2110,6 +2297,7 @@
           <div>
             <h3>We audit everything</h3>
             <p>Your site, your rankings, your ads, your competitors. In two weeks you'll know exactly where the money is leaking and where the quickest wins are — even if you never hire us.</p>
+            <span class="step-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>You get — <b>A written audit, yours to keep</b></span></span>
           </div>
           <span class="step-badge">Week 1–2</span>
         </article>
@@ -2118,6 +2306,7 @@
           <div>
             <h3>We build the plan</h3>
             <p>One page. Clear priorities, clear targets, clear costs. You'll know what we're doing this month, what it should produce, and how we'll measure it.</p>
+            <span class="step-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>You get — <b>A one-page plan with costs</b></span></span>
           </div>
           <span class="step-badge">Week 3</span>
         </article>
@@ -2126,6 +2315,7 @@
           <div>
             <h3>We do the work</h3>
             <p>Our team executes — content shipped, campaigns live, fixes deployed. You get a plain-English update every week, not a quarterly deck of vanity metrics.</p>
+            <span class="step-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>You get — <b>A plain-English note every week</b></span></span>
           </div>
           <span class="step-badge">Ongoing</span>
         </article>
@@ -2134,6 +2324,7 @@
           <div>
             <h3>We scale what works</h3>
             <p>Every month we cut what underperforms and double down on what converts. That's how growth compounds — deliberate decisions, not lucky breaks.</p>
+            <span class="step-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>You get — <b>A monthly call and revised plan</b></span></span>
           </div>
           <span class="step-badge">Month 2+</span>
         </article>
@@ -2790,7 +2981,7 @@
   document.querySelectorAll('.ydt-page .svc').forEach(function (card, i) {
     card.style.transitionDelay = (0.07 * (i % 3)) + 's';
     var flood = card.querySelector('.svc-flood');
-    var accent = card.getAttribute('data-accent') || '#a0e8c4';
+    var accent = card.getAttribute('data-accent') || '#f2ece6';
     if (!flood) return;
     flood.style.backgroundColor = accent;
     if (reduceMotion) return;
