@@ -1,0 +1,1472 @@
+<!-- ═══════════════════════════════════════════════════════════
+     social.html  →  Squarespace page /social
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Design system — "signal", same as every other page:
+       base #050505 · panels #0b0a09 · Inter + IBM Plex Mono
+       signal red #ff4536 → #d81e0d, ember glow, film grain.
+
+     Six purpose-built instruments, all CSS and inline SVG — nothing
+     to upload, nothing that can 404:
+       1  top posts, switchable across five platforms
+       2  reach and followers, twelve months
+       3  the retention curve — hook rate, hold rate, where they leave
+       4  the content calendar, one week
+       5  when your audience is actually online
+       6  the inbox: comments and DMs, with response times
+
+     The tokens and furniture below are shared with seo.html, ppc.html
+     and services.html — keep them in step.
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- Runs before paint. Everything hidden by default is scoped to this
+     class, so a script error leaves the page readable rather than blank. -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page { scroll-behavior: smooth; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { color: inherit; text-decoration: none; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; scroll-margin-top: 110px; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ PRIMITIVES ══════════ */
+html.ydt-js .ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+html.ydt-js .ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+html.ydt-js .ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+
+/* ══════════ SECTION SCAFFOLD ══════════ */
+.ydt-page .sec { padding: 112px 0; border-top: 1px solid var(--line2); }
+.ydt-page .sec-head { max-width: 672px; margin-bottom: 56px; }
+.ydt-page .sec-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.ydt-page .sec-head--center .sec-eyebrow { justify-content: center; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.03; margin-bottom: 16px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.68; }
+
+/* two-up: copy one side, instrument the other */
+.ydt-page .duo { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+@media (min-width: 1024px) {
+    .ydt-page .duo { grid-template-columns: 0.8fr 1.2fr; gap: 60px; }
+    .ydt-page .duo--flip .duo-copy { order: 2; }
+    .ydt-page .duo--flip .duo-art { order: 1; }
+}
+/* A `1fr` track is minmax(auto, 1fr), and that auto minimum is min-content —
+   which for any nowrap string is the whole string. Without this a single
+   keyword row sizes the whole track past the viewport on a phone. */
+.ydt-page .duo-copy, .ydt-page .duo-art { min-width: 0; }
+.ydt-page .duo-copy p { font-size: 15px; color: var(--gray5); line-height: 1.72; }
+.ydt-page .duo-copy p + p { margin-top: 14px; }
+.ydt-page .duo-list { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .duo-list li { display: flex; gap: 11px; font-size: 14px; color: var(--gray5); line-height: 1.55; }
+.ydt-page .duo-list svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; margin-top: 3px; }
+
+/* ══════════ HERO ══════════ */
+.ydt-page .hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + 78px) 0 84px; }
+.ydt-page .hero-ember {
+    position: absolute; top: -48vh; left: 50%; width: 180vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.32) 0%, rgba(216, 30, 13, 0.15) 34%, rgba(118, 20, 10, 0.05) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .hero-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-width: 1180px; max-height: 1180px;
+    transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.22);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .hero .container { position: relative; z-index: 2; }
+.ydt-page .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 28px;
+}
+.ydt-page .hero h1 {
+    font-size: clamp(2.1rem, 5.4vw, 4rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; max-width: 17ch;
+}
+.ydt-page .hero h1 .dim { color: var(--w25); }
+.ydt-page .hero-body {
+    font-size: clamp(1rem, 1.25vw, 1.1rem); color: var(--gray5);
+    line-height: 1.7; max-width: 36rem; margin-top: 28px;
+}
+.ydt-page .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.ydt-page .back {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 26px;
+    /* 12px block padding clears the 36px touch minimum */
+    padding: 12px 0; transition: color 0.3s;
+}
+.ydt-page .back:hover { color: var(--white); }
+.ydt-page .back svg { width: 13px; height: 13px; transition: transform 0.3s var(--ease); }
+.ydt-page .back:hover svg { transform: translateX(-3px); }
+
+/* ══════════ PROOF BAND ══════════ */
+.ydt-page .band {
+    margin-top: 62px; border: 1px solid var(--line); border-radius: 18px;
+    background: var(--panel); overflow: hidden;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 860px) { .ydt-page .band { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .band-cell { padding: 24px 22px; border-top: 1px solid var(--line2); border-left: 1px solid var(--line2); }
+.ydt-page .band-cell:nth-child(-n+2) { border-top: none; }
+.ydt-page .band-cell:nth-child(odd) { border-left: none; }
+@media (min-width: 860px) {
+    .ydt-page .band-cell { border-top: none; border-left: 1px solid var(--line2); }
+    .ydt-page .band-cell:first-child { border-left: none; }
+}
+.ydt-page .band-v {
+    display: block; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; margin-bottom: 9px;
+}
+.ydt-page .band-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SHARED PANEL CHROME
+   ══════════════════════════════════════════════════════════════ */
+.ydt-page .duo-art, .ydt-page .art-hold { position: relative; }
+.ydt-page .duo-art::before, .ydt-page .art-hold::before {
+    content: ''; position: absolute; left: 50%; top: 4%;
+    width: 80%; height: 76%; transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.22), transparent 72%);
+    filter: blur(58px); pointer-events: none; z-index: 0;
+}
+.ydt-page .art {
+    position: relative; z-index: 1;
+    background: var(--panel); border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 76, 0.04);
+}
+.ydt-page .art-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line2); background: var(--panel2);
+}
+.ydt-page .art-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.ydt-page .art-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+.ydt-page .art-url {
+    font-family: var(--mono); font-size: 10.5px; color: var(--gray6); min-width: 0;
+    letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .art-live {
+    display: inline-flex; align-items: center; gap: 7px; margin-left: auto; flex-shrink: 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--data);
+}
+.ydt-page .art-body { padding: 22px 20px; }
+@media (min-width: 560px) { .ydt-page .art-body { padding: 24px; } }
+.ydt-page .art-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); margin-bottom: 8px;
+}
+.ydt-page .art-v {
+    display: block; font-size: clamp(1.35rem, 2.6vw, 1.85rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .art-cap {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6);
+}
+.ydt-page .art-delta {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .art-delta svg { width: 10px; height: 10px; }
+.ydt-page .art-foot {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 13px 20px; border-top: 1px solid var(--line2); background: rgba(255,255,255,0.012);
+}
+@media (min-width: 560px) { .ydt-page .art-foot { padding: 13px 24px; } }
+
+
+
+/* ══════════ 01 · TOP POSTS, FIVE PLATFORMS ══════════
+   The tab strip swaps the whole account: different posts, formats and
+   numbers per platform, and the summary above is derived from the rows. */
+.ydt-page .pf-tabs {
+    display: flex; gap: 4px; padding: 10px 12px; overflow-x: auto;
+    scrollbar-width: none; border-bottom: 1px solid var(--line2);
+}
+.ydt-page .pf-tabs::-webkit-scrollbar { display: none; }
+.ydt-page .pf-tab {
+    flex: 0 0 auto; padding: 12px 14px; border-radius: 9999px; border: 1px solid transparent;
+    background: none; cursor: pointer; white-space: nowrap;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray5);
+    transition: color 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.ydt-page .pf-tab:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.ydt-page .pf-tab[aria-selected="true"] {
+    color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,0.28);
+}
+.ydt-page .pf-sum { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line2); }
+@media (min-width: 640px) { .ydt-page .pf-sum { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .pf-cell { background: var(--panel); padding: 16px 16px 18px; min-width: 0; }
+.ydt-page .pf-cell .art-k { margin-bottom: 9px; }
+.ydt-page .pf-cell .art-v { font-size: clamp(1.1rem, 2.1vw, 1.45rem); }
+.ydt-page .pf-cols, .ydt-page .pf-row {
+    display: grid; grid-template-columns: 1fr 58px 44px 46px; gap: 12px; align-items: center;
+}
+@media (min-width: 700px) { .ydt-page .pf-cols, .ydt-page .pf-row { grid-template-columns: 1.5fr 96px 84px 68px 62px 58px; } }
+.ydt-page .pf-cols { padding-bottom: 12px; border-bottom: 1px solid var(--line2); }
+.ydt-page .pf-col {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray6); white-space: nowrap;
+}
+.ydt-page .pf-col--n { text-align: right; }
+.ydt-page .pf-hide { display: none; }
+@media (min-width: 700px) { .ydt-page .pf-hide { display: block; } }
+.ydt-page .pf-list { list-style: none; }
+.ydt-page .pf-row { padding: 13px 0; border-bottom: 1px solid var(--line2); }
+.ydt-page .pf-row:last-child { border-bottom: none; }
+.ydt-page .pf-post { font-size: 13px; color: var(--white); min-width: 0; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ydt-page .pf-post span { display: block; font-family: var(--mono); font-size: 9.5px; color: var(--gray6); margin-top: 3px; }
+/* format tag — the shape of the post, colour-coded by how hard it works */
+.ydt-page .pf-fmt { min-width: 0; }
+.ydt-page .pf-fmt b {
+    display: inline-block; font-family: var(--mono); font-weight: 500;
+    font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    border-radius: 9999px; padding: 5px 9px; white-space: nowrap;
+    border: 1px solid var(--card-line); color: var(--gray6);
+}
+.ydt-page .pf-fmt b.hot { color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,0.26); }
+.ydt-page .pf-fmt b.mid { color: var(--white); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); }
+.ydt-page .pf-n { font-family: var(--mono); font-size: 11.5px; color: var(--gray5); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .pf-er { font-family: var(--mono); font-size: 14px; color: var(--white); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .pf-er.win { color: var(--data); }
+html.ydt-js .ydt-page .pf-row { opacity: 0; transform: translateY(8px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .pf-row, html.ydt-js .ydt-page .pf-row.pf-in { opacity: 1; transform: translateY(0); }
+
+/* ══════════ 02 · REACH AND FOLLOWERS ══════════ */
+.ydt-page .rg-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+.ydt-page .rg-svg { display: block; width: 100%; height: 190px; }
+@media (min-width: 860px) { .ydt-page .rg-svg { height: 214px; } }
+.ydt-page .rg-svg .grid { stroke: rgba(255,255,255,0.05); stroke-width: 1; }
+.ydt-page .rg-svg .reach { fill: url(#rgReach); }
+.ydt-page .rg-svg .reachline { fill: none; stroke: var(--data); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+/* followers on their own axis — a slower, straighter line under the spikes */
+.ydt-page .rg-svg .fol { fill: none; stroke: rgba(255,255,255,0.34); stroke-width: 1.5; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
+html.ydt-js .ydt-page .rg-in {
+    -webkit-clip-path: inset(0 100% 0 0); clip-path: inset(0 100% 0 0);
+    transition: -webkit-clip-path 1.5s 0.35s var(--ease), clip-path 1.5s 0.35s var(--ease);
+}
+html.ydt-js .ydt-page .art.in-view .rg-in { -webkit-clip-path: inset(0 0 0 0); clip-path: inset(0 0 0 0); }
+.ydt-page .rg-x { display: flex; justify-content: space-between; margin-top: 10px; }
+.ydt-page .rg-x span { font-family: var(--mono); font-size: 10px; color: var(--gray6); }
+.ydt-page .rg-key { display: flex; align-items: center; gap: 7px; }
+.ydt-page .rg-key i { width: 14px; height: 2px; border-radius: 2px; flex-shrink: 0; }
+.ydt-page .rg-key--r i { background: var(--data); }
+.ydt-page .rg-key--f i { background: repeating-linear-gradient(90deg, rgba(255,255,255,0.34) 0 4px, transparent 4px 8px); }
+
+/* ══════════ 03 · THE RETENTION CURVE ══════════
+   The number that decides whether a short-form video gets distributed:
+   how many people are still watching three seconds in. */
+.ydt-page .rt-marks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 20px; }
+.ydt-page .rt-mark { border: 1px solid var(--card-line); background: var(--panel2); border-radius: 12px; padding: 14px 15px; }
+.ydt-page .rt-mark--hot { border-color: rgba(255,69,54,0.28); background: var(--data-dim); }
+.ydt-page .rt-mark b { display: block; font-size: clamp(1.2rem, 2.4vw, 1.6rem); font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.ydt-page .rt-mark--hot b { color: var(--data); }
+.ydt-page .rt-mark .art-k { margin-bottom: 8px; }
+.ydt-page .rt-mark em { display: block; font-family: var(--mono); font-size: 10px; font-style: normal; color: var(--gray6); margin-top: 7px; }
+.ydt-page .rt-svg { display: block; width: 100%; height: 150px; }
+@media (min-width: 860px) { .ydt-page .rt-svg { height: 168px; } }
+.ydt-page .rt-svg .grid { stroke: rgba(255,255,255,0.05); stroke-width: 1; }
+.ydt-page .rt-svg .band { fill: url(#rtBand); }
+.ydt-page .rt-svg .curve { fill: none; stroke: var(--data); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.ydt-page .rt-svg .drop { stroke: rgba(255,255,255,0.30); stroke-width: 1; stroke-dasharray: 3 3; }
+html.ydt-js .ydt-page .rt-in {
+    -webkit-clip-path: inset(0 100% 0 0); clip-path: inset(0 100% 0 0);
+    transition: -webkit-clip-path 1.4s 0.4s var(--ease), clip-path 1.4s 0.4s var(--ease);
+}
+html.ydt-js .ydt-page .art.in-view .rt-in { -webkit-clip-path: inset(0 0 0 0); clip-path: inset(0 0 0 0); }
+/* the second markers are HTML, not SVG <text> — an SVG label scales with the
+   viewBox and would render well under 10px on a phone */
+/* Evenly spaced labels put "3s" a quarter of the way across while the dashed
+   3-second marker sits at 10.8% — wrong in a chart whose entire point is that
+   mark. Each label is now placed at its true fraction of the 28-second run. */
+.ydt-page .rt-x { position: relative; height: 14px; margin-top: 10px; }
+.ydt-page .rt-x span {
+    position: absolute; left: var(--x); transform: translateX(-50%);
+    font-family: var(--mono); font-size: 10px; color: var(--gray6); white-space: nowrap;
+}
+.ydt-page .rt-x span:first-child { transform: translateX(0); }
+.ydt-page .rt-x span:last-child { transform: translateX(-100%); }
+.ydt-page .rt-x span.mark { color: var(--data); }
+
+/* ══════════ 04–06 · THE SMALLER INSTRUMENTS ══════════ */
+.ydt-page .tri { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 900px) { .ydt-page .tri { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .tri > * { min-width: 0; }
+.ydt-page .tri .art { height: 100%; display: flex; flex-direction: column; }
+.ydt-page .tri .art-body { flex: 1; }
+.ydt-page .tri-h { font-size: 15px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 6px; }
+.ydt-page .tri-p { font-size: 13px; color: var(--gray5); line-height: 1.6; margin-bottom: 20px; }
+
+/* 04 · the week's calendar */
+.ydt-page .cal { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.ydt-page .cal-day { display: grid; grid-template-columns: 34px 1fr; gap: 11px; align-items: start; }
+.ydt-page .cal-d {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray6); padding-top: 9px;
+}
+.ydt-page .cal-day--live .cal-d { color: var(--data); }
+.ydt-page .cal-slots { display: flex; flex-wrap: wrap; gap: 5px; min-width: 0; }
+.ydt-page .cal-slot {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.06em;
+    border: 1px solid var(--card-line); background: var(--panel2); color: var(--gray5);
+    border-radius: 7px; padding: 7px 9px; white-space: nowrap;
+}
+.ydt-page .cal-slot--hot { border-color: rgba(255,69,54,0.28); background: var(--data-dim); color: var(--data); }
+.ydt-page .cal-slot--rest { color: var(--gray6); border-style: dashed; background: none; }
+html.ydt-js .ydt-page .cal-slot { opacity: 0; transform: translateY(6px); transition: opacity 0.45s var(--ease), transform 0.45s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .cal-slot { opacity: 1; transform: translateY(0); }
+
+/* 05 · when the audience is actually online */
+.ydt-page .hm { display: grid; grid-template-columns: 28px repeat(7, 1fr); gap: 4px; }
+.ydt-page .hm-h {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--gray6); text-align: center; padding-bottom: 3px;
+}
+.ydt-page .hm-t {
+    font-family: var(--mono); font-size: 10px; color: var(--gray6); white-space: nowrap;
+    display: flex; align-items: center; justify-content: flex-end; padding-right: 3px;
+}
+/* opacity carries the value, so there is only ever one colour on the grid */
+.ydt-page .hm-c { aspect-ratio: 1; border-radius: 4px; background: var(--data); opacity: calc(var(--v) / 100); }
+.ydt-page .hm-c--peak { box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.85); }
+html.ydt-js .ydt-page .hm-c { opacity: 0; transition: opacity 0.5s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .hm-c { opacity: calc(var(--v) / 100); }
+.ydt-page .hm-legend { display: flex; align-items: center; gap: 8px; margin-top: 16px; }
+.ydt-page .hm-legend span { font-family: var(--mono); font-size: 10px; color: var(--gray6); white-space: nowrap; }
+.ydt-page .hm-ramp { flex: 1; height: 6px; border-radius: 3px; background: linear-gradient(90deg, rgba(255,69,54,0.08), var(--data)); }
+.ydt-page .hm-best {
+    display: block; margin-top: 14px; font-family: var(--mono); font-size: 10px;
+    color: var(--gray6); line-height: 1.6;
+}
+.ydt-page .hm-best b { color: var(--data); font-weight: 500; }
+
+/* 06 · the inbox */
+.ydt-page .ib { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 18px; }
+.ydt-page .ib-item {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: start;
+    border: 1px solid var(--card-line); background: var(--panel2);
+    border-radius: 11px; padding: 11px 12px;
+}
+.ydt-page .ib-item--new { border-color: rgba(255,69,54,0.26); background: var(--data-dim); }
+.ydt-page .ib-ico { width: 14px; height: 14px; color: var(--gray6); flex-shrink: 0; margin-top: 2px; }
+.ydt-page .ib-item--new .ib-ico { color: var(--data); }
+.ydt-page .ib-t { min-width: 0; }
+.ydt-page .ib-t b { display: block; font-size: 12px; font-weight: 500; color: var(--gray5); line-height: 1.5; }
+.ydt-page .ib-item--new .ib-t b { color: var(--white); }
+.ydt-page .ib-t span { display: block; font-family: var(--mono); font-size: 9.5px; color: var(--gray6); margin-top: 4px; }
+.ydt-page .ib-time { font-family: var(--mono); font-size: 10px; color: var(--gray6); white-space: nowrap; }
+.ydt-page .ib-item--new .ib-time { color: var(--data); }
+.ydt-page .ib-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.ydt-page .ib-stats div { border: 1px solid var(--card-line); border-radius: 10px; padding: 12px 10px; text-align: center; }
+.ydt-page .ib-stats b { display: block; font-family: var(--mono); font-size: 14px; color: var(--data); font-variant-numeric: tabular-nums; }
+.ydt-page .ib-stats span { display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray6); margin-top: 6px; line-height: 1.4; }
+/* ══════════ PROCESS ACCORDION ══════════ */
+.ydt-page .acc { border-top: 1px solid var(--line); }
+.ydt-page .acc-item { border-bottom: 1px solid var(--line); }
+.ydt-page .acc-head {
+    width: 100%; background: none; border: none; cursor: pointer;
+    font-family: inherit; color: inherit; text-align: left;
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(16px, 4vw, 44px); align-items: center; padding: 26px 0;
+}
+.ydt-page .acc-num {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em;
+    color: var(--gray6); transition: color 0.4s;
+}
+.ydt-page .acc-title {
+    font-size: clamp(1.05rem, 2vw, 1.5rem); font-weight: 700;
+    letter-spacing: -0.028em; line-height: 1.25; color: var(--gray5); transition: color 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-title, .ydt-page .acc-head:hover .acc-title { color: var(--white); }
+.ydt-page .acc-item.is-open .acc-num { color: var(--data); }
+.ydt-page .acc-sign { position: relative; width: 17px; height: 17px; flex-shrink: 0; color: var(--gray6); transition: color 0.4s; }
+.ydt-page .acc-sign::before, .ydt-page .acc-sign::after {
+    content: ''; position: absolute; background: currentColor; left: 50%; top: 50%;
+}
+.ydt-page .acc-sign::before { width: 15px; height: 1.5px; margin: -0.75px 0 0 -7.5px; }
+.ydt-page .acc-sign::after {
+    width: 1.5px; height: 15px; margin: -7.5px 0 0 -0.75px;
+    transition: transform 0.5s var(--ease), opacity 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-sign { color: var(--data); }
+.ydt-page .acc-item.is-open .acc-sign::after { transform: scaleY(0); opacity: 0; }
+/* Gated on JS. The collapse is entirely script-driven, so without this a
+   script error left all five process descriptions permanently unreadable
+   at max-height:0. With no JS every panel is simply open. */
+.ydt-page .acc-panel { overflow: hidden; }
+html.ydt-js .ydt-page .acc-panel {
+    max-height: 0; opacity: 0;
+    transition: max-height 0.7s var(--ease), opacity 0.5s var(--ease);
+}
+html.ydt-js .ydt-page .acc-item.is-open .acc-panel { opacity: 1; }
+html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
+.ydt-page .acc-inner {
+    padding: 0 0 30px; display: grid;
+    grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 4vw, 44px);
+}
+.ydt-page .acc-inner p { font-size: 15px; line-height: 1.78; color: var(--gray5); max-width: 46rem; }
+.ydt-page .acc-inner .spacer { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; visibility: hidden; }
+@media (max-width: 640px) {
+    .ydt-page .acc-head { gap: 14px; }
+    .ydt-page .acc-inner { grid-template-columns: 1fr; gap: 0; }
+    .ydt-page .acc-inner .spacer { display: none; }
+}
+
+/* ══════════ SERVICES GRID ══════════ */
+.ydt-page .svc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .ydt-page .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (min-width: 1024px) { .ydt-page .svc-grid { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .svc {
+    position: relative; display: flex; flex-direction: column; min-width: 0;
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 16px; padding: 26px; overflow: hidden;
+    transition: border-color 0.5s, transform 0.6s var(--ease);
+}
+.ydt-page .svc:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); }
+.ydt-page .svc--here { border-color: rgba(255,69,54,0.32); background: linear-gradient(180deg, var(--data-dim), var(--card-bg) 62%); }
+.ydt-page .svc-idx {
+    position: absolute; top: 24px; right: 24px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--gray6);
+}
+.ydt-page .svc--here .svc-idx { color: var(--data); }
+.ydt-page .svc-icon {
+    display: inline-flex; align-self: flex-start; padding: 9px; border-radius: 10px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--line); margin-bottom: 18px;
+}
+.ydt-page .svc-icon svg { width: 19px; height: 19px; color: var(--gray5); }
+.ydt-page .svc--here .svc-icon { background: var(--data-dim); border-color: rgba(255,69,54,0.28); }
+.ydt-page .svc--here .svc-icon svg { color: var(--data); }
+.ydt-page .svc h3 { font-size: 16px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 9px; }
+.ydt-page .svc p { font-size: 13px; line-height: 1.65; color: var(--gray5); }
+.ydt-page .svc-here-tag {
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 16px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--data);
+}
+
+/* ══════════ FINAL CTA ══════════ */
+.ydt-page .cta { position: relative; overflow: hidden; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
+.ydt-page .cta-ember {
+    position: absolute; bottom: -56vh; left: 50%; width: 170vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.24) 0%, rgba(216, 30, 13, 0.11) 36%, transparent 72%);
+    filter: blur(30px);
+}
+.ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
+.ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+
+/* ══════════ MOTION FALLBACKS ══════════
+   These carry the html.ydt-js prefix on purpose — they have to out-specify
+   the gated hidden states above, and a media query adds no specificity. */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page { scroll-behavior: auto; }
+    html.ydt-js .ydt-page [data-reveal],
+    html.ydt-js .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    html.ydt-js .ydt-page .pf-row,
+    html.ydt-js .ydt-page .cal-slot { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .rg-in,
+    html.ydt-js .ydt-page .rt-in { -webkit-clip-path: none; clip-path: none; transition: none; }
+    html.ydt-js .ydt-page .hm-c { opacity: calc(var(--v) / 100); transition: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .sec { padding: 78px 0; }
+    .ydt-page .hero { padding: calc(var(--header-h) + 48px) 0 56px; }
+    .ydt-page .cta { padding: 80px 0 88px; }
+    .ydt-page .hero-actions .ember-btn, .ydt-page .hero-actions .ghost-btn,
+    .ydt-page .cta-actions .ember-btn, .ydt-page .cta-actions .ghost-btn { width: 100%; }
+    /* nothing under 10px, same floor as every other page */
+    .ydt-page .pf-col, .ydt-page .pf-tab, .ydt-page .art-cap, .ydt-page .art-k,
+    .ydt-page .band-k, .ydt-page .rg-x span, .ydt-page .rt-x span, .ydt-page .pf-post span,
+    .ydt-page .pf-fmt b, .ydt-page .cal-d, .ydt-page .cal-slot, .ydt-page .rt-mark em,
+    .ydt-page .hm-legend span, .ydt-page .hm-best, .ydt-page .ib-t span, .ydt-page .ib-time,
+    .ydt-page .ib-stats span, .ydt-page .svc-here-tag,
+    .ydt-page .svc-idx, .ydt-page .back { font-size: 10px; letter-spacing: 0.1em; }
+    /* the hour gutter tightens on a phone, but the labels stay at 10px */
+    .ydt-page .hm { grid-template-columns: 26px repeat(7, 1fr); gap: 3px; }
+    .ydt-page .rt-marks { grid-template-columns: 1fr; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page .art-url, .ydt-page .art-live, .ydt-page .art-k, .ydt-page .art-cap,
+.ydt-page .art-delta, .ydt-page .pf-tab, .ydt-page .pf-col, .ydt-page .pf-n,
+.ydt-page .pf-er, .ydt-page .pf-post span, .ydt-page .pf-fmt b, .ydt-page .rg-x span,
+.ydt-page .rt-x span, .ydt-page .rt-mark em, .ydt-page .cal-d, .ydt-page .cal-slot,
+.ydt-page .hm-h, .ydt-page .hm-t, .ydt-page .hm-legend span, .ydt-page .hm-best,
+.ydt-page .ib-t span, .ydt-page .ib-time, .ydt-page .ib-stats b, .ydt-page .ib-stats span,
+.ydt-page .acc-num, .ydt-page .band-k,
+.ydt-page .svc-idx, .ydt-page .svc-here-tag, .ydt-page .sec-eyebrow-text,
+.ydt-page .hero-eyebrow, .ydt-page .back { font-family: var(--mono); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+.ydt-page button { font-family: var(--font); }
+</style>
+
+<div class="ydt-page ydt-page--social">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <a class="back" href="/services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>
+        All services
+      </a>
+      <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Social media marketing</p>
+      <h1 id="heroTitle">
+        <span class="clip"><span class="slide">Followers don't pay.</span></span>
+        <span class="clip"><span class="slide"><span class="dim">Saves and shares do.</span></span></span>
+      </h1>
+      <p class="hero-body" data-reveal>
+        A follower count is the easiest number on social to grow and the least useful one to own.
+        We optimise for the signals that actually predict a sale — saves, shares, profile taps
+        and the messages that follow — and we report those instead.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a class="ember-btn" href="/contact">
+          Get a free content audit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a class="ghost-btn" href="/pricing">See pricing</a>
+      </div>
+
+      <div class="band" data-reveal>
+        <div class="band-cell"><span class="band-v">214k</span><span class="band-k">Monthly reach<br>across platforms</span></div>
+        <div class="band-cell"><span class="band-v">9k</span><span class="band-k">Saves and shares<br>every month</span></div>
+        <div class="band-cell"><span class="band-v">In-house</span><span class="band-k">Shot, edited<br>and scheduled</span></div>
+        <div class="band-cell"><span class="band-v">&lt;2h</span><span class="band-k">Reply time on<br>comments and DMs</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 01 · TOP POSTS ══════════ -->
+  <section class="sec" id="posts" aria-labelledby="pfTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">01 · What we post</span></div>
+        <h2 class="sec-title" id="pfTitle" data-reveal>Five platforms, <span class="dim">five different jobs.</span></h2>
+        <p class="sec-sub" data-reveal>
+          The same post does not work everywhere, and pretending it does is why most accounts
+          stall. Switch platform to see what we actually make there and what it returned.
+        </p>
+      </div>
+
+      <div class="art-hold" data-reveal>
+        <div class="art" data-art>
+          <div class="art-bar">
+            <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="art-url" id="pfUrl">instagram · top posts · last 30 days</span>
+            <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Posted</span>
+          </div>
+
+          <div class="pf-tabs" role="tablist" aria-label="Platform">
+            <button class="pf-tab" type="button" role="tab" aria-selected="true"  data-v="instagram">Instagram</button>
+            <button class="pf-tab" type="button" role="tab" aria-selected="false" data-v="tiktok">TikTok</button>
+            <button class="pf-tab" type="button" role="tab" aria-selected="false" data-v="linkedin">LinkedIn</button>
+            <button class="pf-tab" type="button" role="tab" aria-selected="false" data-v="facebook">Facebook</button>
+            <button class="pf-tab" type="button" role="tab" aria-selected="false" data-v="youtube">YouTube</button>
+          </div>
+
+          <div class="pf-sum">
+            <div class="pf-cell"><span class="art-k">Reach</span><span class="art-v" id="pfReach">214.8k</span></div>
+            <div class="pf-cell"><span class="art-k">Saves</span><span class="art-v" id="pfSaves">7.8k</span></div>
+            <div class="pf-cell"><span class="art-k">Shares</span><span class="art-v" id="pfShares">1.2k</span></div>
+            <div class="pf-cell"><span class="art-k">Engagement</span><span class="art-v" id="pfEr" style="color:var(--data)">7.0%</span></div>
+          </div>
+
+          <div class="art-body">
+            <div class="pf-cols" aria-hidden="true">
+              <span class="pf-col">Post</span>
+              <span class="pf-col pf-hide">Format</span>
+              <span class="pf-col pf-col--n">Reach</span>
+              <span class="pf-col pf-col--n pf-hide">Saves</span>
+              <span class="pf-col pf-col--n">Shares</span>
+              <span class="pf-col pf-col--n">ER</span>
+            </div>
+            <!-- The Instagram rows in plain HTML so the table is not empty
+                 without JavaScript. The script replaces them on load and owns
+                 every tab switch after that — if you edit the `instagram`
+                 dataset in the script below, edit these to match. -->
+            <ol class="pf-list" id="pfList" aria-live="polite">
+              <li class="pf-row">
+                <span class="pf-post">Three things installers get wrong on a quote<span>Wed 18:00</span></span>
+                <span class="pf-fmt pf-hide"><b class="hot">Reel</b></span>
+                <span class="pf-n">84.2k</span>
+                <span class="pf-n pf-hide">3.1k</span>
+                <span class="pf-n">612</span>
+                <span class="pf-er win">9.1%</span>
+              </li>
+              <li class="pf-row">
+                <span class="pf-post">What &pound;4,000 actually buys you<span>Mon 18:00</span></span>
+                <span class="pf-fmt pf-hide"><b class="hot">Reel</b></span>
+                <span class="pf-n">52.6k</span>
+                <span class="pf-n pf-hide">2k</span>
+                <span class="pf-n">388</span>
+                <span class="pf-er win">7.4%</span>
+              </li>
+              <li class="pf-row">
+                <span class="pf-post">Before and after: 1930s semi<span>Fri 11:00</span></span>
+                <span class="pf-fmt pf-hide"><b class="mid">Carousel</b></span>
+                <span class="pf-n">38.4k</span>
+                <span class="pf-n pf-hide">1.6k</span>
+                <span class="pf-n">141</span>
+                <span class="pf-er">5.8%</span>
+              </li>
+              <li class="pf-row">
+                <span class="pf-post">Answering your questions on grants<span>Tue 12:00</span></span>
+                <span class="pf-fmt pf-hide"><b class="mid">Carousel</b></span>
+                <span class="pf-n">24.9k</span>
+                <span class="pf-n pf-hide">790</span>
+                <span class="pf-n">52</span>
+                <span class="pf-er">4.2%</span>
+              </li>
+              <li class="pf-row">
+                <span class="pf-post">Van setup, 2026<span>Thu 12:00</span></span>
+                <span class="pf-fmt pf-hide"><b class="">Photo</b></span>
+                <span class="pf-n">14.7k</span>
+                <span class="pf-n pf-hide">210</span>
+                <span class="pf-n">11</span>
+                <span class="pf-er">1.6%</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="art-foot">
+            <span class="art-cap" id="pfFoot">5 posts</span>
+            <span class="art-cap" style="margin-left:auto" id="pfBest">Best format &middot; Reel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 · REACH AND FOLLOWERS ══════════ -->
+  <section class="sec" id="growth" aria-labelledby="rgTitle">
+    <div class="container">
+      <div class="duo">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">02 · What it builds</span></div>
+          <h2 class="sec-title" id="rgTitle" data-reveal>Reach spikes. <span class="dim">Audience compounds.</span></h2>
+          <p data-reveal>
+            These two lines behave completely differently, and confusing them is the most common
+            mistake in social reporting. Reach is spiky — one post lands and the month looks
+            incredible. Followers are slow and almost boring, and they are the part you keep.
+          </p>
+          <ul class="duo-list" data-reveal>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>A viral month is not a strategy. We look at the trend under the spikes.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>If reach climbs and followers don't, the content is entertaining strangers.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>If both climb and enquiries don't, the offer isn't in the content.</span></li>
+          </ul>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">reach &amp; followers · 12 months</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+            </div>
+            <div class="art-body">
+              <div class="rg-head">
+                <div>
+                  <span class="art-k">Accounts reached</span>
+                  <span class="art-v">214,800</span>
+                </div>
+                <span class="art-delta">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>
+                  8,940 followers
+                </span>
+              </div>
+              <svg class="rg-svg" viewBox="0 0 360 190" preserveAspectRatio="none" aria-label="Monthly reach against follower growth over twelve months">
+                <defs>
+                  <linearGradient id="rgReach" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#ff4536" stop-opacity="0.24"/>
+                    <stop offset="1" stop-color="#ff4536" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <g class="grid"><path d="M0 46h360M0 92h360M0 138h360"/></g>
+                <g class="rg-in">
+                  <!-- reach: spiky, one big month in the middle -->
+                  <path class="reach" d="M0 168 L33 158 L65 172 L98 140 L131 152 L164 62 L196 118 L229 104 L262 126 L295 74 L327 96 L360 48 L360 190 L0 190 Z"/>
+                  <path class="reachline" d="M0 168 L33 158 L65 172 L98 140 L131 152 L164 62 L196 118 L229 104 L262 126 L295 74 L327 96 L360 48"/>
+                  <!-- followers: slow, almost straight, and the part that keeps -->
+                  <path class="fol" d="M0 180 L33 176 L65 172 L98 166 L131 160 L164 150 L196 144 L229 137 L262 130 L295 120 L327 112 L360 102"/>
+                </g>
+              </svg>
+              <div class="rg-x" aria-hidden="true"><span>Sep</span><span>Dec</span><span>Mar</span><span>Jun</span><span>Aug</span></div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap rg-key rg-key--r"><i aria-hidden="true"></i>Reach</span>
+              <span class="art-cap rg-key rg-key--f"><i aria-hidden="true"></i>Followers</span>
+              <span class="art-cap" style="margin-left:auto">+312% year on year</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 · THE RETENTION CURVE ══════════ -->
+  <section class="sec" id="retention" aria-labelledby="rtTitle">
+    <div class="container">
+      <div class="duo duo--flip">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">03 · How it actually works</span></div>
+          <h2 class="sec-title" id="rtTitle" data-reveal>The first three <span class="dim">seconds decide it.</span></h2>
+          <p data-reveal>
+            Short-form platforms don't distribute a video because it's good. They distribute it
+            because people kept watching — and the measurement that matters most is
+            <b style="color:var(--white);font-weight:600">hook rate</b>: the share of viewers still
+            there three seconds in.
+          </p>
+          <p data-reveal>
+            Below about 45% the platform stops showing it to new people, and no amount of budget
+            or hashtags rescues it. Above 65% it keeps pushing. That single threshold is why we
+            rewrite openings, cut the first two seconds off almost everything, and test three hooks
+            on the same footage rather than making three videos.
+          </p>
+          <p data-reveal>
+            It also means a rough clip with a strong opening beats a polished one that takes four
+            seconds to get going — which is usually the opposite of what a brand's instincts say.
+          </p>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">retention · reel · 28s</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Pushed</span>
+            </div>
+            <div class="art-body">
+              <div class="rt-marks">
+                <div class="rt-mark rt-mark--hot">
+                  <span class="art-k">Hook rate · 3s</span>
+                  <b>71%</b>
+                  <em>Threshold is 45%</em>
+                </div>
+                <div class="rt-mark">
+                  <span class="art-k">Watched to end</span>
+                  <b>34%</b>
+                  <em>Average is 12%</em>
+                </div>
+              </div>
+              <svg class="rt-svg" viewBox="0 0 360 150" preserveAspectRatio="none" aria-label="Share of viewers still watching, second by second">
+                <defs>
+                  <linearGradient id="rtBand" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#ff4536" stop-opacity="0.22"/>
+                    <stop offset="1" stop-color="#ff4536" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <g class="grid"><path d="M0 38h360M0 75h360M0 112h360"/></g>
+                <g class="rt-in">
+                  <!-- 100% at 0s, 71% at 3s, then a slow decline to 34% at 28s -->
+                  <path class="band" d="M0 0 L39 43 L77 55 L116 63 L154 70 L193 76 L231 83 L270 88 L308 93 L360 99 L360 150 L0 150 Z"/>
+                  <path class="curve" d="M0 0 L39 43 L77 55 L116 63 L154 70 L193 76 L231 83 L270 88 L308 93 L360 99"/>
+                  <!-- the 3-second mark, where the platform makes its decision -->
+                  <path class="drop" d="M39 0 L39 150"/>
+                </g>
+              </svg>
+              <div class="rt-x" aria-hidden="true">
+                <span style="--x:0%">0s</span>
+                <span style="--x:10.7%" class="mark">3s</span>
+                <span style="--x:35.7%">10s</span>
+                <span style="--x:71.4%">20s</span>
+                <span style="--x:100%">28s</span>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Still watching, second by second</span>
+              <span class="art-cap" style="margin-left:auto">3s mark dashed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04–06 ══════════ -->
+  <section class="sec" id="running" aria-labelledby="runTitle">
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">04–06 · Running it</span></div>
+        <h2 class="sec-title" id="runTitle" data-reveal>The part that isn't <span class="dim">making the content.</span></h2>
+        <p class="sec-sub" data-reveal>Most accounts fail on consistency and follow-up rather than on creative. These are the three things that fix that.</p>
+      </div>
+
+      <div class="tri">
+        <!-- 04 · the calendar -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">calendar · week 32</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>04</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">A week, planned</h3>
+              <p class="tri-p">Written a month ahead, shot in one session, scheduled in advance. Nothing gets posted because somebody remembered on the day.</p>
+              <ol class="cal">
+                <li class="cal-day cal-day--live">
+                  <span class="cal-d">Mon</span>
+                  <span class="cal-slots">
+                    <span class="cal-slot cal-slot--hot">Reel · 18:00</span>
+                    <span class="cal-slot">Story · 12:00</span>
+                  </span>
+                </li>
+                <li class="cal-day">
+                  <span class="cal-d">Tue</span>
+                  <span class="cal-slots"><span class="cal-slot">Carousel · 12:00</span></span>
+                </li>
+                <li class="cal-day cal-day--live">
+                  <span class="cal-d">Wed</span>
+                  <span class="cal-slots">
+                    <span class="cal-slot cal-slot--hot">Reel · 18:00</span>
+                    <span class="cal-slot">LinkedIn · 08:00</span>
+                  </span>
+                </li>
+                <li class="cal-day">
+                  <span class="cal-d">Thu</span>
+                  <span class="cal-slots"><span class="cal-slot">Story · 12:00</span></span>
+                </li>
+                <li class="cal-day cal-day--live">
+                  <span class="cal-d">Fri</span>
+                  <span class="cal-slots">
+                    <span class="cal-slot cal-slot--hot">Reel · 17:00</span>
+                    <span class="cal-slot">Carousel · 11:00</span>
+                  </span>
+                </li>
+                <li class="cal-day">
+                  <span class="cal-d">Sat</span>
+                  <span class="cal-slots"><span class="cal-slot cal-slot--rest">Community only</span></span>
+                </li>
+                <li class="cal-day">
+                  <span class="cal-d">Sun</span>
+                  <span class="cal-slots"><span class="cal-slot cal-slot--rest">Rest</span></span>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 · when they are online -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">audience activity · 7 days</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>05</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">When they're online</h3>
+              <p class="tri-p">Your audience, not a generic best-time-to-post chart. Posting into a dead hour wastes the work that went into it.</p>
+              <div class="hm" role="img" aria-label="Audience activity by day and hour. Busiest is Wednesday at 6pm.">
+                <span></span>
+                <span class="hm-h">M</span><span class="hm-h">T</span><span class="hm-h">W</span><span class="hm-h">T</span><span class="hm-h">F</span><span class="hm-h">S</span><span class="hm-h">S</span>
+
+                <span class="hm-t">7a</span>
+                <span class="hm-c" style="--v:22"></span><span class="hm-c" style="--v:26"></span><span class="hm-c" style="--v:24"></span>
+                <span class="hm-c" style="--v:28"></span><span class="hm-c" style="--v:20"></span><span class="hm-c" style="--v:10"></span><span class="hm-c" style="--v:8"></span>
+
+                <span class="hm-t">12p</span>
+                <span class="hm-c" style="--v:48"></span><span class="hm-c" style="--v:52"></span><span class="hm-c" style="--v:56"></span>
+                <span class="hm-c" style="--v:50"></span><span class="hm-c" style="--v:46"></span><span class="hm-c" style="--v:30"></span><span class="hm-c" style="--v:26"></span>
+
+                <span class="hm-t">3p</span>
+                <span class="hm-c" style="--v:38"></span><span class="hm-c" style="--v:42"></span><span class="hm-c" style="--v:44"></span>
+                <span class="hm-c" style="--v:40"></span><span class="hm-c" style="--v:36"></span><span class="hm-c" style="--v:34"></span><span class="hm-c" style="--v:32"></span>
+
+                <span class="hm-t">6p</span>
+                <span class="hm-c" style="--v:78"></span><span class="hm-c" style="--v:82"></span>
+                <span class="hm-c hm-c--peak" style="--v:100"></span>
+                <span class="hm-c" style="--v:86"></span><span class="hm-c" style="--v:74"></span><span class="hm-c" style="--v:44"></span><span class="hm-c" style="--v:52"></span>
+
+                <span class="hm-t">9p</span>
+                <span class="hm-c" style="--v:62"></span><span class="hm-c" style="--v:66"></span><span class="hm-c" style="--v:70"></span>
+                <span class="hm-c" style="--v:64"></span><span class="hm-c" style="--v:58"></span><span class="hm-c" style="--v:40"></span><span class="hm-c" style="--v:46"></span>
+              </div>
+              <div class="hm-legend">
+                <span>Quiet</span><span class="hm-ramp" aria-hidden="true"></span><span>Busy</span>
+              </div>
+              <span class="hm-best">Busiest: <b>Wednesday 18:00</b> — which is where the week's strongest post goes.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 · the inbox -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">inbox · comments &amp; dms</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>06</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Someone answers</h3>
+              <p class="tri-p">The comment asking "how much?" is a lead. Left for three days it's a lead your competitor got instead.</p>
+              <ul class="ib">
+                <li class="ib-item ib-item--new">
+                  <svg class="ib-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg>
+                  <span class="ib-t"><b>"How much for a full install?"</b><span>Comment · Reel, Wed</span></span>
+                  <span class="ib-time">6m</span>
+                </li>
+                <li class="ib-item">
+                  <svg class="ib-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 3 18 9-18 9 4-9-4-9z"/></svg>
+                  <span class="ib-t"><b>"Do you cover Stockport?"</b><span>DM · answered, quoted</span></span>
+                  <span class="ib-time">14m</span>
+                </li>
+                <li class="ib-item">
+                  <svg class="ib-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg>
+                  <span class="ib-t"><b>"Is this covered by the grant?"</b><span>Comment · answered</span></span>
+                  <span class="ib-time">41m</span>
+                </li>
+                <li class="ib-item">
+                  <svg class="ib-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 3 18 9-18 9 4-9-4-9z"/></svg>
+                  <span class="ib-t"><b>"Can you send the brochure?"</b><span>DM · sent</span></span>
+                  <span class="ib-time">1h</span>
+                </li>
+              </ul>
+              <div class="ib-stats">
+                <div><b>1h 48m</b><span>Median<br>reply</span></div>
+                <div><b>38</b><span>Enquiries<br>this month</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROCESS ══════════ -->
+  <section class="sec" id="process" aria-labelledby="procTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">How we work</span></div>
+        <h2 class="sec-title" id="procTitle" data-reveal>The order <span class="dim">we do it in.</span></h2>
+        <p class="sec-sub" data-reveal>Posting daily on five platforms is how agencies burn a retainer. We'd rather be excellent on two.</p>
+      </div>
+
+      <div class="acc" id="acc">
+        <div class="acc-item is-open" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="true" aria-controls="accp1">
+            <span class="acc-num">01</span>
+            <span class="acc-title">Work out which platforms actually deserve you</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp1">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">01</span>
+              <p>Most businesses are spread across five platforms and good on none of them. We look at where your customers genuinely spend time and what they're doing there, then pick two — occasionally three. Being excellent on two beats being present on five, and it costs less to sustain.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp2">
+            <span class="acc-num">02</span>
+            <span class="acc-title">Build a format that can be repeated</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp2">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">02</span>
+              <p>One brilliant post is worth very little. What compounds is a recognisable format your audience learns to expect — a series, a recurring answer, a behind-the-scenes slot. We find two or three that suit how you actually work, so production is a session in the diary rather than a scramble.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp3">
+            <span class="acc-num">03</span>
+            <span class="acc-title">Shoot in batches, publish on a calendar</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp3">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">03</span>
+              <p>A month's content in one session, edited natively for each platform rather than one video resized four ways, and scheduled into the hours your audience is actually online. Consistency is what the algorithms reward, and batching is the only way most businesses can sustain it.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp4">
+            <span class="acc-num">04</span>
+            <span class="acc-title">Answer everything, quickly</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp4">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">04</span>
+              <p>Comments and DMs are handled as part of the service, not billed as an extra. Someone asking what something costs is a lead with its hand up — and the reply speed decides whether you get it. Anything we can't answer gets passed to you with the context attached.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp5">
+            <span class="acc-num">05</span>
+            <span class="acc-title">Read the retention, not the likes</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp5">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">05</span>
+              <p>Every week we look at hook rate, saves, shares and the enquiries that followed. Formats that hold attention get made again; the ones that don't get dropped without sentiment, however much anyone liked making them. That loop is what turns a feed into a channel.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SERVICES ══════════ -->
+  <section class="sec" id="services" aria-labelledby="svcTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">The rest of it</span></div>
+        <h2 class="sec-title" id="svcTitle" data-reveal>Attention is the start. <span class="dim">Not the finish.</span></h2>
+        <p class="sec-sub" data-reveal>Social creates demand. These are what we use to catch it, and what stops it evaporating.</p>
+      </div>
+
+      <div class="svc-grid">
+        <a class="svc" href="/seo" data-reveal>
+          <span class="svc-idx" aria-hidden="true">01</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <h3>Search engine optimisation</h3>
+          <p>Catches the people who saw you on social and then went and Googled you — which most of them do.</p>
+        </a>
+
+        <a class="svc" href="/ppc" data-reveal>
+          <span class="svc-idx" aria-hidden="true">02</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <h3>Pay-per-click</h3>
+          <p>Puts budget behind the organic posts that already proved they work, instead of guessing at new creative.</p>
+        </a>
+
+        <article class="svc svc--here" aria-current="page" data-reveal>
+          <span class="svc-idx" aria-hidden="true">03</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Social media</h3>
+          <p>Content made in-house for each platform, scheduled properly, with the inbox actually answered.</p>
+          <span class="svc-here-tag"><span class="live-dot" aria-hidden="true"></span>You're here</span>
+        </article>
+
+        <a class="svc" href="/email" data-reveal>
+          <span class="svc-idx" aria-hidden="true">04</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+          <h3>Email marketing</h3>
+          <p>Moves an audience you rent from a platform onto a list you own, which no algorithm change can take away.</p>
+        </a>
+
+        <a class="svc" href="/content" data-reveal>
+          <span class="svc-idx" aria-hidden="true">05</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11a4 4 0 0 1 0 8H4z"/><path d="M4 12h13a4 4 0 0 1 0 8H4z"/></svg></div>
+          <h3>Content creation</h3>
+          <p>The long-form pieces each short post is cut from, so one shoot feeds a month of the calendar.</p>
+        </a>
+
+        <a class="svc" href="/web-development" data-reveal>
+          <span class="svc-idx" aria-hidden="true">06</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <h3>Web development</h3>
+          <p>The page the bio link points at — where the attention either converts or quietly leaves.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section class="cta" aria-labelledby="ctaTitle">
+    <div class="cta-ember" aria-hidden="true"></div>
+    <div class="container">
+      <div class="sec-head sec-head--center" style="margin-bottom:0">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
+        <h2 class="sec-title" id="ctaTitle" data-reveal>Find out what's <span class="dim">worth making.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Send us your handles and we'll come back with which platform is actually carrying you,
+          which of your posts earned saves rather than likes, and the two formats we'd build the
+          next quarter around — before you've committed to anything.
+        </p>
+        <div class="cta-actions" data-reveal>
+          <a class="ember-btn" href="/contact">
+            Get a free content audit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="ghost-btn" href="/services">All services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ TOP POSTS — five platforms, five accounts ══════
+     Switching tab swaps the posts, the formats and the numbers. The four
+     figures above the table are derived from the rows rather than typed
+     beside them, so the two can never drift apart. */
+  var DATA = {
+    instagram: {
+      url: 'instagram · top posts · last 30 days',
+      rows: [
+        { t: 'Three things installers get wrong on a quote', d: 'Wed 18:00', f: 'Reel',     reach: 84200, saves: 3140, shares: 612, er: 9.1 },
+        { t: 'What £4,000 actually buys you',                d: 'Mon 18:00', f: 'Reel',     reach: 52600, saves: 2010, shares: 388, er: 7.4 },
+        { t: 'Before and after: 1930s semi',                 d: 'Fri 11:00', f: 'Carousel', reach: 38400, saves: 1620, shares: 141, er: 5.8 },
+        { t: 'Answering your questions on grants',           d: 'Tue 12:00', f: 'Carousel', reach: 24900, saves:  790, shares:  52, er: 4.2 },
+        { t: 'Van setup, 2026',                              d: 'Thu 12:00', f: 'Photo',    reach: 14700, saves:  210, shares:  11, er: 1.6 }
+      ]
+    },
+    tiktok: {
+      url: 'tiktok · top posts · last 30 days',
+      rows: [
+        { t: 'The quote mistake that costs you £900',        d: 'Wed 19:00', f: 'Video',    reach: 141000, saves: 5820, shares: 2140, er: 11.4 },
+        { t: 'Rating your worst radiator photos',            d: 'Sun 20:00', f: 'Video',    reach:  96400, saves: 3110, shares: 1480, er:  9.6 },
+        { t: 'How long a full install really takes',         d: 'Mon 18:00', f: 'Video',    reach:  61200, saves: 2440, shares:  704, er:  7.8 },
+        { t: 'Stitch: replying to @user',                    d: 'Fri 17:00', f: 'Stitch',   reach:  33800, saves:  910, shares:  388, er:  5.1 },
+        { t: 'Tools I actually use',                          d: 'Tue 12:00', f: 'Video',    reach:  18600, saves:  340, shares:   74, er:  2.4 }
+      ]
+    },
+    linkedin: {
+      url: 'linkedin · top posts · last 30 days',
+      rows: [
+        { t: 'Why we stopped quoting over the phone',        d: 'Tue 08:00', f: 'Text',     reach: 28400, saves: 620, shares: 214, er: 6.8 },
+        { t: 'What 200 installs taught us about pricing',    d: 'Wed 08:00', f: 'Document', reach: 21600, saves: 880, shares: 176, er: 8.2 },
+        { t: 'Hiring: two engineers, North West',            d: 'Thu 09:00', f: 'Text',     reach: 16200, saves: 140, shares:  94, er: 4.1 },
+        { t: 'Site walkthrough, commercial retrofit',        d: 'Mon 08:00', f: 'Video',    reach: 11800, saves: 260, shares:  48, er: 3.4 },
+        { t: 'Quarterly numbers, openly',                     d: 'Fri 08:00', f: 'Document', reach:  8900, saves: 310, shares:  61, er: 5.2 }
+      ]
+    },
+    facebook: {
+      url: 'facebook · top posts · last 30 days',
+      rows: [
+        { t: 'Local job: Didsbury, two days',                d: 'Wed 18:00', f: 'Photo',    reach: 32700, saves: 410, shares: 486, er: 4.6 },
+        { t: 'Grant deadline explained',                     d: 'Mon 12:00', f: 'Link',     reach: 24100, saves: 290, shares: 612, er: 5.4 },
+        { t: 'Customer review: the Hartleys',                d: 'Fri 17:00', f: 'Photo',    reach: 18400, saves: 160, shares: 208, er: 3.8 },
+        { t: 'We are hiring locally',                        d: 'Tue 12:00', f: 'Text',     reach: 12600, saves:  70, shares: 174, er: 2.9 },
+        { t: 'Community: sponsoring the under-11s',          d: 'Sat 10:00', f: 'Photo',    reach:  9800, saves:  40, shares: 121, er: 3.1 }
+      ]
+    },
+    youtube: {
+      url: 'youtube · top posts · last 30 days',
+      rows: [
+        { t: 'Full install, start to finish',                d: 'Sun 10:00', f: 'Long',     reach: 46200, saves: 1840, shares: 402, er: 7.2 },
+        { t: 'Is a heat pump worth it in an old house?',     d: 'Wed 18:00', f: 'Long',     reach: 31800, saves: 1220, shares: 288, er: 6.4 },
+        { t: 'The 60-second version',                        d: 'Mon 18:00', f: 'Short',    reach: 88400, saves: 2140, shares: 916, er: 8.9 },
+        { t: 'Answering the top five comments',              d: 'Fri 18:00', f: 'Short',    reach: 42100, saves:  980, shares: 344, er: 6.1 },
+        { t: 'Kit list and costs',                           d: 'Thu 12:00', f: 'Long',     reach: 14900, saves:  520, shares:  88, er: 3.6 }
+      ]
+    }
+  };
+
+  var ER_GOOD = 6.0;  /* above this a post is carrying the account */
+
+  var pfList   = document.getElementById('pfList');
+  var pfUrl    = document.getElementById('pfUrl');
+  var pfFoot   = document.getElementById('pfFoot');
+  var pfBest   = document.getElementById('pfBest');
+  var pfReach  = document.getElementById('pfReach');
+  var pfSaves  = document.getElementById('pfSaves');
+  var pfShares = document.getElementById('pfShares');
+  var pfEr     = document.getElementById('pfEr');
+  var pfTabs   = [].slice.call(document.querySelectorAll('.pf-tab'));
+
+  function esc(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function compact(n) {
+    if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 1000)    return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+    return String(n);
+  }
+
+  function renderPosts(key, animate) {
+    var set = DATA[key];
+    if (!set || !pfList) return;
+
+    var reach = 0, saves = 0, shares = 0, weighted = 0;
+    set.rows.forEach(function (r) {
+      reach += r.reach; saves += r.saves; shares += r.shares;
+      weighted += r.er * r.reach;   /* reach-weighted, or one tiny post skews it */
+    });
+
+    pfList.innerHTML = set.rows.map(function (r) {
+      var cls = r.er >= ER_GOOD ? 'hot' : (r.er >= 4 ? 'mid' : '');
+      return '<li class="pf-row">' +
+        '<span class="pf-post">' + esc(r.t) + '<span>' + esc(r.d) + '</span></span>' +
+        '<span class="pf-fmt pf-hide"><b class="' + cls + '">' + esc(r.f) + '</b></span>' +
+        '<span class="pf-n">' + compact(r.reach) + '</span>' +
+        '<span class="pf-n pf-hide">' + compact(r.saves) + '</span>' +
+        '<span class="pf-n">' + compact(r.shares) + '</span>' +
+        '<span class="pf-er' + (r.er >= ER_GOOD ? ' win' : '') + '">' + r.er.toFixed(1) + '%</span>' +
+      '</li>';
+    }).join('');
+
+    if (pfUrl)    pfUrl.textContent = set.url;
+    if (pfReach)  pfReach.textContent = compact(reach);
+    if (pfSaves)  pfSaves.textContent = compact(saves);
+    if (pfShares) pfShares.textContent = compact(shares);
+    if (pfEr)     pfEr.textContent = (weighted / reach).toFixed(1) + '%';
+    if (pfFoot)   pfFoot.textContent = set.rows.length + ' posts';
+
+    /* the format that actually carried the month, derived rather than typed */
+    if (pfBest) {
+      var byFormat = {};
+      set.rows.forEach(function (r) {
+        byFormat[r.f] = (byFormat[r.f] || 0) + r.er * r.reach;
+      });
+      var best = Object.keys(byFormat).sort(function (a, b) { return byFormat[b] - byFormat[a]; })[0];
+      pfBest.textContent = 'Best format · ' + best;
+    }
+
+    /* On a tab switch the panel is already on screen, so the rows have to be
+       told to play — the observer that normally does it fired long ago. */
+    if (animate && !reduceMotion) {
+      pfList.querySelectorAll('.pf-row').forEach(function (row, i) {
+        row.style.transitionDelay = (0.05 * i) + 's';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { row.classList.add('pf-in'); });
+        });
+      });
+    } else {
+      pfList.querySelectorAll('.pf-row').forEach(function (row) { row.classList.add('pf-in'); });
+    }
+  }
+
+  pfTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      pfTabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+      renderPosts(tab.getAttribute('data-v'), true);
+    });
+  });
+  /* first paint is not animated here — the panel observer handles that */
+  renderPosts('instagram', false);
+  if (reduceMotion) {
+    pfList.querySelectorAll('.pf-row').forEach(function (r) { r.classList.add('pf-in'); });
+  }
+
+  /* ══════ REVEALS ══════
+     Copy reveals at 15%; an instrument waits until enough of its panel is
+     on screen to be worth watching. */
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  var artEls = document.querySelectorAll('[data-art]');
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    artEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+
+    var artObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); artObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.22 });
+    artEls.forEach(function (el) { artObs.observe(el); });
+  }
+
+  /* ══════ PROCESS ACCORDION ══════ */
+  var items = [].slice.call(document.querySelectorAll('.acc-item'));
+
+  function setOpen(item, open) {
+    var panel = item.querySelector('.acc-panel');
+    var head = item.querySelector('.acc-head');
+    item.classList.toggle('is-open', open);
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0px';
+  }
+
+  items.forEach(function (item) {
+    item.querySelector('.acc-head').addEventListener('click', function () {
+      var willOpen = !item.classList.contains('is-open');
+      items.forEach(function (other) { if (other !== item) setOpen(other, false); });
+      setOpen(item, willOpen);
+    });
+  });
+
+  function sizeOpen() {
+    items.forEach(function (item) { setOpen(item, item.classList.contains('is-open')); });
+  }
+  sizeOpen();
+  window.addEventListener('load', sizeOpen);
+  window.addEventListener('resize', function () {
+    items.forEach(function (item) {
+      if (!item.classList.contains('is-open')) return;
+      var p = item.querySelector('.acc-panel');
+      p.style.maxHeight = p.scrollHeight + 'px';
+    });
+  });
+
+  /* ══════ SCROLL PROGRESS ══════ */
+  var bar = document.getElementById('progress');
+  if (bar && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
+  } else if (bar) {
+    var tick = null;
+    window.addEventListener('scroll', function () {
+      if (tick) return;
+      tick = requestAnimationFrame(function () {
+        var max = document.body.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        tick = null;
+      });
+    }, { passive: true });
+  }
+})();
+</script>
