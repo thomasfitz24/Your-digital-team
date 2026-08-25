@@ -1,0 +1,994 @@
+<!-- ═══════════════════════════════════════════════════════════
+     about.html  →  Squarespace page /about
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Design system — "signal", same as every other page:
+       base #050505 · panels #0b0a09 · Inter + IBM Plex Mono
+       signal red #ff4536 → #d81e0d, ember glow, film grain.
+
+     This is not a service page and deliberately has no dashboards on it.
+     The strongest thing here is the founder's account of why the agency
+     exists, so the design gets out of its way: a drawn timeline, four
+     values, the quote at full size, and a way in.
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- Runs before paint. Everything hidden by default is scoped to this
+     class, so a script error leaves the page readable rather than blank. -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page { scroll-behavior: smooth; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { color: inherit; text-decoration: none; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; scroll-margin-top: 110px; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ PRIMITIVES ══════════ */
+html.ydt-js .ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+html.ydt-js .ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+html.ydt-js .ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+
+/* ══════════ SECTION SCAFFOLD ══════════ */
+.ydt-page .sec { padding: 112px 0; border-top: 1px solid var(--line2); }
+.ydt-page .sec-head { max-width: 672px; margin-bottom: 56px; }
+.ydt-page .sec-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.ydt-page .sec-head--center .sec-eyebrow { justify-content: center; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.03; margin-bottom: 16px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.68; }
+
+/* two-up: copy one side, instrument the other */
+.ydt-page .duo { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+@media (min-width: 1024px) {
+    .ydt-page .duo { grid-template-columns: 0.8fr 1.2fr; gap: 60px; }
+    .ydt-page .duo--flip .duo-copy { order: 2; }
+    .ydt-page .duo--flip .duo-art { order: 1; }
+}
+/* A `1fr` track is minmax(auto, 1fr), and that auto minimum is min-content —
+   which for any nowrap string is the whole string. Without this a single
+   keyword row sizes the whole track past the viewport on a phone. */
+.ydt-page .duo-copy, .ydt-page .duo-art { min-width: 0; }
+.ydt-page .duo-copy p { font-size: 15px; color: var(--gray5); line-height: 1.72; }
+.ydt-page .duo-copy p + p { margin-top: 14px; }
+.ydt-page .duo-list { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .duo-list li { display: flex; gap: 11px; font-size: 14px; color: var(--gray5); line-height: 1.55; }
+.ydt-page .duo-list svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; margin-top: 3px; }
+
+/* ══════════ HERO ══════════ */
+.ydt-page .hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + 78px) 0 84px; }
+.ydt-page .hero-ember {
+    position: absolute; top: -48vh; left: 50%; width: 180vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.32) 0%, rgba(216, 30, 13, 0.15) 34%, rgba(118, 20, 10, 0.05) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .hero-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-width: 1180px; max-height: 1180px;
+    transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.22);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .hero .container { position: relative; z-index: 2; }
+.ydt-page .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 28px;
+}
+.ydt-page .hero h1 {
+    font-size: clamp(2.1rem, 5.4vw, 4rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; max-width: 17ch;
+}
+.ydt-page .hero h1 .dim { color: var(--w25); }
+.ydt-page .hero-body {
+    font-size: clamp(1rem, 1.25vw, 1.1rem); color: var(--gray5);
+    line-height: 1.7; max-width: 36rem; margin-top: 28px;
+}
+.ydt-page .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.ydt-page .back {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 26px;
+    /* 12px block padding clears the 36px touch minimum */
+    padding: 12px 0; transition: color 0.3s;
+}
+.ydt-page .back:hover { color: var(--white); }
+.ydt-page .back svg { width: 13px; height: 13px; transition: transform 0.3s var(--ease); }
+.ydt-page .back:hover svg { transform: translateX(-3px); }
+
+/* ══════════ PROOF BAND ══════════ */
+.ydt-page .band {
+    margin-top: 62px; border: 1px solid var(--line); border-radius: 18px;
+    background: var(--panel); overflow: hidden;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 860px) { .ydt-page .band { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .band-cell { padding: 24px 22px; border-top: 1px solid var(--line2); border-left: 1px solid var(--line2); }
+.ydt-page .band-cell:nth-child(-n+2) { border-top: none; }
+.ydt-page .band-cell:nth-child(odd) { border-left: none; }
+@media (min-width: 860px) {
+    .ydt-page .band-cell { border-top: none; border-left: 1px solid var(--line2); }
+    .ydt-page .band-cell:first-child { border-left: none; }
+}
+.ydt-page .band-v {
+    display: block; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; margin-bottom: 9px;
+}
+.ydt-page .band-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SHARED PANEL CHROME
+   ══════════════════════════════════════════════════════════════ */
+.ydt-page .duo-art, .ydt-page .art-hold { position: relative; }
+.ydt-page .duo-art::before, .ydt-page .art-hold::before {
+    content: ''; position: absolute; left: 50%; top: 4%;
+    width: 80%; height: 76%; transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.22), transparent 72%);
+    filter: blur(58px); pointer-events: none; z-index: 0;
+}
+.ydt-page .art {
+    position: relative; z-index: 1;
+    background: var(--panel); border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 76, 0.04);
+}
+.ydt-page .art-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line2); background: var(--panel2);
+}
+.ydt-page .art-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.ydt-page .art-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+.ydt-page .art-url {
+    font-family: var(--mono); font-size: 10.5px; color: var(--gray6); min-width: 0;
+    letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .art-live {
+    display: inline-flex; align-items: center; gap: 7px; margin-left: auto; flex-shrink: 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--data);
+}
+.ydt-page .art-body { padding: 22px 20px; }
+@media (min-width: 560px) { .ydt-page .art-body { padding: 24px; } }
+.ydt-page .art-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); margin-bottom: 8px;
+}
+.ydt-page .art-v {
+    display: block; font-size: clamp(1.35rem, 2.6vw, 1.85rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .art-cap {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6);
+}
+.ydt-page .art-delta {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .art-delta svg { width: 10px; height: 10px; }
+.ydt-page .art-foot {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 13px 20px; border-top: 1px solid var(--line2); background: rgba(255,255,255,0.012);
+}
+@media (min-width: 560px) { .ydt-page .art-foot { padding: 13px 24px; } }
+
+
+
+
+
+
+
+/* ══════════ 01 · THE TIMELINE ══════════
+   A drawn rail rather than a stack of sticky cards. Four moments, and the
+   rail fills as you reach each one. */
+.ydt-page .tl { position: relative; list-style: none; padding-left: 34px; }
+@media (min-width: 760px) { .ydt-page .tl { padding-left: 0; } }
+/* the track, and the lit part of it */
+.ydt-page .tl::before {
+    content: ''; position: absolute; left: 6px; top: 10px; bottom: 10px;
+    width: 1px; background: var(--line);
+}
+@media (min-width: 760px) { .ydt-page .tl::before { left: 148px; } }
+.ydt-page .tl-fill {
+    position: absolute; left: 6px; top: 10px; width: 1px;
+    background: linear-gradient(180deg, var(--data), rgba(255,69,54,0.15));
+    height: var(--h, 0);
+}
+@media (min-width: 760px) { .ydt-page .tl-fill { left: 148px; } }
+/* the rail's height is measured from the markers, so with no JS there is
+   nothing to measure — anchor it top and bottom instead of leaving it at 0 */
+html:not(.ydt-js) .ydt-page .tl-fill { height: auto; bottom: 10px; }
+html.ydt-js .ydt-page .tl-fill { height: 0; transition: height 1.5s 0.3s var(--ease); }
+html.ydt-js .ydt-page .tl.in-view .tl-fill { height: var(--h, 0); }
+.ydt-page .tl-item { position: relative; padding-bottom: 44px; }
+.ydt-page .tl-item:last-child { padding-bottom: 0; }
+@media (min-width: 760px) {
+    .ydt-page .tl-item { display: grid; grid-template-columns: 148px 1fr; gap: 46px; padding-bottom: 52px; }
+}
+.ydt-page .tl-item::before {
+    content: ''; position: absolute; left: -34px; top: 6px;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--black); border: 1.5px solid rgba(255,255,255,0.22);
+    z-index: 1;
+}
+@media (min-width: 760px) { .ydt-page .tl-item::before { left: 142px; } }
+.ydt-page .tl-item--lit::before {
+    background: var(--data); border-color: var(--data);
+    box-shadow: 0 0 0 4px rgba(255, 69, 54, 0.15);
+}
+.ydt-page .tl-year {
+    display: block; font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--gray6);
+    margin-bottom: 12px;
+}
+@media (min-width: 760px) {
+    .ydt-page .tl-year { text-align: right; padding-right: 26px; margin-bottom: 0; padding-top: 2px; }
+}
+.ydt-page .tl-item--lit .tl-year { color: var(--data); }
+.ydt-page .tl-body { min-width: 0; }
+.ydt-page .tl-body h3 {
+    font-size: clamp(1.15rem, 2vw, 1.5rem); font-weight: 700;
+    letter-spacing: -0.025em; margin-bottom: 12px;
+}
+.ydt-page .tl-body p { font-size: 15px; line-height: 1.76; color: var(--gray5); max-width: 46rem; }
+html.ydt-js .ydt-page .tl-item { opacity: 0; transform: translateY(12px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+html.ydt-js .ydt-page .tl-item.in-view { opacity: 1; transform: translateY(0); }
+
+/* ══════════ 02 · VALUES ══════════ */
+.ydt-page .val-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .ydt-page .val-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+.ydt-page .val {
+    position: relative; display: flex; flex-direction: column; min-width: 0;
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 18px; padding: 28px; overflow: hidden;
+    transition: border-color 0.5s var(--ease), transform 0.6s var(--ease);
+}
+.ydt-page .val:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); }
+/* a faint ember in the corner, lit on hover */
+.ydt-page .val::before {
+    content: ''; position: absolute; top: -40%; right: -20%;
+    width: 70%; height: 100%; pointer-events: none;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 69, 54, 0.16), transparent 70%);
+    filter: blur(30px); opacity: 0; transition: opacity 0.6s var(--ease);
+}
+.ydt-page .val:hover::before { opacity: 1; }
+.ydt-page .val-idx {
+    position: absolute; top: 26px; right: 26px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--gray6);
+}
+.ydt-page .val-icon {
+    position: relative; display: inline-flex; align-self: flex-start; padding: 10px;
+    border-radius: 11px; background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line); margin-bottom: 20px;
+    transition: background 0.5s, border-color 0.5s;
+}
+.ydt-page .val:hover .val-icon { background: var(--data-dim); border-color: rgba(255,69,54,0.28); }
+.ydt-page .val-icon svg { width: 20px; height: 20px; color: var(--gray5); transition: color 0.5s; }
+.ydt-page .val:hover .val-icon svg { color: var(--data); }
+.ydt-page .val h3 { position: relative; font-size: 17px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 10px; }
+.ydt-page .val p { position: relative; font-size: 13.5px; line-height: 1.7; color: var(--gray5); }
+
+/* ══════════ 03 · THE FOUNDER ══════════ */
+.ydt-page .fd-grid { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: start; }
+@media (min-width: 900px) { .ydt-page .fd-grid { grid-template-columns: 288px 1fr; gap: 64px; } }
+.ydt-page .fd-grid > * { min-width: 0; }
+.ydt-page .fd-card {
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 20px; padding: 24px; position: relative; overflow: hidden;
+}
+@media (min-width: 900px) { .ydt-page .fd-card { position: sticky; top: calc(var(--header-h) + 30px); } }
+.ydt-page .fd-portrait {
+    position: relative; aspect-ratio: 1 / 1; border-radius: 15px; margin-bottom: 20px;
+    display: grid; place-items: center; overflow: hidden;
+    background:
+        radial-gradient(60% 46% at 30% 24%, rgba(255, 97, 82, 0.34), transparent 68%),
+        radial-gradient(56% 44% at 76% 80%, rgba(216, 30, 13, 0.28), transparent 70%),
+        linear-gradient(160deg, #1a1210, #0a0908);
+}
+.ydt-page .fd-initials {
+    font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 700;
+    letter-spacing: -0.05em; color: var(--white);
+}
+.ydt-page .fd-role {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gray6);
+}
+.ydt-page .fd-name { font-size: 19px; font-weight: 700; letter-spacing: -0.025em; margin-top: 9px; }
+.ydt-page .fd-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.ydt-page .fd-links a {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray5); border: 1px solid var(--card-line); background: var(--panel2);
+    /* 12px block padding clears the 36px touch minimum */
+    border-radius: 9999px; padding: 12px 14px; transition: color 0.3s, border-color 0.3s;
+}
+.ydt-page .fd-links a:hover { color: var(--white); border-color: rgba(255,255,255,0.22); }
+.ydt-page .fd-quote { position: relative; }
+.ydt-page .fd-mark {
+    display: block; font-size: clamp(3.4rem, 8vw, 5.4rem); line-height: 0.6;
+    color: rgba(255, 69, 54, 0.28); margin-bottom: 22px;
+}
+.ydt-page .fd-quote p {
+    font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.66;
+    color: rgba(255,255,255,0.86); letter-spacing: -0.008em;
+}
+.ydt-page .fd-quote p + p { margin-top: 24px; color: var(--gray5); }
+.ydt-page .fd-sig {
+    display: flex; align-items: center; gap: 12px; margin-top: 30px;
+    padding-top: 22px; border-top: 1px solid var(--line2);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray6);
+}
+.ydt-page .fd-sig i { display: block; width: 26px; height: 1px; background: var(--data); flex-shrink: 0; }
+
+/* ══════════ 04 · WHAT SETS US APART ══════════ */
+.ydt-page .ap-grid { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
+@media (min-width: 640px) { .ydt-page .ap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .ydt-page .ap-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.ydt-page .ap {
+    position: relative; min-width: 0;
+    padding: 32px 24px 38px 0; border-bottom: 1px solid var(--line);
+}
+@media (min-width: 640px) {
+    .ydt-page .ap { padding-left: 26px; border-left: 1px solid var(--line); }
+    .ydt-page .ap:nth-child(odd) { padding-left: 0; border-left: none; }
+}
+@media (min-width: 1024px) {
+    .ydt-page .ap:nth-child(odd) { padding-left: 26px; border-left: 1px solid var(--line); }
+    .ydt-page .ap:first-child { padding-left: 0; border-left: none; }
+}
+.ydt-page .ap-num {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em;
+    color: var(--gray6); margin-bottom: 24px;
+}
+.ydt-page .ap h3 {
+    font-size: clamp(1.1rem, 1.7vw, 1.32rem); font-weight: 700;
+    letter-spacing: -0.028em; line-height: 1.22; margin-bottom: 14px;
+}
+.ydt-page .ap p { font-size: 13.5px; line-height: 1.76; color: var(--gray5); }
+/* the rule under each column lights on hover */
+.ydt-page .ap::after {
+    content: ''; position: absolute; left: 0; bottom: -1px;
+    height: 1px; width: 0; background: var(--data);
+    transition: width 0.7s var(--ease);
+}
+.ydt-page .ap:hover::after { width: 100%; }
+
+/* ══════════ 05 · JOIN ══════════ */
+.ydt-page .join-bar {
+    display: flex; align-items: center; max-width: 512px; margin: 0 auto;
+    border-radius: 9999px; text-align: left;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line);
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.30);
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.ydt-page .join-bar:hover, .ydt-page .join-bar:focus-visible {
+    border-color: rgba(255,69,54,0.32); background: rgba(255,255,255,0.06);
+    box-shadow: 0 4px 30px rgba(216, 30, 13, 0.18);
+}
+.ydt-page .join-ico { padding-left: 18px; display: flex; align-items: center; flex-shrink: 0; }
+.ydt-page .join-ico svg { width: 15px; height: 15px; color: var(--gray6); }
+.ydt-page .join-ph-wrap { flex: 1; padding: 15px 0 15px 11px; overflow: hidden; min-width: 0; }
+.ydt-page .join-ph {
+    display: block; font-size: 13.5px; color: var(--gray6);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    transition: opacity 0.35s, transform 0.35s;
+}
+.ydt-page .join-go {
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 40px; height: 40px; margin-right: 6px; border-radius: 9999px;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep)); color: #1c0503;
+    box-shadow: 0 4px 16px rgba(216, 30, 13, 0.38);
+    transition: filter 0.3s;
+}
+.ydt-page .join-bar:hover .join-go { filter: brightness(1.08); }
+.ydt-page .join-go svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .join-bar:hover .join-go svg { transform: translateX(2px); }
+.ydt-page .join-note { margin-top: 18px; font-family: var(--mono); font-size: 10.5px; color: var(--gray6); }
+/* ══════════ FINAL CTA ══════════ */
+.ydt-page .cta { position: relative; overflow: hidden; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
+.ydt-page .cta-ember {
+    position: absolute; bottom: -56vh; left: 50%; width: 170vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.24) 0%, rgba(216, 30, 13, 0.11) 36%, transparent 72%);
+    filter: blur(30px);
+}
+.ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
+.ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+
+/* ══════════ MOTION FALLBACKS ══════════
+   These carry the html.ydt-js prefix on purpose — they have to out-specify
+   the gated hidden states above, and a media query adds no specificity. */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page { scroll-behavior: auto; }
+    html.ydt-js .ydt-page [data-reveal],
+    html.ydt-js .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    html.ydt-js .ydt-page .tl-item { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .tl-fill { height: var(--h, 0); transition: none; }
+    .ydt-page .join-ph { transition: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .sec { padding: 78px 0; }
+    .ydt-page .hero { padding: calc(var(--header-h) + 48px) 0 56px; }
+    .ydt-page .cta { padding: 80px 0 88px; }
+    .ydt-page .hero-actions .ember-btn, .ydt-page .hero-actions .ghost-btn,
+    .ydt-page .cta-actions .ember-btn, .ydt-page .cta-actions .ghost-btn { width: 100%; }
+    /* nothing under 10px, same floor as every other page */
+    .ydt-page .art-cap, .ydt-page .art-k, .ydt-page .band-k,
+    .ydt-page .tl-year, .ydt-page .val-idx, .ydt-page .fd-role, .ydt-page .fd-links a,
+    .ydt-page .fd-sig, .ydt-page .ap-num, .ydt-page .join-note,
+    .ydt-page .svc-idx, .ydt-page .back { font-size: 10px; letter-spacing: 0.12em; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page .art-url, .ydt-page .art-live, .ydt-page .art-k, .ydt-page .art-cap,
+.ydt-page .art-delta, .ydt-page .tl-year, .ydt-page .val-idx, .ydt-page .fd-role,
+.ydt-page .fd-links a, .ydt-page .fd-sig, .ydt-page .ap-num, .ydt-page .join-note,
+.ydt-page .acc-num, .ydt-page .band-k,
+.ydt-page .svc-idx, .ydt-page .svc-here-tag, .ydt-page .sec-eyebrow-text,
+.ydt-page .hero-eyebrow, .ydt-page .back { font-family: var(--mono); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+.ydt-page button { font-family: var(--font); }
+</style>
+
+<div class="ydt-page ydt-page--about">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>About us</p>
+      <h1 id="heroTitle">
+        <span class="clip"><span class="slide">We started this because</span></span>
+        <span class="clip"><span class="slide"><span class="dim">the old way wasn't working.</span></span></span>
+      </h1>
+      <p class="hero-body" data-reveal>
+        Your Digital Team exists because we watched businesses pay real money to agencies and
+        get almost nothing back. Missed deadlines, reports full of numbers that meant nothing,
+        and a mess left behind for whoever came next. We built the agency we wished those
+        companies had hired.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a class="ember-btn" href="/contact">
+          Talk to us
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a class="ghost-btn" href="/services">What we do</a>
+      </div>
+
+      <div class="band" data-reveal>
+        <div class="band-cell"><span class="band-v">2024</span><span class="band-k">Founded, out of<br>frustration</span></div>
+        <div class="band-cell"><span class="band-v">Two</span><span class="band-k">Co-founders you<br>deal with directly</span></div>
+        <div class="band-cell"><span class="band-v">Weekly</span><span class="band-k">Reporting, in<br>plain English</span></div>
+        <div class="band-cell"><span class="band-v">Honest</span><span class="band-k">Including when the<br>news is bad</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 01 · THE TIMELINE ══════════ -->
+  <section class="sec" id="journey" aria-labelledby="tlTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">01 · How we got here</span></div>
+        <h2 class="sec-title" id="tlTitle" data-reveal>From one frustrated founder <span class="dim">to a working agency.</span></h2>
+        <p class="sec-sub" data-reveal>Short history, honestly told. We're young, and we'd rather say so than pretend otherwise.</p>
+      </div>
+
+      <ol class="tl" id="tl">
+        <span class="tl-fill" aria-hidden="true"></span>
+
+        <li class="tl-item tl-item--lit">
+          <span class="tl-year">2024</span>
+          <div class="tl-body">
+            <h3>The beginning</h3>
+            <p>
+              I started Your Digital Team because I was sick of watching companies around me pay
+              for a service and get nowhere near what they were paying for. Miscommunication,
+              missed deadlines, or simply never delivering — real money spent, and nothing to
+              show for it.
+            </p>
+          </div>
+        </li>
+
+        <li class="tl-item">
+          <span class="tl-year">2025</span>
+          <div class="tl-body">
+            <h3>Starting out</h3>
+            <p>
+              First clients, and the thing they all said was some version of the same sentence:
+              this is what we thought we were buying last time. We're true and honest. If
+              something isn't working we'll tell you, because truth in delivery beats no
+              delivery — even when it's an uncomfortable call to make.
+            </p>
+          </div>
+        </li>
+
+        <li class="tl-item">
+          <span class="tl-year">Late 2025</span>
+          <div class="tl-body">
+            <h3>Katie joins</h3>
+            <p>
+              Katie came on as co-founder, and the agency stopped being one person with strong
+              opinions. We built something that treats your budget like our own, communicates
+              like a partner rather than a supplier, and measures success only by what actually
+              moved your business.
+            </p>
+          </div>
+        </li>
+
+        <li class="tl-item">
+          <span class="tl-year">2026</span>
+          <div class="tl-body">
+            <h3>Building the company</h3>
+            <p>
+              No disappearing acts. No vanity reports. No excuses. Nine client sites live, six
+              services running, and a standard we hold ourselves to whether or not anyone is
+              checking.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 · VALUES ══════════ -->
+  <section class="sec" id="values" aria-labelledby="valTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">02 · What we hold to</span></div>
+        <h2 class="sec-title" id="valTitle" data-reveal>Four things we <span class="dim">won't trade away.</span></h2>
+        <p class="sec-sub" data-reveal>Every agency has a values page. These are the four we'd actually be embarrassed to break.</p>
+      </div>
+
+      <div class="val-grid">
+        <article class="val" data-reveal>
+          <span class="val-idx" aria-hidden="true">01</span>
+          <div class="val-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+          <h3>Your results, not our portfolio</h3>
+          <p>
+            Work that looks good in a case study and does nothing for your revenue is a failure
+            we just haven't admitted to yet. Every strategy is built for your numbers, and the
+            reporting is honest about which parts are working.
+          </p>
+        </article>
+
+        <article class="val" data-reveal>
+          <span class="val-idx" aria-hidden="true">02</span>
+          <div class="val-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div>
+          <h3>We'll tell you when to stop</h3>
+          <p>
+            When a channel has hit its ceiling, when a piece of work isn't worth the budget, or
+            when you don't need what you're about to buy — you'll hear it from us. It costs us
+            revenue and it's the reason clients stay.
+          </p>
+        </article>
+
+        <article class="val" data-reveal>
+          <span class="val-idx" aria-hidden="true">03</span>
+          <div class="val-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>You talk to the people doing the work</h3>
+          <p>
+            No account manager relaying messages to a team you never meet. There are two of us
+            and we're the ones in your ad account, so nothing gets lost between the person who
+            promised it and the person building it.
+          </p>
+        </article>
+
+        <article class="val" data-reveal>
+          <span class="val-idx" aria-hidden="true">04</span>
+          <div class="val-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <h3>You own everything</h3>
+          <p>
+            The ad accounts, the analytics, the website, the list. All of it in your name from
+            day one. If you ever leave us you take the whole thing with you — which is exactly
+            the mess we were built to stop happening to people.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 · THE FOUNDER ══════════ -->
+  <section class="sec" id="founder" aria-labelledby="fdTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">03 · Why it exists</span></div>
+        <h2 class="sec-title" id="fdTitle" data-reveal>Breaking <span class="dim">the cycle.</span></h2>
+      </div>
+
+      <div class="fd-grid">
+        <aside class="fd-card" data-reveal>
+          <div class="fd-portrait" aria-hidden="true"><span class="fd-initials">TF</span></div>
+          <span class="fd-role">Founder</span>
+          <p class="fd-name">Thomas Fitzgerald</p>
+          <div class="fd-links">
+            <a href="mailto:thomas@yourdigiteam.com">Email</a>
+            <a href="/contact">Book a call</a>
+          </div>
+        </aside>
+
+        <blockquote class="fd-quote" data-reveal>
+          <span class="fd-mark" aria-hidden="true">&ldquo;</span>
+          <p>
+            Years ago, when I first stepped into the world of startups, I saw the system from
+            the inside. Before I fully understood how the industry worked, I watched several
+            agencies work for us. None of them ever delivered to a standard anyone was happy
+            with, and every one of them left a mess behind for the next agency to pick up.
+          </p>
+          <p>
+            That's why I wanted to change it. I saw the cycle of failure and decided to build
+            something that actually works for the client. We're not another agency in the
+            rotation — we're the ones who break the cycle, by delivering a service built on
+            truth and real results.
+          </p>
+          <div class="fd-sig"><i aria-hidden="true"></i>Thomas Fitzgerald &middot; Founder</div>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04 · WHAT SETS US APART ══════════ -->
+  <section class="sec" id="apart" aria-labelledby="apTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">04 · The difference</span></div>
+        <h2 class="sec-title" id="apTitle" data-reveal>What sets <span class="dim">us apart.</span></h2>
+        <p class="sec-sub" data-reveal>Four things that are true of us and, in our experience, not true of most of the agencies we've replaced.</p>
+      </div>
+
+      <div class="ap-grid">
+        <article class="ap" data-reveal>
+          <span class="ap-num">01</span>
+          <h3>Small, and staying<br>that way</h3>
+          <p>
+            Two co-founders who do the work themselves. It caps how many clients we can take,
+            which is a genuine limitation — and it's also why nothing gets handed to a junior
+            you were never told about.
+          </p>
+        </article>
+
+        <article class="ap" data-reveal>
+          <span class="ap-num">02</span>
+          <h3>Systems,<br>not packages</h3>
+          <p>
+            Most agencies sell a fixed bundle because it's easier to price. We build the
+            combination your bottleneck actually calls for, and change it when the bottleneck
+            moves — which it always does.
+          </p>
+        </article>
+
+        <article class="ap" data-reveal>
+          <span class="ap-num">03</span>
+          <h3>Judged on revenue,<br>not activity</h3>
+          <p>
+            Impressions, clicks and rankings are inputs. We report them because they explain
+            what's happening, but the number we're actually accountable for is the one that
+            reaches your bank account.
+          </p>
+        </article>
+
+        <article class="ap" data-reveal>
+          <span class="ap-num">04</span>
+          <h3>We'll turn work<br>down</h3>
+          <p>
+            If we don't think we can make you meaningfully more than we cost, we'll say so at
+            the first call and point you somewhere better. Taking the money anyway is how the
+            cycle we're describing keeps going.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 05 · JOIN ══════════ -->
+  <section class="cta" id="join" aria-labelledby="joinTitle">
+    <div class="cta-ember" aria-hidden="true"></div>
+    <div class="container">
+      <div class="sec-head sec-head--center" style="margin-bottom:0">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Join us</span></div>
+        <h2 class="sec-title" id="joinTitle" data-reveal>Two of us <span class="dim">for now.</span></h2>
+        <p class="sec-sub" data-reveal>
+          We're not hiring against a job spec — we're small enough that the right person more
+          or less writes their own. If you're good at one of the six things we do and you'd
+          rather work somewhere that tells clients the truth, say hello.
+        </p>
+
+        <div style="margin-top:34px" data-reveal>
+          <!-- a link, not a div with role="button": this navigates, so it should
+               be an anchor and get keyboard and middle-click behaviour for free -->
+          <a class="join-bar" id="joinBar" href="mailto:thomas@yourdigiteam.com?subject=Joining%20Your%20Digital%20Team">
+            <span class="join-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            </span>
+            <span class="join-ph-wrap"><span class="join-ph" id="joinPh">Tell us what you do&hellip;</span></span>
+            <span class="join-go" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+          <p class="join-note">No role listed? Tell us what you'd do here anyway.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ THE TIMELINE ══════
+     The rail is filled to the last item that has been reached, and each
+     item lights its own marker as it arrives. */
+  var tl = document.getElementById('tl');
+  var tlItems = [].slice.call(document.querySelectorAll('.tl-item'));
+
+  function fillRail() {
+    if (!tl || !tlItems.length) return;
+    /* stop the rail at the last marker rather than running past it */
+    var first = tlItems[0].offsetTop;
+    var last = tlItems[tlItems.length - 1].offsetTop;
+    var fill = tl.querySelector('.tl-fill');
+    if (fill) fill.style.setProperty('--h', (last - first) + 'px');
+  }
+  fillRail();
+  window.addEventListener('resize', fillRail);
+  window.addEventListener('load', fillRail);
+
+  if (tl) {
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      tl.classList.add('in-view');
+      tlItems.forEach(function (i) { i.classList.add('in-view', 'tl-item--lit'); });
+    } else {
+      var tlObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('in-view', 'tl-item--lit');
+          tlObs.unobserve(e.target);
+        });
+      }, { threshold: 0.4 });
+      tlItems.forEach(function (i) { tlObs.observe(i); });
+
+      var railObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          fillRail();
+          tl.classList.add('in-view');
+          railObs.disconnect();
+        });
+      }, { threshold: 0.1 });
+      railObs.observe(tl);
+    }
+  }
+
+  /* ══════ JOIN BAR — cycling placeholder ══════
+     Paused when the tab is hidden and when the bar is focused, so it is not
+     animating text underneath somebody who is about to click it. */
+  var ph = document.getElementById('joinPh');
+  var joinBar = document.getElementById('joinBar');
+  if (ph && !reduceMotion) {
+    var PHRASES = [
+      'Tell us what you do…',
+      'Send us your portfolio…',
+      'I write content…',
+      'I build websites…',
+      'I run paid media…'
+    ];
+    var pi = 0, paused = false, timer = null;
+
+    function cyclePhrase() {
+      if (paused || document.hidden) return;
+      ph.style.opacity = '0';
+      ph.style.transform = 'translateY(-6px)';
+      setTimeout(function () {
+        pi = (pi + 1) % PHRASES.length;
+        ph.textContent = PHRASES[pi];
+        ph.style.transform = 'translateY(6px)';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            ph.style.opacity = '1';
+            ph.style.transform = 'translateY(0)';
+          });
+        });
+      }, 350);
+    }
+    timer = setInterval(cyclePhrase, 3200);
+
+    if (joinBar) {
+      joinBar.addEventListener('mouseenter', function () { paused = true; });
+      joinBar.addEventListener('mouseleave', function () { paused = false; });
+      joinBar.addEventListener('focus', function () { paused = true; });
+      joinBar.addEventListener('blur', function () { paused = false; });
+    }
+  }
+
+  /* ══════ REVEALS ══════
+     Copy reveals at 15%; an instrument waits until enough of its panel is
+     on screen to be worth watching. */
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  var artEls = document.querySelectorAll('[data-art]');
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    artEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+
+    var artObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); artObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.22 });
+    artEls.forEach(function (el) { artObs.observe(el); });
+  }
+
+  /* ══════ SCROLL PROGRESS ══════ */
+  var bar = document.getElementById('progress');
+  if (bar && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
+  } else if (bar) {
+    var tick = null;
+    window.addEventListener('scroll', function () {
+      if (tick) return;
+      tick = requestAnimationFrame(function () {
+        var max = document.body.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        tick = null;
+      });
+    }, { passive: true });
+  }
+})();
+</script>
