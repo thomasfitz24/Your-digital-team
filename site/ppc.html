@@ -1,0 +1,1455 @@
+<!-- ═══════════════════════════════════════════════════════════
+     ppc.html  →  Squarespace page /ppc
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Design system — "signal", same as every other page:
+       base #050505 · panels #0b0a09 · Inter + IBM Plex Mono
+       signal red #ff4536 → #d81e0d, ember glow, film grain.
+
+     Six purpose-built instruments, all CSS and inline SVG — nothing
+     to upload, nothing that can 404:
+       1  campaign manager, switchable across five platforms
+       2  spend against revenue, twelve months
+       3  the auction itself — bid, quality score, ad rank, what you pay
+       4  wasted spend: the search terms we turned off
+       5  creative testing: three angles, one winner
+       6  the funnel, with cost per step
+
+     The tokens and furniture below are shared with seo.html and
+     services.html — keep the three in step.
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- Runs before paint. Everything hidden by default is scoped to this
+     class, so a script error leaves the page readable rather than blank. -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page { scroll-behavior: smooth; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { color: inherit; text-decoration: none; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; scroll-margin-top: 110px; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ PRIMITIVES ══════════ */
+html.ydt-js .ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+html.ydt-js .ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+html.ydt-js .ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+
+/* ══════════ SECTION SCAFFOLD ══════════ */
+.ydt-page .sec { padding: 112px 0; border-top: 1px solid var(--line2); }
+.ydt-page .sec-head { max-width: 672px; margin-bottom: 56px; }
+.ydt-page .sec-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.ydt-page .sec-head--center .sec-eyebrow { justify-content: center; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.03; margin-bottom: 16px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.68; }
+
+/* two-up: copy one side, instrument the other */
+.ydt-page .duo { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+@media (min-width: 1024px) {
+    .ydt-page .duo { grid-template-columns: 0.8fr 1.2fr; gap: 60px; }
+    .ydt-page .duo--flip .duo-copy { order: 2; }
+    .ydt-page .duo--flip .duo-art { order: 1; }
+}
+/* A `1fr` track is minmax(auto, 1fr), and that auto minimum is min-content —
+   which for any nowrap string is the whole string. Without this a single
+   keyword row sizes the whole track past the viewport on a phone. */
+.ydt-page .duo-copy, .ydt-page .duo-art { min-width: 0; }
+.ydt-page .duo-copy p { font-size: 15px; color: var(--gray5); line-height: 1.72; }
+.ydt-page .duo-copy p + p { margin-top: 14px; }
+.ydt-page .duo-list { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .duo-list li { display: flex; gap: 11px; font-size: 14px; color: var(--gray5); line-height: 1.55; }
+.ydt-page .duo-list svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; margin-top: 3px; }
+
+/* ══════════ HERO ══════════ */
+.ydt-page .hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + 78px) 0 84px; }
+.ydt-page .hero-ember {
+    position: absolute; top: -48vh; left: 50%; width: 180vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.32) 0%, rgba(216, 30, 13, 0.15) 34%, rgba(118, 20, 10, 0.05) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .hero-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-width: 1180px; max-height: 1180px;
+    transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.22);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .hero .container { position: relative; z-index: 2; }
+.ydt-page .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 28px;
+}
+.ydt-page .hero h1 {
+    font-size: clamp(2.1rem, 5.4vw, 4rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; max-width: 17ch;
+}
+.ydt-page .hero h1 .dim { color: var(--w25); }
+.ydt-page .hero-body {
+    font-size: clamp(1rem, 1.25vw, 1.1rem); color: var(--gray5);
+    line-height: 1.7; max-width: 36rem; margin-top: 28px;
+}
+.ydt-page .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.ydt-page .back {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 26px;
+    /* 12px block padding clears the 36px touch minimum */
+    padding: 12px 0; transition: color 0.3s;
+}
+.ydt-page .back:hover { color: var(--white); }
+.ydt-page .back svg { width: 13px; height: 13px; transition: transform 0.3s var(--ease); }
+.ydt-page .back:hover svg { transform: translateX(-3px); }
+
+/* ══════════ PROOF BAND ══════════ */
+.ydt-page .band {
+    margin-top: 62px; border: 1px solid var(--line); border-radius: 18px;
+    background: var(--panel); overflow: hidden;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 860px) { .ydt-page .band { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .band-cell { padding: 24px 22px; border-top: 1px solid var(--line2); border-left: 1px solid var(--line2); }
+.ydt-page .band-cell:nth-child(-n+2) { border-top: none; }
+.ydt-page .band-cell:nth-child(odd) { border-left: none; }
+@media (min-width: 860px) {
+    .ydt-page .band-cell { border-top: none; border-left: 1px solid var(--line2); }
+    .ydt-page .band-cell:first-child { border-left: none; }
+}
+.ydt-page .band-v {
+    display: block; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; margin-bottom: 9px;
+}
+.ydt-page .band-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SHARED PANEL CHROME
+   ══════════════════════════════════════════════════════════════ */
+.ydt-page .duo-art, .ydt-page .art-hold { position: relative; }
+.ydt-page .duo-art::before, .ydt-page .art-hold::before {
+    content: ''; position: absolute; left: 50%; top: 4%;
+    width: 80%; height: 76%; transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.22), transparent 72%);
+    filter: blur(58px); pointer-events: none; z-index: 0;
+}
+.ydt-page .art {
+    position: relative; z-index: 1;
+    background: var(--panel); border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 76, 0.04);
+}
+.ydt-page .art-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line2); background: var(--panel2);
+}
+.ydt-page .art-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.ydt-page .art-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+.ydt-page .art-url {
+    font-family: var(--mono); font-size: 10.5px; color: var(--gray6); min-width: 0;
+    letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .art-live {
+    display: inline-flex; align-items: center; gap: 7px; margin-left: auto; flex-shrink: 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--data);
+}
+.ydt-page .art-body { padding: 22px 20px; }
+@media (min-width: 560px) { .ydt-page .art-body { padding: 24px; } }
+.ydt-page .art-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); margin-bottom: 8px;
+}
+.ydt-page .art-v {
+    display: block; font-size: clamp(1.35rem, 2.6vw, 1.85rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .art-cap {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6);
+}
+.ydt-page .art-delta {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .art-delta svg { width: 10px; height: 10px; }
+.ydt-page .art-foot {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 13px 20px; border-top: 1px solid var(--line2); background: rgba(255,255,255,0.012);
+}
+@media (min-width: 560px) { .ydt-page .art-foot { padding: 13px 24px; } }
+
+
+/* ══════════ 01 · CAMPAIGN MANAGER, FIVE PLATFORMS ══════════
+   The tab strip swaps the whole account: different campaigns, spend,
+   conversions and return per platform, not one table relabelled. */
+.ydt-page .cm-tabs {
+    display: flex; gap: 4px; padding: 10px 12px; overflow-x: auto;
+    scrollbar-width: none; border-bottom: 1px solid var(--line2);
+}
+.ydt-page .cm-tabs::-webkit-scrollbar { display: none; }
+.ydt-page .cm-tab {
+    flex: 0 0 auto; padding: 12px 14px; border-radius: 9999px; border: 1px solid transparent;
+    background: none; cursor: pointer; white-space: nowrap;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray5);
+    transition: color 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.ydt-page .cm-tab:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.ydt-page .cm-tab[aria-selected="true"] {
+    color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,0.28);
+}
+/* the account summary sits above the table and recomputes per platform */
+.ydt-page .cm-sum { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line2); }
+@media (min-width: 640px) { .ydt-page .cm-sum { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .cm-cell { background: var(--panel); padding: 16px 16px 18px; min-width: 0; }
+.ydt-page .cm-cell .art-k { margin-bottom: 9px; }
+.ydt-page .cm-cell .art-v { font-size: clamp(1.1rem, 2.1vw, 1.45rem); }
+.ydt-page .cm-cols, .ydt-page .cm-row {
+    display: grid; grid-template-columns: 1fr 62px 44px 52px; gap: 12px; align-items: center;
+}
+@media (min-width: 700px) { .ydt-page .cm-cols, .ydt-page .cm-row { grid-template-columns: 1.4fr 96px 84px 72px 66px 58px; } }
+.ydt-page .cm-cols { padding-bottom: 12px; border-bottom: 1px solid var(--line2); }
+.ydt-page .cm-col {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray6); white-space: nowrap;
+}
+.ydt-page .cm-col--n { text-align: right; }
+.ydt-page .cm-hide { display: none; }
+@media (min-width: 700px) { .ydt-page .cm-hide { display: block; } }
+.ydt-page .cm-list { list-style: none; }
+.ydt-page .cm-row { padding: 13px 0; border-bottom: 1px solid var(--line2); }
+.ydt-page .cm-row:last-child { border-bottom: none; }
+.ydt-page .cm-name { font-size: 13px; color: var(--white); min-width: 0; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ydt-page .cm-name span { display: block; font-family: var(--mono); font-size: 9.5px; color: var(--gray6); margin-top: 3px; }
+.ydt-page .cm-n { font-family: var(--mono); font-size: 11.5px; color: var(--gray5); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .cm-roas { font-family: var(--mono); font-size: 14px; color: var(--white); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .cm-roas.win { color: var(--data); }
+/* a bar showing this campaign's share of the account's spend */
+.ydt-page .cm-share { display: none; }
+@media (min-width: 700px) { .ydt-page .cm-share { display: block; } }
+.ydt-page .cm-track { display: block; height: 8px; border-radius: 4px; background: rgba(255,255,255,0.045); overflow: hidden; }
+.ydt-page .cm-fill { display: block; height: 100%; border-radius: 4px; width: var(--w); background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+html.ydt-js .ydt-page .cm-fill { width: 0; transition: width 0.9s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .cm-fill, html.ydt-js .ydt-page .cm-row.cm-in .cm-fill { width: var(--w); }
+html.ydt-js .ydt-page .cm-row { opacity: 0; transform: translateY(8px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .cm-row, html.ydt-js .ydt-page .cm-row.cm-in { opacity: 1; transform: translateY(0); }
+
+/* ══════════ 02 · SPEND AGAINST REVENUE ══════════ */
+.ydt-page .sr-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+.ydt-page .sr-chart { position: relative; }
+.ydt-page .sr-svg { display: block; width: 100%; height: 190px; }
+@media (min-width: 860px) { .ydt-page .sr-svg { height: 216px; } }
+.ydt-page .sr-svg .grid { stroke: rgba(255,255,255,0.05); stroke-width: 1; }
+.ydt-page .sr-svg .spend { fill: rgba(255,255,255,0.16); }
+.ydt-page .sr-svg .rev { fill: url(#srRev); }
+.ydt-page .sr-svg .revline { fill: none; stroke: var(--data); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+/* Swept with clip-path, not stroke-dashoffset — this viewBox is drawn with
+   preserveAspectRatio="none" and dash lengths under a non-uniform scale are
+   unpredictable. */
+html.ydt-js .ydt-page .sr-in {
+    -webkit-clip-path: inset(0 100% 0 0); clip-path: inset(0 100% 0 0);
+    transition: -webkit-clip-path 1.5s 0.35s var(--ease), clip-path 1.5s 0.35s var(--ease);
+}
+html.ydt-js .ydt-page .art.in-view .sr-in { -webkit-clip-path: inset(0 0 0 0); clip-path: inset(0 0 0 0); }
+.ydt-page .sr-x { display: flex; justify-content: space-between; margin-top: 10px; }
+.ydt-page .sr-x span { font-family: var(--mono); font-size: 10px; color: var(--gray6); }
+.ydt-page .sr-key { display: flex; align-items: center; gap: 7px; }
+.ydt-page .sr-key i { width: 12px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.ydt-page .sr-key--s i { background: rgba(255,255,255,0.16); }
+.ydt-page .sr-key--r i { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+
+/* ══════════ 03 · THE AUCTION ══════════
+   The bit most clients have never had explained: the highest bid does not
+   win, and the winner rarely pays what they bid. */
+.ydt-page .au-rows { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 22px; }
+.ydt-page .au-row {
+    display: grid; grid-template-columns: 1fr 56px 44px 64px; gap: 10px; align-items: center;
+    padding: 12px 13px; border-radius: 11px;
+    border: 1px solid var(--card-line); background: var(--panel2);
+}
+.ydt-page .au-row--you { border-color: rgba(255,69,54,0.30); background: var(--data-dim); }
+.ydt-page .au-who { font-size: 12.5px; color: var(--gray5); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ydt-page .au-row--you .au-who { color: var(--white); font-weight: 600; }
+.ydt-page .au-n { font-family: var(--mono); font-size: 11.5px; color: var(--gray5); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .au-q { font-family: var(--mono); font-size: 11.5px; text-align: right; font-variant-numeric: tabular-nums; color: var(--gray5); }
+.ydt-page .au-row--you .au-q { color: var(--data); }
+.ydt-page .au-rank { font-family: var(--mono); font-size: 14px; color: var(--white); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .au-row--you .au-rank { color: var(--data); }
+.ydt-page .au-cols { display: grid; grid-template-columns: 1fr 56px 44px 64px; gap: 10px; padding: 0 13px 10px; }
+.ydt-page .au-col { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--gray6); white-space: nowrap; }
+.ydt-page .au-col--n { text-align: right; }
+/* the punchline */
+.ydt-page .au-out {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: center;
+    border: 1px solid rgba(255,69,54,0.24); background: var(--data-dim);
+    border-radius: 13px; padding: 16px;
+}
+.ydt-page .au-out .art-k { margin-bottom: 7px; }
+.ydt-page .au-out b { display: block; font-family: var(--mono); font-size: clamp(1rem, 2.2vw, 1.35rem); color: var(--white); font-variant-numeric: tabular-nums; }
+.ydt-page .au-out .paid b { color: var(--data); }
+.ydt-page .au-arrow { color: var(--gray6); }
+.ydt-page .au-arrow svg { width: 18px; height: 18px; display: block; }
+.ydt-page .au-note {
+    font-family: var(--mono); font-size: 10px; line-height: 1.65;
+    color: var(--gray6); margin-top: 14px;
+}
+
+/* ══════════ 04–06 · THE SMALLER INSTRUMENTS ══════════ */
+.ydt-page .tri { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 900px) { .ydt-page .tri { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .tri > * { min-width: 0; }
+.ydt-page .tri .art { height: 100%; display: flex; flex-direction: column; }
+.ydt-page .tri .art-body { flex: 1; }
+.ydt-page .tri-h { font-size: 15px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 6px; }
+.ydt-page .tri-p { font-size: 13px; color: var(--gray5); line-height: 1.6; margin-bottom: 20px; }
+
+/* 04 · the search terms we turned off */
+.ydt-page .ws-rows { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 18px; }
+.ydt-page .ws-row { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; }
+.ydt-page .ws-x { width: 14px; height: 14px; color: var(--gray6); flex-shrink: 0; }
+.ydt-page .ws-t {
+    font-family: var(--mono); font-size: 11.5px; color: var(--gray6); min-width: 0;
+    text-decoration: line-through; text-decoration-color: rgba(255,69,54,0.55);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .ws-n { font-family: var(--mono); font-size: 11px; color: var(--gray5); font-variant-numeric: tabular-nums; }
+.ydt-page .ws-tot {
+    border: 1px solid rgba(255,69,54,0.24); background: var(--data-dim);
+    border-radius: 12px; padding: 15px;
+}
+.ydt-page .ws-tot b { display: block; font-size: clamp(1.2rem, 2.4vw, 1.6rem); font-weight: 700; letter-spacing: -0.03em; color: var(--data); font-variant-numeric: tabular-nums; }
+
+/* 05 · creative testing */
+.ydt-page .ct { display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .ct-item { border: 1px solid var(--card-line); border-radius: 11px; padding: 12px 13px; background: var(--panel2); }
+.ydt-page .ct-item--win { border-color: rgba(255,69,54,0.30); background: var(--data-dim); }
+.ydt-page .ct-k { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 9px; }
+.ydt-page .ct-k span { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray6); }
+.ydt-page .ct-item--win .ct-k span { color: var(--data); }
+.ydt-page .ct-k b { font-family: var(--mono); font-size: 12px; color: var(--white); font-variant-numeric: tabular-nums; }
+.ydt-page .ct-line { display: block; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.07); width: var(--w); }
+.ydt-page .ct-line + .ct-line { margin-top: 5px; }
+.ydt-page .ct-item--win .ct-line { background: rgba(255,255,255,0.16); }
+html.ydt-js .ydt-page .ct-line { width: 0; transition: width 0.7s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .ct-line { width: var(--w); }
+.ydt-page .ct-bar { display: block; height: 7px; border-radius: 4px; background: rgba(255,255,255,0.05); overflow: hidden; margin-top: 10px; }
+.ydt-page .ct-bar i { display: block; height: 100%; border-radius: 4px; width: var(--w); background: rgba(255,255,255,0.22); }
+.ydt-page .ct-item--win .ct-bar i { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+html.ydt-js .ydt-page .ct-bar i { width: 0; transition: width 0.9s 0.3s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .ct-bar i { width: var(--w); }
+
+/* 06 · the funnel, with cost per step */
+.ydt-page .fn { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.ydt-page .fn-step { position: relative; }
+.ydt-page .fn-bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    height: 46px; padding: 0 14px; border-radius: 9px;
+    width: var(--w); min-width: 132px;
+    background: linear-gradient(90deg, rgba(255,69,54,0.30), rgba(255,69,54,0.10));
+    border: 1px solid rgba(255,69,54,0.22);
+}
+.ydt-page .fn-step:last-child .fn-bar {
+    background: linear-gradient(90deg, var(--data-deep), #ff6152);
+    border-color: transparent;
+}
+html.ydt-js .ydt-page .fn-bar { width: 0; min-width: 0; transition: width 0.8s var(--ease), min-width 0.8s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .fn-bar { width: var(--w); min-width: 132px; }
+html.ydt-js .ydt-page .art.in-view .fn-step:nth-child(1) .fn-bar { transition-delay: 0.20s; }
+html.ydt-js .ydt-page .art.in-view .fn-step:nth-child(2) .fn-bar { transition-delay: 0.32s; }
+html.ydt-js .ydt-page .art.in-view .fn-step:nth-child(3) .fn-bar { transition-delay: 0.44s; }
+html.ydt-js .ydt-page .art.in-view .fn-step:nth-child(4) .fn-bar { transition-delay: 0.56s; }
+.ydt-page .fn-t { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); white-space: nowrap; }
+.ydt-page .fn-v { font-family: var(--mono); font-size: 11.5px; color: var(--white); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ydt-page .fn-step:last-child .fn-t, .ydt-page .fn-step:last-child .fn-v { color: #1c0503; }
+.ydt-page .fn-cost {
+    display: block; font-family: var(--mono); font-size: 10px; color: var(--gray6);
+    padding: 5px 0 5px 14px;
+}
+.ydt-page .fn-cost b { color: var(--data); font-weight: 500; }
+/* ══════════ PROCESS ACCORDION ══════════ */
+.ydt-page .acc { border-top: 1px solid var(--line); }
+.ydt-page .acc-item { border-bottom: 1px solid var(--line); }
+.ydt-page .acc-head {
+    width: 100%; background: none; border: none; cursor: pointer;
+    font-family: inherit; color: inherit; text-align: left;
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(16px, 4vw, 44px); align-items: center; padding: 26px 0;
+}
+.ydt-page .acc-num {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em;
+    color: var(--gray6); transition: color 0.4s;
+}
+.ydt-page .acc-title {
+    font-size: clamp(1.05rem, 2vw, 1.5rem); font-weight: 700;
+    letter-spacing: -0.028em; line-height: 1.25; color: var(--gray5); transition: color 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-title, .ydt-page .acc-head:hover .acc-title { color: var(--white); }
+.ydt-page .acc-item.is-open .acc-num { color: var(--data); }
+.ydt-page .acc-sign { position: relative; width: 17px; height: 17px; flex-shrink: 0; color: var(--gray6); transition: color 0.4s; }
+.ydt-page .acc-sign::before, .ydt-page .acc-sign::after {
+    content: ''; position: absolute; background: currentColor; left: 50%; top: 50%;
+}
+.ydt-page .acc-sign::before { width: 15px; height: 1.5px; margin: -0.75px 0 0 -7.5px; }
+.ydt-page .acc-sign::after {
+    width: 1.5px; height: 15px; margin: -7.5px 0 0 -0.75px;
+    transition: transform 0.5s var(--ease), opacity 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-sign { color: var(--data); }
+.ydt-page .acc-item.is-open .acc-sign::after { transform: scaleY(0); opacity: 0; }
+/* Gated on JS. The collapse is entirely script-driven, so without this a
+   script error left all five process descriptions permanently unreadable
+   at max-height:0. With no JS every panel is simply open. */
+.ydt-page .acc-panel { overflow: hidden; }
+html.ydt-js .ydt-page .acc-panel {
+    max-height: 0; opacity: 0;
+    transition: max-height 0.7s var(--ease), opacity 0.5s var(--ease);
+}
+html.ydt-js .ydt-page .acc-item.is-open .acc-panel { opacity: 1; }
+html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
+.ydt-page .acc-inner {
+    padding: 0 0 30px; display: grid;
+    grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 4vw, 44px);
+}
+.ydt-page .acc-inner p { font-size: 15px; line-height: 1.78; color: var(--gray5); max-width: 46rem; }
+.ydt-page .acc-inner .spacer { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; visibility: hidden; }
+@media (max-width: 640px) {
+    .ydt-page .acc-head { gap: 14px; }
+    .ydt-page .acc-inner { grid-template-columns: 1fr; gap: 0; }
+    .ydt-page .acc-inner .spacer { display: none; }
+}
+
+/* ══════════ SERVICES GRID ══════════ */
+.ydt-page .svc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .ydt-page .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (min-width: 1024px) { .ydt-page .svc-grid { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .svc {
+    position: relative; display: flex; flex-direction: column; min-width: 0;
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 16px; padding: 26px; overflow: hidden;
+    transition: border-color 0.5s, transform 0.6s var(--ease);
+}
+.ydt-page .svc:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); }
+.ydt-page .svc--here { border-color: rgba(255,69,54,0.32); background: linear-gradient(180deg, var(--data-dim), var(--card-bg) 62%); }
+.ydt-page .svc-idx {
+    position: absolute; top: 24px; right: 24px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--gray6);
+}
+.ydt-page .svc--here .svc-idx { color: var(--data); }
+.ydt-page .svc-icon {
+    display: inline-flex; align-self: flex-start; padding: 9px; border-radius: 10px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--line); margin-bottom: 18px;
+}
+.ydt-page .svc-icon svg { width: 19px; height: 19px; color: var(--gray5); }
+.ydt-page .svc--here .svc-icon { background: var(--data-dim); border-color: rgba(255,69,54,0.28); }
+.ydt-page .svc--here .svc-icon svg { color: var(--data); }
+.ydt-page .svc h3 { font-size: 16px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 9px; }
+.ydt-page .svc p { font-size: 13px; line-height: 1.65; color: var(--gray5); }
+.ydt-page .svc-here-tag {
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 16px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--data);
+}
+
+/* ══════════ FINAL CTA ══════════ */
+.ydt-page .cta { position: relative; overflow: hidden; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
+.ydt-page .cta-ember {
+    position: absolute; bottom: -56vh; left: 50%; width: 170vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.24) 0%, rgba(216, 30, 13, 0.11) 36%, transparent 72%);
+    filter: blur(30px);
+}
+.ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
+.ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+
+/* ══════════ MOTION FALLBACKS ══════════
+   These carry the html.ydt-js prefix on purpose — they have to out-specify
+   the gated hidden states above, and a media query adds no specificity. */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page { scroll-behavior: auto; }
+    html.ydt-js .ydt-page [data-reveal],
+    html.ydt-js .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    html.ydt-js .ydt-page .cm-row { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .sr-in { -webkit-clip-path: none; clip-path: none; transition: none; }
+    html.ydt-js .ydt-page .cm-fill,
+    html.ydt-js .ydt-page .ct-line,
+    html.ydt-js .ydt-page .ct-bar i { width: var(--w); transition: none; }
+    html.ydt-js .ydt-page .fn-bar { width: var(--w); min-width: 132px; transition: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .sec { padding: 78px 0; }
+    .ydt-page .hero { padding: calc(var(--header-h) + 48px) 0 56px; }
+    .ydt-page .cta { padding: 80px 0 88px; }
+    .ydt-page .hero-actions .ember-btn, .ydt-page .hero-actions .ghost-btn,
+    .ydt-page .cta-actions .ember-btn, .ydt-page .cta-actions .ghost-btn { width: 100%; }
+    /* nothing under 10px, same floor as every other page */
+    .ydt-page .cm-col, .ydt-page .cm-tab, .ydt-page .art-cap, .ydt-page .art-k,
+    .ydt-page .band-k, .ydt-page .sr-x span, .ydt-page .au-col, .ydt-page .cm-name span,
+    .ydt-page .ct-k span, .ydt-page .fn-t, .ydt-page .fn-cost, .ydt-page .svc-here-tag, .ydt-page .au-note,
+    .ydt-page .svc-idx, .ydt-page .back { font-size: 10px; letter-spacing: 0.1em; }
+    /* four columns is all a phone fits — the auction drops quality score */
+    .ydt-page .au-row, .ydt-page .au-cols { grid-template-columns: 1fr 52px 40px 56px; gap: 8px; }
+    .ydt-page .au-out { grid-template-columns: 1fr; text-align: center; gap: 10px; }
+    .ydt-page .au-arrow { transform: rotate(90deg); margin: 0 auto; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page .art-url, .ydt-page .art-live, .ydt-page .art-k, .ydt-page .art-cap,
+.ydt-page .art-delta, .ydt-page .cm-tab, .ydt-page .cm-col, .ydt-page .cm-n,
+.ydt-page .cm-roas, .ydt-page .cm-name span, .ydt-page .sr-x span, .ydt-page .au-col,
+.ydt-page .au-n, .ydt-page .au-q, .ydt-page .au-rank, .ydt-page .au-out b, .ydt-page .au-note,
+.ydt-page .ws-t, .ydt-page .ws-n, .ydt-page .ct-k span, .ydt-page .ct-k b,
+.ydt-page .fn-t, .ydt-page .fn-v, .ydt-page .fn-cost,
+.ydt-page .acc-num, .ydt-page .band-k,
+.ydt-page .svc-idx, .ydt-page .svc-here-tag, .ydt-page .sec-eyebrow-text,
+.ydt-page .hero-eyebrow, .ydt-page .back { font-family: var(--mono); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+.ydt-page button { font-family: var(--font); }
+</style>
+
+<div class="ydt-page ydt-page--ppc">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <a class="back" href="/services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>
+        All services
+      </a>
+      <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Pay-per-click advertising</p>
+      <h1 id="heroTitle">
+        <span class="clip"><span class="slide">Every pound in,</span></span>
+        <span class="clip"><span class="slide"><span class="dim">accounted for.</span></span></span>
+      </h1>
+      <p class="hero-body" data-reveal>
+        Clicks are easy to buy. We're interested in what happens after the click — so every
+        campaign is tied to revenue in your analytics, not to impressions, and you can see
+        exactly what each pound returned before you're asked to spend the next one.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a class="ember-btn" href="/contact">
+          Get a free account audit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a class="ghost-btn" href="/pricing">See pricing</a>
+      </div>
+
+      <div class="band" data-reveal>
+        <div class="band-cell"><span class="band-v">5.2&times;</span><span class="band-k">Average return<br>on ad spend</span></div>
+        <div class="band-cell"><span class="band-v">&minus;38%</span><span class="band-k">Cost per<br>acquisition</span></div>
+        <div class="band-cell"><span class="band-v">Daily</span><span class="band-k">Optimisation, not<br>set and forget</span></div>
+        <div class="band-cell"><span class="band-v">Yours</span><span class="band-k">You own the<br>ad account</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 01 · CAMPAIGN MANAGER ══════════ -->
+  <section class="sec" id="campaigns" aria-labelledby="cmTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">01 · What we run</span></div>
+        <h2 class="sec-title" id="cmTitle" data-reveal>Five platforms, <span class="dim">one number.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Each platform earns its budget separately, and each is judged on the same thing:
+          what came back. Switch platform to see the campaigns we run there and how they perform.
+        </p>
+      </div>
+
+      <div class="art-hold" data-reveal>
+        <div class="art" data-art>
+          <div class="art-bar">
+            <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="art-url" id="cmUrl">ads · google search · last 30 days</span>
+            <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Optimising</span>
+          </div>
+
+          <div class="cm-tabs" role="tablist" aria-label="Platform">
+            <button class="cm-tab" type="button" role="tab" aria-selected="true"  data-v="search">Google Search</button>
+            <button class="cm-tab" type="button" role="tab" aria-selected="false" data-v="shopping">Shopping</button>
+            <button class="cm-tab" type="button" role="tab" aria-selected="false" data-v="pmax">Performance Max</button>
+            <button class="cm-tab" type="button" role="tab" aria-selected="false" data-v="meta">Meta</button>
+            <button class="cm-tab" type="button" role="tab" aria-selected="false" data-v="linkedin">LinkedIn</button>
+          </div>
+
+          <div class="cm-sum">
+            <div class="cm-cell"><span class="art-k">Spend</span><span class="art-v" id="cmSpend">&pound;18,400</span></div>
+            <div class="cm-cell"><span class="art-k">Revenue</span><span class="art-v" id="cmRev">&pound;93,414</span></div>
+            <div class="cm-cell"><span class="art-k">Conversions</span><span class="art-v" id="cmConv">612</span></div>
+            <div class="cm-cell"><span class="art-k">Return</span><span class="art-v" id="cmRoas" style="color:var(--data)">5.1&times;</span></div>
+          </div>
+
+          <div class="art-body">
+            <div class="cm-cols" aria-hidden="true">
+              <span class="cm-col">Campaign</span>
+              <span class="cm-col cm-hide">Share of spend</span>
+              <span class="cm-col cm-col--n">Spend</span>
+              <span class="cm-col cm-col--n cm-hide">Conv</span>
+              <span class="cm-col cm-col--n">CPA</span>
+              <span class="cm-col cm-col--n">ROAS</span>
+            </div>
+            <!-- The Google Search rows in plain HTML so the table is not empty
+                 without JavaScript. The script replaces them on load and owns
+                 every tab switch after that — if you edit the `search` dataset
+                 in the script below, edit these to match. -->
+            <ol class="cm-list" id="cmList" aria-live="polite">
+              <li class="cm-row">
+                <span class="cm-name">Brand<span>Exact · 4 ad groups</span></span>
+                <span class="cm-share"><span class="cm-track"><span class="cm-fill" style="--w:6.4%"></span></span></span>
+                <span class="cm-n">&pound;1,180</span>
+                <span class="cm-n cm-hide">96</span>
+                <span class="cm-n">&pound;12</span>
+                <span class="cm-roas win">8.4&times;</span>
+              </li>
+              <li class="cm-row">
+                <span class="cm-name">Emergency callout<span>Phrase · high intent</span></span>
+                <span class="cm-share"><span class="cm-track"><span class="cm-fill" style="--w:34.9%"></span></span></span>
+                <span class="cm-n">&pound;6,420</span>
+                <span class="cm-n cm-hide">214</span>
+                <span class="cm-n">&pound;30</span>
+                <span class="cm-roas win">6.1&times;</span>
+              </li>
+              <li class="cm-row">
+                <span class="cm-name">Service + city<span>Exact · 12 locations</span></span>
+                <span class="cm-share"><span class="cm-track"><span class="cm-fill" style="--w:39.3%"></span></span></span>
+                <span class="cm-n">&pound;7,240</span>
+                <span class="cm-n cm-hide">208</span>
+                <span class="cm-n">&pound;35</span>
+                <span class="cm-roas win">4.6&times;</span>
+              </li>
+              <li class="cm-row">
+                <span class="cm-name">Competitor<span>Exact · conquesting</span></span>
+                <span class="cm-share"><span class="cm-track"><span class="cm-fill" style="--w:19.3%"></span></span></span>
+                <span class="cm-n">&pound;3,560</span>
+                <span class="cm-n cm-hide">94</span>
+                <span class="cm-n">&pound;38</span>
+                <span class="cm-roas">3.1&times;</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="art-foot">
+            <span class="art-cap" id="cmFoot">4 campaigns live</span>
+            <span class="art-cap" style="margin-left:auto" id="cmTarget">Target 4.0&times; · 3 of 4 clearing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 · SPEND vs REVENUE ══════════ -->
+  <section class="sec" id="return" aria-labelledby="srTitle">
+    <div class="container">
+      <div class="duo">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">02 · What it returns</span></div>
+          <h2 class="sec-title" id="srTitle" data-reveal>Spend goes up. <span class="dim">So does the gap.</span></h2>
+          <p data-reveal>
+            Anyone can grow revenue by spending more. The test is whether the gap between the two
+            lines widens as you scale — because that gap is the only part you get to keep.
+          </p>
+          <ul class="duo-list" data-reveal>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Conversion tracking rebuilt first, so the revenue figure can be trusted.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Budget moves weekly toward whatever is clearing your target return.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>We'll tell you when to stop scaling. Every account has a ceiling.</span></li>
+          </ul>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">spend vs revenue · 12 months</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+            </div>
+            <div class="art-body">
+              <div class="sr-head">
+                <div>
+                  <span class="art-k">Revenue from ads</span>
+                  <span class="art-v">&pound;1.14M</span>
+                </div>
+                <span class="art-delta">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>
+                  on &pound;219k spend
+                </span>
+              </div>
+              <div class="sr-chart">
+                <svg class="sr-svg" viewBox="0 0 360 190" preserveAspectRatio="none" aria-label="Monthly ad spend against revenue over twelve months">
+                  <defs>
+                    <linearGradient id="srRev" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#ff4536" stop-opacity="0.26"/>
+                      <stop offset="1" stop-color="#ff4536" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <g class="grid"><path d="M0 46h360M0 92h360M0 138h360"/></g>
+                  <g class="sr-in">
+                    <!-- spend, as monthly columns -->
+                    <g class="spend">
+                      <rect x="2"   y="168" width="22" height="22" rx="2"/>
+                      <rect x="32"  y="166" width="22" height="24" rx="2"/>
+                      <rect x="62"  y="162" width="22" height="28" rx="2"/>
+                      <rect x="92"  y="159" width="22" height="31" rx="2"/>
+                      <rect x="122" y="154" width="22" height="36" rx="2"/>
+                      <rect x="152" y="150" width="22" height="40" rx="2"/>
+                      <rect x="182" y="145" width="22" height="45" rx="2"/>
+                      <rect x="212" y="141" width="22" height="49" rx="2"/>
+                      <rect x="242" y="136" width="22" height="54" rx="2"/>
+                      <rect x="272" y="132" width="22" height="58" rx="2"/>
+                      <rect x="302" y="127" width="22" height="63" rx="2"/>
+                      <rect x="332" y="122" width="22" height="68" rx="2"/>
+                    </g>
+                    <!-- revenue, as an area above it: the gap is the margin -->
+                    <path class="rev" d="M13 150 L43 145 L73 136 L103 128 L133 114 L163 101 L193 86 L223 72 L253 56 L283 42 L313 27 L343 14 L343 190 L13 190 Z"/>
+                    <path class="revline" d="M13 150 L43 145 L73 136 L103 128 L133 114 L163 101 L193 86 L223 72 L253 56 L283 42 L313 27 L343 14"/>
+                  </g>
+                </svg>
+                <div class="sr-x" aria-hidden="true"><span>Sep</span><span>Dec</span><span>Mar</span><span>Jun</span><span>Aug</span></div>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap sr-key sr-key--s"><i aria-hidden="true"></i>Spend</span>
+              <span class="art-cap sr-key sr-key--r"><i aria-hidden="true"></i>Revenue</span>
+              <span class="art-cap" style="margin-left:auto">5.2&times; blended</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 · THE AUCTION ══════════ -->
+  <section class="sec" id="auction" aria-labelledby="auTitle">
+    <div class="container">
+      <div class="duo duo--flip">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">03 · How it actually works</span></div>
+          <h2 class="sec-title" id="auTitle" data-reveal>The highest bid <span class="dim">doesn't win.</span></h2>
+          <p data-reveal>
+            This is the part most agencies never explain. Google doesn't rank ads by bid — it ranks
+            them by <b style="color:var(--white);font-weight:600">Ad Rank</b>, which is roughly your
+            bid multiplied by how relevant your ad and landing page are.
+          </p>
+          <p data-reveal>
+            So a competitor bidding &pound;3.50 with a mediocre landing page loses to you bidding
+            &pound;2.60 with a good one — and you pay less per click than they would have. Quality
+            is not a soft metric here. It is a direct discount on every click you buy.
+          </p>
+          <p data-reveal>
+            That's why we rebuild landing pages as part of a paid campaign rather than treating
+            them as someone else's job. It's the cheapest lever in the account.
+          </p>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">auction · "emergency plumber manchester"</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Won</span>
+            </div>
+            <div class="art-body">
+              <div class="au-cols" aria-hidden="true">
+                <span class="au-col">Advertiser</span>
+                <span class="au-col au-col--n">Max bid</span>
+                <span class="au-col au-col--n">Qual</span>
+                <span class="au-col au-col--n">Ad rank</span>
+              </div>
+              <ol class="au-rows">
+                <li class="au-row au-row--you">
+                  <span class="au-who">You</span>
+                  <span class="au-n">&pound;2.60</span>
+                  <span class="au-q">9</span>
+                  <span class="au-rank">23.4</span>
+                </li>
+                <li class="au-row">
+                  <span class="au-who">Competitor A</span>
+                  <span class="au-n">&pound;3.50</span>
+                  <span class="au-q">5</span>
+                  <span class="au-rank">17.5</span>
+                </li>
+                <li class="au-row">
+                  <span class="au-who">Competitor B</span>
+                  <span class="au-n">&pound;4.10</span>
+                  <span class="au-q">4</span>
+                  <span class="au-rank">16.4</span>
+                </li>
+                <li class="au-row">
+                  <span class="au-who">Competitor C</span>
+                  <span class="au-n">&pound;2.20</span>
+                  <span class="au-q">7</span>
+                  <span class="au-rank">15.4</span>
+                </li>
+              </ol>
+
+              <div class="au-out">
+                <div>
+                  <span class="art-k">You bid</span>
+                  <b>&pound;2.60</b>
+                </div>
+                <span class="au-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </span>
+                <div class="paid">
+                  <span class="art-k">You pay</span>
+                  <b>&pound;1.94</b>
+                </div>
+              </div>
+              <!-- The figures above are checkable, on purpose. Ad rank is bid ×
+                   quality; the price is the next advertiser's ad rank divided by
+                   your own quality. Anyone who knows the platform can verify it. -->
+              <p class="au-note">Ad rank = bid &times; quality. You pay the next advertiser's ad rank &divide; your quality: 17.5 &divide; 9 = &pound;1.94.</p>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Position 1 · beat a &pound;4.10 bid</span>
+              <span class="art-cap" style="margin-left:auto">25% under your max</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04–06 ══════════ -->
+  <section class="sec" id="discipline" aria-labelledby="disTitle">
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">04–06 · The unglamorous part</span></div>
+        <h2 class="sec-title" id="disTitle" data-reveal>Where the money <span class="dim">is actually made.</span></h2>
+        <p class="sec-sub" data-reveal>Not in clever targeting. In cutting waste, testing creative properly, and knowing the cost of every step.</p>
+      </div>
+
+      <div class="tri">
+        <!-- 04 · wasted spend -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">search terms · negatives added</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>04</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Wasted spend, cut</h3>
+              <p class="tri-p">Every account we inherit is paying for searches that were never going to buy. These are from one month.</p>
+              <ul class="ws-rows">
+                <li class="ws-row">
+                  <svg class="ws-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  <span class="ws-t">plumber jobs near me</span><span class="ws-n">&pound;412</span>
+                </li>
+                <li class="ws-row">
+                  <svg class="ws-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  <span class="ws-t">free plumbing advice</span><span class="ws-n">&pound;286</span>
+                </li>
+                <li class="ws-row">
+                  <svg class="ws-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  <span class="ws-t">plumbing course london</span><span class="ws-n">&pound;238</span>
+                </li>
+                <li class="ws-row">
+                  <svg class="ws-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  <span class="ws-t">how to fix a tap yourself</span><span class="ws-n">&pound;194</span>
+                </li>
+                <li class="ws-row">
+                  <svg class="ws-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  <span class="ws-t">plumber salary uk</span><span class="ws-n">&pound;151</span>
+                </li>
+              </ul>
+              <div class="ws-tot">
+                <span class="art-k">Recovered, month one</span>
+                <b>&pound;1,281</b>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 · creative testing -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">creative test · 3 angles</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>05</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Creative, tested properly</h3>
+              <p class="tri-p">Creative is the biggest lever left in a modern ad account. Performance decides what stays live, not opinion.</p>
+              <div class="ct">
+                <div class="ct-item">
+                  <div class="ct-k"><span>A · Price led</span><b>2.1%</b></div>
+                  <span class="ct-line" style="--w:100%"></span><span class="ct-line" style="--w:62%"></span>
+                  <span class="ct-bar"><i style="--w:34%"></i></span>
+                </div>
+                <div class="ct-item ct-item--win">
+                  <div class="ct-k"><span>B · Speed led · winner</span><b>6.2%</b></div>
+                  <span class="ct-line" style="--w:100%"></span><span class="ct-line" style="--w:74%"></span>
+                  <span class="ct-bar"><i style="--w:100%"></i></span>
+                </div>
+                <div class="ct-item">
+                  <div class="ct-k"><span>C · Guarantee led</span><b>3.4%</b></div>
+                  <span class="ct-line" style="--w:100%"></span><span class="ct-line" style="--w:56%"></span>
+                  <span class="ct-bar"><i style="--w:55%"></i></span>
+                </div>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Click-through rate</span>
+              <span class="art-delta" style="margin-left:auto">3&times; the loser</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 · the funnel -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">funnel · cost per step</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>06</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Cost at every step</h3>
+              <p class="tri-p">Knowing where people drop out is what tells us whether to fix the ad, the page, or the follow-up.</p>
+              <ol class="fn">
+                <li class="fn-step">
+                  <div class="fn-bar" style="--w:100%"><span class="fn-t">Impressions</span><span class="fn-v">412k</span></div>
+                  <span class="fn-cost">&pound;44.60 per 1,000 &middot; <b>2.9% click</b></span>
+                </li>
+                <li class="fn-step">
+                  <div class="fn-bar" style="--w:74%"><span class="fn-t">Clicks</span><span class="fn-v">11,940</span></div>
+                  <span class="fn-cost">&pound;1.54 each &middot; <b>9.1% enquire</b></span>
+                </li>
+                <li class="fn-step">
+                  <div class="fn-bar" style="--w:52%"><span class="fn-t">Enquiries</span><span class="fn-v">1,086</span></div>
+                  <span class="fn-cost">&pound;16.90 each &middot; <b>32% close</b></span>
+                </li>
+                <li class="fn-step">
+                  <div class="fn-bar" style="--w:34%"><span class="fn-t">Customers</span><span class="fn-v">348</span></div>
+                  <span class="fn-cost">&pound;52.80 each &middot; <b>&pound;276 avg order</b></span>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROCESS ══════════ -->
+  <section class="sec" id="process" aria-labelledby="procTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">How we work</span></div>
+        <h2 class="sec-title" id="procTitle" data-reveal>The order <span class="dim">we do it in.</span></h2>
+        <p class="sec-sub" data-reveal>Scaling an account whose tracking can't be trusted just means losing money faster. Measurement comes first.</p>
+      </div>
+
+      <div class="acc" id="acc">
+        <div class="acc-item is-open" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="true" aria-controls="accp1">
+            <span class="acc-num">01</span>
+            <span class="acc-title">Fix the tracking before touching the budget</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp1">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">01</span>
+              <p>Most accounts we inherit are counting the wrong things — form views as conversions, duplicate tags firing twice, no revenue value passed back at all. Until that's rebuilt, every optimisation decision is a guess dressed up as data. This is week one, always, and it usually changes the picture of what's working.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp2">
+            <span class="acc-num">02</span>
+            <span class="acc-title">Cut the waste before adding spend</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp2">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">02</span>
+              <p>Search terms report, negative keywords, placement exclusions, audience exclusions. There is almost always a four-figure sum being spent on people looking for jobs, courses, free advice or DIY instructions. Recovering that costs nothing and funds the first month of proper testing.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp3">
+            <span class="acc-num">03</span>
+            <span class="acc-title">Structure the account so the platform can learn</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp3">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">03</span>
+              <p>Modern bidding is machine-driven, and machines need signal. Split a campaign too finely and no segment gets enough conversions to learn from; leave it too broad and you lose control of where budget goes. We consolidate where signal is thin, separate where control matters, and bid to the outcome you actually sell.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp4">
+            <span class="acc-num">04</span>
+            <span class="acc-title">Improve quality score, not just the bid</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp4">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">04</span>
+              <p>Relevance is a direct discount on every click. Better ad copy and a landing page that matches the search can drop your cost per click by a third while improving position — which is why we rebuild landing pages as part of the campaign rather than treating them as somebody else's job.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp5">
+            <span class="acc-num">05</span>
+            <span class="acc-title">Scale what clears the target, cut what doesn't</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp5">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">05</span>
+              <p>You set the return you need. Anything clearing it gets more budget, anything below it gets fixed or turned off, and you see both decisions in a weekly report written in plain English. We'll also tell you when an account is at its ceiling — every market has one, and spending past it is how good campaigns get ruined.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SERVICES ══════════ -->
+  <section class="sec" id="services" aria-labelledby="svcTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">The rest of it</span></div>
+        <h2 class="sec-title" id="svcTitle" data-reveal>Paid buys time. <span class="dim">Use it well.</span></h2>
+        <p class="sec-sub" data-reveal>PPC is the fastest channel to turn on and the most expensive to rely on forever. These are what we build alongside it.</p>
+      </div>
+
+      <div class="svc-grid">
+        <a class="svc" href="/seo" data-reveal>
+          <span class="svc-idx" aria-hidden="true">01</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <h3>Search engine optimisation</h3>
+          <p>Takes over the terms paid proved were worth having, so you stop renting the traffic you already know converts.</p>
+        </a>
+
+        <article class="svc svc--here" aria-current="page" data-reveal>
+          <span class="svc-idx" aria-hidden="true">02</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <h3>Pay-per-click</h3>
+          <p>Google Ads and Meta, managed daily and tied to revenue rather than clicks.</p>
+          <span class="svc-here-tag"><span class="live-dot" aria-hidden="true"></span>You're here</span>
+        </article>
+
+        <a class="svc" href="/web-development" data-reveal>
+          <span class="svc-idx" aria-hidden="true">03</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <h3>Web development</h3>
+          <p>Landing pages built for the ad that sent you there — the cheapest way to lower cost per click.</p>
+        </a>
+
+        <a class="svc" href="/content" data-reveal>
+          <span class="svc-idx" aria-hidden="true">04</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11a4 4 0 0 1 0 8H4z"/><path d="M4 12h13a4 4 0 0 1 0 8H4z"/></svg></div>
+          <h3>Content creation</h3>
+          <p>The ad copy, the landing page copy, and the creative angles the testing is run on.</p>
+        </a>
+
+        <a class="svc" href="/social" data-reveal>
+          <span class="svc-idx" aria-hidden="true">05</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Social media</h3>
+          <p>Organic presence that makes the paid ads work harder — people check before they buy.</p>
+        </a>
+
+        <a class="svc" href="/email" data-reveal>
+          <span class="svc-idx" aria-hidden="true">06</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+          <h3>Email marketing</h3>
+          <p>Sells to the customer a second and third time, so the acquisition cost you paid once keeps returning.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section class="cta" aria-labelledby="ctaTitle">
+    <div class="cta-ember" aria-hidden="true"></div>
+    <div class="container">
+      <div class="sec-head sec-head--center" style="margin-bottom:0">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
+        <h2 class="sec-title" id="ctaTitle" data-reveal>Find out what you're <span class="dim">wasting.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Give us read-only access to the ad account and we'll come back with what's being spent on
+          searches that will never buy, what your tracking is getting wrong, and what the account
+          could realistically return — before you've committed to anything.
+        </p>
+        <div class="cta-actions" data-reveal>
+          <a class="ember-btn" href="/contact">
+            Get a free account audit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="ghost-btn" href="/services">All services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ CAMPAIGN MANAGER — five platforms, five accounts ══════
+     Switching tab swaps the campaigns, the spend, the conversions and the
+     summary above the table. The summary is derived from the rows rather
+     than typed twice, so the two can never drift apart. */
+  var DATA = {
+    search: {
+      url: 'ads · google search · last 30 days',
+      rows: [
+        { n: 'Brand',            t: 'Exact · 4 ad groups',      spend: 1180,  conv: 96,  roas: 8.4 },
+        { n: 'Emergency callout',t: 'Phrase · high intent',     spend: 6420,  conv: 214, roas: 6.1 },
+        { n: 'Service + city',   t: 'Exact · 12 locations',     spend: 7240,  conv: 208, roas: 4.6 },
+        { n: 'Competitor',       t: 'Exact · conquesting',      spend: 3560,  conv: 94,  roas: 3.1 }
+      ]
+    },
+    shopping: {
+      url: 'ads · shopping · last 30 days',
+      rows: [
+        { n: 'Best sellers',     t: 'Priority high',            spend: 5240,  conv: 286, roas: 7.2 },
+        { n: 'Full catalogue',   t: 'Priority low',             spend: 6880,  conv: 241, roas: 4.4 },
+        { n: 'Clearance',        t: 'Custom label · end line',  spend: 2140,  conv: 168, roas: 5.8 },
+        { n: 'New in',           t: 'Custom label · 30 days',   spend: 1960,  conv: 62,  roas: 3.3 }
+      ]
+    },
+    pmax: {
+      url: 'ads · performance max · last 30 days',
+      rows: [
+        { n: 'Core asset group', t: 'Search themes · 8',        spend: 8460,  conv: 342, roas: 5.6 },
+        { n: 'High margin',      t: 'Feed segment',             spend: 4120,  conv: 149, roas: 6.9 },
+        { n: 'Prospecting',      t: 'Audience signal · cold',   spend: 3980,  conv: 88,  roas: 2.9 },
+        { n: 'Remarketing',      t: 'Audience signal · warm',   spend: 1640,  conv: 121, roas: 9.1 }
+      ]
+    },
+    meta: {
+      url: 'ads · meta · last 30 days',
+      rows: [
+        { n: 'Retargeting',      t: 'Site visitors · 30 day',   spend: 2180,  conv: 174, roas: 8.8 },
+        { n: 'Lookalike 1%',     t: 'From purchaser list',      spend: 4640,  conv: 162, roas: 4.2 },
+        { n: 'Broad prospecting',t: 'Advantage+ · no targeting',spend: 5320,  conv: 138, roas: 3.4 },
+        { n: 'Video views',      t: 'Top of funnel',            spend: 1480,  conv: 34,  roas: 1.9 }
+      ]
+    },
+    linkedin: {
+      url: 'ads · linkedin · last 30 days',
+      rows: [
+        { n: 'Job title · senior', t: 'Sponsored content',      spend: 4820,  conv: 41,  roas: 5.4 },
+        { n: 'Company list',       t: 'ABM · 240 accounts',     spend: 3960,  conv: 28,  roas: 6.8 },
+        { n: 'Retargeting',        t: 'Website visitors',       spend: 1740,  conv: 22,  roas: 7.6 },
+        { n: 'Lead gen form',      t: 'Gated report',           spend: 2280,  conv: 63,  roas: 3.2 }
+      ]
+    }
+  };
+
+  var TARGET = 4.0;   /* the return an account has to clear to earn more budget */
+
+  var cmList  = document.getElementById('cmList');
+  var cmUrl   = document.getElementById('cmUrl');
+  var cmFoot  = document.getElementById('cmFoot');
+  var cmSpend = document.getElementById('cmSpend');
+  var cmRev   = document.getElementById('cmRev');
+  var cmConv  = document.getElementById('cmConv');
+  var cmRoas  = document.getElementById('cmRoas');
+  var cmTabs  = [].slice.call(document.querySelectorAll('.cm-tab'));
+
+  function esc(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function money(n) {
+    return '£' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function renderCampaigns(key, animate) {
+    var set = DATA[key];
+    if (!set || !cmList) return;
+
+    var totalSpend = 0, totalConv = 0, totalRev = 0;
+    set.rows.forEach(function (r) {
+      totalSpend += r.spend; totalConv += r.conv; totalRev += r.spend * r.roas;
+    });
+
+    cmList.innerHTML = set.rows.map(function (r) {
+      var share = ((r.spend / totalSpend) * 100).toFixed(1) + '%';
+      var cpa = r.spend / r.conv;
+      return '<li class="cm-row">' +
+        '<span class="cm-name">' + esc(r.n) + '<span>' + esc(r.t) + '</span></span>' +
+        '<span class="cm-share"><span class="cm-track">' +
+          '<span class="cm-fill" style="--w:' + share + '"></span></span></span>' +
+        '<span class="cm-n">' + money(r.spend) + '</span>' +
+        '<span class="cm-n cm-hide">' + r.conv + '</span>' +
+        '<span class="cm-n">' + money(cpa) + '</span>' +
+        '<span class="cm-roas' + (r.roas >= TARGET ? ' win' : '') + '">' + r.roas.toFixed(1) + '×</span>' +
+      '</li>';
+    }).join('');
+
+    if (cmUrl)   cmUrl.textContent = set.url;
+    if (cmSpend) cmSpend.textContent = money(totalSpend);
+    if (cmRev)   cmRev.textContent = money(totalRev);
+    if (cmConv)  cmConv.textContent = totalConv.toLocaleString('en-GB');
+    if (cmRoas)  cmRoas.textContent = (totalRev / totalSpend).toFixed(1) + '×';
+    if (cmFoot)  cmFoot.textContent = set.rows.length + ' campaigns live';
+    /* Derived, not typed: a hard-coded "all clearing" was already wrong for
+       the default platform, where one campaign sits under target. */
+    var cmTarget = document.getElementById('cmTarget');
+    if (cmTarget) {
+      var clearing = set.rows.filter(function (r) { return r.roas >= TARGET; }).length;
+      cmTarget.textContent = 'Target ' + TARGET.toFixed(1) + '\u00D7 · ' +
+        clearing + ' of ' + set.rows.length + ' clearing';
+    }
+
+    /* On a tab switch the panel is already on screen, so the rows have to be
+       told to play — the observer that normally does it fired long ago and
+       disconnected. */
+    if (animate && !reduceMotion) {
+      cmList.querySelectorAll('.cm-row').forEach(function (row, i) {
+        row.style.transitionDelay = (0.05 * i) + 's';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { row.classList.add('cm-in'); });
+        });
+      });
+    } else {
+      cmList.querySelectorAll('.cm-row').forEach(function (row) { row.classList.add('cm-in'); });
+    }
+  }
+
+  cmTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      cmTabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+      renderCampaigns(tab.getAttribute('data-v'), true);
+    });
+  });
+  /* first paint is not animated here — the panel observer handles that */
+  renderCampaigns('search', false);
+  if (reduceMotion) {
+    cmList.querySelectorAll('.cm-row').forEach(function (r) { r.classList.add('cm-in'); });
+  }
+
+  /* ══════ REVEALS ══════
+     Copy reveals at 15%; an instrument waits until enough of its panel is
+     on screen to be worth watching. */
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  var artEls = document.querySelectorAll('[data-art]');
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    artEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+
+    var artObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); artObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.22 });
+    artEls.forEach(function (el) { artObs.observe(el); });
+  }
+
+  /* ══════ PROCESS ACCORDION ══════ */
+  var items = [].slice.call(document.querySelectorAll('.acc-item'));
+
+  function setOpen(item, open) {
+    var panel = item.querySelector('.acc-panel');
+    var head = item.querySelector('.acc-head');
+    item.classList.toggle('is-open', open);
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0px';
+  }
+
+  items.forEach(function (item) {
+    item.querySelector('.acc-head').addEventListener('click', function () {
+      var willOpen = !item.classList.contains('is-open');
+      items.forEach(function (other) { if (other !== item) setOpen(other, false); });
+      setOpen(item, willOpen);
+    });
+  });
+
+  function sizeOpen() {
+    items.forEach(function (item) { setOpen(item, item.classList.contains('is-open')); });
+  }
+  sizeOpen();
+  window.addEventListener('load', sizeOpen);
+  window.addEventListener('resize', function () {
+    items.forEach(function (item) {
+      if (!item.classList.contains('is-open')) return;
+      var p = item.querySelector('.acc-panel');
+      p.style.maxHeight = p.scrollHeight + 'px';
+    });
+  });
+
+  /* ══════ SCROLL PROGRESS ══════ */
+  var bar = document.getElementById('progress');
+  if (bar && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
+  } else if (bar) {
+    var tick = null;
+    window.addEventListener('scroll', function () {
+      if (tick) return;
+      tick = requestAnimationFrame(function () {
+        var max = document.body.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        tick = null;
+      });
+    }, { passive: true });
+  }
+})();
+</script>
