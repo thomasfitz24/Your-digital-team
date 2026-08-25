@@ -1,0 +1,1448 @@
+<!-- ═══════════════════════════════════════════════════════════
+     email.html  →  Squarespace page /email
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Design system — "signal", same as every other page:
+       base #050505 · panels #0b0a09 · Inter + IBM Plex Mono
+       signal red #ff4536 → #d81e0d, ember glow, film grain.
+
+     Six purpose-built instruments, all CSS and inline SVG — nothing
+     to upload, nothing that can 404:
+       1  the flow library, switchable across five automations
+       2  flows against campaigns — where the revenue actually comes from
+       3  deliverability: placement, authentication, reputation
+       4  segmentation, and what each segment is worth per contact
+       5  a subject-line test judged on revenue, not opens
+       6  the first ninety days of a contact's life
+
+     The tokens and furniture below are shared with the other service
+     pages — keep them in step.
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- Runs before paint. Everything hidden by default is scoped to this
+     class, so a script error leaves the page readable rather than blank. -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page { scroll-behavior: smooth; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { color: inherit; text-decoration: none; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; scroll-margin-top: 110px; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ PRIMITIVES ══════════ */
+html.ydt-js .ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+html.ydt-js .ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+html.ydt-js .ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+
+/* ══════════ SECTION SCAFFOLD ══════════ */
+.ydt-page .sec { padding: 112px 0; border-top: 1px solid var(--line2); }
+.ydt-page .sec-head { max-width: 672px; margin-bottom: 56px; }
+.ydt-page .sec-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.ydt-page .sec-head--center .sec-eyebrow { justify-content: center; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.03; margin-bottom: 16px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.68; }
+
+/* two-up: copy one side, instrument the other */
+.ydt-page .duo { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+@media (min-width: 1024px) {
+    .ydt-page .duo { grid-template-columns: 0.8fr 1.2fr; gap: 60px; }
+    .ydt-page .duo--flip .duo-copy { order: 2; }
+    .ydt-page .duo--flip .duo-art { order: 1; }
+}
+/* A `1fr` track is minmax(auto, 1fr), and that auto minimum is min-content —
+   which for any nowrap string is the whole string. Without this a single
+   keyword row sizes the whole track past the viewport on a phone. */
+.ydt-page .duo-copy, .ydt-page .duo-art { min-width: 0; }
+.ydt-page .duo-copy p { font-size: 15px; color: var(--gray5); line-height: 1.72; }
+.ydt-page .duo-copy p + p { margin-top: 14px; }
+.ydt-page .duo-list { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .duo-list li { display: flex; gap: 11px; font-size: 14px; color: var(--gray5); line-height: 1.55; }
+.ydt-page .duo-list svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; margin-top: 3px; }
+
+/* ══════════ HERO ══════════ */
+.ydt-page .hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + 78px) 0 84px; }
+.ydt-page .hero-ember {
+    position: absolute; top: -48vh; left: 50%; width: 180vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.32) 0%, rgba(216, 30, 13, 0.15) 34%, rgba(118, 20, 10, 0.05) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .hero-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-width: 1180px; max-height: 1180px;
+    transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.22);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .hero .container { position: relative; z-index: 2; }
+.ydt-page .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 28px;
+}
+.ydt-page .hero h1 {
+    font-size: clamp(2.1rem, 5.4vw, 4rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; max-width: 17ch;
+}
+.ydt-page .hero h1 .dim { color: var(--w25); }
+.ydt-page .hero-body {
+    font-size: clamp(1rem, 1.25vw, 1.1rem); color: var(--gray5);
+    line-height: 1.7; max-width: 36rem; margin-top: 28px;
+}
+.ydt-page .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.ydt-page .back {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 26px;
+    /* 12px block padding clears the 36px touch minimum */
+    padding: 12px 0; transition: color 0.3s;
+}
+.ydt-page .back:hover { color: var(--white); }
+.ydt-page .back svg { width: 13px; height: 13px; transition: transform 0.3s var(--ease); }
+.ydt-page .back:hover svg { transform: translateX(-3px); }
+
+/* ══════════ PROOF BAND ══════════ */
+.ydt-page .band {
+    margin-top: 62px; border: 1px solid var(--line); border-radius: 18px;
+    background: var(--panel); overflow: hidden;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 860px) { .ydt-page .band { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .band-cell { padding: 24px 22px; border-top: 1px solid var(--line2); border-left: 1px solid var(--line2); }
+.ydt-page .band-cell:nth-child(-n+2) { border-top: none; }
+.ydt-page .band-cell:nth-child(odd) { border-left: none; }
+@media (min-width: 860px) {
+    .ydt-page .band-cell { border-top: none; border-left: 1px solid var(--line2); }
+    .ydt-page .band-cell:first-child { border-left: none; }
+}
+.ydt-page .band-v {
+    display: block; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; margin-bottom: 9px;
+}
+.ydt-page .band-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SHARED PANEL CHROME
+   ══════════════════════════════════════════════════════════════ */
+.ydt-page .duo-art, .ydt-page .art-hold { position: relative; }
+.ydt-page .duo-art::before, .ydt-page .art-hold::before {
+    content: ''; position: absolute; left: 50%; top: 4%;
+    width: 80%; height: 76%; transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.22), transparent 72%);
+    filter: blur(58px); pointer-events: none; z-index: 0;
+}
+.ydt-page .art {
+    position: relative; z-index: 1;
+    background: var(--panel); border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 76, 0.04);
+}
+.ydt-page .art-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line2); background: var(--panel2);
+}
+.ydt-page .art-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.ydt-page .art-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+.ydt-page .art-url {
+    font-family: var(--mono); font-size: 10.5px; color: var(--gray6); min-width: 0;
+    letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .art-live {
+    display: inline-flex; align-items: center; gap: 7px; margin-left: auto; flex-shrink: 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--data);
+}
+.ydt-page .art-body { padding: 22px 20px; }
+@media (min-width: 560px) { .ydt-page .art-body { padding: 24px; } }
+.ydt-page .art-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); margin-bottom: 8px;
+}
+.ydt-page .art-v {
+    display: block; font-size: clamp(1.35rem, 2.6vw, 1.85rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .art-cap {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6);
+}
+.ydt-page .art-delta {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .art-delta svg { width: 10px; height: 10px; }
+.ydt-page .art-foot {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 13px 20px; border-top: 1px solid var(--line2); background: rgba(255,255,255,0.012);
+}
+@media (min-width: 560px) { .ydt-page .art-foot { padding: 13px 24px; } }
+
+
+
+
+/* ══════════ 01 · THE FLOW LIBRARY ══════════
+   The tab strip swaps the whole automation: different emails, delays and
+   numbers, and the summary above is derived from the rows. */
+.ydt-page .fl-tabs {
+    display: flex; gap: 4px; padding: 10px 12px; overflow-x: auto;
+    scrollbar-width: none; border-bottom: 1px solid var(--line2);
+}
+.ydt-page .fl-tabs::-webkit-scrollbar { display: none; }
+.ydt-page .fl-tab {
+    flex: 0 0 auto; padding: 12px 14px; border-radius: 9999px; border: 1px solid transparent;
+    background: none; cursor: pointer; white-space: nowrap;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray5);
+    transition: color 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.ydt-page .fl-tab:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.ydt-page .fl-tab[aria-selected="true"] {
+    color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,0.28);
+}
+.ydt-page .fl-sum { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line2); }
+@media (min-width: 640px) { .ydt-page .fl-sum { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .fl-cell { background: var(--panel); padding: 16px 16px 18px; min-width: 0; }
+.ydt-page .fl-cell .art-k { margin-bottom: 9px; }
+.ydt-page .fl-cell .art-v { font-size: clamp(1.1rem, 2.1vw, 1.45rem); }
+.ydt-page .fl-cols, .ydt-page .fl-row {
+    display: grid; grid-template-columns: 1fr 52px 44px 62px; gap: 12px; align-items: center;
+}
+@media (min-width: 700px) { .ydt-page .fl-cols, .ydt-page .fl-row { grid-template-columns: 1.6fr 96px 66px 60px 62px 78px; } }
+.ydt-page .fl-cols { padding-bottom: 12px; border-bottom: 1px solid var(--line2); }
+.ydt-page .fl-col {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray6); white-space: nowrap;
+}
+.ydt-page .fl-col--n { text-align: right; }
+.ydt-page .fl-hide { display: none; }
+@media (min-width: 700px) { .ydt-page .fl-hide { display: block; } }
+.ydt-page .fl-list { list-style: none; }
+.ydt-page .fl-row { padding: 13px 0; border-bottom: 1px solid var(--line2); }
+.ydt-page .fl-row:last-child { border-bottom: none; }
+.ydt-page .fl-name { font-size: 13px; color: var(--white); min-width: 0; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ydt-page .fl-name span { display: block; font-family: var(--mono); font-size: 9.5px; color: var(--gray6); margin-top: 3px; }
+/* the delay before this email goes out — the shape of the automation */
+.ydt-page .fl-when { min-width: 0; }
+.ydt-page .fl-when b {
+    display: inline-block; font-family: var(--mono); font-weight: 500;
+    font-size: 9.5px; letter-spacing: 0.08em; white-space: nowrap;
+    border: 1px solid var(--card-line); border-radius: 9999px;
+    padding: 5px 9px; color: var(--gray5);
+}
+.ydt-page .fl-when b.now { color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,0.26); }
+.ydt-page .fl-n { font-family: var(--mono); font-size: 11.5px; color: var(--gray5); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .fl-rev { font-family: var(--mono); font-size: 13px; color: var(--white); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .fl-rev.win { color: var(--data); }
+html.ydt-js .ydt-page .fl-row { opacity: 0; transform: translateY(8px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .fl-row, html.ydt-js .ydt-page .fl-row.fl-in { opacity: 1; transform: translateY(0); }
+
+/* ══════════ 02 · FLOWS AGAINST CAMPAIGNS ══════════ */
+.ydt-page .fc-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.ydt-page .fc-pair { display: flex; flex-direction: column; gap: 22px; }
+.ydt-page .fc-row { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; align-items: baseline; }
+.ydt-page .fc-k { font-size: 13px; color: var(--gray5); }
+.ydt-page .fc-k b { color: var(--white); font-weight: 600; }
+.ydt-page .fc-v { font-family: var(--mono); font-size: 12px; color: var(--white); font-variant-numeric: tabular-nums; }
+/* both are spans: without display:block the fill stays inline, ignores
+   width entirely, and the track renders empty */
+.ydt-page .fc-track {
+    grid-column: 1 / -1; display: block; height: 12px; border-radius: 6px;
+    background: rgba(255,255,255,0.045); overflow: hidden;
+}
+.ydt-page .fc-fill { display: block; height: 100%; border-radius: 6px; width: var(--w); }
+.ydt-page .fc-fill--send { background: rgba(255,255,255,0.20); }
+.ydt-page .fc-fill--rev { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+html.ydt-js .ydt-page .fc-fill { width: 0; transition: width 1.1s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .fc-fill { width: var(--w); }
+html.ydt-js .ydt-page .art.in-view .fc-row:nth-child(2) .fc-fill { transition-delay: 0.15s; }
+html.ydt-js .ydt-page .art.in-view .fc-row:nth-child(3) .fc-fill { transition-delay: 0.30s; }
+html.ydt-js .ydt-page .art.in-view .fc-row:nth-child(4) .fc-fill { transition-delay: 0.45s; }
+.ydt-page .fc-note {
+    margin-top: 22px; border: 1px solid rgba(255,69,54,0.24); background: var(--data-dim);
+    border-radius: 12px; padding: 15px;
+}
+.ydt-page .fc-note b { display: block; font-size: clamp(1.2rem, 2.4vw, 1.6rem); font-weight: 700; letter-spacing: -0.03em; color: var(--data); font-variant-numeric: tabular-nums; }
+.ydt-page .fc-note em { display: block; font-family: var(--mono); font-size: 10px; font-style: normal; color: var(--gray5); margin-top: 8px; line-height: 1.6; }
+
+/* ══════════ 03 · DELIVERABILITY ══════════
+   The part nobody explains: an email that never reaches the inbox has a
+   0% open rate no matter how good the subject line was. */
+.ydt-page .dl-place { margin-bottom: 24px; }
+.ydt-page .dl-bar {
+    display: flex; height: 34px; border-radius: 9px; overflow: hidden;
+    border: 1px solid var(--line2); margin-bottom: 12px;
+}
+.ydt-page .dl-seg { display: flex; align-items: center; justify-content: center; width: var(--w); min-width: 0; }
+.ydt-page .dl-seg--in { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+.ydt-page .dl-seg--promo { background: rgba(255,255,255,0.16); }
+.ydt-page .dl-seg--spam { background: rgba(255,255,255,0.06); }
+.ydt-page .dl-seg b { font-family: var(--mono); font-size: 11px; color: #1c0503; font-variant-numeric: tabular-nums; }
+.ydt-page .dl-seg--promo b, .ydt-page .dl-seg--spam b { color: var(--gray5); }
+html.ydt-js .ydt-page .dl-seg { width: 0; transition: width 1.1s 0.3s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .dl-seg { width: var(--w); }
+.ydt-page .dl-keys { display: flex; flex-wrap: wrap; gap: 14px; }
+.ydt-page .dl-key { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; color: var(--gray6); }
+.ydt-page .dl-key i { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+.ydt-page .dl-key--in i { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+.ydt-page .dl-key--promo i { background: rgba(255,255,255,0.16); }
+.ydt-page .dl-key--spam i { background: rgba(255,255,255,0.06); border: 1px solid var(--line); }
+/* authentication — the three records that decide whether you are believed */
+.ydt-page .dl-auth { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 22px; }
+.ydt-page .dl-item {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 11px; align-items: center;
+    border: 1px solid var(--card-line); background: var(--panel2);
+    border-radius: 11px; padding: 11px 13px;
+}
+.ydt-page .dl-item--ok { border-color: rgba(255,69,54,0.24); background: var(--data-dim); }
+.ydt-page .dl-ico { width: 14px; height: 14px; flex-shrink: 0; color: var(--gray6); }
+.ydt-page .dl-item--ok .dl-ico { color: var(--data); }
+.ydt-page .dl-t { min-width: 0; }
+.ydt-page .dl-t b { display: block; font-family: var(--mono); font-size: 11px; color: var(--white); letter-spacing: 0.06em; }
+.ydt-page .dl-t span { display: block; font-family: var(--mono); font-size: 9.5px; color: var(--gray6); margin-top: 4px; }
+.ydt-page .dl-state { font-family: var(--mono); font-size: 10px; color: var(--gray6); white-space: nowrap; }
+.ydt-page .dl-item--ok .dl-state { color: var(--data); }
+.ydt-page .dl-rep { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ydt-page .dl-rep div { border: 1px solid var(--card-line); border-radius: 10px; padding: 12px 8px; text-align: center; }
+.ydt-page .dl-rep b { display: block; font-family: var(--mono); font-size: 13px; color: var(--data); font-variant-numeric: tabular-nums; }
+.ydt-page .dl-rep span { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray6); margin-top: 6px; line-height: 1.4; }
+
+/* ══════════ 04–06 · THE SMALLER INSTRUMENTS ══════════ */
+.ydt-page .tri { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 900px) { .ydt-page .tri { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .tri > * { min-width: 0; }
+.ydt-page .tri .art { height: 100%; display: flex; flex-direction: column; }
+.ydt-page .tri .art-body { flex: 1; }
+.ydt-page .tri-h { font-size: 15px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 6px; }
+.ydt-page .tri-p { font-size: 13px; color: var(--gray5); line-height: 1.6; margin-bottom: 20px; }
+
+/* 04 · segments, and what each is worth per contact */
+.ydt-page .sg { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+.ydt-page .sg-row { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; align-items: baseline; }
+.ydt-page .sg-k { font-size: 12.5px; color: var(--gray5); min-width: 0; }
+.ydt-page .sg-row--top .sg-k { color: var(--white); font-weight: 600; }
+.ydt-page .sg-v { font-family: var(--mono); font-size: 11.5px; color: var(--gray5); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ydt-page .sg-row--top .sg-v { color: var(--data); }
+.ydt-page .sg-track { grid-column: 1 / -1; display: block; height: 7px; border-radius: 4px; background: rgba(255,255,255,0.045); overflow: hidden; }
+.ydt-page .sg-fill { display: block; height: 100%; border-radius: 4px; width: var(--w); background: rgba(255,255,255,0.20); }
+.ydt-page .sg-row--top .sg-fill { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+html.ydt-js .ydt-page .sg-fill { width: 0; transition: width 0.9s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .sg-fill { width: var(--w); }
+.ydt-page .sg-note { display: block; margin-top: 20px; font-family: var(--mono); font-size: 10px; color: var(--gray6); line-height: 1.6; }
+.ydt-page .sg-note b { color: var(--data); font-weight: 500; }
+
+/* 05 · the subject-line test */
+.ydt-page .ab { display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .ab-item { border: 1px solid var(--card-line); border-radius: 12px; padding: 13px 14px; background: var(--panel2); }
+.ydt-page .ab-item--win { border-color: rgba(255,69,54,0.30); background: var(--data-dim); }
+.ydt-page .ab-tag {
+    display: inline-block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray6); margin-bottom: 9px;
+}
+.ydt-page .ab-item--win .ab-tag { color: var(--data); }
+.ydt-page .ab-sub { display: block; font-size: 12.5px; color: var(--white); line-height: 1.5; margin-bottom: 12px; }
+.ydt-page .ab-nums { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ydt-page .ab-nums div { min-width: 0; }
+.ydt-page .ab-nums span {
+    display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gray6); margin-bottom: 5px;
+}
+.ydt-page .ab-nums b { display: block; font-family: var(--mono); font-size: 13px; color: var(--gray5); font-variant-numeric: tabular-nums; }
+.ydt-page .ab-nums .rev b { color: var(--white); }
+.ydt-page .ab-item--win .ab-nums .rev b { color: var(--data); }
+.ydt-page .ab-note {
+    display: block; margin-top: 16px; font-family: var(--mono); font-size: 10px;
+    color: var(--gray6); line-height: 1.65;
+}
+.ydt-page .ab-note b { color: var(--data); font-weight: 500; }
+
+/* 06 · the first ninety days */
+.ydt-page .tl { list-style: none; position: relative; padding-left: 22px; }
+.ydt-page .tl::before { content: ''; position: absolute; left: 4px; top: 6px; bottom: 6px; width: 1px; background: var(--line); }
+.ydt-page .tl-step { position: relative; padding-bottom: 16px; }
+.ydt-page .tl-step:last-child { padding-bottom: 0; }
+.ydt-page .tl-step::before {
+    content: ''; position: absolute; left: -22px; top: 5px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--panel); border: 1.5px solid rgba(255,255,255,0.22);
+}
+.ydt-page .tl-step--hot::before { background: var(--data); border-color: var(--data); }
+.ydt-page .tl-d {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gray6); margin-bottom: 4px;
+}
+.ydt-page .tl-step--hot .tl-d { color: var(--data); }
+.ydt-page .tl-t { display: block; font-size: 12.5px; color: var(--gray5); line-height: 1.5; }
+.ydt-page .tl-step--hot .tl-t { color: var(--white); }
+html.ydt-js .ydt-page .tl-step { opacity: 0; transform: translateY(6px); transition: opacity 0.45s var(--ease), transform 0.45s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .tl-step { opacity: 1; transform: translateY(0); }
+/* ══════════ PROCESS ACCORDION ══════════ */
+.ydt-page .acc { border-top: 1px solid var(--line); }
+.ydt-page .acc-item { border-bottom: 1px solid var(--line); }
+.ydt-page .acc-head {
+    width: 100%; background: none; border: none; cursor: pointer;
+    font-family: inherit; color: inherit; text-align: left;
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(16px, 4vw, 44px); align-items: center; padding: 26px 0;
+}
+.ydt-page .acc-num {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em;
+    color: var(--gray6); transition: color 0.4s;
+}
+.ydt-page .acc-title {
+    font-size: clamp(1.05rem, 2vw, 1.5rem); font-weight: 700;
+    letter-spacing: -0.028em; line-height: 1.25; color: var(--gray5); transition: color 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-title, .ydt-page .acc-head:hover .acc-title { color: var(--white); }
+.ydt-page .acc-item.is-open .acc-num { color: var(--data); }
+.ydt-page .acc-sign { position: relative; width: 17px; height: 17px; flex-shrink: 0; color: var(--gray6); transition: color 0.4s; }
+.ydt-page .acc-sign::before, .ydt-page .acc-sign::after {
+    content: ''; position: absolute; background: currentColor; left: 50%; top: 50%;
+}
+.ydt-page .acc-sign::before { width: 15px; height: 1.5px; margin: -0.75px 0 0 -7.5px; }
+.ydt-page .acc-sign::after {
+    width: 1.5px; height: 15px; margin: -7.5px 0 0 -0.75px;
+    transition: transform 0.5s var(--ease), opacity 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-sign { color: var(--data); }
+.ydt-page .acc-item.is-open .acc-sign::after { transform: scaleY(0); opacity: 0; }
+/* Gated on JS. The collapse is entirely script-driven, so without this a
+   script error left all five process descriptions permanently unreadable
+   at max-height:0. With no JS every panel is simply open. */
+.ydt-page .acc-panel { overflow: hidden; }
+html.ydt-js .ydt-page .acc-panel {
+    max-height: 0; opacity: 0;
+    transition: max-height 0.7s var(--ease), opacity 0.5s var(--ease);
+}
+html.ydt-js .ydt-page .acc-item.is-open .acc-panel { opacity: 1; }
+html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
+.ydt-page .acc-inner {
+    padding: 0 0 30px; display: grid;
+    grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 4vw, 44px);
+}
+.ydt-page .acc-inner p { font-size: 15px; line-height: 1.78; color: var(--gray5); max-width: 46rem; }
+.ydt-page .acc-inner .spacer { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; visibility: hidden; }
+@media (max-width: 640px) {
+    .ydt-page .acc-head { gap: 14px; }
+    .ydt-page .acc-inner { grid-template-columns: 1fr; gap: 0; }
+    .ydt-page .acc-inner .spacer { display: none; }
+}
+
+/* ══════════ SERVICES GRID ══════════ */
+.ydt-page .svc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .ydt-page .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (min-width: 1024px) { .ydt-page .svc-grid { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .svc {
+    position: relative; display: flex; flex-direction: column; min-width: 0;
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 16px; padding: 26px; overflow: hidden;
+    transition: border-color 0.5s, transform 0.6s var(--ease);
+}
+.ydt-page .svc:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); }
+.ydt-page .svc--here { border-color: rgba(255,69,54,0.32); background: linear-gradient(180deg, var(--data-dim), var(--card-bg) 62%); }
+.ydt-page .svc-idx {
+    position: absolute; top: 24px; right: 24px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--gray6);
+}
+.ydt-page .svc--here .svc-idx { color: var(--data); }
+.ydt-page .svc-icon {
+    display: inline-flex; align-self: flex-start; padding: 9px; border-radius: 10px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--line); margin-bottom: 18px;
+}
+.ydt-page .svc-icon svg { width: 19px; height: 19px; color: var(--gray5); }
+.ydt-page .svc--here .svc-icon { background: var(--data-dim); border-color: rgba(255,69,54,0.28); }
+.ydt-page .svc--here .svc-icon svg { color: var(--data); }
+.ydt-page .svc h3 { font-size: 16px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 9px; }
+.ydt-page .svc p { font-size: 13px; line-height: 1.65; color: var(--gray5); }
+.ydt-page .svc-here-tag {
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 16px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--data);
+}
+
+/* ══════════ FINAL CTA ══════════ */
+.ydt-page .cta { position: relative; overflow: hidden; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
+.ydt-page .cta-ember {
+    position: absolute; bottom: -56vh; left: 50%; width: 170vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.24) 0%, rgba(216, 30, 13, 0.11) 36%, transparent 72%);
+    filter: blur(30px);
+}
+.ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
+.ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+
+/* ══════════ MOTION FALLBACKS ══════════
+   These carry the html.ydt-js prefix on purpose — they have to out-specify
+   the gated hidden states above, and a media query adds no specificity. */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page { scroll-behavior: auto; }
+    html.ydt-js .ydt-page [data-reveal],
+    html.ydt-js .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    html.ydt-js .ydt-page .fl-row,
+    html.ydt-js .ydt-page .tl-step { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .fc-fill,
+    html.ydt-js .ydt-page .dl-seg,
+    html.ydt-js .ydt-page .sg-fill { width: var(--w); transition: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .sec { padding: 78px 0; }
+    .ydt-page .hero { padding: calc(var(--header-h) + 48px) 0 56px; }
+    .ydt-page .cta { padding: 80px 0 88px; }
+    .ydt-page .hero-actions .ember-btn, .ydt-page .hero-actions .ghost-btn,
+    .ydt-page .cta-actions .ember-btn, .ydt-page .cta-actions .ghost-btn { width: 100%; }
+    /* nothing under 10px, same floor as every other page */
+    .ydt-page .fl-col, .ydt-page .fl-tab, .ydt-page .art-cap, .ydt-page .art-k,
+    .ydt-page .band-k, .ydt-page .fl-name span, .ydt-page .fl-when b, .ydt-page .fc-note em,
+    .ydt-page .dl-key, .ydt-page .dl-t span, .ydt-page .dl-state, .ydt-page .dl-rep span,
+    .ydt-page .sg-note, .ydt-page .ab-tag, .ydt-page .ab-nums span, .ydt-page .ab-note,
+    .ydt-page .tl-d, .ydt-page .svc-here-tag,
+    .ydt-page .svc-idx, .ydt-page .back { font-size: 10px; letter-spacing: 0.1em; }
+    .ydt-page .ab-nums { grid-template-columns: 1fr; gap: 8px; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page .art-url, .ydt-page .art-live, .ydt-page .art-k, .ydt-page .art-cap,
+.ydt-page .art-delta, .ydt-page .fl-tab, .ydt-page .fl-col, .ydt-page .fl-n,
+.ydt-page .fl-rev, .ydt-page .fl-name span, .ydt-page .fl-when b, .ydt-page .fc-v,
+.ydt-page .fc-note em, .ydt-page .dl-seg b, .ydt-page .dl-key, .ydt-page .dl-t b,
+.ydt-page .dl-t span, .ydt-page .dl-state, .ydt-page .dl-rep b, .ydt-page .dl-rep span,
+.ydt-page .sg-v, .ydt-page .sg-note, .ydt-page .ab-tag, .ydt-page .ab-nums span,
+.ydt-page .ab-nums b, .ydt-page .ab-note, .ydt-page .tl-d,
+.ydt-page .acc-num, .ydt-page .band-k,
+.ydt-page .svc-idx, .ydt-page .svc-here-tag, .ydt-page .sec-eyebrow-text,
+.ydt-page .hero-eyebrow, .ydt-page .back { font-family: var(--mono); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+.ydt-page button { font-family: var(--font); }
+</style>
+
+<div class="ydt-page ydt-page--email">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <a class="back" href="/services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>
+        All services
+      </a>
+      <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Email marketing</p>
+      <h1 id="heroTitle">
+        <span class="clip"><span class="slide">The channel you</span></span>
+        <span class="clip"><span class="slide"><span class="dim">already own.</span></span></span>
+      </h1>
+      <p class="hero-body" data-reveal>
+        Every other channel is rented. An algorithm changes and your reach halves overnight.
+        The list is the one audience nobody can take away from you — and for most businesses
+        it's the one being emailed twice a year.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a class="ember-btn" href="/contact">
+          Get a free list audit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a class="ghost-btn" href="/pricing">See pricing</a>
+      </div>
+
+      <div class="band" data-reveal>
+        <div class="band-cell"><span class="band-v">3&times;</span><span class="band-k">Repeat revenue<br>from the same list</span></div>
+        <div class="band-cell"><span class="band-v">94%</span><span class="band-k">Inbox placement,<br>not promotions</span></div>
+        <div class="band-cell"><span class="band-v">Always on</span><span class="band-k">Flows earn while<br>nobody's sending</span></div>
+        <div class="band-cell"><span class="band-v">Yours</span><span class="band-k">You own the list<br>and the platform</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 01 · THE FLOW LIBRARY ══════════ -->
+  <section class="sec" id="flows" aria-labelledby="flTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">01 · What we build</span></div>
+        <h2 class="sec-title" id="flTitle" data-reveal>Five automations, <span class="dim">running without you.</span></h2>
+        <p class="sec-sub" data-reveal>
+          These are built once and then earn quietly in the background — no send button, no
+          Monday morning scramble. Switch flow to see the emails inside it and what each returned.
+        </p>
+      </div>
+
+      <div class="art-hold" data-reveal>
+        <div class="art" data-art>
+          <div class="art-bar">
+            <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="art-url" id="flUrl">automations / welcome-series</span>
+            <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Running</span>
+          </div>
+
+          <div class="fl-tabs" role="tablist" aria-label="Automation">
+            <button class="fl-tab" type="button" role="tab" aria-selected="true"  data-v="welcome">Welcome</button>
+            <button class="fl-tab" type="button" role="tab" aria-selected="false" data-v="basket">Abandoned basket</button>
+            <button class="fl-tab" type="button" role="tab" aria-selected="false" data-v="post">Post-purchase</button>
+            <button class="fl-tab" type="button" role="tab" aria-selected="false" data-v="winback">Win-back</button>
+            <button class="fl-tab" type="button" role="tab" aria-selected="false" data-v="browse">Browse abandon</button>
+          </div>
+
+          <div class="fl-sum">
+            <div class="fl-cell"><span class="art-k">Sends</span><span class="art-v" id="flSends">4,685</span></div>
+            <div class="fl-cell"><span class="art-k">Open rate</span><span class="art-v" id="flOpen">45.3%</span></div>
+            <div class="fl-cell"><span class="art-k">Revenue</span><span class="art-v" id="flRev">&pound;13,700</span></div>
+            <div class="fl-cell"><span class="art-k">Per send</span><span class="art-v" id="flPer" style="color:var(--data)">&pound;2.92</span></div>
+          </div>
+
+          <div class="art-body">
+            <div class="fl-cols" aria-hidden="true">
+              <span class="fl-col">Email</span>
+              <span class="fl-col fl-hide">Sent after</span>
+              <span class="fl-col fl-col--n">Sends</span>
+              <span class="fl-col fl-col--n">Open</span>
+              <span class="fl-col fl-col--n fl-hide">Click</span>
+              <span class="fl-col fl-col--n">Revenue</span>
+            </div>
+            <!-- The welcome flow in plain HTML so the table is not empty without
+                 JavaScript. The script replaces it on load and owns every tab
+                 switch after that — if you edit the `welcome` dataset in the
+                 script below, edit these to match. -->
+            <ol class="fl-list" id="flList" aria-live="polite">
+              <li class="fl-row">
+                <span class="fl-name">Welcome, and what to expect<span>20 min</span></span>
+                <span class="fl-when fl-hide"><b class="now">20 min</b></span>
+                <span class="fl-n">1,284</span>
+                <span class="fl-n">61.2%</span>
+                <span class="fl-n fl-hide">18.4%</span>
+                <span class="fl-rev">&pound;3,120</span>
+              </li>
+              <li class="fl-row">
+                <span class="fl-name">The one thing customers get wrong<span>Day 2</span></span>
+                <span class="fl-when fl-hide"><b class="">Day 2</b></span>
+                <span class="fl-n">1,198</span>
+                <span class="fl-n">44.6%</span>
+                <span class="fl-n fl-hide">11.2%</span>
+                <span class="fl-rev">&pound;1,840</span>
+              </li>
+              <li class="fl-row">
+                <span class="fl-name">First offer, with a reason to act<span>Day 5</span></span>
+                <span class="fl-when fl-hide"><b class="">Day 5</b></span>
+                <span class="fl-n">1,141</span>
+                <span class="fl-n">39.1%</span>
+                <span class="fl-n fl-hide">14.8%</span>
+                <span class="fl-rev win">&pound;6,480</span>
+              </li>
+              <li class="fl-row">
+                <span class="fl-name">Social proof — a job like theirs<span>Day 14</span></span>
+                <span class="fl-when fl-hide"><b class="">Day 14</b></span>
+                <span class="fl-n">1,062</span>
+                <span class="fl-n">33.4%</span>
+                <span class="fl-n fl-hide">8.1%</span>
+                <span class="fl-rev">&pound;2,260</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="art-foot">
+            <span class="art-cap" id="flFoot">4 emails</span>
+            <span class="art-cap" style="margin-left:auto" id="flBest">Best earner &middot; Day 5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 · FLOWS vs CAMPAIGNS ══════════ -->
+  <section class="sec" id="split" aria-labelledby="fcTitle">
+    <div class="container">
+      <div class="duo">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">02 · Where the money is</span></div>
+          <h2 class="sec-title" id="fcTitle" data-reveal>4% of the sends. <span class="dim">Half the revenue.</span></h2>
+          <p data-reveal>
+            Almost every business does this the wrong way round — a newsletter to the whole list
+            every few weeks, and no automations at all. But the emails that earn are the ones
+            triggered by something the customer just did, sent to one person at the moment they
+            were already thinking about you.
+          </p>
+          <p data-reveal>
+            Campaigns still matter. They're how you announce things and stay present. They just
+            shouldn't be the whole strategy, and they're not where the return lives.
+          </p>
+          <ul class="duo-list" data-reveal>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Flows are built once and keep earning with no ongoing send effort.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>They go to fewer people, which is exactly why they protect your reputation.</span></li>
+          </ul>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">flows vs campaigns · last 90 days</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
+            </div>
+            <div class="art-body">
+              <div class="fc-head">
+                <div>
+                  <span class="art-k">Revenue from email</span>
+                  <span class="art-v">&pound;96,400</span>
+                </div>
+                <span class="art-delta">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>
+                  3&times; year on year
+                </span>
+              </div>
+              <div class="fc-pair">
+                <div class="fc-row">
+                  <span class="fc-k">Share of <b>emails sent</b></span><span class="fc-v">Flows 4%</span>
+                  <span class="fc-track"><span class="fc-fill fc-fill--send" style="--w:4%"></span></span>
+                </div>
+                <div class="fc-row">
+                  <span class="fc-k">Share of <b>revenue</b></span><span class="fc-v">Flows 52%</span>
+                  <span class="fc-track"><span class="fc-fill fc-fill--rev" style="--w:52%"></span></span>
+                </div>
+                <div class="fc-row">
+                  <span class="fc-k">Campaigns, for comparison</span><span class="fc-v">96% of sends</span>
+                  <span class="fc-track"><span class="fc-fill fc-fill--send" style="--w:96%"></span></span>
+                </div>
+                <div class="fc-row">
+                  <span class="fc-k">Campaign revenue</span><span class="fc-v">48%</span>
+                  <span class="fc-track"><span class="fc-fill fc-fill--rev" style="--w:48%"></span></span>
+                </div>
+              </div>
+              <div class="fc-note">
+                <span class="art-k">Revenue per send</span>
+                <b>26&times;</b>
+                <em>A flow email earns 26 times what a campaign email earns, because it arrives when the person was already thinking about you.</em>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">&pound;50,100 from flows</span>
+              <span class="art-cap" style="margin-left:auto">&pound;46,300 from campaigns</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 · DELIVERABILITY ══════════ -->
+  <section class="sec" id="deliverability" aria-labelledby="dlTitle">
+    <div class="container">
+      <div class="duo duo--flip">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">03 · How it actually works</span></div>
+          <h2 class="sec-title" id="dlTitle" data-reveal>A great subject line <span class="dim">in the spam folder.</span></h2>
+          <p data-reveal>
+            This is the part most people never look at. An email that doesn't reach the inbox has a
+            0% open rate no matter how well it was written — and the mailbox providers decide that
+            before anyone sees a word of it.
+          </p>
+          <p data-reveal>
+            Three DNS records do most of the work: <b style="color:var(--white);font-weight:600">SPF</b>
+            says which servers may send as you, <b style="color:var(--white);font-weight:600">DKIM</b>
+            signs the message so it can't be tampered with, and
+            <b style="color:var(--white);font-weight:600">DMARC</b> tells providers what to do when
+            something fails. Get those wrong and you are anonymous mail from an unverified sender.
+          </p>
+          <p data-reveal>
+            The rest is reputation, and reputation is mostly about restraint: emailing people who
+            actually want to hear from you, removing the ones who don't, and never buying a list.
+            One bad send can cost you months of inbox placement.
+          </p>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">deliverability · seed test</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Passing</span>
+            </div>
+            <div class="art-body">
+              <div class="dl-place">
+                <span class="art-k">Where the last send landed</span>
+                <div class="dl-bar" role="img" aria-label="94% inbox, 5% promotions, 1% spam">
+                  <span class="dl-seg dl-seg--in" style="--w:94%"><b>94%</b></span>
+                  <span class="dl-seg dl-seg--promo" style="--w:5%"></span>
+                  <span class="dl-seg dl-seg--spam" style="--w:1%"></span>
+                </div>
+                <div class="dl-keys">
+                  <span class="dl-key dl-key--in"><i aria-hidden="true"></i>Inbox 94%</span>
+                  <span class="dl-key dl-key--promo"><i aria-hidden="true"></i>Promotions 5%</span>
+                  <span class="dl-key dl-key--spam"><i aria-hidden="true"></i>Spam 1%</span>
+                </div>
+              </div>
+
+              <span class="art-k">Authentication</span>
+              <ul class="dl-auth">
+                <li class="dl-item dl-item--ok">
+                  <svg class="dl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="dl-t"><b>SPF</b><span>Which servers may send as you</span></span>
+                  <span class="dl-state">Pass</span>
+                </li>
+                <li class="dl-item dl-item--ok">
+                  <svg class="dl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="dl-t"><b>DKIM</b><span>Signs the message so it can't be altered</span></span>
+                  <span class="dl-state">Pass</span>
+                </li>
+                <li class="dl-item dl-item--ok">
+                  <svg class="dl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="dl-t"><b>DMARC</b><span>p=reject · nobody can spoof you</span></span>
+                  <span class="dl-state">Pass</span>
+                </li>
+                <li class="dl-item">
+                  <svg class="dl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
+                  <span class="dl-t"><b>BIMI</b><span>Your logo beside the sender name</span></span>
+                  <span class="dl-state">In progress</span>
+                </li>
+              </ul>
+
+              <div class="dl-rep">
+                <div><b>98</b><span>Sender<br>score</span></div>
+                <div><b>0.02%</b><span>Spam<br>complaints</span></div>
+                <div><b>0.3%</b><span>Hard<br>bounces</span></div>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Seeded &middot; 42 providers</span>
+              <span class="art-cap" style="margin-left:auto">Complaint limit 0.30%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04–06 ══════════ -->
+  <section class="sec" id="craft" aria-labelledby="crTitle">
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">04–06 · The judgement calls</span></div>
+        <h2 class="sec-title" id="crTitle" data-reveal>Who gets what, <span class="dim">and when.</span></h2>
+        <p class="sec-sub" data-reveal>Sending more email is not a strategy. Sending the right thing to a smaller group usually beats it.</p>
+      </div>
+
+      <div class="tri">
+        <!-- 04 · segmentation -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">segments · 24,180 contacts</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>04</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Not everyone at once</h3>
+              <p class="tri-p">The bar is how many contacts are in the segment. The figure is what one contact in it is worth.</p>
+              <ul class="sg">
+                <li class="sg-row sg-row--top">
+                  <span class="sg-k">Bought twice or more</span><span class="sg-v">&pound;18.40 each</span>
+                  <span class="sg-track"><span class="sg-fill" style="--w:11%"></span></span>
+                </li>
+                <li class="sg-row">
+                  <span class="sg-k">Bought once</span><span class="sg-v">&pound;6.20 each</span>
+                  <span class="sg-track"><span class="sg-fill" style="--w:24%"></span></span>
+                </li>
+                <li class="sg-row">
+                  <span class="sg-k">Engaged, never bought</span><span class="sg-v">&pound;1.90 each</span>
+                  <span class="sg-track"><span class="sg-fill" style="--w:38%"></span></span>
+                </li>
+                <li class="sg-row">
+                  <span class="sg-k">Dormant 180 days</span><span class="sg-v">&pound;0.10 each</span>
+                  <span class="sg-track"><span class="sg-fill" style="--w:27%"></span></span>
+                </li>
+              </ul>
+              <span class="sg-note">The smallest segment is worth <b>4&times;</b> the list average per contact — and the dormant quarter is what drags your inbox placement down.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 · subject line test -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">subject test · 8,400 contacts</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>05</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Opens aren't the win</h3>
+              <p class="tri-p">Curiosity gets the open. It doesn't get the sale — which is why we settle these on revenue.</p>
+              <div class="ab">
+                <div class="ab-item ab-item--win">
+                  <span class="ab-tag">A · winner</span>
+                  <span class="ab-sub">"Your boiler service is due — book before 31 March"</span>
+                  <div class="ab-nums">
+                    <div><span>Opened</span><b>24.1%</b></div>
+                    <div class="rev"><span>Revenue</span><b>&pound;4,180</b></div>
+                  </div>
+                </div>
+                <div class="ab-item">
+                  <span class="ab-tag">B · more opens</span>
+                  <span class="ab-sub">"You're not going to believe this…"</span>
+                  <div class="ab-nums">
+                    <div><span>Opened</span><b>31.4%</b></div>
+                    <div class="rev"><span>Revenue</span><b>&pound;1,260</b></div>
+                  </div>
+                </div>
+              </div>
+              <span class="ab-note">B won the open rate by <b>30%</b> and lost the revenue by <b>70%</b>. If we'd tested on opens we'd have picked the wrong one.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 · the first ninety days -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">lifecycle · first 90 days</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>06</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">A contact's first 90 days</h3>
+              <p class="tri-p">Set up once. Every new subscriber walks this path from the day they join, without anyone pressing send.</p>
+              <ol class="tl">
+                <li class="tl-step tl-step--hot">
+                  <span class="tl-d">Day 0 · 20 min</span>
+                  <span class="tl-t">Welcome, and what to expect</span>
+                </li>
+                <li class="tl-step">
+                  <span class="tl-d">Day 2</span>
+                  <span class="tl-t">The one thing customers get wrong</span>
+                </li>
+                <li class="tl-step tl-step--hot">
+                  <span class="tl-d">Day 5</span>
+                  <span class="tl-t">First offer, with a reason to act</span>
+                </li>
+                <li class="tl-step">
+                  <span class="tl-d">Day 14</span>
+                  <span class="tl-t">Social proof — a job like theirs</span>
+                </li>
+                <li class="tl-step">
+                  <span class="tl-d">Day 30</span>
+                  <span class="tl-t">Joins the regular newsletter</span>
+                </li>
+                <li class="tl-step tl-step--hot">
+                  <span class="tl-d">Day 90 · if quiet</span>
+                  <span class="tl-t">Win-back, then suppressed</span>
+                </li>
+              </ol>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Built once</span>
+              <span class="art-cap" style="margin-left:auto">Runs for every contact</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROCESS ══════════ -->
+  <section class="sec" id="process" aria-labelledby="procTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">How we work</span></div>
+        <h2 class="sec-title" id="procTitle" data-reveal>The order <span class="dim">we do it in.</span></h2>
+        <p class="sec-sub" data-reveal>Sending to a list in poor health is how a domain gets a reputation it takes months to repair. Hygiene first.</p>
+      </div>
+
+      <div class="acc" id="acc">
+        <div class="acc-item is-open" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="true" aria-controls="accp1">
+            <span class="acc-num">01</span>
+            <span class="acc-title">Fix the plumbing before sending anything</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp1">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">01</span>
+              <p>Authentication records, sender reputation, hard bounces and the dormant contacts quietly damaging your placement. We fix all of it before a single campaign goes out — because sending to a list in poor health is how a domain earns a reputation that takes months to repair.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp2">
+            <span class="acc-num">02</span>
+            <span class="acc-title">Build the flows before the campaigns</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp2">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">02</span>
+              <p>Welcome, abandoned basket, post-purchase, win-back. These are a fraction of the sends and about half the revenue, and once they're live they keep working with no ongoing effort. Newsletters are the layer on top — they should never be the whole strategy.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp3">
+            <span class="acc-num">03</span>
+            <span class="acc-title">Segment, so people get something relevant</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp3">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">03</span>
+              <p>One message to everybody is the fastest route to being ignored, and then to being marked as spam. We split by behaviour, lifecycle stage and value, so a repeat customer and someone who signed up yesterday don't get the same email. Smaller sends to the right people beat bigger sends every time.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp4">
+            <span class="acc-num">04</span>
+            <span class="acc-title">Write for one action, render everywhere</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp4">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">04</span>
+              <p>Templates that hold up in Outlook and in dark mode, subject lines written to be opened by the right person rather than the most people, and one clear action per email. If a message is asking for three things it's really asking for none.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp5">
+            <span class="acc-num">05</span>
+            <span class="acc-title">Test against revenue, not opens</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp5">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">05</span>
+              <p>Open rates have been unreliable since Apple started pre-loading images, and they were always the wrong target anyway — a curiosity-gap subject line wins the open and loses the sale. We settle every test on revenue, report it weekly in plain English, and retire the losers without arguing for them.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SERVICES ══════════ -->
+  <section class="sec" id="services" aria-labelledby="svcTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">The rest of it</span></div>
+        <h2 class="sec-title" id="svcTitle" data-reveal>A list needs <span class="dim">filling first.</span></h2>
+        <p class="sec-sub" data-reveal>Email is the cheapest channel you have and the only one you own. It just can't acquire anybody on its own.</p>
+      </div>
+
+      <div class="svc-grid">
+        <a class="svc" href="/seo" data-reveal>
+          <span class="svc-idx" aria-hidden="true">01</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <h3>Search engine optimisation</h3>
+          <p>Brings people who are already looking — the highest-intent sign-ups a list ever gets.</p>
+        </a>
+
+        <a class="svc" href="/ppc" data-reveal>
+          <span class="svc-idx" aria-hidden="true">02</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <h3>Pay-per-click</h3>
+          <p>Fills the list quickly, and email is what makes that acquisition cost pay back more than once.</p>
+        </a>
+
+        <a class="svc" href="/social" data-reveal>
+          <span class="svc-idx" aria-hidden="true">03</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Social media</h3>
+          <p>An audience you rent. Email is where you move it so an algorithm change can't take it away.</p>
+        </a>
+
+        <article class="svc svc--here" aria-current="page" data-reveal>
+          <span class="svc-idx" aria-hidden="true">04</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+          <h3>Email marketing</h3>
+          <p>Flows, segmentation and deliverability — the channel that sells to the same customer twice.</p>
+          <span class="svc-here-tag"><span class="live-dot" aria-hidden="true"></span>You're here</span>
+        </article>
+
+        <a class="svc" href="/content" data-reveal>
+          <span class="svc-idx" aria-hidden="true">05</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11a4 4 0 0 1 0 8H4z"/><path d="M4 12h13a4 4 0 0 1 0 8H4z"/></svg></div>
+          <h3>Content creation</h3>
+          <p>The thing worth signing up for, and the material every newsletter is cut from.</p>
+        </a>
+
+        <a class="svc" href="/web-development" data-reveal>
+          <span class="svc-idx" aria-hidden="true">06</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <h3>Web development</h3>
+          <p>Where the sign-up form and the basket live — the two places a flow gets triggered from.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section class="cta" aria-labelledby="ctaTitle">
+    <div class="cta-ember" aria-hidden="true"></div>
+    <div class="container">
+      <div class="sec-head sec-head--center" style="margin-bottom:0">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
+        <h2 class="sec-title" id="ctaTitle" data-reveal>Find out what <span class="dim">the list is worth.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Give us read-only access and we'll come back with where your emails are actually landing,
+          which automations you're missing, and what the list could return — before you've
+          committed to anything.
+        </p>
+        <div class="cta-actions" data-reveal>
+          <a class="ember-btn" href="/contact">
+            Get a free list audit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="ghost-btn" href="/services">All services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ THE FLOW LIBRARY — five automations ══════
+     Switching tab swaps the emails, the delays and the numbers. The four
+     figures above the table are derived from the rows rather than typed
+     beside them, so the two can never drift apart. */
+  var DATA = {
+    welcome: {
+      url: 'automations / welcome-series',
+      rows: [
+        { n: 'Welcome, and what to expect', d: '20 min', sent: 1284, open: 61.2, click: 18.4, rev: 3120 },
+        { n: 'The one thing customers get wrong', d: 'Day 2', sent: 1198, open: 44.6, click: 11.2, rev: 1840 },
+        { n: 'First offer, with a reason to act', d: 'Day 5', sent: 1141, open: 39.1, click: 14.8, rev: 6480 },
+        { n: 'Social proof — a job like theirs', d: 'Day 14', sent: 1062, open: 33.4, click:  8.1, rev: 2260 }
+      ]
+    },
+    basket: {
+      url: 'automations / abandoned-basket',
+      rows: [
+        { n: 'You left something behind',        d: '1 hour', sent: 2140, open: 54.8, click: 22.1, rev: 9840 },
+        { n: 'Still thinking it over?',          d: 'Day 1',  sent: 1720, open: 41.2, click: 15.6, rev: 5120 },
+        { n: 'Last reminder, with free delivery',d: 'Day 3',  sent: 1410, open: 36.9, click: 12.4, rev: 3980 }
+      ]
+    },
+    post: {
+      url: 'automations / post-purchase',
+      rows: [
+        { n: 'Order confirmed, what happens next', d: 'Instant', sent: 1860, open: 72.4, click:  9.8, rev:  740 },
+        { n: 'Getting the most out of it',         d: 'Day 7',   sent: 1802, open: 48.1, click: 12.6, rev: 2180 },
+        { n: 'Leave a review',                     d: 'Day 21',  sent: 1744, open: 39.7, click: 16.2, rev:  310 },
+        { n: 'Time to reorder',                    d: 'Day 60',  sent: 1691, open: 35.2, click: 18.9, rev: 8640 }
+      ]
+    },
+    winback: {
+      url: 'automations / win-back',
+      rows: [
+        { n: 'We miss you — here is what changed', d: 'Day 90',  sent: 3420, open: 28.4, click:  6.2, rev: 2140 },
+        { n: 'A reason to come back',              d: 'Day 97',  sent: 3180, open: 22.6, click:  7.8, rev: 3860 },
+        { n: 'Last email, promise',                d: 'Day 104', sent: 2940, open: 19.1, click:  4.4, rev: 1280 }
+      ]
+    },
+    browse: {
+      url: 'automations / browse-abandon',
+      rows: [
+        { n: 'Still looking at this?',   d: '4 hours', sent: 4820, open: 38.6, click: 11.4, rev: 4260 },
+        { n: 'Others also considered',   d: 'Day 2',   sent: 4140, open: 29.8, click:  8.6, rev: 2480 }
+      ]
+    }
+  };
+
+  var flList  = document.getElementById('flList');
+  var flUrl   = document.getElementById('flUrl');
+  var flFoot  = document.getElementById('flFoot');
+  var flBest  = document.getElementById('flBest');
+  var flSends = document.getElementById('flSends');
+  var flOpen  = document.getElementById('flOpen');
+  var flRev   = document.getElementById('flRev');
+  var flPer   = document.getElementById('flPer');
+  var flTabs  = [].slice.call(document.querySelectorAll('.fl-tab'));
+
+  function esc(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function money(n) {
+    return '£' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  function commas(n) {
+    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function renderFlow(key, animate) {
+    var set = DATA[key];
+    if (!set || !flList) return;
+
+    var sends = 0, rev = 0, weightedOpen = 0, best = null;
+    set.rows.forEach(function (r) {
+      sends += r.sent; rev += r.rev;
+      weightedOpen += r.open * r.sent;   /* weighted, or a small send skews it */
+      if (!best || r.rev > best.rev) best = r;
+    });
+
+    flList.innerHTML = set.rows.map(function (r) {
+      var immediate = /min|hour|Instant/i.test(r.d);
+      return '<li class="fl-row">' +
+        '<span class="fl-name">' + esc(r.n) + '<span>' + esc(r.d) + '</span></span>' +
+        '<span class="fl-when fl-hide"><b class="' + (immediate ? 'now' : '') + '">' + esc(r.d) + '</b></span>' +
+        '<span class="fl-n">' + commas(r.sent) + '</span>' +
+        '<span class="fl-n">' + r.open.toFixed(1) + '%</span>' +
+        '<span class="fl-n fl-hide">' + r.click.toFixed(1) + '%</span>' +
+        '<span class="fl-rev' + (r === best ? ' win' : '') + '">' + money(r.rev) + '</span>' +
+      '</li>';
+    }).join('');
+
+    if (flUrl)   flUrl.textContent = set.url;
+    if (flSends) flSends.textContent = commas(sends);
+    if (flOpen)  flOpen.textContent = (weightedOpen / sends).toFixed(1) + '%';
+    if (flRev)   flRev.textContent = money(rev);
+    if (flPer)   flPer.textContent = '£' + (rev / sends).toFixed(2);
+    if (flFoot)  flFoot.textContent = set.rows.length + ' emails';
+    if (flBest)  flBest.textContent = 'Best earner · ' + best.d;
+
+    /* On a tab switch the panel is already on screen, so the rows have to be
+       told to play — the observer that normally does it fired long ago. */
+    if (animate && !reduceMotion) {
+      flList.querySelectorAll('.fl-row').forEach(function (row, i) {
+        row.style.transitionDelay = (0.05 * i) + 's';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { row.classList.add('fl-in'); });
+        });
+      });
+    } else {
+      flList.querySelectorAll('.fl-row').forEach(function (row) { row.classList.add('fl-in'); });
+    }
+  }
+
+  flTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      flTabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+      renderFlow(tab.getAttribute('data-v'), true);
+    });
+  });
+  /* first paint is not animated here — the panel observer handles that */
+  renderFlow('welcome', false);
+  if (reduceMotion) {
+    flList.querySelectorAll('.fl-row').forEach(function (r) { r.classList.add('fl-in'); });
+  }
+
+  /* ══════ REVEALS ══════
+     Copy reveals at 15%; an instrument waits until enough of its panel is
+     on screen to be worth watching. */
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  var artEls = document.querySelectorAll('[data-art]');
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    artEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+
+    var artObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); artObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.22 });
+    artEls.forEach(function (el) { artObs.observe(el); });
+  }
+
+  /* ══════ PROCESS ACCORDION ══════ */
+  var items = [].slice.call(document.querySelectorAll('.acc-item'));
+
+  function setOpen(item, open) {
+    var panel = item.querySelector('.acc-panel');
+    var head = item.querySelector('.acc-head');
+    item.classList.toggle('is-open', open);
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0px';
+  }
+
+  items.forEach(function (item) {
+    item.querySelector('.acc-head').addEventListener('click', function () {
+      var willOpen = !item.classList.contains('is-open');
+      items.forEach(function (other) { if (other !== item) setOpen(other, false); });
+      setOpen(item, willOpen);
+    });
+  });
+
+  function sizeOpen() {
+    items.forEach(function (item) { setOpen(item, item.classList.contains('is-open')); });
+  }
+  sizeOpen();
+  window.addEventListener('load', sizeOpen);
+  window.addEventListener('resize', function () {
+    items.forEach(function (item) {
+      if (!item.classList.contains('is-open')) return;
+      var p = item.querySelector('.acc-panel');
+      p.style.maxHeight = p.scrollHeight + 'px';
+    });
+  });
+
+  /* ══════ SCROLL PROGRESS ══════ */
+  var bar = document.getElementById('progress');
+  if (bar && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
+  } else if (bar) {
+    var tick = null;
+    window.addEventListener('scroll', function () {
+      if (tick) return;
+      tick = requestAnimationFrame(function () {
+        var max = document.body.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        tick = null;
+      });
+    }, { passive: true });
+  }
+})();
+</script>
