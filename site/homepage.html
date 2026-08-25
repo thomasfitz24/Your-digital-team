@@ -3,29 +3,33 @@
      Paste the whole of this into ONE Code Block on that page.
      Requires the header injection (see header-injection.html).
 
-     Design system:
-       base #050505 · panels #0a0a0b · hairlines at 7% white
+     Design system — "ember":
+       base #050505 · panels #0b0a09 (warm-shifted) · hairlines at 7% white
        type: NB International Pro (display/body) + IBM Plex Mono (data)
-       one accent — signal lime #c9f24f — used ONLY where performance
-       data lives: sparklines, deltas, live-dots, check marks, the
-       asterisk pills. Never on buttons, never on headings.
+       accent ramp — ember #ff9346 → #f4640e. Used for performance data
+       (sparklines, deltas, live-dots, checks), the primary CTA, and the
+       ambient glow. Never on body copy, never two accents on one screen.
+       The page sits inside a warm edge vignette, like light thrown from
+       behind the frame.
      ═══════════════════════════════════════════════════════════ -->
 <style>
 .ydt-page {
     --black: #050505;
-    --panel: #0a0a0b;
-    --panel2: #0e0e10;
-    --white: #f2f2f0;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
     --w25: rgba(255, 255, 255, 0.28);
     --w30: rgba(255, 255, 255, 0.34);
-    --gray5: #8a8f98;
-    --gray6: #565b64;
+    --gray5: #918a84;
+    --gray6: #5e5852;
     --line: rgba(255, 255, 255, 0.07);
     --line2: rgba(255, 255, 255, 0.05);
-    --card-bg: #0a0a0b;
+    --card-bg: #0b0a09;
     --card-line: rgba(255, 255, 255, 0.07);
-    --data: #c9f24f;
-    --data-dim: rgba(201, 242, 79, 0.14);
+    --data: #ff9346;
+    --data-deep: #f4640e;
+    --data-dim: rgba(255, 147, 70, 0.14);
+    --ember-glow: rgba(244, 100, 14, 0.5);
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
     --menu-dur: 1.15s;
     --menu-ease: cubic-bezier(0.62, 0.02, 0.2, 1);
@@ -41,7 +45,7 @@
     overflow-x: clip;
     -webkit-font-smoothing: antialiased;
   }
-.ydt-page ::selection { background: rgba(201, 242, 79, 0.85); color: #050505; }
+.ydt-page ::selection { background: rgba(255, 147, 70, 0.9); color: #050505; }
 .ydt-page a { color: inherit; }
 .ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
 .ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
@@ -73,7 +77,7 @@
     z-index: 1;
     pointer-events: none;
     opacity: 0;
-    background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    background: radial-gradient(circle closest-side, rgba(255, 170, 110, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
     transition: opacity 0.6s ease;
     will-change: transform;
   }
@@ -82,7 +86,7 @@
     position: fixed;
     top: 0; left: 0;
     height: 2px; width: 100%;
-    background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.35));
+    background: linear-gradient(90deg, #ffb057, #f4640e);
     transform-origin: 0 50%;
     transform: scaleX(0);
     z-index: 51;
@@ -110,14 +114,14 @@
     width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--data);
-    box-shadow: 0 0 0 0 rgba(201, 242, 79, 0.4);
+    box-shadow: 0 0 0 0 rgba(255, 147, 70, 0.45);
     animation: livePulse 2.2s infinite;
     flex-shrink: 0;
   }
 @keyframes livePulse {
-    0% { box-shadow: 0 0 0 0 rgba(201, 242, 79, 0.4); }
-    70% { box-shadow: 0 0 0 7px rgba(201, 242, 79, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(201, 242, 79, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(255, 147, 70, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 147, 70, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 147, 70, 0); }
   }
 
 /* the shared pill button (journal foot, app promo) */
@@ -153,24 +157,98 @@
     overflow: hidden;
     z-index: 2;
   }
-/* dashed column guides, fading out below the headline */
-.ydt-page .hero-guides {
+/* ── ember: warm light thrown from behind the top of the frame ── */
+.ydt-page .hero-ember {
     position: absolute;
-    top: 0; bottom: 0; left: 50%;
+    top: -46vh; left: 50%;
+    width: 190vw; height: 118vh;
     transform: translateX(-50%);
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 24px;
-    display: none;
-    grid-template-columns: repeat(4, 1fr);
     pointer-events: none;
-    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 34%, transparent 72%);
-            mask-image: linear-gradient(180deg, #000 0%, #000 34%, transparent 72%);
+    z-index: 0;
+    background:
+      radial-gradient(50% 50% at 50% 50%, rgba(255, 138, 48, 0.42) 0%, rgba(244, 100, 14, 0.20) 34%, rgba(140, 46, 6, 0.07) 58%, transparent 76%);
+    filter: blur(28px);
   }
-@media (min-width: 768px) { .ydt-page .hero-guides { display: grid; } }
-.ydt-page .hero-guides i { border-left: 1px dashed rgba(255, 255, 255, 0.07); }
-.ydt-page .hero-guides i:last-child { border-right: 1px dashed rgba(255, 255, 255, 0.07); }
+/* the horizon line the glow sits on — a single lit arc */
+.ydt-page .hero-horizon {
+    position: absolute;
+    top: 6vh; left: 50%;
+    width: 148vw; height: 148vw;
+    max-height: 1180px; max-width: 1180px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    border-top: 1px solid rgba(255, 175, 120, 0.30);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+  }
 
+/* ── orbit rails + floating stat markers (desktop only) ── */
+.ydt-page .hero-orbits {
+    position: absolute;
+    inset: 0;
+    display: none;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+@media (min-width: 1100px) { .ydt-page .hero-orbits { display: block; } }
+.ydt-page .hero-orbits svg {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 1560px; height: 1100px;
+    margin: -600px 0 0 -780px;
+  }
+.ydt-page .hero-orbits .rail {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.10);
+    stroke-width: 1;
+  }
+.ydt-page .hero-stat {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: statIn 1s var(--ease) forwards;
+  }
+@keyframes statIn { to { opacity: 1; transform: translateY(0); } }
+.ydt-page .hero-stat i {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--data);
+    box-shadow: 0 0 10px rgba(255, 147, 70, 0.9);
+    flex-shrink: 0;
+  }
+.ydt-page .hero-stat b {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    line-height: 1.2;
+  }
+.ydt-page .hero-stat span {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray5);
+    margin-top: 2px;
+  }
+.ydt-page .hero-stat--r { flex-direction: row-reverse; text-align: right; }
+/* positions ride the arc drawn in the SVG above — all kept above the
+   console, which starts around 72% of the hero's height */
+.ydt-page .hero-stat--a { top: 24%; left: 4%;    animation-delay: 0.75s; }
+.ydt-page .hero-stat--b { top: 19%; right: 4%;   animation-delay: 0.90s; }
+.ydt-page .hero-stat--c { top: 47%; right: 1.5%; animation-delay: 1.05s; }
+.ydt-page .hero-stat--d { top: 44%; left: 1.5%;  animation-delay: 1.20s; }
+
+.ydt-page .hero .container { position: relative; z-index: 2; }
 .ydt-page .hero-inner {
     position: relative;
     text-align: center;
@@ -215,24 +293,35 @@
 .ydt-page .cycler .word.out { opacity: 0; transform: translateY(-0.18em); filter: blur(6px); }
 .ydt-page .cycler .word.in-start { opacity: 0; transform: translateY(0.18em); filter: blur(6px); }
 
-/* a small sparkle between headline and standfirst */
-.ydt-page .hero-spark {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 26px;
-  }
-.ydt-page .hero-spark svg { width: 26px; height: 26px; color: var(--white); animation: sparkBreathe 4s var(--ease) infinite; }
-@keyframes sparkBreathe {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.9; }
-    50% { transform: scale(0.82) rotate(18deg); opacity: 0.55; }
-  }
 .ydt-page .hero-sub {
     font-size: 16px;
     color: var(--gray5);
     line-height: 1.65;
     max-width: 32rem;
-    margin: 0 auto 44px;
+    margin: 0 auto 40px;
   }
+.ydt-page .hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+.ydt-page .ghost-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 15px 26px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    transition: background 0.3s, border-color 0.3s;
+  }
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
 
 /* ══════════ SEARCH-BAR CTA ══════════ */
 .ydt-page .ydt-cta__inner { max-width: 512px; }
@@ -276,15 +365,42 @@
     align-items: center;
     justify-content: center;
     width: 36px; height: 36px;
-    background: var(--white);
-    color: #050505;
+    background: linear-gradient(180deg, #ffa055, var(--data-deep));
+    color: #1a0c02;
     border-radius: 9999px;
     text-decoration: none;
-    transition: background 0.3s;
+    transition: filter 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 16px rgba(244, 100, 14, 0.42);
     flex-shrink: 0;
   }
 @media (min-width: 768px) { .ydt-page .ydt-cta__go-btn { width: 40px; height: 40px; } }
-.ydt-page .ydt-cta__go-btn:hover { background: rgba(255,255,255,0.85); }
+.ydt-page .ydt-cta__go-btn:hover { filter: brightness(1.08); box-shadow: 0 6px 22px rgba(244, 100, 14, 0.6); }
+
+/* ── primary ember button (hero + section CTAs) ── */
+.ydt-page .ember-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    border-radius: 9999px;
+    border: none;
+    background: linear-gradient(180deg, #ffa055, var(--data-deep));
+    color: #1a0c02;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(244, 100, 14, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s, transform 0.6s var(--ease);
+  }
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(244, 100, 14, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+  }
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
 .ydt-page .ydt-cta__go-btn svg { width: 14px; height: 14px; transition: transform 0.3s; }
 @media (min-width: 768px) { .ydt-page .ydt-cta__go-btn svg { width: 16px; height: 16px; } }
 .ydt-page .ydt-cta__go-btn:hover svg { transform: translateX(1px); }
@@ -293,13 +409,25 @@
    A working-looking slice of the client dashboard, and the only
    coloured object on the page. Sample numbers live in the markup —
    edit them there. */
-.ydt-page .console-wrap { margin-top: 76px; }
+.ydt-page .console-wrap { margin-top: 76px; position: relative; z-index: 2; }
+/* the ember pooling under the console, as if the panel is lit from behind */
+.ydt-page .console-wrap::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: -6%;
+    width: 76%; height: 74%;
+    transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(244, 100, 14, 0.30), transparent 72%);
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: -1;
+  }
 .ydt-page .console {
     background: var(--panel);
-    border: 1px solid var(--line);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 150, 90, 0.05);
   }
 .ydt-page .console-bar {
     display: flex;
@@ -413,7 +541,7 @@
   }
 .ydt-page .console-chip--on {
     color: var(--data);
-    border-color: rgba(201, 242, 79, 0.35);
+    border-color: rgba(255, 147, 70, 0.4);
     background: var(--data-dim);
   }
 .ydt-page .console-note {
@@ -585,7 +713,7 @@
 .ydt-page .bento-bars i {
     flex: 0 1 14px;
     border-radius: 3px 3px 0 0;
-    background: linear-gradient(180deg, var(--data), rgba(201, 242, 79, 0.4));
+    background: linear-gradient(180deg, var(--data), rgba(255, 147, 70, 0.45));
     transform-origin: bottom;
   }
 /* — visual 2: report stack — */
@@ -628,7 +756,7 @@
 /* — visual 3: compounding curve — */
 .ydt-page .bento-curve { width: 100%; height: 100%; display: block; }
 .ydt-page .bento-curve .curve-dot { fill: var(--data); }
-.ydt-page .bento-curve .curve-glow { fill: rgba(201, 242, 79, 0.14); }
+.ydt-page .bento-curve .curve-glow { fill: rgba(255, 147, 70, 0.14); }
 /* — visual 4: channel tiles — */
 .ydt-page .bento-channels {
     display: flex;
@@ -773,13 +901,26 @@
     max-width: var(--max);
     height: 100%;
     background: var(--panel);
-    border: 1px solid var(--line);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 20px;
     margin: 0 auto;
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
+/* warm wash across the panel's top-left, so it belongs to the ember system */
+.ydt-projects-standalone .ydt-services__panel::before {
+    content: '';
+    position: absolute;
+    top: -30%; left: -10%;
+    width: 70%; height: 90%;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(244, 100, 14, 0.16), transparent 70%);
+    filter: blur(50px);
+    pointer-events: none;
+    z-index: 0;
+}
+.ydt-projects-standalone .ydt-services__left,
+.ydt-projects-standalone .ydt-services__right { position: relative; z-index: 1; }
 @media (min-width: 1024px) {
     .ydt-projects-standalone .ydt-services__panel { flex-direction: row; border-radius: 24px; }
 }
@@ -808,7 +949,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     z-index: 2;
 }
 .ydt-projects-standalone .ydt-services__label::before {
@@ -816,6 +957,81 @@
     color: var(--data);
     font-size: 12px;
 }
+.ydt-projects-standalone .ydt-services__counter {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--gray6);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── the case file: fills the left column, swaps with the strip ── */
+.ydt-projects-standalone .ydt-services__case {
+    flex-shrink: 0;
+    padding-top: 22px;
+    /* the titles band above flexes, so the case file lands against the
+       bottom of the panel without stranding a void in the middle */
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: none;
+}
+@media (min-width: 1024px) { .ydt-projects-standalone .ydt-services__case { display: block; } }
+.ydt-projects-standalone .ydt-services__case-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.ydt-projects-standalone .ydt-services__case-sector {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--data);
+    margin-bottom: 12px;
+}
+.ydt-projects-standalone .ydt-services__case-line {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--gray5);
+    max-width: 34rem;
+    margin-bottom: 18px;
+}
+.ydt-projects-standalone .ydt-services__case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 20px;
+}
+.ydt-projects-standalone .ydt-services__case-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray5);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 9999px;
+    padding: 6px 12px;
+}
+.ydt-projects-standalone .ydt-services__case-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+    padding-bottom: 3px;
+    transition: color 0.25s, border-color 0.25s;
+}
+.ydt-projects-standalone .ydt-services__case-link:hover { color: var(--data); border-color: var(--data); }
+.ydt-projects-standalone .ydt-services__case-link svg { width: 12px; height: 12px; }
+/* the whole block cross-fades when the active project changes */
+.ydt-projects-standalone .ydt-services__case > * {
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.ydt-projects-standalone .ydt-services__case--swap > * { opacity: 0; transform: translateY(6px); }
 /* gradient fades instead of CSS masks: cheap for mobile GPUs */
 .ydt-projects-standalone .ydt-services__titles {
     position: relative;
@@ -842,12 +1058,23 @@
     z-index: 10;
 }
 @media (min-width: 1024px) {
-    .ydt-projects-standalone .ydt-services__titles::before { display: none; }
+    /* the titles fill whatever the case file leaves, and stay centred in it */
+    .ydt-projects-standalone .ydt-services__titles {
+        flex: 1 1 auto;
+        min-height: 260px;
+        margin-bottom: 8px;
+    }
+    /* vertical fade only — a horizontal fade used to eat the longer names */
+    .ydt-projects-standalone .ydt-services__titles::before {
+        display: block;
+        height: 26%;
+        background: linear-gradient(to bottom, var(--panel) 0%, transparent 100%);
+    }
     .ydt-projects-standalone .ydt-services__titles::after {
-        top: 0; right: 0; bottom: 0; left: auto;
-        height: auto;
-        width: 180px;
-        background: linear-gradient(to right, rgba(10,10,11,0) 0%, rgba(10,10,11,0.6) 40%, rgba(10,10,11,0.95) 75%, rgba(10,10,11,1) 100%);
+        top: auto; right: 0; bottom: 0; left: 0;
+        height: 26%;
+        width: auto;
+        background: linear-gradient(to top, var(--panel) 0%, transparent 100%);
     }
 }
 .ydt-projects-standalone .ydt-services__title-btn {
@@ -866,23 +1093,23 @@
     transition: opacity 0.2s linear;
 }
 .ydt-projects-standalone .ydt-services__title-text {
-    font-size: clamp(2.2rem, 4.2vw, 3.8rem);
-    line-height: 1.05;
+    font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+    line-height: 1.04;
     font-weight: 600;
     letter-spacing: -0.035em;
     color: #ffffff;
     display: block;
     white-space: normal;
-    word-break: break-word;
+    word-break: normal;
+    overflow-wrap: break-word;
     text-transform: uppercase;
+    transition: color 0.3s var(--ease);
 }
+/* the project in view is white; its neighbours recede */
+.ydt-projects-standalone .ydt-services__title-btn--far .ydt-services__title-text { color: rgba(255, 255, 255, 0.55); }
+.ydt-projects-standalone .ydt-services__title-btn:hover .ydt-services__title-text { color: var(--data); }
 @media (min-width: 1024px) {
-    .ydt-projects-standalone .ydt-services__title-btn { right: auto; width: 100%; overflow: visible; }
-    .ydt-projects-standalone .ydt-services__title-text {
-        white-space: nowrap;
-        word-break: normal;
-        overflow-wrap: normal;
-    }
+    .ydt-projects-standalone .ydt-services__title-btn { right: 0; width: 100%; overflow: visible; }
 }
 .ydt-projects-standalone .ydt-services__right {
     flex: 1;
@@ -1426,7 +1653,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 85% 10%, rgba(201, 242, 79, 0.05), transparent 55%);
+    background: radial-gradient(circle at 85% 10%, rgba(244, 100, 14, 0.08), transparent 55%);
     z-index: -1;
     pointer-events: none;
   }
@@ -1531,7 +1758,8 @@
 .ydt-page .grain { animation: none; }
 .ydt-page .spotlight { display: none; }
 .ydt-page .live-dot { animation: none; }
-.ydt-page .hero-spark svg { animation: none; }
+.ydt-page .hero-stat { animation: none; opacity: 1; transform: none; }
+.ydt-page .ydt-services__case > * { transition: none; }
 .ydt-page .journal-item { opacity: 1; transform: none; filter: none; transition: none; }
 .ydt-page .journal-card, .ydt-page .journal-card__media img { transition: none; }
 .ydt-page .journal-skel::after { animation: none; }
@@ -1591,7 +1819,21 @@
 <main id="top">
   <!-- ══════════ HERO ══════════ -->
   <section class="hero">
-    <div class="hero-guides" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <!-- Orbit rails with stat markers riding them.
+         THESE FOUR NUMBERS ARE CLAIMS ABOUT YOUR BUSINESS — replace them
+         with figures you can evidence before this goes live. -->
+    <div class="hero-orbits" aria-hidden="true">
+      <svg viewBox="0 0 1560 1100" fill="none">
+        <ellipse class="rail" cx="780" cy="700" rx="742" ry="640"/>
+        <ellipse class="rail" cx="780" cy="740" rx="560" ry="470" style="stroke:rgba(255,255,255,0.06)"/>
+      </svg>
+      <span class="hero-stat hero-stat--a"><i></i><span><b>+312%</b><span>organic growth</span></span></span>
+      <span class="hero-stat hero-stat--r hero-stat--b"><i></i><span><b>4.6×</b><span>return on ad spend</span></span></span>
+      <span class="hero-stat hero-stat--r hero-stat--c"><i></i><span><b>18k+</b><span>keywords tracked</span></span></span>
+      <span class="hero-stat hero-stat--d"><i></i><span><b>£2.4M</b><span>client revenue</span></span></span>
+    </div>
     <div class="container">
       <div class="hero-inner">
         <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Independent growth team&nbsp;·&nbsp;UK</p>
@@ -1599,27 +1841,16 @@
           <span class="clip"><span class="slide">Digital growth</span></span>
           <span class="clip"><span class="slide">that <span class="cycler" id="cycler"><span class="word">compounds.</span></span></span></span>
         </h1>
-        <div class="hero-spark" data-reveal aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1 8 3 10.9 12 12-9 1.1-11 4-12 12-1-8-3-10.9-12-12C9 10.9 11 8 12 0z"/></svg>
-        </div>
         <p class="hero-sub" data-reveal>
           Your Digital Team plans, builds and runs the SEO, paid media and content
           that turn searches into customers — measured in revenue, reported in plain English.
         </p>
-        <div class="ydt-cta__inner ydt-cta__inner--center" data-reveal>
-          <div class="ydt-cta__bar" id="heroCtaBar" role="button" tabindex="0" aria-label="Start a project">
-            <div class="ydt-cta__search-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            </div>
-            <div class="ydt-cta__placeholder-wrap" aria-hidden="true">
-              <span class="ydt-cta__placeholder" id="heroPlaceholder">Start a project...</span>
-            </div>
-            <div class="ydt-cta__go">
-              <a href="/contact" class="ydt-cta__go-btn" aria-label="Contact us" onclick="event.stopPropagation()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-          </div>
+        <div class="hero-actions" data-reveal>
+          <a href="/contact" class="ember-btn">
+            Get started
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="#projects" class="ghost-btn">See our work</a>
         </div>
       </div>
 
@@ -1654,12 +1885,12 @@
               <svg class="console-spark" viewBox="0 0 640 190" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
                   <linearGradient id="ydtSparkFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stop-color="#c9f24f" stop-opacity="0.20"/>
-                    <stop offset="1" stop-color="#c9f24f" stop-opacity="0"/>
+                    <stop offset="0" stop-color="#ff9346" stop-opacity="0.20"/>
+                    <stop offset="1" stop-color="#ff9346" stop-opacity="0"/>
                   </linearGradient>
                 </defs>
                 <path class="spark-area" d="M0 158 C55 148 85 152 125 130 C165 108 200 124 240 102 C280 80 320 94 360 68 C400 48 440 62 480 40 C520 22 580 28 640 8 L640 190 L0 190 Z" fill="url(#ydtSparkFill)"/>
-                <path class="spark-line" d="M0 158 C55 148 85 152 125 130 C165 108 200 124 240 102 C280 80 320 94 360 68 C400 48 440 62 480 40 C520 22 580 28 640 8" fill="none" stroke="#c9f24f" stroke-width="2.5" stroke-linecap="round"/>
+                <path class="spark-line" d="M0 158 C55 148 85 152 125 130 C165 108 200 124 240 102 C280 80 320 94 360 68 C400 48 440 62 480 40 C520 22 580 28 640 8" fill="none" stroke="#ff9346" stroke-width="2.5" stroke-linecap="round"/>
               </svg>
               <span class="console-chart-label">Organic clicks — trailing 12 months</span>
             </div>
@@ -1720,7 +1951,7 @@
         <article class="bento-card bento-card--third" data-reveal>
           <div class="bento-visual" aria-hidden="true">
             <svg class="bento-curve" viewBox="0 0 320 150" preserveAspectRatio="none">
-              <path class="curve-line" d="M12 130 C70 128 110 120 160 96 C210 72 250 44 302 20" fill="none" stroke="#c9f24f" stroke-width="2.2" stroke-linecap="round"/>
+              <path class="curve-line" d="M12 130 C70 128 110 120 160 96 C210 72 250 44 302 20" fill="none" stroke="#ff9346" stroke-width="2.2" stroke-linecap="round"/>
               <circle class="curve-glow" cx="302" cy="20" r="14"/>
               <circle class="curve-dot" cx="302" cy="20" r="4"/>
             </svg>
@@ -1775,6 +2006,19 @@
               <div class="ydt-services__left">
                 <h2 class="ydt-services__label">Featured Work</h2>
                 <div class="ydt-services__titles" id="ydtTitles"></div>
+                <!-- case file: swaps to whichever project is in view -->
+                <div class="ydt-services__case" id="ydtCase">
+                  <span class="ydt-services__case-sector" id="ydtCaseSector"></span>
+                  <p class="ydt-services__case-line" id="ydtCaseLine"></p>
+                  <div class="ydt-services__case-tags" id="ydtCaseTags"></div>
+                  <div class="ydt-services__case-foot">
+                    <a class="ydt-services__case-link" id="ydtCaseLink" href="#" target="_blank" rel="noopener">
+                      <span id="ydtCaseDomain"></span>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    </a>
+                    <span class="ydt-services__counter" id="ydtCounter">01 / 09</span>
+                  </div>
+                </div>
               </div>
               <div class="ydt-services__right">
                 <div class="ydt-services__strip" id="ydtStrip"></div>
@@ -1932,7 +2176,7 @@
             Every client gets the app. Track your keywords, traffic and leads whenever
             you like — the same live numbers we work from, not a filtered version.
           </p>
-          <a href="https://dev.yourdigiteam.com/" class="glass-btn" data-magnetic>
+          <a href="https://dev.yourdigiteam.com/" class="ember-btn" data-magnetic>
             Explore the app
             <span class="icn" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -2109,7 +2353,7 @@
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
     });
   }
-  initCtaBar('heroCtaBar', 'heroPlaceholder', '/contact');
+  /* the hero leads with the ember button now; the search bar lives in the final CTA */
   initCtaBar('footCtaBar', 'footPlaceholder', '/contact');
   /* ══════ QUESTION PILLS feed the CTA bar ══════ */
   (function () {
@@ -2437,7 +2681,8 @@
     var gap = isMobile() ? 10 : 12;
     cardStep = cardH + gap;
     cards.forEach(function (c) { c.style.height = cardH + 'px'; });
-    scrollSection.style.height = (COUNT * vh) + 'px';
+    /* ~0.72vh of scroll per project — nine full viewports was a long haul */
+    scrollSection.style.height = Math.round(vh + (COUNT - 1) * vh * 0.72) + 'px';
 
     cachedSectionTop = scrollSection.getBoundingClientRect().top + window.scrollY;
     cachedSectionH = scrollSection.offsetHeight - window.innerHeight;
@@ -2457,7 +2702,7 @@
       stripEl.style.transform = 'translate3d(0, ' + translateY + 'px, 0)';
 
       var exactIndex = progress * (COUNT - 1);
-      var itemGap = window.innerWidth >= 1024 ? 80 : 60;
+      var itemGap = window.innerWidth >= 1024 ? 74 : 60;
 
       titleBtns.forEach(function (btn, i) {
         var diff = i - exactIndex;
@@ -2467,12 +2712,58 @@
         var opacity = Math.max(0, 1 - Math.pow(absDiff / 2.2, 1.8));
         btn.style.opacity = opacity.toFixed(3);
         btn.style.pointerEvents = absDiff < 1.5 ? 'auto' : 'none';
+        btn.classList.toggle('ydt-services__title-btn--far', absDiff >= 0.5);
       });
 
+      setCase(Math.round(exactIndex));
       lastY = translateY;
     }
     rafId = null;
   }
+
+  /* ── the case file follows whichever project is in view ── */
+  var caseEl = document.getElementById('ydtCase');
+  var caseSector = document.getElementById('ydtCaseSector');
+  var caseLine = document.getElementById('ydtCaseLine');
+  var caseTags = document.getElementById('ydtCaseTags');
+  var caseLink = document.getElementById('ydtCaseLink');
+  var caseDomain = document.getElementById('ydtCaseDomain');
+  var counterEl = document.getElementById('ydtCounter');
+  var caseIndex = -1;
+  var caseTimer = null;
+
+  function paintCase(i) {
+    var s = projectServices[i];
+    if (!s) return;
+    if (caseSector) caseSector.textContent = s.label;
+    if (caseLine) caseLine.textContent = s.headline;
+    if (caseTags) {
+      caseTags.innerHTML = s.capabilities.map(function (c) {
+        return '<span class="ydt-services__case-tag">' + esc(c) + '</span>';
+      }).join('');
+    }
+    if (caseLink) caseLink.href = s.href;
+    if (caseDomain) caseDomain.textContent = s.search;
+  }
+
+  function setCase(i) {
+    if (i === caseIndex || !projectServices[i]) return;
+    var first = caseIndex === -1;
+    caseIndex = i;
+    if (counterEl) {
+      counterEl.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(COUNT).padStart(2, '0');
+    }
+    if (!caseEl) return;
+    if (first || reduceMotion) { paintCase(i); return; }
+    /* fade out, swap the text, fade back in */
+    caseEl.classList.add('ydt-services__case--swap');
+    if (caseTimer) clearTimeout(caseTimer);
+    caseTimer = setTimeout(function () {
+      paintCase(caseIndex);
+      caseEl.classList.remove('ydt-services__case--swap');
+    }, 260);
+  }
+  setCase(0);
 
   window.addEventListener('scroll', function () {
     if (!rafId) rafId = requestAnimationFrame(update);
