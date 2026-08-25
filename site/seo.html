@@ -1,0 +1,1501 @@
+<!-- ═══════════════════════════════════════════════════════════
+     seo.html  →  Squarespace page /seo
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Design system — "signal", same as every other page:
+       base #050505 · panels #0b0a09 · Inter + IBM Plex Mono
+       signal red #ff4536 → #d81e0d, ember glow, film grain.
+
+     Six purpose-built instruments, all CSS and inline SVG — nothing
+     to upload, nothing that can 404:
+       1  rank tracker, switchable across five industries
+       2  Search Console: impressions, clicks, position, CTR
+       3  backlink profile: authority, referring domains, recent links
+       4  technical health: crawl issues and Core Web Vitals
+       5  SERP features owned
+       6  topical cluster map
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- Runs before paint. Everything hidden by default is scoped to this
+     class, so a script error leaves the page readable rather than blank. -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page { scroll-behavior: smooth; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { color: inherit; text-decoration: none; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; scroll-margin-top: 110px; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ PRIMITIVES ══════════ */
+html.ydt-js .ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+html.ydt-js .ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+html.ydt-js .ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+
+/* ══════════ SECTION SCAFFOLD ══════════ */
+.ydt-page .sec { padding: 112px 0; border-top: 1px solid var(--line2); }
+.ydt-page .sec-head { max-width: 672px; margin-bottom: 56px; }
+.ydt-page .sec-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.ydt-page .sec-head--center .sec-eyebrow { justify-content: center; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.03; margin-bottom: 16px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.68; }
+
+/* two-up: copy one side, instrument the other */
+.ydt-page .duo { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+@media (min-width: 1024px) {
+    .ydt-page .duo { grid-template-columns: 0.8fr 1.2fr; gap: 60px; }
+    .ydt-page .duo--flip .duo-copy { order: 2; }
+    .ydt-page .duo--flip .duo-art { order: 1; }
+}
+/* A `1fr` track is minmax(auto, 1fr), and that auto minimum is min-content —
+   which for any nowrap string is the whole string. Without this a single
+   keyword row sizes the whole track past the viewport on a phone. */
+.ydt-page .duo-copy, .ydt-page .duo-art { min-width: 0; }
+.ydt-page .duo-copy p { font-size: 15px; color: var(--gray5); line-height: 1.72; }
+.ydt-page .duo-copy p + p { margin-top: 14px; }
+.ydt-page .duo-list { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .duo-list li { display: flex; gap: 11px; font-size: 14px; color: var(--gray5); line-height: 1.55; }
+.ydt-page .duo-list svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; margin-top: 3px; }
+
+/* ══════════ HERO ══════════ */
+.ydt-page .hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + 78px) 0 84px; }
+.ydt-page .hero-ember {
+    position: absolute; top: -48vh; left: 50%; width: 180vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.32) 0%, rgba(216, 30, 13, 0.15) 34%, rgba(118, 20, 10, 0.05) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .hero-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-width: 1180px; max-height: 1180px;
+    transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.22);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .hero .container { position: relative; z-index: 2; }
+.ydt-page .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 28px;
+}
+.ydt-page .hero h1 {
+    font-size: clamp(2.1rem, 5.4vw, 4rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; max-width: 17ch;
+}
+.ydt-page .hero h1 .dim { color: var(--w25); }
+.ydt-page .hero-body {
+    font-size: clamp(1rem, 1.25vw, 1.1rem); color: var(--gray5);
+    line-height: 1.7; max-width: 36rem; margin-top: 28px;
+}
+.ydt-page .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.ydt-page .back {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 26px;
+    /* 12px block padding clears the 36px touch minimum */
+    padding: 12px 0; transition: color 0.3s;
+}
+.ydt-page .back:hover { color: var(--white); }
+.ydt-page .back svg { width: 13px; height: 13px; transition: transform 0.3s var(--ease); }
+.ydt-page .back:hover svg { transform: translateX(-3px); }
+
+/* ══════════ PROOF BAND ══════════ */
+.ydt-page .band {
+    margin-top: 62px; border: 1px solid var(--line); border-radius: 18px;
+    background: var(--panel); overflow: hidden;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 860px) { .ydt-page .band { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .band-cell { padding: 24px 22px; border-top: 1px solid var(--line2); border-left: 1px solid var(--line2); }
+.ydt-page .band-cell:nth-child(-n+2) { border-top: none; }
+.ydt-page .band-cell:nth-child(odd) { border-left: none; }
+@media (min-width: 860px) {
+    .ydt-page .band-cell { border-top: none; border-left: 1px solid var(--line2); }
+    .ydt-page .band-cell:first-child { border-left: none; }
+}
+.ydt-page .band-v {
+    display: block; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; margin-bottom: 9px;
+}
+.ydt-page .band-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SHARED PANEL CHROME
+   ══════════════════════════════════════════════════════════════ */
+.ydt-page .duo-art, .ydt-page .art-hold { position: relative; }
+.ydt-page .duo-art::before, .ydt-page .art-hold::before {
+    content: ''; position: absolute; left: 50%; top: 4%;
+    width: 80%; height: 76%; transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.22), transparent 72%);
+    filter: blur(58px); pointer-events: none; z-index: 0;
+}
+.ydt-page .art {
+    position: relative; z-index: 1;
+    background: var(--panel); border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 76, 0.04);
+}
+.ydt-page .art-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line2); background: var(--panel2);
+}
+.ydt-page .art-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.ydt-page .art-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+.ydt-page .art-url {
+    font-family: var(--mono); font-size: 10.5px; color: var(--gray6); min-width: 0;
+    letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .art-live {
+    display: inline-flex; align-items: center; gap: 7px; margin-left: auto; flex-shrink: 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--data);
+}
+.ydt-page .art-body { padding: 22px 20px; }
+@media (min-width: 560px) { .ydt-page .art-body { padding: 24px; } }
+.ydt-page .art-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); margin-bottom: 8px;
+}
+.ydt-page .art-v {
+    display: block; font-size: clamp(1.35rem, 2.6vw, 1.85rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .art-cap {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6);
+}
+.ydt-page .art-delta {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .art-delta svg { width: 10px; height: 10px; }
+.ydt-page .art-foot {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 13px 20px; border-top: 1px solid var(--line2); background: rgba(255,255,255,0.012);
+}
+@media (min-width: 560px) { .ydt-page .art-foot { padding: 13px 24px; } }
+
+/* ══════════ 01 · RANK TRACKER, FIVE INDUSTRIES ══════════
+   The tab strip switches the whole dataset — different keywords, volumes
+   and positions per industry, not the same table relabelled. */
+.ydt-page .rk-tabs {
+    display: flex; gap: 4px; padding: 10px 12px; overflow-x: auto;
+    scrollbar-width: none; border-bottom: 1px solid var(--line2);
+}
+.ydt-page .rk-tabs::-webkit-scrollbar { display: none; }
+.ydt-page .rk-tab {
+    flex: 0 0 auto; padding: 12px 14px; border-radius: 9999px; border: 1px solid transparent;
+    background: none; cursor: pointer; white-space: nowrap;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray5);
+    transition: color 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.ydt-page .rk-tab:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.ydt-page .rk-tab[aria-selected="true"] {
+    color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,0.28);
+}
+.ydt-page .rk-cols {
+    display: grid; grid-template-columns: 1fr 52px 34px 42px; gap: 12px;
+    padding-bottom: 12px; margin-bottom: 4px; border-bottom: 1px solid var(--line2);
+}
+@media (min-width: 640px) { .ydt-page .rk-cols { grid-template-columns: 1.5fr 104px 74px 116px 38px 54px; } }
+.ydt-page .rk-col {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray6); white-space: nowrap;
+}
+.ydt-page .rk-col--n { text-align: right; }
+.ydt-page .rk-scale-col, .ydt-page .rk-int-col { display: none; }
+@media (min-width: 640px) { .ydt-page .rk-scale-col, .ydt-page .rk-int-col { display: block; } }
+/* Intent, not volume, is what decides whether a term is worth chasing —
+   so it earns a column of its own, colour-coded by how close to a purchase
+   the searcher is. */
+.ydt-page .rk-int { display: none; }
+@media (min-width: 640px) { .ydt-page .rk-int { display: block; } }
+.ydt-page .rk-int b {
+    display: inline-block; font-family: var(--mono); font-weight: 500;
+    font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    border-radius: 9999px; padding: 5px 9px; white-space: nowrap;
+    border: 1px solid var(--card-line); color: var(--gray6);
+}
+.ydt-page .rk-int b.t { color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,0.26); }
+.ydt-page .rk-int b.c { color: var(--white); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); }
+.ydt-page .rk-list { list-style: none; }
+.ydt-page .rk-row {
+    display: grid; grid-template-columns: 1fr 52px 34px 42px; gap: 12px;
+    align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line2);
+}
+@media (min-width: 640px) { .ydt-page .rk-row { grid-template-columns: 1.5fr 104px 74px 116px 38px 54px; } }
+.ydt-page .rk-row:last-child { border-bottom: none; }
+.ydt-page .rk-kw {
+    font-size: 13px; color: var(--white); min-width: 0; letter-spacing: -0.01em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .rk-vol {
+    font-family: var(--mono); font-size: 11px; color: var(--gray5);
+    text-align: right; font-variant-numeric: tabular-nums;
+}
+/* the ten-slot scale: where in the first page this keyword sits */
+.ydt-page .rk-scale { display: none; position: relative; height: 16px; }
+@media (min-width: 640px) { .ydt-page .rk-scale { display: block; } }
+.ydt-page .rk-scale i {
+    position: absolute; top: 50%; width: 1px; height: 7px; margin-top: -3.5px;
+    background: rgba(255,255,255,0.10);
+}
+.ydt-page .rk-dot {
+    position: absolute; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px;
+    border-radius: 50%; background: var(--data);
+    box-shadow: 0 0 0 3px rgba(255, 69, 54, 0.16);
+    left: var(--x);
+}
+html.ydt-js .ydt-page .rk-dot { left: 100%; transition: left 0.9s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .rk-dot { left: var(--x); }
+.ydt-page .rk-pos {
+    font-family: var(--mono); font-size: 15px; color: var(--white);
+    text-align: right; font-variant-numeric: tabular-nums;
+}
+.ydt-page .rk-mv {
+    display: inline-flex; align-items: center; justify-content: flex-end; gap: 3px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .rk-mv svg { width: 9px; height: 9px; }
+html.ydt-js .ydt-page .rk-row { opacity: 0; transform: translateY(8px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .rk-row, html.ydt-js .ydt-page .rk-row.rk-in { opacity: 1; transform: translateY(0); }
+
+/* ══════════ 02 · SEARCH CONSOLE — impressions, clicks, position ══════════ */
+.ydt-page .gsc-kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line2); }
+@media (min-width: 640px) { .ydt-page .gsc-kpis { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .gsc-kpi {
+    background: var(--panel); padding: 18px 16px; position: relative;
+    border-top: 2px solid transparent;
+}
+.ydt-page .gsc-kpi--on { border-top-color: var(--data); background: var(--panel2); }
+.ydt-page .gsc-kpi .art-k { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; }
+.ydt-page .gsc-kpi .art-k i { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; background: rgba(255,255,255,0.2); }
+.ydt-page .gsc-kpi--on .art-k i { background: var(--data); }
+.ydt-page .gsc-kpi .art-v { font-size: clamp(1.15rem, 2.2vw, 1.5rem); margin-bottom: 7px; }
+.ydt-page .gsc-sub { font-family: var(--mono); font-size: 10px; color: var(--data); }
+.ydt-page .gsc-sub--flat { color: var(--gray6); }
+.ydt-page .gsc-chart { position: relative; padding: 24px 20px 12px; }
+@media (min-width: 560px) { .ydt-page .gsc-chart { padding: 26px 24px 14px; } }
+.ydt-page .gsc-svg { display: block; width: 100%; height: 176px; }
+@media (min-width: 860px) { .ydt-page .gsc-svg { height: 208px; } }
+.ydt-page .gsc-svg .grid { stroke: rgba(255,255,255,0.05); stroke-width: 1; }
+.ydt-page .gsc-svg .imp { fill: url(#gscImp); }
+.ydt-page .gsc-svg .impLine { fill: none; stroke: rgba(255,255,255,0.22); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.ydt-page .gsc-svg .clk { fill: none; stroke: var(--data); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+/* position is better when lower, so this line is drawn on an inverted axis */
+.ydt-page .gsc-svg .pos {
+    fill: none; stroke: rgba(255,255,255,0.42); stroke-width: 1.4;
+    stroke-dasharray: 4 4; vector-effect: non-scaling-stroke;
+}
+/* Swept with clip-path, not stroke-dashoffset: this viewBox is drawn with
+   preserveAspectRatio="none", and dash lengths under a non-uniform scale
+   are unpredictable — the line stops early while the fill completes. */
+html.ydt-js .ydt-page .gsc-chart-in {
+    -webkit-clip-path: inset(0 100% 0 0); clip-path: inset(0 100% 0 0);
+    transition: -webkit-clip-path 1.5s 0.35s var(--ease), clip-path 1.5s 0.35s var(--ease);
+}
+html.ydt-js .ydt-page .art.in-view .gsc-chart-in {
+    -webkit-clip-path: inset(0 0 0 0); clip-path: inset(0 0 0 0);
+}
+.ydt-page .gsc-x { display: flex; justify-content: space-between; margin-top: 12px; }
+.ydt-page .gsc-x span { font-family: var(--mono); font-size: 10px; color: var(--gray6); }
+.ydt-page .gsc-key { display: flex; align-items: center; gap: 7px; }
+.ydt-page .gsc-key i { width: 14px; height: 2px; border-radius: 2px; flex-shrink: 0; }
+.ydt-page .gsc-key--clk i { background: var(--data); }
+.ydt-page .gsc-key--imp i { background: rgba(255,255,255,0.22); }
+.ydt-page .gsc-key--pos i { background: repeating-linear-gradient(90deg, rgba(255,255,255,0.42) 0 4px, transparent 4px 8px); }
+
+/* ══════════ 03 · BACKLINK PROFILE ══════════ */
+.ydt-page .bl-top { display: grid; grid-template-columns: 1fr; gap: 22px; margin-bottom: 24px; }
+@media (min-width: 560px) { .ydt-page .bl-top { grid-template-columns: 132px 1fr; gap: 26px; align-items: center; } }
+.ydt-page .bl-gauge { position: relative; width: 100%; max-width: 132px; margin: 0 auto; }
+.ydt-page .bl-gauge svg { display: block; width: 100%; height: auto; }
+.ydt-page .bl-gauge .bg { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 7; stroke-linecap: round; }
+.ydt-page .bl-gauge .fg {
+    fill: none; stroke: var(--data); stroke-width: 7; stroke-linecap: round;
+    stroke-dasharray: 100 100; stroke-dashoffset: calc(100 - var(--p));
+}
+html.ydt-js .ydt-page .bl-gauge .fg { stroke-dashoffset: 100; transition: stroke-dashoffset 1.3s 0.4s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .bl-gauge .fg { stroke-dashoffset: calc(100 - var(--p)); }
+/* the number sits inside the arc; the label sits under it, clear of the
+   arc's tips — overlapping them made both harder to read */
+.ydt-page .bl-gauge-n {
+    position: absolute; left: 0; right: 0; top: 46%; text-align: center;
+    font-size: 28px; font-weight: 700; letter-spacing: -0.04em;
+    line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .bl-gauge-l {
+    display: block; text-align: center; margin-top: 10px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray6);
+}
+/* referring domains, one column per month */
+.ydt-page .bl-bars { display: flex; align-items: flex-end; gap: 4px; height: 96px; min-width: 0; }
+.ydt-page .bl-bars i {
+    display: block; flex: 1; border-radius: 3px 3px 0 0; height: var(--h);
+    background: linear-gradient(180deg, #ff6152, rgba(216, 30, 13, 0.35));
+}
+.ydt-page .bl-bars i.mut { background: rgba(255,255,255,0.09); }
+html.ydt-js .ydt-page .bl-bars i { height: 0; transition: height 0.8s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .bl-bars i { height: var(--h); }
+.ydt-page .bl-links { list-style: none; border-top: 1px solid var(--line2); }
+.ydt-page .bl-link {
+    display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid var(--line2);
+}
+.ydt-page .bl-link:last-child { border-bottom: none; }
+.ydt-page .bl-src { font-size: 13px; color: var(--white); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ydt-page .bl-src span { display: block; font-family: var(--mono); font-size: 10px; color: var(--gray6); margin-top: 3px; }
+.ydt-page .bl-dr {
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+    background: var(--data-dim); border: 1px solid rgba(255,69,54,0.24);
+    border-radius: 9999px; padding: 5px 10px; white-space: nowrap;
+}
+.ydt-page .bl-tag { font-family: var(--mono); font-size: 10px; color: var(--gray6); white-space: nowrap; }
+
+/* ══════════ 04–06 · THE SMALLER INSTRUMENTS ══════════ */
+.ydt-page .tri { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 900px) { .ydt-page .tri { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .tri > * { min-width: 0; }
+.ydt-page .tri .art { height: 100%; display: flex; flex-direction: column; }
+.ydt-page .tri .art-body { flex: 1; }
+.ydt-page .tri-h { font-size: 15px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 6px; }
+.ydt-page .tri-p { font-size: 13px; color: var(--gray5); line-height: 1.6; margin-bottom: 20px; }
+
+/* 04 · crawl health + Core Web Vitals */
+.ydt-page .ch-rows { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.ydt-page .ch-row { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; }
+.ydt-page .ch-ico { width: 15px; height: 15px; flex-shrink: 0; }
+.ydt-page .ch-ico--fix { color: var(--data); }
+.ydt-page .ch-ico--open { color: var(--gray6); }
+.ydt-page .ch-t { font-size: 12.5px; color: var(--gray5); min-width: 0; }
+.ydt-page .ch-n { font-family: var(--mono); font-size: 11px; color: var(--gray6); font-variant-numeric: tabular-nums; }
+.ydt-page .ch-row--done .ch-t { color: var(--white); }
+.ydt-page .ch-row--done .ch-n { color: var(--data); }
+.ydt-page .cwv { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ydt-page .cwv div {
+    border: 1px solid var(--card-line); border-radius: 10px; padding: 11px 8px; text-align: center;
+}
+.ydt-page .cwv b {
+    display: block; font-family: var(--mono); font-size: 13px; color: var(--data);
+    font-variant-numeric: tabular-nums;
+}
+.ydt-page .cwv span {
+    display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray6); margin-top: 5px;
+}
+
+/* 05 · which SERP features you own */
+.ydt-page .sf { display: flex; flex-direction: column; gap: 9px; }
+.ydt-page .sf-item {
+    border: 1px solid var(--card-line); border-radius: 11px; padding: 12px 13px;
+    background: var(--panel2);
+}
+.ydt-page .sf-item--own { border-color: rgba(255,69,54,0.28); background: var(--data-dim); }
+.ydt-page .sf-k { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+.ydt-page .sf-k span {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray6);
+}
+.ydt-page .sf-item--own .sf-k span { color: var(--data); }
+.ydt-page .sf-k svg { width: 12px; height: 12px; color: var(--gray6); flex-shrink: 0; }
+.ydt-page .sf-item--own .sf-k svg { color: var(--data); }
+.ydt-page .sf-l { display: block; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.07); width: var(--w); }
+.ydt-page .sf-l + .sf-l { margin-top: 5px; }
+.ydt-page .sf-item--own .sf-l { background: rgba(255,255,255,0.16); }
+html.ydt-js .ydt-page .sf-l { width: 0; transition: width 0.7s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .sf-l { width: var(--w); }
+
+/* 06 · topical cluster */
+.ydt-page .tc { display: block; width: 100%; height: auto; }
+.ydt-page .tc .edge { stroke: rgba(255,255,255,0.12); stroke-width: 1; }
+.ydt-page .tc .hub { fill: var(--data-deep); stroke: #ff6152; stroke-width: 1.5; }
+.ydt-page .tc .node { fill: var(--panel2); stroke: rgba(255,255,255,0.20); stroke-width: 1.2; }
+.ydt-page .tc .node--on { fill: var(--data-dim); stroke: rgba(255,69,54,0.55); }
+html.ydt-js .ydt-page .tc .edge, html.ydt-js .ydt-page .tc .node, html.ydt-js .ydt-page .tc .hub {
+    opacity: 0; transition: opacity 0.5s var(--ease);
+}
+html.ydt-js .ydt-page .art.in-view .tc .edge,
+html.ydt-js .ydt-page .art.in-view .tc .node,
+html.ydt-js .ydt-page .art.in-view .tc .hub { opacity: 1; }
+html.ydt-js .ydt-page .art.in-view .tc .hub { transition-delay: 0.2s; }
+html.ydt-js .ydt-page .art.in-view .tc .edge { transition-delay: 0.35s; }
+html.ydt-js .ydt-page .art.in-view .tc .node { transition-delay: 0.5s; }
+.ydt-page .tc-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.ydt-page .tc-legend span { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; color: var(--gray6); }
+.ydt-page .tc-legend i { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.ydt-page .tc-legend .l1 { background: var(--data-deep); border: 1px solid #ff6152; }
+.ydt-page .tc-legend .l2 { background: var(--data-dim); border: 1px solid rgba(255,69,54,0.55); }
+.ydt-page .tc-legend .l3 { background: var(--panel2); border: 1px solid rgba(255,255,255,0.20); }
+
+/* ══════════ PROCESS ACCORDION ══════════ */
+.ydt-page .acc { border-top: 1px solid var(--line); }
+.ydt-page .acc-item { border-bottom: 1px solid var(--line); }
+.ydt-page .acc-head {
+    width: 100%; background: none; border: none; cursor: pointer;
+    font-family: inherit; color: inherit; text-align: left;
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(16px, 4vw, 44px); align-items: center; padding: 26px 0;
+}
+.ydt-page .acc-num {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em;
+    color: var(--gray6); transition: color 0.4s;
+}
+.ydt-page .acc-title {
+    font-size: clamp(1.05rem, 2vw, 1.5rem); font-weight: 700;
+    letter-spacing: -0.028em; line-height: 1.25; color: var(--gray5); transition: color 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-title, .ydt-page .acc-head:hover .acc-title { color: var(--white); }
+.ydt-page .acc-item.is-open .acc-num { color: var(--data); }
+.ydt-page .acc-sign { position: relative; width: 17px; height: 17px; flex-shrink: 0; color: var(--gray6); transition: color 0.4s; }
+.ydt-page .acc-sign::before, .ydt-page .acc-sign::after {
+    content: ''; position: absolute; background: currentColor; left: 50%; top: 50%;
+}
+.ydt-page .acc-sign::before { width: 15px; height: 1.5px; margin: -0.75px 0 0 -7.5px; }
+.ydt-page .acc-sign::after {
+    width: 1.5px; height: 15px; margin: -7.5px 0 0 -0.75px;
+    transition: transform 0.5s var(--ease), opacity 0.4s;
+}
+.ydt-page .acc-item.is-open .acc-sign { color: var(--data); }
+.ydt-page .acc-item.is-open .acc-sign::after { transform: scaleY(0); opacity: 0; }
+/* Gated on JS. The collapse is entirely script-driven, so without this a
+   script error left all five process descriptions permanently unreadable
+   at max-height:0. With no JS every panel is simply open. */
+.ydt-page .acc-panel { overflow: hidden; }
+html.ydt-js .ydt-page .acc-panel {
+    max-height: 0; opacity: 0;
+    transition: max-height 0.7s var(--ease), opacity 0.5s var(--ease);
+}
+html.ydt-js .ydt-page .acc-item.is-open .acc-panel { opacity: 1; }
+html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
+.ydt-page .acc-inner {
+    padding: 0 0 30px; display: grid;
+    grid-template-columns: auto minmax(0, 1fr); gap: clamp(16px, 4vw, 44px);
+}
+.ydt-page .acc-inner p { font-size: 15px; line-height: 1.78; color: var(--gray5); max-width: 46rem; }
+.ydt-page .acc-inner .spacer { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; visibility: hidden; }
+@media (max-width: 640px) {
+    .ydt-page .acc-head { gap: 14px; }
+    .ydt-page .acc-inner { grid-template-columns: 1fr; gap: 0; }
+    .ydt-page .acc-inner .spacer { display: none; }
+}
+
+/* ══════════ SERVICES GRID ══════════ */
+.ydt-page .svc-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .ydt-page .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (min-width: 1024px) { .ydt-page .svc-grid { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .svc {
+    position: relative; display: flex; flex-direction: column; min-width: 0;
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 16px; padding: 26px; overflow: hidden;
+    transition: border-color 0.5s, transform 0.6s var(--ease);
+}
+.ydt-page .svc:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); }
+.ydt-page .svc--here { border-color: rgba(255,69,54,0.32); background: linear-gradient(180deg, var(--data-dim), var(--card-bg) 62%); }
+.ydt-page .svc-idx {
+    position: absolute; top: 24px; right: 24px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--gray6);
+}
+.ydt-page .svc--here .svc-idx { color: var(--data); }
+.ydt-page .svc-icon {
+    display: inline-flex; align-self: flex-start; padding: 9px; border-radius: 10px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--line); margin-bottom: 18px;
+}
+.ydt-page .svc-icon svg { width: 19px; height: 19px; color: var(--gray5); }
+.ydt-page .svc--here .svc-icon { background: var(--data-dim); border-color: rgba(255,69,54,0.28); }
+.ydt-page .svc--here .svc-icon svg { color: var(--data); }
+.ydt-page .svc h3 { font-size: 16px; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 9px; }
+.ydt-page .svc p { font-size: 13px; line-height: 1.65; color: var(--gray5); }
+.ydt-page .svc-here-tag {
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 16px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--data);
+}
+
+/* ══════════ FINAL CTA ══════════ */
+.ydt-page .cta { position: relative; overflow: hidden; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
+.ydt-page .cta-ember {
+    position: absolute; bottom: -56vh; left: 50%; width: 170vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.24) 0%, rgba(216, 30, 13, 0.11) 36%, transparent 72%);
+    filter: blur(30px);
+}
+.ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
+.ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+
+/* ══════════ MOTION FALLBACKS ══════════
+   These carry the html.ydt-js prefix on purpose — they have to out-specify
+   the gated hidden states above, and a media query adds no specificity. */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page { scroll-behavior: auto; }
+    html.ydt-js .ydt-page [data-reveal],
+    html.ydt-js .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    html.ydt-js .ydt-page .rk-row { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .rk-dot { left: var(--x); transition: none; }
+    html.ydt-js .ydt-page .gsc-chart-in { -webkit-clip-path: none; clip-path: none; transition: none; }
+    html.ydt-js .ydt-page .bl-gauge .fg { stroke-dashoffset: calc(100 - var(--p)); transition: none; }
+    html.ydt-js .ydt-page .bl-bars i { height: var(--h); transition: none; }
+    html.ydt-js .ydt-page .sf-l { width: var(--w); transition: none; }
+    html.ydt-js .ydt-page .tc .edge,
+    html.ydt-js .ydt-page .tc .node,
+    html.ydt-js .ydt-page .tc .hub { opacity: 1; transition: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .sec { padding: 78px 0; }
+    .ydt-page .hero { padding: calc(var(--header-h) + 48px) 0 56px; }
+    .ydt-page .cta { padding: 80px 0 88px; }
+    .ydt-page .hero-actions .ember-btn, .ydt-page .hero-actions .ghost-btn,
+    .ydt-page .cta-actions .ember-btn, .ydt-page .cta-actions .ghost-btn { width: 100%; }
+    /* nothing under 10px, same floor as every other page */
+    .ydt-page .rk-col, .ydt-page .rk-tab, .ydt-page .art-cap, .ydt-page .art-k,
+    .ydt-page .band-k, .ydt-page .gsc-x span, .ydt-page .gsc-sub, .ydt-page .bl-tag,
+    .ydt-page .bl-src span, .ydt-page .bl-gauge-l, .ydt-page .cwv span,
+    .ydt-page .sf-k span, .ydt-page .tc-legend span, .ydt-page .svc-here-tag, .ydt-page .rk-int b,
+    .ydt-page .svc-idx, .ydt-page .back { font-size: 10px; letter-spacing: 0.1em; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page .art-url, .ydt-page .art-live, .ydt-page .art-k, .ydt-page .art-cap,
+.ydt-page .art-delta, .ydt-page .rk-tab, .ydt-page .rk-col, .ydt-page .rk-vol,
+.ydt-page .rk-pos, .ydt-page .rk-mv, .ydt-page .gsc-sub, .ydt-page .gsc-x span,
+.ydt-page .bl-dr, .ydt-page .bl-tag, .ydt-page .bl-src span, .ydt-page .bl-gauge-l,
+.ydt-page .ch-n, .ydt-page .cwv b, .ydt-page .cwv span, .ydt-page .sf-k span,
+.ydt-page .tc-legend span, .ydt-page .acc-num, .ydt-page .band-k,
+.ydt-page .svc-idx, .ydt-page .svc-here-tag, .ydt-page .sec-eyebrow-text,
+.ydt-page .hero-eyebrow, .ydt-page .back { font-family: var(--mono); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+.ydt-page button { font-family: var(--font); }
+</style>
+
+<div class="ydt-page ydt-page--seo">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <a class="back" href="/services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>
+        All services
+      </a>
+      <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Search engine optimisation</p>
+      <h1 id="heroTitle">
+        <span class="clip"><span class="slide">Rank for what</span></span>
+        <span class="clip"><span class="slide"><span class="dim">actually sells.</span></span></span>
+      </h1>
+      <p class="hero-body" data-reveal>
+        Position one for a term nobody buys from is a vanity metric. We find the searches your
+        customers make when they're ready to spend, fix what's stopping you appearing for them,
+        and report the movement in plain English every week.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a class="ember-btn" href="/contact">
+          Get a free SEO audit
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a class="ghost-btn" href="/pricing">See pricing</a>
+      </div>
+
+      <div class="band" data-reveal>
+        <div class="band-cell"><span class="band-v">+212%</span><span class="band-k">Organic sessions<br>in 9 months</span></div>
+        <div class="band-cell"><span class="band-v">1&ndash;3</span><span class="band-k">Average position<br>on tracked terms</span></div>
+        <div class="band-cell"><span class="band-v">340+</span><span class="band-k">Referring domains<br>earned, not bought</span></div>
+        <div class="band-cell"><span class="band-v">Weekly</span><span class="band-k">Reporting, in<br>plain English</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 01 · RANK TRACKER ══════════ -->
+  <section class="sec" id="rankings" aria-labelledby="rankTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">01 · Where you rank</span></div>
+        <h2 class="sec-title" id="rankTitle" data-reveal>Every keyword, <span class="dim">tracked daily.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Not a monthly screenshot — a live position for every term that matters, against a named
+          competitor set. Switch industry to see the kind of terms we go after and where they land.
+        </p>
+      </div>
+
+      <div class="art-hold" data-reveal>
+        <div class="art" data-art>
+          <div class="art-bar">
+            <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="art-url" id="rkUrl">rank-tracker · ai-software</span>
+            <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Daily</span>
+          </div>
+
+          <div class="rk-tabs" role="tablist" aria-label="Industry">
+            <button class="rk-tab" type="button" role="tab" aria-selected="true"  data-v="ai">AI &amp; SaaS</button>
+            <button class="rk-tab" type="button" role="tab" aria-selected="false" data-v="plumbing">Plumbing</button>
+            <button class="rk-tab" type="button" role="tab" aria-selected="false" data-v="cars">Car dealers</button>
+            <button class="rk-tab" type="button" role="tab" aria-selected="false" data-v="dental">Dental</button>
+            <button class="rk-tab" type="button" role="tab" aria-selected="false" data-v="ecom">E-commerce</button>
+          </div>
+
+          <div class="art-body">
+            <div class="rk-cols" aria-hidden="true">
+              <span class="rk-col">Keyword</span>
+              <span class="rk-col rk-int-col">Intent</span>
+              <span class="rk-col rk-col--n">Vol/mo</span>
+              <span class="rk-col rk-scale-col">Page one</span>
+              <span class="rk-col rk-col--n">Pos</span>
+              <span class="rk-col rk-col--n">90d</span>
+            </div>
+            <!-- These are the AI & SaaS rows in plain HTML so the table is not
+                 empty without JavaScript. The script replaces them on load and
+                 owns every tab switch after that — if you edit the AI dataset
+                 in the script below, edit these to match. -->
+            <ol class="rk-list" id="rkList" aria-live="polite">
+              <li class="rk-row">
+                <span class="rk-kw">ai automation agency</span>
+                <span class="rk-int"><b class="c">Commercial</b></span>
+                <span class="rk-vol">3,600</span>
+                <span class="rk-scale" aria-hidden="true"><i style="left:0.00%"></i><i style="left:11.11%"></i><i style="left:22.22%"></i><i style="left:33.33%"></i><i style="left:44.44%"></i><i style="left:55.55%"></i><i style="left:66.66%"></i><i style="left:77.77%"></i><i style="left:88.88%"></i><i style="left:99.99%"></i><span class="rk-dot" style="--x:5.00%"></span></span>
+                <span class="rk-pos">1</span>
+                <span class="rk-mv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>9</span>
+              </li>
+              <li class="rk-row">
+                <span class="rk-kw">enterprise ai platform pricing</span>
+                <span class="rk-int"><b class="t">Transactional</b></span>
+                <span class="rk-vol">1,300</span>
+                <span class="rk-scale" aria-hidden="true"><i style="left:0.00%"></i><i style="left:11.11%"></i><i style="left:22.22%"></i><i style="left:33.33%"></i><i style="left:44.44%"></i><i style="left:55.55%"></i><i style="left:66.66%"></i><i style="left:77.77%"></i><i style="left:88.88%"></i><i style="left:99.99%"></i><span class="rk-dot" style="--x:15.00%"></span></span>
+                <span class="rk-pos">2</span>
+                <span class="rk-mv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>6</span>
+              </li>
+              <li class="rk-row">
+                <span class="rk-kw">best ai chatbot for business</span>
+                <span class="rk-int"><b class="c">Commercial</b></span>
+                <span class="rk-vol">8,100</span>
+                <span class="rk-scale" aria-hidden="true"><i style="left:0.00%"></i><i style="left:11.11%"></i><i style="left:22.22%"></i><i style="left:33.33%"></i><i style="left:44.44%"></i><i style="left:55.55%"></i><i style="left:66.66%"></i><i style="left:77.77%"></i><i style="left:88.88%"></i><i style="left:99.99%"></i><span class="rk-dot" style="--x:25.00%"></span></span>
+                <span class="rk-pos">3</span>
+                <span class="rk-mv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>4</span>
+              </li>
+              <li class="rk-row">
+                <span class="rk-kw">what is an ai agent</span>
+                <span class="rk-int"><b class="">Informational</b></span>
+                <span class="rk-vol">18,100</span>
+                <span class="rk-scale" aria-hidden="true"><i style="left:0.00%"></i><i style="left:11.11%"></i><i style="left:22.22%"></i><i style="left:33.33%"></i><i style="left:44.44%"></i><i style="left:55.55%"></i><i style="left:66.66%"></i><i style="left:77.77%"></i><i style="left:88.88%"></i><i style="left:99.99%"></i><span class="rk-dot" style="--x:45.00%"></span></span>
+                <span class="rk-pos">5</span>
+                <span class="rk-mv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>12</span>
+              </li>
+              <li class="rk-row">
+                <span class="rk-kw">ai workflow software</span>
+                <span class="rk-int"><b class="c">Commercial</b></span>
+                <span class="rk-vol">4,400</span>
+                <span class="rk-scale" aria-hidden="true"><i style="left:0.00%"></i><i style="left:11.11%"></i><i style="left:22.22%"></i><i style="left:33.33%"></i><i style="left:44.44%"></i><i style="left:55.55%"></i><i style="left:66.66%"></i><i style="left:77.77%"></i><i style="left:88.88%"></i><i style="left:99.99%"></i><span class="rk-dot" style="--x:65.00%"></span></span>
+                <span class="rk-pos">7</span>
+                <span class="rk-mv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>11</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="art-foot">
+            <span class="art-cap" id="rkFoot">Average position 2.8</span>
+            <span class="art-cap" style="margin-left:auto">Top 3 · <span id="rkTop3">3</span> of 5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 · SEARCH CONSOLE ══════════ -->
+  <section class="sec" id="performance" aria-labelledby="perfTitle">
+    <div class="container">
+      <div class="duo">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">02 · What it's worth</span></div>
+          <h2 class="sec-title" id="perfTitle" data-reveal>Impressions, clicks, <span class="dim">position.</span></h2>
+          <p data-reveal>
+            Rankings are the input. These three are the output, and they're the numbers we're
+            actually accountable for — pulled straight from your own Search Console, not a
+            third-party estimate we control.
+          </p>
+          <ul class="duo-list" data-reveal>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span><b>Impressions</b> tell us whether Google is showing you at all.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span><b>Clicks</b> tell us whether the listing is worth clicking.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span><b>Position</b> tells us how much headroom is left.</span></li>
+          </ul>
+          <p data-reveal style="margin-top:20px">
+            When impressions climb but clicks don't, the problem is the title and description, not
+            the ranking — and that's a much cheaper fix.
+          </p>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">search console · last 12 months</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Synced</span>
+            </div>
+
+            <div class="gsc-kpis">
+              <div class="gsc-kpi gsc-kpi--on">
+                <span class="art-k"><i aria-hidden="true"></i>Clicks</span>
+                <span class="art-v">48.2k</span>
+                <span class="gsc-sub">&#9650; 182%</span>
+              </div>
+              <div class="gsc-kpi gsc-kpi--on">
+                <span class="art-k"><i aria-hidden="true"></i>Impressions</span>
+                <span class="art-v">1.24M</span>
+                <span class="gsc-sub">&#9650; 214%</span>
+              </div>
+              <div class="gsc-kpi gsc-kpi--on">
+                <span class="art-k"><i aria-hidden="true"></i>Avg position</span>
+                <span class="art-v">6.8</span>
+                <span class="gsc-sub">from 24.1</span>
+              </div>
+              <div class="gsc-kpi">
+                <span class="art-k"><i aria-hidden="true"></i>CTR</span>
+                <span class="art-v">3.9%</span>
+                <span class="gsc-sub gsc-sub--flat">from 1.4%</span>
+              </div>
+            </div>
+
+            <div class="gsc-chart">
+              <svg class="gsc-svg" viewBox="0 0 360 190" preserveAspectRatio="none" aria-label="Impressions, clicks and average position over twelve months">
+                <defs>
+                  <linearGradient id="gscImp" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#ffffff" stop-opacity="0.14"/>
+                    <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <g class="grid"><path d="M0 40h360M0 80h360M0 120h360M0 160h360"/></g>
+                <g class="gsc-chart-in">
+                  <!-- impressions, as an area -->
+                  <path class="imp" d="M0 170 L33 166 L65 158 L98 148 L131 132 L164 118 L196 96 L229 82 L262 62 L295 46 L327 30 L360 18 L360 190 L0 190 Z"/>
+                  <path class="impLine" d="M0 170 L33 166 L65 158 L98 148 L131 132 L164 118 L196 96 L229 82 L262 62 L295 46 L327 30 L360 18"/>
+                  <!-- clicks -->
+                  <path class="clk" d="M0 184 L33 181 L65 177 L98 171 L131 163 L164 152 L196 140 L229 126 L262 108 L295 88 L327 70 L360 52"/>
+                  <!-- average position, inverted: rising here means a better position -->
+                  <path class="pos" d="M0 22 L33 26 L65 34 L98 40 L131 52 L164 66 L196 78 L229 92 L262 108 L295 124 L327 138 L360 150"/>
+                </g>
+              </svg>
+              <div class="gsc-x" aria-hidden="true">
+                <span>Sep</span><span>Dec</span><span>Mar</span><span>Jun</span><span>Aug</span>
+              </div>
+            </div>
+
+            <div class="art-foot">
+              <span class="art-cap gsc-key gsc-key--clk"><i aria-hidden="true"></i>Clicks</span>
+              <span class="art-cap gsc-key gsc-key--imp"><i aria-hidden="true"></i>Impressions</span>
+              <span class="art-cap gsc-key gsc-key--pos"><i aria-hidden="true"></i>Position</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 · BACKLINKS ══════════ -->
+  <section class="sec" id="authority" aria-labelledby="authTitle">
+    <div class="container">
+      <div class="duo duo--flip">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">03 · Authority</span></div>
+          <h2 class="sec-title" id="authTitle" data-reveal>Links you'd be happy <span class="dim">to show a client.</span></h2>
+          <p data-reveal>
+            Rankings follow trust, and trust is measured in who links to you. We earn those links
+            through digital PR, original data and direct outreach to the publications your market
+            already reads.
+          </p>
+          <p data-reveal>
+            No directories, no private blog networks, nothing bought from a marketplace. Those work
+            until an algorithm update, and then they cost you everything you built. Every link we
+            place is one we'd be comfortable showing you the email thread for.
+          </p>
+          <ul class="duo-list" data-reveal>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Every link reviewed before outreach, not after placement.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span>Toxic-link audit on day one, so you don't inherit someone else's mess.</span></li>
+          </ul>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">backlink profile · 12 months</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Clean</span>
+            </div>
+            <div class="art-body">
+              <div class="bl-top">
+                <div class="bl-gauge">
+                  <svg viewBox="0 0 100 58" aria-hidden="true">
+                    <!-- r chosen so the arc's length is exactly 100 units: the
+                         stroke-dasharray then reads directly as a percentage -->
+                    <path class="bg" d="M6 52 A 31.83 31.83 0 0 1 94 52" pathLength="100"/>
+                    <path class="fg" d="M6 52 A 31.83 31.83 0 0 1 94 52" pathLength="100" style="--p:62"/>
+                  </svg>
+                  <b class="bl-gauge-n">62</b>
+                  <span class="bl-gauge-l">Domain rating</span>
+                </div>
+                <div>
+                  <span class="art-k">Referring domains</span>
+                  <div class="bl-bars" aria-hidden="true">
+                    <i class="mut" style="--h:14%"></i><i class="mut" style="--h:18%"></i>
+                    <i style="--h:26%"></i><i style="--h:31%"></i><i style="--h:38%"></i>
+                    <i style="--h:44%"></i><i style="--h:53%"></i><i style="--h:59%"></i>
+                    <i style="--h:70%"></i><i style="--h:78%"></i><i style="--h:89%"></i><i style="--h:100%"></i>
+                  </div>
+                  <span class="art-cap" style="display:block;margin-top:12px">48 &rarr; 341 in 12 months</span>
+                </div>
+              </div>
+
+              <span class="art-k">Recently earned</span>
+              <ul class="bl-links">
+                <li class="bl-link">
+                  <span class="bl-src">Trade publication feature<span>industry-weekly.co.uk</span></span>
+                  <span class="bl-dr">DR 78</span><span class="bl-tag">Follow</span>
+                </li>
+                <li class="bl-link">
+                  <span class="bl-src">Original research cited<span>national-title.co.uk</span></span>
+                  <span class="bl-dr">DR 86</span><span class="bl-tag">Follow</span>
+                </li>
+                <li class="bl-link">
+                  <span class="bl-src">Regional business award<span>chamber-of-commerce.org</span></span>
+                  <span class="bl-dr">DR 64</span><span class="bl-tag">Follow</span>
+                </li>
+                <li class="bl-link">
+                  <span class="bl-src">Supplier partner listing<span>manufacturer-site.com</span></span>
+                  <span class="bl-dr">DR 71</span><span class="bl-tag">Follow</span>
+                </li>
+              </ul>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">0 toxic &middot; 0 disavowed</span>
+              <span class="art-cap" style="margin-left:auto">341 referring domains</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04–06 · THE REST OF WHAT WE WATCH ══════════ -->
+  <section class="sec" id="watch" aria-labelledby="watchTitle">
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">04–06 · Also on the dashboard</span></div>
+        <h2 class="sec-title" id="watchTitle" data-reveal>Three more things <span class="dim">that move rankings.</span></h2>
+        <p class="sec-sub" data-reveal>None of these show up in a rankings report, and all three decide whether the rankings happen at all.</p>
+      </div>
+
+      <div class="tri">
+        <!-- 04 · technical -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">crawl · 4,182 urls</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>04</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Technical health</h3>
+              <p class="tri-p">A page Google can't crawl, render or load quickly cannot rank, however good the content is.</p>
+              <ul class="ch-rows">
+                <li class="ch-row ch-row--done">
+                  <svg class="ch-ico ch-ico--fix" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="ch-t">Broken internal links</span><span class="ch-n">312 &rarr; 0</span>
+                </li>
+                <li class="ch-row ch-row--done">
+                  <svg class="ch-ico ch-ico--fix" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="ch-t">Duplicate title tags</span><span class="ch-n">148 &rarr; 0</span>
+                </li>
+                <li class="ch-row ch-row--done">
+                  <svg class="ch-ico ch-ico--fix" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="ch-t">Orphaned pages</span><span class="ch-n">61 &rarr; 0</span>
+                </li>
+                <li class="ch-row">
+                  <svg class="ch-ico ch-ico--open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.01"/></svg>
+                  <span class="ch-t">Thin pages, in review</span><span class="ch-n">9 open</span>
+                </li>
+              </ul>
+              <div class="cwv">
+                <div><b>0.8s</b><span>LCP</span></div>
+                <div><b>0.00</b><span>CLS</span></div>
+                <div><b>42ms</b><span>INP</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 · SERP features -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">serp features owned</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>05</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">The rest of the page</h3>
+              <p class="tri-p">Position one is no longer the top of the results. We go after the blocks that sit above it.</p>
+              <div class="sf">
+                <div class="sf-item sf-item--own">
+                  <span class="sf-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h7"/></svg><span>Featured snippet · owned</span></span>
+                  <span class="sf-l" style="--w:100%"></span><span class="sf-l" style="--w:76%"></span>
+                </div>
+                <div class="sf-item sf-item--own">
+                  <span class="sf-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3 2.4V14"/><path d="M12 17.5v.01"/></svg><span>People also ask · 4 of 4</span></span>
+                  <span class="sf-l" style="--w:88%"></span><span class="sf-l" style="--w:64%"></span>
+                </div>
+                <div class="sf-item sf-item--own">
+                  <span class="sf-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Local pack · position 1</span></span>
+                  <span class="sf-l" style="--w:92%"></span><span class="sf-l" style="--w:58%"></span>
+                </div>
+                <div class="sf-item">
+                  <span class="sf-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>Sitelinks · in progress</span></span>
+                  <span class="sf-l" style="--w:54%"></span><span class="sf-l" style="--w:34%"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 · topical cluster -->
+        <div data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">topical map · 1 hub, 8 pages</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>06</span>
+            </div>
+            <div class="art-body">
+              <h3 class="tri-h">Topical authority</h3>
+              <p class="tri-p">Google ranks sites that cover a subject completely. One page can't do that — a cluster can.</p>
+              <svg class="tc" viewBox="0 0 260 200" aria-label="A hub page linked to eight supporting pages">
+                <g class="edge">
+                  <path d="M130 100 L60 44"/><path d="M130 100 L130 30"/><path d="M130 100 L200 44"/>
+                  <path d="M130 100 L34 100"/><path d="M130 100 L226 100"/>
+                  <path d="M130 100 L60 156"/><path d="M130 100 L130 170"/><path d="M130 100 L200 156"/>
+                </g>
+                <circle class="node node--on" cx="60"  cy="44"  r="15"/>
+                <circle class="node node--on" cx="130" cy="30"  r="15"/>
+                <circle class="node node--on" cx="200" cy="44"  r="15"/>
+                <circle class="node node--on" cx="34"  cy="100" r="15"/>
+                <circle class="node"          cx="226" cy="100" r="15"/>
+                <circle class="node node--on" cx="60"  cy="156" r="15"/>
+                <circle class="node"          cx="130" cy="170" r="15"/>
+                <circle class="node node--on" cx="200" cy="156" r="15"/>
+                <circle class="hub" cx="130" cy="100" r="24"/>
+              </svg>
+              <div class="tc-legend">
+                <span><i class="l1" aria-hidden="true"></i>Hub</span>
+                <span><i class="l2" aria-hidden="true"></i>Ranking</span>
+                <span><i class="l3" aria-hidden="true"></i>Queued</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROCESS ══════════ -->
+  <section class="sec" id="process" aria-labelledby="procTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">How we work</span></div>
+        <h2 class="sec-title" id="procTitle" data-reveal>The order <span class="dim">we do it in.</span></h2>
+        <p class="sec-sub" data-reveal>Sequence matters. Publishing content onto a site Google can't crawl properly is money spent twice.</p>
+      </div>
+
+      <div class="acc" id="acc">
+        <div class="acc-item is-open" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="true" aria-controls="accp1">
+            <span class="acc-num">01</span>
+            <span class="acc-title">Technical audit, first</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp1">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">01</span>
+              <p>We crawl the whole site and fix what stops Google reading it: broken links, duplicate titles, orphaned pages, render-blocking scripts, slow templates. This is unglamorous and it is where most of the early movement comes from — you often have pages that deserve to rank and simply can't.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp2">
+            <span class="acc-num">02</span>
+            <span class="acc-title">Keywords chosen by revenue, not volume</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp2">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">02</span>
+              <p>We map every term to a stage of your buying cycle and to what a customer from it is actually worth. A 200-a-month term where people are ready to buy beats a 20,000-a-month term where they're browsing. We'll show you the maths before we commit the roadmap.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp3">
+            <span class="acc-num">03</span>
+            <span class="acc-title">Pages built for one intent each</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp3">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">03</span>
+              <p>Every page answers one question completely — structured so the search engine understands what it's for and the visitor has no reason to go back to the results. Titles, headings, internal links and schema all point the same way, and the cluster around it establishes that you cover the subject rather than skim it.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp4">
+            <span class="acc-num">04</span>
+            <span class="acc-title">Authority earned, never bought</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp4">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">04</span>
+              <p>Digital PR, original data and direct outreach to publications your market already reads. No directories, no private networks, nothing from a marketplace. Bought links work right up until an update, and then they cost you more than they ever returned.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item" data-reveal>
+          <button class="acc-head" type="button" aria-expanded="false" aria-controls="accp5">
+            <span class="acc-num">05</span>
+            <span class="acc-title">Measure, cut, double down</span>
+            <span class="acc-sign" aria-hidden="true"></span>
+          </button>
+          <div class="acc-panel" id="accp5">
+            <div class="acc-inner"><span class="spacer" aria-hidden="true">05</span>
+              <p>Rankings, traffic and revenue against the plan, reported weekly in plain English. What underperforms gets cut rather than defended. What converts gets more resource. That loop is the whole reason organic compounds instead of plateauing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SERVICES ══════════ -->
+  <section class="sec" id="services" aria-labelledby="svcTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">The rest of it</span></div>
+        <h2 class="sec-title" id="svcTitle" data-reveal>SEO works harder <span class="dim">with company.</span></h2>
+        <p class="sec-sub" data-reveal>Organic takes months to compound. These are what we run alongside it so you aren't waiting on it alone.</p>
+      </div>
+
+      <div class="svc-grid">
+        <article class="svc svc--here" aria-current="page" data-reveal>
+          <span class="svc-idx" aria-hidden="true">01</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <h3>Search engine optimisation</h3>
+          <p>Technical fixes, intent-led content, and links earned from publications your market reads.</p>
+          <span class="svc-here-tag"><span class="live-dot" aria-hidden="true"></span>You're here</span>
+        </article>
+
+        <a class="svc" href="/ppc" data-reveal>
+          <span class="svc-idx" aria-hidden="true">02</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <h3>Pay-per-click</h3>
+          <p>Buys the traffic while organic builds, and tells you which terms convert before you invest in ranking for them.</p>
+        </a>
+
+        <a class="svc" href="/content" data-reveal>
+          <span class="svc-idx" aria-hidden="true">03</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11a4 4 0 0 1 0 8H4z"/><path d="M4 12h13a4 4 0 0 1 0 8H4z"/></svg></div>
+          <h3>Content creation</h3>
+          <p>The pages the SEO roadmap calls for, written around search intent rather than a word count.</p>
+        </a>
+
+        <a class="svc" href="/web-development" data-reveal>
+          <span class="svc-idx" aria-hidden="true">04</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <h3>Web development</h3>
+          <p>Where the technical fixes actually get made, and where Core Web Vitals are won or lost.</p>
+        </a>
+
+        <a class="svc" href="/social" data-reveal>
+          <span class="svc-idx" aria-hidden="true">05</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Social media</h3>
+          <p>Distribution for the content SEO produces, and the brand searches that follow from it.</p>
+        </a>
+
+        <a class="svc" href="/email" data-reveal>
+          <span class="svc-idx" aria-hidden="true">06</span>
+          <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+          <h3>Email marketing</h3>
+          <p>Turns the organic traffic you worked for into a list you own, rather than a one-time visit.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section class="cta" aria-labelledby="ctaTitle">
+    <div class="cta-ember" aria-hidden="true"></div>
+    <div class="container">
+      <div class="sec-head sec-head--center" style="margin-bottom:0">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
+        <h2 class="sec-title" id="ctaTitle" data-reveal>Find out what you're <span class="dim">missing out on.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Send us the domain and we'll come back with the terms you should be ranking for, what's
+          currently stopping you, and what it's worth — before you've spent anything.
+        </p>
+        <div class="cta-actions" data-reveal>
+          <a class="ember-btn" href="/contact">
+            Get a free SEO audit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="ghost-btn" href="/services">All services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ RANK TRACKER — five industries, five datasets ══════
+     Switching tab swaps the whole table: different keywords, different
+     volumes, different positions. Not one table relabelled. */
+  var DATA = {
+    ai: {
+      url: 'rank-tracker · ai-software',
+      rows: [
+        { kw: 'ai automation agency',            in: 'Commercial',    vol: '3,600',  pos: 1, mv: 9  },
+        { kw: 'enterprise ai platform pricing',  in: 'Transactional', vol: '1,300',  pos: 2, mv: 6  },
+        { kw: 'best ai chatbot for business',    in: 'Commercial',    vol: '8,100',  pos: 3, mv: 4  },
+        { kw: 'what is an ai agent',             in: 'Informational', vol: '18,100', pos: 5, mv: 12 },
+        { kw: 'ai workflow software',            in: 'Commercial',    vol: '4,400',  pos: 7, mv: 11 }
+      ]
+    },
+    plumbing: {
+      url: 'rank-tracker · plumbing-co',
+      rows: [
+        { kw: 'emergency plumber manchester',    in: 'Transactional', vol: '4,400',  pos: 1, mv: 7  },
+        { kw: 'power flush cost',                in: 'Transactional', vol: '2,100',  pos: 1, mv: 2  },
+        { kw: 'boiler repair near me',           in: 'Transactional', vol: '27,100', pos: 2, mv: 11 },
+        { kw: 'bathroom installation cost',      in: 'Commercial',    vol: '6,600',  pos: 3, mv: 5  },
+        { kw: 'why is my radiator cold',         in: 'Informational', vol: '9,900',  pos: 6, mv: 8  }
+      ]
+    },
+    cars: {
+      url: 'rank-tracker · motor-group',
+      rows: [
+        { kw: 'part exchange valuation',         in: 'Transactional', vol: '5,400',  pos: 1, mv: 3  },
+        { kw: 'used cars manchester',            in: 'Commercial',    vol: '18,100', pos: 2, mv: 8  },
+        { kw: 'car finance bad credit',          in: 'Commercial',    vol: '33,100', pos: 4, mv: 12 },
+        { kw: 'electric car lease deals',        in: 'Commercial',    vol: '12,100', pos: 6, mv: 5  },
+        { kw: 'how does part exchange work',     in: 'Informational', vol: '8,100',  pos: 8, mv: 15 }
+      ]
+    },
+    dental: {
+      url: 'rank-tracker · dental-practice',
+      rows: [
+        { kw: 'invisalign manchester',           in: 'Commercial',    vol: '3,600',  pos: 1, mv: 9  },
+        { kw: 'dental implants cost uk',         in: 'Commercial',    vol: '9,900',  pos: 2, mv: 6  },
+        { kw: 'emergency dentist near me',       in: 'Transactional', vol: '40,500', pos: 3, mv: 14 },
+        { kw: 'teeth whitening price',           in: 'Commercial',    vol: '8,100',  pos: 4, mv: 4  },
+        { kw: 'how long does invisalign take',   in: 'Informational', vol: '6,600',  pos: 7, mv: 10 }
+      ]
+    },
+    ecom: {
+      url: 'rank-tracker · online-retailer',
+      rows: [
+        { kw: 'next day delivery furniture',     in: 'Transactional', vol: '4,800',  pos: 1, mv: 5  },
+        { kw: 'cheap protein powder',            in: 'Commercial',    vol: '22,200', pos: 2, mv: 10 },
+        { kw: 'buy running shoes online',        in: 'Transactional', vol: '14,800', pos: 3, mv: 7  },
+        { kw: 'best value office chair',         in: 'Commercial',    vol: '6,600',  pos: 5, mv: 6  },
+        { kw: 'how to choose a mattress',        in: 'Informational', vol: '12,100', pos: 9, mv: 21 }
+      ]
+    }
+  };
+
+  var list = document.getElementById('rkList');
+  var urlEl = document.getElementById('rkUrl');
+  var footEl = document.getElementById('rkFoot');
+  var top3El = document.getElementById('rkTop3');
+  var tabs = [].slice.call(document.querySelectorAll('.rk-tab'));
+
+  function esc(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  var UP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 15 12 8 19 15"/></svg>';
+
+  function render(key, animate) {
+    var set = DATA[key];
+    if (!set || !list) return;
+
+    list.innerHTML = set.rows.map(function (r) {
+      /* the ten ticks of page one, with the dot sitting on this position */
+      var ticks = '';
+      for (var i = 0; i < 10; i++) ticks += '<i style="left:' + (i * 11.11).toFixed(2) + '%"></i>';
+      var x = (((r.pos - 0.5) / 10) * 100).toFixed(2) + '%';
+      var cls = r.in === 'Transactional' ? 't' : (r.in === 'Commercial' ? 'c' : '');
+      return '<li class="rk-row">' +
+        '<span class="rk-kw">' + esc(r.kw) + '</span>' +
+        '<span class="rk-int"><b class="' + cls + '">' + esc(r.in) + '</b></span>' +
+        '<span class="rk-vol">' + esc(r.vol) + '</span>' +
+        '<span class="rk-scale" aria-hidden="true">' + ticks +
+          '<span class="rk-dot" style="--x:' + x + '"></span></span>' +
+        '<span class="rk-pos">' + r.pos + '</span>' +
+        '<span class="rk-mv">' + UP + r.mv + '</span>' +
+      '</li>';
+    }).join('');
+
+    if (urlEl) urlEl.textContent = set.url;
+
+    var sum = set.rows.reduce(function (a, r) { return a + r.pos; }, 0);
+    var top3 = set.rows.filter(function (r) { return r.pos <= 3; }).length;
+    if (footEl) footEl.textContent = 'Average position ' + (sum / set.rows.length).toFixed(1);
+    if (top3El) top3El.textContent = top3;
+
+    /* On a tab switch the panel is already in view, so the rows have to be
+       told to play — the observer that normally does it has long since fired
+       and disconnected. */
+    if (animate && !reduceMotion) {
+      var rows = list.querySelectorAll('.rk-row');
+      rows.forEach(function (row, i) {
+        row.style.transitionDelay = (0.05 * i) + 's';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { row.classList.add('rk-in'); });
+        });
+      });
+    } else {
+      list.querySelectorAll('.rk-row').forEach(function (row) { row.classList.add('rk-in'); });
+    }
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+      render(tab.getAttribute('data-v'), true);
+    });
+  });
+  /* first paint is not animated here — the panel observer handles that */
+  render('ai', false);
+  if (reduceMotion) { list.querySelectorAll('.rk-row').forEach(function (r) { r.classList.add('rk-in'); }); }
+
+  /* ══════ REVEALS ══════
+     Copy reveals at 15%; an instrument waits until enough of its panel is
+     on screen to be worth watching. */
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  var artEls = document.querySelectorAll('[data-art]');
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    artEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+
+    var artObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); artObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.22 });
+    artEls.forEach(function (el) { artObs.observe(el); });
+  }
+
+  /* ══════ PROCESS ACCORDION ══════ */
+  var items = [].slice.call(document.querySelectorAll('.acc-item'));
+
+  function setOpen(item, open) {
+    var panel = item.querySelector('.acc-panel');
+    var head = item.querySelector('.acc-head');
+    item.classList.toggle('is-open', open);
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0px';
+  }
+
+  items.forEach(function (item) {
+    item.querySelector('.acc-head').addEventListener('click', function () {
+      var willOpen = !item.classList.contains('is-open');
+      items.forEach(function (other) { if (other !== item) setOpen(other, false); });
+      setOpen(item, willOpen);
+    });
+  });
+
+  function sizeOpen() {
+    items.forEach(function (item) { setOpen(item, item.classList.contains('is-open')); });
+  }
+  sizeOpen();
+  window.addEventListener('load', sizeOpen);
+  window.addEventListener('resize', function () {
+    items.forEach(function (item) {
+      if (!item.classList.contains('is-open')) return;
+      var p = item.querySelector('.acc-panel');
+      p.style.maxHeight = p.scrollHeight + 'px';
+    });
+  });
+
+  /* ══════ SCROLL PROGRESS ══════ */
+  var bar = document.getElementById('progress');
+  if (bar && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
+  } else if (bar) {
+    var tick = null;
+    window.addEventListener('scroll', function () {
+      if (tick) return;
+      tick = requestAnimationFrame(function () {
+        var max = document.body.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        tick = null;
+      });
+    }, { passive: true });
+  }
+})();
+</script>
