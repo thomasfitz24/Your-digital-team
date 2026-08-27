@@ -1,0 +1,1091 @@
+<!-- ═══════════════════════════════════════════════════════════
+     social-pricing.html  →  Squarespace page /social-media-pricing
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Design system — "signal", same as every other page.
+
+     EVERY PRICE ON THIS PAGE IS DERIVED FROM ONE TABLE. The plan data
+     lives in the PLANS array at the bottom of the script; the cards, the
+     inbox toggle, the cost-per-post comparison and the totals are all
+     computed from it. Change a number there and the whole page follows —
+     there is nowhere for two figures to disagree.
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- Runs before paint. Everything hidden by default is scoped to this
+     class, so a script error leaves the page readable rather than blank. -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page { scroll-behavior: smooth; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { color: inherit; text-decoration: none; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; scroll-margin-top: 110px; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ PRIMITIVES ══════════ */
+html.ydt-js .ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+html.ydt-js .ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+html.ydt-js .ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+
+/* ══════════ SECTION SCAFFOLD ══════════ */
+.ydt-page .sec { padding: 112px 0; border-top: 1px solid var(--line2); }
+.ydt-page .sec-head { max-width: 672px; margin-bottom: 56px; }
+.ydt-page .sec-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.ydt-page .sec-head--center .sec-eyebrow { justify-content: center; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.03; margin-bottom: 16px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.68; }
+
+/* two-up: copy one side, instrument the other */
+.ydt-page .duo { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+@media (min-width: 1024px) {
+    .ydt-page .duo { grid-template-columns: 0.8fr 1.2fr; gap: 60px; }
+    .ydt-page .duo--flip .duo-copy { order: 2; }
+    .ydt-page .duo--flip .duo-art { order: 1; }
+}
+/* A `1fr` track is minmax(auto, 1fr), and that auto minimum is min-content —
+   which for any nowrap string is the whole string. Without this a single
+   keyword row sizes the whole track past the viewport on a phone. */
+.ydt-page .duo-copy, .ydt-page .duo-art { min-width: 0; }
+.ydt-page .duo-copy p { font-size: 15px; color: var(--gray5); line-height: 1.72; }
+.ydt-page .duo-copy p + p { margin-top: 14px; }
+.ydt-page .duo-list { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .duo-list li { display: flex; gap: 11px; font-size: 14px; color: var(--gray5); line-height: 1.55; }
+.ydt-page .duo-list svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; margin-top: 3px; }
+
+/* ══════════ HERO ══════════ */
+.ydt-page .hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + 78px) 0 84px; }
+.ydt-page .hero-ember {
+    position: absolute; top: -48vh; left: 50%; width: 180vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.32) 0%, rgba(216, 30, 13, 0.15) 34%, rgba(118, 20, 10, 0.05) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .hero-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-width: 1180px; max-height: 1180px;
+    transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.22);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .hero .container { position: relative; z-index: 2; }
+.ydt-page .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 28px;
+}
+.ydt-page .hero h1 {
+    font-size: clamp(2.1rem, 5.4vw, 4rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; max-width: 17ch;
+}
+.ydt-page .hero h1 .dim { color: var(--w25); }
+.ydt-page .hero-body {
+    font-size: clamp(1rem, 1.25vw, 1.1rem); color: var(--gray5);
+    line-height: 1.7; max-width: 36rem; margin-top: 28px;
+}
+.ydt-page .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.ydt-page .back {
+    /* block-level: as inline-flex this shared a line box with the inline-flex
+       .hero-eyebrow below it and the pill landed on top of the link */
+    display: flex; width: fit-content; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 26px;
+    /* 12px block padding clears the 36px touch minimum */
+    padding: 12px 0; transition: color 0.3s;
+}
+.ydt-page .back:hover { color: var(--white); }
+.ydt-page .back svg { width: 13px; height: 13px; transition: transform 0.3s var(--ease); }
+.ydt-page .back:hover svg { transform: translateX(-3px); }
+
+/* ══════════ PROOF BAND ══════════ */
+.ydt-page .band {
+    margin-top: 62px; border: 1px solid var(--line); border-radius: 18px;
+    background: var(--panel); overflow: hidden;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 860px) { .ydt-page .band { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .band-cell { padding: 24px 22px; border-top: 1px solid var(--line2); border-left: 1px solid var(--line2); }
+.ydt-page .band-cell:nth-child(-n+2) { border-top: none; }
+.ydt-page .band-cell:nth-child(odd) { border-left: none; }
+@media (min-width: 860px) {
+    .ydt-page .band-cell { border-top: none; border-left: 1px solid var(--line2); }
+    .ydt-page .band-cell:first-child { border-left: none; }
+}
+.ydt-page .band-v {
+    display: block; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; margin-bottom: 9px;
+}
+.ydt-page .band-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SHARED PANEL CHROME
+   ══════════════════════════════════════════════════════════════ */
+.ydt-page .duo-art, .ydt-page .art-hold { position: relative; }
+.ydt-page .duo-art::before, .ydt-page .art-hold::before {
+    content: ''; position: absolute; left: 50%; top: 4%;
+    width: 80%; height: 76%; transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.22), transparent 72%);
+    filter: blur(58px); pointer-events: none; z-index: 0;
+}
+.ydt-page .art {
+    position: relative; z-index: 1;
+    background: var(--panel); border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 76, 0.04);
+}
+.ydt-page .art-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line2); background: var(--panel2);
+}
+.ydt-page .art-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.ydt-page .art-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+.ydt-page .art-url {
+    font-family: var(--mono); font-size: 10.5px; color: var(--gray6); min-width: 0;
+    letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .art-live {
+    display: inline-flex; align-items: center; gap: 7px; margin-left: auto; flex-shrink: 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--data);
+}
+.ydt-page .art-body { padding: 22px 20px; }
+@media (min-width: 560px) { .ydt-page .art-body { padding: 24px; } }
+.ydt-page .art-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); margin-bottom: 8px;
+}
+.ydt-page .art-v {
+    display: block; font-size: clamp(1.35rem, 2.6vw, 1.85rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .art-cap {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6);
+}
+.ydt-page .art-delta {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .art-delta svg { width: 10px; height: 10px; }
+.ydt-page .art-foot {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 13px 20px; border-top: 1px solid var(--line2); background: rgba(255,255,255,0.012);
+}
+@media (min-width: 560px) { .ydt-page .art-foot { padding: 13px 24px; } }
+
+
+
+
+
+
+
+
+/* ══════════ THE INBOX TOGGLE ══════════ */
+/* the toggle only does anything with script running, so it is hidden without
+   it — the add-on price is on every card either way */
+.ydt-page .tg-wrap { display: none; justify-content: center; margin-bottom: 40px; }
+html.ydt-js .ydt-page .tg-wrap { display: flex; }
+.ydt-page .tg {
+    display: inline-flex; align-items: center; gap: 14px;
+    border: 1px solid var(--line); background: var(--panel);
+    border-radius: 9999px; padding: 10px 10px 10px 20px; cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+}
+.ydt-page .tg:hover { border-color: rgba(255,255,255,0.16); }
+.ydt-page .tg[aria-pressed="true"] { border-color: rgba(255,69,54,0.32); background: var(--data-dim); }
+.ydt-page .tg-label { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; color: var(--white); }
+.ydt-page .tg-label span {
+    display: block; font-family: var(--mono); font-size: 10px; font-weight: 400;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray6); margin-top: 4px;
+}
+.ydt-page .tg[aria-pressed="true"] .tg-label span { color: var(--data); }
+.ydt-page .tg-switch {
+    position: relative; flex-shrink: 0; width: 46px; height: 26px; border-radius: 9999px;
+    background: rgba(255,255,255,0.08); border: 1px solid var(--line); transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .tg[aria-pressed="true"] .tg-switch { background: var(--data-dim); border-color: rgba(255,69,54,0.4); }
+.ydt-page .tg-switch i {
+    position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--gray5); transition: transform 0.32s var(--ease), background 0.32s;
+}
+.ydt-page .tg[aria-pressed="true"] .tg-switch i {
+    transform: translateX(20px); background: linear-gradient(180deg, #ff6152, var(--data-deep));
+}
+
+/* ══════════ THE PLAN CARDS ══════════ */
+.ydt-page .pl-grid { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: stretch; }
+@media (min-width: 700px) { .ydt-page .pl-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1120px) { .ydt-page .pl-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; } }
+.ydt-page .pl {
+    position: relative; display: flex; flex-direction: column; min-width: 0;
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 18px; padding: 26px 22px 22px; overflow: hidden;
+    transition: border-color 0.5s var(--ease), transform 0.6s var(--ease);
+}
+.ydt-page .pl:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-3px); }
+.ydt-page .pl--pick { border-color: rgba(255,69,54,0.34); }
+.ydt-page .pl--pick::before {
+    content: ''; position: absolute; top: -46%; left: 50%; width: 130%; height: 96%;
+    transform: translateX(-50%); pointer-events: none;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 69, 54, 0.20), transparent 70%);
+    filter: blur(34px);
+}
+.ydt-page .pl-tag {
+    position: absolute; top: 0; right: 22px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--data); background: var(--data-dim);
+    border: 1px solid rgba(255,69,54,0.3); border-top: none;
+    border-radius: 0 0 8px 8px; padding: 6px 10px 5px;
+}
+.ydt-page .pl-head { position: relative; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--line2); }
+.ydt-page .pl-idx {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gray6); margin-bottom: 12px;
+}
+.ydt-page .pl-name { font-size: 19px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 16px; }
+.ydt-page .pl-price { display: flex; align-items: baseline; gap: 3px; }
+.ydt-page .pl-price b {
+    font-size: clamp(2rem, 3.4vw, 2.5rem); font-weight: 700; letter-spacing: -0.045em;
+    line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .pl--pick .pl-price b { color: var(--data); }
+.ydt-page .pl-per { font-family: var(--mono); font-size: 11px; color: var(--gray6); }
+/* the inbox line only appears once the add-on is switched on */
+.ydt-page .pl-addon {
+    display: block; font-family: var(--mono); font-size: 10.5px; color: var(--gray6);
+    margin-top: 12px; min-height: 15px;
+}
+.ydt-page .pl-addon b { color: var(--data); font-weight: 500; }
+.ydt-page .pl-spec { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 6px;
+    margin-bottom: 20px; position: relative;
+    /* one card's pills wrap to a second row; without a reserved height every
+       tick in that card drops a line and the four lists stop reading across */
+    min-height: 60px; }
+.ydt-page .pl-spec span {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em;
+    border: 1px solid var(--card-line); background: var(--panel2); color: var(--gray5);
+    border-radius: 7px; padding: 6px 9px; white-space: nowrap;
+}
+.ydt-page .pl--pick .pl-spec span { border-color: rgba(255,69,54,0.22); color: var(--data); background: var(--data-dim); }
+.ydt-page .pl-list { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 24px; position: relative; }
+.ydt-page .pl-list li { display: flex; gap: 10px; font-size: 13px; color: var(--gray5); line-height: 1.55; }
+.ydt-page .pl-list svg { width: 13px; height: 13px; color: var(--data); flex-shrink: 0; margin-top: 3px; }
+.ydt-page .pl-list li.inherit { color: var(--white); font-weight: 500; }
+.ydt-page .pl-cta {
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    margin-top: auto; padding: 13px 18px; border-radius: 9999px; position: relative;
+    font-size: 13px; font-weight: 600; letter-spacing: -0.01em;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .pl-cta:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.24); }
+.ydt-page .pl--pick .pl-cta {
+    background: linear-gradient(180deg, #ff6152, var(--data-deep)); border-color: transparent; color: #1c0503;
+    box-shadow: 0 6px 20px rgba(216, 30, 13, 0.34);
+}
+.ydt-page .pl--pick .pl-cta:hover { filter: brightness(1.07); }
+.ydt-page .pl-cta svg { width: 13px; height: 13px; transition: transform 0.3s; }
+.ydt-page .pl-cta:hover svg { transform: translateX(3px); }
+
+/* ══════════ WHAT LANDS EACH MONTH ══════════ */
+.ydt-page .lm { display: flex; flex-direction: column; gap: 24px; }
+.ydt-page .lm-row { display: grid; grid-template-columns: 1fr auto; gap: 10px 14px; align-items: baseline; }
+.ydt-page .lm-k { font-size: 13.5px; color: var(--gray5); }
+.ydt-page .lm-k b { color: var(--white); font-weight: 600; }
+.ydt-page .lm-v { font-family: var(--mono); font-size: 12px; color: var(--gray5); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ydt-page .lm-row--pick .lm-v { color: var(--data); }
+/* one tile per post — the count and the shape agree by construction, and the
+   tiles are clustered per platform so 12-on-one and 4-each-on-three, which
+   are the same 12 squares, no longer draw as the same picture */
+.ydt-page .lm-tiles { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+.ydt-page .lm-grp {
+    display: flex; flex-wrap: wrap; gap: 4px; padding: 5px 7px;
+    border: 1px solid rgba(255,255,255,0.055); border-radius: 8px;
+}
+.ydt-page .lm-row--pick .lm-grp { border-color: rgba(255,69,54,0.16); }
+.ydt-page .lm-tiles i {
+    display: block; width: 14px; height: 14px; border-radius: 4px;
+    background: rgba(255,255,255,0.10);
+}
+.ydt-page .lm-row--pick .lm-tiles i { background: linear-gradient(160deg, #ff6152, var(--data-deep)); }
+html.ydt-js .ydt-page .lm-tiles i { opacity: 0; transform: scale(0.55); transition: opacity 0.3s var(--ease), transform 0.3s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .lm-tiles i { opacity: 1; transform: scale(1); }
+
+/* ══════════ COST PER POST ══════════ */
+.ydt-page .cp-rows { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 22px; }
+.ydt-page .cp-row { display: grid; grid-template-columns: 104px 1fr 58px; gap: 12px; align-items: center; }
+.ydt-page .cp-k { font-size: 12.5px; color: var(--gray5); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ydt-page .cp-row--best .cp-k { color: var(--white); font-weight: 600; }
+.ydt-page .cp-track { display: block; height: 20px; border-radius: 6px; background: rgba(255,255,255,0.045); overflow: hidden; }
+.ydt-page .cp-fill { display: block; height: 100%; border-radius: 6px; width: var(--w); background: rgba(255,255,255,0.16); }
+.ydt-page .cp-row--best .cp-fill { background: linear-gradient(90deg, var(--data-deep), #ff6152); }
+html.ydt-js .ydt-page .cp-fill { width: 0; transition: width 0.95s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .cp-fill { width: var(--w); }
+.ydt-page .cp-n { font-family: var(--mono); font-size: 12px; color: var(--gray5); text-align: right; font-variant-numeric: tabular-nums; }
+.ydt-page .cp-row--best .cp-n { color: var(--data); }
+.ydt-page .cp-note {
+    border: 1px solid var(--card-line); background: var(--panel2);
+    border-radius: 12px; padding: 15px 16px;
+    font-size: 13px; line-height: 1.7; color: var(--gray5);
+}
+.ydt-page .cp-note b { color: var(--white); font-weight: 600; }
+
+/* ══════════ INBOX ADD-ON ══════════ */
+.ydt-page .ib-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 700px) { .ydt-page .ib-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+.ydt-page .ib-card {
+    border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 16px; padding: 24px; min-width: 0;
+    transition: border-color 0.5s;
+}
+.ydt-page .ib-card:hover { border-color: rgba(255,255,255,0.16); }
+.ydt-page .ib-k {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray6); margin-bottom: 14px;
+}
+.ydt-page .ib-p { display: flex; align-items: baseline; gap: 3px; margin-bottom: 14px; }
+.ydt-page .ib-p b { font-size: clamp(1.5rem, 2.8vw, 1.9rem); font-weight: 700; letter-spacing: -0.04em; color: var(--data); line-height: 1; }
+.ydt-page .ib-p span { font-family: var(--mono); font-size: 11px; color: var(--gray6); }
+.ydt-page .ib-card p { font-size: 13.5px; line-height: 1.68; color: var(--gray5); }
+/* ══════════ 05 · IN EVERY PLAN ══════════
+   The markup for this section came over from the about page; these are the
+   rules that go with it, which had been left behind. */
+.ydt-page .ap-grid { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
+@media (min-width: 640px) { .ydt-page .ap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .ydt-page .ap-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.ydt-page .ap {
+    position: relative; min-width: 0;
+    padding: 32px 24px 38px 0; border-bottom: 1px solid var(--line);
+}
+@media (min-width: 640px) {
+    .ydt-page .ap { padding-left: 26px; border-left: 1px solid var(--line); }
+    .ydt-page .ap:nth-child(odd) { padding-left: 0; border-left: none; }
+}
+@media (min-width: 1024px) {
+    .ydt-page .ap:nth-child(odd) { padding-left: 26px; border-left: 1px solid var(--line); }
+    .ydt-page .ap:first-child { padding-left: 0; border-left: none; }
+}
+.ydt-page .ap-num {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em;
+    color: var(--gray6); margin-bottom: 24px;
+}
+.ydt-page .ap h3 {
+    font-size: clamp(1.1rem, 1.7vw, 1.32rem); font-weight: 700;
+    letter-spacing: -0.028em; line-height: 1.22; margin-bottom: 14px;
+}
+.ydt-page .ap p { font-size: 13.5px; line-height: 1.76; color: var(--gray5); }
+/* the rule under each column lights on hover */
+.ydt-page .ap::after {
+    content: ''; position: absolute; left: 0; bottom: -1px;
+    height: 1px; width: 0; background: var(--data);
+    transition: width 0.7s var(--ease);
+}
+.ydt-page .ap:hover::after { width: 100%; }
+
+/* ══════════ FINAL CTA ══════════ */
+.ydt-page .cta { position: relative; overflow: hidden; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
+.ydt-page .cta-ember {
+    position: absolute; bottom: -56vh; left: 50%; width: 170vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.24) 0%, rgba(216, 30, 13, 0.11) 36%, transparent 72%);
+    filter: blur(30px);
+}
+.ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
+.ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+
+/* ══════════ MOTION FALLBACKS ══════════
+   These carry the html.ydt-js prefix on purpose — they have to out-specify
+   the gated hidden states above, and a media query adds no specificity. */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page { scroll-behavior: auto; }
+    html.ydt-js .ydt-page [data-reveal],
+    html.ydt-js .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    html.ydt-js .ydt-page .lm-tiles i { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .cp-fill { width: var(--w); transition: none; }
+    .ydt-page .tg-switch i { transition: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .sec { padding: 78px 0; }
+    .ydt-page .hero { padding: calc(var(--header-h) + 48px) 0 56px; }
+    .ydt-page .cta { padding: 80px 0 88px; }
+    .ydt-page .hero-actions .ember-btn, .ydt-page .hero-actions .ghost-btn,
+    .ydt-page .cta-actions .ember-btn, .ydt-page .cta-actions .ghost-btn { width: 100%; }
+    /* nothing under 10px, same floor as every other page */
+    .ydt-page .art-cap, .ydt-page .art-k, .ydt-page .band-k,
+    .ydt-page .pl-idx, .ydt-page .pl-per, .ydt-page .pl-addon, .ydt-page .pl-spec span,
+    .ydt-page .pl-tag, .ydt-page .tg-label span, .ydt-page .ib-k, .ydt-page .ib-p span,
+    .ydt-page .back { font-size: 10px; letter-spacing: 0.1em; }
+    .ydt-page .cp-row { grid-template-columns: 92px 1fr 54px; gap: 9px; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page .art-url, .ydt-page .art-live, .ydt-page .art-k, .ydt-page .art-cap,
+.ydt-page .art-delta, .ydt-page .pl-idx, .ydt-page .pl-per, .ydt-page .pl-addon,
+.ydt-page .pl-spec span, .ydt-page .pl-tag, .ydt-page .tg-label span, .ydt-page .lm-v,
+.ydt-page .ap-num,
+.ydt-page .cp-n, .ydt-page .ib-k, .ydt-page .ib-p span,
+.ydt-page .acc-num, .ydt-page .band-k,
+.ydt-page .svc-idx, .ydt-page .svc-here-tag, .ydt-page .sec-eyebrow-text,
+.ydt-page .hero-eyebrow, .ydt-page .back { font-family: var(--mono); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+.ydt-page button { font-family: var(--font); }
+</style>
+
+<div class="ydt-page ydt-page--social-pricing">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <a class="back" href="/social">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>
+        Social media
+      </a>
+      <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Social media management</p>
+      <h1 id="heroTitle">
+        <span class="clip"><span class="slide">Four plans.</span></span>
+        <span class="clip"><span class="slide"><span class="dim">No hidden extras.</span></span></span>
+      </h1>
+      <p class="hero-body" data-reveal>
+        Everything is written as you, in your voice — captions, hashtags, graphics and
+        scheduling included in every plan. Monthly, no contract, and you can move up or down
+        a plan whenever the workload changes.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a class="ember-btn" href="/contact">
+          Talk to us
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a class="ghost-btn" href="#plans">See the plans</a>
+      </div>
+
+      <div class="band" data-reveal>
+        <div class="band-cell"><span class="band-v">&pound;60</span><span class="band-k">Starting price,<br>per month</span></div>
+        <div class="band-cell"><span class="band-v">In your voice</span><span class="band-k">Written as you,<br>not as an agency</span></div>
+        <div class="band-cell"><span class="band-v">Included</span><span class="band-k">Graphics, captions,<br>hashtags, scheduling</span></div>
+        <div class="band-cell"><span class="band-v">Monthly</span><span class="band-k">No contract, cancel<br>or switch any time</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ THE PLANS ══════════ -->
+  <section class="sec" id="plans" aria-labelledby="plTitle">
+    <div class="container">
+      <div class="sec-head sec-head--center">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">01 · The plans</span></div>
+        <h2 class="sec-title" id="plTitle" data-reveal>Pick the one that <span class="dim">matches your week.</span></h2>
+        <p class="sec-sub" data-reveal>
+          The difference between them is how much lands and across how many platforms.
+          Everything else — the writing, the graphics, the scheduling — is in all four.
+        </p>
+      </div>
+
+      <div class="tg-wrap" data-reveal>
+        <!-- a real button: it toggles state rather than navigating -->
+        <button class="tg" type="button" id="inboxToggle" aria-pressed="false">
+          <span class="tg-label">Add inbox management
+            <span id="tgHint">Comments and DMs answered</span>
+          </span>
+          <span class="tg-switch" aria-hidden="true"><i></i></span>
+        </button>
+      </div>
+
+      <!-- Rendered here so the plans are readable with scripting off; the same
+           markup is regenerated from PLANS on load, so the two cannot drift. -->
+      <div class="pl-grid" id="plGrid" data-reveal>
+        <article class="pl" data-plan="0"><div class="pl-head"><span class="pl-idx">Plan 1</span><h3 class="pl-name">Starter</h3><div class="pl-price"><b data-price="">£60</b><span class="pl-per">/month</span></div><span class="pl-addon" data-addon="">Inbox management <b>+£40</b> / month</span></div><div class="pl-spec"><span>1 platform</span><span>4 posts / month</span></div><ul class="pl-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Full content creation — written as you, in your voice</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Branded graphics or sourced visuals for every post</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Captions, hashtags and posting included</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Time-targeted scheduling</span></li></ul><a class="pl-cta" href="/contact?plan=Starter">Start with Starter<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></article>
+                <article class="pl pl--pick" data-plan="1"><span class="pl-tag">Most chosen</span><div class="pl-head"><span class="pl-idx">Plan 2</span><h3 class="pl-name">Growth</h3><div class="pl-price"><b data-price="">£110</b><span class="pl-per">/month</span></div><span class="pl-addon" data-addon="">Inbox management <b>+£40</b> / month</span></div><div class="pl-spec"><span>1 platform</span><span>12 posts / month</span></div><ul class="pl-list"><li class="inherit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Everything in Starter</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Three posts a week, planned as a run rather than one-offs</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Content calendar planned a month in advance</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Post variety — promotional, educational and engagement</span></li></ul><a class="pl-cta" href="/contact?plan=Growth">Start with Growth<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></article>
+                <article class="pl" data-plan="2"><div class="pl-head"><span class="pl-idx">Plan 3</span><h3 class="pl-name">Multi-Platform</h3><div class="pl-price"><b data-price="">£195</b><span class="pl-per">/month</span></div><span class="pl-addon" data-addon="">Inbox management <b>+£80</b> / month</span></div><div class="pl-spec"><span>3 platforms</span><span>4 posts each / month</span></div><ul class="pl-list"><li class="inherit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Everything in Growth, across all three channels</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Platform-native formatting — adapted per platform, not copy-pasted</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Four posts a month on each of your three platforms</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Monthly performance summary</span></li></ul><a class="pl-cta" href="/contact?plan=Multi-Platform">Start with Multi-Platform<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></article>
+                <article class="pl" data-plan="3"><div class="pl-head"><span class="pl-idx">Plan 4</span><h3 class="pl-name">Full Presence</h3><div class="pl-price"><b data-price="">£395</b><span class="pl-per">/month</span></div><span class="pl-addon" data-addon="">Inbox management <b>+£100</b> / month</span></div><div class="pl-spec"><span>3 platforms</span><span>~39 posts / month</span></div><ul class="pl-list"><li class="inherit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Everything in Multi-Platform</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Three posts a week on each platform — around nine a week</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Weekly planning session or briefing call</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Trend and timing optimisation per platform</span></li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg><span>Priority turnaround on reactive or topical content</span></li></ul><a class="pl-cta" href="/contact?plan=Full%20Presence">Start with Full Presence<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ WHAT LANDS EACH MONTH ══════════ -->
+  <section class="sec" id="volume" aria-labelledby="lmTitle">
+    <div class="container">
+      <div class="duo">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">02 · What lands</span></div>
+          <h2 class="sec-title" id="lmTitle" data-reveal>One square <span class="dim">is one post.</span></h2>
+          <p data-reveal>
+            The clearest way to see the difference between the plans is to count what actually
+            gets published. Every square below is a finished post — written, designed, captioned
+            and scheduled.
+          </p>
+          <p data-reveal>
+            Full Presence works out at roughly nine posts a week across three platforms. That is
+            a genuine content operation, and it's the point at which the weekly planning call in
+            that plan stops being a nicety and starts being necessary.
+          </p>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">posts published · per month</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Per plan</span>
+            </div>
+            <div class="art-body">
+              <div class="lm" id="lmRows">
+                <div class="lm-row"><span class="lm-k"><b>Starter</b> · 1 platform</span><span class="lm-v">4 posts</span><span class="lm-tiles" aria-hidden="true"><span class="lm-grp"><i></i><i></i><i></i><i></i></span></span></div>
+                                <div class="lm-row lm-row--pick"><span class="lm-k"><b>Growth</b> · 1 platform</span><span class="lm-v">12 posts</span><span class="lm-tiles" aria-hidden="true"><span class="lm-grp"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span></div>
+                                <div class="lm-row"><span class="lm-k"><b>Multi-Platform</b> · 3 platforms · 4 each</span><span class="lm-v">12 posts</span><span class="lm-tiles" aria-hidden="true"><span class="lm-grp"><i></i><i></i><i></i><i></i></span><span class="lm-grp"><i></i><i></i><i></i><i></i></span><span class="lm-grp"><i></i><i></i><i></i><i></i></span></span></div>
+                                <div class="lm-row"><span class="lm-k"><b>Full Presence</b> · 3 platforms · 13 each</span><span class="lm-v">39 posts</span><span class="lm-tiles" aria-hidden="true"><span class="lm-grp"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="lm-grp"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="lm-grp"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span></div>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">One square = one post &middot; one cluster = one platform</span>
+              <span class="art-cap" style="margin-left:auto" id="lmFoot">Up to 39 a month</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ COST PER POST ══════════ -->
+  <section class="sec" id="value" aria-labelledby="cpTitle">
+    <div class="container">
+      <div class="duo duo--flip">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">03 · The honest comparison</span></div>
+          <h2 class="sec-title" id="cpTitle" data-reveal>What each post <span class="dim">actually costs.</span></h2>
+          <p data-reveal>
+            Most agencies won't show you this, because it makes one of their plans look bad.
+            Here it is anyway: divide the monthly price by the number of posts and you get what
+            you're paying per piece.
+          </p>
+          <p data-reveal id="cpCopy"><b style="color:var(--white);font-weight:600">Growth</b> is the cheapest per post at £9.17, and <b style="color:var(--white);font-weight:600">Multi-Platform</b> is the dearest at £16.25.</p>
+          <p data-reveal>
+            Per-post cost is a useful sanity check and a terrible way to choose. Pick the plan
+            that matches the number of platforms you actually need to be good on, then look at
+            the volume.
+          </p>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">cost per published post</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Derived</span>
+            </div>
+            <div class="art-body">
+              <ul class="cp-rows" id="cpRows">
+                <li class="cp-row"><span class="cp-k">Starter</span><span class="cp-track"><span class="cp-fill" style="--w:92.3%"></span></span><span class="cp-n">£15.00</span></li>
+                                <li class="cp-row cp-row--best"><span class="cp-k">Growth</span><span class="cp-track"><span class="cp-fill" style="--w:56.4%"></span></span><span class="cp-n">£9.17</span></li>
+                                <li class="cp-row"><span class="cp-k">Multi-Platform</span><span class="cp-track"><span class="cp-fill" style="--w:100.0%"></span></span><span class="cp-n">£16.25</span></li>
+                                <li class="cp-row"><span class="cp-k">Full Presence</span><span class="cp-track"><span class="cp-fill" style="--w:62.3%"></span></span><span class="cp-n">£10.13</span></li>
+              </ul>
+              <p class="cp-note" id="cpNote">That is not a mistake in the pricing. On Multi-Platform you are buying <b>3 platforms</b>, and each of those 12 posts is written and formatted for a different audience rather than copy-pasted across three feeds. You are paying for reach, not for volume.</p>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Monthly price &divide; posts</span>
+              <span class="art-cap" style="margin-left:auto">Excludes inbox management</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ INBOX MANAGEMENT ══════════ -->
+  <section class="sec" id="inbox" aria-labelledby="ibTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">04 · The add-on</span></div>
+        <h2 class="sec-title" id="ibTitle" data-reveal>Someone answers <span class="dim">the messages.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Posting is only half of it. The comment asking what something costs is a lead, and
+          left for three days it's a lead somebody else got. Inbox management covers replying to
+          comments and DMs, flagging genuine enquiries to you, and making sure nothing is missed.
+        </p>
+      </div>
+
+      <div class="ib-grid" id="ibGrid" data-reveal>
+        <div class="ib-card"><span class="ib-k">Starter &amp; Growth</span><div class="ib-p"><b>+£40</b><span>/month</span></div><p>One inbox to watch. Comments and DMs answered, genuine enquiries flagged straight to you.</p></div>
+                <div class="ib-card"><span class="ib-k">Multi-Platform</span><div class="ib-p"><b>+£80</b><span>/month</span></div><p>Three inboxes, three sets of notifications and three sets of conventions — monitored across all of them.</p></div>
+                <div class="ib-card"><span class="ib-k">Full Presence</span><div class="ib-p"><b>+£100</b><span>/month</span></div><p>Full daily monitoring across all three platforms, with priority on anything that reads like a buying question.</p></div>
+      </div>
+
+      <p class="cp-note" style="margin-top:20px" data-reveal>
+        It scales with platforms, not with posts &mdash; <b>three platforms means three inboxes</b>
+        to watch, each with its own notifications and its own conventions. That's why it costs
+        more on the multi-platform plans than on the single-platform ones.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════ INCLUDED EVERYWHERE ══════════ -->
+  <section class="sec" id="included" aria-labelledby="inTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">05 · In every plan</span></div>
+        <h2 class="sec-title" id="inTitle" data-reveal>No plan is <span class="dim">a stripped-back one.</span></h2>
+        <p class="sec-sub" data-reveal>These are in all four, including the £60 one. The plans differ on volume and reach, not on how much care goes into each post.</p>
+      </div>
+
+      <div class="ap-grid">
+        <article class="ap" data-reveal>
+          <span class="ap-num">01</span>
+          <h3>Written as you,<br>in your voice</h3>
+          <p>We learn how you actually talk and write to that, so the feed sounds like the business rather than like an agency that took it over.</p>
+        </article>
+        <article class="ap" data-reveal>
+          <span class="ap-num">02</span>
+          <h3>Graphics made<br>per post</h3>
+          <p>Branded graphics or properly sourced visuals for every post. Nothing reused from last month, nothing generic pulled off a stock site.</p>
+        </article>
+        <article class="ap" data-reveal>
+          <span class="ap-num">03</span>
+          <h3>Captions, hashtags,<br>posting</h3>
+          <p>Written, researched and scheduled. You approve, we publish — you never have to log in and post it yourself.</p>
+        </article>
+        <article class="ap" data-reveal>
+          <span class="ap-num">04</span>
+          <h3>Timed to when<br>you're seen</h3>
+          <p>Scheduled against when your audience is actually online, not whenever the content happened to be finished.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section class="cta" aria-labelledby="ctaTitle">
+    <div class="cta-ember" aria-hidden="true"></div>
+    <div class="container">
+      <div class="sec-head sec-head--center" style="margin-bottom:0">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
+        <h2 class="sec-title" id="ctaTitle" data-reveal>Not sure which one <span class="dim">you need?</span></h2>
+        <p class="sec-sub" data-reveal>
+          Tell us where you are now and what you're trying to get to. We'll tell you which plan
+          fits — including when the answer is the £60 one, or that you don't need us yet.
+        </p>
+        <div class="cta-actions" data-reveal>
+          <a class="ember-btn" href="/contact">
+            Talk to us
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="ghost-btn" href="/social">How we run social</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  /* ══════ THE PLANS ══════
+     THE ONLY PLACE PRICES ARE WRITTEN DOWN. The cards, the inbox toggle,
+     the volume squares and the cost-per-post comparison are all computed
+     from this array, so no two figures on the page can disagree. Change a
+     price or a post count here and everything follows.
+
+     `posts` for Full Presence is 3 platforms x 3 a week x 52/12 weeks = 39. */
+  var PLANS = [
+    {
+      name: 'Starter', price: 60, platforms: 1, posts: 4, inbox: 40, pick: false,
+      spec: ['1 platform', '4 posts / month'],
+      features: [
+        { t: 'Full content creation — written as you, in your voice' },
+        { t: 'Branded graphics or sourced visuals for every post' },
+        { t: 'Captions, hashtags and posting included' },
+        { t: 'Time-targeted scheduling' }
+      ]
+    },
+    {
+      name: 'Growth', price: 110, platforms: 1, posts: 12, inbox: 40, pick: true,
+      spec: ['1 platform', '12 posts / month'],
+      features: [
+        { t: 'Everything in Starter', inherit: true },
+        { t: 'Three posts a week, planned as a run rather than one-offs' },
+        { t: 'Content calendar planned a month in advance' },
+        { t: 'Post variety — promotional, educational and engagement' }
+      ]
+    },
+    {
+      name: 'Multi-Platform', price: 195, platforms: 3, posts: 12, inbox: 80, pick: false,
+      spec: ['3 platforms', '4 posts each / month'],
+      features: [
+        { t: 'Everything in Growth, across all three channels', inherit: true },
+        { t: 'Platform-native formatting — adapted per platform, not copy-pasted' },
+        { t: 'Four posts a month on each of your three platforms' },
+        { t: 'Monthly performance summary' }
+      ]
+    },
+    {
+      name: 'Full Presence', price: 395, platforms: 3, posts: 39, inbox: 100, pick: false,
+      spec: ['3 platforms', '~39 posts / month'],
+      features: [
+        { t: 'Everything in Multi-Platform', inherit: true },
+        { t: 'Three posts a week on each platform — around nine a week' },
+        { t: 'Weekly planning session or briefing call' },
+        { t: 'Trend and timing optimisation per platform' },
+        { t: 'Priority turnaround on reactive or topical content' }
+      ]
+    }
+  ];
+
+  function esc(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function gbp(n) {
+    return '£' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  var TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+  var ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+
+  var withInbox = false;
+
+  /* ── the cards ─────────────────────────────────────────────── */
+  var plGrid = document.getElementById('plGrid');
+  if (plGrid) {
+    plGrid.innerHTML = PLANS.map(function (p, i) {
+      return '<article class="pl' + (p.pick ? ' pl--pick' : '') + '" data-plan="' + i + '">' +
+        (p.pick ? '<span class="pl-tag">Most chosen</span>' : '') +
+        '<div class="pl-head">' +
+          '<span class="pl-idx">Plan ' + (i + 1) + '</span>' +
+          '<h3 class="pl-name">' + esc(p.name) + '</h3>' +
+          '<div class="pl-price"><b data-price>' + gbp(p.price) + '</b>' +
+            '<span class="pl-per">/month</span></div>' +
+          '<span class="pl-addon" data-addon></span>' +
+        '</div>' +
+        '<div class="pl-spec">' + p.spec.map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '</div>' +
+        '<ul class="pl-list">' +
+          p.features.map(function (f) {
+            return '<li' + (f.inherit ? ' class="inherit"' : '') + '>' + TICK + '<span>' + esc(f.t) + '</span></li>';
+          }).join('') +
+        '</ul>' +
+        '<a class="pl-cta" href="/contact?plan=' + encodeURIComponent(p.name) + '">Start with ' + esc(p.name) + ARROW + '</a>' +
+      '</article>';
+    }).join('');
+  }
+
+  /* ── the toggle rewrites every price from the same table ───── */
+  function paintPrices() {
+    PLANS.forEach(function (p, i) {
+      var card = plGrid && plGrid.querySelector('[data-plan="' + i + '"]');
+      if (!card) return;
+      var price = card.querySelector('[data-price]');
+      var addon = card.querySelector('[data-addon]');
+      if (price) price.textContent = gbp(withInbox ? p.price + p.inbox : p.price);
+      if (addon) {
+        addon.innerHTML = withInbox
+          ? gbp(p.price) + ' + <b>' + gbp(p.inbox) + '</b> inbox management'
+          : 'Inbox management <b>+' + gbp(p.inbox) + '</b> / month';
+      }
+    });
+  }
+
+  var toggle = document.getElementById('inboxToggle');
+  var tgHint = document.getElementById('tgHint');
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      withInbox = !withInbox;
+      toggle.setAttribute('aria-pressed', withInbox ? 'true' : 'false');
+      if (tgHint) {
+        tgHint.textContent = withInbox
+          ? 'Included in the prices below'
+          : 'Comments and DMs answered';
+      }
+      paintPrices();
+    });
+  }
+  paintPrices();
+
+  /* ── what lands each month ─────────────────────────────────── */
+  var lmRows = document.getElementById('lmRows');
+  if (lmRows) {
+    lmRows.innerHTML = PLANS.map(function (p) {
+      /* posts divide evenly by construction: 4/1, 12/1, 12/3 and 39/3 */
+      var per = p.posts / p.platforms, tiles = '';
+      for (var g = 0; g < p.platforms; g++) {
+        var grp = '';
+        for (var i = 0; i < per; i++) grp += '<i></i>';
+        tiles += '<span class="lm-grp">' + grp + '</span>';
+      }
+      return '<div class="lm-row' + (p.pick ? ' lm-row--pick' : '') + '">' +
+        '<span class="lm-k"><b>' + esc(p.name) + '</b> · ' + p.platforms +
+          ' platform' + (p.platforms > 1 ? 's' : '') +
+          (p.platforms > 1 ? ' · ' + (p.posts / p.platforms) + ' each' : '') + '</span>' +
+        '<span class="lm-v">' + p.posts + ' posts</span>' +
+        '<span class="lm-tiles" aria-hidden="true">' + tiles + '</span>' +
+      '</div>';
+    }).join('');
+    var lmFoot = document.getElementById('lmFoot');
+    var most = PLANS[PLANS.length - 1];
+    if (lmFoot) lmFoot.textContent = 'Up to ' + most.posts + ' a month';
+  }
+
+  /* ── cost per post, and the caveat that goes with it ───────── */
+  var cpRows = document.getElementById('cpRows');
+  if (cpRows) {
+    var per = PLANS.map(function (p) { return p.price / p.posts; });
+    var max = Math.max.apply(null, per);
+    var cheapest = PLANS[per.indexOf(Math.min.apply(null, per))];
+    var dearest = PLANS[per.indexOf(max)];
+
+    cpRows.innerHTML = PLANS.map(function (p, i) {
+      var v = per[i];
+      return '<li class="cp-row' + (p === cheapest ? ' cp-row--best' : '') + '">' +
+        '<span class="cp-k">' + esc(p.name) + '</span>' +
+        '<span class="cp-track"><span class="cp-fill" style="--w:' +
+          ((v / max) * 100).toFixed(1) + '%"></span></span>' +
+        '<span class="cp-n">£' + v.toFixed(2) + '</span>' +
+      '</li>';
+    }).join('');
+
+    /* stated in the copy rather than left for the reader to work out */
+    var cpCopy = document.getElementById('cpCopy');
+    if (cpCopy) {
+      cpCopy.innerHTML = '<b style="color:var(--white);font-weight:600">' + esc(cheapest.name) +
+        '</b> is the cheapest per post at £' + (cheapest.price / cheapest.posts).toFixed(2) +
+        ', and <b style="color:var(--white);font-weight:600">' + esc(dearest.name) +
+        '</b> is the dearest at £' + (dearest.price / dearest.posts).toFixed(2) + '.';
+    }
+    var cpNote = document.getElementById('cpNote');
+    if (cpNote) {
+      cpNote.innerHTML = 'That is not a mistake in the pricing. On ' + esc(dearest.name) +
+        ' you are buying <b>' + dearest.platforms + ' platforms</b>, and each of those ' +
+        dearest.posts + ' posts is written and formatted for a different audience rather than ' +
+        'copy-pasted across three feeds. You are paying for reach, not for volume.';
+    }
+  }
+
+  /* ── the inbox add-on prices, from the same table ──────────── */
+  var ibGrid = document.getElementById('ibGrid');
+  if (ibGrid) {
+    /* one card per distinct price, listing the plans it covers */
+    var tiers = [];
+    PLANS.forEach(function (p) {
+      var found = null;
+      tiers.forEach(function (t) { if (t.price === p.inbox) found = t; });
+      if (found) { found.plans.push(p.name); }
+      else { tiers.push({ price: p.inbox, plans: [p.name], platforms: p.platforms }); }
+    });
+    var BLURB = {
+      1: 'One inbox to watch. Comments and DMs answered, genuine enquiries flagged straight to you.',
+      3: 'Three inboxes, three sets of notifications and three sets of conventions — monitored across all of them.'
+    };
+    ibGrid.innerHTML = tiers.map(function (t) {
+      var many = t.plans.length > 1;
+      return '<div class="ib-card">' +
+        '<span class="ib-k">' + t.plans.map(esc).join(' &amp; ') + '</span>' +
+        '<div class="ib-p"><b>+' + gbp(t.price) + '</b><span>/month</span></div>' +
+        '<p>' + (t.platforms > 1 && t.price >= 100
+          ? 'Full daily monitoring across all three platforms, with priority on anything that reads like a buying question.'
+          : (BLURB[t.platforms] || BLURB[1])) + '</p>' +
+      '</div>';
+    }).join('');
+  }
+
+  /* ══════ REVEALS ══════
+     Copy reveals at 15%; an instrument waits until enough of its panel is
+     on screen to be worth watching. */
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  var artEls = document.querySelectorAll('[data-art]');
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    artEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+
+    var artObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); artObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.22 });
+    artEls.forEach(function (el) { artObs.observe(el); });
+  }
+
+  /* ══════ SCROLL PROGRESS ══════ */
+  var bar = document.getElementById('progress');
+  if (bar && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
+  } else if (bar) {
+    var tick = null;
+    window.addEventListener('scroll', function () {
+      if (tick) return;
+      tick = requestAnimationFrame(function () {
+        var max = document.body.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        tick = null;
+      });
+    }, { passive: true });
+  }
+})();
+</script>

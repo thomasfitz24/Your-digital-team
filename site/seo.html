@@ -194,7 +194,9 @@ html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
 }
 .ydt-page .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 .ydt-page .back {
-    display: inline-flex; align-items: center; gap: 9px;
+    /* block-level: as inline-flex this shared a line box with the inline-flex
+       .hero-eyebrow below it and the pill landed on top of the link */
+    display: flex; width: fit-content; align-items: center; gap: 9px;
     font-family: var(--mono); font-size: 10px; text-transform: uppercase;
     letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 26px;
     /* 12px block padding clears the 36px touch minimum */
