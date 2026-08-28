@@ -427,7 +427,57 @@ html.ydt-js .ydt-page .tl-item.in-view { opacity: 1; transform: translateY(0); }
 }
 .ydt-page .fd-sig i { display: block; width: 26px; height: 1px; background: var(--data); flex-shrink: 0; }
 
-/* ══════════ 04 · WHAT SETS US APART ══════════ */
+
+/* ══════════ 04 · WHO WORKS HERE ══════════
+   Three phone photographs, each shot in different light — one warm indoors,
+   one under a pink night lamp, one against green grass. Toned to the
+   monochrome system so they read as one set rather than three snapshots,
+   and because there is no green anywhere else on this site. Colour comes
+   back on hover, where a pointer exists. */
+.ydt-page .pp-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+@media (min-width: 640px) { .ydt-page .pp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 940px) { .ydt-page .pp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.ydt-page .pp {
+    min-width: 0; border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 20px; padding: 18px; transition: border-color 0.5s var(--ease);
+}
+.ydt-page .pp:hover { border-color: rgba(255,255,255,0.16); }
+.ydt-page .pp-shot {
+    position: relative; aspect-ratio: 1 / 1; border-radius: 15px; overflow: hidden;
+    margin-bottom: 18px; display: grid; place-items: center;
+    /* shows through if a photograph ever fails to load */
+    background:
+        radial-gradient(60% 46% at 30% 24%, rgba(255, 97, 82, 0.34), transparent 68%),
+        radial-gradient(56% 44% at 76% 80%, rgba(216, 30, 13, 0.28), transparent 70%),
+        linear-gradient(160deg, #1a1210, #0a0908);
+}
+.ydt-page .pp-initials {
+    font-size: clamp(2rem, 4.4vw, 2.6rem); font-weight: 700;
+    letter-spacing: -0.05em; color: var(--white);
+}
+.ydt-page .pp-img, .ydt-page .fd-photo {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center 34%;
+    filter: grayscale(1) contrast(1.06) brightness(0.94);
+    transition: filter 0.6s var(--ease), transform 0.9s var(--ease);
+}
+.ydt-page .pp:hover .pp-img, .ydt-page .fd-card:hover .fd-photo {
+    filter: grayscale(0.15) contrast(1.02) brightness(1);
+    transform: scale(1.03);
+}
+.ydt-page .pp-role {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--data);
+}
+.ydt-page .pp-name { font-size: 18px; font-weight: 700; letter-spacing: -0.025em; margin-top: 8px; }
+.ydt-page .pp-caps { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+.ydt-page .pp-caps li {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray5); border: 1px solid var(--card-line); background: var(--panel2);
+    border-radius: 9999px; padding: 6px 10px;
+}
+
+/* ══════════ 05 · WHAT SETS US APART ══════════ */
 .ydt-page .ap-grid { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
 @media (min-width: 640px) { .ydt-page .ap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .ydt-page .ap-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
@@ -522,7 +572,8 @@ html.ydt-js .ydt-page .tl-item.in-view { opacity: 1; transform: translateY(0); }
     /* nothing under 10px, same floor as every other page */
     .ydt-page .art-cap, .ydt-page .art-k, .ydt-page .band-k,
     .ydt-page .tl-year, .ydt-page .val-idx, .ydt-page .fd-role, .ydt-page .fd-links a,
-    .ydt-page .fd-sig, .ydt-page .ap-num, .ydt-page .join-note,
+    .ydt-page .pp-role, .ydt-page .pp-caps li,
+.ydt-page .fd-sig, .ydt-page .ap-num, .ydt-page .join-note,
     .ydt-page .svc-idx, .ydt-page .back { font-size: 10px; letter-spacing: 0.12em; }
 }
 
@@ -538,7 +589,8 @@ html.ydt-js .ydt-page .tl-item.in-view { opacity: 1; transform: translateY(0); }
 .ydt-page, .ydt-page * { font-family: var(--font); }
 .ydt-page .art-url, .ydt-page .art-live, .ydt-page .art-k, .ydt-page .art-cap,
 .ydt-page .art-delta, .ydt-page .tl-year, .ydt-page .val-idx, .ydt-page .fd-role,
-.ydt-page .fd-links a, .ydt-page .fd-sig, .ydt-page .ap-num, .ydt-page .join-note,
+.ydt-page .fd-links a, .ydt-page .pp-role, .ydt-page .pp-caps li,
+.ydt-page .fd-sig, .ydt-page .ap-num, .ydt-page .join-note,
 .ydt-page .acc-num, .ydt-page .band-k,
 .ydt-page .svc-idx, .ydt-page .svc-here-tag, .ydt-page .sec-eyebrow-text,
 .ydt-page .hero-eyebrow, .ydt-page .back { font-family: var(--mono); }
@@ -719,7 +771,10 @@ html.ydt-js .ydt-page .tl-item.in-view { opacity: 1; transform: translateY(0); }
 
       <div class="fd-grid">
         <aside class="fd-card" data-reveal>
-          <div class="fd-portrait" aria-hidden="true"><span class="fd-initials">TF</span></div>
+          <div class="fd-portrait" aria-hidden="true">
+            <span class="fd-initials">TF</span>
+            <img class="fd-photo" src="https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/356f9c23-e473-4be5-a707-82de29e68ade/IMG_4492.jpeg?format=500w" alt="" width="500" height="528" loading="lazy" decoding="async">
+          </div>
           <span class="fd-role">Founder</span>
           <p class="fd-name">Thomas Fitzgerald</p>
           <div class="fd-links">
@@ -748,11 +803,55 @@ html.ydt-js .ydt-page .tl-item.in-view { opacity: 1; transform: translateY(0); }
     </div>
   </section>
 
-  <!-- ══════════ 04 · WHAT SETS US APART ══════════ -->
+  <!-- ══════════ 04 · WHO WORKS HERE ══════════ -->
+  <section class="sec" id="team" aria-labelledby="ppTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">04 · The team</span></div>
+        <h2 class="sec-title" id="ppTitle" data-reveal>Who actually <span class="dim">does the work.</span></h2>
+        <p class="sec-sub" data-reveal>
+          Three of us, and you will deal with all three. Nobody here sells you the work and
+          then hands it to someone you have never spoken to.
+        </p>
+      </div>
+
+      <div class="pp-grid">
+        <article class="pp" data-reveal>
+          <div class="pp-shot" aria-hidden="true">
+            <span class="pp-initials">TF</span>
+            <img class="pp-img" src="https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/356f9c23-e473-4be5-a707-82de29e68ade/IMG_4492.jpeg?format=500w" alt="" width="500" height="528" loading="lazy" decoding="async">
+          </div>
+          <span class="pp-role">Founder</span>
+          <h3 class="pp-name">Thomas Fitzgerald</h3>
+          <ul class="pp-caps"><li>SEO</li><li>Web development</li><li>PPC</li><li>Content</li></ul>
+        </article>
+        <article class="pp" data-reveal>
+          <div class="pp-shot" aria-hidden="true">
+            <span class="pp-initials">K</span>
+            <img class="pp-img" src="https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/1779987852135-UNJ4AIU2GS3CP5O8P5K3/IMG_4492.jpg?format=500w" alt="" width="500" height="500" loading="lazy" decoding="async">
+          </div>
+          <span class="pp-role">Co-founder</span>
+          <h3 class="pp-name">Katie</h3>
+          <ul class="pp-caps"><li>PPC</li><li>Content</li><li>Social</li><li>Email</li></ul>
+        </article>
+        <article class="pp" data-reveal>
+          <div class="pp-shot" aria-hidden="true">
+            <span class="pp-initials">C</span>
+            <img class="pp-img" src="https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/1780233318308-CBV192HVOKVDY532DK14/IMG_9413.png?format=500w" alt="" width="500" height="483" loading="lazy" decoding="async">
+          </div>
+          <span class="pp-role">Head of graphic design</span>
+          <h3 class="pp-name">Charlie</h3>
+          <ul class="pp-caps"><li>Graphics &amp; branding</li><li>Content</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 05 · WHAT SETS US APART ══════════ -->
   <section class="sec" id="apart" aria-labelledby="apTitle">
     <div class="container">
       <div class="sec-head">
-        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">04 · The difference</span></div>
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">05 · The difference</span></div>
         <h2 class="sec-title" id="apTitle" data-reveal>What sets <span class="dim">us apart.</span></h2>
         <p class="sec-sub" data-reveal>Four things that are true of us and, in our experience, not true of most of the agencies we've replaced.</p>
       </div>
