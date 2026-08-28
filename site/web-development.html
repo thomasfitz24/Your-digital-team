@@ -316,19 +316,25 @@ html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
     background-size: cover; background-position: center top;
     transform: scale(1.02); transition: transform 1.1s var(--ease);
 }
+/* the real screenshot, over the generated artwork. If the file ever moves
+   or 404s the generated art is still underneath, so the card degrades to
+   the brand-coloured panel rather than to an empty box. */
+.ydt-page .pj-photo { z-index: 1; }
 .ydt-page .pj:hover .pj-art i { transform: scale(1.06); }
 /* the scrim keeps the index legible over any artwork */
 .ydt-page .pj-art::after {
-    content: ''; position: absolute; inset: 0;
+    content: ''; position: absolute; inset: 0; z-index: 2;
     background: linear-gradient(180deg, rgba(0,0,0,0.42) 0%, transparent 38%, rgba(0,0,0,0.30) 100%);
 }
 .ydt-page .pj-idx {
-    position: absolute; top: 14px; left: 16px; z-index: 2;
+    position: absolute; top: 12px; left: 12px; z-index: 3;
     font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
-    color: rgba(255,255,255,0.62);
+    color: rgba(255,255,255,0.82); background: rgba(10,9,8,0.62);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.14); border-radius: 9999px; padding: 6px 10px;
 }
 .ydt-page .pj-live {
-    position: absolute; top: 12px; right: 12px; z-index: 2;
+    position: absolute; top: 12px; right: 12px; z-index: 3;
     display: inline-flex; align-items: center; gap: 7px;
     font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
     color: var(--white); background: rgba(10,9,8,0.62);
@@ -570,6 +576,50 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
     text-transform: uppercase; color: var(--data);
 }
 
+
+/* ══════════ 07 · THE TERMINAL ══════════
+   One window, five different files. The tab strip switches the whole
+   listing — a different language doing a different job each time, not the
+   same snippet relabelled. */
+.ydt-page .tm-tabs {
+    display: flex; gap: 4px; padding: 10px 12px; overflow-x: auto;
+    scrollbar-width: none; border-bottom: 1px solid var(--line2);
+}
+.ydt-page .tm-tabs::-webkit-scrollbar { display: none; }
+.ydt-page .tm-tab {
+    flex: 0 0 auto; padding: 12px 14px; border-radius: 9999px; border: 1px solid transparent;
+    background: none; cursor: pointer; white-space: nowrap;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray5);
+    transition: color 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.ydt-page .tm-tab:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.ydt-page .tm-tab[aria-selected="true"] {
+    color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,0.28);
+}
+.ydt-page .tm-code {
+    font-family: var(--mono); font-size: 11.5px; line-height: 1.95;
+    background: #060505; border: 1px solid var(--line2); border-radius: 12px;
+    padding: 16px; overflow-x: auto; white-space: pre; -webkit-overflow-scrolling: touch;
+    /* every listing is nine lines, so this only guards a future shorter one
+       from jolting the page when you switch to it */
+    min-height: 238px;
+}
+.ydt-page .tm-code .l { display: block; }
+.ydt-page .tm-code .p  { color: var(--data); }
+.ydt-page .tm-code .c  { color: var(--white); }
+.ydt-page .tm-code .m  { color: var(--gray6); }
+.ydt-page .tm-code .g  { color: var(--gray5); }
+.ydt-page .tm-code .s  { color: #cfc7c1; }
+.ydt-page .tm-code .k  { color: var(--data); }
+.ydt-page .tm-code .ok { color: var(--data); }
+/* the lines type themselves in, and retype when you switch file */
+html.ydt-js .ydt-page .tm-code .l {
+    opacity: 0; transform: translateX(-6px);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+html.ydt-js .ydt-page .tm-code.tm-run .l { opacity: 1; transform: none; }
+
 /* ══════════ FINAL CTA ══════════ */
 /* flat black to the bottom edge, like the homepage — no ember down here */
 .ydt-page .cta { position: relative; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
@@ -592,6 +642,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
     html.ydt-js .ydt-page .rd-row { opacity: 1; transform: none; transition: none; }
     html.ydt-js .ydt-page .cwv-fill,
     html.ydt-js .ydt-page .sl-fill { width: var(--w); transition: none; }
+    html.ydt-js .ydt-page .tm-code .l { opacity: 1; transform: none; transition: none; }
 }
 
 /* ══════════ MOBILE ══════════ */
@@ -630,6 +681,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
 .ydt-page .tp-v, .ydt-page .tp-note, .ydt-page .ax-n, .ydt-page .ax-swatch span,
 .ydt-page .rd-row, .ydt-page .rd-stats b, .ydt-page .rd-stats span,
 .ydt-page .acc-num, .ydt-page .band-k,
+.ydt-page .tm-tab, .ydt-page .tm-code, .ydt-page .tm-code *,
 .ydt-page .svc-idx, .ydt-page .svc-here-tag, .ydt-page .sec-eyebrow-text,
 .ydt-page .hero-eyebrow, .ydt-page .back { font-family: var(--mono); }
 .ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
@@ -698,7 +750,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
       <div class="pj-grid" id="pjGrid">
         <a class="pj" href="https://pilotiq.co.uk" target="_blank" rel="noopener" data-slug="pilotiq"
            aria-label="Pilot IQ — Managed IT & Cybersecurity — London (opens in a new tab)">
-          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%231e1b5e%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e1b5e%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e0a92b%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e0a92b%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%231e1b5e%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231e1b5e%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e0a92b%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e0a92b%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i><i class="pj-photo" style="background-image:url('https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/3eccc590-d041-41e0-bee2-e46ceeba8caf/Screenshot+2026-03-16+at+17.05.37.png?format=750w')"></i>
             <span class="pj-idx">01 / 9</span>
             <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
           </span>
@@ -712,7 +764,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
         </a>
         <a class="pj" href="https://smartplusheating.com" target="_blank" rel="noopener" data-slug="smart-plus-heating"
            aria-label="Smart Plus Heating — Heating & Air Conditioning — Dartford (opens in a new tab)">
-          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e12228%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e12228%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e12228%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e12228%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i><i class="pj-photo" style="background-image:url('https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/9c8aa6ab-00da-4ab8-ad06-5c9c1c197648/Screenshot+2026-03-16+at+17.05.08.png?format=750w')"></i>
             <span class="pj-idx">02 / 9</span>
             <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
           </span>
@@ -726,7 +778,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
         </a>
         <a class="pj" href="https://punt-caravan-parking.com" target="_blank" rel="noopener" data-slug="punt-caravan-parking"
            aria-label="Punt Caravan Parking — Caravan Storage — Costa Brava, Spain (opens in a new tab)">
-          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%231b4f9c%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231b4f9c%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%231b4f9c%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231b4f9c%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i><i class="pj-photo" style="background-image:url('https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/3d56280b-e8fb-4393-a498-fa2654978039/Screenshot+2026-03-16+at+17.04.05.png?format=750w')"></i>
             <span class="pj-idx">03 / 9</span>
             <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
           </span>
@@ -740,7 +792,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
         </a>
         <a class="pj" href="https://shorelinevehicles.com" target="_blank" rel="noopener" data-slug="shoreline-vehicles"
            aria-label="Shoreline Vehicle Design — Bespoke Land Rover Defenders — UK & Miami (opens in a new tab)">
-          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i><i class="pj-photo" style="background-image:url('https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/22837796-0895-489c-853c-3f5cc9148fa8/Screenshot+2026-03-16+at+17.03.43.png?format=750w')"></i>
             <span class="pj-idx">04 / 9</span>
             <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
           </span>
@@ -754,7 +806,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
         </a>
         <a class="pj" href="https://shoreline911.com" target="_blank" rel="noopener" data-slug="shoreline-911"
            aria-label="Shoreline 911 — Porsche 911 Backdates — Miami (opens in a new tab)">
-          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238fa9c4%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%238fa9c4%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238fa9c4%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%238fa9c4%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e9e9e9%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i><i class="pj-photo" style="background-image:url('https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/0c7d9c26-db05-415f-adca-1171803d52ab/Screenshot+2026-03-16+at+17.03.31.png?format=750w')"></i>
             <span class="pj-idx">05 / 9</span>
             <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
           </span>
@@ -768,7 +820,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
         </a>
         <a class="pj" href="https://senttr.com" target="_blank" rel="noopener" data-slug="senttr"
            aria-label="Senttr — AI & Automation Platform — London (opens in a new tab)">
-          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f0e6d2%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f0e6d2%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f0e6d2%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f0e6d2%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%237ecfc0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i><i class="pj-photo" style="background-image:url('https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/9102347b-2d79-4c78-a205-f19ae68591c1/Screenshot+2026-05-29+at+21.56.32.png?format=750w')"></i>
             <span class="pj-idx">06 / 9</span>
             <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
           </span>
@@ -782,7 +834,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
         </a>
         <a class="pj" href="https://svd-group.com" target="_blank" rel="noopener" data-slug="svd-group"
            aria-label="SVD — Classic Vehicle Restoration (opens in a new tab)">
-          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%236f7d8c%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%236f7d8c%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%236f7d8c%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%236f7d8c%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23b8bec4%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i><i class="pj-photo" style="background-image:url('https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/60431223-862b-42a0-855c-cc3ffdf83311/Screenshot+2026-05-29+at+21.55.45.png?format=750w')"></i>
             <span class="pj-idx">07 / 9</span>
             <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
           </span>
@@ -796,7 +848,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
         </a>
         <a class="pj" href="https://fitzgeraldcap.com" target="_blank" rel="noopener" data-slug="fitzgerald-capital"
            aria-label="Fitzgerald Capital — Private Investment Group — London (opens in a new tab)">
-          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%230d3b2a%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230d3b2a%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f2efe6%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f2efe6%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%230d3b2a%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230d3b2a%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f2efe6%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f2efe6%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i><i class="pj-photo" style="background-image:url('https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/66063f20-1e6e-4ea7-9085-6735f4d69e8c/Screenshot+2026-05-29+at+21.56.09.png?format=750w')"></i>
             <span class="pj-idx">08 / 9</span>
             <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
           </span>
@@ -810,7 +862,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
         </a>
         <a class="pj" href="https://sweepsisters.co.uk" target="_blank" rel="noopener" data-slug="sweep-sisters"
            aria-label="Sweep Sisters — Chimney & Property Services — Essex & Herts (opens in a new tab)">
-          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f26522%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f26522%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i>
+          <span class="pj-art"><i style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20500%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22p%22%20cx%3D%2226%25%22%20cy%3D%2222%25%22%20r%3D%2264%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f26522%22%20stop-opacity%3D%220.92%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f26522%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22q%22%20cx%3D%2280%25%22%20cy%3D%2280%25%22%20r%3D%2260%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220.62%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e8c4a0%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%230d0c0b%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22url(%23q)%22%2F%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.10%22%3E%3Crect%20x%3D%2252%22%20y%3D%2258%22%20width%3D%22360%22%20height%3D%2216%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%2292%22%20width%3D%22240%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22118%22%20width%3D%22286%22%20height%3D%2212%22%20rx%3D%226%22%2F%3E%3Crect%20x%3D%2252%22%20y%3D%22168%22%20width%3D%22132%22%20height%3D%2234%22%20rx%3D%2217%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23ffffff%22%20stroke-opacity%3D%220.07%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%20260h800M0%20380h800M400%200v500%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')"></i><i class="pj-photo" style="background-image:url('https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/dbbf5b9f-9b22-4b4c-a3e7-ff26bbdd2295/Screenshot+2026-05-29+at+21.57.24.png?format=750w')"></i>
             <span class="pj-idx">09 / 9</span>
             <span class="pj-live"><span class="live-dot" aria-hidden="true"></span>Live</span>
           </span>
@@ -1109,6 +1161,43 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
   </section>
 
   <!-- ══════════ PROCESS ══════════ -->
+  <!-- ══════════ 07 · THE TERMINAL ══════════ -->
+  <section class="sec" id="code" aria-labelledby="tmTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">07 · Under the bonnet</span></div>
+        <h2 class="sec-title" id="tmTitle" data-reveal>The bits <span class="dim">nobody shows you.</span></h2>
+        <p class="sec-sub" data-reveal>
+          A site is a stack of small decisions that never appear in a mockup: what gets
+          preloaded, which events fire, how the old URLs are kept alive. Here are five of
+          them, as they actually get written.
+        </p>
+      </div>
+
+      <div class="art" data-art data-reveal>
+        <div class="art-bar">
+          <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="art-url" id="tmPath">~/clientsite — zsh</span>
+          <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Working</span>
+        </div>
+        <!-- static so the listing is readable with scripting off; the same
+             markup is regenerated from FILES on load -->
+        <div class="tm-tabs" id="tmTabs" role="tablist" aria-label="Choose a file"><button class="tm-tab" type="button" role="tab" aria-selected="true">Build</button>
+          <button class="tm-tab" type="button" role="tab" aria-selected="false">Schema</button>
+          <button class="tm-tab" type="button" role="tab" aria-selected="false">Tracking</button>
+          <button class="tm-tab" type="button" role="tab" aria-selected="false">Speed</button>
+          <button class="tm-tab" type="button" role="tab" aria-selected="false">Redirects</button></div>
+        <div class="art-body">
+          <pre class="tm-code" id="tmCode" tabindex="0" aria-live="polite"><code><span class="l" style="transition-delay: 0s;"><span class="p">$ </span><span class="c">npm run build</span></span><span class="l" style="transition-delay: 0.06s;"><span class="m">  vite v5.4.2 building for production…</span></span><span class="l" style="transition-delay: 0.12s;"><span class="g">  ✓ 214 modules transformed</span></span><span class="l" style="transition-delay: 0.18s;"><span class="g">  dist/index.html          </span><span class="m">2.1 kB │ gzip  0.9 kB</span></span><span class="l" style="transition-delay: 0.24s;"><span class="g">  dist/assets/index.css    </span><span class="m">9.4 kB │ gzip  2.6 kB</span></span><span class="l" style="transition-delay: 0.3s;"><span class="g">  dist/assets/index.js    </span><span class="m">41.8 kB │ gzip 14.2 kB</span></span><span class="l" style="transition-delay: 0.36s;"><span class="ok">  ✓ built in 1.42s</span></span><span class="l" style="transition-delay: 0.42s;"><span class="p">$ </span><span class="c">npx lighthouse --preset=desktop</span></span><span class="l" style="transition-delay: 0.48s;"><span class="ok">  Performance 99</span><span class="m">  ·  </span><span class="ok">LCP 0.8s</span><span class="m">  ·  </span><span class="ok">CLS 0.00</span></span></code></pre>
+        </div>
+        <div class="art-foot">
+          <span class="art-cap" id="tmFootA">8 files · 1.42s</span>
+          <span class="art-cap" style="margin-left:auto" id="tmFootB">vite 5.4.2</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="sec" id="process" aria-labelledby="procTitle">
     <div class="container">
       <div class="sec-head">
@@ -1296,11 +1385,16 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
      with JavaScript off and their outbound links are always crawlable. This
      only enhances them.
 
-     TO USE REAL SCREENSHOTS: upload them somewhere on the site and set
-     PROJECT_IMAGES to that folder, e.g. '/s/projects/'. Each card then looks
-     for <folder><data-slug>.jpg and swaps it in only once it has actually
-     loaded, so a missing file leaves the generated artwork in place rather
-     than breaking the card. Leave it as '' to use the artwork everywhere.
+     Each card already carries its real screenshot, the same file the
+     homepage uses for that project, layered over generated artwork in the
+     brand's own colours. If a screenshot ever moves the art shows through
+     rather than the card going blank.
+
+     TO POINT THEM SOMEWHERE ELSE: upload replacements and set
+     PROJECT_IMAGES to that folder, e.g. '/s/projects/'. Each card then
+     looks for <folder><data-slug>.jpg and swaps it in only once it has
+     actually loaded, so a missing file changes nothing. Leave it as '' to
+     keep the screenshots that ship with the page.
 
      The previous version of this page built these paths from a global called
      YDT_ASSETS which is defined nowhere on the site. That threw a
@@ -1319,7 +1413,7 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
          swap on success */
       var probe = new Image();
       probe.onload = function () {
-        var art = card.querySelector('.pj-art i');
+        var art = card.querySelector('.pj-photo') || card.querySelector('.pj-art i');
         if (art) art.style.backgroundImage = 'url(\'' + src + '\')';
       };
       probe.src = src;
@@ -1338,6 +1432,137 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
       });
     }, { threshold: 0.14 });
     pjCards.forEach(function (c) { pjObs.observe(c); });
+  }
+
+
+  /* ══════ THE TERMINAL ══════
+     Five files, five languages, one window. The tab strip switches the
+     whole listing rather than relabelling one snippet, and the lines retype
+     on every switch. Everything here is the shape of the real work: the
+     build output, the schema that earns the rich result, the event that
+     replaces a pageview, the critical-path head, and the redirect map.
+
+     Written as arrays of coloured tokens rather than raw HTML so a stray
+     angle bracket in a code sample can never close a tag by accident. */
+  var FILES = [
+    {
+      tab: 'Build', path: '~/clientsite — zsh',
+      footA: '8 files · 1.42s', footB: 'vite 5.4.2',
+      lines: [
+        [['p','$ '],['c','npm run build']],
+        [['m','  vite v5.4.2 building for production…']],
+        [['g','  ✓ 214 modules transformed']],
+        [['g','  dist/index.html          '],['m','2.1 kB │ gzip  0.9 kB']],
+        [['g','  dist/assets/index.css    '],['m','9.4 kB │ gzip  2.6 kB']],
+        [['g','  dist/assets/index.js    '],['m','41.8 kB │ gzip 14.2 kB']],
+        [['ok','  ✓ built in 1.42s']],
+        [['p','$ '],['c','npx lighthouse --preset=desktop']],
+        [['ok','  Performance 99'],['m','  ·  '],['ok','LCP 0.8s'],['m','  ·  '],['ok','CLS 0.00']]
+      ]
+    },
+    {
+      tab: 'Schema', path: '~/clientsite/schema.json',
+      footA: 'Rich result: valid', footB: 'schema.org/LocalBusiness',
+      lines: [
+        [['m','// this is what puts the stars in the search result']],
+        [['g','{']],
+        [['k','  "@type"'],['g',': '],['s','"LocalBusiness"'],['g',',']],
+        [['k','  "name"'],['g',': '],['s','"Smart Plus Heating"'],['g',',']],
+        [['k','  "areaServed"'],['g',': ['],['s','"Dartford"'],['g',', '],['s','"Bexleyheath"'],['g',', '],['s','"Kent"'],['g','],']],
+        [['k','  "aggregateRating"'],['g',': { '],['k','"ratingValue"'],['g',': '],['s','"4.9"'],['g',', '],['k','"reviewCount"'],['g',': '],['s','"212"'],['g',' },']],
+        [['k','  "openingHours"'],['g',': '],['s','"Mo-Fr 08:00-18:00"']],
+        [['g','}']],
+        [['ok','✓ 0 errors · 0 warnings']]
+      ]
+    },
+    {
+      tab: 'Tracking', path: '~/clientsite/analytics.js',
+      footA: '9 events mapped', footB: 'GA4',
+      lines: [
+        [['m','// a submitted quote, not a pageview']],
+        [['g','form.'],['k','addEventListener'],['g','('],['s',"'submit'"],['g',', '],['k','function'],['g',' () {']],
+        [['g','  '],['k','gtag'],['g','('],['s',"'event'"],['g',', '],['s',"'generate_lead'"],['g',', {']],
+        [['k','    form'],['g',': '],['s',"'quote_request'"],['g',',']],
+        [['k','    value'],['g',': '],['c','480'],['g',',']],
+        [['k','    currency'],['g',': '],['s',"'GBP'"]],
+        [['g','  });']],
+        [['g','});']],
+        [['ok','✓ generate_lead → £480 attributed to the campaign']]
+      ]
+    },
+    {
+      tab: 'Speed', path: '~/clientsite/index.html',
+      footA: 'LCP 2.9s → 0.8s', footB: 'critical path',
+      lines: [
+        [['m','&lt;!-- everything above the fold, and nothing else --&gt;']],
+        [['g','&lt;'],['k','link'],['g',' rel='],['s','"preconnect"'],['g',' href='],['s','"https://fonts.gstatic.com"'],['g',' crossorigin&gt;']],
+        [['g','&lt;'],['k','link'],['g',' rel='],['s','"preload"'],['g',' as='],['s','"image"'],['g',' href='],['s','"/hero.avif"'],['g',' fetchpriority='],['s','"high"'],['g','&gt;']],
+        [['g','&lt;'],['k','style'],['g','&gt;'],['m','/* critical css, inlined */'],['g','&lt;/'],['k','style'],['g','&gt;']],
+        [['g','&lt;'],['k','link'],['g',' rel='],['s','"stylesheet"'],['g',' href='],['s','"/site.css"']],
+        [['g','      media='],['s','"print"'],['g',' onload='],['s','"this.media=\'all\'"'],['g','&gt;']],
+        [['m','&lt;!-- dimensions on every image, so nothing shifts --&gt;']],
+        [['g','&lt;'],['k','img'],['g',' src='],['s','"/rig.avif"'],['g',' width='],['s','"1200"'],['g',' height='],['s','"750"'],['g',' loading='],['s','"lazy"'],['g','&gt;']],
+        [['ok','✓ CLS 0.00 — nothing moves while it loads']]
+      ]
+    },
+    {
+      tab: 'Redirects', path: '~/clientsite/_redirects',
+      footA: '146 rules · 0 chains', footB: '301, never 302',
+      lines: [
+        [['m','# every old URL keeps the rankings it earned']],
+        [['g','/old-services/seo         '],['c','/seo                  '],['ok','301']],
+        [['g','/products/boiler-install  '],['c','/services/boilers     '],['ok','301']],
+        [['g','/blog/2019/*              '],['c','/journal/:splat       '],['ok','301']],
+        [['g','/index.php                '],['c','/                     '],['ok','301']],
+        [['m','# and the ones that should not resolve at all']],
+        [['g','/cart                     '],['c','/                     '],['ok','410']],
+        [['g','']],
+        [['ok','✓ 146 of 146 resolve in one hop']]
+      ]
+    }
+  ];
+
+  var tmTabs = document.getElementById('tmTabs');
+  var tmCode = document.getElementById('tmCode');
+  var tmPath = document.getElementById('tmPath');
+  var tmFootA = document.getElementById('tmFootA');
+  var tmFootB = document.getElementById('tmFootB');
+
+  function tmRender(i) {
+    var f = FILES[i];
+    if (!f || !tmCode) return;
+    tmCode.querySelector('code').innerHTML = f.lines.map(function (line) {
+      return '<span class="l">' + line.map(function (tok) {
+        return '<span class="' + tok[0] + '">' + tok[1] + '</span>';
+      }).join('') + '</span>';
+    }).join('');
+    /* delays are set per line so the listing types itself out, and reset on
+       every switch so the next file types too rather than appearing at once */
+    [].forEach.call(tmCode.querySelectorAll('.l'), function (l, n) {
+      l.style.transitionDelay = (reduceMotion ? 0 : 0.06 * n) + 's';
+    });
+    if (tmPath) tmPath.textContent = f.path;
+    if (tmFootA) tmFootA.textContent = f.footA;
+    if (tmFootB) tmFootB.textContent = f.footB;
+    [].forEach.call(tmTabs.querySelectorAll('.tm-tab'), function (b, n) {
+      b.setAttribute('aria-selected', n === i ? 'true' : 'false');
+    });
+    tmCode.classList.remove('tm-run');
+    /* one frame with the class off, so the transition actually restarts */
+    if (window.requestAnimationFrame) {
+      requestAnimationFrame(function () { requestAnimationFrame(function () { tmCode.classList.add('tm-run'); }); });
+    } else { tmCode.classList.add('tm-run'); }
+  }
+
+  if (tmTabs && tmCode) {
+    tmTabs.innerHTML = FILES.map(function (f, i) {
+      return '<button class="tm-tab" type="button" role="tab" aria-selected="' +
+        (i === 0 ? 'true' : 'false') + '">' + f.tab + '</button>';
+    }).join('');
+    [].forEach.call(tmTabs.querySelectorAll('.tm-tab'), function (b, i) {
+      b.addEventListener('click', function () { tmRender(i); });
+    });
+    tmRender(0);
   }
 
   /* ══════ REVEALS ══════
