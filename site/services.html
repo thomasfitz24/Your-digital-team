@@ -9,12 +9,12 @@
 
      Each service gets its own purpose-built interface rather than a
      stock photograph: SEO is a rank tracker, PPC a campaign manager,
-     social a reel, email an automation flow, content an editor, and
-     development a terminal. Nothing here is an image file, so nothing
+     social a reel, email an automation flow, content an editor,
+     development a terminal and design an artboard. Nothing here is an image file, so nothing
      can 404 and there is nothing to upload.
 
      The old version scroll-jacked a sticky filmstrip. This one is an
-     ordinary page — six sections, normal scroll, container width.
+     ordinary page — seven sections, normal scroll, container width.
      ═══════════════════════════════════════════════════════════ -->
 
 <!-- Runs before paint. Everything that starts hidden is scoped to this
@@ -180,29 +180,20 @@ html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
 /* the intro ledger — six services as one measured strip */
 .ydt-page .intro-ledger {
     margin-top: 54px; border: 1px solid var(--line); border-radius: 18px;
-    background: var(--panel); overflow: hidden;
+    overflow: hidden;
+    /* the rules between cells are grid gaps over a line-coloured backdrop, so
+       they stay correct at two, three or seven columns without nth-child rules
+       that have to be rewritten every time a service is added */
     display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1px; background: var(--line2);
 }
-@media (min-width: 700px) { .ydt-page .intro-ledger { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 1024px) { .ydt-page .intro-ledger { grid-template-columns: repeat(6, 1fr); } }
+@media (min-width: 700px) { .ydt-page .intro-ledger { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1024px) { .ydt-page .intro-ledger { grid-template-columns: repeat(7, 1fr); } }
 .ydt-page .led {
-    padding: 22px 20px; border-top: 1px solid var(--line2); border-left: 1px solid var(--line2);
+    padding: 22px 18px; background: var(--panel);
     display: block; transition: background 0.4s var(--ease);
 }
 .ydt-page .led:hover { background: var(--panel2); }
-.ydt-page .led:nth-child(-n+2) { border-top: none; }
-.ydt-page .led:nth-child(odd) { border-left: none; }
-@media (min-width: 700px) {
-    .ydt-page .led:nth-child(-n+3) { border-top: none; }
-    .ydt-page .led:nth-child(odd) { border-left: 1px solid var(--line2); }
-    .ydt-page .led:nth-child(3n+1) { border-left: none; }
-}
-@media (min-width: 1024px) {
-    .ydt-page .led { border-top: none; border-left: 1px solid var(--line2); }
-    .ydt-page .led:first-child { border-left: none; }
-    .ydt-page .led:nth-child(3n+1) { border-left: 1px solid var(--line2); }
-    .ydt-page .led:first-child { border-left: none; }
-}
 .ydt-page .led-idx {
     display: block; font-family: var(--mono); font-size: 10px;
     letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 12px;
@@ -261,7 +252,7 @@ html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
 @media (min-width: 1024px) {
     .ydt-page .svc-grid { grid-template-columns: 0.85fr 1.15fr; gap: 64px; }
     /* alternate which side the interface sits on, so six sections do not
-       read as six copies of the same slide */
+       read as seven copies of the same slide */
     .ydt-page .svc--flip .svc-copy { order: 2; }
     .ydt-page .svc--flip .svc-art  { order: 1; }
 }
@@ -300,7 +291,7 @@ html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
 
 /* ══════════════════════════════════════════════════════════════
    THE INTERFACES
-   One shared chrome, six different instruments inside it. Every one
+   One shared chrome, seven different instruments inside it. Every one
    is CSS and inline SVG — no image files, nothing to upload, nothing
    that can 404.
    ══════════════════════════════════════════════════════════════ */
@@ -456,12 +447,17 @@ html.ydt-js .ydt-page .art.in-view .ppc-row:nth-child(4) .ppc-fill { transition-
 .ydt-page .ppc-tick { margin-left: auto; font-family: var(--mono); font-size: 10px; color: var(--gray6); }
 
 /* ── 03 · Social — a reel, with the numbers beside it ─────────── */
-.ydt-page .soc { display: grid; grid-template-columns: 128px 1fr; gap: 20px; align-items: stretch; }
+.ydt-page .soc { display: grid; grid-template-columns: 128px 1fr; gap: 20px; align-items: start; }
 @media (min-width: 560px) { .ydt-page .soc { grid-template-columns: 168px 1fr; gap: 24px; } }
 .ydt-page .soc-phone {
     position: relative; border-radius: 16px; overflow: hidden;
     border: 1px solid var(--line); background: var(--panel2);
     aspect-ratio: 9 / 16; display: flex; flex-direction: column;
+    /* the automatic minimum of a grid item is its min-content size, and the
+       handle inside set that wider than the track. Without these the frame
+       refused to shrink, aspect-ratio grew the height to match, and the whole
+       thing overflowed into the metrics column beside it. */
+    width: 100%; min-width: 0; min-height: 0;
 }
 /* Stand-in frame — deliberately abstract, but structured rather than a
    soft blur, which just read as mud at this size. */
@@ -486,8 +482,13 @@ html.ydt-js .ydt-page .art.in-view .ppc-row:nth-child(4) .ppc-fill { transition-
 }
 html.ydt-js .ydt-page .art.in-view .soc-prog i.on::after { animation: socProg 4.2s 0.3s var(--ease) forwards; }
 @keyframes socProg { to { transform: scaleX(1); } }
-.ydt-page .soc-foot { position: relative; z-index: 2; margin-top: auto; padding: 10px; }
-.ydt-page .soc-handle { display: block; font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.72); letter-spacing: 0.04em; }
+.ydt-page .soc-foot { position: relative; z-index: 2; margin-top: auto; padding: 10px; min-width: 0; }
+/* clamped, so the handle can never be what decides how wide the frame is */
+.ydt-page .soc-handle {
+    display: block; font-family: var(--mono); font-size: 10px;
+    color: rgba(255,255,255,0.72); letter-spacing: 0.04em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 /* two lines, always — a third line grew the caption up into the action rail */
 .ydt-page .soc-cap {
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
@@ -515,6 +516,7 @@ html.ydt-js .ydt-page .art.in-view .soc-pop i { animation: socRise 3.4s var(--ea
     100% { transform: translateY(-58px) scale(1); opacity: 0; }
 }
 .ydt-page .soc-side { display: flex; flex-direction: column; justify-content: space-between; gap: 18px; min-width: 0; }
+.ydt-page .soc-metric, .ydt-page .soc-metric .art-k { min-width: 0; }
 .ydt-page .soc-metrics { display: flex; flex-direction: column; gap: 14px; }
 .ydt-page .soc-metric { display: grid; grid-template-columns: 1fr auto; gap: 5px 10px; align-items: baseline; }
 .ydt-page .soc-metric .art-k { margin-bottom: 0; }
@@ -704,14 +706,84 @@ html.ydt-js .ydt-page .art.in-view .dev-ring .fg { stroke-dashoffset: calc(100 -
     color: var(--data); background: var(--data-dim); border-radius: 9999px; padding: 5px 10px;
 }
 
-/* ══════════ FINAL CTA ══════════ */
-.ydt-page .cta { position: relative; overflow: hidden; padding: 118px 0 128px; border-top: 1px solid var(--line2); }
-.ydt-page .cta-ember {
-    position: absolute; bottom: -56vh; left: 50%; width: 170vw; height: 108vh;
-    transform: translateX(-50%); pointer-events: none; z-index: 0;
-    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.24) 0%, rgba(216, 30, 13, 0.11) 36%, transparent 72%);
-    filter: blur(30px);
+
+/* ── 07 · Graphic design — an artboard, mid-edit ──────────────── */
+.ydt-page .gd { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; }
+@media (min-width: 480px) { .ydt-page .gd { grid-template-columns: 104px 1fr; gap: 18px; } }
+.ydt-page .gd-layers { min-width: 0; }
+.ydt-page .gd-list { list-style: none; display: flex; flex-wrap: wrap; gap: 9px 14px; margin-top: 10px; }
+@media (min-width: 480px) { .ydt-page .gd-list { flex-direction: column; flex-wrap: nowrap; gap: 10px; } }
+.ydt-page .gd-list li {
+    display: flex; align-items: center; gap: 8px; min-width: 0;
+    font-size: 11.5px; color: var(--gray6);
 }
+.ydt-page .gd-list li span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ydt-page .gd-list li i {
+    width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0;
+    border: 1px solid var(--line); background: rgba(255,255,255,0.05);
+}
+.ydt-page .gd-list li.on { color: var(--white); }
+.ydt-page .gd-list li.on i { background: var(--data); border-color: var(--data); }
+
+.ydt-page .gd-canvas {
+    position: relative; min-width: 0; overflow: hidden;
+    border: 1px solid var(--line2); border-radius: 12px; background: #060505;
+    /* the dot grid an artboard sits on */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 14px 14px;
+    padding: 26px 16px 20px;
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+}
+/* the selected group, with handles at its corners */
+.ydt-page .gd-sel { position: relative; padding: 14px 20px; }
+.ydt-page .gd-sel::before {
+    content: ''; position: absolute; inset: 0; border-radius: 3px;
+    border: 1px solid rgba(255, 69, 54, 0.55);
+}
+.ydt-page .gd-hd { position: absolute; width: 7px; height: 7px; border-radius: 1px;
+    background: var(--black); border: 1.5px solid var(--data); }
+.ydt-page .gd-hd:nth-child(1) { left: -4px;  top: -4px; }
+.ydt-page .gd-hd:nth-child(2) { right: -4px; top: -4px; }
+.ydt-page .gd-hd:nth-child(3) { left: -4px;  bottom: -4px; }
+.ydt-page .gd-hd:nth-child(4) { right: -4px; bottom: -4px; }
+html.ydt-js .ydt-page .gd-sel::before,
+html.ydt-js .ydt-page .gd-hd { opacity: 0; transition: opacity 0.5s 0.75s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .gd-sel::before,
+html.ydt-js .ydt-page .art.in-view .gd-hd { opacity: 1; }
+
+.ydt-page .gd-lock { display: flex; align-items: center; gap: 11px; }
+.ydt-page .gd-mark { width: 34px; height: 34px; flex-shrink: 0; }
+.ydt-page .gd-word {
+    font-size: 15px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; white-space: nowrap;
+}
+/* the wordmark settles into its tracking, the way it does when you set it */
+html.ydt-js .ydt-page .gd-word { letter-spacing: 0.42em; transition: letter-spacing 1.1s 0.3s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .gd-word { letter-spacing: 0.12em; }
+
+.ydt-page .gd-swatches { display: flex; gap: 7px; }
+.ydt-page .gd-swatches i {
+    display: block; width: 30px; height: 30px; border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+}
+html.ydt-js .ydt-page .gd-swatches i { opacity: 0; transform: scale(0.6); transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .gd-swatches i { opacity: 1; transform: scale(1); }
+html.ydt-js .ydt-page .art.in-view .gd-swatches i:nth-child(1) { transition-delay: 0.90s; }
+html.ydt-js .ydt-page .art.in-view .gd-swatches i:nth-child(2) { transition-delay: 0.99s; }
+html.ydt-js .ydt-page .art.in-view .gd-swatches i:nth-child(3) { transition-delay: 1.08s; }
+html.ydt-js .ydt-page .art.in-view .gd-swatches i:nth-child(4) { transition-delay: 1.17s; }
+html.ydt-js .ydt-page .art.in-view .gd-swatches i:nth-child(5) { transition-delay: 1.26s; }
+
+.ydt-page .gd-spec {
+    display: flex; align-items: baseline; gap: 12px; padding-top: 15px;
+    border-top: 1px solid var(--line2); width: 100%; justify-content: center;
+}
+.ydt-page .gd-aa { font-size: 26px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+.ydt-page .gd-face { font-family: var(--mono); font-size: 10px; color: var(--gray6); letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ══════════ FINAL CTA ══════════ */
+/* flat black to the bottom edge, like the homepage — no ember down here */
+.ydt-page .cta { position: relative; padding: 118px 0 128px; border-top: 1px solid var(--line2); }
 .ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
 .ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 34px; }
 
@@ -738,6 +810,10 @@ html.ydt-js .ydt-page .art.in-view .dev-ring .fg { stroke-dashoffset: calc(100 -
     html.ydt-js .ydt-page .dev-ring .fg { stroke-dashoffset: calc(100 - var(--p)); transition: none; }
     html.ydt-js .ydt-page .soc-prog i.on::after { animation: none; transform: scaleX(1); }
     html.ydt-js .ydt-page .soc-pop i { animation: none; }
+    html.ydt-js .ydt-page .gd-sel::before,
+    html.ydt-js .ydt-page .gd-hd,
+    html.ydt-js .ydt-page .gd-swatches i { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .gd-word { letter-spacing: 0.12em; transition: none; }
 }
 
 /* ══════════ MOBILE ══════════ */
@@ -751,6 +827,7 @@ html.ydt-js .ydt-page .art.in-view .dev-ring .fg { stroke-dashoffset: calc(100 -
     /* nothing under 10px, same floor as every other page */
     .ydt-page .soc-act span, .ydt-page .soc-plat, .ydt-page .fl-tag, .ydt-page .fl-wait span,
     .ydt-page .dev-score span, .ydt-page .cmb-mix span, .ydt-page .cnt-list li b,
+    .ydt-page .gd-face,
     .ydt-page .art-cap, .ydt-page .art-k { font-size: 10px; letter-spacing: 0.1em; }
     .ydt-page .dev-scores { grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .ydt-page .soc { grid-template-columns: 116px 1fr; gap: 16px; }
@@ -779,6 +856,7 @@ html.ydt-js .ydt-page .art.in-view .dev-ring .fg { stroke-dashoffset: calc(100 -
 .ydt-page .soc-act span, .ydt-page .soc-plat, .ydt-page .fl-s, .ydt-page .fl-tag,
 .ydt-page .fl-wait span, .ydt-page .cnt-list li b, .ydt-page .cnt-meter b,
 .ydt-page .dev-ring b, .ydt-page .dev-score span, .ydt-page .cmb-k, .ydt-page .cmb-mix span,
+.ydt-page .gd-face,
 .ydt-page .rail a, .ydt-page .led-idx, .ydt-page .led-stat, .ydt-page .svc-idx,
 .ydt-page .svc-cap, .ydt-page .svc-stat, .ydt-page .sec-eyebrow-text,
 .ydt-page .intro-eyebrow { font-family: var(--mono); }
@@ -797,7 +875,7 @@ html.ydt-js .ydt-page .art.in-view .dev-ring .fg { stroke-dashoffset: calc(100 -
     <div class="intro-ember" aria-hidden="true"></div>
     <div class="intro-horizon" aria-hidden="true"></div>
     <div class="container">
-      <p class="intro-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Six disciplines · one team</p>
+      <p class="intro-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Seven disciplines · one team</p>
       <h1 class="intro-title" id="introTitle">
         <span class="clip"><span class="slide">Everything we do,</span></span>
         <span class="clip"><span class="slide"><span class="dim">in one place.</span></span></span>
@@ -815,12 +893,13 @@ html.ydt-js .ydt-page .art.in-view .dev-ring .fg { stroke-dashoffset: calc(100 -
         <a class="led" href="#email"><span class="led-idx">04</span><span class="led-name">Email</span><span class="led-stat">3× repeat</span></a>
         <a class="led" href="#content"><span class="led-idx">05</span><span class="led-name">Content</span><span class="led-stat">94% intent</span></a>
         <a class="led" href="#web-development"><span class="led-idx">06</span><span class="led-name">Web dev</span><span class="led-stat">0.8s LCP</span></a>
+        <a class="led" href="#graphic-design"><span class="led-idx">07</span><span class="led-name">Design</span><span class="led-stat">One system</span></a>
       </div>
     </div>
   </section>
 
   <!-- ══════════ SERVICES ══════════
-       The rail and all six sections share one parent so the rail can stay
+       The rail and all seven sections share one parent so the rail can stay
        stuck for the whole run rather than for its own height. -->
   <div class="svc-zone">
 
@@ -833,6 +912,7 @@ html.ydt-js .ydt-page .art.in-view .dev-ring .fg { stroke-dashoffset: calc(100 -
         <a href="#email">Email</a>
         <a href="#content">Content</a>
         <a href="#web-development">Web dev</a>
+        <a href="#graphic-design">Design</a>
         <a href="#combine">How they combine</a>
       </nav>
     </div>
@@ -1320,14 +1400,103 @@ html.ydt-js .ydt-page .art.in-view .dev-ring .fg { stroke-dashoffset: calc(100 -
     </div>
   </section>
 
+  <!-- ══════════ 07 · GRAPHIC DESIGN ══════════ -->
+  <section class="svc" id="graphic-design" aria-labelledby="gdName">
+    <div class="container">
+      <div class="svc-grid">
+        <div class="svc-copy">
+          <p class="svc-idx" data-reveal><b>07</b> Graphic design <i aria-hidden="true"></i></p>
+          <h2 class="svc-name" id="gdName" data-reveal>Design</h2>
+          <p class="svc-lede" data-reveal>Everything you put out, looking like it came from the same company.</p>
+          <p class="svc-body" data-reveal>
+            Most businesses end up with a logo from one place, a brochure from another and
+            social graphics made in whatever was open at the time. We build one identity &mdash;
+            marks, colours, type and spacing &mdash; write it down so anyone can apply it, and
+            then make the assets from it. Print, signage, decks, social templates: same system,
+            every time.
+          </p>
+          <div class="svc-caps" data-reveal>
+            <span class="svc-cap">Logo &amp; identity</span><span class="svc-cap">Brand guidelines</span>
+            <span class="svc-cap">Print &amp; signage</span><span class="svc-cap">Social templates</span>
+          </div>
+          <div class="svc-foot" data-reveal>
+            <a class="svc-link" href="/contact">Talk to us about design
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <span class="svc-stat"><b>One system</b> · every asset drawn from it</span>
+          </div>
+        </div>
+
+        <div class="svc-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">brand-kit · artboard 1</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Editing</span>
+            </div>
+            <div class="art-body">
+              <div class="gd">
+                <aside class="gd-layers">
+                  <span class="art-k">Layers</span>
+                  <ul class="gd-list">
+                    <li class="on"><i aria-hidden="true"></i><span>Logo lockup</span></li>
+                    <li class="on"><i aria-hidden="true"></i><span>Palette</span></li>
+                    <li><i aria-hidden="true"></i><span>Type scale</span></li>
+                    <li><i aria-hidden="true"></i><span>Grid</span></li>
+                  </ul>
+                </aside>
+
+                <div class="gd-canvas">
+                  <div class="gd-sel">
+                    <b class="gd-hd" aria-hidden="true"></b><b class="gd-hd" aria-hidden="true"></b>
+                    <b class="gd-hd" aria-hidden="true"></b><b class="gd-hd" aria-hidden="true"></b>
+                    <div class="gd-lock">
+                      <svg class="gd-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+                        <defs>
+                          <linearGradient id="gdMark" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#ff6152"/><stop offset="1" stop-color="#d81e0d"/>
+                          </linearGradient>
+                        </defs>
+                        <path d="M7 25 L22 10 L37 25" stroke="url(#gdMark)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7 36 L22 21 L37 36" stroke="rgba(255,255,255,0.20)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                      <span class="gd-word">Yourbrand</span>
+                    </div>
+                  </div>
+
+                  <div class="gd-swatches" aria-hidden="true">
+                    <i style="background:#ff4536"></i>
+                    <i style="background:#d81e0d"></i>
+                    <i style="background:#f4f2f0"></i>
+                    <i style="background:#5e5852"></i>
+                    <i style="background:#0b0a09"></i>
+                  </div>
+
+                  <div class="gd-spec">
+                    <span class="gd-aa">Aa</span>
+                    <span class="gd-face">Inter · 700 / 500 / 400</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">5 colours · 1 typeface</span>
+              <span class="art-cap" style="margin-left:auto">Print &amp; digital</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════════ HOW THEY COMBINE ══════════ -->
   <section class="sec" id="combine" aria-labelledby="cmbTitle">
     <div class="container">
       <div class="sec-head sec-head--center">
         <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">How they combine</span></div>
-        <h2 class="sec-title" id="cmbTitle" data-reveal>Six services. <span class="dim">One system.</span></h2>
+        <h2 class="sec-title" id="cmbTitle" data-reveal>Seven services. <span class="dim">One system.</span></h2>
         <p class="sec-sub" data-reveal>
-          Nobody needs all six on day one. What you need depends on where the bottleneck
+          Nobody needs all seven on day one. What you need depends on where the bottleneck
           is — here are the three shapes this usually takes.
         </p>
       </div>
@@ -1350,7 +1519,7 @@ html.ydt-js .ydt-page .art.in-view .dev-ring .fg { stroke-dashoffset: calc(100 -
             that matter, get the site fast, and put proper tracking behind it so we can
             see exactly where people drop out.
           </p>
-          <div class="cmb-mix"><span>Web dev</span><span>Content</span><span>Analytics</span></div>
+          <div class="cmb-mix"><span>Web dev</span><span>Design</span><span>Content</span><span>Analytics</span></div>
         </article>
         <article class="cmb-card" data-reveal>
           <p class="cmb-k"><b>C</b> They buy once and vanish</p>
@@ -1370,14 +1539,13 @@ html.ydt-js .ydt-page .art.in-view .dev-ring .fg { stroke-dashoffset: calc(100 -
 
   <!-- ══════════ FINAL CTA ══════════ -->
   <section class="cta" aria-labelledby="ctaTitle">
-    <div class="cta-ember" aria-hidden="true"></div>
     <div class="container">
       <div class="sec-head sec-head--center" style="margin-bottom:0">
         <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
         <h2 class="sec-title" id="ctaTitle" data-reveal>Not sure which of these <span class="dim">you need?</span></h2>
         <p class="sec-sub" data-reveal>
           Tell us what the business is trying to do and we'll tell you honestly which of
-          the six would move it — including when the answer is fewer than you expected.
+          the seven would move it — including when the answer is fewer than you expected.
         </p>
         <div class="cta-actions" data-reveal>
           <a class="ember-btn" href="/contact">

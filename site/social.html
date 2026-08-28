@@ -560,13 +560,8 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
 }
 
 /* ══════════ FINAL CTA ══════════ */
-.ydt-page .cta { position: relative; overflow: hidden; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
-.ydt-page .cta-ember {
-    position: absolute; bottom: -56vh; left: 50%; width: 170vw; height: 108vh;
-    transform: translateX(-50%); pointer-events: none; z-index: 0;
-    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.24) 0%, rgba(216, 30, 13, 0.11) 36%, transparent 72%);
-    filter: blur(30px);
-}
+/* flat black to the bottom edge, like the homepage — no ember down here */
+.ydt-page .cta { position: relative; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
 .ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
 .ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
 
@@ -1206,7 +1201,6 @@ html:not(.ydt-js) .ydt-page .acc-sign { display: none; }
 
   <!-- ══════════ FINAL CTA ══════════ -->
   <section class="cta" aria-labelledby="ctaTitle">
-    <div class="cta-ember" aria-hidden="true"></div>
     <div class="container">
       <div class="sec-head sec-head--center" style="margin-bottom:0">
         <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
