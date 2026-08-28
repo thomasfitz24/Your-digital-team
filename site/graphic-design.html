@@ -1,0 +1,1147 @@
+<!-- ═══════════════════════════════════════════════════════════
+     graphic-design.html  →  Squarespace page /graphic-design
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (see header-injection.html).
+
+     Design system — "signal", same as every other page:
+       base #050505 · panels #0b0a09 · Inter + IBM Plex Mono
+       signal red #ff4536 → #d81e0d, ember glow, film grain.
+
+     Two real projects, shown at full size:
+       Prep Bite — identity, retail packaging, protein bar artwork
+       McDermott Fitness Academy — two complete routes, apparel, social
+
+     The instruments are CSS and inline SVG. The client work is the only
+     thing on this page loaded from an image file, which is the point.
+     ═══════════════════════════════════════════════════════════ -->
+<!-- Runs before paint. Everything hidden by default is scoped to this
+     class, so a script error leaves the page readable rather than blank. -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+
+<style>
+.ydt-page {
+    --black: #050505;
+    --panel: #0b0a09;
+    --panel2: #100e0c;
+    --white: #f4f2f0;
+    --w25: rgba(255, 255, 255, 0.28);
+    --gray5: #918a84;
+    --gray6: #5e5852;
+    --line: rgba(255, 255, 255, 0.07);
+    --line2: rgba(255, 255, 255, 0.05);
+    --card-bg: #0b0a09;
+    --card-line: rgba(255, 255, 255, 0.07);
+    --data: #ff4536;
+    --data-deep: #d81e0d;
+    --data-dim: rgba(255, 69, 54, 0.14);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: 'Inter', 'Arial', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    --header-h: 92px;
+}
+.ydt-page, .ydt-page * { margin: 0; padding: 0; box-sizing: border-box; }
+.ydt-page { scroll-behavior: smooth; }
+.ydt-page {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+.ydt-page ::selection { background: rgba(255, 69, 54, 0.9); color: #050505; }
+.ydt-page a { color: inherit; text-decoration: none; }
+.ydt-page :focus-visible { outline: 1.5px solid rgba(255,255,255,0.5); outline-offset: 4px; border-radius: 2px; }
+.ydt-page .container { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+.ydt-page section { position: relative; z-index: 2; scroll-margin-top: 110px; }
+
+/* ══════════ ATMOSPHERE ══════════ */
+.ydt-page .grain {
+    position: fixed; inset: -120px; z-index: 3; pointer-events: none; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 8s steps(6) infinite;
+}
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); } 16% { transform: translate(-14px, 8px); }
+    33% { transform: translate(10px, -12px); } 50% { transform: translate(-8px, 14px); }
+    66% { transform: translate(14px, 6px); } 83% { transform: translate(-12px, -10px); }
+}
+.ydt-page .spotlight {
+    position: fixed; top: 0; left: 0; width: 620px; height: 620px;
+    margin: -310px 0 0 -310px; z-index: 1; pointer-events: none; opacity: 0;
+    background: radial-gradient(circle closest-side, rgba(255, 120, 104, 0.06), rgba(255, 255, 255, 0.02) 45%, transparent 70%);
+    transition: opacity 0.6s ease; will-change: transform;
+}
+.ydt-page .spotlight--on { opacity: 1; }
+.ydt-page .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, #ff6152, #d81e0d);
+    transform-origin: 0 50%; transform: scaleX(0); z-index: 51;
+}
+
+/* ══════════ PRIMITIVES ══════════ */
+html.ydt-js .ydt-page [data-reveal] {
+    opacity: 0; transform: translateY(24px); filter: blur(5px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease), filter 0.9s var(--ease);
+}
+html.ydt-js .ydt-page [data-reveal].in-view { opacity: 1; transform: translateY(0); filter: blur(0); }
+.ydt-page .clip { overflow: hidden; }
+html.ydt-js .ydt-page .clip > .slide { display: block; transform: translateY(105%); transition: transform 1s var(--ease); }
+html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
+.ydt-page .live-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--data); box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45);
+    animation: livePulse 2.2s infinite; flex-shrink: 0;
+}
+@keyframes livePulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0.45); }
+    70% { box-shadow: 0 0 0 7px rgba(255, 69, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 69, 54, 0); }
+}
+.ydt-page .ember-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 30px; border-radius: 9999px; border: none;
+    background: linear-gradient(180deg, #ff6152, var(--data-deep));
+    color: #1c0503; font-family: var(--font); font-size: 14px; font-weight: 700;
+    letter-spacing: -0.01em; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(216, 30, 13, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition: filter 0.3s, box-shadow 0.3s;
+}
+.ydt-page .ember-btn:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 10px 34px rgba(216, 30, 13, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.ydt-page .ember-btn svg { width: 15px; height: 15px; transition: transform 0.3s; }
+.ydt-page .ember-btn:hover svg { transform: translateX(3px); }
+.ydt-page .ghost-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 15px 28px; border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white); font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
+    transition: background 0.3s, border-color 0.3s;
+}
+.ydt-page .ghost-btn:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.24); }
+
+/* ══════════ SECTION SCAFFOLD ══════════ */
+.ydt-page .sec { padding: 112px 0; border-top: 1px solid var(--line2); }
+.ydt-page .sec-head { max-width: 672px; margin-bottom: 56px; }
+.ydt-page .sec-head--center { margin-left: auto; margin-right: auto; text-align: center; }
+.ydt-page .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+.ydt-page .sec-head--center .sec-eyebrow { justify-content: center; }
+.ydt-page .sec-eyebrow-mark { color: var(--data); font-size: 12px; line-height: 1; }
+.ydt-page .sec-eyebrow-text {
+    font-family: var(--mono); font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray5); font-weight: 500;
+}
+.ydt-page .sec-title {
+    font-size: clamp(2rem, 4.2vw, 3.3rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1.03; margin-bottom: 16px;
+}
+.ydt-page .sec-title .dim { color: var(--w25); }
+.ydt-page .sec-sub { font-size: 16px; color: var(--gray5); line-height: 1.68; }
+
+/* two-up: copy one side, instrument the other */
+.ydt-page .duo { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+@media (min-width: 1024px) {
+    .ydt-page .duo { grid-template-columns: 0.8fr 1.2fr; gap: 60px; }
+    .ydt-page .duo--flip .duo-copy { order: 2; }
+    .ydt-page .duo--flip .duo-art { order: 1; }
+}
+/* A `1fr` track is minmax(auto, 1fr), and that auto minimum is min-content —
+   which for any nowrap string is the whole string. Without this a single
+   keyword row sizes the whole track past the viewport on a phone. */
+.ydt-page .duo-copy, .ydt-page .duo-art { min-width: 0; }
+.ydt-page .duo-copy p { font-size: 15px; color: var(--gray5); line-height: 1.72; }
+.ydt-page .duo-copy p + p { margin-top: 14px; }
+.ydt-page .duo-list { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 11px; }
+.ydt-page .duo-list li { display: flex; gap: 11px; font-size: 14px; color: var(--gray5); line-height: 1.55; }
+.ydt-page .duo-list svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; margin-top: 3px; }
+
+/* ══════════ HERO ══════════ */
+.ydt-page .hero { position: relative; overflow: hidden; padding: calc(var(--header-h) + 78px) 0 84px; }
+.ydt-page .hero-ember {
+    position: absolute; top: -48vh; left: 50%; width: 180vw; height: 108vh;
+    transform: translateX(-50%); pointer-events: none; z-index: 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 76, 58, 0.32) 0%, rgba(216, 30, 13, 0.15) 34%, rgba(118, 20, 10, 0.05) 58%, transparent 76%);
+    filter: blur(28px);
+}
+.ydt-page .hero-horizon {
+    position: absolute; top: 2vh; left: 50%;
+    width: 148vw; height: 148vw; max-width: 1180px; max-height: 1180px;
+    transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: 0;
+    border-top: 1px solid rgba(255, 128, 114, 0.22);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 26%);
+}
+.ydt-page .hero .container { position: relative; z-index: 2; }
+.ydt-page .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray5);
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+    border-radius: 9999px; padding: 9px 16px; margin-bottom: 28px;
+}
+.ydt-page .hero h1 {
+    font-size: clamp(2.1rem, 5.4vw, 4rem); font-weight: 700;
+    letter-spacing: -0.04em; line-height: 1.02; max-width: 17ch;
+}
+.ydt-page .hero h1 .dim { color: var(--w25); }
+.ydt-page .hero-body {
+    font-size: clamp(1rem, 1.25vw, 1.1rem); color: var(--gray5);
+    line-height: 1.7; max-width: 36rem; margin-top: 28px;
+}
+.ydt-page .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.ydt-page .back {
+    /* block-level: as inline-flex this shared a line box with the inline-flex
+       .hero-eyebrow below it and the pill landed on top of the link */
+    display: flex; width: fit-content; align-items: center; gap: 9px;
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.18em; color: var(--gray6); margin-bottom: 26px;
+    /* 12px block padding clears the 36px touch minimum */
+    padding: 12px 0; transition: color 0.3s;
+}
+.ydt-page .back:hover { color: var(--white); }
+.ydt-page .back svg { width: 13px; height: 13px; transition: transform 0.3s var(--ease); }
+.ydt-page .back:hover svg { transform: translateX(-3px); }
+
+/* ══════════ PROOF BAND ══════════ */
+.ydt-page .band {
+    margin-top: 62px; border: 1px solid var(--line); border-radius: 18px;
+    background: var(--panel); overflow: hidden;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 860px) { .ydt-page .band { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .band-cell { padding: 24px 22px; border-top: 1px solid var(--line2); border-left: 1px solid var(--line2); }
+.ydt-page .band-cell:nth-child(-n+2) { border-top: none; }
+.ydt-page .band-cell:nth-child(odd) { border-left: none; }
+@media (min-width: 860px) {
+    .ydt-page .band-cell { border-top: none; border-left: 1px solid var(--line2); }
+    .ydt-page .band-cell:first-child { border-left: none; }
+}
+.ydt-page .band-v {
+    display: block; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700;
+    letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; margin-bottom: 9px;
+}
+.ydt-page .band-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SHARED PANEL CHROME
+   ══════════════════════════════════════════════════════════════ */
+.ydt-page .duo-art, .ydt-page .art-hold { position: relative; }
+.ydt-page .duo-art::before, .ydt-page .art-hold::before {
+    content: ''; position: absolute; left: 50%; top: 4%;
+    width: 80%; height: 76%; transform: translateX(-50%);
+    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.22), transparent 72%);
+    filter: blur(58px); pointer-events: none; z-index: 0;
+}
+.ydt-page .art {
+    position: relative; z-index: 1;
+    background: var(--panel); border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 18px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 90, 76, 0.04);
+}
+.ydt-page .art-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line2); background: var(--panel2);
+}
+.ydt-page .art-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.ydt-page .art-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); }
+.ydt-page .art-url {
+    font-family: var(--mono); font-size: 10.5px; color: var(--gray6); min-width: 0;
+    letter-spacing: 0.03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ydt-page .art-live {
+    display: inline-flex; align-items: center; gap: 7px; margin-left: auto; flex-shrink: 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--data);
+}
+.ydt-page .art-body { padding: 22px 20px; }
+@media (min-width: 560px) { .ydt-page .art-body { padding: 24px; } }
+.ydt-page .art-k {
+    display: block; font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6); margin-bottom: 8px;
+}
+.ydt-page .art-v {
+    display: block; font-size: clamp(1.35rem, 2.6vw, 1.85rem); font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ydt-page .art-cap {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--gray6);
+}
+.ydt-page .art-delta {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--data);
+}
+.ydt-page .art-delta svg { width: 10px; height: 10px; }
+.ydt-page .art-foot {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    padding: 13px 20px; border-top: 1px solid var(--line2); background: rgba(255,255,255,0.012);
+}
+@media (min-width: 560px) { .ydt-page .art-foot { padding: 13px 24px; } }
+
+/* ══════════ 01 · THE BRAND KIT ══════════
+   The tab strip switches to a different real identity — its own palette,
+   its own typefaces, its own strapline. Every hex on this panel is the
+   value actually used in that brand's artwork, sampled from the files
+   further down the page rather than approximated by eye. */
+.ydt-page .bk-tabs {
+    display: flex; gap: 4px; padding: 10px 12px; overflow-x: auto;
+    scrollbar-width: none; border-bottom: 1px solid var(--line2);
+}
+.ydt-page .bk-tabs::-webkit-scrollbar { display: none; }
+.ydt-page .bk-tab {
+    flex: 0 0 auto; padding: 12px 14px; border-radius: 9999px; border: 1px solid transparent;
+    background: none; cursor: pointer; white-space: nowrap;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray5);
+    transition: color 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.ydt-page .bk-tab:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.ydt-page .bk-tab[aria-selected="true"] {
+    color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,0.28);
+}
+.ydt-page .bk { display: grid; grid-template-columns: 1fr; gap: 22px; }
+@media (min-width: 620px) { .ydt-page .bk { grid-template-columns: 1fr 1fr; gap: 26px; } }
+.ydt-page .bk > * { min-width: 0; }
+/* the mark, drawn on the brand's own ground */
+.ydt-page .bk-stage {
+    aspect-ratio: 16 / 10; border-radius: 12px; display: grid; place-items: center;
+    border: 1px solid var(--line2); padding: 20px; overflow: hidden;
+    transition: background 0.5s var(--ease);
+}
+.ydt-page .bk-word {
+    font-size: clamp(1.1rem, 3.4vw, 1.7rem); font-weight: 800; line-height: 1;
+    letter-spacing: 0.02em; text-transform: uppercase; text-align: center;
+    transition: color 0.5s var(--ease), letter-spacing 0.9s var(--ease);
+}
+html.ydt-js .ydt-page .bk-word { letter-spacing: 0.3em; }
+html.ydt-js .ydt-page .art.in-view .bk-word { letter-spacing: 0.02em; }
+.ydt-page .bk-strap {
+    display: block; margin-top: 10px; font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.75;
+}
+.ydt-page .bk-sw { display: flex; gap: 8px; margin-bottom: 20px; }
+.ydt-page .bk-sw div { flex: 1; min-width: 0; }
+.ydt-page .bk-sw i {
+    display: block; height: 44px; border-radius: 9px;
+    border: 1px solid rgba(255,255,255,0.10);
+}
+.ydt-page .bk-sw span {
+    display: block; margin-top: 8px; font-family: var(--mono); font-size: 10px;
+    color: var(--gray6); letter-spacing: 0.02em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+html.ydt-js .ydt-page .bk-sw i { opacity: 0; transform: scale(0.7); transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .bk-sw i { opacity: 1; transform: scale(1); }
+html.ydt-js .ydt-page .art.in-view .bk-sw div:nth-child(1) i { transition-delay: 0.30s; }
+html.ydt-js .ydt-page .art.in-view .bk-sw div:nth-child(2) i { transition-delay: 0.38s; }
+html.ydt-js .ydt-page .art.in-view .bk-sw div:nth-child(3) i { transition-delay: 0.46s; }
+html.ydt-js .ydt-page .art.in-view .bk-sw div:nth-child(4) i { transition-delay: 0.54s; }
+.ydt-page .bk-type { display: flex; flex-direction: column; gap: 12px; }
+.ydt-page .bk-row {
+    display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; align-items: baseline;
+    padding-bottom: 11px; border-bottom: 1px solid var(--line2);
+}
+.ydt-page .bk-row:last-child { border-bottom: none; padding-bottom: 0; }
+.ydt-page .bk-use {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gray6);
+}
+.ydt-page .bk-face { font-size: 13px; color: var(--white); font-weight: 600; letter-spacing: -0.01em; }
+
+/* ══════════ 02–03 · THE CASE STUDIES ══════════
+   The artwork is the hero here, so the frames are quiet: a hairline, a
+   caption, and nothing that competes with what is inside them. */
+.ydt-page .cs { border-top: 1px solid var(--line2); padding-top: 46px; }
+.ydt-page .cs-head { display: grid; grid-template-columns: 1fr; gap: 22px; margin-bottom: 34px; }
+@media (min-width: 900px) { .ydt-page .cs-head { grid-template-columns: 1.05fr 0.95fr; gap: 56px; } }
+.ydt-page .cs-head > * { min-width: 0; }
+.ydt-page .cs-meta { display: flex; flex-direction: column; gap: 14px; }
+.ydt-page .cs-facts { display: flex; flex-wrap: wrap; gap: 8px; }
+.ydt-page .cs-facts span {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray5); border: 1px solid var(--card-line); background: var(--card-bg);
+    border-radius: 9999px; padding: 7px 12px;
+}
+.ydt-page .cs-body { font-size: 15px; color: var(--gray5); line-height: 1.72; }
+.ydt-page .cs-body + .cs-body { margin-top: 14px; }
+
+/* the plates. `figure` because each one is artwork with a caption. */
+.ydt-page .plates { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 760px) { .ydt-page .plates { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ydt-page .plate { position: relative; min-width: 0; margin: 0; }
+/* a plate that carries the whole width, for boards and wide lock-ups */
+@media (min-width: 760px) { .ydt-page .plate--wide { grid-column: 1 / -1; } }
+.ydt-page .plate-frame {
+    position: relative; overflow: hidden; border-radius: 16px;
+    border: 1px solid var(--card-line); background: var(--panel2);
+    display: grid; place-items: center;
+}
+.ydt-page .plate-frame img {
+    display: block; width: 100%; height: auto;
+    /* never larger than the file actually is — a 750px board stretched across
+       a 1150px column is soft, and soft artwork argues against the page */
+    max-width: var(--maxw, 100%);
+    transition: transform 1.1s var(--ease);
+}
+/* logo lock-ups are wide and short; they sit on their own ground rather
+   than being cropped to a shape that was never theirs */
+.ydt-page .plate--mark .plate-frame { padding: 30px 22px; }
+.ydt-page .plate--mark .plate-frame img { max-width: min(460px, 100%); }
+.ydt-page .plate:hover .plate-frame img { transform: scale(1.02); }
+.ydt-page .plate-cap {
+    display: flex; align-items: baseline; gap: 10px; margin-top: 11px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray6);
+}
+.ydt-page .plate-cap b { color: var(--data); font-weight: 500; flex-shrink: 0; }
+html.ydt-js .ydt-page .plate { opacity: 0; transform: translateY(18px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+html.ydt-js .ydt-page .plate.plate-in { opacity: 1; transform: none; }
+
+/* the route switch on the second case study */
+/* the switch only means anything with script running; without it both
+   routes are shown one after the other and the captions say which is which */
+.ydt-page .rt-bar { display: none; }
+html.ydt-js .ydt-page .rt-bar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 22px;
+}
+.ydt-page .rt-tabs {
+    display: flex; gap: 4px; padding: 5px; border-radius: 9999px;
+    border: 1px solid var(--line); background: var(--panel);
+}
+.ydt-page .rt-tab {
+    /* 12px block padding clears the 36px touch minimum; 11px left it at 35 */
+    padding: 12px 15px; border-radius: 9999px; border: 1px solid transparent;
+    background: none; cursor: pointer; white-space: nowrap;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gray5);
+    transition: color 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.ydt-page .rt-tab:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.ydt-page .rt-tab[aria-selected="true"] {
+    color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,0.28);
+}
+.ydt-page .rt-note { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray6); }
+.ydt-page .rt-dots { display: inline-flex; gap: 5px; margin-right: 4px; vertical-align: -1px; }
+.ydt-page .rt-dots i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.14); }
+/* with scripting off both routes are simply shown, one after the other */
+html.ydt-js .ydt-page .rt-panel[hidden] { display: none; }
+.ydt-page .rt-panel[hidden] { display: block; }
+.ydt-page .rt-panel + .rt-panel { margin-top: 16px; }
+html.ydt-js .ydt-page .rt-panel + .rt-panel { margin-top: 0; }
+
+/* ══════════ 04 · WHAT YOU ACTUALLY GET ══════════
+   A file manifest, because "we'll send you the logo" is where most of
+   these jobs quietly go wrong. */
+.ydt-page .mf-rows { display: flex; flex-direction: column; }
+.ydt-page .mf-row {
+    display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center;
+    padding: 13px 0; border-bottom: 1px solid var(--line2);
+}
+.ydt-page .mf-row:last-child { border-bottom: none; }
+.ydt-page .mf-name { display: flex; align-items: center; gap: 10px; min-width: 0; font-size: 13px; color: var(--white); }
+.ydt-page .mf-name svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; }
+.ydt-page .mf-name span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ydt-page .mf-fmt { font-family: var(--mono); font-size: 10.5px; color: var(--gray6); letter-spacing: 0.06em; white-space: nowrap; }
+.ydt-page .mf-note { grid-column: 1 / -1; font-size: 12.5px; color: var(--gray5); line-height: 1.6; }
+html.ydt-js .ydt-page .mf-row { opacity: 0; transform: translateX(-6px); transition: opacity 0.45s var(--ease), transform 0.45s var(--ease); }
+html.ydt-js .ydt-page .art.in-view .mf-row { opacity: 1; transform: none; }
+html.ydt-js .ydt-page .art.in-view .mf-row:nth-child(1) { transition-delay: 0.20s; }
+html.ydt-js .ydt-page .art.in-view .mf-row:nth-child(2) { transition-delay: 0.30s; }
+html.ydt-js .ydt-page .art.in-view .mf-row:nth-child(3) { transition-delay: 0.40s; }
+html.ydt-js .ydt-page .art.in-view .mf-row:nth-child(4) { transition-delay: 0.50s; }
+html.ydt-js .ydt-page .art.in-view .mf-row:nth-child(5) { transition-delay: 0.60s; }
+html.ydt-js .ydt-page .art.in-view .mf-row:nth-child(6) { transition-delay: 0.70s; }
+
+/* ══════════ 05 · HOW IT RUNS ══════════ */
+.ydt-page .st-grid { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
+@media (min-width: 640px) { .ydt-page .st-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .ydt-page .st-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.ydt-page .st {
+    position: relative; min-width: 0;
+    padding: 30px 22px 36px 0; border-bottom: 1px solid var(--line);
+}
+@media (min-width: 640px) {
+    .ydt-page .st { padding-left: 26px; border-left: 1px solid var(--line); }
+    .ydt-page .st:nth-child(odd) { padding-left: 0; border-left: none; }
+}
+@media (min-width: 1024px) {
+    .ydt-page .st:nth-child(odd) { padding-left: 26px; border-left: 1px solid var(--line); }
+    .ydt-page .st:first-child { padding-left: 0; border-left: none; }
+}
+.ydt-page .st-num {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em;
+    color: var(--gray6); margin-bottom: 22px;
+}
+.ydt-page .st h3 { font-size: clamp(1.05rem, 1.7vw, 1.28rem); font-weight: 700; letter-spacing: -0.028em; line-height: 1.22; margin-bottom: 13px; }
+.ydt-page .st p { font-size: 13.5px; line-height: 1.76; color: var(--gray5); }
+.ydt-page .st::after {
+    content: ''; position: absolute; left: 0; bottom: -1px;
+    height: 1px; width: 0; background: var(--data); transition: width 0.7s var(--ease);
+}
+.ydt-page .st:hover::after { width: 100%; }
+
+/* ══════════ FINAL CTA ══════════
+   Flat black to the bottom edge, like the homepage — no ember down here. */
+.ydt-page .cta { position: relative; padding: 112px 0 124px; border-top: 1px solid var(--line2); }
+.ydt-page .cta .container { position: relative; z-index: 2; text-align: center; }
+.ydt-page .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+
+/* ══════════ MOTION FALLBACKS ══════════
+   These carry the html.ydt-js prefix on purpose — they have to out-specify
+   the gated hidden states above, and a media query adds no specificity. */
+@media (prefers-reduced-motion: reduce) {
+    .ydt-page { scroll-behavior: auto; }
+    html.ydt-js .ydt-page [data-reveal],
+    html.ydt-js .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
+    .ydt-page .grain { animation: none; }
+    .ydt-page .spotlight { display: none; }
+    .ydt-page .live-dot { animation: none; }
+    html.ydt-js .ydt-page .rk-row { opacity: 1; transform: none; transition: none; }
+    html.ydt-js .ydt-page .rk-dot { left: var(--x); transition: none; }
+    html.ydt-js .ydt-page .gsc-chart-in { -webkit-clip-path: none; clip-path: none; transition: none; }
+    html.ydt-js .ydt-page .bl-gauge .fg { stroke-dashoffset: calc(100 - var(--p)); transition: none; }
+    html.ydt-js .ydt-page .bl-bars i { height: var(--h); transition: none; }
+    html.ydt-js .ydt-page .sf-l { width: var(--w); transition: none; }
+    html.ydt-js .ydt-page .tc .edge,
+    html.ydt-js .ydt-page .tc .node,
+    html.ydt-js .ydt-page .tc .hub { opacity: 1; transition: none; }
+}
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 767px) {
+    .ydt-page .sec { padding: 78px 0; }
+    .ydt-page .hero { padding: calc(var(--header-h) + 48px) 0 56px; }
+    .ydt-page .cta { padding: 80px 0 88px; }
+    .ydt-page .hero-actions .ember-btn, .ydt-page .hero-actions .ghost-btn,
+    .ydt-page .cta-actions .ember-btn, .ydt-page .cta-actions .ghost-btn { width: 100%; }
+    /* nothing under 10px, same floor as every other page */
+    .ydt-page .rk-col, .ydt-page .rk-tab, .ydt-page .art-cap, .ydt-page .art-k,
+    .ydt-page .band-k, .ydt-page .gsc-x span, .ydt-page .gsc-sub, .ydt-page .bl-tag,
+    .ydt-page .bl-src span, .ydt-page .bl-gauge-l, .ydt-page .cwv span,
+    .ydt-page .sf-k span, .ydt-page .tc-legend span, .ydt-page .svc-here-tag, .ydt-page .rk-int b,
+    .ydt-page .svc-idx, .ydt-page .back { font-size: 10px; letter-spacing: 0.1em; }
+}
+
+/* ── break out of Squarespace's content column ── */
+.ydt-page {
+    position: relative; width: 100vw; max-width: 100vw;
+    margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+    background: #050505; color: #f4f2f0;
+}
+#siteWrapper, #page, .page-section, .content-wrapper,
+.sqs-layout, .sqs-row, .sqs-block, .sqs-block-content, .sqs-block-code { overflow: visible !important; }
+.sqs-block-code { padding: 0 !important; }
+.ydt-page, .ydt-page * { font-family: var(--font); }
+.ydt-page .art-url, .ydt-page .art-live, .ydt-page .art-k, .ydt-page .art-cap,
+.ydt-page .art-delta, .ydt-page .rk-tab, .ydt-page .rk-col, .ydt-page .rk-vol,
+.ydt-page .rk-pos, .ydt-page .rk-mv, .ydt-page .gsc-sub, .ydt-page .gsc-x span,
+.ydt-page .bl-dr, .ydt-page .bl-tag, .ydt-page .bl-src span, .ydt-page .bl-gauge-l,
+.ydt-page .ch-n, .ydt-page .cwv b, .ydt-page .cwv span, .ydt-page .sf-k span,
+.ydt-page .tc-legend span, .ydt-page .acc-num, .ydt-page .band-k,
+.ydt-page .svc-idx, .ydt-page .svc-here-tag, .ydt-page .sec-eyebrow-text,
+.ydt-page .hero-eyebrow, .ydt-page .back { font-family: var(--mono); }
+.ydt-page h1, .ydt-page h2, .ydt-page h3 { font-weight: 700; }
+.ydt-page button { font-family: var(--font); }
+</style>
+
+<div class="ydt-page ydt-page--graphic-design">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-ember" aria-hidden="true"></div>
+    <div class="hero-horizon" aria-hidden="true"></div>
+    <div class="container">
+      <a class="back" href="/services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>
+        All services
+      </a>
+      <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Graphic design</p>
+      <h1 id="heroTitle">
+        <span class="clip"><span class="slide">One system.</span></span>
+        <span class="clip"><span class="slide"><span class="dim">Every asset.</span></span></span>
+      </h1>
+      <p class="hero-body" data-reveal>
+        Most businesses end up with a logo from one place, a brochure from another and social
+        graphics made in whatever was open at the time. We build one identity &mdash; marks,
+        colours, type and spacing &mdash; write it down so anyone can apply it, and then make
+        the work from it. Two real projects below, at full size.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a class="ember-btn" href="/contact">
+          Talk to us
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a class="ghost-btn" href="#work">See the work</a>
+      </div>
+
+      <div class="band" data-reveal>
+        <div class="band-cell"><span class="band-v">2</span><span class="band-k">Full identities<br>shown here</span></div>
+        <div class="band-cell"><span class="band-v">2 routes</span><span class="band-k">Taken to finished<br>artwork, not sketches</span></div>
+        <div class="band-cell"><span class="band-v">Print + digital</span><span class="band-k">CMYK and RGB,<br>from the same source</span></div>
+        <div class="band-cell"><span class="band-v">You own it</span><span class="band-k">Source files, fonts<br>and the licence</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 01 · THE BRAND KIT ══════════ -->
+  <section class="sec" id="kit" aria-labelledby="bkTitle">
+    <div class="container">
+      <div class="duo">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">01 · What an identity is</span></div>
+          <h2 class="sec-title" id="bkTitle" data-reveal>A logo is <span class="dim">about a fifth of it.</span></h2>
+          <p data-reveal>
+            An identity is a set of decisions somebody else has to be able to follow: which
+            navy, at what weight, with how much air around it, in which typeface, at what size.
+            Get those written down and every asset made afterwards looks related. Skip them and
+            you get a folder of files that happen to share a logo.
+          </p>
+          <p data-reveal>
+            Switch between the three below. Each is a real identity we built, and every hex on
+            the panel is the value actually used in the artwork further down this page &mdash;
+            sampled from the files, not approximated.
+          </p>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url" id="bkPath">brand-kit / prep-bite</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Built</span>
+            </div>
+            <div class="bk-tabs" id="bkTabs" role="tablist" aria-label="Choose an identity">
+          <button class="bk-tab" type="button" role="tab" aria-selected="true">Prep Bite</button><button class="bk-tab" type="button" role="tab" aria-selected="false">McDermott A</button><button class="bk-tab" type="button" role="tab" aria-selected="false">McDermott B</button>
+        </div>
+            <div class="art-body">
+              <div class="bk">
+                <div class="bk-stage" id="bkStage" style="background: rgb(37, 55, 75);">
+                  <div>
+                    <div class="bk-word" id="bkWord" style="color: rgb(255, 255, 255);">Prep Bite.</div>
+                    <span class="bk-strap" id="bkStrap" style="color: rgb(255, 255, 255);">Define Your Own Excellence</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="bk-sw" id="bkSw">
+                  <div><i style="background:#25374b"></i><span>#25374b</span></div><div><i style="background:#474748"></i><span>#474748</span></div><div><i style="background:#8fc33f"></i><span>#8fc33f</span></div><div><i style="background:#ffffff"></i><span>#ffffff</span></div>
+                </div>
+                  <div class="bk-type" id="bkType">
+                  <div class="bk-row"><span class="bk-use">Headings</span><span class="bk-face">Komet Medium</span></div><div class="bk-row"><span class="bk-use">Body text</span><span class="bk-face">Inter Light</span></div><div class="bk-row"><span class="bk-use">Logotype</span><span class="bk-face">Haboro Soft</span></div>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap" id="bkFootA">4 colours · 3 typefaces</span>
+              <span class="art-cap" style="margin-left:auto" id="bkFootB">Meal prep &amp; nutrition</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 · PREP BITE ══════════ -->
+  <section class="sec" id="work" aria-labelledby="pbTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">02 · Selected work</span></div>
+        <h2 class="sec-title" id="pbTitle" data-reveal>Prep Bite.</h2>
+      </div>
+
+      <div class="cs" style="border-top:none;padding-top:0">
+        <div class="cs-head">
+          <div class="cs-meta" data-reveal>
+            <div class="cs-facts">
+              <span>Meal prep &amp; sports nutrition</span><span>Identity</span>
+              <span>Packaging</span><span>Retail</span>
+            </div>
+            <p class="cs-body">
+              A meal prep brand that had to work in two places at once: on a chilled shelf,
+              read at arm's length in about a second, and on a protein bar wrapper, where the
+              same identity has to carry a full nutrition panel, a barcode and allergen advice
+              without looking like a spreadsheet.
+            </p>
+          </div>
+          <div data-reveal>
+            <p class="cs-body">
+              We built the mark as a <b style="color:var(--white);font-weight:600">P and B locked
+              together</b>, so it still reads at 12mm on a wrapper seal and as a submark on its
+              own. The palette runs deep navy for the ground, a single acid green for anything
+              that has to be found in a hurry &mdash; macros, use-by, the flavour name &mdash;
+              and nothing else competing.
+            </p>
+            <p class="cs-body">
+              The strapline, <b style="color:var(--white);font-weight:600">Define Your Own
+              Excellence</b>, sits on every pack in the same place at the same size, which is
+              what makes a shelf of different flavours still read as one brand.
+            </p>
+          </div>
+        </div>
+
+        <div class="plates" id="pbPlates">
+        <figure class="plate plate--wide"><div class="plate-frame" style="--maxw:750px"><img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/eed8f006-ac48-449d-ae6f-3075096ba4b9/7c89f6abc16d8c386663d987ca6cdc3a7a9cd9fc.jpeg?format=750w" alt="Prep Bite brand board showing the primary logo, submark, colour palette and typefaces." width="750" height="1044" loading="lazy" decoding="async"></div><figcaption class="plate-cap"><b>01</b>Brand board — logo, submark, palette, type</figcaption></figure><figure class="plate"><div class="plate-frame" style="--maxw:1000px"><img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/1dcc544d-643a-4bae-ab80-7e339ea6c43a/47d6d2b8111b65dcc8b44a592dedd32ab8d0552c+%281%29.png?format=1000w" alt="Prep Bite meal trays on a chilled retail shelf, priced at £4.99." width="1000" height="666" loading="lazy" decoding="async"></div><figcaption class="plate-cap"><b>02</b>Retail packaging — chilled shelf</figcaption></figure><figure class="plate"><div class="plate-frame" style="--maxw:1000px"><img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/9f6d16eb-313a-4c23-9f57-c42e03e3f92b/ae7039079f3b91468d09ded2a9a4bf7bb5fefadc.jpeg?format=1000w" alt="Prep Bite salted caramel protein bar, front and reverse, showing the full nutrition panel." width="1000" height="666" loading="lazy" decoding="async"></div><figcaption class="plate-cap"><b>03</b>Protein bar — front and back artwork</figcaption></figure>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 · McDERMOTT ══════════ -->
+  <section class="sec" id="mcdermott" aria-labelledby="mcTitle">
+    <div class="container">
+      <div class="cs">
+        <div class="sec-head" style="margin-bottom:34px">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">03 · Selected work</span></div>
+          <h2 class="sec-title" id="mcTitle" data-reveal>McDermott <span class="dim">Fitness Academy.</span></h2>
+        </div>
+
+        <div class="cs-head">
+          <div class="cs-meta" data-reveal>
+            <div class="cs-facts">
+              <span>Fitness education</span><span>Identity</span>
+              <span>Apparel</span><span>Social</span>
+            </div>
+            <p class="cs-body">
+              A coaching academy that trains other trainers. The audience is people who already
+              work in gyms, so the brand had to look like a qualification worth having rather
+              than another supplement label.
+            </p>
+          </div>
+          <div data-reveal>
+            <p class="cs-body">
+              Rather than present one route and hope, we took <b style="color:var(--white);font-weight:600">two
+              complete directions</b> all the way to finished artwork &mdash; logo, apparel and a
+              full social grid for each &mdash; so the decision was made by looking at the same
+              things twice, not by imagining what the other one might become.
+            </p>
+            <p class="cs-body">
+              Use the switch. The work below changes with it.
+            </p>
+          </div>
+        </div>
+
+        <div class="rt-bar" data-reveal>
+          <div class="rt-tabs" id="rtTabs" role="tablist" aria-label="Choose a route">
+          <button class="rt-tab" type="button" role="tab" aria-selected="false">Route A</button><button class="rt-tab" type="button" role="tab" aria-selected="true">Route B</button>
+        </div>
+          <span class="rt-note" id="rtNote"><span class="rt-dots" aria-hidden="true"><i style="background:#263374"></i><i style="background:#b3e3fa"></i><i style="background:#ffffff"></i></span>Navy · sky · white — chosen</span>
+        </div>
+
+        <div id="rtPanels">
+        <div class="rt-panel"><div class="plates"><figure class="plate plate--wide plate--mark" style="--g:#404046"><div class="plate-frame" style="--maxw:2500px;background:#404046"><img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/e8e148c1-63c9-4190-8666-5a212c5bb653/curate+fitness+logo+2.png?format=2500w" alt="McDermott Fitness Academy logo, route A: a cream shield holding a bronze target." width="2500" height="578" loading="lazy" decoding="async"></div><figcaption class="plate-cap"><b>A1</b>Logo — shield and target</figcaption></figure><figure class="plate"><div class="plate-frame" style="--maxw:1000px"><img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/dda3b615-e444-4073-8fc9-828223200ef4/second+concept+tshirt+design.jpeg?format=1000w" alt="Bronze and cream training shirt, front and back, carrying the shield mark." width="1000" height="666" loading="lazy" decoding="async"></div><figcaption class="plate-cap"><b>A2</b>Apparel — front and back</figcaption></figure><figure class="plate"><div class="plate-frame" style="--maxw:1000px"><img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/85bc8085-2129-41f2-ae03-89bc1a011c02/instagram+mock+up+2.jpeg?format=1000w" alt="Instagram grid for route A, in bronze and charcoal." width="1000" height="667" loading="lazy" decoding="async"></div><figcaption class="plate-cap"><b>A3</b>Social — grid and templates</figcaption></figure></div></div><div class="rt-panel"><div class="plates"><figure class="plate plate--wide plate--mark" style="--g:#263374"><div class="plate-frame" style="--maxw:2500px;background:#263374"><img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/a2833cb3-2a2a-4829-a10c-2053c8d7d398/MAIN+LOGO.png?format=2500w" alt="McDermott Fitness Academy logo, route B: an MD monogram with a speech bubble set into the D." width="2500" height="578" loading="lazy" decoding="async"></div><figcaption class="plate-cap"><b>B1</b>Logo — MD monogram, speech bubble in the D</figcaption></figure><figure class="plate"><div class="plate-frame" style="--maxw:750px"><img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/6a1d3bd8-1505-48a1-8d43-189e323fae13/new+front+tshirt+2.png?format=750w" alt="Navy training shirt with the MD monogram at the chest and sky blue cuff trim." width="750" height="966" loading="lazy" decoding="async"></div><figcaption class="plate-cap"><b>B2</b>Apparel — front, monogram at chest</figcaption></figure><figure class="plate"><div class="plate-frame" style="--maxw:750px"><img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/a5aeb11e-0fe5-4e7f-bb20-a825cc2f7b6e/back+of+t+shirt.png?format=750w" alt="Back of the navy shirt reading Educating Stronger Coaches." width="750" height="956" loading="lazy" decoding="async"></div><figcaption class="plate-cap"><b>B3</b>Apparel — back, “Educating stronger coaches”</figcaption></figure><figure class="plate plate--wide"><div class="plate-frame" style="--maxw:1000px"><img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/e70b4dea-15e2-42b2-bb80-290f2b547c8d/instagram+mock+up.jpeg?format=1000w" alt="Instagram grid for route B, in navy and sky blue." width="1000" height="667" loading="lazy" decoding="async"></div><figcaption class="plate-cap"><b>B4</b>Social — grid and templates</figcaption></figure></div></div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04 · WHAT YOU GET ══════════ -->
+  <section class="sec" id="deliverables" aria-labelledby="mfTitle">
+    <div class="container">
+      <div class="duo duo--flip">
+        <div class="duo-copy">
+          <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">04 · What lands</span></div>
+          <h2 class="sec-title" id="mfTitle" data-reveal>You get the <span class="dim">source files.</span></h2>
+          <p data-reveal>
+            This is where these jobs usually go wrong. A designer sends a single PNG with a
+            white box behind it, and two years later nobody can put the logo on a van, a shirt
+            or a printed banner without paying somebody to redraw it.
+          </p>
+          <p data-reveal>
+            Everything below is yours, in the formats the next person will ask for. Vector
+            source so it can be scaled to a building, CMYK for the printer, RGB for the screen,
+            and a written guide so anyone can apply it without asking us first.
+          </p>
+        </div>
+
+        <div class="duo-art" data-reveal>
+          <div class="art" data-art>
+            <div class="art-bar">
+              <span class="art-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="art-url">handover / brand-assets</span>
+              <span class="art-live"><span class="live-dot" aria-hidden="true"></span>Yours</span>
+            </div>
+            <div class="art-body">
+              <div class="mf-rows" id="mfRows">
+              <div class="mf-row"><span class="mf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><polyline points="14 3 14 8 19 8"></polyline></svg><span>Logo, every lock-up</span></span><span class="mf-fmt">.ai .svg .eps</span><span class="mf-note">Primary, submark, horizontal and one-colour, so there is a right version for every space.</span></div><div class="mf-row"><span class="mf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><polyline points="14 3 14 8 19 8"></polyline></svg><span>Screen artwork</span></span><span class="mf-fmt">.png .svg</span><span class="mf-note">Transparent, at the sizes a website, a profile picture and an email signature actually want.</span></div><div class="mf-row"><span class="mf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><polyline points="14 3 14 8 19 8"></polyline></svg><span>Print artwork</span></span><span class="mf-fmt">.pdf .eps · CMYK</span><span class="mf-note">Converted for print rather than handed over in screen colour and left to the printer to guess.</span></div><div class="mf-row"><span class="mf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><polyline points="14 3 14 8 19 8"></polyline></svg><span>Brand guidelines</span></span><span class="mf-fmt">.pdf</span><span class="mf-note">Colours with their hex and CMYK values, type sizes, spacing rules, and what not to do.</span></div><div class="mf-row"><span class="mf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><polyline points="14 3 14 8 19 8"></polyline></svg><span>Typefaces</span></span><span class="mf-fmt">files + licence</span><span class="mf-note">The actual fonts, and confirmation of what you are licensed to use them for.</span></div><div class="mf-row"><span class="mf-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><polyline points="14 3 14 8 19 8"></polyline></svg><span>Editable source</span></span><span class="mf-fmt">working files</span><span class="mf-note">The layered originals. If you ever leave us, nothing has to be redrawn from scratch.</span></div>
+            </div>
+            </div>
+            <div class="art-foot">
+              <span class="art-cap">Full copyright assigned to you</span>
+              <span class="art-cap" style="margin-left:auto" id="mfFoot">6 items in the handover</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 05 · HOW IT RUNS ══════════ -->
+  <section class="sec" id="process" aria-labelledby="stTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">05 · How it runs</span></div>
+        <h2 class="sec-title" id="stTitle" data-reveal>Four steps. <span class="dim">No mystery.</span></h2>
+        <p class="sec-sub" data-reveal>
+          You see work at every stage, and nothing goes to print until you have signed it off.
+        </p>
+      </div>
+
+      <div class="st-grid">
+        <article class="st" data-reveal>
+          <span class="st-num">01</span>
+          <h3>Where it's going</h3>
+          <p>Before anything is drawn we establish where this has to work — a shelf, a shirt, a van, a phone screen — because a mark that only works large is a mark that fails on half of them.</p>
+        </article>
+        <article class="st" data-reveal>
+          <span class="st-num">02</span>
+          <h3>Routes, not a reveal</h3>
+          <p>You get real directions applied to real assets, not one option presented as a fait accompli. If a route is wrong you can say so while it's cheap to change.</p>
+        </article>
+        <article class="st" data-reveal>
+          <span class="st-num">03</span>
+          <h3>Refine the chosen one</h3>
+          <p>Spacing, sizes, the small-size version, the one-colour version, how it sits on photography. This is the part that decides whether it still looks right in a year.</p>
+        </article>
+        <article class="st" data-reveal>
+          <span class="st-num">04</span>
+          <h3>Artwork and handover</h3>
+          <p>Print-ready and screen-ready files, a written guide, and the source. Then you never have to come back to us just to get your own logo out of a folder.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section class="cta" aria-labelledby="ctaTitle">
+    <div class="container">
+      <div class="sec-head sec-head--center" style="margin-bottom:0">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Start here</span></div>
+        <h2 class="sec-title" id="ctaTitle" data-reveal>Got something <span class="dim">that needs designing?</span></h2>
+        <p class="sec-sub" data-reveal>
+          Tell us what it's for and where it has to work. We'll tell you honestly whether it's a
+          new identity, a tidy-up of the one you have, or a single asset made properly.
+        </p>
+        <div class="cta-actions" data-reveal>
+          <a class="ember-btn" href="/contact">
+            Talk to us
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="ghost-btn" href="/services">All services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ══════ CURSOR SPOTLIGHT ══════ */
+  var spot = document.getElementById('spotlight');
+  if (spot && finePointer && !reduceMotion) {
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2, cx = tx, cy = ty, raf = null;
+    document.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      spot.classList.add('spotlight--on');
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    document.addEventListener('mouseleave', function () { spot.classList.remove('spotlight--on'); });
+    function loop() {
+      cx += (tx - cx) * 0.09; cy += (ty - cy) * 0.09;
+      spot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (Math.abs(tx - cx) > 0.4 || Math.abs(ty - cy) > 0.4) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+  }
+
+  function esc(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  /* ══════ THE ARTWORK ══════
+     THE ONLY PLACE THESE FILES ARE LISTED. The plates, the route switch and
+     the brand-kit swatches are all built from here, so a URL is written once.
+
+     Every hex below was sampled from the artwork itself rather than guessed:
+     Prep Bite's are the values printed on its own brand board, McDermott's
+     were read out of the two logo files. */
+  var IMG = 'https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/';
+
+  var PREP = [
+    { src: IMG + 'eed8f006-ac48-449d-ae6f-3075096ba4b9/7c89f6abc16d8c386663d987ca6cdc3a7a9cd9fc.jpeg?format=750w',
+      w: 750, h: 1044, n: '01', cap: 'Brand board — logo, submark, palette, type',
+      alt: 'Prep Bite brand board showing the primary logo, submark, colour palette and typefaces.' },
+    { src: IMG + '1dcc544d-643a-4bae-ab80-7e339ea6c43a/47d6d2b8111b65dcc8b44a592dedd32ab8d0552c+%281%29.png?format=1000w',
+      w: 1000, h: 666, n: '02', cap: 'Retail packaging — chilled shelf',
+      alt: 'Prep Bite meal trays on a chilled retail shelf, priced at £4.99.' },
+    { src: IMG + '9f6d16eb-313a-4c23-9f57-c42e03e3f92b/ae7039079f3b91468d09ded2a9a4bf7bb5fefadc.jpeg?format=1000w',
+      w: 1000, h: 666, n: '03', cap: 'Protein bar — front and back artwork',
+      alt: 'Prep Bite salted caramel protein bar, front and reverse, showing the full nutrition panel.' }
+  ];
+
+  var ROUTES = [
+    {
+      tab: 'Route A', note: 'Bronze · charcoal · cream',
+      swatches: [['#a1835d', 'Bronze'], ['#404046', 'Charcoal'], ['#faf8f5', 'Cream']],
+      plates: [
+        { src: IMG + 'e8e148c1-63c9-4190-8666-5a212c5bb653/curate+fitness+logo+2.png?format=2500w',
+          w: 2500, h: 578, n: 'A1', cap: 'Logo — shield and target', mark: true, wide: true,
+          alt: 'McDermott Fitness Academy logo, route A: a cream shield holding a bronze target.' },
+        { src: IMG + 'dda3b615-e444-4073-8fc9-828223200ef4/second+concept+tshirt+design.jpeg?format=1000w',
+          w: 1000, h: 666, n: 'A2', cap: 'Apparel — front and back',
+          alt: 'Bronze and cream training shirt, front and back, carrying the shield mark.' },
+        { src: IMG + '85bc8085-2129-41f2-ae03-89bc1a011c02/instagram+mock+up+2.jpeg?format=1000w',
+          w: 1000, h: 667, n: 'A3', cap: 'Social — grid and templates',
+          alt: 'Instagram grid for route A, in bronze and charcoal.' }
+      ]
+    },
+    {
+      tab: 'Route B', note: 'Navy · sky · white — chosen',
+      swatches: [['#263374', 'Navy'], ['#b3e3fa', 'Sky'], ['#ffffff', 'White']],
+      plates: [
+        { src: IMG + 'a2833cb3-2a2a-4829-a10c-2053c8d7d398/MAIN+LOGO.png?format=2500w',
+          w: 2500, h: 578, n: 'B1', cap: 'Logo — MD monogram, speech bubble in the D', mark: true, wide: true,
+          alt: 'McDermott Fitness Academy logo, route B: an MD monogram with a speech bubble set into the D.' },
+        { src: IMG + '6a1d3bd8-1505-48a1-8d43-189e323fae13/new+front+tshirt+2.png?format=750w',
+          w: 750, h: 966, n: 'B2', cap: 'Apparel — front, monogram at chest',
+          alt: 'Navy training shirt with the MD monogram at the chest and sky blue cuff trim.' },
+        { src: IMG + 'a5aeb11e-0fe5-4e7f-bb20-a825cc2f7b6e/back+of+t+shirt.png?format=750w',
+          w: 750, h: 956, n: 'B3', cap: 'Apparel — back, “Educating stronger coaches”',
+          alt: 'Back of the navy shirt reading Educating Stronger Coaches.' },
+        { src: IMG + 'e70b4dea-15e2-42b2-bb80-290f2b547c8d/instagram+mock+up.jpeg?format=1000w',
+          w: 1000, h: 667, n: 'B4', cap: 'Social — grid and templates', wide: true,
+          alt: 'Instagram grid for route B, in navy and sky blue.' }
+      ]
+    }
+  ];
+
+  /* ══════ 01 · THE BRAND KIT ══════ */
+  var BRANDS = [
+    {
+      tab: 'Prep Bite', path: 'brand-kit / prep-bite',
+      word: 'Prep Bite.', strap: 'Define Your Own Excellence',
+      ground: '#25374b', ink: '#ffffff',
+      swatches: [['#25374b', 'Navy'], ['#474748', 'Slate'], ['#8fc33f', 'Acid'], ['#ffffff', 'White']],
+      type: [['Headings', 'Komet Medium'], ['Body text', 'Inter Light'], ['Logotype', 'Haboro Soft']],
+      footA: '4 colours · 3 typefaces', footB: 'Meal prep &amp; nutrition'
+    },
+    {
+      tab: 'McDermott A', path: 'brand-kit / mcdermott-route-a',
+      word: 'McDermott', strap: 'Fitness Academy',
+      ground: '#404046', ink: '#faf8f5',
+      swatches: [['#a1835d', 'Bronze'], ['#404046', 'Charcoal'], ['#faf8f5', 'Cream']],
+      type: [['Headings', 'Geometric sans, bold'], ['Sub-lockup', 'Wide tracked caps'], ['Body text', 'Inter Regular']],
+      footA: '3 colours · route A', footB: 'Not chosen'
+    },
+    {
+      tab: 'McDermott B', path: 'brand-kit / mcdermott-route-b',
+      word: 'McDermott', strap: 'Educating stronger coaches',
+      ground: '#263374', ink: '#ffffff',
+      swatches: [['#263374', 'Navy'], ['#b3e3fa', 'Sky'], ['#ffffff', 'White']],
+      type: [['Headings', 'Geometric sans, bold'], ['Sub-lockup', 'Wide tracked caps'], ['Body text', 'Inter Regular']],
+      footA: '3 colours · route B', footB: 'Chosen and built'
+    }
+  ];
+
+  var bkTabs = document.getElementById('bkTabs');
+  var bkStage = document.getElementById('bkStage');
+
+  function paintKit(i) {
+    var b = BRANDS[i];
+    if (!b || !bkStage) return;
+    bkStage.style.background = b.ground;
+    var w = document.getElementById('bkWord'), st = document.getElementById('bkStrap');
+    if (w) { w.textContent = b.word; w.style.color = b.ink; }
+    if (st) { st.textContent = b.strap; st.style.color = b.ink; }
+    var sw = document.getElementById('bkSw');
+    if (sw) sw.innerHTML = b.swatches.map(function (s) {
+      return '<div><i style="background:' + s[0] + '"></i><span>' + esc(s[0]) + '</span></div>';
+    }).join('');
+    var ty = document.getElementById('bkType');
+    if (ty) ty.innerHTML = b.type.map(function (t) {
+      return '<div class="bk-row"><span class="bk-use">' + esc(t[0]) +
+        '</span><span class="bk-face">' + esc(t[1]) + '</span></div>';
+    }).join('');
+    var p = document.getElementById('bkPath'); if (p) p.textContent = b.path;
+    var fa = document.getElementById('bkFootA'); if (fa) fa.innerHTML = b.footA;
+    var fb = document.getElementById('bkFootB'); if (fb) fb.innerHTML = b.footB;
+    [].forEach.call(bkTabs.querySelectorAll('.bk-tab'), function (t, n) {
+      t.setAttribute('aria-selected', n === i ? 'true' : 'false');
+    });
+  }
+
+  if (bkTabs && bkStage) {
+    bkTabs.innerHTML = BRANDS.map(function (b, i) {
+      return '<button class="bk-tab" type="button" role="tab" aria-selected="' +
+        (i === 0 ? 'true' : 'false') + '">' + esc(b.tab) + '</button>';
+    }).join('');
+    [].forEach.call(bkTabs.querySelectorAll('.bk-tab'), function (t, i) {
+      t.addEventListener('click', function () { paintKit(i); });
+    });
+    paintKit(0);
+  }
+
+  /* ══════ THE PLATES ══════
+     width and height are written on every image so the browser reserves the
+     right box before the file arrives and nothing on the page jumps. */
+  function plate(p) {
+    return '<figure class="plate' + (p.wide ? ' plate--wide' : '') + (p.mark ? ' plate--mark' : '') + '"' +
+      (p.mark ? ' style="--g:' + (p.ground || 'transparent') + '"' : '') + '>' +
+      '<div class="plate-frame" style="--maxw:' + p.w + 'px' +
+        (p.ground ? ';background:' + p.ground : '') + '">' +
+        '<img src="' + p.src + '" alt="' + esc(p.alt) + '" width="' + p.w + '" height="' + p.h +
+        '" loading="lazy" decoding="async">' +
+      '</div>' +
+      '<figcaption class="plate-cap"><b>' + esc(p.n) + '</b>' + p.cap + '</figcaption>' +
+    '</figure>';
+  }
+
+  var pbPlates = document.getElementById('pbPlates');
+  if (pbPlates) pbPlates.innerHTML = PREP.map(function (p, i) {
+    p.wide = (i === 0);  /* the board is tall and detailed — give it the width */
+    return plate(p);
+  }).join('');
+
+  /* ══════ 03 · THE ROUTE SWITCH ══════ */
+  var rtTabs = document.getElementById('rtTabs');
+  var rtPanels = document.getElementById('rtPanels');
+
+  function paintRoute(i) {
+    if (!rtPanels) return;
+    [].forEach.call(rtPanels.children, function (p, n) {
+      if (n === i) { p.removeAttribute('hidden'); } else { p.setAttribute('hidden', ''); }
+    });
+    [].forEach.call(rtTabs.querySelectorAll('.rt-tab'), function (t, n) {
+      t.setAttribute('aria-selected', n === i ? 'true' : 'false');
+    });
+    var note = document.getElementById('rtNote');
+    if (note) {
+      note.innerHTML = '<span class="rt-dots" aria-hidden="true">' +
+        ROUTES[i].swatches.map(function (s) { return '<i style="background:' + s[0] + '"></i>'; }).join('') +
+        '</span>' + esc(ROUTES[i].note);
+    }
+    revealPlates();
+  }
+
+  if (rtTabs && rtPanels) {
+    rtTabs.innerHTML = ROUTES.map(function (r, i) {
+      return '<button class="rt-tab" type="button" role="tab" aria-selected="' +
+        (i === 0 ? 'true' : 'false') + '">' + esc(r.tab) + '</button>';
+    }).join('');
+    rtPanels.innerHTML = ROUTES.map(function (r) {
+      return '<div class="rt-panel"><div class="plates">' +
+        r.plates.map(function (p) {
+          /* the lock-ups are transparent PNGs — they need their own ground */
+          if (p.mark) p.ground = r.swatches[r.swatches.length - 1][0] === '#ffffff' ? r.swatches[0][0] : r.swatches[1][0];
+          return plate(p);
+        }).join('') + '</div></div>';
+    }).join('');
+    [].forEach.call(rtTabs.querySelectorAll('.rt-tab'), function (t, i) {
+      t.addEventListener('click', function () { paintRoute(i); });
+    });
+    paintRoute(1);   /* route B was the one chosen and built */
+
+    /* The hidden route's images are display:none, so the browser never
+       fetches them and switching opens onto empty frames. Warm them once the
+       page has settled — off the critical path, but before anyone clicks. */
+    var warm = function () {
+      ROUTES.forEach(function (r) {
+        r.plates.forEach(function (pl) { (new Image()).src = pl.src; });
+      });
+    };
+    if (window.requestIdleCallback) { requestIdleCallback(warm, { timeout: 3000 }); }
+    else { window.setTimeout(warm, 1800); }
+  }
+
+  /* ══════ 04 · THE HANDOVER ══════ */
+  var FILE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><polyline points="14 3 14 8 19 8"/></svg>';
+  var MANIFEST = [
+    ['Logo, every lock-up', '.ai .svg .eps', 'Primary, submark, horizontal and one-colour, so there is a right version for every space.'],
+    ['Screen artwork', '.png .svg', 'Transparent, at the sizes a website, a profile picture and an email signature actually want.'],
+    ['Print artwork', '.pdf .eps · CMYK', 'Converted for print rather than handed over in screen colour and left to the printer to guess.'],
+    ['Brand guidelines', '.pdf', 'Colours with their hex and CMYK values, type sizes, spacing rules, and what not to do.'],
+    ['Typefaces', 'files + licence', 'The actual fonts, and confirmation of what you are licensed to use them for.'],
+    ['Editable source', 'working files', 'The layered originals. If you ever leave us, nothing has to be redrawn from scratch.']
+  ];
+  var mfRows = document.getElementById('mfRows');
+  if (mfRows) {
+    mfRows.innerHTML = MANIFEST.map(function (r) {
+      return '<div class="mf-row"><span class="mf-name">' + FILE + '<span>' + esc(r[0]) + '</span></span>' +
+        '<span class="mf-fmt">' + esc(r[1]) + '</span>' +
+        '<span class="mf-note">' + esc(r[2]) + '</span></div>';
+    }).join('');
+    var mfFoot = document.getElementById('mfFoot');
+    if (mfFoot) mfFoot.textContent = MANIFEST.length + ' items in the handover';
+  }
+
+  /* ══════ REVEALS ══════ */
+  var plateObs = null;
+  function revealPlates() {
+    var els = [].slice.call(document.querySelectorAll('.plate:not(.plate-in)'));
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      els.forEach(function (e) { e.classList.add('plate-in'); });
+      return;
+    }
+    if (!plateObs) {
+      plateObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('plate-in'); plateObs.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+    }
+    els.forEach(function (e) { plateObs.observe(e); });
+  }
+  revealPlates();
+
+  var revealEls = document.querySelectorAll('[data-reveal], .clip');
+  var artEls = document.querySelectorAll('[data-art]');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+    artEls.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { obs.observe(el); });
+    var artObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); artObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.22 });
+    artEls.forEach(function (el) { artObs.observe(el); });
+  }
+
+  /* ══════ SCROLL PROGRESS ══════ */
+  var bar = document.getElementById('progress');
+  if (bar && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(bar, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
+  } else if (bar) {
+    var tick = null;
+    window.addEventListener('scroll', function () {
+      if (tick) return;
+      tick = requestAnimationFrame(function () {
+        var max = document.body.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+        tick = null;
+      });
+    }, { passive: true });
+  }
+})();
+</script>
