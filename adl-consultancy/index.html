@@ -7,717 +7,680 @@
 <meta name="description" content="ISO consultants for Essex and London. Gap analysis to certification for ISO 9001, 14001, 27001, 42001, 45001 and AS9100. No contracts, guaranteed registration.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================
    ADL Consultancy
-   Design system: "Trust & Authority + Conversion" pattern,
-   "Accessible & Ethical" style — high contrast, defined
-   borders over decorative shadow, visible focus, 16px+ text.
-   All styles scoped to .adl-page so nothing collides with
-   the surrounding Squarespace theme.
+   Pattern : Scroll-Triggered Storytelling (chaptered)
+   Style   : Editorial / magazine — asymmetric grid, scale
+             contrast, rules and chapter marks
+   Type    : IBM Plex superfamily (Condensed / Sans / Mono)
+   Scoped to .adl-page so nothing collides with Squarespace.
    ========================================================== */
 
 .adl-page {
-  /* Colour tokens */
-  --primary:        #0F172A;
-  --on-primary:     #FFFFFF;
-  --secondary:      #334155;
-  --accent:         #0369A1;
-  --accent-hover:   #075985;
-  --accent-wash:    #E9F2F8;
-  --on-accent:      #FFFFFF;
-  --background:     #F8FAFC;
-  --foreground:     #020617;
-  --card:           #FFFFFF;
-  --muted:          #E8ECF1;
-  --muted-fg:       #475569;
-  --border:         #E2E8F0;
-  --border-strong:  #CBD5E1;
-  --ring:           #0369A1;
+  --ink:        #0B1220;
+  --ink-2:      #131E33;
+  --slate:      #334155;
+  --accent:     #0369A1;
+  --accent-lo:  #075985;
+  --accent-hi:  #38BDF8;
+  --wash:       #E9F2F8;
+  --paper:      #FFFFFF;
+  --paper-2:    #F4F6F9;
+  --muted-fg:   #5A6779;
+  --line:       #DDE3EA;
+  --line-dark:  rgba(255,255,255,.16);
 
-  /* Spacing — strict 8px rhythm */
-  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
-  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px;
-  --s-9: 80px; --s-10: 96px;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px;
+  --s6:32px; --s7:48px; --s8:64px; --s9:96px; --s10:128px;
 
-  --pad-x:   clamp(20px, 5vw, 64px);
-  --section: clamp(64px, 8vw, 96px);
-  --maxw:    1400px;
+  --pad-x: clamp(20px, 5vw, 72px);
+  --maxw:  1440px;
 
-  --font: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --cond: 'IBM Plex Sans Condensed', 'IBM Plex Sans', Arial Narrow, Arial, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  font-family: var(--font);
+  font-family: var(--sans);
   font-size: 17px;
   line-height: 1.6;
-  color: var(--secondary);
-  background: var(--background);
+  color: var(--slate);
+  background: var(--paper);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-.adl-page *,
-.adl-page *::before,
-.adl-page *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: inherit; }
+.adl-page *, .adl-page *::before, .adl-page *::after {
+  box-sizing: border-box; margin: 0; padding: 0; font-family: inherit;
+}
 
 html { scroll-behavior: smooth; }
-.adl-page [id] { scroll-margin-top: 96px; }
-
+.adl-page [id] { scroll-margin-top: 88px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .adl-page *, .adl-page *::before, .adl-page *::after {
-    animation-duration: .001ms !important;
-    transition-duration: .001ms !important;
+    animation-duration: .001ms !important; transition-duration: .001ms !important;
   }
 }
-
 body.adl-menu-open { overflow: hidden; }
 
-/* Visible focus on every operable control (3px, per style guidance) */
-.adl-page a:focus-visible,
-.adl-page button:focus-visible {
-  outline: 3px solid var(--ring);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-.adl-page .on-dark:focus-visible { outline-color: #FFFFFF; }
-
 .adl-page a, .adl-page button { cursor: pointer; }
+.adl-page a:focus-visible, .adl-page button:focus-visible {
+  outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 2px;
+}
+.adl-page .on-dark:focus-visible { outline-color: var(--accent-hi); }
 
-/* ---- Type scale: 5 sizes, hierarchy carried by weight + colour ---- */
-.adl-page h1, .adl-page h2, .adl-page h3, .adl-page h4 {
-  color: var(--primary);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+/* ---- Display type: condensed, tight, big ---- */
+.adl-page h1, .adl-page h2, .adl-page h3 {
+  font-family: var(--cond);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  line-height: 1.02;
+  text-transform: none;
   text-wrap: balance;
 }
-.adl-page h1 { font-size: clamp(2.125rem, 4.6vw, 3.375rem); line-height: 1.12; letter-spacing: -0.03em; }
-.adl-page h2 { font-size: clamp(1.75rem, 3.2vw, 2.5rem);   letter-spacing: -0.025em; }
-.adl-page h3 { font-size: 1.1875rem; }
-.adl-page h4 { font-size: 1rem; }
+.adl-page h1 { font-size: clamp(2.75rem, 6.4vw, 5.75rem); }
+.adl-page h2 { font-size: clamp(2rem, 3.7vw, 3.25rem); }
+.adl-page h3 { font-family: var(--sans); font-weight: 600; font-size: 1.1875rem; line-height: 1.35; letter-spacing: -0.01em; }
+.adl-page h4 { font-family: var(--sans); font-weight: 600; font-size: 1rem; color: var(--ink); }
 
-.adl-page .eyebrow {
-  display: block;
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: var(--s-4);
+.adl-page .lede {
+  font-family: var(--cond); font-weight: 600;
+  font-size: clamp(1.25rem, 2.1vw, 1.75rem);
+  line-height: 1.35; letter-spacing: -0.01em; color: var(--ink);
 }
-.adl-page .eyebrow.on-dark-eyebrow { color: #7DD3FC; }
 
 .adl-page .visually-hidden {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
 }
-
 .adl-page .skip-link {
-  position: absolute; left: 50%; top: 8px; transform: translate(-50%, -160%);
-  background: var(--primary); color: var(--on-primary);
-  padding: var(--s-3) var(--s-5); border-radius: 4px;
-  font-weight: 600; text-decoration: none; z-index: 300;
-  transition: transform .2s ease;
+  position:absolute; left:50%; top:8px; transform:translate(-50%,-160%);
+  background:var(--ink); color:#fff; padding:12px 24px; border-radius:3px;
+  font-weight:600; text-decoration:none; z-index:300; transition:transform .2s ease;
 }
-.adl-page .skip-link:focus-visible { transform: translate(-50%, 0); }
+.adl-page .skip-link:focus-visible { transform:translate(-50%,0); }
 
-.adl-page .icon { width: 20px; height: 20px; flex-shrink: 0; stroke-width: 2; }
+.adl-page .icon { width:20px; height:20px; flex-shrink:0; stroke-width:2; }
+.adl-page .shell { max-width: var(--maxw); margin: 0 auto; }
 
-.adl-page .section-head {
-  max-width: var(--maxw); margin: 0 auto var(--s-6);
-  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: var(--s-7); align-items: end;
-  padding-bottom: var(--s-5); border-bottom: 1px solid var(--border);
+/* ---- Chapter marker: the editorial spine of the page ---- */
+.adl-page .chapter-mark {
+  max-width: var(--maxw); margin: 0 auto var(--s7);
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: var(--s5);
 }
-.adl-page .section-head .eyebrow { margin-bottom: var(--s-3); }
-.adl-page .section-head p {
-  font-size: 1.0625rem; color: var(--muted-fg); line-height: 1.65; padding-bottom: 3px;
+.adl-page .chapter-mark span {
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+  white-space: nowrap;
 }
-@media (max-width: 900px) {
-  .adl-page .section-head { grid-template-columns: 1fr; gap: var(--s-4); align-items: start; }
-}
+.adl-page .chapter-mark::after { content:""; height:1px; background: var(--line); }
+.adl-page .on-ink .chapter-mark span { color: var(--accent-hi); }
+.adl-page .on-ink .chapter-mark::after { background: var(--line-dark); }
 
-/* ---- Buttons: 48px tall, comfortably above the 44px minimum ---- */
+/* ---- Buttons ---- */
 .adl-page .btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
-  min-height: 48px;
-  padding: var(--s-3) var(--s-5);
-  font-size: 0.9375rem; font-weight: 600;
-  border-radius: 4px;
-  border: 1px solid transparent;
-  text-decoration: none; white-space: nowrap;
-  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--s2);
+  min-height:52px; padding: var(--s3) var(--s6);
+  font-size:0.9375rem; font-weight:600; letter-spacing:-0.005em;
+  border-radius:3px; border:1.5px solid transparent;
+  text-decoration:none; white-space:nowrap;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
 }
-.adl-page .btn .icon { width: 18px; height: 18px; }
+.adl-page .btn:hover { transform: translateY(-1px); }
+.adl-page .btn:active { transform: translateY(0); }
+.adl-page .btn .icon { width:18px; height:18px; }
 
-.adl-page .btn-primary { background: var(--accent); color: var(--on-accent); }
-.adl-page .btn-primary:hover { background: var(--accent-hover); }
-
-.adl-page .btn-navy { background: var(--primary); color: var(--on-primary); }
-.adl-page .btn-navy:hover { background: var(--secondary); }
-
-.adl-page .btn-outline {
-  background: var(--card); color: var(--primary); border-color: var(--border-strong);
-}
-.adl-page .btn-outline:hover { background: var(--muted); border-color: var(--secondary); }
-
-.adl-page .btn-light { background: #FFFFFF; color: var(--primary); }
-.adl-page .btn-light:hover { background: var(--muted); }
-
-.adl-page .btn-outline-light {
-  background: transparent; color: #FFFFFF; border-color: rgba(255,255,255,.45);
-}
-.adl-page .btn-outline-light:hover { background: rgba(255,255,255,.12); border-color: #FFFFFF; }
+.adl-page .btn-accent  { background:var(--accent); color:#fff; }
+.adl-page .btn-accent:hover { background:var(--accent-lo); }
+.adl-page .btn-ink     { background:var(--ink); color:#fff; }
+.adl-page .btn-ink:hover { background:var(--ink-2); }
+.adl-page .btn-outline { background:transparent; color:var(--ink); border-color:var(--line); }
+.adl-page .btn-outline:hover { background:var(--paper-2); border-color:var(--ink); }
+.adl-page .btn-paper   { background:#fff; color:var(--ink); }
+.adl-page .btn-paper:hover { background:var(--paper-2); }
+.adl-page .btn-ghost   { background:transparent; color:#fff; border-color:rgba(255,255,255,.4); }
+.adl-page .btn-ghost:hover { background:rgba(255,255,255,.12); border-color:#fff; }
 
 /* ---- Header ---- */
 .adl-header {
-  position: sticky; top: 0; z-index: 100;
-  background: var(--card);
-  border-bottom: 1px solid var(--border);
+  position:sticky; top:0; z-index:100;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
 }
 .adl-header .header-box {
-  max-width: var(--maxw); margin: 0 auto;
-  padding: var(--s-3) var(--pad-x);
-  display: flex; align-items: center; gap: var(--s-6);
+  max-width:var(--maxw); margin:0 auto;
+  padding: var(--s3) var(--pad-x);
+  display:flex; align-items:center; gap:var(--s6);
 }
-.adl-header .header-logo-img { height: 34px; width: auto; display: block; }
-
-.adl-header .desktop-nav { display: none; margin-right: auto; }
-.adl-header .nav-links { display: flex; gap: var(--s-1); list-style: none; }
+.adl-header .header-logo-img { height:34px; width:auto; display:block; }
+.adl-header .desktop-nav { display:none; margin-left:auto; }
+.adl-header .nav-links { display:flex; gap:2px; list-style:none; }
 .adl-header .nav-links a {
-  display: flex; align-items: center; min-height: 44px;
-  padding: 0 var(--s-3);
-  font-size: 0.9375rem; font-weight: 500; color: var(--secondary);
-  text-decoration: none; border-radius: 4px;
-  border-bottom: 2px solid transparent;
-  transition: color .2s ease, border-color .2s ease;
+  display:flex; align-items:center; min-height:44px; padding:0 var(--s3);
+  font-size:0.9375rem; font-weight:500; color:var(--slate);
+  text-decoration:none; border-bottom:2px solid transparent;
+  transition:color .2s ease, border-color .2s ease;
 }
-.adl-header .nav-links a:hover { color: var(--accent); }
-/* Current section marked by rule + weight + colour, never colour alone */
+.adl-header .nav-links a:hover { color:var(--accent); }
 .adl-header .nav-links a[aria-current="page"] {
-  color: var(--accent); font-weight: 600; border-bottom-color: var(--accent);
-  border-radius: 0;
+  color:var(--accent); font-weight:600; border-bottom-color:var(--accent);
 }
-
-.adl-header .header-actions { display: flex; align-items: center; gap: var(--s-2); margin-left: auto; }
-.adl-header .header-btn { min-height: 44px; padding: var(--s-2) var(--s-4); font-size: 0.9375rem; }
-
+.adl-header .header-actions { display:flex; align-items:center; gap:var(--s2); margin-left:auto; }
+.adl-header .desktop-nav + .header-actions { margin-left:var(--s5); }
+.adl-header .header-btn { min-height:44px; padding:var(--s2) var(--s5); }
 .adl-header .hamburger {
-  display: none; align-items: center; justify-content: center;
-  width: 44px; height: 44px;
-  background: var(--card); border: 1px solid var(--border-strong); border-radius: 4px;
-  color: var(--primary);
+  display:none; align-items:center; justify-content:center;
+  width:44px; height:44px; background:#fff;
+  border:1px solid var(--line); border-radius:3px; color:var(--ink);
 }
-.adl-header .hamburger:hover { background: var(--muted); }
-.adl-header .hamburger .icon-close { display: none; }
-body.adl-menu-open .adl-header .hamburger .icon-open { display: none; }
-body.adl-menu-open .adl-header .hamburger .icon-close { display: block; }
+.adl-header .hamburger:hover { background:var(--paper-2); }
+.adl-header .hamburger .icon-close { display:none; }
+body.adl-menu-open .adl-header .hamburger .icon-open { display:none; }
+body.adl-menu-open .adl-header .hamburger .icon-close { display:block; }
 
 .adl-page .mobile-menu {
-  position: fixed; inset: 61px 0 0; z-index: 99;
-  background: var(--card);
-  padding: var(--s-5) var(--pad-x) var(--s-7);
-  overflow-y: auto;
-  display: none;
+  position:fixed; inset:61px 0 0; z-index:99; background:#fff;
+  padding:var(--s5) var(--pad-x) var(--s8); overflow-y:auto; display:none;
 }
-body.adl-menu-open .mobile-menu { display: block; }
-.adl-page .mobile-nav-links { list-style: none; max-width: 480px; margin: 0 auto; }
+body.adl-menu-open .mobile-menu { display:block; }
+.adl-page .mobile-nav-links { list-style:none; max-width:520px; margin:0 auto; }
 .adl-page .mobile-nav-links a {
-  display: flex; align-items: center; min-height: 56px;
-  font-size: 1.0625rem; font-weight: 500; color: var(--primary);
-  text-decoration: none; border-bottom: 1px solid var(--border);
+  display:flex; align-items:center; min-height:60px;
+  font-family:var(--cond); font-size:1.5rem; font-weight:700; color:var(--ink);
+  text-decoration:none; border-bottom:1px solid var(--line);
 }
 .adl-page .mobile-nav-links a:hover,
-.adl-page .mobile-nav-links a[aria-current="page"] { color: var(--accent); font-weight: 600; }
-.adl-page .mobile-btn-container { max-width: 480px; margin: var(--s-6) auto 0; }
-.adl-page .mobile-btn-container .btn { width: 100%; }
+.adl-page .mobile-nav-links a[aria-current="page"] { color:var(--accent); }
+.adl-page .mobile-btn-container { max-width:520px; margin:var(--s6) auto 0; }
+.adl-page .mobile-btn-container .btn { width:100%; }
 
-@media (min-width: 1080px) { .adl-header .desktop-nav { display: block; } }
-@media (max-width: 1079px) {
-  .adl-header .hamburger { display: flex; }
-  .adl-header .header-btn { display: none; }
+@media (min-width:1120px){ .adl-header .desktop-nav { display:block; } }
+@media (max-width:1119px){
+  .adl-header .hamburger { display:flex; }
+  .adl-header .header-btn { display:none; }
 }
 
-/* ---- Hero: credibility first ---- */
+/* ================= HERO — intro hook ================= */
 .adl-page .hero {
-  position: relative;
-  background: var(--primary);
-  padding: var(--s-8) var(--pad-x) 0;
+  position:relative; background:var(--ink); color:#fff;
+  padding: clamp(64px,7vw,104px) var(--pad-x) 0;
+  overflow:hidden;
 }
 .adl-page .hero::before {
-  content: ""; position: absolute; inset: 0;
+  content:""; position:absolute; inset:0;
   background:
-    linear-gradient(90deg, rgba(15,23,42,.97) 0%, rgba(15,23,42,.92) 50%, rgba(15,23,42,.7) 100%),
+    linear-gradient(78deg, var(--ink) 0%, rgba(11,18,32,.94) 42%, rgba(11,18,32,.5) 100%),
     url('https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/67532c41-fce0-441b-a1d2-5d867657741f/imgi_9_adl_video_placeholder-scaled.jpg?format=2500w') center/cover no-repeat;
 }
 .adl-page .hero-inner {
-  position: relative; z-index: 2;
-  max-width: var(--maxw); margin: 0 auto;
-  padding-bottom: var(--s-8);
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: clamp(40px, 6vw, 96px);
-  align-items: center;
+  position:relative; z-index:2; max-width:var(--maxw); margin:0 auto;
+  padding-bottom: clamp(48px,6vw,80px);
 }
-
-/* Right-hand panel: the six standards as a scannable list, so the
-   half of the screen the copy doesn't need is carrying content. */
-.adl-page .hero-panel {
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 6px;
-  padding: var(--s-5);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-.adl-page .hero-panel h2 {
-  color: #FFFFFF; font-size: 1.0625rem; font-weight: 600;
-  padding-bottom: var(--s-4); margin-bottom: var(--s-2);
-  border-bottom: 1px solid rgba(255,255,255,.18);
-}
-.adl-page .hero-panel ul { list-style: none; }
-.adl-page .hero-panel li {
-  display: grid; grid-template-columns: 88px 1fr auto;
-  align-items: center; gap: var(--s-3);
-  padding: var(--s-3) 0;
-  border-bottom: 1px solid rgba(255,255,255,.1);
-}
-.adl-page .hero-panel li:last-child { border-bottom: 0; }
-.adl-page .hero-panel .code {
-  font-family: var(--mono); font-size: 0.8125rem; font-weight: 600; color: #7DD3FC;
-}
-.adl-page .hero-panel .name { font-size: 0.9375rem; color: #E2E8F0; }
-.adl-page .hero-panel .icon { width: 16px; height: 16px; color: #7DD3FC; }
-.adl-page .hero-panel .panel-foot {
-  display: block; margin-top: var(--s-4); padding-top: var(--s-4);
-  border-top: 1px solid rgba(255,255,255,.18);
-  font-size: 0.875rem; color: #94A3B8; line-height: 1.5;
-}
-
-@media (max-width: 1000px) {
-  .adl-page .hero-inner { grid-template-columns: 1fr; gap: var(--s-7); align-items: start; }
-}
-.adl-page .hero h1 { color: #FFFFFF; max-width: 19ch; margin-bottom: var(--s-5); }
-.adl-page .hero .sub {
-  color: #CBD5E1; font-size: 1.125rem; line-height: 1.7;
-  max-width: 52ch; margin-bottom: var(--s-6);
-}
-.adl-page .btn-row { display: flex; gap: var(--s-3); flex-wrap: wrap; }
-
 .adl-page .hero-locale {
-  font-family: var(--mono); font-size: 0.8125rem; font-weight: 500;
-  letter-spacing: .06em; text-transform: uppercase; color: #7DD3FC;
-  display: block; margin-bottom: var(--s-4);
+  display:flex; align-items:center; gap:var(--s3);
+  font-family:var(--mono); font-size:0.75rem; font-weight:500;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--accent-hi);
+  margin-bottom:var(--s5);
+}
+.adl-page .hero-locale::after { content:""; flex:1; height:1px; background:var(--line-dark); max-width:280px; }
+
+.adl-page .hero h1 { color:#fff; max-width:22ch; margin-bottom:var(--s7); }
+.adl-page .hero h1 .thin { font-weight:600; color:#94A3B8; display:block; }
+
+.adl-page .hero-grid {
+  display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap: clamp(32px,5vw,80px); align-items:start;
+}
+.adl-page .hero-sub { color:#CBD5E1; font-size:1.125rem; line-height:1.7; max-width:52ch; margin-bottom:var(--s6); }
+.adl-page .btn-row { display:flex; gap:var(--s3); flex-wrap:wrap; }
+
+.adl-page .hero-list { list-style:none; border-top:1px solid var(--line-dark); }
+.adl-page .hero-list li {
+  display:grid; grid-template-columns:92px 1fr auto; align-items:center; gap:var(--s4);
+  padding:var(--s3) 0; border-bottom:1px solid var(--line-dark);
+}
+.adl-page .hero-list .code { font-family:var(--mono); font-size:0.8125rem; font-weight:600; color:var(--accent-hi); }
+.adl-page .hero-list .name { font-size:0.9375rem; color:#E2E8F0; }
+.adl-page .hero-list .icon { width:16px; height:16px; color:var(--accent-hi); }
+.adl-page .hero-list-title {
+  font-family:var(--mono); font-size:0.6875rem; font-weight:500;
+  letter-spacing:.18em; text-transform:uppercase; color:#94A3B8;
+  margin-bottom:var(--s4); display:block;
+}
+@media (max-width:1000px){
+  .adl-page .hero-grid { grid-template-columns:1fr; gap:var(--s7); align-items:start; }
 }
 
-/* Proof bar spans the seam between hero and page body */
-.adl-page .proof-bar {
-  position: relative; z-index: 2;
-  max-width: var(--maxw); margin: 0 auto;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-bottom: 0;
-  display: grid; grid-template-columns: repeat(3, 1fr);
+/* Stat band — closes the hero chapter */
+.adl-page .stat-band {
+  position:relative; z-index:2; background:var(--ink-2);
+  border-top:1px solid var(--line-dark);
+  padding: 0 var(--pad-x);
 }
-.adl-page .proof-bar > div {
-  padding: var(--s-5) var(--s-5);
-  border-right: 1px solid var(--border);
-  display: flex; gap: var(--s-3); align-items: flex-start;
+.adl-page .stat-band-inner {
+  max-width:var(--maxw); margin:0 auto;
+  display:grid; grid-template-columns:repeat(4,1fr);
 }
-.adl-page .proof-bar > div:last-child { border-right: 0; }
-.adl-page .proof-bar .icon { color: var(--accent); margin-top: 2px; }
-.adl-page .proof-bar strong {
-  display: block; color: var(--primary); font-size: 1.0625rem; font-weight: 600;
-  line-height: 1.3; margin-bottom: 2px;
+.adl-page .stat-band .stat {
+  padding: var(--s6) var(--s5) var(--s6) 0;
+  border-right:1px solid var(--line-dark);
 }
-.adl-page .proof-bar span { display: block; font-size: 0.9375rem; color: var(--muted-fg); line-height: 1.5; }
+.adl-page .stat-band .stat:not(:first-child) { padding-left:var(--s5); }
+.adl-page .stat-band .stat:last-child { border-right:0; }
+.adl-page .stat-band b {
+  display:block; font-family:var(--cond); font-weight:700;
+  font-size: clamp(2.25rem,3.4vw,3.25rem); line-height:1;
+  color:#fff; letter-spacing:-0.02em; margin-bottom:var(--s2);
+  font-variant-numeric:tabular-nums;
+}
+.adl-page .stat-band span { font-size:0.875rem; color:#94A3B8; line-height:1.5; display:block; }
+@media (max-width:900px){
+  .adl-page .stat-band-inner { grid-template-columns:1fr 1fr; }
+  .adl-page .stat-band .stat { padding:var(--s5) var(--s4) var(--s5) 0; }
+  .adl-page .stat-band .stat:nth-child(2n) { border-right:0; padding-left:var(--s4); }
+  .adl-page .stat-band .stat:nth-child(-n+2) { border-bottom:1px solid var(--line-dark); }
+  .adl-page .stat-band .stat:nth-child(3) { padding-left:0; }
+}
+@media (max-width:520px){
+  .adl-page .stat-band-inner { grid-template-columns:1fr; }
+  .adl-page .stat-band .stat { border-right:0; padding:var(--s4) 0 !important; border-bottom:1px solid var(--line-dark); }
+  .adl-page .stat-band .stat:last-child { border-bottom:0; }
+}
 
-@media (max-width: 860px) {
-  .adl-page .hero { padding-left: 0; padding-right: 0; }
-  .adl-page .hero-inner { padding-left: var(--pad-x); padding-right: var(--pad-x); }
-  .adl-page .proof-bar { grid-template-columns: 1fr; border-left: 0; border-right: 0; }
-  .adl-page .proof-bar > div {
-    border-right: 0; border-bottom: 1px solid var(--border);
-    padding: var(--s-4) var(--pad-x);
+/* ================= CHAPTER 01 — the problem ================= */
+.adl-page .problem { background:var(--paper); padding: clamp(72px,8vw,120px) var(--pad-x); }
+.adl-page .problem-head {
+  max-width:var(--maxw); margin:0 auto var(--s8);
+  display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap: clamp(32px,5vw,80px); align-items:end;
+}
+.adl-page .problem-head p { color:var(--muted-fg); font-size:1.0625rem; line-height:1.7; padding-bottom:6px; }
+.adl-page .problem-grid {
+  max-width:var(--maxw); margin:0 auto;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+  border-top:1px solid var(--line);
+}
+.adl-page .problem-item {
+  padding: var(--s6) var(--s6) var(--s6) 0;
+  border-right:1px solid var(--line);
+}
+.adl-page .problem-item:not(:first-child) { padding-left:var(--s6); }
+.adl-page .problem-item:last-child { border-right:0; padding-right:0; }
+.adl-page .problem-item .pnum {
+  display:block; font-family:var(--cond); font-weight:700;
+  font-size:3.5rem; line-height:1; color:var(--line); margin-bottom:var(--s4);
+}
+.adl-page .problem-item h3 { margin-bottom:var(--s3); }
+.adl-page .problem-item p { color:var(--muted-fg); font-size:0.9688rem; line-height:1.7; }
+@media (max-width:900px){
+  .adl-page .problem-head { grid-template-columns:1fr; gap:var(--s4); align-items:start; }
+  .adl-page .problem-grid { grid-template-columns:1fr; }
+  .adl-page .problem-item {
+    border-right:0; border-bottom:1px solid var(--line);
+    padding:var(--s5) 0 !important;
   }
-  .adl-page .proof-bar > div:last-child { border-bottom: 0; }
+  .adl-page .problem-item:last-child { border-bottom:0; }
 }
 
-/* ---- Standards switcher ---- */
-.adl-page .standards { padding: var(--section) var(--pad-x); background: var(--background); }
+/* ================= CHAPTER 02 — the standards ================= */
+.adl-page .standards {
+  background:var(--paper-2); padding: clamp(72px,8vw,120px) var(--pad-x);
+  border-top:1px solid var(--line);
+}
+.adl-page .std-head {
+  max-width:var(--maxw); margin:0 auto var(--s6);
+  display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap: clamp(32px,5vw,80px); align-items:end;
+}
+.adl-page .std-head p { color:var(--muted-fg); font-size:1.0625rem; line-height:1.7; padding-bottom:6px; }
 
 .adl-page .std-tabs {
-  max-width: var(--maxw); margin: 0 auto;
-  display: flex;
-  border: 1px solid var(--border);
-  border-bottom: 0;
-  background: var(--muted);
-  overflow-x: auto;
-  scrollbar-width: none;
+  max-width:var(--maxw); margin:0 auto;
+  display:flex; background:var(--paper); border:1px solid var(--line); border-bottom:0;
+  overflow-x:auto; scrollbar-width:none;
 }
-.adl-page .std-tabs::-webkit-scrollbar { display: none; }
-
+.adl-page .std-tabs::-webkit-scrollbar { display:none; }
 .adl-page .std-tab {
-  flex: 1 0 auto;
-  min-height: 64px;
-  background: transparent;
-  border: 0;
-  border-right: 1px solid var(--border);
-  border-bottom: 3px solid transparent;
-  padding: var(--s-3) var(--s-4);
-  text-align: left;
-  color: var(--muted-fg);
-  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+  flex:1 0 auto; min-height:72px;
+  background:transparent; border:0;
+  border-right:1px solid var(--line); border-top:3px solid transparent;
+  padding:var(--s4) var(--s5); text-align:left; color:var(--muted-fg);
+  transition:background-color .2s ease, color .2s ease, border-color .2s ease;
 }
-.adl-page .std-tab:last-child { border-right: 0; }
+.adl-page .std-tab:last-child { border-right:0; }
 .adl-page .std-tab .code {
-  display: block;
-  font-family: var(--mono); font-size: 0.8125rem; font-weight: 600;
-  letter-spacing: .02em; color: var(--secondary);
-  margin-bottom: 2px;
-  transition: color .2s ease;
+  display:block; font-family:var(--mono); font-size:0.8125rem; font-weight:600;
+  color:var(--slate); margin-bottom:3px; transition:color .2s ease;
 }
-.adl-page .std-tab .name { display: block; font-size: 0.875rem; font-weight: 500; }
-.adl-page .std-tab:hover { background: #DDE3EA; color: var(--primary); }
-/* Selected state: background + weight + bottom rule, not colour alone */
+.adl-page .std-tab .name { display:block; font-size:0.875rem; font-weight:500; }
+.adl-page .std-tab:hover { background:var(--paper-2); color:var(--ink); }
 .adl-page .std-tab[aria-selected="true"] {
-  background: var(--card);
-  border-bottom-color: var(--accent);
-  color: var(--primary);
+  background:var(--ink); border-top-color:var(--accent-hi); color:#fff;
 }
-.adl-page .std-tab[aria-selected="true"] .code { color: var(--accent); }
-.adl-page .std-tab[aria-selected="true"] .name { font-weight: 600; }
+.adl-page .std-tab[aria-selected="true"] .code { color:var(--accent-hi); }
+.adl-page .std-tab[aria-selected="true"] .name { font-weight:600; }
 
-.adl-page .std-panels { max-width: var(--maxw); margin: 0 auto; }
-.adl-page .std-panel[hidden] { display: none; }
+.adl-page .std-panels { max-width:var(--maxw); margin:0 auto; }
+.adl-page .std-panel[hidden] { display:none; }
 .adl-page .std-panel {
-  background: var(--card);
-  border: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3.4fr);
+  background:var(--paper); border:1px solid var(--line);
+  display:grid; grid-template-columns:minmax(0,4.2fr) minmax(0,4.8fr) minmax(0,3.2fr);
 }
-.adl-page .std-panel:focus-visible { outline-offset: -3px; }
-
-.adl-page .std-media { position: relative; min-height: 420px; background: var(--primary); }
-.adl-page .std-media img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover;
-}
+.adl-page .std-media { position:relative; min-height:440px; background:var(--ink); }
+.adl-page .std-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .adl-page .std-media::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(15,23,42,.25), rgba(15,23,42,.75));
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(11,18,32,.15), rgba(11,18,32,.8));
 }
 .adl-page .std-revision {
-  position: absolute; z-index: 2; left: var(--s-5); bottom: var(--s-5);
-  background: var(--card); color: var(--accent);
-  font-family: var(--mono); font-size: 0.8125rem; font-weight: 600;
-  padding: var(--s-2) var(--s-3); border-radius: 3px;
+  position:absolute; z-index:2; left:0; bottom:var(--s5);
+  background:var(--accent); color:#fff;
+  font-family:var(--mono); font-size:0.8125rem; font-weight:600;
+  padding:var(--s2) var(--s4);
 }
-
 .adl-page .std-body {
-  padding: clamp(24px, 3vw, 44px);
-  display: flex; flex-direction: column; justify-content: center;
-  border-left: 1px solid var(--border);
+  padding: clamp(28px,2.8vw,44px);
+  border-left:1px solid var(--line);
+  display:flex; flex-direction:column; justify-content:center;
 }
-.adl-page .std-body h3 { font-size: 1.5rem; margin-bottom: var(--s-3); }
-.adl-page .std-body > p { color: var(--muted-fg); line-height: 1.7; max-width: 56ch; }
-
-/* Right rail: the headline figure, the facts table and the CTA */
-.adl-page .std-rail {
-  border-left: 1px solid var(--border);
-  background: var(--background);
-  padding: clamp(24px, 2.4vw, 36px);
-  display: flex; flex-direction: column;
-}
-.adl-page .std-figure { padding-bottom: var(--s-5); border-bottom: 1px solid var(--border); }
-.adl-page .std-figure b {
-  display: block;
-  font-size: clamp(2rem, 2.6vw, 2.75rem); font-weight: 600; color: var(--primary);
-  letter-spacing: -0.03em; line-height: 1; margin-bottom: var(--s-3);
-  font-variant-numeric: tabular-nums;
-}
-.adl-page .std-figure span { font-size: 0.9375rem; color: var(--muted-fg); line-height: 1.5; display: block; }
-
-.adl-page .std-facts { list-style: none; margin: var(--s-2) 0 var(--s-5); }
-.adl-page .std-facts li {
-  display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-3);
-  padding: var(--s-3) 0; border-bottom: 1px solid var(--border);
-  font-size: 0.875rem;
-}
-.adl-page .std-facts dt, .adl-page .std-facts .k { color: var(--muted-fg); }
-.adl-page .std-facts .v {
-  font-family: var(--mono); font-size: 0.8125rem; font-weight: 600;
-  color: var(--primary); text-align: right;
-}
-.adl-page .std-rail .btn { width: 100%; margin-top: auto; }
-
-.adl-page .std-points { list-style: none; display: grid; gap: var(--s-3); margin: var(--s-5) 0 var(--s-6); }
+.adl-page .std-body h3 { font-family:var(--cond); font-weight:700; font-size:2rem; line-height:1.06; margin-bottom:var(--s4); }
+.adl-page .std-body > p { color:var(--muted-fg); line-height:1.72; max-width:52ch; }
+.adl-page .std-points { list-style:none; display:grid; gap:var(--s3); margin-top:var(--s5); }
 .adl-page .std-points li {
-  display: flex; align-items: flex-start; gap: var(--s-3);
-  font-size: 0.9375rem; color: var(--secondary); line-height: 1.55;
+  display:flex; align-items:flex-start; gap:var(--s3);
+  font-size:0.9375rem; color:var(--slate); line-height:1.55;
 }
-.adl-page .std-points .icon { color: var(--accent); width: 18px; height: 18px; margin-top: 3px; }
+.adl-page .std-points .icon { width:18px; height:18px; color:var(--accent); margin-top:3px; }
 
-.adl-page .std-points { margin-bottom: 0; }
+.adl-page .std-rail {
+  border-left:1px solid var(--line); background:var(--paper-2);
+  padding: clamp(28px,2.6vw,40px);
+  display:flex; flex-direction:column;
+}
+.adl-page .std-figure { padding-bottom:var(--s5); border-bottom:1px solid var(--line); }
+.adl-page .std-figure b {
+  display:block; font-family:var(--cond); font-weight:700;
+  font-size:clamp(2.5rem,3.2vw,3.5rem); line-height:1; color:var(--ink);
+  letter-spacing:-0.02em; margin-bottom:var(--s3); font-variant-numeric:tabular-nums;
+}
+.adl-page .std-figure span { display:block; font-size:0.9375rem; color:var(--muted-fg); line-height:1.5; }
+.adl-page .std-facts { list-style:none; margin:var(--s2) 0 var(--s5); }
+.adl-page .std-facts li {
+  display:flex; justify-content:space-between; align-items:baseline; gap:var(--s3);
+  padding:var(--s3) 0; border-bottom:1px solid var(--line); font-size:0.875rem;
+}
+.adl-page .std-facts .k { color:var(--muted-fg); }
+.adl-page .std-facts .v { font-family:var(--mono); font-size:0.8125rem; font-weight:600; color:var(--ink); text-align:right; }
+.adl-page .std-rail .btn { width:100%; margin-top:auto; }
 
-@media (max-width: 1180px) {
-  .adl-page .std-panel { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
-  .adl-page .std-rail { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--border); }
-  .adl-page .std-rail .std-inner { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-6); align-items: start; }
+@media (max-width:1180px){
+  .adl-page .std-panel { grid-template-columns:minmax(0,5fr) minmax(0,7fr); }
+  .adl-page .std-rail { grid-column:1/-1; border-left:0; border-top:1px solid var(--line); }
+  .adl-page .std-rail .std-inner { display:grid; grid-template-columns:1fr 1fr; gap:var(--s7); align-items:start; }
 }
-@media (max-width: 900px) {
-  .adl-page .std-panel { grid-template-columns: 1fr; }
-  .adl-page .std-media { min-height: 240px; }
-  .adl-page .std-body { border-left: 0; border-top: 1px solid var(--border); }
-  .adl-page .std-rail .std-inner { grid-template-columns: 1fr; gap: var(--s-4); }
-  .adl-page .std-tab { flex: 0 0 auto; min-width: 168px; }
+@media (max-width:900px){
+  .adl-page .std-head { grid-template-columns:1fr; gap:var(--s4); align-items:start; }
+  .adl-page .std-panel { grid-template-columns:1fr; }
+  .adl-page .std-media { min-height:260px; }
+  .adl-page .std-body { border-left:0; border-top:1px solid var(--line); }
+  .adl-page .std-rail .std-inner { grid-template-columns:1fr; gap:var(--s4); }
+  .adl-page .std-tab { flex:0 0 auto; min-width:180px; }
 }
 
-/* ---- Process ---- */
-.adl-page .process {
-  padding: var(--section) var(--pad-x);
-  background: var(--card);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+/* ================= CHAPTER 03 — the journey ================= */
+.adl-page .journey {
+  background:var(--ink); color:#fff;
+  padding: clamp(72px,8vw,120px) var(--pad-x);
 }
-.adl-page .process-grid {
-  max-width: var(--maxw); margin: 0 auto;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-5);
+.adl-page .journey h2 { color:#fff; }
+.adl-page .journey-head {
+  max-width:var(--maxw); margin:0 auto var(--s8);
+  display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap:clamp(32px,5vw,80px); align-items:end;
 }
-.adl-page .step { padding-top: var(--s-5); border-top: 3px solid var(--accent); }
-.adl-page .step-num {
-  display: block; font-family: var(--mono); font-size: 0.75rem; font-weight: 600;
-  letter-spacing: .1em; color: var(--accent); margin-bottom: var(--s-3);
+.adl-page .journey-head p { color:#94A3B8; font-size:1.0625rem; line-height:1.7; padding-bottom:6px; }
+.adl-page .journey-grid {
+  max-width:var(--maxw); margin:0 auto;
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line-dark);
 }
-.adl-page .step h3 { margin-bottom: var(--s-2); }
-.adl-page .step p { font-size: 0.9375rem; color: var(--muted-fg); line-height: 1.65; }
+.adl-page .step { padding: var(--s6) var(--s5) 0 0; border-right:1px solid var(--line-dark); }
+.adl-page .step:not(:first-child) { padding-left:var(--s5); }
+.adl-page .step:last-child { border-right:0; }
+.adl-page .step .snum {
+  display:block; font-family:var(--cond); font-weight:700;
+  font-size:clamp(3rem,4vw,4.25rem); line-height:1;
+  color:var(--accent-hi); margin-bottom:var(--s4);
+  font-variant-numeric:tabular-nums;
+}
+.adl-page .step h3 { color:#fff; margin-bottom:var(--s3); }
+.adl-page .step p { color:#94A3B8; font-size:0.9375rem; line-height:1.68; }
+@media (max-width:900px){
+  .adl-page .journey-head { grid-template-columns:1fr; gap:var(--s4); align-items:start; }
+  .adl-page .journey-grid { grid-template-columns:1fr 1fr; }
+  .adl-page .step:nth-child(2n) { border-right:0; }
+  .adl-page .step:nth-child(-n+2) { border-bottom:1px solid var(--line-dark); padding-bottom:var(--s5); }
+}
+@media (max-width:560px){
+  .adl-page .journey-grid { grid-template-columns:1fr; }
+  .adl-page .step { border-right:0; border-bottom:1px solid var(--line-dark); padding:var(--s5) 0 var(--s5) 0 !important; }
+  .adl-page .step:last-child { border-bottom:0; }
+}
 
-@media (max-width: 900px) { .adl-page .process-grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-6); } }
-@media (max-width: 560px) { .adl-page .process-grid { grid-template-columns: 1fr; } }
+/* ================= PULL QUOTE — the proof moment ================= */
+.adl-page .pullquote {
+  background:var(--accent); color:#fff;
+  padding: clamp(64px,7vw,104px) var(--pad-x);
+}
+.adl-page .pullquote-inner {
+  max-width:var(--maxw); margin:0 auto;
+  display:grid; grid-template-columns:minmax(0,8fr) minmax(0,4fr);
+  gap:clamp(32px,5vw,72px); align-items:start;
+}
+.adl-page .pullquote blockquote {
+  font-family:var(--cond); font-weight:700;
+  font-size:clamp(1.875rem,3.6vw,3.25rem); line-height:1.1;
+  letter-spacing:-0.015em; color:#fff; text-wrap:balance;
+}
+.adl-page .pullquote .pq-figure {
+  font-family:var(--cond); font-weight:700; font-size:clamp(3rem,4.4vw,4.5rem);
+  line-height:1; display:block; margin-bottom:var(--s3);
+  font-variant-numeric:tabular-nums;
+}
+.adl-page .pullquote figcaption {
+  border-top:1px solid rgba(255,255,255,.35); padding-top:var(--s4);
+  font-size:0.9375rem; color:#E0F2FE;
+}
+.adl-page .pullquote figcaption strong { display:block; color:#fff; font-weight:600; }
+@media (max-width:900px){
+  .adl-page .pullquote-inner { grid-template-columns:1fr; gap:var(--s6); }
+}
 
-/* ---- About ---- */
-.adl-page .about { padding: var(--section) var(--pad-x); background: var(--background); }
+/* ================= ABOUT ================= */
+.adl-page .about { background:var(--paper); padding: clamp(72px,8vw,120px) var(--pad-x); }
 .adl-page .about-grid {
-  max-width: var(--maxw); margin: 0 auto;
-  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(32px, 5vw, 72px); align-items: center;
+  max-width:var(--maxw); margin:0 auto;
+  display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr);
+  gap:clamp(32px,5vw,88px); align-items:start;
 }
-.adl-page .about-visual { position: relative; }
 .adl-page .about-visual img {
-  width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block;
-  border: 1px solid var(--border); border-radius: 4px;
+  width:100%; aspect-ratio:4/3; object-fit:cover; display:block; border:1px solid var(--line);
 }
-.adl-page .about-card {
-  background: var(--primary); color: #FFFFFF;
-  border-radius: 4px;
-  padding: var(--s-5);
-  margin-top: -1px;
-  display: flex; align-items: center; gap: var(--s-4);
+.adl-page .about-tags { display:flex; flex-wrap:wrap; gap:var(--s2); margin-top:var(--s4); }
+.adl-page .about-tags span {
+  font-family:var(--mono); font-size:0.6875rem; font-weight:500; letter-spacing:.06em;
+  color:var(--accent); background:var(--wash); padding:var(--s1) var(--s3);
 }
-.adl-page .about-card .icon { width: 32px; height: 32px; color: #7DD3FC; }
-.adl-page .about-card b { display: block; font-size: 1.5rem; font-weight: 600; line-height: 1.2; }
-.adl-page .about-card span { font-size: 0.9375rem; color: #CBD5E1; }
-
-.adl-page .about h2 { margin-bottom: var(--s-5); }
-.adl-page .about-copy > p { color: var(--muted-fg); line-height: 1.75; max-width: 62ch; margin-bottom: var(--s-4); }
-.adl-page .about-copy > p.lead { color: var(--primary); font-size: 1.1875rem; font-weight: 500; line-height: 1.6; }
-.adl-page .checklist { list-style: none; display: grid; gap: var(--s-3); margin: var(--s-5) 0 var(--s-6); }
-.adl-page .checklist li {
-  display: flex; align-items: flex-start; gap: var(--s-3);
-  color: var(--secondary); line-height: 1.55; font-size: 1rem;
+.adl-page .about h2 { margin-bottom:var(--s5); }
+.adl-page .about-copy > p.lede {
+  color:var(--ink); font-family:var(--cond); font-weight:600;
+  font-size:clamp(1.25rem,2.1vw,1.75rem); line-height:1.35; letter-spacing:-0.01em;
+  margin-bottom:var(--s4); max-width:42ch;
 }
-.adl-page .checklist .icon { color: var(--accent); margin-top: 2px; }
-.adl-page .about-ctas { display: flex; gap: var(--s-3); flex-wrap: wrap; }
-
-@media (max-width: 900px) {
-  .adl-page .about-grid { grid-template-columns: 1fr; gap: var(--s-7); }
-  .adl-page .about-visual img { aspect-ratio: 16 / 9; }
+.adl-page .about-copy > p { color:var(--muted-fg); line-height:1.75; max-width:62ch; }
+.adl-page .checklist { list-style:none; display:grid; gap:var(--s3); margin:var(--s5) 0 var(--s6); }
+.adl-page .checklist li { display:flex; align-items:flex-start; gap:var(--s3); color:var(--slate); line-height:1.55; }
+.adl-page .checklist .icon { color:var(--accent); margin-top:2px; }
+.adl-page .about-ctas { display:flex; gap:var(--s3); flex-wrap:wrap; }
+@media (max-width:900px){
+  .adl-page .about-grid { grid-template-columns:1fr; gap:var(--s7); }
+  .adl-page .about-visual img { aspect-ratio:16/9; }
 }
 
-/* ---- Reasons ---- */
-.adl-page .reasons { padding: var(--section) var(--pad-x); background: var(--card); border-top: 1px solid var(--border); }
+/* ================= REASONS ================= */
+.adl-page .reasons {
+  background:var(--paper-2); padding: clamp(72px,8vw,120px) var(--pad-x);
+  border-top:1px solid var(--line);
+}
+.adl-page .reasons-head {
+  max-width:var(--maxw); margin:0 auto var(--s7);
+  display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap:clamp(32px,5vw,80px); align-items:end;
+}
+.adl-page .reasons-head p { color:var(--muted-fg); font-size:1.0625rem; line-height:1.7; padding-bottom:6px; }
 .adl-page .reasons-grid {
-  max-width: var(--maxw); margin: 0 auto;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--s-5);
+  max-width:var(--maxw); margin:0 auto;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);
+  border:1px solid var(--line);
 }
-.adl-page .reason {
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: var(--s-5);
-  transition: border-color .2s ease, background-color .2s ease;
-}
-.adl-page .reason:hover { border-color: var(--accent); background: var(--background); }
+.adl-page .reason { background:var(--paper); padding:var(--s6); transition:background-color .2s ease; }
+.adl-page .reason:hover { background:#fff; }
 .adl-page .reason .icon-box {
-  width: 40px; height: 40px; border-radius: 4px;
-  background: var(--accent-wash); color: var(--accent);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: var(--s-4);
+  width:44px; height:44px; background:var(--wash); color:var(--accent);
+  display:flex; align-items:center; justify-content:center; margin-bottom:var(--s5);
 }
-.adl-page .reason h3 { margin-bottom: var(--s-2); }
-.adl-page .reason p { font-size: 0.9375rem; color: var(--muted-fg); line-height: 1.65; }
+.adl-page .reason h3 { margin-bottom:var(--s3); }
+.adl-page .reason p { font-size:0.9375rem; color:var(--muted-fg); line-height:1.68; }
+@media (max-width:1000px){ .adl-page .reasons-grid { grid-template-columns:1fr 1fr; } }
+@media (max-width:640px){
+  .adl-page .reasons-head { grid-template-columns:1fr; gap:var(--s4); align-items:start; }
+  .adl-page .reasons-grid { grid-template-columns:1fr; }
+}
 
-/* ---- Testimonials ---- */
-.adl-page .testimonials { padding: var(--section) var(--pad-x); background: var(--background); border-top: 1px solid var(--border); }
-.adl-page .testimonials-grid {
-  max-width: var(--maxw); margin: 0 auto;
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5);
+/* ================= TESTIMONIALS ================= */
+.adl-page .testimonials { background:var(--paper); padding: clamp(72px,8vw,120px) var(--pad-x); }
+.adl-page .t-grid {
+  max-width:var(--maxw); margin:0 auto;
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s5);
 }
 .adl-page .t-card {
-  background: var(--card); border: 1px solid var(--border); border-radius: 4px;
-  padding: var(--s-5); display: flex; flex-direction: column;
+  border-top:3px solid var(--ink); padding-top:var(--s5);
+  display:flex; flex-direction:column;
 }
-.adl-page .t-card .icon-quote { width: 28px; height: 28px; color: var(--border-strong); margin-bottom: var(--s-4); }
-.adl-page .t-card blockquote {
-  color: var(--secondary); font-size: 1rem; line-height: 1.7;
-  flex-grow: 1; margin-bottom: var(--s-5);
-}
-.adl-page .t-tags { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-bottom: var(--s-4); }
+.adl-page .t-card blockquote { color:var(--slate); line-height:1.7; flex-grow:1; margin-bottom:var(--s5); }
+.adl-page .t-tags { display:flex; flex-wrap:wrap; gap:var(--s1); margin-bottom:var(--s4); }
 .adl-page .t-tags span {
-  font-family: var(--mono); font-size: 0.6875rem; font-weight: 500;
-  color: var(--accent); background: var(--accent-wash);
-  padding: 3px var(--s-2); border-radius: 3px;
+  font-family:var(--mono); font-size:0.6875rem; font-weight:500;
+  color:var(--accent); background:var(--wash); padding:3px var(--s2);
 }
-.adl-page .t-author { border-top: 1px solid var(--border); padding-top: var(--s-4); font-style: normal; }
-.adl-page .t-author strong { display: block; color: var(--primary); font-size: 0.9375rem; font-weight: 600; }
-.adl-page .t-author span { font-size: 0.875rem; color: var(--muted-fg); }
-
-@media (max-width: 900px) {
-  .adl-page .testimonials-grid {
-    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(82%, 360px);
-    overflow-x: auto; scroll-snap-type: x mandatory;
-    margin: 0 calc(var(--pad-x) * -1); padding: 0 var(--pad-x) var(--s-4);
-    scrollbar-width: none;
+.adl-page .t-author { border-top:1px solid var(--line); padding-top:var(--s4); font-style:normal; }
+.adl-page .t-author strong { display:block; color:var(--ink); font-size:0.9375rem; font-weight:600; }
+.adl-page .t-author span { font-size:0.875rem; color:var(--muted-fg); }
+@media (max-width:900px){
+  .adl-page .t-grid {
+    grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:min(82%,360px);
+    overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;
+    margin:0 calc(var(--pad-x) * -1); padding:0 var(--pad-x) var(--s4);
   }
-  .adl-page .testimonials-grid::-webkit-scrollbar { display: none; }
-  .adl-page .t-card { scroll-snap-align: start; }
+  .adl-page .t-grid::-webkit-scrollbar { display:none; }
+  .adl-page .t-card { scroll-snap-align:start; }
 }
 
-/* ---- Approach ---- */
-.adl-page .approach { padding: var(--section) var(--pad-x); background: var(--primary); }
-.adl-page .approach-grid {
-  max-width: var(--maxw); margin: 0 auto;
-  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(32px, 5vw, 72px); align-items: start;
+/* ================= CLIMAX CTA ================= */
+.adl-page .final-cta { background:var(--ink); padding: clamp(64px,7vw,96px) var(--pad-x); }
+.adl-page .cta-grid {
+  max-width:var(--maxw); margin:0 auto;
+  display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap:clamp(32px,5vw,80px); align-items:center;
 }
-.adl-page .approach h2 { color: #FFFFFF; max-width: 16ch; }
-.adl-page .approach > .approach-grid > div > p { color: #CBD5E1; line-height: 1.75; max-width: 60ch; }
-.adl-page .approach-list { list-style: none; display: grid; gap: 0; margin-top: var(--s-5); }
-.adl-page .approach-list li {
-  display: flex; align-items: flex-start; gap: var(--s-3);
-  color: #E2E8F0; font-size: 1rem; line-height: 1.55;
-  padding: var(--s-4) 0;
-  border-bottom: 1px solid rgba(255,255,255,.16);
+.adl-page .final-cta h2 { color:#fff; max-width:16ch; }
+.adl-page .final-cta p { color:#94A3B8; font-size:1.0625rem; line-height:1.7; margin-top:var(--s5); max-width:52ch; }
+.adl-page .cta-actions { display:grid; gap:var(--s3); }
+.adl-page .cta-actions .btn { width:100%; }
+.adl-page .cta-note {
+  font-family:var(--mono); font-size:0.75rem; letter-spacing:.1em;
+  text-transform:uppercase; color:#64748B; text-align:center; margin-top:var(--s2);
 }
-.adl-page .approach-list li:first-child { border-top: 1px solid rgba(255,255,255,.16); }
-.adl-page .approach-list .icon { color: #7DD3FC; margin-top: 2px; }
+@media (max-width:900px){ .adl-page .cta-grid { grid-template-columns:1fr; gap:var(--s6); } }
 
-@media (max-width: 900px) { .adl-page .approach-grid { grid-template-columns: 1fr; gap: var(--s-6); } }
-
-/* ---- Final CTA ---- */
-.adl-page .final-cta {
-  padding: var(--section) var(--pad-x);
-  background: var(--accent);
-  text-align: center;
+/* ================= FOOTER ================= */
+.adl-footer { background:var(--ink-2); color:#94A3B8; padding: var(--s8) var(--pad-x) var(--s5); font-size:0.9375rem; }
+.adl-footer .footer-inner { max-width:var(--maxw); margin:0 auto; }
+.adl-footer .certs-title {
+  font-family:var(--mono); font-size:0.6875rem; font-weight:500; letter-spacing:.18em;
+  text-transform:uppercase; color:#64748B; text-align:center; margin-bottom:var(--s5);
 }
-.adl-page .cta-inner { max-width: 680px; margin: 0 auto; }
-.adl-page .final-cta h2 { color: #FFFFFF; margin-bottom: var(--s-4); }
-.adl-page .final-cta p { color: #E0F2FE; font-size: 1.0625rem; line-height: 1.7; margin-bottom: var(--s-6); }
-.adl-page .final-cta .btn-row { justify-content: center; }
-.adl-page .final-cta .eyebrow { color: #BAE6FD; }
-
-/* ---- Footer ---- */
-.adl-footer {
-  background: var(--primary); color: #CBD5E1;
-  padding: var(--s-8) var(--pad-x) var(--s-5);
-  font-size: 0.9375rem;
+.adl-footer .certs {
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+  gap:clamp(24px,4vw,56px); padding:var(--s5) 0;
+  border-top:1px solid var(--line-dark); border-bottom:1px solid var(--line-dark);
+  margin-bottom:var(--s8);
 }
-.adl-footer .footer-inner { max-width: var(--maxw); margin: 0 auto; }
-
-.adl-footer .footer-certs-title {
-  font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
-  letter-spacing: .1em; text-transform: uppercase; color: #94A3B8;
-  text-align: center; margin-bottom: var(--s-5);
-}
-.adl-footer .footer-certs-inner {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-  gap: clamp(24px, 4vw, 56px);
-  padding: var(--s-5) 0;
-  border-top: 1px solid rgba(255,255,255,.16);
-  border-bottom: 1px solid rgba(255,255,255,.16);
-  margin-bottom: var(--s-8);
-}
-.adl-footer .footer-certs-inner img {
-  height: 44px; width: auto; object-fit: contain;
-  background: #FFFFFF; padding: var(--s-2); border-radius: 3px;
-}
-
+.adl-footer .certs img { height:44px; width:auto; object-fit:contain; background:#fff; padding:var(--s2); }
 .adl-footer .footer-grid {
-  display: grid; grid-template-columns: 1.8fr 1fr 1fr 1.3fr;
-  gap: var(--s-6); margin-bottom: var(--s-7);
+  display:grid; grid-template-columns:1.9fr 1fr 1fr 1.3fr; gap:var(--s6); margin-bottom:var(--s7);
 }
-.adl-footer .footer-logo { height: 38px; width: auto; margin-bottom: var(--s-4); display: block; }
-.adl-footer .footer-col p { line-height: 1.7; margin-bottom: var(--s-2); max-width: 40ch; }
+.adl-footer .footer-logo { height:38px; width:auto; margin-bottom:var(--s4); display:block; }
+.adl-footer .footer-col p { line-height:1.7; margin-bottom:var(--s2); max-width:40ch; }
 .adl-footer .footer-col h4 {
-  font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
-  letter-spacing: .1em; text-transform: uppercase; color: #94A3B8;
-  margin-bottom: var(--s-4);
+  font-family:var(--mono); font-size:0.6875rem; font-weight:500; letter-spacing:.18em;
+  text-transform:uppercase; color:#64748B; margin-bottom:var(--s4);
 }
-.adl-footer .footer-col ul { list-style: none; display: grid; gap: var(--s-1); }
+.adl-footer .footer-col ul { list-style:none; }
 .adl-footer .footer-col li a {
-  display: flex; align-items: center; min-height: 36px;
-  color: #CBD5E1; text-decoration: none; transition: color .2s ease;
+  display:flex; align-items:center; min-height:36px; color:#94A3B8;
+  text-decoration:none; transition:color .2s ease;
 }
-.adl-footer .footer-col a:hover { color: #FFFFFF; text-decoration: underline; text-underline-offset: 3px; }
-.adl-footer .contact-list a { font-family: var(--mono); font-size: 0.875rem; }
-
+.adl-footer .footer-col a:hover { color:#fff; text-decoration:underline; text-underline-offset:3px; }
+.adl-footer .contact-list a { font-family:var(--mono); font-size:0.875rem; }
 .adl-footer .footer-bottom {
-  border-top: 1px solid rgba(255,255,255,.16); padding-top: var(--s-5);
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: var(--s-4); font-size: 0.875rem; color: #94A3B8;
+  border-top:1px solid var(--line-dark); padding-top:var(--s5);
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:var(--s4); font-size:0.875rem; color:#64748B;
 }
-.adl-footer .footer-legal-links { display: flex; gap: var(--s-5); }
-.adl-footer .footer-legal-links a { color: #94A3B8; text-decoration: none; }
-.adl-footer .footer-legal-links a:hover { color: #FFFFFF; text-decoration: underline; }
+.adl-footer .legal { display:flex; gap:var(--s5); }
+.adl-footer .legal a { color:#64748B; text-decoration:none; }
+.adl-footer .legal a:hover { color:#fff; text-decoration:underline; }
+@media (max-width:900px){
+  .adl-footer .footer-grid { grid-template-columns:1fr 1fr; }
+  .adl-footer .footer-col.brand-col { grid-column:1/-1; }
+}
+@media (max-width:560px){
+  .adl-page .btn { width:100%; }
+  .adl-page .btn-row, .adl-page .about-ctas { flex-direction:column; align-items:stretch; }
+  .adl-footer .footer-grid { grid-template-columns:1fr; gap:var(--s6); }
+  .adl-footer .footer-bottom { flex-direction:column; text-align:center; }
+}
 
-@media (max-width: 900px) {
-  .adl-footer .footer-grid { grid-template-columns: 1fr 1fr; }
-  .adl-footer .footer-col.brand-col { grid-column: 1 / -1; }
-}
-@media (max-width: 560px) {
-  .adl-page .btn { width: 100%; }
-  .adl-page .btn-row, .adl-page .about-ctas { flex-direction: column; align-items: stretch; }
-  .adl-footer .footer-grid { grid-template-columns: 1fr; gap: var(--s-6); }
-  .adl-footer .footer-bottom { flex-direction: column; text-align: center; }
-}
+/* Scroll reveal — chapters render in final state under reduced motion */
+.adl-page .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s cubic-bezier(.16,1,.3,1); }
+.adl-page .reveal.is-in { opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce) { .adl-page .reveal { opacity:1; transform:none; } }
 </style>
 </head>
 <body>
 
 <div class="adl-page">
 
-  <!-- Icon sprite (Lucide geometry, single stroke weight throughout) -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-    <defs>
-      <g id="i-check"><polyline points="20 6 9 17 4 12"/></g>
-      <g id="i-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></g>
-      <g id="i-award"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></g>
-      <g id="i-file"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></g>
-      <g id="i-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></g>
-      <g id="i-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g>
-      <g id="i-calendar"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></g>
-      <g id="i-leaf"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></g>
-      <g id="i-file-signature"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><polyline points="14 2 14 8 20 8"/><path d="m18 12-4 4 1 3 3-1 4-4z"/></g>
-      <g id="i-quote"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2-2-2H4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h3"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h3"/></g>
-      <g id="i-arrow-right"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></g>
-      <g id="i-menu"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></g>
-      <g id="i-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></g>
-      <g id="i-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></g>
-    </defs>
-  </svg>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+    <g id="i-check"><polyline points="20 6 9 17 4 12"/></g>
+    <g id="i-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></g>
+    <g id="i-award"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></g>
+    <g id="i-file"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></g>
+    <g id="i-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></g>
+    <g id="i-calendar"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></g>
+    <g id="i-leaf"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></g>
+    <g id="i-file-signature"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><polyline points="14 2 14 8 20 8"/><path d="m18 12-4 4 1 3 3-1 4-4z"/></g>
+    <g id="i-arrow-right"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></g>
+    <g id="i-menu"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></g>
+    <g id="i-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></g>
+    <g id="i-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></g>
+    <g id="i-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g>
+    <g id="i-alert"><path d="M12 9v4"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 17h.01"/></g>
+  </defs></svg>
 
   <a class="skip-link" href="#main">Skip to main content</a>
 
@@ -726,20 +689,18 @@ body.adl-menu-open .mobile-menu { display: block; }
       <a href="#" aria-label="ADL Consultancy — home">
         <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/4aebab99-c450-4823-9a4a-ef5405ce2e50/adlconsultancy-logo.webp?format=2500w" alt="ADL Consultancy" class="header-logo-img" width="142" height="34">
       </a>
-
       <nav class="desktop-nav" aria-label="Primary">
         <ul class="nav-links">
+          <li><a href="#problem">Why it stalls</a></li>
           <li><a href="#standards">Standards</a></li>
           <li><a href="#process">Process</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#reasons">Why ADL</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
-          <li><a href="#partners">Partners</a></li>
+          <li><a href="#testimonials">Clients</a></li>
         </ul>
       </nav>
-
       <div class="header-actions">
-        <a href="#contact" class="btn btn-primary header-btn">Book a consultation</a>
+        <a href="#contact" class="btn btn-accent header-btn">Book a consultation</a>
         <button class="hamburger" type="button" id="adlMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="adlMobileMenu">
           <svg class="icon icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-menu"/></svg>
           <svg class="icon icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-x"/></svg>
@@ -751,129 +712,113 @@ body.adl-menu-open .mobile-menu { display: block; }
   <div class="mobile-menu" id="adlMobileMenu">
     <nav aria-label="Mobile">
       <ul class="mobile-nav-links">
+        <li><a href="#problem">Why it stalls</a></li>
         <li><a href="#standards">Standards</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#reasons">Why ADL</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
-        <li><a href="#partners">Partners</a></li>
+        <li><a href="#testimonials">Clients</a></li>
       </ul>
     </nav>
-    <div class="mobile-btn-container">
-      <a href="#contact" class="btn btn-primary">Book a consultation</a>
-    </div>
+    <div class="mobile-btn-container"><a href="#contact" class="btn btn-accent">Book a consultation</a></div>
   </div>
 
   <main id="main">
 
-    <!-- 1. Hero — mission and credibility -->
-    <section class="hero" aria-labelledby="hero-title">
+    <!-- INTRO HOOK -->
+    <section class="hero on-ink" aria-labelledby="hero-title">
       <div class="hero-inner">
-        <div>
-        <span class="hero-locale">Essex &middot; London &middot; Home Counties</span>
-        <h1 id="hero-title">ISO certification, without the paperwork headache</h1>
-        <p class="sub">We build the management system around how your business already works — then stand beside you in the audit. Supporting SMEs across Essex, London and the surrounding counties.</p>
-        <div class="btn-row">
-          <a href="#contact" class="btn btn-primary">
-            Book a free consultation
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-          </a>
-          <a href="#standards" class="btn btn-outline-light on-dark">Explore the standards</a>
+        <span class="hero-locale">ISO consultants &middot; Essex &amp; London</span>
+        <h1 id="hero-title">Get certified.<span class="thin">Skip the paperwork.</span></h1>
+        <div class="hero-grid">
+          <div>
+            <p class="hero-sub">We build the management system around how your business already works, run the internal audit, and sit beside you on assessment day. Every client we have taken to assessment has certified.</p>
+            <div class="btn-row">
+              <a href="#contact" class="btn btn-accent">Book a free consultation
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+              </a>
+              <a href="#standards" class="btn btn-ghost on-dark">See the standards</a>
+            </div>
+          </div>
+          <div>
+            <span class="hero-list-title">Standards we cover</span>
+            <ul class="hero-list">
+              <li><span class="code">ISO 9001</span><span class="name">Quality management</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
+              <li><span class="code">ISO 14001</span><span class="name">Environmental</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
+              <li><span class="code">ISO 27001</span><span class="name">Information security</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
+              <li><span class="code">ISO 45001</span><span class="name">Health &amp; safety</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
+              <li><span class="code">ISO 42001</span><span class="name">AI management</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
+              <li><span class="code">AS9100</span><span class="name">Aerospace quality</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
+            </ul>
+          </div>
         </div>
-        </div>
-
-        <aside class="hero-panel" aria-labelledby="hero-panel-title">
-          <h2 id="hero-panel-title">Standards we take clients through</h2>
-          <ul>
-            <li><span class="code">ISO 9001</span><span class="name">Quality management</span>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
-            <li><span class="code">ISO 14001</span><span class="name">Environmental</span>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
-            <li><span class="code">ISO 27001</span><span class="name">Information security</span>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
-            <li><span class="code">ISO 45001</span><span class="name">Health &amp; safety</span>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
-            <li><span class="code">ISO 42001</span><span class="name">AI management</span>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
-            <li><span class="code">AS9100</span><span class="name">Aerospace quality</span>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg></li>
-          </ul>
-          <span class="panel-foot">Certifying to several? We integrate them into one management system and one audit cycle.</span>
-        </aside>
       </div>
-
-      <!-- 2. Proof -->
-      <div class="proof-bar">
-        <div>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-award"/></svg>
-          <div>
-            <strong>100% success rate</strong>
-            <span>Every client we have taken to assessment has certified.</span>
-          </div>
-        </div>
-        <div>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-file-signature"/></svg>
-          <div>
-            <strong>No contracts</strong>
-            <span>Nothing to sign — step away whenever it suits you.</span>
-          </div>
-        </div>
-        <div>
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-shield"/></svg>
-          <div>
-            <strong>BSI &amp; LRQA associates</strong>
-            <span>Approved consultant partner to the major certification bodies.</span>
-          </div>
+      <div class="stat-band">
+        <div class="stat-band-inner">
+          <div class="stat"><b>100%</b><span>Certification success rate</span></div>
+          <div class="stat"><b>6</b><span>Standards implemented</span></div>
+          <div class="stat"><b>£420k</b><span>Saved by one client in a single dispute</span></div>
+          <div class="stat"><b>Zero</b><span>Contracts to sign</span></div>
         </div>
       </div>
     </section>
 
-    <!-- 3. Solution overview — the standards switcher -->
+    <!-- CHAPTER 01 — PROBLEM -->
+    <section class="problem" id="problem" aria-labelledby="problem-title">
+      <div class="chapter-mark"><span>01 — The problem</span></div>
+      <div class="problem-head">
+        <h2 id="problem-title">Most ISO projects stall in the same three places</h2>
+        <p>Businesses rarely fail certification because the standard is beyond them. They stall because the work lands on someone who already has a full-time job.</p>
+      </div>
+      <div class="problem-grid">
+        <article class="problem-item reveal">
+          <span class="pnum" aria-hidden="true">01</span>
+          <h3>The manual nobody reads</h3>
+          <p>A consultant hands over a 200-page template written for a business that isn't yours. It sits in a drawer, the auditor finds the gap between the document and reality, and you fail on the first surveillance visit.</p>
+        </article>
+        <article class="problem-item reveal">
+          <span class="pnum" aria-hidden="true">02</span>
+          <h3>It becomes a second job</h3>
+          <p>The work falls to an ops manager or an office manager on top of their real role. Progress happens in gaps between other work, deadlines slip, and the tender you needed it for closes.</p>
+        </article>
+        <article class="problem-item reveal">
+          <span class="pnum" aria-hidden="true">03</span>
+          <h3>Nobody is there on the day</h3>
+          <p>The assessor arrives and asks questions no one has been prepared for. Findings are raised that a rehearsal would have caught, and the certificate is delayed by another cycle.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CHAPTER 02 — STANDARDS -->
     <section class="standards" id="standards" aria-labelledby="standards-title">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">Standards we implement</span>
-          <h2 id="standards-title">One consultancy, every standard you're likely to need</h2>
-        </div>
+      <div class="chapter-mark"><span>02 — The standards</span></div>
+      <div class="std-head">
+        <h2 id="standards-title">One consultancy, every standard you're likely to need</h2>
         <p>Most clients certify to more than one. We integrate them into a single management system, so you run one set of processes and one audit cycle — not four.</p>
       </div>
 
       <div class="std-tabs" role="tablist" aria-label="ISO standards">
-        <button class="std-tab" role="tab" id="tab-9001" aria-controls="panel-9001" aria-selected="true" tabindex="0">
-          <span class="code">ISO 9001</span><span class="name">Quality</span>
-        </button>
-        <button class="std-tab" role="tab" id="tab-14001" aria-controls="panel-14001" aria-selected="false" tabindex="-1">
-          <span class="code">ISO 14001</span><span class="name">Environment</span>
-        </button>
-        <button class="std-tab" role="tab" id="tab-27001" aria-controls="panel-27001" aria-selected="false" tabindex="-1">
-          <span class="code">ISO 27001</span><span class="name">Information security</span>
-        </button>
-        <button class="std-tab" role="tab" id="tab-45001" aria-controls="panel-45001" aria-selected="false" tabindex="-1">
-          <span class="code">ISO 45001</span><span class="name">Health &amp; safety</span>
-        </button>
-        <button class="std-tab" role="tab" id="tab-42001" aria-controls="panel-42001" aria-selected="false" tabindex="-1">
-          <span class="code">ISO 42001</span><span class="name">AI management</span>
-        </button>
-        <button class="std-tab" role="tab" id="tab-as9100" aria-controls="panel-as9100" aria-selected="false" tabindex="-1">
-          <span class="code">AS9100</span><span class="name">Aerospace</span>
-        </button>
+        <button class="std-tab" role="tab" id="tab-9001" aria-controls="panel-9001" aria-selected="true" tabindex="0"><span class="code">ISO 9001</span><span class="name">Quality</span></button>
+        <button class="std-tab" role="tab" id="tab-14001" aria-controls="panel-14001" aria-selected="false" tabindex="-1"><span class="code">ISO 14001</span><span class="name">Environment</span></button>
+        <button class="std-tab" role="tab" id="tab-27001" aria-controls="panel-27001" aria-selected="false" tabindex="-1"><span class="code">ISO 27001</span><span class="name">Information security</span></button>
+        <button class="std-tab" role="tab" id="tab-45001" aria-controls="panel-45001" aria-selected="false" tabindex="-1"><span class="code">ISO 45001</span><span class="name">Health &amp; safety</span></button>
+        <button class="std-tab" role="tab" id="tab-42001" aria-controls="panel-42001" aria-selected="false" tabindex="-1"><span class="code">ISO 42001</span><span class="name">AI management</span></button>
+        <button class="std-tab" role="tab" id="tab-as9100" aria-controls="panel-as9100" aria-selected="false" tabindex="-1"><span class="code">AS9100</span><span class="name">Aerospace</span></button>
       </div>
 
       <div class="std-panels">
-
         <div class="std-panel" role="tabpanel" id="panel-9001" aria-labelledby="tab-9001" tabindex="0">
           <div class="std-media">
             <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/815a83b4-9336-4b4d-b2fb-95898a12449c/imgi_11_DD.jpg?format=2500w" alt="Reviewing quality management documentation with a client" loading="lazy">
             <span class="std-revision">ISO 9001:2015</span>
           </div>
           <div class="std-body">
-            
             <h3>Quality management</h3>
             <p>The foundation standard, and the one most tenders ask for. We map how your business actually delivers, then turn it into a system your team will use rather than work around.</p>
             <ul class="std-points">
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Opens procurement doors that ask for certification as a minimum</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Turns tribal knowledge into repeatable, auditable process</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Integrates cleanly with 14001, 45001 and 27001 later</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Opens procurement doors that ask for certification as a minimum</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Turns tribal knowledge into repeatable, auditable process</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Integrates cleanly with 14001, 45001 and 27001 later</li>
             </ul>
           </div>
           <aside class="std-rail">
@@ -890,9 +835,7 @@ body.adl-menu-open .mobile-menu { display: block; }
                 </ul>
               </div>
             </div>
-            <a href="#contact" class="btn btn-navy">View all ISO services
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-            </a>
+            <a href="#contact" class="btn btn-ink">View all ISO services <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </aside>
         </div>
 
@@ -902,13 +845,12 @@ body.adl-menu-open .mobile-menu { display: block; }
             <span class="std-revision">ISO 14001:2015</span>
           </div>
           <div class="std-body">
-            
             <h3>Environmental management</h3>
             <p>Increasingly non-negotiable in public sector and larger private tenders. We identify your genuine environmental aspects and impacts, and set objectives you can actually evidence.</p>
             <ul class="std-points">
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Meets the environmental criteria in most PQQs and frameworks</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Legal register kept current, so compliance obligations stay tracked</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Feeds directly into carbon reporting and net-zero commitments</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Meets the environmental criteria in most PQQs and frameworks</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Legal register kept current, so compliance obligations stay tracked</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Feeds directly into carbon reporting and net-zero commitments</li>
             </ul>
           </div>
           <aside class="std-rail">
@@ -925,9 +867,7 @@ body.adl-menu-open .mobile-menu { display: block; }
                 </ul>
               </div>
             </div>
-            <a href="#contact" class="btn btn-navy">View all ISO services
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-            </a>
+            <a href="#contact" class="btn btn-ink">View all ISO services <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </aside>
         </div>
 
@@ -937,13 +877,12 @@ body.adl-menu-open .mobile-menu { display: block; }
             <span class="std-revision">ISO 27001:2022</span>
           </div>
           <div class="std-body">
-            
             <h3>Information security</h3>
             <p>The standard your enterprise clients ask for before they'll share data. We run the risk assessment, write the Statement of Applicability and get the ISMS operating before the auditor arrives.</p>
             <ul class="std-points">
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Shortens client security reviews from weeks to a single certificate</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Full support for the 2022 transition and its restructured controls</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Sits alongside your GDPR obligations rather than duplicating them</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Shortens client security reviews from weeks to a single certificate</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Full support for the 2022 transition and its restructured controls</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Sits alongside your GDPR obligations rather than duplicating them</li>
             </ul>
           </div>
           <aside class="std-rail">
@@ -960,9 +899,7 @@ body.adl-menu-open .mobile-menu { display: block; }
                 </ul>
               </div>
             </div>
-            <a href="#contact" class="btn btn-navy">View all ISO services
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-            </a>
+            <a href="#contact" class="btn btn-ink">View all ISO services <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </aside>
         </div>
 
@@ -972,13 +909,12 @@ body.adl-menu-open .mobile-menu { display: block; }
             <span class="std-revision">ISO 45001:2018</span>
           </div>
           <div class="std-body">
-            
             <h3>Occupational health &amp; safety</h3>
             <p>Built for businesses with people on site, on the road or on client premises. We turn your risk assessments and method statements into a system that stands up to scrutiny after an incident.</p>
             <ul class="std-points">
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Demonstrates due diligence to insurers, clients and the HSE</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Worker consultation built in, as the standard requires</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Frequently reduces employers' liability premiums</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Demonstrates due diligence to insurers, clients and the HSE</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Worker consultation built in, as the standard requires</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Frequently reduces employers' liability premiums</li>
             </ul>
           </div>
           <aside class="std-rail">
@@ -995,9 +931,7 @@ body.adl-menu-open .mobile-menu { display: block; }
                 </ul>
               </div>
             </div>
-            <a href="#contact" class="btn btn-navy">View all ISO services
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-            </a>
+            <a href="#contact" class="btn btn-ink">View all ISO services <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </aside>
         </div>
 
@@ -1007,13 +941,12 @@ body.adl-menu-open .mobile-menu { display: block; }
             <span class="std-revision">ISO 42001:2023</span>
           </div>
           <div class="std-body">
-            
             <h3>AI management systems</h3>
             <p>For organisations building or deploying AI and needing to show it's governed. We establish the impact assessments, oversight and documentation the standard expects, without stalling your development team.</p>
             <ul class="std-points">
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Evidences responsible AI governance to clients and regulators</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Aligns with the direction of travel in emerging AI regulation</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Extends an existing 9001 or 27001 system rather than replacing it</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Evidences responsible AI governance to clients and regulators</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Aligns with the direction of travel in emerging AI regulation</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Extends an existing 9001 or 27001 system rather than replacing it</li>
             </ul>
           </div>
           <aside class="std-rail">
@@ -1030,9 +963,7 @@ body.adl-menu-open .mobile-menu { display: block; }
                 </ul>
               </div>
             </div>
-            <a href="#contact" class="btn btn-navy">View all ISO services
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-            </a>
+            <a href="#contact" class="btn btn-ink">View all ISO services <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </aside>
         </div>
 
@@ -1042,13 +973,12 @@ body.adl-menu-open .mobile-menu { display: block; }
             <span class="std-revision">AS9100 Rev D</span>
           </div>
           <div class="std-body">
-            
             <h3>Aerospace quality</h3>
             <p>The entry ticket to the aerospace supply chain. We handle the sector-specific additions — configuration management, counterfeit part prevention, product safety — on top of a compliant 9001 core.</p>
             <ul class="std-points">
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Required by most primes and tier-one aerospace suppliers</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Covers risk, first article inspection and special processes</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Clear upgrade path from an existing ISO 9001 certification</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Required by most primes and tier-one aerospace suppliers</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Covers risk, first article inspection and special processes</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Clear upgrade path from an existing ISO 9001 certification</li>
             </ul>
           </div>
           <aside class="std-rail">
@@ -1065,74 +995,76 @@ body.adl-menu-open .mobile-menu { display: block; }
                 </ul>
               </div>
             </div>
-            <a href="#contact" class="btn btn-navy">View all ISO services
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-            </a>
+            <a href="#contact" class="btn btn-ink">View all ISO services <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
           </aside>
         </div>
-
       </div>
     </section>
 
-    <!-- Process -->
-    <section class="process" id="process" aria-labelledby="process-title">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">How certification works</span>
-          <h2 id="process-title">Four stages, and we're with you for all of them</h2>
-        </div>
+    <!-- CHAPTER 03 — JOURNEY -->
+    <section class="journey on-ink" id="process" aria-labelledby="process-title">
+      <div class="chapter-mark"><span>03 — The journey</span></div>
+      <div class="journey-head">
+        <h2 id="process-title">Four stages, and we're with you for all of them</h2>
         <p>No stage is handed back to you as homework. We write the system, run the internal audit and sit in the room on assessment day.</p>
       </div>
-      <div class="process-grid">
-        <article class="step">
-          <span class="step-num">STAGE 01</span>
+      <div class="journey-grid">
+        <article class="step reveal">
+          <span class="snum" aria-hidden="true">01</span>
           <h3>Gap analysis</h3>
           <p>We review what you already do against the standard and tell you honestly how far away you are — and what it will cost.</p>
         </article>
-        <article class="step">
-          <span class="step-num">STAGE 02</span>
+        <article class="step reveal">
+          <span class="snum" aria-hidden="true">02</span>
           <h3>Build the system</h3>
           <p>Procedures written around your real workflow, with complex text replaced by clear flowcharts your team will actually follow.</p>
         </article>
-        <article class="step">
-          <span class="step-num">STAGE 03</span>
+        <article class="step reveal">
+          <span class="snum" aria-hidden="true">03</span>
           <h3>Internal audit</h3>
           <p>We audit you before the assessor does, so nothing in the external visit is a surprise to anyone.</p>
         </article>
-        <article class="step">
-          <span class="step-num">STAGE 04</span>
+        <article class="step reveal">
+          <span class="snum" aria-hidden="true">04</span>
           <h3>Assessment</h3>
           <p>We attend your BSI, NQA or LRQA visit, then keep the system alive through surveillance and recertification.</p>
         </article>
       </div>
     </section>
 
-    <!-- About -->
+    <!-- PULL QUOTE -->
+    <section class="pullquote" aria-label="Client result">
+      <figure class="pullquote-inner">
+        <blockquote>“We highly value our registration — it once saved us £420,000 as a business.”</blockquote>
+        <div>
+          <span class="pq-figure">£420k</span>
+          <figcaption>
+            <strong>Finance Director</strong>
+            McGregor Boyall &middot; ISO 9001 since 2016
+          </figcaption>
+        </div>
+      </figure>
+    </section>
+
+    <!-- ABOUT -->
     <section class="about" id="about" aria-labelledby="about-title">
+      <div class="chapter-mark"><span>04 — Who you'll work with</span></div>
       <div class="about-grid">
         <div class="about-visual">
           <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/815a83b4-9336-4b4d-b2fb-95898a12449c/imgi_11_DD.jpg?format=2500w" alt="An ADL Consultancy consultant working with a client" loading="lazy">
-          <div class="about-card">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-award"/></svg>
-            <div>
-              <b>100% success rate</b>
-              <span>Across every client engagement to date</span>
-            </div>
-          </div>
+          <div class="about-tags"><span>Family run</span><span>BSI associate</span><span>LRQA partner</span><span>Essex &amp; London</span></div>
         </div>
-
         <div class="about-copy">
-          <span class="eyebrow">About ADL Consultancy</span>
-          <h2 id="about-title">Get your business ready for registration</h2>
-          <p class="lead">We specialise in supporting small and medium-sized businesses at a vital moment in their growth.</p>
-          <p>Our consultants help organisations across Essex, London and the surrounding counties achieve accreditation using a tried-and-tested blend of software, training and consultancy — designed for fast learning, easy compliance and effective implementation.</p>
+          <h2 id="about-title">A family-run practice, not a call centre</h2>
+          <p class="lede">You deal with the same consultant from gap analysis through to your certificate — and every surveillance visit after it.</p>
+          <p>We specialise in supporting small and medium-sized businesses at a vital moment in their growth, using a tried-and-tested blend of software, training and consultancy designed for fast learning and effective implementation.</p>
           <ul class="checklist">
             <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> No complex jargon — just clear, actionable steps.</li>
-            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Completely tailored to how your business already operates.</li>
-            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> A family-run practice: you deal with the same people throughout.</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Procedures replaced with simple, colourful flowcharts.</li>
+            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Support during external visits from BSI, NQA and LRQA.</li>
           </ul>
           <div class="about-ctas">
-            <a href="#" class="btn btn-navy">Learn more about us
+            <a href="#" class="btn btn-ink">Meet the family
               <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow-right"/></svg>
             </a>
             <a href="#standards" class="btn btn-outline">See our services</a>
@@ -1141,121 +1073,63 @@ body.adl-menu-open .mobile-menu { display: block; }
       </div>
     </section>
 
-    <!-- Reasons -->
+    <!-- REASONS -->
     <section class="reasons" id="reasons" aria-labelledby="reasons-title">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">The ADL advantage</span>
-          <h2 id="reasons-title">Why businesses choose ADL</h2>
-        </div>
-        <p>Six reasons clients stay with us long after their first certificate is issued.</p>
+      <div class="chapter-mark"><span>05 — Why ADL</span></div>
+      <div class="reasons-head">
+        <h2 id="reasons-title">Six reasons clients stay after the certificate</h2>
+        <p>Certification is the start of a relationship, not the end of a project. Here's what keeps ours going.</p>
       </div>
       <div class="reasons-grid">
-        <article class="reason">
-          <span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-users"/></svg></span>
-          <h3>Expert team</h3>
-          <p>Decades of combined experience across manufacturing, services and technology — deep industry knowledge, not generic templates.</p>
-        </article>
-        <article class="reason">
-          <span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-file"/></svg></span>
-          <h3>Fully tailored</h3>
-          <p>Every business is different, and that's reflected in our completely bespoke approach to integration.</p>
-        </article>
-        <article class="reason">
-          <span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-shield"/></svg></span>
-          <h3>Guaranteed registration</h3>
-          <p>We stand behind our process with a rock-solid guarantee that you will achieve registration.</p>
-        </article>
-        <article class="reason">
-          <span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-file-signature"/></svg></span>
-          <h3>No contracts</h3>
-          <p>A flexible approach with nothing to sign — you're free to step away if circumstances change.</p>
-        </article>
-        <article class="reason">
-          <span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-calendar"/></svg></span>
-          <h3>Highly flexible</h3>
-          <p>Our consultants happily schedule site visits and meetings at times that suit your team.</p>
-        </article>
-        <article class="reason">
-          <span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-leaf"/></svg></span>
-          <h3>100% paperless</h3>
-          <p>We work digitally to streamline your systems and help you build a sustainable, paperless office.</p>
-        </article>
+        <article class="reason"><span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-users"/></svg></span><h3>Expert team</h3><p>Decades of combined experience across manufacturing, services and technology — deep industry knowledge, not generic templates.</p></article>
+        <article class="reason"><span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-file"/></svg></span><h3>Fully tailored</h3><p>Every business is different, and that's reflected in our completely bespoke approach to integration.</p></article>
+        <article class="reason"><span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-shield"/></svg></span><h3>Guaranteed registration</h3><p>We stand behind our process with a rock-solid guarantee that you will achieve registration.</p></article>
+        <article class="reason"><span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-file-signature"/></svg></span><h3>No contracts</h3><p>A flexible approach with nothing to sign — you're free to step away if circumstances change.</p></article>
+        <article class="reason"><span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-calendar"/></svg></span><h3>Highly flexible</h3><p>Our consultants happily schedule site visits and meetings at times that suit your team.</p></article>
+        <article class="reason"><span class="icon-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-leaf"/></svg></span><h3>100% paperless</h3><p>We work digitally to streamline your systems and help you build a sustainable, paperless office.</p></article>
       </div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- TESTIMONIALS -->
     <section class="testimonials" id="testimonials" aria-labelledby="testimonials-title">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">Client feedback</span>
-          <h2 id="testimonials-title">Trusted by businesses like yours</h2>
-        </div>
-        
+      <div class="chapter-mark"><span>06 — Clients</span></div>
+      <div class="reasons-head">
+        <h2 id="testimonials-title">Trusted by businesses like yours</h2>
+        <p>Three of the organisations we've taken through certification and continue to audit.</p>
       </div>
-      <div class="testimonials-grid">
+      <div class="t-grid">
         <figure class="t-card">
-          <svg class="icon icon-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-quote"/></svg>
           <blockquote>Working alongside ADL Consultancy has been nothing short of an absolute pleasure. They helped Support UK secure certification, a massive growth stepping stone for our organisation. David has exceeded all of our expectations with his diligent, professional work ethic.</blockquote>
           <div class="t-tags"><span>ISO 9001</span><span>ISO 27001</span></div>
-          <figcaption class="t-author">
-            <strong>Business Alliance Manager</strong>
-            <span>Support UK Ltd</span>
-          </figcaption>
+          <figcaption class="t-author"><strong>Business Alliance Manager</strong><span>Support UK Ltd</span></figcaption>
         </figure>
         <figure class="t-card">
-          <svg class="icon icon-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-quote"/></svg>
           <blockquote>David has worked with McGregor Boyall for a number of years, conducting our internal audits and ensuring continued compliance. We highly value our registration — it once saved us £420,000 as a business.</blockquote>
           <div class="t-tags"><span>ISO 9001</span></div>
-          <figcaption class="t-author">
-            <strong>Finance Director</strong>
-            <span>McGregor Boyall</span>
-          </figcaption>
+          <figcaption class="t-author"><strong>Finance Director</strong><span>McGregor Boyall</span></figcaption>
         </figure>
         <figure class="t-card">
-          <svg class="icon icon-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-quote"/></svg>
           <blockquote>The level of service coupled with the depth of knowledge at ADL Consultancy is unparalleled. The four management systems we required gave us the measured, auditable processes we needed to achieve growth.</blockquote>
           <div class="t-tags"><span>ISO 9001</span><span>ISO 14001</span><span>ISO 45001</span><span>ISO 27001</span></div>
-          <figcaption class="t-author">
-            <strong>Managing Director</strong>
-            <span>Cavendish Network Services Ltd</span>
-          </figcaption>
+          <figcaption class="t-author"><strong>Managing Director</strong><span>Cavendish Network Services Ltd</span></figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- Approach -->
-    <section class="approach" id="family" aria-labelledby="approach-title">
-      <div class="approach-grid">
+    <!-- CLIMAX CTA -->
+    <section class="final-cta on-ink" id="contact" aria-labelledby="cta-title">
+      <div class="cta-grid">
         <div>
-          <span class="eyebrow on-dark-eyebrow">Our approach</span>
-          <h2 id="approach-title">A family-run business that understands ISO</h2>
+          <h2 id="cta-title">Find out what your certification actually takes</h2>
+          <p>A free, no-obligation consultation. We'll tell you honestly how far from the standard you are, how long it will take and what it will cost — before you commit to anything.</p>
         </div>
-        <div>
-          <p>Our team will help you understand and fulfil the requirements of your relevant standard to meet your wider corporate objectives, while keeping the process effective and efficient for your people.</p>
-          <ul class="approach-list">
-            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Simplify and streamline your current procedures and processes</li>
-            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Replace complex textual procedures with simple, colourful flowcharts</li>
-            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Conduct high-quality audits that highlight process improvements</li>
-            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Reduce paperwork throughout the process</li>
-            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Support you during external visits from BSI, NQA, LRQA and others</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. Clear CTA path -->
-    <section class="final-cta" id="contact" aria-labelledby="cta-title">
-      <div class="cta-inner">
-        <span class="eyebrow">Next step</span>
-        <h2 id="cta-title">Ready to get your business registration-ready?</h2>
-        <p>Book a free, no-obligation consultation and we'll map out exactly what your certification will take — timeline, effort and cost, before you commit to anything.</p>
-        <div class="btn-row">
-          <a href="#" class="btn btn-light">Book a free consultation</a>
-          <a href="tel:+441234567890" class="btn btn-outline-light on-dark">
+        <div class="cta-actions">
+          <a href="#" class="btn btn-paper">Book a free consultation</a>
+          <a href="tel:+441234567890" class="btn btn-ghost on-dark">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>
             01234 567 890
           </a>
+          <span class="cta-note">No contracts &middot; No obligation</span>
         </div>
       </div>
     </section>
@@ -1264,16 +1138,14 @@ body.adl-menu-open .mobile-menu { display: block; }
 
   <footer class="adl-footer" id="partners">
     <div class="footer-inner">
-
-      <p class="footer-certs-title">Accredited &amp; associate consultant partners</p>
-      <div class="footer-certs-inner">
+      <p class="certs-title">Accredited &amp; associate consultant partners</p>
+      <div class="certs">
         <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/429ac295-bd39-46f6-a5a7-e73db0c8e510/imgi_13_Auva-ACP-56.png?format=2500w" alt="Auva Approved Consultant Partner" loading="lazy">
         <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/9b6600a0-30b2-4b3a-8259-2cbe12234c69/imgi_12_LRQA-ACP-Logo2.png?format=2500w" alt="LRQA Approved Consultant Partner" loading="lazy">
         <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/8b0532ce-9ebd-475f-b1fd-5f83a3fe09cf/imgi_11_AACP-logo.jpg?format=1500w" alt="AACP" loading="lazy">
         <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/ed1d5117-4601-4f56-8ae6-85990385bd6a/imgi_10_BAB-Logo-1.jpg?format=1500w" alt="British Assessment Bureau" loading="lazy">
         <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/adcdc20e-482b-48a2-9e9e-aa3565ea00f8/imgi_9_BSI_Associate_Consultant_badge-scaled-e1714047378547.jpg?format=2500w" alt="BSI Associate Consultant" loading="lazy">
       </div>
-
       <div class="footer-grid">
         <div class="footer-col brand-col">
           <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/b1bc0ce2-1dc4-4842-bea9-922785882467/imgi_1_adlconsultancy-logo-w.png?format=2500w" alt="ADL Consultancy" class="footer-logo" loading="lazy">
@@ -1284,7 +1156,7 @@ body.adl-menu-open .mobile-menu { display: block; }
           <ul>
             <li><a href="#about">About us</a></li>
             <li><a href="#process">Our process</a></li>
-            <li><a href="#family">Meet the family</a></li>
+            <li><a href="#">Meet the family</a></li>
             <li><a href="#">News &amp; insights</a></li>
             <li><a href="#">Training</a></li>
           </ul>
@@ -1309,13 +1181,9 @@ body.adl-menu-open .mobile-menu { display: block; }
           <p style="margin-top:12px">Mon – Fri, 9:00am – 5:30pm</p>
         </div>
       </div>
-
       <div class="footer-bottom">
         <p>&copy; <span id="adlYear">2026</span> ADL Consultancy Ltd. All rights reserved.</p>
-        <div class="footer-legal-links">
-          <a href="#">Privacy policy</a>
-          <a href="#">Terms of service</a>
-        </div>
+        <div class="legal"><a href="#">Privacy policy</a><a href="#">Terms of service</a></div>
       </div>
     </div>
   </footer>
@@ -1324,91 +1192,87 @@ body.adl-menu-open .mobile-menu { display: block; }
 <script>
 (function () {
   var body = document.body;
-
   var year = document.getElementById('adlYear');
   if (year) year.textContent = new Date().getFullYear();
 
-  /* ---- Mobile menu ---- */
   var toggle = document.getElementById('adlMenuToggle');
   var menu = document.getElementById('adlMobileMenu');
-
   function setMenu(open) {
     body.classList.toggle('adl-menu-open', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   }
-
   if (toggle && menu) {
-    toggle.addEventListener('click', function () {
-      setMenu(!body.classList.contains('adl-menu-open'));
+    toggle.addEventListener('click', function(){ setMenu(!body.classList.contains('adl-menu-open')); });
+    menu.addEventListener('click', function(e){ if (e.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && body.classList.contains('adl-menu-open')) { setMenu(false); toggle.focus(); }
     });
-    menu.addEventListener('click', function (e) {
-      if (e.target.closest('a')) setMenu(false);
-    });
-    // Escape route out of the menu, returning focus to the control that opened it
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && body.classList.contains('adl-menu-open')) {
-        setMenu(false);
-        toggle.focus();
-      }
-    });
-    window.addEventListener('resize', function () {
-      if (window.innerWidth >= 1080 && body.classList.contains('adl-menu-open')) setMenu(false);
+    window.addEventListener('resize', function(){
+      if (window.innerWidth >= 1120 && body.classList.contains('adl-menu-open')) setMenu(false);
     });
   }
 
-  /* ---- Standards tabs: full keyboard support, tab order matches visual order ---- */
+  /* Standards tablist — click plus arrow / Home / End */
   var tablist = document.querySelector('.std-tabs');
   if (tablist) {
     var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
-
     var selectTab = function (tab, moveFocus) {
       tabs.forEach(function (t) {
-        var selected = t === tab;
+        var sel = t === tab;
         var panel = document.getElementById(t.getAttribute('aria-controls'));
-        t.setAttribute('aria-selected', String(selected));
-        t.setAttribute('tabindex', selected ? '0' : '-1');
-        if (panel) panel.hidden = !selected;
+        t.setAttribute('aria-selected', String(sel));
+        t.setAttribute('tabindex', sel ? '0' : '-1');
+        if (panel) panel.hidden = !sel;
       });
       if (moveFocus) tab.focus();
-      // Keep the selected tab visible when the strip scrolls horizontally
-      if (tab.scrollIntoView) {
-        tab.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
-      }
+      if (tab.scrollIntoView) tab.scrollIntoView({ block:'nearest', inline:'nearest', behavior:'smooth' });
     };
-
     tabs.forEach(function (tab, i) {
-      tab.addEventListener('click', function () { selectTab(tab, false); });
+      tab.addEventListener('click', function(){ selectTab(tab, false); });
       tab.addEventListener('keydown', function (e) {
         var next = null;
-        if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
-        else if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+        if (e.key === 'ArrowRight') next = tabs[(i+1) % tabs.length];
+        else if (e.key === 'ArrowLeft') next = tabs[(i-1+tabs.length) % tabs.length];
         else if (e.key === 'Home') next = tabs[0];
-        else if (e.key === 'End') next = tabs[tabs.length - 1];
+        else if (e.key === 'End') next = tabs[tabs.length-1];
         if (next) { e.preventDefault(); selectTab(next, true); }
       });
     });
   }
 
-  /* ---- Scroll-spy ---- */
-  var links = Array.prototype.slice.call(
-    document.querySelectorAll('.nav-links a[href^="#"], .mobile-nav-links a[href^="#"]')
-  );
-  var sections = links
-    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
-    .filter(Boolean);
+  /* Chapter reveal — motion is decoration only; content is already in the DOM */
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var sibs = Array.prototype.slice.call(en.target.parentNode.children);
+        en.target.style.transitionDelay = (sibs.indexOf(en.target) * 70) + 'ms';
+        en.target.classList.add('is-in');
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.2 });
+    items.forEach(function (el) { io.observe(el); });
+  }
 
+  /* Scroll-spy */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"], .mobile-nav-links a[href^="#"]'));
+  var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
   if ('IntersectionObserver' in window && sections.length) {
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
         links.forEach(function (a) {
-          if (a.getAttribute('href') === '#' + entry.target.id) a.setAttribute('aria-current', 'page');
+          if (a.getAttribute('href') === '#' + en.target.id) a.setAttribute('aria-current','page');
           else a.removeAttribute('aria-current');
         });
       });
     }, { rootMargin: '-40% 0px -55% 0px' });
-    sections.forEach(function (s) { observer.observe(s); });
+    sections.forEach(function (s) { obs.observe(s); });
   }
 })();
 </script>
