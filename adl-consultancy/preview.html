@@ -1,870 +1,726 @@
 <title>ADL Consultancy | ISO Consultants in Essex &amp; London</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  .adl-page {
-    --brand-900: #0b1220;
-    --brand-800: #1e293b;
-    --brand-primary: #2563eb;
-    --brand-primary-hover: #1d4ed8;
-    --brand-accent: #60a5fa;
-    --brand-light: #eff6ff;
-    --text-main: #3f4c60;
-    --text-muted: #64748b;
-    --surface: #ffffff;
-    --surface-alt: #f6f8fb;
-    --border-color: rgba(15, 23, 42, 0.10);
-    --radius-lg: 24px;
-    --radius-md: 16px;
-    --shadow-sm: 0 1px 2px rgba(15,23,42,.04), 0 8px 24px -12px rgba(15,23,42,.10);
-    --shadow-md: 0 2px 4px rgba(15,23,42,.04), 0 18px 40px -16px rgba(15,23,42,.16);
-    --shadow-lg: 0 24px 60px -18px rgba(15,23,42,.28);
-    --pad-x: clamp(20px, 6vw, 88px);
-    --section-y: clamp(72px, 10vw, 132px);
-    --maxw: 1240px;
+/* ============================================================
+   ADL Consultancy — scoped page styles.
+   Everything lives under .adl-page so nothing leaks into the
+   surrounding Squarespace theme, and the theme can't leak in.
+   ============================================================ */
 
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-    background: var(--surface);
-    color: var(--text-main);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    line-height: 1.6;
-  }
+.adl-page {
+  /* Palette: certification green + seal gold on warm paper */
+  --paper:        #FCFBF7;
+  --paper-2:      #F4F2EA;
+  --paper-3:      #EAE7DB;
+  --ink:          #121714;
+  --ink-2:        #1C2621;
+  --green:        #0E5D48;
+  --green-hover:  #0A4636;
+  --green-soft:   #E3EEE9;
+  --gold:         #C08A2E;
+  --gold-soft:    #F6EEDC;
+  --sage:         #6E7770;
+  --sage-2:       #8C948B;
+  --rule:         rgba(18, 23, 20, 0.12);
+  --rule-soft:    rgba(18, 23, 20, 0.07);
 
-  .adl-page *,
-  .adl-page *::before,
-  .adl-page *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: inherit;
-  }
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body:    'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  html { scroll-behavior: smooth; }
-  .adl-page [id] { scroll-margin-top: 120px; }
+  --pad-x:    clamp(20px, 5.5vw, 80px);
+  --section:  clamp(72px, 9vw, 128px);
+  --maxw:     1200px;
 
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .adl-page *, .adl-page *::before, .adl-page *::after {
-      animation-duration: .001ms !important;
-      transition-duration: .001ms !important;
-    }
-  }
+  --shadow-1: 0 1px 2px rgba(18,23,20,.05), 0 10px 24px -14px rgba(18,23,20,.22);
+  --shadow-2: 0 2px 6px rgba(18,23,20,.05), 0 26px 50px -24px rgba(18,23,20,.32);
 
-  body.adl-menu-open { overflow: hidden; }
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  .adl-page a:focus-visible,
-  .adl-page button:focus-visible {
-    outline: 3px solid var(--brand-primary);
-    outline-offset: 3px;
-    border-radius: 6px;
-  }
-  .adl-page .btn:focus-visible { outline-offset: 4px; border-radius: 100px; }
-  .adl-page .on-dark:focus-visible { outline-color: #fff; }
+.adl-page *,
+.adl-page *::before,
+.adl-page *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: inherit; }
 
-  .adl-page h1,
-  .adl-page h2,
-  .adl-page h3,
-  .adl-page h4 {
-    color: var(--brand-900);
-    font-weight: 800;
-    letter-spacing: -0.028em;
-    line-height: 1.12;
-    text-wrap: balance;
-    text-transform: none;
-  }
+html { scroll-behavior: smooth; }
+.adl-page [id] { scroll-margin-top: 110px; }
 
-  .adl-page .visually-hidden {
-    position: absolute; width: 1px; height: 1px;
-    padding: 0; margin: -1px; overflow: hidden;
-    clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .adl-page *, .adl-page *::before, .adl-page *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
   }
+}
 
-  .adl-page .skip-link {
-    position: absolute; left: 50%; top: 12px;
-    transform: translate(-50%, -160%);
-    background: #fff; color: var(--brand-900);
-    padding: 12px 20px; border-radius: 100px;
-    font-weight: 700; text-decoration: none;
-    z-index: 300; box-shadow: var(--shadow-md);
-    transition: transform .2s ease;
-  }
-  .adl-page .skip-link:focus-visible { transform: translate(-50%, 0); }
+body.adl-menu-open { overflow: hidden; }
 
-  .adl-page .shell { max-width: var(--maxw); margin: 0 auto; }
+.adl-page a:focus-visible,
+.adl-page button:focus-visible {
+  outline: 2.5px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.adl-page .on-dark:focus-visible { outline-color: var(--gold); }
 
-  /* ---- Eyebrow / section tags ---- */
-  .adl-page .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--brand-primary);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-  .adl-page .eyebrow::before {
-    content: "";
-    width: 28px; height: 2px;
-    background: currentColor;
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-  .adl-page .eyebrow.on-light-blue { color: var(--brand-accent); }
+/* ---- Type ------------------------------------------------ */
+.adl-page h1, .adl-page h2, .adl-page h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.018em;
+  line-height: 1.08;
+  text-wrap: balance;
+  font-variation-settings: 'opsz' 96;
+}
+.adl-page h4 { font-family: var(--font-body); font-weight: 700; color: var(--ink); }
 
-  .adl-page .section-head { max-width: var(--maxw); margin: 0 auto clamp(40px, 5vw, 64px); }
-  .adl-page .section-head h2 { font-size: clamp(2rem, 3.6vw, 3.1rem); max-width: 22ch; }
-  .adl-page .section-head h2 span { color: var(--brand-primary); }
-  .adl-page .section-head .section-sub {
-    margin-top: 18px;
-    max-width: 60ch;
-    font-size: 1.05rem;
-    color: var(--text-muted);
-    line-height: 1.75;
-  }
+.adl-page .label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--sage);
+  display: block;
+  margin-bottom: 18px;
+}
+.adl-page .label.on-dark-label { color: var(--gold); }
 
-  /* ---- Buttons ---- */
-  .adl-page .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    padding: 16px 32px;
-    border-radius: 100px;
-    cursor: pointer;
-    text-decoration: none;
-    border: 1.5px solid transparent;
-    transition: background-color .25s ease, border-color .25s ease, color .25s ease,
-                transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s ease;
-    user-select: none;
-    white-space: nowrap;
-  }
-  .adl-page .btn:active { transform: translateY(0) scale(.99); }
+.adl-page .visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
 
-  .adl-page .btn-primary {
-    background: var(--brand-primary);
-    color: #fff;
-    box-shadow: 0 10px 24px -10px rgba(37, 99, 235, .65);
-  }
-  .adl-page .btn-primary:hover {
-    background: var(--brand-primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 16px 32px -10px rgba(37, 99, 235, .7);
-  }
+.adl-page .skip-link {
+  position: absolute; left: 50%; top: 10px; transform: translate(-50%, -160%);
+  background: var(--ink); color: var(--paper); padding: 12px 22px;
+  border-radius: 2px; font-weight: 600; text-decoration: none;
+  z-index: 300; transition: transform .2s ease;
+}
+.adl-page .skip-link:focus-visible { transform: translate(-50%, 0); }
 
-  .adl-page .btn-secondary {
-    background: rgba(255,255,255,.08);
-    color: #fff;
-    border-color: rgba(255,255,255,.35);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-  .adl-page .btn-secondary:hover {
-    background: rgba(255,255,255,.18);
-    border-color: #fff;
-    transform: translateY(-2px);
-  }
+.adl-page .shell { max-width: var(--maxw); margin: 0 auto; }
 
-  .adl-page .btn-dark { background: var(--brand-900); color: #fff; }
-  .adl-page .btn-dark:hover {
-    background: var(--brand-800);
-    transform: translateY(-2px);
-    box-shadow: 0 16px 32px -12px rgba(15,23,42,.5);
-  }
+.adl-page .section-head { max-width: var(--maxw); margin: 0 auto clamp(40px, 5vw, 64px); }
+.adl-page .section-head h2 { font-size: clamp(2.1rem, 4vw, 3.3rem); max-width: 20ch; }
+.adl-page .section-head p {
+  margin-top: 20px; max-width: 58ch; color: var(--sage);
+  font-size: 1.06rem; line-height: 1.7;
+}
 
-  .adl-page .btn-outline-dark {
-    background: transparent;
-    color: var(--brand-900);
-    border-color: var(--border-color);
-  }
-  .adl-page .btn-outline-dark:hover {
-    background: var(--surface-alt);
-    border-color: var(--brand-900);
-    transform: translateY(-2px);
-  }
+/* ---- Buttons --------------------------------------------- */
+.adl-page .btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--font-body);
+  font-size: 15px; font-weight: 600; letter-spacing: -.005em;
+  padding: 15px 28px;
+  border-radius: 2px;
+  border: 1.5px solid transparent;
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: background-color .22s ease, color .22s ease, border-color .22s ease,
+              transform .22s ease, box-shadow .22s ease;
+}
+.adl-page .btn:active { transform: translateY(1px); }
 
-  .adl-page .btn-light {
-    background: #fff;
-    color: var(--brand-900);
-    box-shadow: 0 10px 26px -12px rgba(0,0,0,.4);
-  }
-  .adl-page .btn-light:hover { background: var(--surface-alt); transform: translateY(-2px); }
+.adl-page .btn-primary { background: var(--green); color: #fff; }
+.adl-page .btn-primary:hover {
+  background: var(--green-hover);
+  box-shadow: 0 12px 22px -14px rgba(14,93,72,.9);
+  transform: translateY(-2px);
+}
 
-  .adl-page .btn-outline-light {
-    background: rgba(255,255,255,.06);
-    color: #fff;
-    border-color: rgba(255,255,255,.45);
-  }
-  .adl-page .btn-outline-light:hover { background: rgba(255,255,255,.16); border-color: #fff; transform: translateY(-2px); }
+.adl-page .btn-ink { background: var(--ink); color: var(--paper); }
+.adl-page .btn-ink:hover { background: var(--ink-2); transform: translateY(-2px); }
 
-  .adl-page .arrow { display: inline-block; transition: transform .2s ease; }
-  .adl-page .btn:hover .arrow { transform: translateX(4px); }
+.adl-page .btn-outline { background: transparent; color: var(--ink); border-color: var(--rule); }
+.adl-page .btn-outline:hover { border-color: var(--ink); background: var(--paper-2); transform: translateY(-2px); }
 
-  .adl-page .play-icon {
-    width: 22px; height: 22px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .adl-page .play-icon::after {
-    content: "";
-    border-style: solid;
-    border-width: 5px 0 5px 8px;
-    border-color: transparent transparent transparent var(--brand-900);
-    margin-left: 2px;
-  }
+.adl-page .btn-paper { background: var(--paper); color: var(--ink); }
+.adl-page .btn-paper:hover { background: #fff; transform: translateY(-2px); }
 
-  /* ---- Header ---- */
-  .adl-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 20px var(--pad-x) 0;
-    margin-bottom: -100px;
-    transition: padding .3s ease;
-  }
-  .adl-header.is-stuck { padding-top: 10px; }
+.adl-page .btn-ghost-light {
+  background: transparent; color: var(--paper); border-color: rgba(252,251,247,.35);
+}
+.adl-page .btn-ghost-light:hover { background: rgba(252,251,247,.1); border-color: var(--paper); transform: translateY(-2px); }
 
-  .adl-header .header-box {
-    position: relative;
-    z-index: 101;
-    max-width: var(--maxw);
-    margin: 0 auto;
-    background: rgba(255,255,255,.92);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255,255,255,.6);
-    border-radius: var(--radius-md);
-    padding: 10px 12px 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    box-shadow: var(--shadow-md);
-    transition: box-shadow .3s ease, background-color .3s ease;
-  }
-  .adl-header.is-stuck .header-box { box-shadow: 0 12px 34px -14px rgba(15,23,42,.45); }
+.adl-page .arrow { display: inline-block; transition: transform .2s ease; }
+.adl-page .btn:hover .arrow { transform: translateX(4px); }
 
-  .adl-header .header-logo-img { height: 38px; width: auto; display: block; }
+/* ---- Header ---------------------------------------------- */
+.adl-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(252, 251, 247, .82);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s ease, background-color .3s ease;
+}
+.adl-header.is-stuck { border-bottom-color: var(--rule); background: rgba(252, 251, 247, .95); }
 
-  .adl-header .desktop-nav { display: none; }
+.adl-header .header-box {
+  max-width: var(--maxw); margin: 0 auto;
+  padding: 14px var(--pad-x);
+  display: flex; align-items: center; justify-content: space-between; gap: 28px;
+}
+.adl-header .header-logo-img { height: 36px; width: auto; display: block; }
 
-  .adl-header .nav-links { display: flex; gap: 4px; list-style: none; }
-  .adl-header .nav-links a {
-    display: block;
-    color: var(--brand-900);
-    font-weight: 600;
-    font-size: 14.5px;
-    text-decoration: none;
-    padding: 10px 14px;
-    border-radius: 10px;
-    transition: color .2s ease, background-color .2s ease;
-  }
-  .adl-header .nav-links a:hover { color: var(--brand-primary); background: var(--brand-light); }
-  .adl-header .nav-links a[aria-current="page"] { color: var(--brand-primary); background: var(--brand-light); }
+.adl-header .desktop-nav { display: none; margin-right: auto; margin-left: 28px; }
+.adl-header .nav-links { display: flex; gap: 2px; list-style: none; }
+.adl-header .nav-links a {
+  display: block; padding: 9px 13px;
+  font-size: 14.5px; font-weight: 500; color: var(--ink);
+  text-decoration: none; border-radius: 2px;
+  transition: color .2s ease, background-color .2s ease;
+}
+.adl-header .nav-links a:hover { color: var(--green); background: var(--green-soft); }
+.adl-header .nav-links a[aria-current="page"] { color: var(--green); background: var(--green-soft); }
 
-  .adl-header .header-actions { display: flex; align-items: center; gap: 8px; }
-  .adl-header .header-btn { padding: 13px 26px; font-size: 14px; }
+.adl-header .header-actions { display: flex; align-items: center; gap: 10px; }
+.adl-header .header-btn { padding: 12px 22px; font-size: 14px; }
 
-  .adl-header .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    align-items: center;
-    justify-content: center;
-    width: 46px; height: 46px;
-    background: var(--surface-alt);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    cursor: pointer;
-    z-index: 102;
-  }
-  .adl-header .hamburger span {
-    display: block;
-    width: 20px; height: 2px;
-    background: var(--brand-900);
-    border-radius: 2px;
-    transition: transform .3s ease, opacity .2s ease;
-  }
-  body.adl-menu-open .adl-header .hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  body.adl-menu-open .adl-header .hamburger span:nth-child(2) { opacity: 0; }
-  body.adl-menu-open .adl-header .hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.adl-header .hamburger {
+  display: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  width: 44px; height: 44px;
+  background: transparent; border: 1px solid var(--rule); border-radius: 2px; cursor: pointer;
+}
+.adl-header .hamburger span {
+  display: block; width: 19px; height: 1.5px; background: var(--ink); border-radius: 2px;
+  transition: transform .3s ease, opacity .2s ease;
+}
+body.adl-menu-open .adl-header .hamburger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+body.adl-menu-open .adl-header .hamburger span:nth-child(2) { opacity: 0; }
+body.adl-menu-open .adl-header .hamburger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-  .adl-page .mobile-menu {
-    position: fixed;
-    inset: 0;
-    background: rgba(255,255,255,.97);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    z-index: 99;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 128px var(--pad-x) 48px;
-    overflow-y: auto;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-12px);
-    transition: opacity .32s ease, transform .32s cubic-bezier(.16,1,.3,1), visibility .32s;
-  }
-  body.adl-menu-open .adl-page .mobile-menu,
-  body.adl-menu-open .mobile-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.adl-page .mobile-menu {
+  position: fixed; inset: 0; z-index: 99;
+  background: var(--paper);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 110px var(--pad-x) 48px; overflow-y: auto;
+  opacity: 0; visibility: hidden; transform: translateY(-10px);
+  transition: opacity .3s ease, transform .3s ease, visibility .3s;
+}
+body.adl-menu-open .mobile-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.adl-page .mobile-nav-links { list-style: none; width: 100%; max-width: 420px; }
+.adl-page .mobile-nav-links a {
+  display: block; padding: 16px 4px;
+  font-family: var(--font-display); font-size: 1.55rem; font-weight: 600;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--rule-soft);
+  transition: color .2s ease;
+}
+.adl-page .mobile-nav-links a:hover,
+.adl-page .mobile-nav-links a[aria-current="page"] { color: var(--green); }
+.adl-page .mobile-btn-container { margin-top: 32px; width: 100%; max-width: 420px; }
+.adl-page .mobile-btn-container .btn { width: 100%; }
 
-  .adl-page .mobile-nav-links {
-    list-style: none;
-    width: 100%;
-    max-width: 420px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    text-align: center;
-  }
-  .adl-page .mobile-nav-links a {
-    display: block;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--brand-900);
-    text-decoration: none;
-    padding: 14px 0;
-    border-radius: 12px;
-    transition: color .2s ease, background-color .2s ease;
-  }
-  .adl-page .mobile-nav-links a:hover,
-  .adl-page .mobile-nav-links a[aria-current="page"] { color: var(--brand-primary); background: var(--brand-light); }
+@media (min-width: 1080px) { .adl-header .desktop-nav { display: block; } }
+@media (max-width: 1079px) {
+  .adl-header .hamburger { display: flex; }
+  .adl-header .header-btn { display: none; }
+}
 
-  .adl-page .mobile-btn-container { margin-top: 32px; width: 100%; max-width: 420px; }
-  .adl-page .mobile-btn-container .btn { width: 100%; }
+/* ---- Hero ------------------------------------------------ */
+.adl-page .hero {
+  position: relative; isolation: isolate;
+  background: var(--ink);
+  padding: clamp(72px, 10vw, 120px) var(--pad-x) 0;
+  overflow: hidden;
+}
+.adl-page .hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background:
+    linear-gradient(100deg, rgba(18,23,20,.97) 0%, rgba(18,23,20,.88) 45%, rgba(18,23,20,.55) 100%),
+    url('https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/67532c41-fce0-441b-a1d2-5d867657741f/imgi_9_adl_video_placeholder-scaled.jpg?format=2500w') center/cover no-repeat;
+}
+.adl-page .hero-inner {
+  position: relative; z-index: 2; max-width: var(--maxw); margin: 0 auto;
+  padding-bottom: clamp(56px, 7vw, 92px);
+  animation: adlRise .9s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes adlRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
 
-  @media (min-width: 1080px) {
-    .adl-header .desktop-nav { display: block; }
-  }
-  @media (max-width: 1079px) {
-    .adl-header .hamburger { display: flex; }
-    .adl-header .header-btn { display: none; }
-  }
+.adl-page .hero .label { color: var(--gold); }
 
-  /* ---- Hero ---- */
-  .adl-page .hero {
-    position: relative;
-    min-height: min(760px, 100svh);
-    display: flex;
-    align-items: center;
-    isolation: isolate;
-    background:
-      linear-gradient(105deg, rgba(11,18,32,.96) 0%, rgba(11,18,32,.82) 45%, rgba(11,18,32,.42) 100%),
-      url('https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/67532c41-fce0-441b-a1d2-5d867657741f/imgi_9_adl_video_placeholder-scaled.jpg?format=2500w') center/cover no-repeat;
-    padding: clamp(140px, 18vw, 190px) var(--pad-x) clamp(72px, 10vw, 120px);
-    overflow: hidden;
-  }
-  .adl-page .hero::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 160px;
-    background: linear-gradient(to bottom, rgba(255,255,255,0), var(--surface));
-    z-index: 1;
-  }
+.adl-page .hero h1 {
+  color: var(--paper);
+  font-size: clamp(2.5rem, 6vw, 4.6rem);
+  max-width: 15ch;
+  margin-bottom: 24px;
+}
+.adl-page .hero h1 em {
+  font-style: italic; font-weight: 400;
+  color: #fff;
+  font-variation-settings: 'opsz' 144;
+}
+.adl-page .hero .sub {
+  color: rgba(252,251,247,.72);
+  font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+  line-height: 1.75; max-width: 54ch; margin-bottom: 36px;
+}
+.adl-page .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
 
-  .adl-page .hero-inner {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: var(--maxw);
-    margin: 0 auto;
-    animation: adlFadeUp .9s cubic-bezier(.16,1,.3,1) both;
-  }
-  @keyframes adlFadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+/* Hero stat rail — sits on the seam between hero and page */
+.adl-page .hero-rail {
+  position: relative; z-index: 2;
+  max-width: var(--maxw); margin: 0 auto;
+  background: var(--paper);
+  border: 1px solid var(--rule-soft);
+  border-bottom: none;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+}
+.adl-page .hero-rail div {
+  padding: 28px clamp(20px, 3vw, 36px);
+  border-right: 1px solid var(--rule-soft);
+}
+.adl-page .hero-rail div:last-child { border-right: none; }
+.adl-page .hero-rail strong {
+  display: block;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.9rem, 3vw, 2.5rem);
+  line-height: 1; letter-spacing: -.03em; color: var(--green);
+  margin-bottom: 8px;
+}
+.adl-page .hero-rail span { font-size: .92rem; color: var(--sage); line-height: 1.45; display: block; }
 
-  .adl-page .standards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 28px;
-  }
-  .adl-page .standard-chip {
-    color: rgba(255,255,255,.95);
-    background: rgba(255,255,255,.10);
-    border: 1px solid rgba(255,255,255,.22);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding: 7px 16px;
-    border-radius: 100px;
-    font-size: 12.5px;
-    font-weight: 600;
-    letter-spacing: .02em;
-    white-space: nowrap;
-  }
+@media (max-width: 720px) {
+  .adl-page .hero-rail { grid-template-columns: 1fr; }
+  .adl-page .hero-rail div { border-right: none; border-bottom: 1px solid var(--rule-soft); padding: 20px var(--pad-x); }
+  .adl-page .hero-rail div:last-child { border-bottom: none; }
+  .adl-page .hero { padding-left: 0; padding-right: 0; }
+  .adl-page .hero-inner { padding-left: var(--pad-x); padding-right: var(--pad-x); }
+  .adl-page .hero-rail { border-left: none; border-right: none; }
+}
 
-  .adl-page .hero h1 {
-    color: #fff;
-    font-size: clamp(2.4rem, 5.2vw, 4.4rem);
-    max-width: 16ch;
-    margin-bottom: 22px;
-  }
-  .adl-page .hero h1 span {
-    background: linear-gradient(92deg, #93c5fd, #3b82f6);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: var(--brand-accent);
-  }
+/* ---- Standards switcher ---------------------------------- */
+.adl-page .standards {
+  background: var(--paper);
+  padding: var(--section) var(--pad-x);
+}
+.adl-page .standards-head { max-width: var(--maxw); margin: 0 auto 36px; text-align: center; }
+.adl-page .standards-head .label { margin-left: auto; margin-right: auto; }
+.adl-page .standards-head h2 { font-size: clamp(2.1rem, 4vw, 3.3rem); margin: 0 auto; max-width: 18ch; }
+.adl-page .standards-head p {
+  margin: 20px auto 0; max-width: 56ch; color: var(--sage);
+  font-size: 1.06rem; line-height: 1.7;
+}
 
-  .adl-page .hero .sub {
-    color: rgba(255,255,255,.82);
-    font-size: clamp(1.02rem, 1.4vw, 1.2rem);
-    line-height: 1.75;
-    max-width: 58ch;
-    margin-bottom: 40px;
-  }
+.adl-page .std-tabs {
+  max-width: var(--maxw); margin: 0 auto 28px;
+  display: flex; gap: 4px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule-soft);
+  border-radius: 100px;
+  padding: 5px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.adl-page .std-tabs::-webkit-scrollbar { display: none; }
 
-  .adl-page .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.adl-page .std-tab {
+  flex: 1 1 0; min-width: max-content;
+  background: transparent; border: none; cursor: pointer;
+  border-radius: 100px;
+  padding: 13px 20px;
+  font-family: var(--font-body);
+  font-size: 14.5px; font-weight: 500; color: var(--sage);
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  transition: background-color .25s ease, color .25s ease, box-shadow .25s ease;
+}
+.adl-page .std-tab .std-tab-code {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: .08em; color: var(--sage-2);
+  transition: color .25s ease;
+}
+.adl-page .std-tab:hover { color: var(--ink); }
+.adl-page .std-tab[aria-selected="true"] {
+  background: var(--paper); color: var(--ink); font-weight: 700;
+  box-shadow: var(--shadow-1);
+}
+.adl-page .std-tab[aria-selected="true"] .std-tab-code { color: var(--green); }
 
-  .adl-page .hero-proof {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: clamp(20px, 4vw, 48px);
-    margin-top: 48px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(255,255,255,.14);
-  }
-  .adl-page .hero-proof div { color: rgba(255,255,255,.7); font-size: .9rem; font-weight: 500; }
-  .adl-page .hero-proof strong {
-    display: block;
-    color: #fff;
-    font-size: 1.6rem;
-    font-weight: 800;
-    letter-spacing: -.03em;
-    line-height: 1.2;
-  }
+.adl-page .std-panels { max-width: var(--maxw); margin: 0 auto; }
+.adl-page .std-panel { display: none; }
+.adl-page .std-panel.is-active { display: block; animation: adlFade .45s ease both; }
+@keyframes adlFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
-  /* ---- About ---- */
-  .adl-page .about { background: var(--surface); padding: var(--section-y) var(--pad-x); }
-  .adl-page .about-grid {
-    max-width: var(--maxw);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
-    gap: clamp(48px, 7vw, 96px);
-    align-items: center;
-  }
-  .adl-page .about-visual { position: relative; }
-  .adl-page .img-wrapper {
-    position: relative;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    aspect-ratio: 4 / 5;
-  }
-  .adl-page .img-wrapper img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform .8s cubic-bezier(.16,1,.3,1);
-  }
-  .adl-page .about-visual:hover .img-wrapper img { transform: scale(1.04); }
+.adl-page .std-card {
+  background: var(--paper-2);
+  border: 1px solid var(--rule-soft);
+  border-radius: 20px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: 10px;
+}
+.adl-page .std-media {
+  position: relative; overflow: hidden;
+  border-radius: 14px;
+  min-height: 340px;
+  background: var(--ink);
+}
+.adl-page .std-media img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(.75) contrast(1.03);
+}
+.adl-page .std-media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(14,93,72,.28) 0%, rgba(18,23,20,.62) 100%);
+}
+.adl-page .std-stamp {
+  position: absolute; z-index: 2; left: 20px; bottom: 20px;
+  background: rgba(252,251,247,.94);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border-radius: 3px;
+  padding: 10px 14px;
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--green);
+}
 
-  .adl-page .stat-badge {
-    position: absolute;
-    bottom: -18px;
-    right: clamp(-18px, -1vw, 16px);
-    background: var(--brand-900);
-    color: #fff;
-    padding: 20px 28px;
-    border-radius: 20px;
-    box-shadow: 0 18px 36px -14px rgba(15,23,42,.55);
-    border: 4px solid var(--surface);
-    z-index: 5;
-  }
-  .adl-page .stat-num {
-    display: block;
-    font-size: 2.3rem;
-    font-weight: 800;
-    line-height: 1;
-    color: var(--brand-accent);
-    letter-spacing: -.04em;
-    margin-bottom: 6px;
-  }
-  .adl-page .stat-text {
-    display: block;
-    font-size: .74rem;
-    font-weight: 700;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.72);
-  }
+.adl-page .std-body {
+  background: var(--paper);
+  border-radius: 14px;
+  padding: clamp(28px, 3.4vw, 48px);
+  display: flex; flex-direction: column;
+}
+.adl-page .std-stat {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+  line-height: 1; letter-spacing: -.035em;
+  color: var(--ink); margin-bottom: 10px;
+  font-variation-settings: 'opsz' 144;
+}
+.adl-page .std-stat-note {
+  color: var(--sage); font-size: 1.02rem; line-height: 1.55;
+  padding-bottom: 26px; border-bottom: 1px solid var(--rule-soft);
+  margin-bottom: 26px; max-width: 42ch;
+}
+.adl-page .std-body h3 { font-size: clamp(1.4rem, 2.2vw, 1.8rem); margin-bottom: 12px; }
+.adl-page .std-body > p { color: var(--sage); line-height: 1.72; max-width: 52ch; }
 
-  .adl-page .about h2 { font-size: clamp(2rem, 3.6vw, 3.1rem); margin-bottom: 24px; }
-  .adl-page .about h2 span { color: var(--brand-primary); }
+.adl-page .std-points { list-style: none; display: grid; gap: 12px; margin: 24px 0 32px; }
+.adl-page .std-points li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: .98rem; font-weight: 500; color: var(--ink); line-height: 1.55;
+}
+.adl-page .std-points li::before {
+  content: ""; flex-shrink: 0;
+  width: 7px; height: 7px; margin-top: 8px;
+  border-radius: 50%; background: var(--gold);
+}
 
-  .adl-page .lead-text {
-    color: var(--brand-900);
-    font-size: clamp(1.1rem, 1.5vw, 1.28rem);
-    line-height: 1.65;
-    font-weight: 600;
-    margin-bottom: 20px;
-    max-width: 46ch;
-  }
-  .adl-page .about-copy p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; max-width: 62ch; }
+.adl-page .std-actions {
+  margin-top: auto; display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+}
+.adl-page .std-meta {
+  font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--sage-2);
+}
 
-  .adl-page .about-points {
-    list-style: none;
-    margin: 32px 0 36px;
-    display: grid;
-    gap: 12px;
-  }
-  .adl-page .about-points li {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--brand-900);
-    line-height: 1.55;
-  }
-  .adl-page .icon-check {
-    flex-shrink: 0;
-    width: 24px; height: 24px;
-    margin-top: 1px;
-    background: var(--brand-light);
-    color: var(--brand-primary);
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 800;
-  }
+@media (max-width: 900px) {
+  .adl-page .std-card { grid-template-columns: 1fr; }
+  .adl-page .std-media { min-height: 220px; }
+  .adl-page .std-tabs { border-radius: 14px; }
+  .adl-page .std-tab { flex: 0 0 auto; }
+}
 
-  .adl-page .about-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+/* ---- Journey (a real sequence, so it is numbered) -------- */
+.adl-page .journey {
+  background: var(--paper-2);
+  padding: var(--section) var(--pad-x);
+  border-top: 1px solid var(--rule-soft);
+}
+.adl-page .journey-grid {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border-top: 1px solid var(--rule);
+}
+.adl-page .step {
+  padding: 30px 26px 30px 0;
+  border-right: 1px solid var(--rule-soft);
+  position: relative;
+}
+.adl-page .step:last-child { border-right: none; }
+.adl-page .step:not(:first-child) { padding-left: 26px; }
+.adl-page .step::before {
+  content: ""; position: absolute; top: -1px; left: 0; height: 2px; width: 0;
+  background: var(--green); transition: width .7s cubic-bezier(.16,1,.3,1);
+}
+.adl-page .journey-grid.is-revealed .step::before { width: 100%; }
+.adl-page .journey-grid.is-revealed .step:nth-child(2)::before { transition-delay: .12s; }
+.adl-page .journey-grid.is-revealed .step:nth-child(3)::before { transition-delay: .24s; }
+.adl-page .journey-grid.is-revealed .step:nth-child(4)::before { transition-delay: .36s; }
 
-  @media (max-width: 960px) {
-    .adl-page .about-grid { grid-template-columns: 1fr; gap: 56px; }
-    .adl-page .img-wrapper { aspect-ratio: 16 / 11; }
-    .adl-page .stat-badge { right: 16px; }
-  }
+.adl-page .step-num {
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: .16em; color: var(--gold); display: block; margin-bottom: 16px;
+}
+.adl-page .step h3 { font-size: 1.28rem; margin-bottom: 10px; }
+.adl-page .step p { color: var(--sage); font-size: .98rem; line-height: 1.68; }
 
-  /* ---- Features ---- */
-  .adl-page .features { background: var(--surface-alt); padding: var(--section-y) var(--pad-x); }
-  .adl-page .features-grid {
-    max-width: var(--maxw);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  .adl-page .feature-card {
-    background: var(--surface);
-    padding: 40px 34px;
-    border-radius: var(--radius-lg);
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease, border-color .3s ease;
-  }
-  .adl-page .feature-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(37,99,235,.28);
-    box-shadow: 0 24px 48px -20px rgba(37,99,235,.4);
-  }
-  .adl-page .feature-card::before {
-    content: attr(data-num);
-    position: absolute;
-    bottom: -28px;
-    right: -6px;
-    font-size: 120px;
-    font-weight: 800;
-    letter-spacing: -.06em;
-    color: var(--surface-alt);
-    line-height: 1;
-    z-index: -1;
-    transition: color .3s ease, transform .3s ease;
-  }
-  .adl-page .feature-card:hover::before { color: var(--brand-light); transform: translateY(-6px); }
-  .adl-page .feature-card h3 { font-size: 1.25rem; margin-bottom: 12px; }
-  .adl-page .feature-card p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; }
+@media (max-width: 900px) { .adl-page .journey-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) {
+  .adl-page .journey-grid { grid-template-columns: 1fr; }
+  .adl-page .step { padding: 26px 0; border-right: none; border-bottom: 1px solid var(--rule-soft); }
+  .adl-page .step:not(:first-child) { padding-left: 0; }
+  .adl-page .step:last-child { border-bottom: none; }
+}
 
-  /* ---- Testimonials ---- */
-  .adl-page .testimonials {
-    background: var(--brand-900);
-    padding: var(--section-y) var(--pad-x);
-    position: relative;
-    overflow: hidden;
-  }
-  .adl-page .testimonials::before {
-    content: '';
-    position: absolute;
-    top: -25%; right: -12%;
-    width: min(680px, 90vw); aspect-ratio: 1;
-    background: radial-gradient(circle, rgba(37,99,235,.22) 0%, rgba(15,23,42,0) 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-  .adl-page .testimonials .section-head { position: relative; z-index: 2; }
-  .adl-page .testimonials h2 { color: #fff; }
-  .adl-page .testimonials h2 span { color: var(--brand-accent); }
-  .adl-page .testimonials .section-sub { color: rgba(255,255,255,.7); }
+/* ---- About ----------------------------------------------- */
+.adl-page .about { background: var(--paper); padding: var(--section) var(--pad-x); }
+.adl-page .about-grid {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+  gap: clamp(40px, 6vw, 88px); align-items: center;
+}
+.adl-page .about-visual { position: relative; }
+.adl-page .img-wrapper {
+  border-radius: 4px; overflow: hidden; aspect-ratio: 4 / 5;
+  box-shadow: var(--shadow-2);
+}
+.adl-page .img-wrapper img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .8s cubic-bezier(.16,1,.3,1);
+}
+.adl-page .about-visual:hover .img-wrapper img { transform: scale(1.04); }
 
+.adl-page .seal {
+  position: absolute; right: clamp(-16px, -1vw, 12px); bottom: -22px;
+  width: 128px; height: 128px; border-radius: 50%;
+  background: var(--gold-soft);
+  border: 1.5px solid var(--gold);
+  color: var(--green);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; box-shadow: var(--shadow-2);
+}
+.adl-page .seal strong {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 600;
+  line-height: 1; letter-spacing: -.03em;
+}
+.adl-page .seal span {
+  font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--gold);
+  margin-top: 6px; max-width: 78px; line-height: 1.4;
+}
+
+.adl-page .about h2 { font-size: clamp(2.1rem, 4vw, 3.1rem); margin-bottom: 24px; }
+.adl-page .lead {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(1.16rem, 1.7vw, 1.4rem);
+  line-height: 1.5; color: var(--ink); margin-bottom: 20px; max-width: 44ch;
+}
+.adl-page .about-copy > p { color: var(--sage); line-height: 1.78; max-width: 60ch; }
+.adl-page .about-points { list-style: none; display: grid; gap: 14px; margin: 28px 0 34px; }
+.adl-page .about-points li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-weight: 500; color: var(--ink); line-height: 1.55;
+}
+.adl-page .tick {
+  flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px;
+  border-radius: 50%; background: var(--green-soft); color: var(--green);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+}
+.adl-page .about-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 960px) {
+  .adl-page .about-grid { grid-template-columns: 1fr; gap: 56px; }
+  .adl-page .img-wrapper { aspect-ratio: 16 / 10; }
+  .adl-page .seal { right: 16px; }
+}
+
+/* ---- Reasons (no false numbering) ------------------------ */
+.adl-page .reasons { background: var(--ink); padding: var(--section) var(--pad-x); }
+.adl-page .reasons h2 { color: var(--paper); }
+.adl-page .reasons h2 em { font-style: italic; font-weight: 400; color: var(--gold); }
+.adl-page .reasons .section-head p { color: rgba(252,251,247,.6); }
+
+.adl-page .reasons-grid {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1px;
+  background: rgba(252,251,247,.12);
+  border: 1px solid rgba(252,251,247,.12);
+}
+.adl-page .reason {
+  background: var(--ink); padding: 34px 30px;
+  transition: background-color .3s ease;
+}
+.adl-page .reason:hover { background: var(--ink-2); }
+.adl-page .reason h3 { color: var(--paper); font-size: 1.24rem; margin-bottom: 10px; }
+.adl-page .reason p { color: rgba(252,251,247,.62); font-size: .98rem; line-height: 1.7; }
+.adl-page .reason .reason-mark {
+  display: block; width: 22px; height: 2px; background: var(--gold);
+  margin-bottom: 22px;
+}
+
+/* ---- Testimonials ---------------------------------------- */
+.adl-page .testimonials { background: var(--paper); padding: var(--section) var(--pad-x); }
+.adl-page .testimonials-grid {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;
+}
+.adl-page .t-card {
+  background: var(--paper-2);
+  border: 1px solid var(--rule-soft);
+  border-radius: 4px;
+  padding: 34px 30px;
+  display: flex; flex-direction: column;
+  transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;
+}
+.adl-page .t-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-1); }
+.adl-page .t-card blockquote {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: 1.08rem; line-height: 1.62; color: var(--ink);
+  flex-grow: 1; margin-bottom: 26px;
+}
+.adl-page .t-standards {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px;
+}
+.adl-page .t-standards span {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: .06em; color: var(--green);
+  background: var(--green-soft); padding: 4px 9px; border-radius: 2px;
+}
+.adl-page .t-author { border-top: 1px solid var(--rule); padding-top: 18px; font-style: normal; }
+.adl-page .t-author strong { display: block; font-size: .96rem; font-weight: 700; color: var(--ink); }
+.adl-page .t-author span { font-size: .88rem; color: var(--sage); }
+
+@media (max-width: 960px) {
   .adl-page .testimonials-grid {
-    max-width: var(--maxw);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
-    position: relative;
-    z-index: 2;
+    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(84%, 380px);
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 2px var(--pad-x) 18px; margin: 0 calc(var(--pad-x) * -1);
+    scrollbar-width: none;
   }
-  .adl-page .t-card {
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.10);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 20px;
-    padding: 36px 32px;
-    display: flex;
-    flex-direction: column;
-    transition: background-color .3s ease, border-color .3s ease, transform .3s cubic-bezier(.16,1,.3,1);
-  }
-  .adl-page .t-card:hover {
-    background: rgba(255,255,255,.07);
-    border-color: rgba(255,255,255,.2);
-    transform: translateY(-4px);
-  }
-  .adl-page .t-quote-mark {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 56px;
-    color: var(--brand-accent);
-    line-height: .6;
-    margin-bottom: 22px;
-    opacity: .85;
-  }
-  .adl-page .t-card blockquote {
-    color: rgba(255,255,255,.86);
-    font-size: 1rem;
-    line-height: 1.75;
-    flex-grow: 1;
-    margin-bottom: 28px;
-  }
-  .adl-page .t-author {
-    border-top: 1px solid rgba(255,255,255,.12);
-    padding-top: 18px;
-    font-style: normal;
-  }
-  .adl-page .t-author strong {
-    display: block;
-    color: #fff;
-    font-size: .98rem;
-    font-weight: 700;
-    margin-bottom: 3px;
-  }
-  .adl-page .t-author span { color: var(--brand-accent); font-size: .86rem; font-weight: 600; }
+  .adl-page .testimonials-grid::-webkit-scrollbar { display: none; }
+  .adl-page .t-card { scroll-snap-align: center; }
+}
 
-  @media (max-width: 960px) {
-    .adl-page .testimonials-grid {
-      grid-template-columns: none;
-      grid-auto-flow: column;
-      grid-auto-columns: min(86%, 400px);
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      padding: 4px var(--pad-x) 20px;
-      margin: 0 calc(var(--pad-x) * -1);
-      scrollbar-width: none;
-    }
-    .adl-page .testimonials-grid::-webkit-scrollbar { display: none; }
-    .adl-page .t-card { scroll-snap-align: center; }
-  }
+/* ---- Family ---------------------------------------------- */
+.adl-page .family {
+  padding: var(--section) var(--pad-x);
+  background-image:
+    linear-gradient(105deg, rgba(18,23,20,.96) 0%, rgba(14,93,72,.78) 100%),
+    url('https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/17aadad6-ea52-411e-ac85-a7b433d3df0b/imgi_14_Twitterbg1.jpg?format=2500w');
+  background-position: center; background-size: cover; background-repeat: no-repeat;
+}
+.adl-page .family-grid {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(36px, 6vw, 80px); align-items: start;
+}
+.adl-page .family h2 { color: var(--paper); font-size: clamp(2rem, 3.6vw, 3rem); max-width: 15ch; }
+.adl-page .family-copy p { color: rgba(252,251,247,.76); line-height: 1.78; max-width: 58ch; }
+.adl-page .family-lead-out {
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--gold);
+  margin: 30px 0 16px;
+}
+.adl-page .family-list { list-style: none; display: grid; gap: 1px; background: rgba(252,251,247,.14); }
+.adl-page .family-list li {
+  display: flex; align-items: center; gap: 14px;
+  color: var(--paper); font-size: 1rem; line-height: 1.5;
+  background: rgba(18,23,20,.42);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  padding: 17px 20px;
+  transition: background-color .25s ease, padding-left .25s ease;
+}
+.adl-page .family-list li:hover { background: rgba(18,23,20,.62); padding-left: 28px; }
+.adl-page .family-list .tick { background: var(--gold); color: var(--ink); }
 
-  /* ---- Family / approach ---- */
-  .adl-page .family {
-    position: relative;
-    padding: var(--section-y) var(--pad-x);
-    background-image:
-      linear-gradient(115deg, rgba(11,18,32,.95) 0%, rgba(11,18,32,.78) 100%),
-      url('https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/17aadad6-ea52-411e-ac85-a7b433d3df0b/imgi_14_Twitterbg1.jpg?format=2500w');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  .adl-page .family-grid {
-    max-width: var(--maxw);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-    gap: clamp(40px, 6vw, 88px);
-    align-items: start;
-  }
-  .adl-page .family h2 { color: #fff; font-size: clamp(2rem, 3.6vw, 3.1rem); max-width: 16ch; }
-  .adl-page .family-copy p { color: rgba(255,255,255,.82); font-size: 1.05rem; line-height: 1.8; max-width: 62ch; }
-  .adl-page .family-lead-out {
-    color: #fff;
-    font-weight: 700;
-    font-size: 1.05rem;
-    margin: 28px 0 16px;
-  }
-  .adl-page .family-list { list-style: none; display: grid; gap: 10px; }
-  .adl-page .family-list li {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    color: rgba(255,255,255,.94);
-    font-size: 1rem;
-    line-height: 1.55;
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.10);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 14px;
-    padding: 16px 20px;
-    transition: transform .25s ease, background-color .25s ease, border-color .25s ease;
-  }
-  .adl-page .family-list li:hover {
-    transform: translateX(6px);
-    background: rgba(255,255,255,.09);
-    border-color: rgba(255,255,255,.2);
-  }
-  .adl-page .tick {
-    flex-shrink: 0;
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    background: var(--brand-primary);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 800;
-    color: #fff;
-  }
-  @media (max-width: 960px) {
-    .adl-page .family-grid { grid-template-columns: 1fr; gap: 36px; }
-  }
+@media (max-width: 960px) { .adl-page .family-grid { grid-template-columns: 1fr; gap: 36px; } }
 
-  /* ---- Final CTA ---- */
-  .adl-page .final-cta {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(125deg, var(--brand-primary) 0%, #1e3a8a 55%, var(--brand-900) 100%);
-    padding: clamp(72px, 9vw, 112px) var(--pad-x);
-    text-align: center;
-  }
-  .adl-page .final-cta::before {
-    content: "";
-    position: absolute;
-    top: -40%; left: 50%;
-    transform: translateX(-50%);
-    width: min(900px, 120vw); aspect-ratio: 1;
-    background: radial-gradient(circle, rgba(255,255,255,.14), rgba(255,255,255,0) 65%);
-    pointer-events: none;
-  }
-  .adl-page .cta-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
-  .adl-page .final-cta h2 { color: #fff; font-size: clamp(2rem, 3.6vw, 3.1rem); margin-bottom: 18px; }
-  .adl-page .final-cta p { color: rgba(255,255,255,.82); font-size: 1.08rem; line-height: 1.7; margin-bottom: 36px; }
-  .adl-page .final-cta .btn-row { justify-content: center; }
+/* ---- Final CTA ------------------------------------------- */
+.adl-page .final-cta {
+  background: var(--green);
+  padding: clamp(72px, 9vw, 116px) var(--pad-x);
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.adl-page .final-cta::before {
+  content: ""; position: absolute; top: -55%; left: 50%; transform: translateX(-50%);
+  width: min(880px, 130vw); aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(192,138,46,.28), rgba(192,138,46,0) 62%);
+  pointer-events: none;
+}
+.adl-page .cta-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+.adl-page .final-cta .label { color: rgba(252,251,247,.62); }
+.adl-page .final-cta h2 { color: #fff; font-size: clamp(2.1rem, 4vw, 3.2rem); margin-bottom: 18px; }
+.adl-page .final-cta > .cta-inner > p {
+  color: rgba(255,255,255,.8); line-height: 1.7; margin-bottom: 34px;
+}
+.adl-page .final-cta .btn-row { justify-content: center; }
 
-  /* ---- Footer ---- */
-  .adl-footer {
-    background: var(--brand-900);
-    color: rgba(255,255,255,.66);
-    padding: clamp(56px, 7vw, 88px) var(--pad-x) 28px;
-    font-size: .95rem;
-  }
-  .adl-footer .footer-inner { max-width: var(--maxw); margin: 0 auto; }
+/* ---- Footer ---------------------------------------------- */
+.adl-footer {
+  background: var(--ink); color: rgba(252,251,247,.62);
+  padding: clamp(52px, 6vw, 80px) var(--pad-x) 26px;
+  font-size: .95rem;
+}
+.adl-footer .footer-inner { max-width: var(--maxw); margin: 0 auto; }
 
-  .adl-footer .footer-certs-card {
-    background: #fff;
-    border-radius: 20px;
-    padding: 32px clamp(20px, 4vw, 48px);
-    margin-bottom: clamp(44px, 6vw, 64px);
-    box-shadow: 0 20px 44px -22px rgba(0,0,0,.7);
-  }
-  .adl-footer .footer-certs-title {
-    text-align: center;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 26px;
-  }
-  .adl-footer .footer-certs-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(24px, 4vw, 48px);
-  }
-  .adl-footer .footer-certs-inner img {
-    height: 46px;
-    width: auto;
-    object-fit: contain;
-    filter: grayscale(1);
-    opacity: .72;
-    transition: filter .3s ease, opacity .3s ease;
-  }
-  .adl-footer .footer-certs-inner img:hover { filter: grayscale(0); opacity: 1; }
+.adl-footer .footer-certs { margin-bottom: clamp(44px, 6vw, 64px); }
+.adl-footer .footer-certs-title {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase; color: rgba(252,251,247,.42);
+  text-align: center; margin-bottom: 26px;
+}
+.adl-footer .footer-certs-inner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: clamp(24px, 4vw, 52px);
+  padding: 26px 0;
+  border-top: 1px solid rgba(252,251,247,.12);
+  border-bottom: 1px solid rgba(252,251,247,.12);
+}
+.adl-footer .footer-certs-inner img {
+  height: 42px; width: auto; object-fit: contain;
+  filter: grayscale(1) brightness(1.9) contrast(.85);
+  opacity: .62; transition: opacity .3s ease, filter .3s ease;
+}
+.adl-footer .footer-certs-inner img:hover { filter: none; opacity: 1; }
 
-  .adl-footer .footer-grid {
-    display: grid;
-    grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
-    gap: clamp(32px, 4vw, 56px);
-    margin-bottom: clamp(40px, 5vw, 56px);
-  }
-  .adl-footer .footer-logo { height: 44px; width: auto; margin-bottom: 20px; display: block; }
-  .adl-footer .footer-col p { line-height: 1.75; margin-bottom: 12px; max-width: 42ch; }
-  .adl-footer .footer-col h4 {
-    color: #fff;
-    font-size: .8rem;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-  .adl-footer .footer-col ul { list-style: none; display: grid; gap: 12px; }
-  .adl-footer .footer-col a {
-    color: rgba(255,255,255,.66);
-    text-decoration: none;
-    transition: color .2s ease;
-  }
-  .adl-footer .footer-col a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.adl-footer .footer-grid {
+  display: grid; grid-template-columns: 1.7fr 1fr 1fr 1.2fr;
+  gap: clamp(30px, 4vw, 56px); margin-bottom: clamp(40px, 5vw, 56px);
+}
+.adl-footer .footer-logo { height: 40px; width: auto; margin-bottom: 20px; display: block; }
+.adl-footer .footer-col p { line-height: 1.75; margin-bottom: 10px; max-width: 40ch; }
+.adl-footer .footer-col h4 {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(252,251,247,.42); margin-bottom: 20px;
+}
+.adl-footer .footer-col ul { list-style: none; display: grid; gap: 12px; }
+.adl-footer .footer-col a { color: rgba(252,251,247,.62); text-decoration: none; transition: color .2s ease; }
+.adl-footer .footer-col a:hover { color: var(--gold); }
+.adl-footer .footer-col .mono-link { font-family: var(--font-mono); font-size: .86rem; }
 
-  .adl-footer .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,.12);
-    padding-top: 26px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    font-size: .84rem;
-  }
-  .adl-footer .footer-legal-links { display: flex; gap: 22px; }
+.adl-footer .footer-bottom {
+  border-top: 1px solid rgba(252,251,247,.12); padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 14px; font-size: .84rem;
+}
+.adl-footer .footer-legal-links { display: flex; gap: 22px; }
 
-  @media (max-width: 960px) {
-    .adl-footer .footer-grid { grid-template-columns: 1fr 1fr; }
-    .adl-footer .footer-col.brand-col { grid-column: 1 / -1; }
-  }
-  @media (max-width: 640px) {
-    .adl-page .hero { min-height: auto; align-items: flex-start; }
-    .adl-page .btn { width: 100%; }
-    .adl-page .btn-row, .adl-page .about-ctas { flex-direction: column; align-items: stretch; width: 100%; }
-    .adl-page .hero-proof { gap: 20px 32px; }
-    .adl-footer .footer-grid { grid-template-columns: 1fr; gap: 36px; }
-    .adl-footer .footer-bottom { flex-direction: column; text-align: center; }
-  }
+@media (max-width: 960px) {
+  .adl-footer .footer-grid { grid-template-columns: 1fr 1fr; }
+  .adl-footer .footer-col.brand-col { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .adl-page .btn { width: 100%; }
+  .adl-page .btn-row, .adl-page .about-ctas, .adl-page .std-actions { flex-direction: column; align-items: stretch; width: 100%; }
+  .adl-page .std-meta { text-align: center; }
+  .adl-footer .footer-grid { grid-template-columns: 1fr; gap: 34px; }
+  .adl-footer .footer-bottom { flex-direction: column; text-align: center; }
+}
 </style>
 
 
@@ -875,24 +731,23 @@
 
   <header class="adl-header" id="adlHeader">
     <div class="header-box">
-      <a href="#" class="logo-link" aria-label="ADL Consultancy — home">
-        <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/4aebab99-c450-4823-9a4a-ef5405ce2e50/adlconsultancy-logo.webp?format=2500w" alt="ADL Consultancy" class="header-logo-img" width="160" height="38">
+      <a href="#" aria-label="ADL Consultancy — home">
+        <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/4aebab99-c450-4823-9a4a-ef5405ce2e50/adlconsultancy-logo.webp?format=2500w" alt="ADL Consultancy" class="header-logo-img" width="150" height="36">
       </a>
 
       <nav class="desktop-nav" aria-label="Primary">
         <ul class="nav-links">
-          <li><a href="#about" aria-current="page">About</a></li>
-          <li><a href="#services">Our Services</a></li>
-          <li><a href="#family">Meet the Family</a></li>
-          <li><a href="#news">News</a></li>
-          <li><a href="#training">Training</a></li>
+          <li><a href="#standards">Standards</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#reasons">Why ADL</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="#partners">Partners</a></li>
         </ul>
       </nav>
 
       <div class="header-actions">
-        <a href="#contact" class="btn btn-primary header-btn">Contact Us</a>
+        <a href="#contact" class="btn btn-primary header-btn">Book a consultation</a>
         <button class="hamburger" type="button" id="adlMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="adlMobileMenu">
           <span></span><span></span><span></span>
         </button>
@@ -903,137 +758,361 @@
   <div class="mobile-menu" id="adlMobileMenu" hidden>
     <nav aria-label="Mobile">
       <ul class="mobile-nav-links">
-        <li><a href="#about" aria-current="page">About</a></li>
-        <li><a href="#services">Our Services</a></li>
-        <li><a href="#family">Meet the Family</a></li>
-        <li><a href="#news">News</a></li>
-        <li><a href="#training">Training</a></li>
+        <li><a href="#standards">Standards</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#reasons">Why ADL</a></li>
         <li><a href="#testimonials">Testimonials</a></li>
         <li><a href="#partners">Partners</a></li>
       </ul>
     </nav>
     <div class="mobile-btn-container">
-      <a href="#contact" class="btn btn-primary">Contact Us</a>
+      <a href="#contact" class="btn btn-primary">Book a consultation</a>
     </div>
   </div>
 
   <main id="main">
 
+    <!-- Hero -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-inner">
-        <ul class="standards" aria-label="Standards we support">
-          <li class="standard-chip">ISO 9001 &amp; AS9100</li>
-          <li class="standard-chip">ISO 14001</li>
-          <li class="standard-chip">ISO 27001</li>
-          <li class="standard-chip">ISO 42001</li>
-          <li class="standard-chip">ISO 45001</li>
-        </ul>
-        <h1 id="hero-title">Get ISO certified, <span>without the paperwork headache</span></h1>
-        <p class="sub">Trusted ISO consultants supporting businesses across Essex &amp; London — from gap analysis to full certification, we handle the standard so you can run the business.</p>
+        <span class="label">ISO consultants · Essex &amp; London</span>
+        <h1>Get ISO certified, <em>without the paperwork headache</em></h1>
+        <p class="sub">From gap analysis to the day your certificate is issued, we build the management system around how your business already works — then stand beside you in the audit.</p>
         <div class="btn-row">
           <a href="#contact" class="btn btn-primary">Book a free consultation <span class="arrow" aria-hidden="true">→</span></a>
-          <a href="#" class="btn btn-secondary on-dark"><span class="play-icon" aria-hidden="true"></span> Watch our video</a>
+          <a href="#standards" class="btn btn-ghost-light on-dark">Explore the standards</a>
         </div>
-        <div class="hero-proof">
-          <div><strong>100%</strong> Certification success rate</div>
-          <div><strong>20+ yrs</strong> Combined ISO experience</div>
-          <div><strong>No contracts</strong> Cancel any time</div>
+      </div>
+      <div class="hero-rail">
+        <div>
+          <strong>100%</strong>
+          <span>Certification success rate across every client engagement</span>
+        </div>
+        <div>
+          <strong>6</strong>
+          <span>Standards supported, from ISO 9001 to ISO 42001</span>
+        </div>
+        <div>
+          <strong>No contract</strong>
+          <span>Nothing to sign — step away whenever it suits you</span>
         </div>
       </div>
     </section>
 
+    <!-- Standards switcher -->
+    <section class="standards" id="standards" aria-labelledby="standards-title">
+      <div class="standards-head">
+        <span class="label">The standards we implement</span>
+        <h2 id="standards-title">One consultancy, every standard you're likely to need</h2>
+        <p>Most of our clients certify to more than one. We integrate them into a single management system, so you run one set of processes and one audit cycle — not four.</p>
+      </div>
+
+      <div class="std-tabs" role="tablist" aria-label="ISO standards">
+        <button class="std-tab" role="tab" id="tab-9001" aria-controls="panel-9001" aria-selected="true" tabindex="0">
+          <span class="std-tab-code">ISO 9001</span>
+          Quality
+        </button>
+        <button class="std-tab" role="tab" id="tab-14001" aria-controls="panel-14001" aria-selected="false" tabindex="-1">
+          <span class="std-tab-code">ISO 14001</span>
+          Environment
+        </button>
+        <button class="std-tab" role="tab" id="tab-27001" aria-controls="panel-27001" aria-selected="false" tabindex="-1">
+          <span class="std-tab-code">ISO 27001</span>
+          Information security
+        </button>
+        <button class="std-tab" role="tab" id="tab-45001" aria-controls="panel-45001" aria-selected="false" tabindex="-1">
+          <span class="std-tab-code">ISO 45001</span>
+          Health &amp; safety
+        </button>
+        <button class="std-tab" role="tab" id="tab-42001" aria-controls="panel-42001" aria-selected="false" tabindex="-1">
+          <span class="std-tab-code">ISO 42001</span>
+          AI management
+        </button>
+        <button class="std-tab" role="tab" id="tab-as9100" aria-controls="panel-as9100" aria-selected="false" tabindex="-1">
+          <span class="std-tab-code">AS9100</span>
+          Aerospace
+        </button>
+      </div>
+
+      <div class="std-panels">
+
+        <div class="std-panel is-active" role="tabpanel" id="panel-9001" aria-labelledby="tab-9001" tabindex="0">
+          <div class="std-card">
+            <div class="std-media">
+              <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/815a83b4-9336-4b4d-b2fb-95898a12449c/imgi_11_DD.jpg?format=2500w" alt="Reviewing quality management documentation with a client" loading="lazy">
+              <span class="std-stamp">ISO 9001:2015</span>
+            </div>
+            <div class="std-body">
+              <p class="std-stat">£420,000</p>
+              <p class="std-stat-note">saved by one client in a single dispute, because their ISO 9001 records proved what happened.</p>
+              <h3>Quality management</h3>
+              <p>The foundation standard, and the one most tenders ask for. We map how your business actually delivers, then turn it into a system your team will use rather than work around.</p>
+              <ul class="std-points">
+                <li>Opens procurement doors that ask for certification as a minimum</li>
+                <li>Turns tribal knowledge into repeatable, auditable process</li>
+                <li>Integrates cleanly with 14001, 45001 and 27001 later</li>
+              </ul>
+              <div class="std-actions">
+                <a href="#contact" class="btn btn-ink">View all ISO services <span class="arrow" aria-hidden="true">→</span></a>
+                <span class="std-meta">Typical timeline · 3–5 months</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="std-panel" role="tabpanel" id="panel-14001" aria-labelledby="tab-14001" tabindex="0" hidden>
+          <div class="std-card">
+            <div class="std-media">
+              <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/17aadad6-ea52-411e-ac85-a7b433d3df0b/imgi_14_Twitterbg1.jpg?format=2500w" alt="Site assessment for environmental management" loading="lazy">
+              <span class="std-stamp">ISO 14001:2015</span>
+            </div>
+            <div class="std-body">
+              <p class="std-stat">100%</p>
+              <p class="std-stat-note">paperless delivery — the environmental system we build doesn't arrive as a ring binder.</p>
+              <h3>Environmental management</h3>
+              <p>Increasingly non-negotiable in public sector and larger private tenders. We identify your genuine environmental aspects and impacts, and set objectives you can actually evidence.</p>
+              <ul class="std-points">
+                <li>Meets the environmental criteria in most PQQs and frameworks</li>
+                <li>Legal register kept current, so compliance obligations stay tracked</li>
+                <li>Feeds directly into carbon reporting and net-zero commitments</li>
+              </ul>
+              <div class="std-actions">
+                <a href="#contact" class="btn btn-ink">View all ISO services <span class="arrow" aria-hidden="true">→</span></a>
+                <span class="std-meta">Typical timeline · 3–5 months</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="std-panel" role="tabpanel" id="panel-27001" aria-labelledby="tab-27001" tabindex="0" hidden>
+          <div class="std-card">
+            <div class="std-media">
+              <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/67532c41-fce0-441b-a1d2-5d867657741f/imgi_9_adl_video_placeholder-scaled.jpg?format=2500w" alt="Information security risk workshop" loading="lazy">
+              <span class="std-stamp">ISO 27001:2022</span>
+            </div>
+            <div class="std-body">
+              <p class="std-stat">93</p>
+              <p class="std-stat-note">Annex A controls in the 2022 revision — we scope you to the ones that genuinely apply.</p>
+              <h3>Information security</h3>
+              <p>The standard your enterprise clients ask for before they'll share data. We run the risk assessment, write the Statement of Applicability and get the ISMS operating before the auditor arrives.</p>
+              <ul class="std-points">
+                <li>Shortens client security reviews from weeks to a single certificate</li>
+                <li>Full support for the 2022 transition and its restructured controls</li>
+                <li>Sits alongside GDPR obligations rather than duplicating them</li>
+              </ul>
+              <div class="std-actions">
+                <a href="#contact" class="btn btn-ink">View all ISO services <span class="arrow" aria-hidden="true">→</span></a>
+                <span class="std-meta">Typical timeline · 4–6 months</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="std-panel" role="tabpanel" id="panel-45001" aria-labelledby="tab-45001" tabindex="0" hidden>
+          <div class="std-card">
+            <div class="std-media">
+              <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/17aadad6-ea52-411e-ac85-a7b433d3df0b/imgi_14_Twitterbg1.jpg?format=2500w" alt="On-site health and safety review" loading="lazy">
+              <span class="std-stamp">ISO 45001:2018</span>
+            </div>
+            <div class="std-body">
+              <p class="std-stat">Zero</p>
+              <p class="std-stat-note">tolerance from principal contractors — most now require a recognised safety system before you're on site.</p>
+              <h3>Occupational health &amp; safety</h3>
+              <p>Built for businesses with people on site, on the road or on client premises. We turn your risk assessments and method statements into a system that stands up to scrutiny after an incident.</p>
+              <ul class="std-points">
+                <li>Demonstrates due diligence to insurers, clients and the HSE</li>
+                <li>Worker consultation built in, as the standard requires</li>
+                <li>Frequently reduces employers' liability premiums</li>
+              </ul>
+              <div class="std-actions">
+                <a href="#contact" class="btn btn-ink">View all ISO services <span class="arrow" aria-hidden="true">→</span></a>
+                <span class="std-meta">Typical timeline · 4–6 months</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="std-panel" role="tabpanel" id="panel-42001" aria-labelledby="tab-42001" tabindex="0" hidden>
+          <div class="std-card">
+            <div class="std-media">
+              <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/67532c41-fce0-441b-a1d2-5d867657741f/imgi_9_adl_video_placeholder-scaled.jpg?format=2500w" alt="Reviewing an AI management system" loading="lazy">
+              <span class="std-stamp">ISO 42001:2023</span>
+            </div>
+            <div class="std-body">
+              <p class="std-stat">2023</p>
+              <p class="std-stat-note">the first AI management standard — early certification is still a genuine differentiator.</p>
+              <h3>AI management systems</h3>
+              <p>For organisations building or deploying AI and needing to show it's governed. We establish the impact assessments, oversight and documentation the standard expects, without stalling your development team.</p>
+              <ul class="std-points">
+                <li>Evidences responsible AI governance to clients and regulators</li>
+                <li>Aligns with the direction of travel in emerging AI regulation</li>
+                <li>Extends an existing 9001 or 27001 system rather than replacing it</li>
+              </ul>
+              <div class="std-actions">
+                <a href="#contact" class="btn btn-ink">View all ISO services <span class="arrow" aria-hidden="true">→</span></a>
+                <span class="std-meta">Typical timeline · 5–7 months</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="std-panel" role="tabpanel" id="panel-as9100" aria-labelledby="tab-as9100" tabindex="0" hidden>
+          <div class="std-card">
+            <div class="std-media">
+              <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/815a83b4-9336-4b4d-b2fb-95898a12449c/imgi_11_DD.jpg?format=2500w" alt="Aerospace quality documentation review" loading="lazy">
+              <span class="std-stamp">AS9100 Rev D</span>
+            </div>
+            <div class="std-body">
+              <p class="std-stat">9001+</p>
+              <p class="std-stat-note">AS9100 is ISO 9001 plus the aerospace sector's own additional requirements.</p>
+              <h3>Aerospace quality</h3>
+              <p>The entry ticket to the aerospace supply chain. We handle the sector-specific additions — configuration management, counterfeit part prevention, product safety — on top of a compliant 9001 core.</p>
+              <ul class="std-points">
+                <li>Required by most primes and tier-one aerospace suppliers</li>
+                <li>Covers risk, first article inspection and special processes</li>
+                <li>Upgrade path from an existing ISO 9001 certification</li>
+              </ul>
+              <div class="std-actions">
+                <a href="#contact" class="btn btn-ink">View all ISO services <span class="arrow" aria-hidden="true">→</span></a>
+                <span class="std-meta">Typical timeline · 6–9 months</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Certification journey: a genuine sequence, hence the numbering -->
+    <section class="journey" id="process" aria-labelledby="process-title">
+      <div class="section-head">
+        <span class="label">How certification works</span>
+        <h2 id="process-title">Four stages, and we're with you for all of them</h2>
+        <p>No stage is handed back to you as homework. We write the system, run the internal audit and sit in the room on assessment day.</p>
+      </div>
+      <div class="journey-grid" id="journeyGrid">
+        <article class="step">
+          <span class="step-num">STAGE 01</span>
+          <h3>Gap analysis</h3>
+          <p>We review what you already do against the standard and tell you honestly how far away you are — and what it will cost.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">STAGE 02</span>
+          <h3>Build the system</h3>
+          <p>Procedures written around your real workflow, complex text replaced with clear flowcharts your team will actually follow.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">STAGE 03</span>
+          <h3>Internal audit</h3>
+          <p>We audit you before the assessor does, so nothing in the external visit is a surprise to anyone.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">STAGE 04</span>
+          <h3>Assessment &amp; beyond</h3>
+          <p>We attend your BSI, NQA or LRQA visit, then keep the system alive through surveillance and recertification.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- About -->
     <section class="about" id="about" aria-labelledby="about-title">
       <div class="about-grid">
         <div class="about-visual">
           <div class="img-wrapper">
             <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/815a83b4-9336-4b4d-b2fb-95898a12449c/imgi_11_DD.jpg?format=2500w" alt="An ADL Consultancy consultant working with a client" loading="lazy">
           </div>
-          <div class="stat-badge">
-            <span class="stat-num">100%</span>
-            <span class="stat-text">Success rate</span>
+          <div class="seal" aria-hidden="true">
+            <strong>100%</strong>
+            <span>Success rate</span>
           </div>
         </div>
 
         <div class="about-copy">
-          <p class="eyebrow">Why ADL Consultancy</p>
-          <h2 id="about-title">Get your business <span>ready for registration</span></h2>
-
-          <p class="lead-text">We specialise in supporting small and medium-sized businesses at a vital moment in their growth.</p>
-
-          <p>Our highly experienced ISO consultants help organisations in Essex, London and the surrounding counties achieve their desired accreditation using a tried-and-tested blend of software, training and consultancy — designed for fast learning, easy compliance and effective implementation.</p>
-
+          <span class="label">Why ADL Consultancy</span>
+          <h2 id="about-title">Get your business ready for registration</h2>
+          <p class="lead">We specialise in supporting small and medium-sized businesses at a vital moment in their growth.</p>
+          <p>Our consultants help organisations across Essex, London and the surrounding counties achieve accreditation using a tried-and-tested blend of software, training and consultancy — designed for fast learning, easy compliance and effective implementation.</p>
           <ul class="about-points">
-            <li><span class="icon-check" aria-hidden="true">✓</span> No complex jargon — just clear, actionable steps.</li>
-            <li><span class="icon-check" aria-hidden="true">✓</span> Completely tailored to how your business already operates.</li>
+            <li><span class="tick" aria-hidden="true">✓</span> No complex jargon — just clear, actionable steps.</li>
+            <li><span class="tick" aria-hidden="true">✓</span> Completely tailored to how your business already operates.</li>
+            <li><span class="tick" aria-hidden="true">✓</span> A family-run practice: you deal with the same people throughout.</li>
           </ul>
-
           <div class="about-ctas">
-            <a href="#" class="btn btn-dark">Learn more about us <span class="arrow" aria-hidden="true">→</span></a>
-            <a href="#services" class="btn btn-outline-dark">See our services</a>
+            <a href="#" class="btn btn-ink">Learn more about us <span class="arrow" aria-hidden="true">→</span></a>
+            <a href="#standards" class="btn btn-outline">See our services</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="features" id="services" aria-labelledby="services-title">
+    <!-- Reasons -->
+    <section class="reasons" id="reasons" aria-labelledby="reasons-title">
       <div class="section-head">
-        <p class="eyebrow">The ADL advantage</p>
-        <h2 id="services-title">Why businesses <span>choose ADL</span></h2>
-        <p class="section-sub">Six reasons clients stay with us long after their first certificate is issued.</p>
+        <span class="label on-dark-label">The ADL advantage</span>
+        <h2 id="reasons-title">Why businesses <em>choose ADL</em></h2>
+        <p>Six reasons clients stay with us long after their first certificate is issued.</p>
       </div>
-      <div class="features-grid">
-        <article class="feature-card" data-num="01">
+      <div class="reasons-grid">
+        <article class="reason">
+          <span class="reason-mark" aria-hidden="true"></span>
           <h3>Expert team</h3>
           <p>Decades of combined experience across manufacturing, services and technology — deep industry knowledge, not generic templates.</p>
         </article>
-        <article class="feature-card" data-num="02">
-          <h3>Fully tailored services</h3>
+        <article class="reason">
+          <span class="reason-mark" aria-hidden="true"></span>
+          <h3>Fully tailored</h3>
           <p>Every business is different, and that's reflected in our completely bespoke approach to integration.</p>
         </article>
-        <article class="feature-card" data-num="03">
+        <article class="reason">
+          <span class="reason-mark" aria-hidden="true"></span>
           <h3>Guaranteed registration</h3>
           <p>We stand behind our process with a rock-solid guarantee that you will achieve registration.</p>
         </article>
-        <article class="feature-card" data-num="04">
+        <article class="reason">
+          <span class="reason-mark" aria-hidden="true"></span>
           <h3>No contracts</h3>
           <p>A flexible approach with nothing to sign — you're free to step away if circumstances change.</p>
         </article>
-        <article class="feature-card" data-num="05">
+        <article class="reason">
+          <span class="reason-mark" aria-hidden="true"></span>
           <h3>Highly flexible</h3>
           <p>Our consultants happily schedule site visits and meetings at times that suit your team.</p>
         </article>
-        <article class="feature-card" data-num="06">
+        <article class="reason">
+          <span class="reason-mark" aria-hidden="true"></span>
           <h3>100% paperless</h3>
           <p>We work digitally to streamline your systems and help you build a sustainable, paperless office.</p>
         </article>
       </div>
     </section>
 
+    <!-- Testimonials -->
     <section class="testimonials" id="testimonials" aria-labelledby="testimonials-title">
       <div class="section-head">
-        <p class="eyebrow on-light-blue">Client feedback</p>
-        <h2 id="testimonials-title">Trusted by <span>businesses like yours</span></h2>
+        <span class="label">Client feedback</span>
+        <h2 id="testimonials-title">Trusted by businesses like yours</h2>
       </div>
       <div class="testimonials-grid">
         <figure class="t-card">
-          <span class="t-quote-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote>Working alongside ADL Consultancy has been nothing short of an absolute pleasure. They helped Support UK secure certification in ISO 9001 and ISO 27001, a massive growth stepping stone for our organisation. David has exceeded all of our expectations with his diligent, professional work ethic.</blockquote>
+          <blockquote>Working alongside ADL Consultancy has been nothing short of an absolute pleasure. They helped Support UK secure certification, a massive growth stepping stone for our organisation. David has exceeded all of our expectations with his diligent, professional work ethic.</blockquote>
+          <div class="t-standards"><span>ISO 9001</span><span>ISO 27001</span></div>
           <figcaption class="t-author">
             <strong>Business Alliance Manager</strong>
             <span>Support UK Ltd</span>
           </figcaption>
         </figure>
         <figure class="t-card">
-          <span class="t-quote-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote>David has worked with McGregor Boyall for a number of years, conducting our internal audits and ensuring continued compliance with ISO 9001. We highly value our registration — it once saved us £420,000 as a business.</blockquote>
+          <blockquote>David has worked with McGregor Boyall for a number of years, conducting our internal audits and ensuring continued compliance. We highly value our registration — it once saved us £420,000 as a business.</blockquote>
+          <div class="t-standards"><span>ISO 9001</span></div>
           <figcaption class="t-author">
             <strong>Finance Director</strong>
             <span>McGregor Boyall</span>
           </figcaption>
         </figure>
         <figure class="t-card">
-          <span class="t-quote-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote>The level of service coupled with the depth of knowledge at ADL Consultancy is unparalleled. The four management systems we required (ISO 9001, 14001, 45001 and 27001) gave us the measured, auditable processes we needed to achieve growth.</blockquote>
+          <blockquote>The level of service coupled with the depth of knowledge at ADL Consultancy is unparalleled. The four management systems we required gave us the measured, auditable processes we needed to achieve growth.</blockquote>
+          <div class="t-standards"><span>ISO 9001</span><span>ISO 14001</span><span>ISO 45001</span><span>ISO 27001</span></div>
           <figcaption class="t-author">
             <strong>Managing Director</strong>
             <span>Cavendish Network Services Ltd</span>
@@ -1042,15 +1121,16 @@
       </div>
     </section>
 
+    <!-- Family -->
     <section class="family" id="family" aria-labelledby="family-title">
       <div class="family-grid">
-        <div class="family-intro">
-          <p class="eyebrow on-light-blue">Our approach</p>
+        <div>
+          <span class="label on-dark-label">Our approach</span>
           <h2 id="family-title">A family-run business that understands ISO</h2>
         </div>
         <div class="family-copy">
           <p>Our team will help you understand and fulfil the requirements of your relevant standard to meet your wider corporate objectives, while keeping the process effective and efficient for your people.</p>
-          <p class="family-lead-out">Our ISO consultants will:</p>
+          <p class="family-lead-out">Our ISO consultants will</p>
           <ul class="family-list">
             <li><span class="tick" aria-hidden="true">✓</span> Simplify and streamline your current procedures and processes</li>
             <li><span class="tick" aria-hidden="true">✓</span> Replace complex textual procedures with simple, colourful flowcharts</li>
@@ -1062,13 +1142,15 @@
       </div>
     </section>
 
+    <!-- Final CTA -->
     <section class="final-cta" id="contact" aria-labelledby="cta-title">
       <div class="cta-inner">
+        <span class="label">Next step</span>
         <h2 id="cta-title">Ready to get your business registration-ready?</h2>
-        <p>Book a free, no-obligation consultation and we'll map out exactly what your certification will take.</p>
+        <p>Book a free, no-obligation consultation and we'll map out exactly what your certification will take — timeline, effort and cost, before you commit to anything.</p>
         <div class="btn-row">
-          <a href="#" class="btn btn-light">Book a free consultation</a>
-          <a href="tel:+441234567890" class="btn btn-outline-light on-dark">Speak to a consultant</a>
+          <a href="#" class="btn btn-paper">Book a free consultation</a>
+          <a href="tel:+441234567890" class="btn btn-ghost-light on-dark">Speak to a consultant</a>
         </div>
       </div>
     </section>
@@ -1078,7 +1160,7 @@
   <footer class="adl-footer" id="partners">
     <div class="footer-inner">
 
-      <div class="footer-certs-card">
+      <div class="footer-certs">
         <p class="footer-certs-title">Accredited &amp; associate consultant partners</p>
         <div class="footer-certs-inner">
           <img src="https://images.squarespace-cdn.com/content/v2/namespaces/website/libraries/69ac3792433afa7b348dc92d/429ac295-bd39-46f6-a5a7-e73db0c8e510/imgi_13_Auva-ACP-56.png?format=2500w" alt="Auva Approved Consultant Partner" loading="lazy">
@@ -1095,29 +1177,30 @@
           <p>Trusted ISO consultants supporting businesses across Essex &amp; London. From gap analysis to full certification, we handle the standard so you can run the business.</p>
         </div>
         <nav class="footer-col" aria-label="Quick links">
-          <h4>Quick links</h4>
+          <h4>Company</h4>
           <ul>
             <li><a href="#about">About us</a></li>
-            <li><a href="#services">Our services</a></li>
+            <li><a href="#process">Our process</a></li>
             <li><a href="#family">Meet the family</a></li>
-            <li><a href="#news">News &amp; insights</a></li>
-            <li><a href="#training">Training</a></li>
+            <li><a href="#">News &amp; insights</a></li>
+            <li><a href="#">Training</a></li>
           </ul>
         </nav>
-        <nav class="footer-col" aria-label="Certifications">
-          <h4>Certifications</h4>
+        <nav class="footer-col" aria-label="Standards">
+          <h4>Standards</h4>
           <ul>
-            <li><a href="#services">ISO 9001</a></li>
-            <li><a href="#services">ISO 14001</a></li>
-            <li><a href="#services">ISO 27001</a></li>
-            <li><a href="#services">ISO 45001</a></li>
-            <li><a href="#services">ISO 42001</a></li>
+            <li><a href="#standards">ISO 9001</a></li>
+            <li><a href="#standards">ISO 14001</a></li>
+            <li><a href="#standards">ISO 27001</a></li>
+            <li><a href="#standards">ISO 45001</a></li>
+            <li><a href="#standards">ISO 42001</a></li>
+            <li><a href="#standards">AS9100</a></li>
           </ul>
         </nav>
         <div class="footer-col">
           <h4>Get in touch</h4>
-          <p><a href="mailto:info@adlconsultancy.com">info@adlconsultancy.com</a></p>
-          <p><a href="tel:+441234567890">01234 567 890</a></p>
+          <p><a href="mailto:info@adlconsultancy.com" class="mono-link">info@adlconsultancy.com</a></p>
+          <p><a href="tel:+441234567890" class="mono-link">01234 567 890</a></p>
           <p>Mon – Fri, 9:00am – 5:30pm</p>
         </div>
       </div>
@@ -1136,12 +1219,14 @@
 <script>
 (function () {
   var body = document.body;
+
+  /* ---- Current year ---- */
+  var year = document.getElementById('adlYear');
+  if (year) year.textContent = new Date().getFullYear();
+
+  /* ---- Mobile menu ---- */
   var toggle = document.getElementById('adlMenuToggle');
   var menu = document.getElementById('adlMobileMenu');
-  var header = document.getElementById('adlHeader');
-  var year = document.getElementById('adlYear');
-
-  if (year) year.textContent = new Date().getFullYear();
 
   function setMenu(open) {
     body.classList.toggle('adl-menu-open', open);
@@ -1152,7 +1237,7 @@
     } else {
       window.setTimeout(function () {
         if (!body.classList.contains('adl-menu-open')) menu.hidden = true;
-      }, 340);
+      }, 320);
     }
   }
 
@@ -1174,15 +1259,67 @@
     });
   }
 
+  /* ---- Sticky header state ---- */
+  var header = document.getElementById('adlHeader');
   if (header) {
-    var onScroll = function () {
-      header.classList.toggle('is-stuck', window.scrollY > 24);
-    };
+    var onScroll = function () { header.classList.toggle('is-stuck', window.scrollY > 12); };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  // Highlight the section currently in view.
+  /* ---- Standards tabs (ARIA tablist with arrow-key support) ---- */
+  var tablist = document.querySelector('.std-tabs');
+  if (tablist) {
+    var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
+
+    var selectTab = function (tab, focus) {
+      tabs.forEach(function (t) {
+        var selected = t === tab;
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        t.setAttribute('aria-selected', String(selected));
+        t.setAttribute('tabindex', selected ? '0' : '-1');
+        if (panel) {
+          panel.hidden = !selected;
+          panel.classList.toggle('is-active', selected);
+        }
+      });
+      if (focus) tab.focus();
+      // Keep the active tab visible when the strip scrolls horizontally.
+      if (tab.scrollIntoView) {
+        tab.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+      }
+    };
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { selectTab(tab, false); });
+      tab.addEventListener('keydown', function (e) {
+        var next = null;
+        if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+        else if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+        else if (e.key === 'Home') next = tabs[0];
+        else if (e.key === 'End') next = tabs[tabs.length - 1];
+        if (next) { e.preventDefault(); selectTab(next, true); }
+      });
+    });
+  }
+
+  /* ---- Reveal the journey rules once the section is in view ---- */
+  var journey = document.getElementById('journeyGrid');
+  if (journey && 'IntersectionObserver' in window) {
+    var jObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          jObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    jObserver.observe(journey);
+  } else if (journey) {
+    journey.classList.add('is-revealed');
+  }
+
+  /* ---- Scroll-spy for the nav ---- */
   var links = Array.prototype.slice.call(
     document.querySelectorAll('.nav-links a[href^="#"], .mobile-nav-links a[href^="#"]')
   );
@@ -1195,11 +1332,8 @@
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         links.forEach(function (a) {
-          if (a.getAttribute('href') === '#' + entry.target.id) {
-            a.setAttribute('aria-current', 'page');
-          } else {
-            a.removeAttribute('aria-current');
-          }
+          if (a.getAttribute('href') === '#' + entry.target.id) a.setAttribute('aria-current', 'page');
+          else a.removeAttribute('aria-current');
         });
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
