@@ -17,7 +17,7 @@
 }
 .adl-page *,.adl-page *::before,.adl-page *::after{box-sizing:border-box;margin:0;padding:0;font-family:inherit}
 html{scroll-behavior:smooth}
-.adl-page [id]{scroll-margin-top:92px}
+.adl-page [id]{scroll-margin-top:120px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
  .adl-page *,.adl-page *::before,.adl-page *::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 body.adl-menu-open{overflow:hidden}
@@ -47,31 +47,45 @@ body.adl-menu-open{overflow:hidden}
 .adl-page .btn-white:hover{background:var(--bg-soft)}
 .adl-page .btn-ghost-light{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .adl-page .btn-ghost-light:hover{background:rgba(255,255,255,.2);border-color:#fff}
-/* header */
-.adl-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.adl-header .bar{max-width:var(--maxw);margin:0 auto;padding:var(--s3) var(--pad-x);display:flex;align-items:center;gap:var(--s5)}
-.adl-header .logo img{height:36px;width:auto;display:block}
-.adl-header nav.desk{display:none;margin-left:auto}
-.adl-header .links{display:flex;gap:2px;list-style:none}
-.adl-header .links a{display:flex;align-items:center;min-height:44px;padding:0 var(--s4);font-size:.9688rem;font-weight:500;color:var(--ink-soft);text-decoration:none;border-radius:var(--r-pill);transition:color .2s,background-color .2s}
-.adl-header .links a:hover,.adl-header .links a[aria-current="page"]{color:var(--blue);background:var(--blue-xl)}
-.adl-header .links a[aria-current="page"]{font-weight:600}
-.adl-header .acts{display:flex;align-items:center;gap:var(--s2);margin-left:auto}
-.adl-header nav.desk+.acts{margin-left:var(--s5)}
-.adl-header .acts .btn{min-height:44px;padding:var(--s2) var(--s5);font-size:.9375rem}
-.adl-header .burger{display:none;align-items:center;justify-content:center;width:44px;height:44px;background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);color:var(--ink)}
-.adl-header .burger .i-close{display:none}
-body.adl-menu-open .adl-header .burger .i-open{display:none}
-body.adl-menu-open .adl-header .burger .i-close{display:block}
-.adl-page .mob{position:fixed;inset:64px 0 0;z-index:99;background:#fff;padding:var(--s5) var(--pad-x) var(--s8);overflow-y:auto;display:none}
-body.adl-menu-open .mob{display:block}
-.adl-page .mob ul{list-style:none;max-width:520px;margin:0 auto}
-.adl-page .mob a{display:flex;align-items:center;min-height:58px;font-size:1.1875rem;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
-.adl-page .mob a:hover{color:var(--blue)}
-.adl-page .mob .cta{max-width:520px;margin:var(--s6) auto 0}
-.adl-page .mob .cta .btn{width:100%}
-@media (min-width:1140px){.adl-header nav.desk{display:block}}
-@media (max-width:1139px){.adl-header .burger{display:flex}.adl-header .acts .btn{display:none}}
+/* header — floating card that sits over the hero */
+.adl-header{position:sticky;top:0;z-index:100;padding:20px var(--pad-x) 0;margin-bottom:-100px;transition:padding .3s ease}
+.adl-header.is-stuck{padding-top:10px}
+.adl-header .header-box{position:relative;z-index:101;max-width:var(--maxw);margin:0 auto;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.6);border-radius:var(--r-md);
+  padding:10px 12px 10px 20px;display:flex;align-items:center;justify-content:space-between;gap:24px;
+  box-shadow:0 2px 4px rgba(34,32,33,.04),0 18px 40px -16px rgba(34,32,33,.22);
+  transition:box-shadow .3s ease,background-color .3s ease}
+.adl-header.is-stuck .header-box{background:rgba(255,255,255,.97);box-shadow:0 12px 34px -14px rgba(34,32,33,.4)}
+.adl-header .header-logo-img{height:38px;width:auto;display:block}
+.adl-header .desktop-nav{display:none}
+.adl-header .nav-links{display:flex;gap:4px;list-style:none}
+.adl-header .nav-links a{display:block;color:var(--ink);font-weight:600;font-size:14.5px;text-decoration:none;
+  padding:10px 14px;border-radius:10px;transition:color .2s ease,background-color .2s ease}
+.adl-header .nav-links a:hover,.adl-header .nav-links a[aria-current="page"]{color:var(--blue);background:var(--blue-xl)}
+.adl-header .header-actions{display:flex;align-items:center;gap:8px}
+.adl-header .header-btn{padding:13px 26px;font-size:14px;min-height:0}
+.adl-header .hamburger{display:none;flex-direction:column;gap:5px;align-items:center;justify-content:center;
+  width:46px;height:46px;background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;z-index:102}
+.adl-header .hamburger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;
+  transition:transform .3s ease,opacity .2s ease}
+body.adl-menu-open .adl-header .hamburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.adl-menu-open .adl-header .hamburger span:nth-child(2){opacity:0}
+body.adl-menu-open .adl-header .hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.adl-page .mobile-menu{position:fixed;inset:0;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:99;
+  display:flex;flex-direction:column;align-items:center;padding:128px var(--pad-x) 48px;overflow-y:auto;
+  opacity:0;visibility:hidden;transform:translateY(-12px);
+  transition:opacity .32s ease,transform .32s cubic-bezier(.16,1,.3,1),visibility .32s}
+body.adl-menu-open .mobile-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.adl-page .mobile-nav-links{list-style:none;width:100%;max-width:420px;display:flex;flex-direction:column;gap:4px;text-align:center}
+.adl-page .mobile-nav-links a{display:block;font-size:20px;font-weight:700;color:var(--ink);text-decoration:none;
+  padding:14px 0;border-radius:12px;transition:color .2s ease,background-color .2s ease}
+.adl-page .mobile-nav-links a:hover,.adl-page .mobile-nav-links a[aria-current="page"]{color:var(--blue);background:var(--blue-xl)}
+.adl-page .mobile-btn-container{margin-top:32px;width:100%;max-width:420px}
+.adl-page .mobile-btn-container .btn{width:100%}
+@media (min-width:1080px){.adl-header .desktop-nav{display:block}}
+@media (max-width:1079px){.adl-header .hamburger{display:flex}.adl-header .header-btn{display:none}}
 .adl-page .pill{display:inline-flex;align-items:center;gap:var(--s2);border-radius:var(--r-pill);padding:6px var(--s4);font-size:.875rem;font-weight:600;margin-bottom:var(--s5)}
 .adl-page .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--blue)}
 .adl-page .btn-row{display:flex;gap:var(--s3);flex-wrap:wrap}
@@ -191,7 +205,7 @@ body.adl-menu-open .mob{display:block}
  .adl-footer .cols{grid-template-columns:1fr;gap:var(--s6)}.adl-footer .bottom{flex-direction:column;text-align:center}}
 
 /* HERO A — full-bleed photograph with a dark scrim, copy over the image */
-.adl-page .hero{position:relative;isolation:isolate;padding-top:clamp(80px,9vw,128px);padding-bottom:clamp(64px,7vw,96px);background:var(--ink)}
+.adl-page .hero{position:relative;isolation:isolate;padding-top:clamp(148px,15vw,208px);padding-bottom:clamp(64px,7vw,96px);background:var(--ink)}
 .adl-page .hero::before{content:"";position:absolute;inset:0;z-index:-2;
   background:url('https://www.adlconsultancy.com/wp-content/uploads/2021/12/adl_video_placeholder-scaled.jpg') center 30%/cover no-repeat}
 .adl-page .hero::after{content:"";position:absolute;inset:0;z-index:-1;
@@ -230,37 +244,47 @@ body.adl-menu-open .mob{display:block}
     <g id="i-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></g>
   </defs></svg>
   <a class="skip-link" href="#main">Skip to main content</a>
-  <header class="adl-header">
-    <div class="bar">
-      <a href="#" class="logo" aria-label="ADL Consultancy — home">
-        <img src="https://www.adlconsultancy.com/wp-content/uploads/2019/10/adlconsultancy-logo.png" alt="ADL Consultancy" width="150" height="36">
+
+  <header class="adl-header" id="adlHeader">
+    <div class="header-box">
+      <a href="#" class="logo-link" aria-label="ADL Consultancy — home">
+        <img src="https://www.adlconsultancy.com/wp-content/uploads/2019/10/adlconsultancy-logo.png" alt="ADL Consultancy" class="header-logo-img" width="158" height="38">
       </a>
-      <nav class="desk" aria-label="Primary"><ul class="links">
+
+      <nav class="desktop-nav" aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#standards">Standards</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#industries">Industries</a></li>
+          <li><a href="#family">Meet the family</a></li>
+          <li><a href="#training">Training</a></li>
+          <li><a href="#faq">FAQs</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#contact" class="btn btn-blue header-btn">Contact us</a>
+        <button class="hamburger" type="button" id="adlMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="adlMobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="adlMobileMenu" hidden>
+    <nav aria-label="Mobile">
+      <ul class="mobile-nav-links">
         <li><a href="#standards">Standards</a></li>
         <li><a href="#how">How it works</a></li>
         <li><a href="#industries">Industries</a></li>
         <li><a href="#family">Meet the family</a></li>
         <li><a href="#training">Training</a></li>
         <li><a href="#faq">FAQs</a></li>
-      </ul></nav>
-      <div class="acts">
-        <a href="#contact" class="btn btn-blue">Contact us</a>
-        <button class="burger" type="button" id="mtoggle" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu">
-          <svg class="icon i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-menu"/></svg> <svg class="icon i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-x"/></svg>
-        </button>
-      </div>
+      </ul>
+    </nav>
+    <div class="mobile-btn-container">
+      <a href="#contact" class="btn btn-blue">Contact us</a>
     </div>
-  </header>
-  <div class="mob" id="mmenu">
-    <nav aria-label="Mobile"><ul>
-      <li><a href="#standards">Standards</a></li>
-      <li><a href="#how">How it works</a></li>
-      <li><a href="#industries">Industries</a></li>
-      <li><a href="#family">Meet the family</a></li>
-      <li><a href="#training">Training</a></li>
-      <li><a href="#faq">FAQs</a></li>
-    </ul></nav>
-    <div class="cta"><a href="#contact" class="btn btn-blue">Contact us</a></div>
   </div>
 
   <main id="main">
@@ -624,18 +648,37 @@ body.adl-menu-open .mob{display:block}
 (function(){
   var body=document.body;
   var yr=document.getElementById('yr'); if(yr) yr.textContent=new Date().getFullYear();
-  var toggle=document.getElementById('mtoggle'), menu=document.getElementById('mmenu');
-  function setMenu(o){body.classList.toggle('adl-menu-open',o);
-    toggle.setAttribute('aria-expanded',String(o));
-    toggle.setAttribute('aria-label',o?'Close menu':'Open menu');}
+
+  var toggle=document.getElementById('adlMenuToggle');
+  var menu=document.getElementById('adlMobileMenu');
+  var header=document.getElementById('adlHeader');
+
+  function setMenu(open){
+    body.classList.toggle('adl-menu-open',open);
+    toggle.setAttribute('aria-expanded',String(open));
+    toggle.setAttribute('aria-label',open?'Close menu':'Open menu');
+    if(open){ menu.hidden=false; }
+    else{
+      window.setTimeout(function(){
+        if(!body.classList.contains('adl-menu-open')) menu.hidden=true;
+      },340);
+    }
+  }
   if(toggle&&menu){
     toggle.addEventListener('click',function(){setMenu(!body.classList.contains('adl-menu-open'));});
     menu.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false);});
     document.addEventListener('keydown',function(e){
       if(e.key==='Escape'&&body.classList.contains('adl-menu-open')){setMenu(false);toggle.focus();}});
     window.addEventListener('resize',function(){
-      if(window.innerWidth>=1140&&body.classList.contains('adl-menu-open'))setMenu(false);});
+      if(window.innerWidth>=1080&&body.classList.contains('adl-menu-open'))setMenu(false);});
   }
+
+  if(header){
+    var onScroll=function(){header.classList.toggle('is-stuck',window.scrollY>24);};
+    onScroll();
+    window.addEventListener('scroll',onScroll,{passive:true});
+  }
+
   var tablist=document.querySelector('.tabs');
   if(tablist){
     var tabs=Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
@@ -658,7 +701,8 @@ body.adl-menu-open .mob{display:block}
         if(n){e.preventDefault();sel(n,true);}});
     });
   }
-  var links=Array.prototype.slice.call(document.querySelectorAll('.links a[href^="#"], .mob a[href^="#"]'));
+
+  var links=Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"], .mobile-nav-links a[href^="#"]'));
   var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
   if('IntersectionObserver' in window && secs.length){
     var io=new IntersectionObserver(function(es){
