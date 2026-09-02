@@ -319,6 +319,16 @@ html.ydt-js .ydt-page .clip.in-view > .slide { transform: translateY(0); }
 }
 html.ydt-js .ydt-page .bk-word { letter-spacing: 0.3em; }
 html.ydt-js .ydt-page .art.in-view .bk-word { letter-spacing: 0.02em; }
+/* The section argues that a logo is only part of an identity, so it had
+   better show the actual logo next to the palette and the type rather than a
+   typed approximation of it. The wordmark stays underneath as the fallback if
+   a file ever fails to load, which is why the mark is layered over it. */
+.ydt-page .bk-lock { position: relative; display: grid; place-items: center; width: 100%; }
+.ydt-page .bk-mark {
+    display: block; width: 100%; max-width: 260px; height: auto;
+    margin: 0 auto 2px;
+}
+.ydt-page .bk-lock .bk-word { position: absolute; inset: auto; z-index: -1; }
 .ydt-page .bk-strap {
     display: block; margin-top: 10px; font-family: var(--mono); font-size: 10px;
     letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.75;
@@ -625,7 +635,8 @@ html.ydt-js .ydt-page .art.in-view .mf-row:nth-child(6) { transition-delay: 0.70
             <div class="art-body">
               <div class="bk">
                 <div class="bk-stage" id="bkStage" style="background: rgb(37, 55, 75);">
-                  <div>
+                  <div class="bk-lock">
+                    <img class="bk-mark" id="bkMark" src="https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/701f167a-bb8c-46f5-a5bb-ae53d11f313a/PrepBite+Branding+logo.png?format=1000w" alt="Prep Bite. logo" width="1000" height="479" loading="lazy" decoding="async">
                     <div class="bk-word" id="bkWord" style="color: rgb(255, 255, 255);">Prep Bite.</div>
                     <span class="bk-strap" id="bkStrap" style="color: rgb(255, 255, 255);">Define Your Own Excellence</span>
                   </div>
@@ -883,6 +894,7 @@ html.ydt-js .ydt-page .art.in-view .mf-row:nth-child(6) { transition-delay: 0.70
   /* the standard asset path. The logos live here rather than under the
      library path above, which is regenerated when a library is re-imported. */
   var LOGO = 'https://images.squarespace-cdn.com/content/v1/69ac3792433afa7b348dc92d/';
+  var LOGO_URL = LOGO;
 
   var PREP = [
     /* the mark is white and green on a transparent ground, so it is set on the
@@ -942,7 +954,8 @@ html.ydt-js .ydt-page .art.in-view .mf-row:nth-child(6) { transition-delay: 0.70
   /* ══════ 01 · THE BRAND KIT ══════ */
   var BRANDS = [
     {
-      tab: 'Prep Bite', path: 'brand-kit / prep-bite',
+      tab: 'Prep Bite', mark: LOGO_URL + '701f167a-bb8c-46f5-a5bb-ae53d11f313a/PrepBite+Branding+logo.png?format=1000w',
+      path: 'brand-kit / prep-bite',
       word: 'Prep Bite.', strap: 'Define Your Own Excellence',
       ground: '#25374b', ink: '#ffffff',
       swatches: [['#25374b', 'Navy'], ['#474748', 'Slate'], ['#8fc33f', 'Acid'], ['#ffffff', 'White']],
@@ -950,15 +963,17 @@ html.ydt-js .ydt-page .art.in-view .mf-row:nth-child(6) { transition-delay: 0.70
       footA: '4 colours · 3 typefaces', footB: 'Meal prep &amp; nutrition'
     },
     {
-      tab: 'McDermott A', path: 'brand-kit / mcdermott-route-a',
-      word: 'McDermott', strap: 'Fitness Academy',
+      tab: 'McDermott A', mark: LOGO_URL + 'b3bc43b7-7ed2-4a78-993f-248a1627287a/curate+fitness+logo+2.png?format=2500w',
+      path: 'brand-kit / mcdermott-route-a',
+      word: 'McDermott', strap: '',
       ground: '#404046', ink: '#faf8f5',
       swatches: [['#a1835d', 'Bronze'], ['#404046', 'Charcoal'], ['#faf8f5', 'Cream']],
       type: [['Headings', 'Geometric sans, bold'], ['Sub-lockup', 'Wide tracked caps'], ['Body text', 'Inter Regular']],
       footA: '3 colours · route A', footB: 'Not chosen'
     },
     {
-      tab: 'McDermott B', path: 'brand-kit / mcdermott-route-b',
+      tab: 'McDermott B', mark: LOGO_URL + '0450b735-6818-41a2-bc59-83f48336cfca/MAIN+LOGO.png?format=2500w',
+      path: 'brand-kit / mcdermott-route-b',
       word: 'McDermott', strap: 'Educating stronger coaches',
       ground: '#263374', ink: '#ffffff',
       swatches: [['#263374', 'Navy'], ['#b3e3fa', 'Sky'], ['#ffffff', 'White']],
@@ -976,7 +991,15 @@ html.ydt-js .ydt-page .art.in-view .mf-row:nth-child(6) { transition-delay: 0.70
     bkStage.style.background = b.ground;
     var w = document.getElementById('bkWord'), st = document.getElementById('bkStrap');
     if (w) { w.textContent = b.word; w.style.color = b.ink; }
-    if (st) { st.textContent = b.strap; st.style.color = b.ink; }
+    if (st) { st.textContent = b.strap; st.style.color = b.ink; st.style.display = b.strap ? '' : 'none'; }
+    var mk = document.getElementById('bkMark');
+    if (mk) {
+      mk.src = b.mark;
+      mk.alt = b.word + ' logo';
+      /* if a mark ever fails, drop it and let the wordmark underneath show */
+      mk.onerror = function () { mk.style.display = 'none'; };
+      mk.style.display = '';
+    }
     var sw = document.getElementById('bkSw');
     if (sw) sw.innerHTML = b.swatches.map(function (s) {
       return '<div><i style="background:' + s[0] + '"></i><span>' + esc(s[0]) + '</span></div>';
