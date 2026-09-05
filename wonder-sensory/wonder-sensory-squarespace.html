@@ -1,9 +1,9 @@
-<!DOCTYPE html>
 <!--
-  WONDER SENSORY - SQUARESPACE VERSION
-  1. In Squarespace go to Settings > Files (or any link editor > Files) and upload every file
-     from the assets folder. Squarespace serves uploads at /s/<filename>, which is what this
-     page expects:
+  WONDER SENSORY - SQUARESPACE CODE BLOCK VERSION
+
+  1. Upload every file from the assets folder in Squarespace (Settings > Files, or any
+     link editor > Files). Squarespace serves uploads at /s/<filename>, which is what
+     this page expects:
      baby-fibre.webp
      baby-grass.webp
      ball-pit.webp
@@ -25,32 +25,25 @@
      waterfall-pit.webp
   2. Add a blank page, drop in a Code Block, set it to HTML, and paste this whole file.
      Code Blocks that contain <script> need the Business plan or higher.
-  3. Fonts load from Google Fonts automatically.
+  3. Every class is prefixed "ws-" and every style is scoped to #wonder-site, so hiding
+     Squarespace's own header on the page will not hide this one.
 -->
-<html lang="en-GB">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wonder Sensory Room</title>
-<meta name="description" content="Wonder is a calm, multi-themed sensory room in Burnopfield, County Durham for babies, toddlers and neurodivergent children. Pre-walking baby sessions, open play and private hire. Pre-booking only.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Nunito+Sans:opsz,wght@6..12,400..800&display=swap" rel="stylesheet">
-<style>
-  /* ---------- Tokens ---------- */
-  :root{
-    --paper:#F4F5EF;        /* sage-biased off-white ground */
-    --paper-2:#EAEDE4;      /* deeper band */
+<style>#wonder-site{
+    --paper:#F4F5EF;        
+    --paper-2:#EAEDE4;      
     --white:#FFFFFF;
-    --sage:#7E9484;         /* brand */
+    --sage:#7E9484;         
     --sage-soft:#C6D2C8;
     --sage-tint:#E4EAE4;
-    --forest:#1F3129;       /* primary action / footer */
-    --moss:#3B5447;         /* headings accent, hover */
+    --forest:#1F3129;       
+    --moss:#3B5447;         
     --ink:#1E2A25;
     --muted:#586660;
     --line:#D6DCD3;
-    --lilac:#B39BD6;        /* the fibre-optic glow */
+    --lilac:#B39BD6;        
     --lilac-soft:#ECE6F6;
     --lilac-ink:#5B4580;
     --amber:#C8912F;
@@ -65,471 +58,87 @@
     --shadow-2:0 2px 6px rgba(31,49,41,.08), 0 18px 44px rgba(31,49,41,.12);
     --ease:cubic-bezier(.2,.7,.2,1);
     --wrap:1200px;
-  }
-
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-  html,body{overflow-x:clip}
-  body{
+  }#wonder-site *{box-sizing:border-box;margin:0;padding:0}#wonder-site{overflow-x:clip}#wonder-site{position:relative;display:block;
     font-family:var(--body);font-size:17px;line-height:1.6;color:var(--ink);
     background:var(--paper);-webkit-font-smoothing:antialiased;
     font-variation-settings:'opsz' 12;
-  }
-  img{display:block;max-width:100%;height:auto}
-  a{color:inherit;text-decoration:none}
-  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-  ul{list-style:none}
-  :focus-visible{outline:3px solid var(--lilac-ink);outline-offset:3px;border-radius:4px}
-  .on-dark :focus-visible{outline-color:var(--lilac)}
-  svg{display:block}
-  .ico{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
-
-  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 clamp(20px,4vw,40px)}
-  .section{padding:clamp(64px,9vw,120px) 0}
-  .band{background:var(--paper-2)}
-
-  /* ---------- Type ---------- */
-  h1,h2,h3,.disp{
+  }#wonder-site img{display:block;max-width:100%;height:auto;border:0}#wonder-site a{color:inherit;text-decoration:none}#wonder-site button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}#wonder-site ul{list-style:none}#wonder-site :focus-visible{outline:3px solid var(--lilac-ink);outline-offset:3px;border-radius:4px}#wonder-site .ws-on-dark :focus-visible{outline-color:var(--lilac)}#wonder-site svg{display:block}#wonder-site .ws-ico{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}#wonder-site .ws-wrap{max-width:var(--wrap);margin:0 auto;padding:0 clamp(20px,4vw,40px)}#wonder-site .ws-section{padding:clamp(64px,9vw,120px) 0}#wonder-site .ws-band{background:var(--paper-2)}#wonder-site h1, #wonder-site h2, #wonder-site h3, #wonder-site .disp{
     font-family:var(--disp);font-weight:500;line-height:1.05;letter-spacing:-.01em;
     color:var(--forest);text-wrap:balance;font-variation-settings:'opsz' 96,'SOFT' 60;
-  }
-  h1{font-size:clamp(40px,6vw,72px);font-weight:500}
-  h2{font-size:clamp(32px,4.2vw,52px)}
-  h3{font-size:clamp(22px,2.2vw,28px);font-variation-settings:'opsz' 40}
-  .lede{font-size:clamp(18px,1.4vw,20px);color:var(--muted);max-width:60ch;line-height:1.65}
-  .eyebrow{
+  }#wonder-site h1{font-size:clamp(40px,6vw,72px);font-weight:500}#wonder-site h2{font-size:clamp(32px,4.2vw,52px)}#wonder-site h3{font-size:clamp(22px,2.2vw,28px);font-variation-settings:'opsz' 40}#wonder-site .ws-lede{font-size:clamp(18px,1.4vw,20px);color:var(--muted);max-width:60ch;line-height:1.65}#wonder-site .ws-eyebrow{
     display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;
     letter-spacing:.14em;text-transform:uppercase;color:var(--moss);
-  }
-  .eyebrow::before{content:"";width:22px;height:2px;background:var(--sage);border-radius:2px}
-  .sec-head{display:grid;gap:18px;max-width:760px;margin-bottom:clamp(36px,5vw,64px)}
-  .sec-head.center{text-align:center;margin-inline:auto;justify-items:center}
-  .sec-head.center .eyebrow::before{display:none}
-  em.wonk{font-style:italic;font-weight:400;color:var(--moss)}
-
-  /* ---------- Buttons ---------- */
-  .btn{
+  }#wonder-site .ws-eyebrow::before{content:"";width:22px;height:2px;background:var(--sage);border-radius:2px}#wonder-site .ws-sec-head{display:grid;gap:18px;max-width:760px;margin-bottom:clamp(36px,5vw,64px)}#wonder-site .ws-sec-head.ws-center{text-align:center;margin-inline:auto;justify-items:center}#wonder-site .ws-sec-head.ws-center .ws-eyebrow::before{display:none}#wonder-site em.ws-wonk{font-style:italic;font-weight:400;color:var(--moss)}#wonder-site .ws-btn{
     display:inline-flex;align-items:center;justify-content:center;gap:10px;
     min-height:52px;padding:0 26px;border-radius:999px;font-weight:700;font-size:16px;
     transition:transform .2s var(--ease),background .2s,box-shadow .2s,color .2s;white-space:nowrap;
     touch-action:manipulation;
-  }
-  .btn .ico{width:18px;height:18px;stroke-width:2.2;transition:transform .25s var(--ease)}
-  .btn:hover .ico{transform:translateX(3px)}
-  .btn-primary{background:var(--forest);color:#fff;box-shadow:0 8px 24px rgba(31,49,41,.18)}
-  .btn-primary:hover{background:var(--moss);transform:translateY(-1px)}
-  .btn-secondary{background:transparent;color:var(--forest);box-shadow:inset 0 0 0 2px var(--sage-soft)}
-  .btn-secondary:hover{background:var(--white);box-shadow:inset 0 0 0 2px var(--sage)}
-  .btn-light{background:#fff;color:var(--forest)}
-  .btn-light:hover{background:var(--sage-tint)}
-  .btn-sm{min-height:42px;padding:0 18px;font-size:15px}
-  .link{font-weight:700;color:var(--moss);display:inline-flex;align-items:center;gap:8px;border-bottom:2px solid var(--sage-soft);padding-bottom:2px;transition:border-color .2s}
-  .link:hover{border-color:var(--moss)}
-
-  /* ---------- Logo (white PNG recoloured via mask) ---------- */
-  .logo{display:block;width:150px;height:auto}
-  .logo-lockup{display:inline-flex;flex-direction:column;gap:2px;line-height:1}
-  .logo-lockup small{font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;color:var(--moss);padding-left:3px}
-
-  /* ---------- Announcement ---------- */
-  .announce{background:var(--forest);color:#DCE5DD;font-size:14px;text-align:center;padding:10px 20px}
-  .announce strong{color:#fff;font-weight:700}
-  .announce a{color:#fff;border-bottom:1px solid rgba(255,255,255,.4);margin-left:6px}
-
-  /* ---------- Header ---------- */
-  .header{
+  }#wonder-site .ws-btn .ws-ico{width:18px;height:18px;stroke-width:2.2;transition:transform .25s var(--ease)}#wonder-site .ws-btn:hover .ws-ico{transform:translateX(3px)}#wonder-site .ws-btn-primary{background:var(--forest);color:#fff;box-shadow:0 8px 24px rgba(31,49,41,.18)}#wonder-site .ws-btn-primary:hover{background:var(--moss);transform:translateY(-1px)}#wonder-site .ws-btn-secondary{background:transparent;color:var(--forest);box-shadow:inset 0 0 0 2px var(--sage-soft)}#wonder-site .ws-btn-secondary:hover{background:var(--white);box-shadow:inset 0 0 0 2px var(--sage)}#wonder-site .ws-btn-light{background:#fff;color:var(--forest)}#wonder-site .ws-btn-light:hover{background:var(--sage-tint)}#wonder-site .ws-btn-sm{min-height:42px;padding:0 18px;font-size:15px}#wonder-site .ws-link{font-weight:700;color:var(--moss);display:inline-flex;align-items:center;gap:8px;border-bottom:2px solid var(--sage-soft);padding-bottom:2px;transition:border-color .2s}#wonder-site .ws-link:hover{border-color:var(--moss)}#wonder-site .ws-logo{display:block;width:150px;height:auto}#wonder-site .ws-logo-lockup{display:inline-flex;flex-direction:column;gap:2px;line-height:1}#wonder-site .ws-logo-lockup small{font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;color:var(--moss);padding-left:3px}#wonder-site .ws-announce{background:var(--forest);color:#DCE5DD;font-size:14px;text-align:center;padding:10px 20px}#wonder-site .ws-announce strong{color:#fff;font-weight:700}#wonder-site .ws-announce a{color:#fff;border-bottom:1px solid rgba(255,255,255,.4);margin-left:6px}#wonder-site .ws-header{
     position:sticky;top:0;z-index:100;background:rgba(244,245,239,.86);
     backdrop-filter:saturate(1.2) blur(12px);-webkit-backdrop-filter:saturate(1.2) blur(12px);
     border-bottom:1px solid transparent;transition:border-color .25s,box-shadow .25s;
-  }
-  .header.scrolled{border-color:var(--line);box-shadow:0 6px 24px rgba(31,49,41,.06)}
-  .nav{display:flex;align-items:center;justify-content:space-between;gap:24px;height:78px}
-  .nav-links{display:flex;align-items:center;gap:6px}
-  .nav-links a{
+  }#wonder-site .ws-header.scrolled{border-color:var(--line);box-shadow:0 6px 24px rgba(31,49,41,.06)}#wonder-site .ws-nav{display:flex;align-items:center;justify-content:space-between;gap:24px;height:78px}#wonder-site .ws-nav-links{display:flex;align-items:center;gap:6px}#wonder-site .ws-nav-links a{
     padding:10px 14px;border-radius:999px;font-weight:600;font-size:15.5px;color:var(--ink);
     transition:background .2s,color .2s;
-  }
-  .nav-links a:hover{background:var(--sage-tint);color:var(--forest)}
-  .nav-links a[aria-current="page"]{color:var(--forest);box-shadow:inset 0 -2px 0 var(--sage)}
-  .nav-cta{display:flex;align-items:center;gap:12px}
-  .menu-btn{display:none;width:48px;height:48px;border-radius:999px;align-items:center;justify-content:center;background:var(--white);box-shadow:inset 0 0 0 1.5px var(--line)}
-  .menu-btn .ico{width:24px;height:24px}
-
-  .mobile-menu{
+  }#wonder-site .ws-nav-links a:hover{background:var(--sage-tint);color:var(--forest)}#wonder-site .ws-nav-links a[aria-current="page"]{color:var(--forest);box-shadow:inset 0 -2px 0 var(--sage)}#wonder-site .ws-nav-cta{display:flex;align-items:center;gap:12px}#wonder-site .ws-menu-btn{display:none;width:48px;height:48px;border-radius:999px;align-items:center;justify-content:center;background:var(--white);box-shadow:inset 0 0 0 1.5px var(--line)}#wonder-site .ws-menu-btn .ws-ico{width:24px;height:24px}#wonder-site .ws-mobile-menu{
     position:fixed;inset:0;z-index:200;background:var(--paper);padding:20px clamp(20px,4vw,40px) 40px;
     display:none;flex-direction:column;gap:24px;overflow:auto;
-  }
-  .mobile-menu.open{display:flex}
-  .mobile-menu .top{display:flex;align-items:center;justify-content:space-between;height:60px}
-  .mobile-menu nav a{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--line);font-family:var(--disp);font-size:30px;color:var(--forest)}
-  .mobile-menu nav a .ico{color:var(--sage)}
-  .mobile-menu .foot{margin-top:auto;display:grid;gap:14px}
-  .mobile-menu .foot p{color:var(--muted);font-size:15px}
-
-  /* ---------- Hero ---------- */
-  .hero{position:relative;padding:clamp(40px,6vw,88px) 0 clamp(64px,8vw,110px);overflow:visible}
-  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(32px,5vw,72px);align-items:center}
-  .hero-copy{display:grid;gap:26px;max-width:600px}
-  .hero-copy h1 em{font-style:italic;font-weight:400;color:var(--moss)}
-  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-  .hero-proof{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:15px;margin-top:6px}
-  .hero-proof .stars{display:flex;gap:2px;color:var(--amber)}
-  .hero-proof .stars svg{width:16px;height:16px;fill:currentColor;stroke:none}
-  .hero-proof strong{color:var(--ink)}
-
-  .hero-visual{position:relative;min-height:520px}
-  .hero-visual::before{
+  }#wonder-site .ws-mobile-menu.open{display:flex}#wonder-site .ws-mobile-menu .ws-top{display:flex;align-items:center;justify-content:space-between;height:60px}#wonder-site .ws-mobile-menu nav a{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--line);font-family:var(--disp);font-size:30px;color:var(--forest)}#wonder-site .ws-mobile-menu nav a .ws-ico{color:var(--sage)}#wonder-site .ws-mobile-menu .ws-foot{margin-top:auto;display:grid;gap:14px}#wonder-site .ws-mobile-menu .ws-foot p{color:var(--muted);font-size:15px}#wonder-site .ws-hero{position:relative;padding:clamp(40px,6vw,88px) 0 clamp(64px,8vw,110px);overflow:visible}#wonder-site .ws-hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(32px,5vw,72px);align-items:center}#wonder-site .ws-hero-copy{display:grid;gap:26px;max-width:600px}#wonder-site .ws-hero-copy h1 em{font-style:italic;font-weight:400;color:var(--moss)}#wonder-site .ws-hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}#wonder-site .ws-hero-proof{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:15px;margin-top:6px}#wonder-site .ws-hero-proof .ws-stars{display:flex;gap:2px;color:var(--amber)}#wonder-site .ws-hero-proof .ws-stars svg{width:16px;height:16px;fill:currentColor;stroke:none}#wonder-site .ws-hero-proof strong{color:var(--ink)}#wonder-site .ws-hero-visual{position:relative;min-height:520px}#wonder-site .ws-hero-visual::before{
     content:"";position:absolute;inset:-8% -12% -6% -8%;z-index:0;border-radius:50%;
     background:radial-gradient(closest-side, rgba(179,155,214,.42), rgba(179,155,214,0) 72%);
     filter:blur(10px);pointer-events:none;
-  }
-  .arch{border-radius:var(--r-arch);overflow:hidden;background:var(--sage-tint)}
-  .arch img{width:100%;height:100%;object-fit:cover}
-  .hero-main{position:relative;z-index:1;width:min(78%,440px);margin-left:auto;aspect-ratio:3/4;box-shadow:var(--shadow-2)}
-  .hero-main img{object-position:50% 70%}
-  .hero-small{
+  }#wonder-site .ws-arch{border-radius:var(--r-arch);overflow:hidden;background:var(--sage-tint)}#wonder-site .ws-arch img{width:100%;height:100%;object-fit:cover}#wonder-site .ws-hero-main{position:relative;z-index:1;width:min(78%,440px);margin-left:auto;aspect-ratio:3/4;box-shadow:var(--shadow-2)}#wonder-site .ws-hero-main img{object-position:50% 70%}#wonder-site .ws-hero-small{
     position:absolute;left:0;bottom:8%;z-index:2;width:min(46%,260px);aspect-ratio:4/5;border-radius:var(--r-lg);
     overflow:hidden;box-shadow:var(--shadow-2);border:6px solid var(--paper);
-  }
-  .hero-small img{width:100%;height:100%;object-fit:cover}
-  .hero-next{
+  }#wonder-site .ws-hero-small img{width:100%;height:100%;object-fit:cover}#wonder-site .ws-hero-next{
     position:absolute;right:-8px;bottom:-22px;z-index:3;background:#fff;border-radius:16px;padding:14px 16px 14px 14px;
     box-shadow:var(--shadow-2);display:flex;align-items:center;gap:12px;min-width:250px;
-  }
-  .hero-next .dot{width:38px;height:38px;border-radius:12px;background:var(--lilac-soft);color:var(--lilac-ink);display:grid;place-items:center}
-  .hero-next .dot .ico{width:20px;height:20px}
-  .hero-next b{display:block;font-size:14.5px;color:var(--forest)}
-  .hero-next span{font-size:13px;color:var(--muted)}
-
-  /* ---------- Fact strip ---------- */
-  .facts{border-block:1px solid var(--line)}
-  .facts ul{display:grid;grid-template-columns:repeat(4,1fr)}
-  .facts li{display:flex;gap:14px;align-items:flex-start;padding:26px 24px;border-left:1px solid var(--line)}
-  .facts li:first-child{border-left:0;padding-left:0}
-  .facts .ico{color:var(--sage);margin-top:3px;width:24px;height:24px}
-  .facts b{display:block;font-family:var(--disp);font-size:20px;color:var(--forest);font-weight:500;font-variation-settings:'opsz' 40}
-  .facts span{font-size:14.5px;color:var(--muted)}
-
-  /* ---------- About ---------- */
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px);align-items:center}
-  .about-visual{position:relative}
-  .about-visual .arch{aspect-ratio:4/5;width:min(100%,480px)}
-  .tree{display:block;height:auto;pointer-events:none}
-  .about-visual .tree{position:absolute;right:-8%;bottom:-7%;width:56%;opacity:.75}
-  .about-copy{display:grid;gap:22px}
-  .feature-list{display:grid;gap:14px;margin-top:8px}
-  .feature-list li{display:flex;gap:16px;align-items:flex-start}
-  .feature-list .bubble{flex:none;width:44px;height:44px;border-radius:14px;background:var(--white);box-shadow:var(--shadow-1);display:grid;place-items:center;color:var(--moss)}
-  .feature-list b{display:block;color:var(--forest);font-size:17px}
-  .feature-list p{color:var(--muted);font-size:15.5px}
-  .quiet-note{background:var(--sage-tint);border-left:3px solid var(--sage);padding:14px 18px;border-radius:0 12px 12px 0;color:var(--moss);font-size:15.5px}
-
-  /* ---------- Sessions ---------- */
-  .sessions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .s-card{
+  }#wonder-site .ws-hero-next .ws-dot{width:38px;height:38px;border-radius:12px;background:var(--lilac-soft);color:var(--lilac-ink);display:grid;place-items:center}#wonder-site .ws-hero-next .ws-dot .ws-ico{width:20px;height:20px}#wonder-site .ws-hero-next b{display:block;font-size:14.5px;color:var(--forest)}#wonder-site .ws-hero-next span{font-size:13px;color:var(--muted)}#wonder-site .ws-facts{border-block:1px solid var(--line)}#wonder-site .ws-facts ul{display:grid;grid-template-columns:repeat(4,1fr)}#wonder-site .ws-facts li{display:flex;gap:14px;align-items:flex-start;padding:26px 24px;border-left:1px solid var(--line)}#wonder-site .ws-facts li:first-child{border-left:0;padding-left:0}#wonder-site .ws-facts .ws-ico{color:var(--sage);margin-top:3px;width:24px;height:24px}#wonder-site .ws-facts b{display:block;font-family:var(--disp);font-size:20px;color:var(--forest);font-weight:500;font-variation-settings:'opsz' 40}#wonder-site .ws-facts span{font-size:14.5px;color:var(--muted)}#wonder-site .ws-about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px);align-items:center}#wonder-site .ws-about-visual{position:relative}#wonder-site .ws-about-visual .ws-arch{aspect-ratio:4/5;width:min(100%,480px)}#wonder-site .ws-tree{display:block;height:auto;pointer-events:none}#wonder-site .ws-about-visual .ws-tree{position:absolute;right:-8%;bottom:-7%;width:56%;opacity:.75}#wonder-site .ws-about-copy{display:grid;gap:22px}#wonder-site .ws-feature-list{display:grid;gap:14px;margin-top:8px}#wonder-site .ws-feature-list li{display:flex;gap:16px;align-items:flex-start}#wonder-site .ws-feature-list .ws-bubble{flex:none;width:44px;height:44px;border-radius:14px;background:var(--white);box-shadow:var(--shadow-1);display:grid;place-items:center;color:var(--moss)}#wonder-site .ws-feature-list b{display:block;color:var(--forest);font-size:17px}#wonder-site .ws-feature-list p{color:var(--muted);font-size:15.5px}#wonder-site .ws-quiet-note{background:var(--sage-tint);border-left:3px solid var(--sage);padding:14px 18px;border-radius:0 12px 12px 0;color:var(--moss);font-size:15.5px}#wonder-site .ws-sessions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}#wonder-site .ws-s-card{
     background:var(--white);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;
     box-shadow:var(--shadow-1);transition:transform .3s var(--ease),box-shadow .3s var(--ease);
-  }
-  .s-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-2)}
-  .s-card .media{position:relative;aspect-ratio:4/3;overflow:hidden}
-  .s-card .media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-  .s-card:hover .media img{transform:scale(1.04)}
-  .tag{
+  }#wonder-site .ws-s-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-2)}#wonder-site .ws-s-card .ws-media{position:relative;aspect-ratio:4/3;overflow:hidden}#wonder-site .ws-s-card .ws-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}#wonder-site .ws-s-card:hover .ws-media img{transform:scale(1.04)}#wonder-site .ws-tag{
     position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:7px;
     padding:6px 12px;border-radius:999px;font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
     background:rgba(255,255,255,.92);color:var(--forest);backdrop-filter:blur(6px);
-  }
-  .tag i{width:9px;height:9px;border-radius:50%;background:var(--type-c,var(--sage))}
-  .tag.pre{--type-c:var(--lilac)}
-  .tag.open{--type-c:var(--sage)}
-  .tag.private{--type-c:var(--amber)}
-  .s-body{padding:24px 26px 26px;display:grid;gap:12px;flex:1;align-content:start}
-  .s-body h3{font-size:24px}
-  .s-body p{color:var(--muted);font-size:15.5px}
-  .price{display:flex;align-items:baseline;gap:8px;margin-top:4px}
-  .price b{font-family:var(--disp);font-size:34px;color:var(--forest);font-weight:500;font-variation-settings:'opsz' 40;letter-spacing:-.02em}
-  .price span{color:var(--muted);font-size:14.5px}
-  .s-meta{display:grid;gap:8px;padding-top:14px;border-top:1px dashed var(--line);font-size:14.5px;color:var(--ink)}
-  .s-meta li{display:flex;gap:10px;align-items:center}
-  .s-meta .ico{width:18px;height:18px;color:var(--sage);stroke-width:2}
-  .s-foot{margin-top:auto;padding:0 26px 26px}
-  .s-foot .btn{width:100%}
-  .s-card.private-card{background:var(--forest);color:#DCE5DD}
-  .s-card.private-card h3,.s-card.private-card .price b{color:#fff}
-  .s-card.private-card p,.s-card.private-card .price span{color:#B9C7BC}
-  .s-card.private-card .s-meta{border-color:rgba(255,255,255,.18);color:#E6EDE6}
-  .s-card.private-card .s-meta .ico{color:var(--amber)}
-  .party-row{
+  }#wonder-site .ws-tag i{width:9px;height:9px;border-radius:50%;background:var(--type-c,var(--sage))}#wonder-site .ws-tag.pre{--type-c:var(--lilac)}#wonder-site .ws-tag.open{--type-c:var(--sage)}#wonder-site .ws-tag.private{--type-c:var(--amber)}#wonder-site .ws-s-body{padding:24px 26px 26px;display:grid;gap:12px;flex:1;align-content:start}#wonder-site .ws-s-body h3{font-size:24px}#wonder-site .ws-s-body p{color:var(--muted);font-size:15.5px}#wonder-site .ws-price{display:flex;align-items:baseline;gap:8px;margin-top:4px}#wonder-site .ws-price b{font-family:var(--disp);font-size:34px;color:var(--forest);font-weight:500;font-variation-settings:'opsz' 40;letter-spacing:-.02em}#wonder-site .ws-price span{color:var(--muted);font-size:14.5px}#wonder-site .ws-s-meta{display:grid;gap:8px;padding-top:14px;border-top:1px dashed var(--line);font-size:14.5px;color:var(--ink)}#wonder-site .ws-s-meta li{display:flex;gap:10px;align-items:center}#wonder-site .ws-s-meta .ws-ico{width:18px;height:18px;color:var(--sage);stroke-width:2}#wonder-site .ws-s-foot{margin-top:auto;padding:0 26px 26px}#wonder-site .ws-s-foot .ws-btn{width:100%}#wonder-site .ws-s-card.ws-private-card{background:var(--forest);color:#DCE5DD}#wonder-site .ws-s-card.ws-private-card h3, #wonder-site .ws-s-card.ws-private-card .ws-price b{color:#fff}#wonder-site .ws-s-card.ws-private-card p, #wonder-site .ws-s-card.ws-private-card .ws-price span{color:#B9C7BC}#wonder-site .ws-s-card.ws-private-card .ws-s-meta{border-color:rgba(255,255,255,.18);color:#E6EDE6}#wonder-site .ws-s-card.ws-private-card .ws-s-meta .ws-ico{color:var(--amber)}#wonder-site .ws-party-row{
     margin-top:22px;background:var(--amber-soft);border-radius:var(--r-lg);padding:clamp(24px,3vw,36px);
     display:grid;grid-template-columns:auto 1fr auto;gap:clamp(18px,3vw,36px);align-items:center;
-  }
-  .party-row .bubble{width:64px;height:64px;border-radius:20px;background:#fff;display:grid;place-items:center;color:var(--amber-ink)}
-  .party-row .bubble .ico{width:30px;height:30px}
-  .party-row h3{color:var(--amber-ink);margin-bottom:6px}
-  .party-row p{color:#6B5325;font-size:15.5px;max-width:64ch}
-  .party-row .btn{background:var(--amber-ink);color:#fff}
-  .party-row .btn:hover{background:#5E3E0A}
-
-  /* ---------- Timetable ---------- */
-  .tt-head{display:flex;flex-wrap:wrap;gap:24px;align-items:end;justify-content:space-between;margin-bottom:28px}
-  .tt-head .sec-head{margin:0}
-  .tt-legend{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{
+  }#wonder-site .ws-party-row .ws-bubble{width:64px;height:64px;border-radius:20px;background:#fff;display:grid;place-items:center;color:var(--amber-ink)}#wonder-site .ws-party-row .ws-bubble .ws-ico{width:30px;height:30px}#wonder-site .ws-party-row h3{color:var(--amber-ink);margin-bottom:6px}#wonder-site .ws-party-row p{color:#6B5325;font-size:15.5px;max-width:64ch}#wonder-site .ws-party-row .ws-btn{background:var(--amber-ink);color:#fff}#wonder-site .ws-party-row .ws-btn:hover{background:#5E3E0A}#wonder-site .ws-tt-head{display:flex;flex-wrap:wrap;gap:24px;align-items:end;justify-content:space-between;margin-bottom:28px}#wonder-site .ws-tt-head .ws-sec-head{margin:0}#wonder-site .ws-tt-legend{display:flex;flex-wrap:wrap;gap:8px}#wonder-site .ws-chip{
     display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border-radius:999px;
     background:var(--white);box-shadow:inset 0 0 0 1.5px var(--line);font-weight:700;font-size:14px;color:var(--ink);
     transition:box-shadow .2s,background .2s,color .2s;touch-action:manipulation;
-  }
-  .chip i{width:10px;height:10px;border-radius:50%;background:var(--type-c,var(--forest))}
-  .chip.pre{--type-c:var(--lilac)}
-  .chip.open{--type-c:var(--sage)}
-  .chip.private{--type-c:var(--amber)}
-  .chip:hover{box-shadow:inset 0 0 0 1.5px var(--sage)}
-  .chip[aria-pressed="true"]{background:var(--forest);color:#fff;box-shadow:inset 0 0 0 1.5px var(--forest)}
-  .chip[aria-pressed="true"] i{outline:2px solid rgba(255,255,255,.8)}
-
-  .tt{background:var(--white);border-radius:var(--r-lg);box-shadow:var(--shadow-1);overflow:hidden}
-  .tt-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-  .tt-week{display:flex;align-items:center;gap:10px}
-  .tt-week h3{font-size:22px;min-width:190px;text-align:center}
-  .icon-btn{width:44px;height:44px;border-radius:999px;display:grid;place-items:center;background:var(--paper);color:var(--forest);transition:background .2s}
-  .icon-btn:hover{background:var(--sage-tint)}
-  .icon-btn .ico{width:20px;height:20px;stroke-width:2.2}
-  .theme-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:999px;background:var(--lilac-soft);color:var(--lilac-ink);font-weight:700;font-size:14px}
-  .theme-pill .ico{width:18px;height:18px;stroke-width:2}
-  .theme-pill.plain{background:var(--sage-tint);color:var(--moss)}
-
-  .tt-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line)}
-  .tt-day{background:var(--white);padding:16px 12px 18px;display:grid;gap:8px;align-content:start;min-height:340px}
-  .tt-day header{display:flex;align-items:baseline;justify-content:space-between;padding:0 4px 10px;border-bottom:2px solid var(--paper-2);margin-bottom:4px}
-  .tt-day header b{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}
-  .tt-day header span{font-family:var(--disp);font-size:22px;color:var(--forest)}
-  .tt-day.today header span{background:var(--forest);color:#fff;border-radius:999px;width:34px;height:34px;display:grid;place-items:center;font-size:17px}
-  .slot{
+  }#wonder-site .ws-chip i{width:10px;height:10px;border-radius:50%;background:var(--type-c,var(--forest))}#wonder-site .ws-chip.pre{--type-c:var(--lilac)}#wonder-site .ws-chip.open{--type-c:var(--sage)}#wonder-site .ws-chip.private{--type-c:var(--amber)}#wonder-site .ws-chip:hover{box-shadow:inset 0 0 0 1.5px var(--sage)}#wonder-site .ws-chip[aria-pressed="true"]{background:var(--forest);color:#fff;box-shadow:inset 0 0 0 1.5px var(--forest)}#wonder-site .ws-chip[aria-pressed="true"] i{outline:2px solid rgba(255,255,255,.8)}#wonder-site .ws-tt{background:var(--white);border-radius:var(--r-lg);box-shadow:var(--shadow-1);overflow:hidden}#wonder-site .ws-tt-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap}#wonder-site .ws-tt-week{display:flex;align-items:center;gap:10px}#wonder-site .ws-tt-week h3{font-size:22px;min-width:190px;text-align:center}#wonder-site .ws-icon-btn{width:44px;height:44px;border-radius:999px;display:grid;place-items:center;background:var(--paper);color:var(--forest);transition:background .2s}#wonder-site .ws-icon-btn:hover{background:var(--sage-tint)}#wonder-site .ws-icon-btn .ws-ico{width:20px;height:20px;stroke-width:2.2}#wonder-site .ws-theme-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:999px;background:var(--lilac-soft);color:var(--lilac-ink);font-weight:700;font-size:14px}#wonder-site .ws-theme-pill .ws-ico{width:18px;height:18px;stroke-width:2}#wonder-site .ws-theme-pill.plain{background:var(--sage-tint);color:var(--moss)}#wonder-site .ws-tt-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line)}#wonder-site .ws-tt-day{background:var(--white);padding:16px 12px 18px;display:grid;gap:8px;align-content:start;min-height:340px}#wonder-site .ws-tt-day header{display:flex;align-items:baseline;justify-content:space-between;padding:0 4px 10px;border-bottom:2px solid var(--paper-2);margin-bottom:4px}#wonder-site .ws-tt-day header b{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:800}#wonder-site .ws-tt-day header span{font-family:var(--disp);font-size:22px;color:var(--forest)}#wonder-site .ws-tt-day.today header span{background:var(--forest);color:#fff;border-radius:999px;width:34px;height:34px;display:grid;place-items:center;font-size:17px}#wonder-site .ws-slot{
     display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center;text-align:left;
     padding:10px 12px;border-radius:12px;background:var(--type-bg);color:var(--type-ink);
     border-left:4px solid var(--type-c);transition:transform .2s var(--ease),box-shadow .2s;min-height:52px;width:100%;
     touch-action:manipulation;
-  }
-  .slot:hover{transform:translateX(2px);box-shadow:var(--shadow-1)}
-  .slot time{font-weight:800;font-size:14.5px;font-variant-numeric:tabular-nums;grid-row:span 2;align-self:center}
-  .slot b{font-size:13.5px;font-weight:700;line-height:1.2}
-  .slot small{font-size:12px;opacity:.85}
-  .slot.pre{--type-c:var(--lilac);--type-bg:var(--lilac-soft);--type-ink:var(--lilac-ink)}
-  .slot.open{--type-c:var(--sage);--type-bg:var(--sage-tint);--type-ink:var(--moss)}
-  .slot.private{--type-c:var(--amber);--type-bg:var(--amber-soft);--type-ink:var(--amber-ink)}
-  .slot.full{--type-bg:var(--paper);--type-ink:var(--muted);--type-c:var(--line);cursor:not-allowed;box-shadow:none}
-  .slot.full:hover{transform:none}
-  .slot.full time{text-decoration:line-through;opacity:.7}
-  .slot.hidden{display:none}
-  .tt-list{display:none}
-  .tt-grid .slot{grid-template-columns:1fr;gap:2px;padding:10px 10px 10px 12px}
-  .tt-grid .slot time{grid-row:auto;font-size:15px}
-  .tt-grid .slot b{font-size:13px}
-  .tt-grid .slot small{font-size:11.5px}
-  .tt-empty{color:var(--muted);font-size:14px;padding:12px 6px;text-align:center}
-  .tt-foot{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;padding:16px 22px;border-top:1px solid var(--line);font-size:14.5px;color:var(--muted)}
-  .tt-foot b{color:var(--ink)}
-  .day-tabs{display:none;gap:6px;padding:14px 16px 0;overflow-x:auto;scrollbar-width:none}
-  .day-tabs::-webkit-scrollbar{display:none}
-  .day-tabs button{flex:none;min-width:56px;min-height:60px;padding:8px 10px;border-radius:14px;display:grid;justify-items:center;gap:2px;background:var(--paper);color:var(--muted);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
-  .day-tabs button span{font-family:var(--disp);font-size:20px;color:var(--forest);letter-spacing:0;text-transform:none}
-  .day-tabs button[aria-selected="true"]{background:var(--forest);color:#C6D2C8}
-  .day-tabs button[aria-selected="true"] span{color:#fff}
-
-  /* ---------- Gallery ---------- */
-  .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:14px}
-  .gallery figure{position:relative;border-radius:var(--r-md);overflow:hidden;background:var(--sage-tint)}
-  .gallery img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-  .gallery figure:hover img{transform:scale(1.04)}
-  .gallery figcaption{position:absolute;left:14px;bottom:12px;font-size:13px;font-weight:700;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}
-  .gallery figure:hover figcaption{opacity:1;transform:none}
-  .gallery .tall{grid-row:span 2}
-  .gallery .wide{grid-column:span 2}
-  .gallery .arch-tile{border-radius:var(--r-arch)}
-
-  /* ---------- Reviews ---------- */
-  .reviews{display:grid;grid-template-columns:1fr 2fr;gap:clamp(32px,5vw,72px);align-items:start}
-  .rev-score{background:var(--forest);color:#fff;border-radius:var(--r-lg);padding:34px 32px;display:grid;gap:14px;position:sticky;top:110px}
-  .rev-score .big{font-family:var(--disp);font-size:72px;line-height:1;font-variation-settings:'opsz' 96;letter-spacing:-.02em}
-  .rev-score .stars{display:flex;gap:4px;color:var(--amber)}
-  .rev-score .stars svg{width:22px;height:22px;fill:currentColor;stroke:none}
-  .rev-score p{color:#C6D2C8;font-size:15.5px}
-  .rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  .rev{background:var(--white);border-radius:var(--r-md);padding:26px;display:grid;gap:14px;box-shadow:var(--shadow-1);position:relative}
-  .rev:nth-child(3){grid-column:span 2}
-  .rev q{font-family:var(--disp);font-size:20px;line-height:1.4;color:var(--forest);font-variation-settings:'opsz' 24;quotes:"“" "”"}
-  .rev .who{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted)}
-  .rev .who i{width:36px;height:36px;border-radius:50%;background:var(--sage-tint);color:var(--moss);display:grid;place-items:center;font-style:normal;font-weight:800}
-  .rev .sample{justify-self:start;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--muted);background:var(--paper);padding:4px 8px;border-radius:6px}
-
-  /* ---------- Café ---------- */
-  .cafe{background:var(--forest);color:#DCE5DD;border-radius:var(--r-lg);overflow:hidden;display:grid;grid-template-columns:1.1fr 1fr;min-height:420px}
-  .cafe .copy{padding:clamp(32px,4.5vw,64px);display:grid;gap:20px;align-content:center}
-  .cafe h2{color:#fff}
-  .cafe p{color:#B9C7BC;max-width:54ch}
-  .cafe .eyebrow{color:var(--lilac)}
-  .cafe .eyebrow::before{background:var(--lilac)}
-  .cafe .perks{display:flex;flex-wrap:wrap;gap:8px}
-  .cafe .perks li{padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.08);font-size:14px;font-weight:600;color:#E6EDE6}
-  .cafe .media{position:relative;background:var(--moss);min-height:300px}
-  .cafe .media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .cafe .media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--forest),transparent 40%)}
-
-  /* ---------- Find us ---------- */
-  .find{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:start}
-  .find .map{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-1);aspect-ratio:4/3;background:var(--sage-tint);position:relative}
-  .find .map iframe{width:100%;height:100%;border:0;filter:saturate(.7) contrast(1.02)}
-  .address{display:grid;gap:22px}
-  .addr-card{background:var(--white);border-radius:var(--r-md);padding:24px;display:grid;gap:18px;box-shadow:var(--shadow-1)}
-  .addr-row{display:flex;gap:14px;align-items:flex-start}
-  .addr-row .ico{color:var(--sage);margin-top:2px}
-  .addr-row b{display:block;color:var(--forest)}
-  .addr-row p{color:var(--muted);font-size:15.5px}
-  .w3w{font-family:ui-monospace,Menlo,monospace;font-size:15px;background:var(--paper);padding:4px 8px;border-radius:6px;color:var(--forest)}
-  .notice{display:flex;gap:12px;align-items:flex-start;background:var(--amber-soft);color:var(--amber-ink);padding:14px 16px;border-radius:12px;font-size:15px}
-  .notice .ico{width:20px;height:20px;margin-top:2px;stroke-width:2}
-
-  /* ---------- Contact form ---------- */
-  .contact{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(32px,5vw,72px);align-items:start}
-  .form{background:var(--white);border-radius:var(--r-lg);padding:clamp(24px,3vw,36px);display:grid;gap:18px;box-shadow:var(--shadow-1)}
-  .form .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .field{display:grid;gap:6px}
-  .field label{font-weight:700;font-size:14.5px;color:var(--forest)}
-  .field label span{color:var(--muted);font-weight:500}
-  .field input,.field textarea,.field select{
+  }#wonder-site .ws-slot:hover{transform:translateX(2px);box-shadow:var(--shadow-1)}#wonder-site .ws-slot time{font-weight:800;font-size:14.5px;font-variant-numeric:tabular-nums;grid-row:span 2;align-self:center}#wonder-site .ws-slot b{font-size:13.5px;font-weight:700;line-height:1.2}#wonder-site .ws-slot small{font-size:12px;opacity:.85}#wonder-site .ws-slot.pre{--type-c:var(--lilac);--type-bg:var(--lilac-soft);--type-ink:var(--lilac-ink)}#wonder-site .ws-slot.open{--type-c:var(--sage);--type-bg:var(--sage-tint);--type-ink:var(--moss)}#wonder-site .ws-slot.private{--type-c:var(--amber);--type-bg:var(--amber-soft);--type-ink:var(--amber-ink)}#wonder-site .ws-slot.full{--type-bg:var(--paper);--type-ink:var(--muted);--type-c:var(--line);cursor:not-allowed;box-shadow:none}#wonder-site .ws-slot.full:hover{transform:none}#wonder-site .ws-slot.full time{text-decoration:line-through;opacity:.7}#wonder-site .ws-slot.hidden{display:none}#wonder-site .ws-tt-list{display:none}#wonder-site .ws-tt-grid .ws-slot{grid-template-columns:1fr;gap:2px;padding:10px 10px 10px 12px}#wonder-site .ws-tt-grid .ws-slot time{grid-row:auto;font-size:15px}#wonder-site .ws-tt-grid .ws-slot b{font-size:13px}#wonder-site .ws-tt-grid .ws-slot small{font-size:11.5px}#wonder-site .ws-tt-empty{color:var(--muted);font-size:14px;padding:12px 6px;text-align:center}#wonder-site .ws-tt-foot{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;padding:16px 22px;border-top:1px solid var(--line);font-size:14.5px;color:var(--muted)}#wonder-site .ws-tt-foot b{color:var(--ink)}#wonder-site .ws-day-tabs{display:none;gap:6px;padding:14px 16px 0;overflow-x:auto;scrollbar-width:none}#wonder-site .ws-day-tabs::-webkit-scrollbar{display:none}#wonder-site .ws-day-tabs button{flex:none;min-width:56px;min-height:60px;padding:8px 10px;border-radius:14px;display:grid;justify-items:center;gap:2px;background:var(--paper);color:var(--muted);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}#wonder-site .ws-day-tabs button span{font-family:var(--disp);font-size:20px;color:var(--forest);letter-spacing:0;text-transform:none}#wonder-site .ws-day-tabs button[aria-selected="true"]{background:var(--forest);color:#C6D2C8}#wonder-site .ws-day-tabs button[aria-selected="true"] span{color:#fff}#wonder-site .ws-gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:14px}#wonder-site .ws-gallery figure{position:relative;border-radius:var(--r-md);overflow:hidden;background:var(--sage-tint)}#wonder-site .ws-gallery img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}#wonder-site .ws-gallery figure:hover img{transform:scale(1.04)}#wonder-site .ws-gallery figcaption{position:absolute;left:14px;bottom:12px;font-size:13px;font-weight:700;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5);opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}#wonder-site .ws-gallery figure:hover figcaption{opacity:1;transform:none}#wonder-site .ws-gallery .ws-tall{grid-row:span 2}#wonder-site .ws-gallery .ws-wide{grid-column:span 2}#wonder-site .ws-gallery .ws-arch-tile{border-radius:var(--r-arch)}#wonder-site .ws-reviews{display:grid;grid-template-columns:1fr 2fr;gap:clamp(32px,5vw,72px);align-items:start}#wonder-site .ws-rev-score{background:var(--forest);color:#fff;border-radius:var(--r-lg);padding:34px 32px;display:grid;gap:14px;position:sticky;top:110px}#wonder-site .ws-rev-score .ws-big{font-family:var(--disp);font-size:72px;line-height:1;font-variation-settings:'opsz' 96;letter-spacing:-.02em}#wonder-site .ws-rev-score .ws-stars{display:flex;gap:4px;color:var(--amber)}#wonder-site .ws-rev-score .ws-stars svg{width:22px;height:22px;fill:currentColor;stroke:none}#wonder-site .ws-rev-score p{color:#C6D2C8;font-size:15.5px}#wonder-site .ws-rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}#wonder-site .ws-rev{background:var(--white);border-radius:var(--r-md);padding:26px;display:grid;gap:14px;box-shadow:var(--shadow-1);position:relative}#wonder-site .ws-rev:nth-child(3){grid-column:span 2}#wonder-site .ws-rev q{font-family:var(--disp);font-size:20px;line-height:1.4;color:var(--forest);font-variation-settings:'opsz' 24;quotes:"“" "”"}#wonder-site .ws-rev .ws-who{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted)}#wonder-site .ws-rev .ws-who i{width:36px;height:36px;border-radius:50%;background:var(--sage-tint);color:var(--moss);display:grid;place-items:center;font-style:normal;font-weight:800}#wonder-site .ws-rev .ws-sample{justify-self:start;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--muted);background:var(--paper);padding:4px 8px;border-radius:6px}#wonder-site .ws-cafe{background:var(--forest);color:#DCE5DD;border-radius:var(--r-lg);overflow:hidden;display:grid;grid-template-columns:1.1fr 1fr;min-height:420px}#wonder-site .ws-cafe .ws-copy{padding:clamp(32px,4.5vw,64px);display:grid;gap:20px;align-content:center}#wonder-site .ws-cafe h2{color:#fff}#wonder-site .ws-cafe p{color:#B9C7BC;max-width:54ch}#wonder-site .ws-cafe .ws-eyebrow{color:var(--lilac)}#wonder-site .ws-cafe .ws-eyebrow::before{background:var(--lilac)}#wonder-site .ws-cafe .ws-perks{display:flex;flex-wrap:wrap;gap:8px}#wonder-site .ws-cafe .ws-perks li{padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.08);font-size:14px;font-weight:600;color:#E6EDE6}#wonder-site .ws-cafe .ws-media{position:relative;background:var(--moss);min-height:300px}#wonder-site .ws-cafe .ws-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}#wonder-site .ws-cafe .ws-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--forest),transparent 40%)}#wonder-site .ws-find{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:start}#wonder-site .ws-find .ws-map{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-1);aspect-ratio:4/3;background:var(--sage-tint);position:relative}#wonder-site .ws-find .ws-map iframe{width:100%;height:100%;border:0;filter:saturate(.7) contrast(1.02)}#wonder-site .ws-address{display:grid;gap:22px}#wonder-site .ws-addr-card{background:var(--white);border-radius:var(--r-md);padding:24px;display:grid;gap:18px;box-shadow:var(--shadow-1)}#wonder-site .ws-addr-row{display:flex;gap:14px;align-items:flex-start}#wonder-site .ws-addr-row .ws-ico{color:var(--sage);margin-top:2px}#wonder-site .ws-addr-row b{display:block;color:var(--forest)}#wonder-site .ws-addr-row p{color:var(--muted);font-size:15.5px}#wonder-site .ws-w3w{font-family:ui-monospace,Menlo,monospace;font-size:15px;background:var(--paper);padding:4px 8px;border-radius:6px;color:var(--forest)}#wonder-site .ws-notice{display:flex;gap:12px;align-items:flex-start;background:var(--amber-soft);color:var(--amber-ink);padding:14px 16px;border-radius:12px;font-size:15px}#wonder-site .ws-notice .ws-ico{width:20px;height:20px;margin-top:2px;stroke-width:2}#wonder-site .ws-contact{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(32px,5vw,72px);align-items:start}#wonder-site .ws-form{background:var(--white);border-radius:var(--r-lg);padding:clamp(24px,3vw,36px);display:grid;gap:18px;box-shadow:var(--shadow-1)}#wonder-site .ws-form .ws-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}#wonder-site .ws-field{display:grid;gap:6px}#wonder-site .ws-field label{font-weight:700;font-size:14.5px;color:var(--forest)}#wonder-site .ws-field label span{color:var(--muted);font-weight:500}#wonder-site .ws-field input, #wonder-site .ws-field textarea, #wonder-site .ws-field select{
     font:inherit;font-size:16px;width:100%;min-height:50px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);
     background:var(--paper);color:var(--ink);transition:border-color .2s,box-shadow .2s;
-  }
-  .field textarea{min-height:130px;resize:vertical}
-  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--moss);box-shadow:0 0 0 4px var(--sage-tint)}
-  .field small{color:var(--muted);font-size:13.5px}
-  .form-foot{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
-  .form-foot p{font-size:13.5px;color:var(--muted)}
-  .form-status{display:none;padding:14px 16px;border-radius:12px;background:var(--sage-tint);color:var(--moss);font-weight:600}
-  .form-status.show{display:flex;gap:10px;align-items:center}
-  .socials{display:flex;gap:10px}
-  .socials a{width:48px;height:48px;border-radius:14px;background:var(--white);box-shadow:var(--shadow-1);display:grid;place-items:center;color:var(--forest);transition:transform .2s var(--ease),background .2s}
-  .socials a:hover{transform:translateY(-2px);background:var(--sage-tint)}
-
-  /* ---------- FAQ ---------- */
-  .faq{max-width:820px;margin:0 auto}
-  .faq details{background:var(--white);border-radius:var(--r-md);box-shadow:var(--shadow-1);margin-bottom:12px;overflow:hidden}
-  .faq summary{
+  }#wonder-site .ws-field textarea{min-height:130px;resize:vertical}#wonder-site .ws-field input:focus, #wonder-site .ws-field textarea:focus, #wonder-site .ws-field select:focus{outline:none;border-color:var(--moss);box-shadow:0 0 0 4px var(--sage-tint)}#wonder-site .ws-field small{color:var(--muted);font-size:13.5px}#wonder-site .ws-form-foot{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}#wonder-site .ws-form-foot p{font-size:13.5px;color:var(--muted)}#wonder-site .ws-form-status{display:none;padding:14px 16px;border-radius:12px;background:var(--sage-tint);color:var(--moss);font-weight:600}#wonder-site .ws-form-status.show{display:flex;gap:10px;align-items:center}#wonder-site .ws-socials{display:flex;gap:10px}#wonder-site .ws-socials a{width:48px;height:48px;border-radius:14px;background:var(--white);box-shadow:var(--shadow-1);display:grid;place-items:center;color:var(--forest);transition:transform .2s var(--ease),background .2s}#wonder-site .ws-socials a:hover{transform:translateY(-2px);background:var(--sage-tint)}#wonder-site .ws-faq{max-width:820px;margin:0 auto}#wonder-site .ws-faq details{background:var(--white);border-radius:var(--r-md);box-shadow:var(--shadow-1);margin-bottom:12px;overflow:hidden}#wonder-site .ws-faq summary{
     list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;
     padding:20px 24px;font-family:var(--disp);font-size:20px;color:var(--forest);font-variation-settings:'opsz' 32;
+  }#wonder-site .ws-faq summary::-webkit-details-marker{display:none}#wonder-site .ws-faq summary .ws-ico{width:22px;height:22px;color:var(--sage);transition:transform .3s var(--ease);stroke-width:2.2}#wonder-site .ws-faq details[open] summary .ws-ico{transform:rotate(45deg)}#wonder-site .ws-faq .ws-a{padding:0 24px 22px;color:var(--muted);display:grid;gap:10px;font-size:16px}#wonder-site .ws-faq .ws-a a{color:var(--moss);font-weight:700;border-bottom:2px solid var(--sage-soft)}#wonder-site .ws-cta-final{position:relative;overflow:hidden;background:var(--sage);color:#fff;border-radius:var(--r-lg);padding:clamp(48px,7vw,96px) clamp(24px,5vw,72px);text-align:center;display:grid;gap:22px;justify-items:center}#wonder-site .ws-cta-final::before, #wonder-site .ws-cta-final::after{content:"";position:absolute;border-radius:50%;pointer-events:none}#wonder-site .ws-cta-final::before{width:420px;height:420px;left:-140px;top:-160px;background:radial-gradient(closest-side,rgba(255,255,255,.22),transparent)}#wonder-site .ws-cta-final::after{width:520px;height:520px;right:-180px;bottom:-240px;background:radial-gradient(closest-side,rgba(179,155,214,.55),transparent)}#wonder-site .ws-cta-final h2{color:#fff;position:relative;max-width:18ch}#wonder-site .ws-cta-final p{color:#EEF3EE;max-width:52ch;position:relative;font-size:18px}#wonder-site .ws-cta-final .ws-hero-actions{position:relative;justify-content:center}#wonder-site .ws-cta-final .ws-btn-secondary{color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}#wonder-site .ws-cta-final .ws-btn-secondary:hover{background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 2px #fff}#wonder-site .ws-footer{background:var(--forest);color:#B9C7BC;margin-top:clamp(64px,9vw,120px);position:relative;overflow:hidden}#wonder-site .ws-footer .ws-tree{position:absolute;right:-4%;bottom:-8%;width:min(44%,560px);opacity:.09}#wonder-site .ws-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding:clamp(56px,7vw,88px) 0 48px;position:relative}#wonder-site .ws-footer .ws-logo{width:190px}#wonder-site .ws-footer .ws-logo-lockup small{color:var(--sage-soft)}#wonder-site .ws-footer .ws-brand p{margin-top:18px;max-width:34ch;font-size:15.5px}#wonder-site .ws-footer h4{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:18px;font-weight:800}#wonder-site .ws-footer ul{display:grid;gap:11px}#wonder-site .ws-footer ul a{font-size:15.5px;color:#C6D2C8;transition:color .2s}#wonder-site .ws-footer ul a:hover{color:#fff}#wonder-site .ws-footer .ws-contact-col p{font-size:15.5px;line-height:1.7}#wonder-site .ws-footer .ws-contact-col p+p{margin-top:12px}#wonder-site .ws-footer .ws-socials{margin-top:18px}#wonder-site .ws-footer .ws-socials a{background:rgba(255,255,255,.08);color:#fff;box-shadow:none}#wonder-site .ws-footer .ws-socials a:hover{background:rgba(255,255,255,.16)}#wonder-site .ws-footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding:22px 0;display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;font-size:14px;color:#8FA394;position:relative}#wonder-site .ws-footer-bottom a{color:#C6D2C8}#wonder-site .ws-footer-bottom a:hover{color:#fff}#wonder-site .ws-book-bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:90;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(244,245,239,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line)}#wonder-site .ws-book-bar .ws-btn{width:100%}#wonder-site .ws-rise{animation:rise .8s var(--ease) both}#wonder-site .ws-rise.ws-d1{animation-delay:.08s}#wonder-site .ws-rise.ws-d2{animation-delay:.16s}#wonder-site .ws-rise.ws-d3{animation-delay:.24s}#wonder-site .ws-rise.ws-d4{animation-delay:.32s}@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){#wonder-site *, #wonder-site *::before, #wonder-site *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  }@media (max-width:1080px){#wonder-site .ws-facts ul{grid-template-columns:repeat(2,1fr)}#wonder-site .ws-facts li:nth-child(3){border-left:0;padding-left:0}#wonder-site .ws-facts li:nth-child(-n+2){border-bottom:1px solid var(--line)}#wonder-site .ws-sessions-grid{grid-template-columns:1fr 1fr}#wonder-site .ws-gallery{grid-template-columns:repeat(3,1fr);grid-auto-rows:200px}#wonder-site .ws-footer-grid{grid-template-columns:1fr 1fr}#wonder-site .ws-reviews{grid-template-columns:1fr}#wonder-site .ws-rev-score{position:static}
+  }@media (max-width:900px){#wonder-site .ws-nav-links, #wonder-site .ws-nav-cta .ws-btn{display:none}#wonder-site .ws-menu-btn{display:inline-flex}#wonder-site .ws-hero-grid, #wonder-site .ws-about-grid, #wonder-site .ws-find, #wonder-site .ws-contact, #wonder-site .ws-cafe{grid-template-columns:1fr}#wonder-site .ws-hero-visual{min-height:0;margin-top:12px}#wonder-site .ws-hero-main{width:min(86%,440px);margin:0 0 0 auto}#wonder-site .ws-hero-next{right:auto;left:0;bottom:-30px}#wonder-site .ws-hero-small{bottom:14%}#wonder-site .ws-about-visual .ws-arch{width:min(100%,420px)}#wonder-site .ws-tt-grid{display:none}#wonder-site .ws-day-tabs{display:flex}#wonder-site .ws-tt-list{padding:14px 16px 18px;display:grid;gap:8px}#wonder-site .ws-party-row{grid-template-columns:auto 1fr}#wonder-site .ws-party-row .ws-btn{grid-column:2}#wonder-site .ws-book-bar{display:block}#wonder-site{padding-bottom:76px}
+  }@media (max-width:640px){#wonder-site{font-size:16px}#wonder-site .ws-sessions-grid{grid-template-columns:1fr}#wonder-site .ws-gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}#wonder-site .ws-gallery .ws-wide{grid-column:span 2}#wonder-site .ws-rev-grid{grid-template-columns:1fr}#wonder-site .ws-rev:nth-child(3){grid-column:auto}#wonder-site .ws-form .ws-row{grid-template-columns:1fr}#wonder-site .ws-footer-grid{grid-template-columns:1fr;gap:32px}#wonder-site .ws-facts ul{grid-template-columns:1fr}#wonder-site .ws-facts li{border-left:0;padding-left:0;border-bottom:1px solid var(--line)}#wonder-site .ws-facts li:last-child{border-bottom:0}#wonder-site .ws-hero-actions .ws-btn{width:100%}#wonder-site .ws-hero-main{width:100%;aspect-ratio:4/5}#wonder-site .ws-hero-small{width:42%;top:40%;bottom:auto;left:-4px}#wonder-site .ws-hero-next{position:static;margin-top:44px;width:100%}#wonder-site .ws-tt-head{align-items:start}
   }
-  .faq summary::-webkit-details-marker{display:none}
-  .faq summary .ico{width:22px;height:22px;color:var(--sage);transition:transform .3s var(--ease);stroke-width:2.2}
-  .faq details[open] summary .ico{transform:rotate(45deg)}
-  .faq .a{padding:0 24px 22px;color:var(--muted);display:grid;gap:10px;font-size:16px}
-  .faq .a a{color:var(--moss);font-weight:700;border-bottom:2px solid var(--sage-soft)}
-
-  /* ---------- Final CTA ---------- */
-  .cta-final{position:relative;overflow:hidden;background:var(--sage);color:#fff;border-radius:var(--r-lg);padding:clamp(48px,7vw,96px) clamp(24px,5vw,72px);text-align:center;display:grid;gap:22px;justify-items:center}
-  .cta-final::before,.cta-final::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
-  .cta-final::before{width:420px;height:420px;left:-140px;top:-160px;background:radial-gradient(closest-side,rgba(255,255,255,.22),transparent)}
-  .cta-final::after{width:520px;height:520px;right:-180px;bottom:-240px;background:radial-gradient(closest-side,rgba(179,155,214,.55),transparent)}
-  .cta-final h2{color:#fff;position:relative;max-width:18ch}
-  .cta-final p{color:#EEF3EE;max-width:52ch;position:relative;font-size:18px}
-  .cta-final .hero-actions{position:relative;justify-content:center}
-  .cta-final .btn-secondary{color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
-  .cta-final .btn-secondary:hover{background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 2px #fff}
-
-  /* ---------- Footer ---------- */
-  .footer{background:var(--forest);color:#B9C7BC;margin-top:clamp(64px,9vw,120px);position:relative;overflow:hidden}
-  .footer .tree{position:absolute;right:-4%;bottom:-8%;width:min(44%,560px);opacity:.09}
-  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding:clamp(56px,7vw,88px) 0 48px;position:relative}
-  .footer .logo{width:190px}
-  .footer .logo-lockup small{color:var(--sage-soft)}
-  .footer .brand p{margin-top:18px;max-width:34ch;font-size:15.5px}
-  .footer h4{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:18px;font-weight:800}
-  .footer ul{display:grid;gap:11px}
-  .footer ul a{font-size:15.5px;color:#C6D2C8;transition:color .2s}
-  .footer ul a:hover{color:#fff}
-  .footer .contact-col p{font-size:15.5px;line-height:1.7}
-  .footer .contact-col p+p{margin-top:12px}
-  .footer .socials{margin-top:18px}
-  .footer .socials a{background:rgba(255,255,255,.08);color:#fff;box-shadow:none}
-  .footer .socials a:hover{background:rgba(255,255,255,.16)}
-  .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding:22px 0;display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;font-size:14px;color:#8FA394;position:relative}
-  .footer-bottom a{color:#C6D2C8}
-  .footer-bottom a:hover{color:#fff}
-
-  /* ---------- Sticky mobile book bar ---------- */
-  .book-bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:90;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(244,245,239,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
-  .book-bar .btn{width:100%}
-
-  /* ---------- Motion ---------- */
-  .rise{animation:rise .8s var(--ease) both}
-  .rise.d1{animation-delay:.08s}.rise.d2{animation-delay:.16s}.rise.d3{animation-delay:.24s}.rise.d4{animation-delay:.32s}
-  @keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
-  @media (prefers-reduced-motion:reduce){
-    html{scroll-behavior:auto}
-    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-  }
-
-  /* ---------- Responsive ---------- */
-  @media (max-width:1080px){
-    .facts ul{grid-template-columns:repeat(2,1fr)}
-    .facts li:nth-child(3){border-left:0;padding-left:0}
-    .facts li:nth-child(-n+2){border-bottom:1px solid var(--line)}
-    .sessions-grid{grid-template-columns:1fr 1fr}
-    .gallery{grid-template-columns:repeat(3,1fr);grid-auto-rows:200px}
-    .footer-grid{grid-template-columns:1fr 1fr}
-    .reviews{grid-template-columns:1fr}
-    .rev-score{position:static}
-  }
-  @media (max-width:900px){
-    .nav-links,.nav-cta .btn{display:none}
-    .menu-btn{display:inline-flex}
-    .hero-grid,.about-grid,.find,.contact,.cafe{grid-template-columns:1fr}
-    .hero-visual{min-height:0;margin-top:12px}
-    .hero-main{width:min(86%,440px);margin:0 0 0 auto}
-    .hero-next{right:auto;left:0;bottom:-30px}
-    .hero-small{bottom:14%}
-    .about-visual .arch{width:min(100%,420px)}
-    .tt-grid{display:none}
-    .day-tabs{display:flex}
-    .tt-list{padding:14px 16px 18px;display:grid;gap:8px}
-    .party-row{grid-template-columns:auto 1fr}
-    .party-row .btn{grid-column:2}
-    .book-bar{display:block}
-    body{padding-bottom:76px}
-  }
-  @media (max-width:640px){
-    body{font-size:16px}
-    .sessions-grid{grid-template-columns:1fr}
-    .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
-    .gallery .wide{grid-column:span 2}
-    .rev-grid{grid-template-columns:1fr}
-    .rev:nth-child(3){grid-column:auto}
-    .form .row{grid-template-columns:1fr}
-    .footer-grid{grid-template-columns:1fr;gap:32px}
-    .facts ul{grid-template-columns:1fr}
-    .facts li{border-left:0;padding-left:0;border-bottom:1px solid var(--line)}
-    .facts li:last-child{border-bottom:0}
-    .hero-actions .btn{width:100%}
-    .hero-main{width:100%;aspect-ratio:4/5}
-    .hero-small{width:42%;top:40%;bottom:auto;left:-4px}
-    .hero-next{position:static;margin-top:44px;width:100%}
-    .tt-head{align-items:start}
-  }
+  #wonder-site .ws-header,#wonder-site .ws-footer{display:block!important;visibility:visible!important}
 </style>
-</head>
-<body>
+<div id="wonder-site">
 
-<div class="announce">
+<div class="ws-announce">
   <strong>Wonder Café is now open</strong> in The Yard, right beside the sensory room · Pre-booked sessions only, no walk-ins
   <a href="#cafe">See the café</a>
 </div>
 
-<header class="header" id="top">
-  <div class="wrap nav">
-    <a href="#top" class="logo-lockup" aria-label="Wonder Sensory Room, home">
-      <img class="logo" src="/s/logo-forest.png" width="1620" height="314" alt="Wonder">
+<div class="ws-header" role="banner" id="top">
+  <div class="ws-wrap ws-nav">
+    <a href="#top" class="ws-logo-lockup" aria-label="Wonder Sensory Room, home">
+      <img class="ws-logo" src="/s/logo-forest.png" width="1620" height="314" alt="Wonder">
       <small>Sensory Room</small>
     </a>
-    <nav class="nav-links" aria-label="Primary">
+    <nav class="ws-nav-links" aria-label="Primary">
       <a href="#room">The Room</a>
       <a href="#sessions">Sessions</a>
       <a href="#timetable">Timetable</a>
@@ -537,35 +146,35 @@
       <a href="#find-us">Find Us</a>
       <a href="#faq">FAQs</a>
     </nav>
-    <div class="nav-cta">
-      <a class="btn btn-primary btn-sm" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">
+    <div class="ws-nav-cta">
+      <a class="ws-btn ws-btn-primary ws-btn-sm" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">
         Book a session
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-      <button class="menu-btn" id="menuOpen" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <button class="ws-menu-btn" id="menuOpen" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
   </div>
-</header>
+</div>
 
-<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu">
-  <div class="top">
-    <a href="#top" class="logo-lockup" aria-label="Wonder Sensory Room, home"><img class="logo" src="/s/logo-forest.png" width="1620" height="314" alt="Wonder"><small>Sensory Room</small></a>
-    <button class="menu-btn" id="menuClose" aria-label="Close menu">
-      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+<div class="ws-mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="ws-top">
+    <a href="#top" class="ws-logo-lockup" aria-label="Wonder Sensory Room, home"><img class="ws-logo" src="/s/logo-forest.png" width="1620" height="314" alt="Wonder"><small>Sensory Room</small></a>
+    <button class="ws-menu-btn" id="menuClose" aria-label="Close menu">
+      <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
   </div>
   <nav aria-label="Mobile">
-    <a href="#room">The Room <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-    <a href="#sessions">Sessions <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-    <a href="#timetable">Timetable <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-    <a href="#cafe">Wonder Café <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-    <a href="#find-us">Find Us <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
-    <a href="#faq">FAQs <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a href="#room">The Room <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a href="#sessions">Sessions <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a href="#timetable">Timetable <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a href="#cafe">Wonder Café <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a href="#find-us">Find Us <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+    <a href="#faq">FAQs <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
   </nav>
-  <div class="foot">
-    <a class="btn btn-primary" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">Book a session</a>
+  <div class="ws-foot">
+    <a class="ws-btn ws-btn-primary" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">Book a session</a>
     <p>The Yard, Burnopfield, NE16 6PT · Pre-booked sessions only</p>
   </div>
 </div>
@@ -573,21 +182,21 @@
 <main>
 
   <!-- ===== HERO ===== -->
-  <section class="hero" aria-labelledby="hero-h">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <span class="eyebrow rise">Burnopfield · County Durham</span>
-        <h1 id="hero-h" class="rise d1">The North East's most <em>captivating</em> sensory experience</h1>
-        <p class="lede rise d2">A spectacular, multi-themed immersive sensory room for babies, toddlers and young children. Family-run, calm by design, and made for little ones who find busy play spaces overwhelming.</p>
-        <div class="hero-actions rise d3">
-          <a class="btn btn-primary" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">
+  <section class="ws-hero" aria-labelledby="hero-h">
+    <div class="ws-wrap ws-hero-grid">
+      <div class="ws-hero-copy">
+        <span class="ws-eyebrow ws-rise">Burnopfield · County Durham</span>
+        <h1 id="hero-h" class="ws-rise ws-d1">The North East's most <em>captivating</em> sensory experience</h1>
+        <p class="ws-lede ws-rise ws-d2">A spectacular, multi-themed immersive sensory room for babies, toddlers and young children. Family-run, calm by design, and made for little ones who find busy play spaces overwhelming.</p>
+        <div class="ws-hero-actions ws-rise ws-d3">
+          <a class="ws-btn ws-btn-primary" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">
             Book a session
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="btn btn-secondary" href="#sessions">Compare session types</a>
+          <a class="ws-btn ws-btn-secondary" href="#sessions">Compare session types</a>
         </div>
-        <div class="hero-proof rise d4">
-          <span class="stars" aria-hidden="true">
+        <div class="ws-hero-proof ws-rise ws-d4">
+          <span class="ws-stars" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.8L12 17.7 6 21l1.3-6.8-5-4.7 6.8-.8z"/></svg>
             <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.8L12 17.7 6 21l1.3-6.8-5-4.7 6.8-.8z"/></svg>
             <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.8L12 17.7 6 21l1.3-6.8-5-4.7 6.8-.8z"/></svg>
@@ -598,15 +207,15 @@
         </div>
       </div>
 
-      <div class="hero-visual">
-        <div class="arch hero-main rise d1">
+      <div class="ws-hero-visual">
+        <div class="ws-arch ws-hero-main ws-rise ws-d1">
           <img src="/s/room-overview.webp" width="1512" height="2016" alt="The Wonder sensory room: soft-play arches on green grass beneath cascading fibre-optic waterfalls" fetchpriority="high">
         </div>
-        <div class="hero-small rise d3">
+        <div class="ws-hero-small ws-rise ws-d3">
           <img src="/s/baby-fibre.webp" width="1200" height="1502" alt="A baby lying happily among glowing purple fibre-optic strands" loading="lazy">
         </div>
-        <div class="hero-next rise d4" aria-label="Next available session">
-          <span class="dot"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div class="ws-hero-next ws-rise ws-d4" aria-label="Next available session">
+          <span class="ws-dot"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
           <div>
             <b>Next session · Sat 10:00</b>
             <span>Pre-Walking Playtime · 4 spaces left</span>
@@ -617,23 +226,23 @@
   </section>
 
   <!-- ===== FACT STRIP ===== -->
-  <section class="facts" aria-label="At a glance">
-    <div class="wrap">
+  <section class="ws-facts" aria-label="At a glance">
+    <div class="ws-wrap">
       <ul>
         <li>
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
           <div><b>One-hour sessions</b><span>Calm, small groups. Never rushed.</span></div>
         </li>
         <li>
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20a6 6 0 0 1 12 0M16 4a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg>
+          <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20a6 6 0 0 1 12 0M16 4a3 3 0 0 1 0 6M21 20a6 6 0 0 0-4-5.6"/></svg>
           <div><b>Babies-only slots</b><span>Pre-walking sessions with tiny babies only.</span></div>
         </li>
         <li>
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.5 0-1-.1-1.4A5 5 0 0 1 13.4 3.1 9 9 0 0 0 12 3z"/></svg>
+          <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.5 0-1-.1-1.4A5 5 0 0 1 13.4 3.1 9 9 0 0 0 12 3z"/></svg>
           <div><b>Low-stimulus design</b><span>Soft light, soothing sound, tactile play.</span></div>
         </li>
         <li>
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h14M6 17l1.5-6h9L18 17M8 11V7h8v4M7 17v2M17 17v2"/></svg>
+          <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h14M6 17l1.5-6h9L18 17M8 11V7h8v4M7 17v2M17 17v2"/></svg>
           <div><b>Free on-site parking</b><span>30 min from Newcastle, 20 from the MetroCentre.</span></div>
         </li>
       </ul>
@@ -641,182 +250,182 @@
   </section>
 
   <!-- ===== ABOUT THE ROOM ===== -->
-  <section class="section" id="room" aria-labelledby="room-h">
-    <div class="wrap about-grid">
-      <div class="about-visual">
-        <div class="arch">
+  <section class="ws-section" id="room" aria-labelledby="room-h">
+    <div class="ws-wrap ws-about-grid">
+      <div class="ws-about-visual">
+        <div class="ws-arch">
           <img src="/s/bubble-tubes.webp" width="1200" height="1600" alt="Tall bubble tubes glowing blue and pink among leafy walls, with a soft giraffe rocker in front" loading="lazy">
         </div>
-        <img class="tree" src="/s/tree-sage.png" width="909" height="521" alt="" aria-hidden="true" loading="lazy">
+        <img class="ws-tree" src="/s/tree-sage.png" width="909" height="521" alt="" aria-hidden="true" loading="lazy">
       </div>
-      <div class="about-copy">
-        <span class="eyebrow">The sensory room</span>
-        <h2 id="room-h">A calm, engaging world built for <em class="wonk">little</em> explorers</h2>
-        <p class="lede">Wonder is thoughtfully designed for children who benefit from a gentle, low-stimulus setting. It's particularly well suited to autistic and neurodivergent children who may find traditional play spaces overwhelming, and it's a peaceful alternative to busy activity venues for every family.</p>
-        <ul class="feature-list">
+      <div class="ws-about-copy">
+        <span class="ws-eyebrow">The sensory room</span>
+        <h2 id="room-h">A calm, engaging world built for <em class="ws-wonk">little</em> explorers</h2>
+        <p class="ws-lede">Wonder is thoughtfully designed for children who benefit from a gentle, low-stimulus setting. It's particularly well suited to autistic and neurodivergent children who may find traditional play spaces overwhelming, and it's a peaceful alternative to busy activity venues for every family.</p>
+        <ul class="ws-feature-list">
           <li>
-            <span class="bubble"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/><circle cx="12" cy="12" r="4"/></svg></span>
+            <span class="ws-bubble"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/><circle cx="12" cy="12" r="4"/></svg></span>
             <div><b>Soft, shifting light</b><p>Fibre-optic waterfalls, bubble tubes and colour-changing pods that soothe rather than startle.</p></div>
           </li>
           <li>
-            <span class="bubble"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></span>
+            <span class="ws-bubble"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></span>
             <div><b>Soothing sound</b><p>Gentle sensory music, kept low, so the room never feels noisy or busy.</p></div>
           </li>
           <li>
-            <span class="bubble"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 12V6a2 2 0 1 1 4 0v6M12 11V4a2 2 0 1 1 4 0v8M16 12V7a2 2 0 1 1 4 0v7a7 7 0 0 1-7 7h-1.5a6 6 0 0 1-5-2.7L4 14.5a2 2 0 0 1 3.3-2.2L8 13"/></svg></span>
+            <span class="ws-bubble"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 12V6a2 2 0 1 1 4 0v6M12 11V4a2 2 0 1 1 4 0v8M16 12V7a2 2 0 1 1 4 0v7a7 7 0 0 1-7 7h-1.5a6 6 0 0 1-5-2.7L4 14.5a2 2 0 0 1 3.3-2.2L8 13"/></svg></span>
             <div><b>Tactile features to explore</b><p>Ball pits, soft-play arches, textured walls and toys chosen for tiny hands.</p></div>
           </li>
         </ul>
-        <p class="quiet-note">Families visit to enjoy meaningful bonding time, support emotional regulation, and share a calm, enriching experience together.</p>
+        <p class="ws-quiet-note">Families visit to enjoy meaningful bonding time, support emotional regulation, and share a calm, enriching experience together.</p>
       </div>
     </div>
   </section>
 
   <!-- ===== SESSIONS ===== -->
-  <section class="section band" id="sessions" aria-labelledby="sessions-h">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow">Sessions &amp; pricing</span>
+  <section class="ws-section ws-band" id="sessions" aria-labelledby="sessions-h">
+    <div class="ws-wrap">
+      <div class="ws-sec-head">
+        <span class="ws-eyebrow">Sessions &amp; pricing</span>
         <h2 id="sessions-h">Choose the session that suits your child</h2>
-        <p class="lede">Every visit is pre-booked, so the room is never crowded. Pick a shared session, or take the whole room for yourselves.</p>
+        <p class="ws-lede">Every visit is pre-booked, so the room is never crowded. Pick a shared session, or take the whole room for yourselves.</p>
       </div>
 
-      <div class="sessions-grid">
-        <article class="s-card">
-          <div class="media">
+      <div class="ws-sessions-grid">
+        <article class="ws-s-card">
+          <div class="ws-media">
             <img src="/s/fibre-baby-close.webp" width="1600" height="2400" alt="A baby's hands reaching into strands of pink fibre-optic light" loading="lazy">
-            <span class="tag pre"><i></i>Babies only</span>
+            <span class="ws-tag pre"><i></i>Babies only</span>
           </div>
-          <div class="s-body">
+          <div class="ws-s-body">
             <h3>Pre-Walking Playtime</h3>
             <p>For babies who aren't walking yet. Parents who'd like their little one to be only with other tiny babies book here.</p>
-            <div class="price"><b>£10</b><span>per baby · 1 hour</span></div>
-            <ul class="s-meta">
-              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Shared with a small group of babies</li>
-              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Up to 2 adults per baby</li>
-              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Themed weeks priced at £15</li>
+            <div class="ws-price"><b>£10</b><span>per baby · 1 hour</span></div>
+            <ul class="ws-s-meta">
+              <li><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Shared with a small group of babies</li>
+              <li><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Up to 2 adults per baby</li>
+              <li><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Themed weeks priced at £15</li>
             </ul>
           </div>
-          <div class="s-foot"><a class="btn btn-primary" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">Book Pre-Walking</a></div>
+          <div class="ws-s-foot"><a class="ws-btn ws-btn-primary" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">Book Pre-Walking</a></div>
         </article>
 
-        <article class="s-card">
-          <div class="media">
+        <article class="ws-s-card">
+          <div class="ws-media">
             <img src="/s/toddler-podium.webp" width="1200" height="1600" alt="A toddler sitting on a glowing white podium in front of blue bubble tubes" loading="lazy">
-            <span class="tag open"><i></i>All ages</span>
+            <span class="ws-tag open"><i></i>All ages</span>
           </div>
-          <div class="s-body">
+          <div class="ws-s-body">
             <h3>0+ Open Sensory Play</h3>
             <p>Our mixed-age session. Attend alongside other parents and children who've booked the same one-hour slot.</p>
-            <div class="price"><b>£10</b><span>per child · 1 hour</span></div>
-            <ul class="s-meta">
-              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Calm, small-group session</li>
-              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Up to 2 adults per child</li>
-              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>One ticket per child attending</li>
+            <div class="ws-price"><b>£10</b><span>per child · 1 hour</span></div>
+            <ul class="ws-s-meta">
+              <li><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Calm, small-group session</li>
+              <li><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Up to 2 adults per child</li>
+              <li><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>One ticket per child attending</li>
             </ul>
           </div>
-          <div class="s-foot"><a class="btn btn-primary" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">Book Open Play</a></div>
+          <div class="ws-s-foot"><a class="ws-btn ws-btn-primary" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">Book Open Play</a></div>
         </article>
 
-        <article class="s-card private-card">
-          <div class="media">
+        <article class="ws-s-card ws-private-card">
+          <div class="ws-media">
             <img src="/s/ball-pit.webp" width="1172" height="1563" alt="A pink-lit ball pit beside a soft lion, with the room empty and quiet" loading="lazy">
-            <span class="tag private"><i></i>Exclusive</span>
+            <span class="ws-tag private"><i></i>Exclusive</span>
           </div>
-          <div class="s-body">
+          <div class="ws-s-body">
             <h3>Private Sensory Hire</h3>
             <p>The whole room, just for you. Ideal if your child prefers a quieter space, needs more room, or does best without other guests.</p>
-            <div class="price"><b>Per hour</b><span>price on request</span></div>
-            <ul class="s-meta">
-              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Up to 7 children, 1 adult per child</li>
-              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Extra child £7 · extra adult £3</li>
-              <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>All toys, equipment and sensory music</li>
+            <div class="ws-price"><b>Per hour</b><span>price on request</span></div>
+            <ul class="ws-s-meta">
+              <li><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Up to 7 children, 1 adult per child</li>
+              <li><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Extra child £7 · extra adult £3</li>
+              <li><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>All toys, equipment and sensory music</li>
             </ul>
           </div>
-          <div class="s-foot"><a class="btn btn-light" href="#contact">Get a quote</a></div>
+          <div class="ws-s-foot"><a class="ws-btn ws-btn-light" href="#contact">Get a quote</a></div>
         </article>
       </div>
 
-      <div class="party-row">
-        <span class="bubble"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21l4.5-12L20 15.5 4 21zM9.5 9l.6-2.5M13 12.5l2-1M4.5 6.5l1.2-1.2M15 4l.7 2M19 8l2-.5"/></svg></span>
+      <div class="ws-party-row">
+        <span class="ws-bubble"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21l4.5-12L20 15.5 4 21zM9.5 9l.6-2.5M13 12.5l2-1M4.5 6.5l1.2-1.2M15 4l.7 2M19 8l2-.5"/></svg></span>
         <div>
           <h3>Private Sensory Parties</h3>
           <p>Celebrate a first birthday or a small milestone with exclusive use of the room, all the toys and equipment, and sensory music. Suitable for up to 7 children with one adult each; maximum venue capacity is 25 people. Themed hire is available when a special theme is running.</p>
         </div>
-        <a class="btn" href="#contact">Enquire about a party</a>
+        <a class="ws-btn" href="#contact">Enquire about a party</a>
       </div>
     </div>
   </section>
 
   <!-- ===== TIMETABLE ===== -->
-  <section class="section" id="timetable" aria-labelledby="tt-h">
-    <div class="wrap">
-      <div class="tt-head">
-        <div class="sec-head">
-          <span class="eyebrow">This week at Wonder</span>
+  <section class="ws-section" id="timetable" aria-labelledby="tt-h">
+    <div class="ws-wrap">
+      <div class="ws-tt-head">
+        <div class="ws-sec-head">
+          <span class="ws-eyebrow">This week at Wonder</span>
           <h2 id="tt-h">Pick a time, then book in two taps</h2>
-          <p class="lede">Weekday sessions run from 09:30, weekends from 10:00. Tap any slot to book it on our secure booking page.</p>
+          <p class="ws-lede">Weekday sessions run from 09:30, weekends from 10:00. Tap any slot to book it on our secure booking page.</p>
         </div>
-        <div class="tt-legend" role="group" aria-label="Filter sessions by type">
-          <button class="chip" data-filter="all" aria-pressed="true"><i></i>All sessions</button>
-          <button class="chip pre" data-filter="pre" aria-pressed="false"><i></i>Pre-Walking</button>
-          <button class="chip open" data-filter="open" aria-pressed="false"><i></i>0+ Open Play</button>
-          <button class="chip private" data-filter="private" aria-pressed="false"><i></i>Private Hire</button>
+        <div class="ws-tt-legend" role="group" aria-label="Filter sessions by type">
+          <button class="ws-chip" data-filter="all" aria-pressed="true"><i></i>All sessions</button>
+          <button class="ws-chip pre" data-filter="pre" aria-pressed="false"><i></i>Pre-Walking</button>
+          <button class="ws-chip open" data-filter="open" aria-pressed="false"><i></i>0+ Open Play</button>
+          <button class="ws-chip private" data-filter="private" aria-pressed="false"><i></i>Private Hire</button>
         </div>
       </div>
 
-      <div class="tt" id="tt">
-        <div class="tt-bar">
-          <div class="tt-week">
-            <button class="icon-btn" id="prevWeek" aria-label="Previous week"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <div class="ws-tt" id="tt">
+        <div class="ws-tt-bar">
+          <div class="ws-tt-week">
+            <button class="ws-icon-btn" id="prevWeek" aria-label="Previous week"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
             <h3 id="weekLabel" aria-live="polite">7 – 13 September</h3>
-            <button class="icon-btn" id="nextWeek" aria-label="Next week"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+            <button class="ws-icon-btn" id="nextWeek" aria-label="Next week"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
           </div>
-          <span class="theme-pill" id="themePill">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4zM19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8zM5 16l.6 1.4 1.4.6-1.4.6L5 20l-.6-1.4L3 18l1.4-.6z"/></svg>
+          <span class="ws-theme-pill" id="themePill">
+            <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4zM19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8zM5 16l.6 1.4 1.4.6-1.4.6L5 20l-.6-1.4L3 18l1.4-.6z"/></svg>
             <span id="themeText">Wild West theme week · £15 per child</span>
           </span>
         </div>
 
-        <div class="day-tabs" id="dayTabs" role="tablist" aria-label="Choose a day"></div>
-        <div class="tt-list" id="ttList" role="tabpanel"></div>
-        <div class="tt-grid" id="ttGrid"></div>
+        <div class="ws-day-tabs" id="dayTabs" role="tablist" aria-label="Choose a day"></div>
+        <div class="ws-tt-list" id="ttList" role="tabpanel"></div>
+        <div class="ws-tt-grid" id="ttGrid"></div>
 
-        <div class="tt-foot">
+        <div class="ws-tt-foot">
           <span><b>All sessions last one hour.</b> Tickets are per child; two children need two tickets.</span>
-          <a class="link" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">Open the full booking calendar <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          <a class="ws-link" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">Open the full booking calendar <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===== GALLERY ===== -->
-  <section class="section band" aria-labelledby="gal-h">
-    <div class="wrap">
-      <div class="sec-head center">
-        <span class="eyebrow">Inside the room</span>
+  <section class="ws-section ws-band" aria-labelledby="gal-h">
+    <div class="ws-wrap">
+      <div class="ws-sec-head ws-center">
+        <span class="ws-eyebrow">Inside the room</span>
         <h2 id="gal-h">Light, texture and a little bit of magic</h2>
       </div>
-      <div class="gallery">
-        <figure class="tall arch-tile"><img src="/s/fibre-optics.webp" width="518" height="691" alt="Purple fibre-optic waterfalls lighting a leafy corner of the room" loading="lazy"><figcaption>Fibre-optic waterfalls</figcaption></figure>
-        <figure class="wide"><img src="/s/giraffe.webp" width="1200" height="800" alt="A large yellow inflatable giraffe with a flower lei against a green leafy wall" loading="lazy"><figcaption>Jungle theme</figcaption></figure>
+      <div class="ws-gallery">
+        <figure class="ws-tall ws-arch-tile"><img src="/s/fibre-optics.webp" width="518" height="691" alt="Purple fibre-optic waterfalls lighting a leafy corner of the room" loading="lazy"><figcaption>Fibre-optic waterfalls</figcaption></figure>
+        <figure class="ws-wide"><img src="/s/giraffe.webp" width="1200" height="800" alt="A large yellow inflatable giraffe with a flower lei against a green leafy wall" loading="lazy"><figcaption>Jungle theme</figcaption></figure>
         <figure><img src="/s/light-rings.webp" width="1200" height="1600" alt="Glowing light rings held in front of blue and pink lights" loading="lazy"><figcaption>Light play</figcaption></figure>
         <figure><img src="/s/bubble-tube-gold.webp" width="1200" height="1600" alt="A tall bubble tube glowing gold beside a soft giraffe rocker" loading="lazy"><figcaption>Bubble tubes</figcaption></figure>
-        <figure class="tall"><img src="/s/waterfall-pit.webp" width="1200" height="1801" alt="A glowing ball pit under a palm tree with a fibre-optic curtain" loading="lazy"><figcaption>Tropical ball pit</figcaption></figure>
+        <figure class="ws-tall"><img src="/s/waterfall-pit.webp" width="1200" height="1801" alt="A glowing ball pit under a palm tree with a fibre-optic curtain" loading="lazy"><figcaption>Tropical ball pit</figcaption></figure>
         <figure><img src="/s/baby-grass.webp" width="1200" height="800" alt="A smiling baby in a white bow sitting on the artificial grass beside sensory toys" loading="lazy"><figcaption>Room to roll</figcaption></figure>
         <figure><img src="/s/child-bubble.webp" width="1200" height="1600" alt="A child gazing up at a blue bubble tube" loading="lazy"><figcaption>Wonder</figcaption></figure>
-        <figure class="wide"><img src="/s/party.webp" width="1200" height="1600" alt="A first birthday party set up in the sensory room with balloons and streamers" loading="lazy"><figcaption>Private parties</figcaption></figure>
+        <figure class="ws-wide"><img src="/s/party.webp" width="1200" height="1600" alt="A first birthday party set up in the sensory room with balloons and streamers" loading="lazy"><figcaption>Private parties</figcaption></figure>
       </div>
     </div>
   </section>
 
   <!-- ===== REVIEWS ===== -->
-  <section class="section" id="reviews" aria-labelledby="rev-h">
-    <div class="wrap reviews">
-      <aside class="rev-score on-dark">
-        <span class="eyebrow" style="color:var(--sage-soft)">Guest experiences</span>
-        <div class="big">100%</div>
-        <div class="stars" aria-hidden="true">
+  <section class="ws-section" id="reviews" aria-labelledby="rev-h">
+    <div class="ws-wrap ws-reviews">
+      <aside class="ws-rev-score ws-on-dark">
+        <span class="ws-eyebrow" style="color:var(--sage-soft)">Guest experiences</span>
+        <div class="ws-big">100%</div>
+        <div class="ws-stars" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.8L12 17.7 6 21l1.3-6.8-5-4.7 6.8-.8z"/></svg>
           <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.8L12 17.7 6 21l1.3-6.8-5-4.7 6.8-.8z"/></svg>
           <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.8L12 17.7 6 21l1.3-6.8-5-4.7 6.8-.8z"/></svg>
@@ -824,25 +433,25 @@
           <svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.8L12 17.7 6 21l1.3-6.8-5-4.7 6.8-.8z"/></svg>
         </div>
         <p>of families who reviewed us on Facebook recommend Wonder. See why.</p>
-        <a class="btn btn-light" href="https://www.facebook.com/behindthemagicdooruk/reviews" target="_blank" rel="noopener">Read reviews on Facebook</a>
+        <a class="ws-btn ws-btn-light" href="https://www.facebook.com/behindthemagicdooruk/reviews" target="_blank" rel="noopener">Read reviews on Facebook</a>
       </aside>
       <div>
         <h2 id="rev-h" style="margin-bottom:24px">What families say</h2>
-        <div class="rev-grid">
-          <article class="rev">
-            <span class="sample">Example review</span>
+        <div class="ws-rev-grid">
+          <article class="ws-rev">
+            <span class="ws-sample">Example review</span>
             <q>The calmest hour of our week. My son usually can't cope with soft play, but here he lay under the fibre optics for the full session.</q>
-            <div class="who"><i>A</i><span>Parent of a 3-year-old · Pre-walking &amp; open sessions</span></div>
+            <div class="ws-who"><i>A</i><span>Parent of a 3-year-old · Pre-walking &amp; open sessions</span></div>
           </article>
-          <article class="rev">
-            <span class="sample">Example review</span>
+          <article class="ws-rev">
+            <span class="ws-sample">Example review</span>
             <q>Booked the pre-walking slot for our 5-month-old. Tiny group, gentle music, and the staff were lovely with her.</q>
-            <div class="who"><i>J</i><span>Parent · Pre-Walking Playtime</span></div>
+            <div class="ws-who"><i>J</i><span>Parent · Pre-Walking Playtime</span></div>
           </article>
-          <article class="rev">
-            <span class="sample">Example review</span>
+          <article class="ws-rev">
+            <span class="ws-sample">Example review</span>
             <q>We hired the room privately for a first birthday. Having the space to ourselves made it relaxed for the babies and the grown-ups, and the café afterwards was a bonus.</q>
-            <div class="who"><i>R</i><span>Parent · Private party hire</span></div>
+            <div class="ws-who"><i>R</i><span>Parent · Private party hire</span></div>
           </article>
         </div>
       </div>
@@ -850,22 +459,22 @@
   </section>
 
   <!-- ===== CAFÉ ===== -->
-  <section class="section" id="cafe" aria-labelledby="cafe-h" style="padding-top:0">
-    <div class="wrap">
-      <div class="cafe on-dark">
-        <div class="copy">
-          <span class="eyebrow">Wonder Café</span>
+  <section class="ws-section" id="cafe" aria-labelledby="cafe-h" style="padding-top:0">
+    <div class="ws-wrap">
+      <div class="ws-cafe ws-on-dark">
+        <div class="ws-copy">
+          <span class="ws-eyebrow">Wonder Café</span>
           <h2 id="cafe-h">A well-deserved coffee, steps from the sensory room</h2>
           <p>Homemade cakes, freshly baked scones and barista-style coffee, matcha and more, in a calm, welcoming space inside The Yard. Enjoy both in one visit: a peaceful session for little ones, then a quiet moment for you.</p>
-          <ul class="perks" aria-label="Café details">
+          <ul class="ws-perks" aria-label="Café details">
             <li>Homemade cakes &amp; scones</li>
             <li>Barista coffee &amp; matcha</li>
             <li>Dogs welcome</li>
             <li>Takeaway available</li>
           </ul>
-          <div><a class="btn btn-light" href="https://wondersensory.co.uk/about/" target="_blank" rel="noopener">View the café menu</a></div>
+          <div><a class="ws-btn ws-btn-light" href="https://wondersensory.co.uk/about/" target="_blank" rel="noopener">View the café menu</a></div>
         </div>
-        <div class="media">
+        <div class="ws-media">
           <img src="/s/toddler-basket.webp" width="1200" height="800" alt="A toddler sitting in a woven basket on the grass holding a pink ball" loading="lazy">
         </div>
       </div>
@@ -873,35 +482,35 @@
   </section>
 
   <!-- ===== FIND US ===== -->
-  <section class="section band" id="find-us" aria-labelledby="find-h">
-    <div class="wrap find">
-      <div class="address">
-        <div class="sec-head" style="margin-bottom:0">
-          <span class="eyebrow">Where to find us</span>
+  <section class="ws-section ws-band" id="find-us" aria-labelledby="find-h">
+    <div class="ws-wrap ws-find">
+      <div class="ws-address">
+        <div class="ws-sec-head" style="margin-bottom:0">
+          <span class="ws-eyebrow">Where to find us</span>
           <h2 id="find-h">The Yard, Burnopfield</h2>
-          <p class="lede">Around 30 minutes from Newcastle and 20 minutes from the MetroCentre, in the former Masonic Hall building. Look for the roadside signs for Wonder Sensory and Wonder Café.</p>
+          <p class="ws-lede">Around 30 minutes from Newcastle and 20 minutes from the MetroCentre, in the former Masonic Hall building. Look for the roadside signs for Wonder Sensory and Wonder Café.</p>
         </div>
-        <div class="addr-card">
-          <div class="addr-row">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        <div class="ws-addr-card">
+          <div class="ws-addr-row">
+            <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
             <div><b>Address</b><p>The Yard, Burnopfield,<br>NE16 6PT, United Kingdom</p></div>
           </div>
-          <div class="addr-row">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h.01M12 8h.01M16 8h.01M8 12h8M8 16h5"/></svg>
-            <div><b>What3Words</b><p>Enter <span class="w3w">///newly.highbrow.grove</span> in the What3Words app for door-precise directions.</p></div>
+          <div class="ws-addr-row">
+            <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h.01M12 8h.01M16 8h.01M8 12h8M8 16h5"/></svg>
+            <div><b>What3Words</b><p>Enter <span class="ws-w3w">///newly.highbrow.grove</span> in the What3Words app for door-precise directions.</p></div>
           </div>
-          <div class="addr-row">
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h14M6 17l1.5-6h9L18 17M8 11V7h8v4M7 17v2M17 17v2"/></svg>
+          <div class="ws-addr-row">
+            <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h14M6 17l1.5-6h9L18 17M8 11V7h8v4M7 17v2M17 17v2"/></svg>
             <div><b>Parking</b><p>Limited free parking on site. If the car park is full, street parking is available nearby.</p></div>
           </div>
-          <a class="btn btn-secondary" href="https://www.google.com/maps/dir/?api=1&destination=The+Yard,+Burnopfield,+NE16+6PT" target="_blank" rel="noopener">Get directions</a>
+          <a class="ws-btn ws-btn-secondary" href="https://www.google.com/maps/dir/?api=1&destination=The+Yard,+Burnopfield,+NE16+6PT" target="_blank" rel="noopener">Get directions</a>
         </div>
-        <div class="notice">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 18a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+        <div class="ws-notice">
+          <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 18a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
           <span>We're no longer based in Stocksfield. Please disregard any directions to that location.</span>
         </div>
       </div>
-      <div class="map">
+      <div class="ws-map">
         <iframe title="Map showing The Yard, Burnopfield, NE16 6PT" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
           src="https://www.google.com/maps?q=The+Yard,+Burnopfield,+NE16+6PT&z=15&output=embed"></iframe>
       </div>
@@ -909,35 +518,35 @@
   </section>
 
   <!-- ===== CONTACT ===== -->
-  <section class="section" id="contact" aria-labelledby="contact-h">
-    <div class="wrap contact">
-      <div class="sec-head" style="margin-bottom:0">
-        <span class="eyebrow">Contact the team</span>
+  <section class="ws-section" id="contact" aria-labelledby="contact-h">
+    <div class="ws-wrap ws-contact">
+      <div class="ws-sec-head" style="margin-bottom:0">
+        <span class="ws-eyebrow">Contact the team</span>
         <h2 id="contact-h">Got a question? We'd love to help</h2>
-        <p class="lede">Ask about private hire, parties, themed weeks or anything about your visit. You can also message us on Instagram, Facebook and TikTok.</p>
-        <div class="socials" aria-label="Social media">
-          <a href="https://www.facebook.com/behindthemagicdooruk/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg></a>
-          <a href="https://www.instagram.com/behindthemagicdooruk/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
-          <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v11a3.5 3.5 0 1 1-3.5-3.5M14 4a5 5 0 0 0 5 5"/></svg></a>
+        <p class="ws-lede">Ask about private hire, parties, themed weeks or anything about your visit. You can also message us on Instagram, Facebook and TikTok.</p>
+        <div class="ws-socials" aria-label="Social media">
+          <a href="https://www.facebook.com/behindthemagicdooruk/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg></a>
+          <a href="https://www.instagram.com/behindthemagicdooruk/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
+          <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v11a3.5 3.5 0 1 1-3.5-3.5M14 4a5 5 0 0 0 5 5"/></svg></a>
         </div>
       </div>
-      <form class="form" id="contactForm" novalidate>
-        <div class="row">
-          <div class="field">
+      <form class="ws-form" id="contactForm" novalidate>
+        <div class="ws-row">
+          <div class="ws-field">
             <label for="f-name">Name</label>
             <input id="f-name" name="name" type="text" autocomplete="name" required>
           </div>
-          <div class="field">
+          <div class="ws-field">
             <label for="f-phone">Phone <span>(optional)</span></label>
             <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
           </div>
         </div>
-        <div class="field">
+        <div class="ws-field">
           <label for="f-email">Email</label>
           <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required>
           <small>We'll only use this to reply to you.</small>
         </div>
-        <div class="field">
+        <div class="ws-field">
           <label for="f-topic">What's it about?</label>
           <select id="f-topic" name="topic">
             <option>A session booking</option>
@@ -947,71 +556,71 @@
             <option>Something else</option>
           </select>
         </div>
-        <div class="field">
+        <div class="ws-field">
           <label for="f-msg">Message</label>
           <textarea id="f-msg" name="message" required></textarea>
         </div>
-        <div class="form-status" id="formStatus" role="status" aria-live="polite">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        <div class="ws-form-status" id="formStatus" role="status" aria-live="polite">
+          <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
           <span>Thanks, your message is on its way. We usually reply within a day.</span>
         </div>
-        <div class="form-foot">
+        <div class="ws-form-foot">
           <p>Private hire and party quotes are usually sent the same day.</p>
-          <button class="btn btn-primary" type="submit" id="sendBtn">Send message</button>
+          <button class="ws-btn ws-btn-primary" type="submit" id="sendBtn">Send message</button>
         </div>
       </form>
     </div>
   </section>
 
   <!-- ===== FAQ ===== -->
-  <section class="section band" id="faq" aria-labelledby="faq-h">
-    <div class="wrap">
-      <div class="sec-head center">
-        <span class="eyebrow">Frequently asked questions</span>
+  <section class="ws-section ws-band" id="faq" aria-labelledby="faq-h">
+    <div class="ws-wrap">
+      <div class="ws-sec-head ws-center">
+        <span class="ws-eyebrow">Frequently asked questions</span>
         <h2 id="faq-h">Curious to learn more?</h2>
       </div>
-      <div class="faq">
+      <div class="ws-faq">
         <details open>
-          <summary>What is Wonder Sensory? <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-          <div class="a"><p>Wonder is a sensory room based in the North East of England. Our aim was, and remains to be, to create a vibrant, calming, yet stimulating atmosphere that will awe-inspire adults and provide a beneficial sensory experience for babies, toddlers and those with special needs.</p><p>We have pre-walking baby slots for parents who'd like their little ones to be only with other tiny babies, and open slots for mixed ages.</p></div>
+          <summary>What is Wonder Sensory? <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <div class="ws-a"><p>Wonder is a sensory room based in the North East of England. Our aim was, and remains to be, to create a vibrant, calming, yet stimulating atmosphere that will awe-inspire adults and provide a beneficial sensory experience for babies, toddlers and those with special needs.</p><p>We have pre-walking baby slots for parents who'd like their little ones to be only with other tiny babies, and open slots for mixed ages.</p></div>
         </details>
         <details>
-          <summary>How do I book? <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-          <div class="a"><p>Pick a slot on the <a href="#timetable">timetable</a> or use the Book a session button, which takes you to our secure online booking page. You can also get in touch through the contact form, or by direct message on Instagram, Facebook and TikTok.</p></div>
+          <summary>How do I book? <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <div class="ws-a"><p>Pick a slot on the <a href="#timetable">timetable</a> or use the Book a session button, which takes you to our secure online booking page. You can also get in touch through the contact form, or by direct message on Instagram, Facebook and TikTok.</p></div>
         </details>
         <details>
-          <summary>Can I just turn up? <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-          <div class="a"><p>No. All bookings must be made prior to arrival and we don't accept walk-ins. Pre-booking is how we keep every session calm and small.</p></div>
+          <summary>Can I just turn up? <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <div class="ws-a"><p>No. All bookings must be made prior to arrival and we don't accept walk-ins. Pre-booking is how we keep every session calm and small.</p></div>
         </details>
         <details>
-          <summary>How many adults can come with each child? <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-          <div class="a"><p>For open and pre-walking sessions we ask that no more than two adults attend per child. Tickets are per child, so if you're bringing two children you'll need two tickets. Private hire allows one adult per child, with additional adults at £3 each.</p></div>
+          <summary>How many adults can come with each child? <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <div class="ws-a"><p>For open and pre-walking sessions we ask that no more than two adults attend per child. Tickets are per child, so if you're bringing two children you'll need two tickets. Private hire allows one adult per child, with additional adults at £3 each.</p></div>
         </details>
         <details>
-          <summary>Where can I park? <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-          <div class="a"><p>The Yard offers limited free parking. If the car park is full, street parking should be available in the surrounding area.</p></div>
+          <summary>Where can I park? <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <div class="ws-a"><p>The Yard offers limited free parking. If the car park is full, street parking should be available in the surrounding area.</p></div>
         </details>
         <details>
-          <summary>How do I know my child is safe? <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
-          <div class="a"><p>We have a safe venue that will always have a member of staff on hand. They take the safety of your children with maximum importance and will be ensuring their safety throughout your visit.</p></div>
+          <summary>How do I know my child is safe? <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+          <div class="ws-a"><p>We have a safe venue that will always have a member of staff on hand. They take the safety of your children with maximum importance and will be ensuring their safety throughout your visit.</p></div>
         </details>
       </div>
     </div>
   </section>
 
   <!-- ===== FINAL CTA ===== -->
-  <section class="section" style="padding-bottom:0" aria-labelledby="cta-h">
-    <div class="wrap">
-      <div class="cta-final on-dark">
-        <span class="eyebrow" style="color:#fff">Ready when you are</span>
+  <section class="ws-section" style="padding-bottom:0" aria-labelledby="cta-h">
+    <div class="ws-wrap">
+      <div class="ws-cta-final ws-on-dark">
+        <span class="ws-eyebrow" style="color:#fff">Ready when you are</span>
         <h2 id="cta-h">Step through the door</h2>
         <p>Choose a pre-walking, open or private session, pick a time that suits your little one, and we'll have the lights on.</p>
-        <div class="hero-actions">
-          <a class="btn btn-light" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">
+        <div class="ws-hero-actions">
+          <a class="ws-btn ws-btn-light" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">
             Book a session
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="btn btn-secondary" href="#contact">Ask a question</a>
+          <a class="ws-btn ws-btn-secondary" href="#contact">Ask a question</a>
         </div>
       </div>
     </div>
@@ -1019,17 +628,17 @@
 </main>
 
 <!-- ===== FOOTER ===== -->
-<footer class="footer on-dark">
-  <img class="tree" src="/s/tree-white.png" width="909" height="521" alt="" aria-hidden="true" loading="lazy">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="brand">
-        <a href="#top" class="logo-lockup" aria-label="Wonder Sensory Room, home"><img class="logo" src="/s/logo-white.png" width="1620" height="314" alt="Wonder" loading="lazy"><small>Sensory Room</small></a>
+<div class="ws-footer" role="contentinfo" ws-on-dark">
+  <img class="ws-tree" src="/s/tree-white.png" width="909" height="521" alt="" aria-hidden="true" loading="lazy">
+  <div class="ws-wrap">
+    <div class="ws-footer-grid">
+      <div class="ws-brand">
+        <a href="#top" class="ws-logo-lockup" aria-label="Wonder Sensory Room, home"><img class="ws-logo" src="/s/logo-white.png" width="1620" height="314" alt="Wonder" loading="lazy"><small>Sensory Room</small></a>
         <p>A family-run, multi-themed sensory room in Burnopfield, County Durham. Calm by design, for babies, toddlers and young children.</p>
-        <div class="socials" aria-label="Social media">
-          <a href="https://www.facebook.com/behindthemagicdooruk/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg></a>
-          <a href="https://www.instagram.com/behindthemagicdooruk/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
-          <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v11a3.5 3.5 0 1 1-3.5-3.5M14 4a5 5 0 0 0 5 5"/></svg></a>
+        <div class="ws-socials" aria-label="Social media">
+          <a href="https://www.facebook.com/behindthemagicdooruk/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg></a>
+          <a href="https://www.instagram.com/behindthemagicdooruk/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
+          <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><svg class="ws-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v11a3.5 3.5 0 1 1-3.5-3.5M14 4a5 5 0 0 0 5 5"/></svg></a>
         </div>
       </div>
       <div>
@@ -1052,27 +661,28 @@
           <li><a href="https://behindevents.co.uk/" target="_blank" rel="noopener">Behind the Magic Door events</a></li>
         </ul>
       </div>
-      <div class="contact-col">
+      <div class="ws-contact-col">
         <h4>Visit</h4>
         <p>The Yard, Burnopfield<br>County Durham, NE16 6PT<br>///newly.highbrow.grove</p>
         <p>Weekdays from 09:30 · Weekends from 10:00<br>Pre-booked sessions only</p>
       </div>
     </div>
-    <div class="footer-bottom">
+    <div class="ws-footer-bottom">
       <span>© 2026 Behind the Magic Door LTD. All rights reserved.</span>
       <span><a href="#">Privacy</a> · <a href="#">Terms &amp; booking policy</a> · <a href="#">Accessibility</a></span>
     </div>
   </div>
-</footer>
-
-<div class="book-bar">
-  <a class="btn btn-primary" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">Book a session</a>
 </div>
 
+<div class="ws-book-bar">
+  <a class="ws-btn ws-btn-primary" href="https://bookaby.me/wondersensory" target="_blank" rel="noopener">Book a session</a>
+</div>
+
+</div>
 <script>
 (function(){
   /* ---- Header shadow ---- */
-  var header=document.querySelector('.header');
+  var header=document.querySelector('.ws-header');
   var onScroll=function(){header.classList.toggle('scrolled',window.scrollY>8)};
   onScroll();window.addEventListener('scroll',onScroll,{passive:true});
 
@@ -1118,7 +728,7 @@
   function slotHTML(s,compact){
     var N=compact?SHORT:NAMES;
     var hidden=(filter!=='all'&&filter!==s.type)?' hidden':'';
-    var cls='slot '+s.type+(s.full?' full':'')+hidden;
+    var cls='ws-slot '+s.type+(s.full?' full':'')+hidden;
     var sub=s.full?'Fully booked':(s.type==='private'?(compact?'Booked out':'Exclusive use · booked'):(compact?'Spaces available':'1 hour · spaces available'));
     var label=NAMES[s.type]+' at '+s.time+(s.full?', fully booked':'');
     if(s.full||s.type==='private'){return '<div class="'+cls+'" aria-label="'+label+'"><time>'+s.time+'</time><b>'+N[s.type]+'</b><small>'+sub+'</small></div>'}
@@ -1131,21 +741,21 @@
     document.getElementById('prevWeek').style.opacity=wk===0?.4:1; document.getElementById('nextWeek').style.opacity=wk===WEEKS.length-1?.4:1;
     grid.innerHTML=w.days.map(function(d){
       var visible=d.slots.filter(function(s){return filter==='all'||filter===s.type});
-      var body=d.slots.map(function(s){return slotHTML(s,true)}).join('')+(visible.length?'':'<p class="tt-empty">No '+(NAMES[filter]||'')+' sessions</p>');
-      return '<div class="tt-day"><header><b>'+d.label+'</b><span>'+d.num+'</span></header>'+body+'</div>';
+      var body=d.slots.map(function(s){return slotHTML(s,true)}).join('')+(visible.length?'':'<p class="ws-tt-empty">No '+(NAMES[filter]||'')+' sessions</p>');
+      return '<div class="ws-tt-day"><header><b>'+d.label+'</b><span>'+d.num+'</span></header>'+body+'</div>';
     }).join('');
     tabs.innerHTML=w.days.map(function(d,i){return '<button role="tab" aria-selected="'+(i===activeDay)+'" data-i="'+i+'">'+d.label+'<span>'+d.num+'</span></button>'}).join('');
     var d=w.days[activeDay];
     var vis=d.slots.filter(function(s){return filter==='all'||filter===s.type});
-    list.innerHTML=d.slots.map(function(s){return slotHTML(s,false)}).join('')+(vis.length?'':'<p class="tt-empty">No '+(NAMES[filter]||'')+' sessions on '+d.label+'</p>');
+    list.innerHTML=d.slots.map(function(s){return slotHTML(s,false)}).join('')+(vis.length?'':'<p class="ws-tt-empty">No '+(NAMES[filter]||'')+' sessions on '+d.label+'</p>');
   }
   document.getElementById('prevWeek').addEventListener('click',function(){if(wk>0){wk--;render()}});
   document.getElementById('nextWeek').addEventListener('click',function(){if(wk<WEEKS.length-1){wk++;render()}});
   tabs.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;activeDay=+b.dataset.i;render()});
-  document.querySelectorAll('.chip[data-filter]').forEach(function(c){
+  document.querySelectorAll('.ws-chip[data-filter]').forEach(function(c){
     c.addEventListener('click',function(){
       filter=c.dataset.filter;
-      document.querySelectorAll('.chip[data-filter]').forEach(function(x){x.setAttribute('aria-pressed',String(x===c))});
+      document.querySelectorAll('.ws-chip[data-filter]').forEach(function(x){x.setAttribute('aria-pressed',String(x===c))});
       render();
     });
   });
@@ -1161,5 +771,3 @@
   });
 })();
 </script>
-</body>
-</html>
