@@ -147,5 +147,18 @@ for name in classes:
     assert not re.search(r'\.%s(?![\w-])' % re.escape(name), style), name
 open('wonder-sensory-squarespace.html', 'w', encoding='utf-8').write(sq)
 
-for f in ('index.html', 'wonder-sensory-embedded.html', 'wonder-sensory-squarespace.html'):
+
+# ------------------------------------------------- squarespace, images embedded
+def inline_lite(m):
+    base = m.group(1).rsplit('.', 1)[0]
+    path = 'assets-lite/%s.webp' % base
+    data = base64.b64encode(open(path, 'rb').read()).decode()
+    return 'src="data:image/webp;base64,%s"' % data
+sq_emb = re.sub(r'src="/s/([^"]+)"', inline_lite, sq)
+sq_emb = sq_emb.replace('SQUARESPACE CODE BLOCK VERSION', 'SQUARESPACE CODE BLOCK VERSION, IMAGES EMBEDDED', 1)
+sq_emb = re.sub(r'  1\. Upload every file.*?\n  2\.', '  1. Nothing to upload: every image is embedded in this file.\n  2.', sq_emb, count=1, flags=re.S)
+assert 'src="/s/' not in sq_emb
+open('wonder-sensory-squarespace-embedded.html', 'w', encoding='utf-8').write(sq_emb)
+
+for f in ('index.html', 'wonder-sensory-embedded.html', 'wonder-sensory-squarespace.html', 'wonder-sensory-squarespace-embedded.html'):
     print('%-36s %5d KB' % (f, os.path.getsize(f) // 1024))
