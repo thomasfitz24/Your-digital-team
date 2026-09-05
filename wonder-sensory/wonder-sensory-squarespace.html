@@ -14,12 +14,14 @@
      fibre-optics.webp
      giraffe.webp
      light-rings.webp
+     logo-forest.png
      logo-white.png
      party.webp
      room-overview.webp
      toddler-basket.webp
      toddler-podium.webp
-     tree-door.png
+     tree-sage.png
+     tree-white.png
      waterfall-pit.webp
   2. Add a blank page, drop in a Code Block, set it to HTML, and paste this whole file.
      Code Blocks that contain <script> need the Business plan or higher.
@@ -63,8 +65,6 @@
     --shadow-2:0 2px 6px rgba(31,49,41,.08), 0 18px 44px rgba(31,49,41,.12);
     --ease:cubic-bezier(.2,.7,.2,1);
     --wrap:1200px;
-    --logo-mask:url("/s/logo-white.png");
-    --tree-mask:url("/s/tree-door.png");
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
@@ -127,11 +127,7 @@
   .link:hover{border-color:var(--moss)}
 
   /* ---------- Logo (white PNG recoloured via mask) ---------- */
-  .logo{
-    display:block;width:150px;aspect-ratio:5/1;background:var(--forest);
-    -webkit-mask:var(--logo-mask) left center / contain no-repeat;
-            mask:var(--logo-mask) left center / contain no-repeat;
-  }
+  .logo{display:block;width:150px;height:auto}
   .logo-lockup{display:inline-flex;flex-direction:column;gap:2px;line-height:1}
   .logo-lockup small{font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;color:var(--moss);padding-left:3px}
 
@@ -218,8 +214,8 @@
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px);align-items:center}
   .about-visual{position:relative}
   .about-visual .arch{aspect-ratio:4/5;width:min(100%,480px)}
-  .tree{display:block;aspect-ratio:909/521;-webkit-mask:var(--tree-mask) center / contain no-repeat;mask:var(--tree-mask) center / contain no-repeat;pointer-events:none}
-  .about-visual .tree{position:absolute;right:-8%;bottom:-7%;width:56%;background:var(--sage);opacity:.75}
+  .tree{display:block;height:auto;pointer-events:none}
+  .about-visual .tree{position:absolute;right:-8%;bottom:-7%;width:56%;opacity:.75}
   .about-copy{display:grid;gap:22px}
   .feature-list{display:grid;gap:14px;margin-top:8px}
   .feature-list li{display:flex;gap:16px;align-items:flex-start}
@@ -441,9 +437,9 @@
 
   /* ---------- Footer ---------- */
   .footer{background:var(--forest);color:#B9C7BC;margin-top:clamp(64px,9vw,120px);position:relative;overflow:hidden}
-  .footer .tree{position:absolute;right:-4%;bottom:-8%;width:min(44%,560px);background:#fff;opacity:.09}
+  .footer .tree{position:absolute;right:-4%;bottom:-8%;width:min(44%,560px);opacity:.09}
   .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;padding:clamp(56px,7vw,88px) 0 48px;position:relative}
-  .footer .logo{background:#fff;width:190px}
+  .footer .logo{width:190px}
   .footer .logo-lockup small{color:var(--sage-soft)}
   .footer .brand p{margin-top:18px;max-width:34ch;font-size:15.5px}
   .footer h4{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:18px;font-weight:800}
@@ -530,7 +526,7 @@
 <header class="header" id="top">
   <div class="wrap nav">
     <a href="#top" class="logo-lockup" aria-label="Wonder Sensory Room, home">
-      <span class="logo" role="img" aria-hidden="true"></span>
+      <img class="logo" src="/s/logo-forest.png" width="1620" height="314" alt="Wonder">
       <small>Sensory Room</small>
     </a>
     <nav class="nav-links" aria-label="Primary">
@@ -555,7 +551,7 @@
 
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="top">
-    <a href="#top" class="logo-lockup" aria-label="Wonder Sensory Room, home"><span class="logo" aria-hidden="true"></span><small>Sensory Room</small></a>
+    <a href="#top" class="logo-lockup" aria-label="Wonder Sensory Room, home"><img class="logo" src="/s/logo-forest.png" width="1620" height="314" alt="Wonder"><small>Sensory Room</small></a>
     <button class="menu-btn" id="menuClose" aria-label="Close menu">
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
@@ -651,7 +647,7 @@
         <div class="arch">
           <img src="/s/bubble-tubes.webp" width="1200" height="1600" alt="Tall bubble tubes glowing blue and pink among leafy walls, with a soft giraffe rocker in front" loading="lazy">
         </div>
-        <span class="tree" aria-hidden="true"></span>
+        <img class="tree" src="/s/tree-sage.png" width="909" height="521" alt="" aria-hidden="true" loading="lazy">
       </div>
       <div class="about-copy">
         <span class="eyebrow">The sensory room</span>
@@ -1024,11 +1020,11 @@
 
 <!-- ===== FOOTER ===== -->
 <footer class="footer on-dark">
-  <span class="tree" aria-hidden="true"></span>
+  <img class="tree" src="/s/tree-white.png" width="909" height="521" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
     <div class="footer-grid">
       <div class="brand">
-        <a href="#top" class="logo-lockup" aria-label="Wonder Sensory Room, home"><span class="logo" aria-hidden="true"></span><small>Sensory Room</small></a>
+        <a href="#top" class="logo-lockup" aria-label="Wonder Sensory Room, home"><img class="logo" src="/s/logo-white.png" width="1620" height="314" alt="Wonder" loading="lazy"><small>Sensory Room</small></a>
         <p>A family-run, multi-themed sensory room in Burnopfield, County Durham. Calm by design, for babies, toddlers and young children.</p>
         <div class="socials" aria-label="Social media">
           <a href="https://www.facebook.com/behindthemagicdooruk/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg></a>
