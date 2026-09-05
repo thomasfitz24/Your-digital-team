@@ -1115,7 +1115,7 @@
     tabs.innerHTML=w.days.map(function(d,i){return '<button role="tab" aria-selected="'+(i===activeDay)+'" data-i="'+i+'">'+d.label+'<span>'+d.num+'</span></button>'}).join('');
     var d=w.days[activeDay];
     var vis=d.slots.filter(function(s){return filter==='all'||filter===s.type});
-    list.innerHTML=d.slots.map(slotHTML).join('')+(vis.length?'':'<p class="tt-empty">No '+(NAMES[filter]||'')+' sessions on '+d.label+'</p>');
+    list.innerHTML=d.slots.map(function(s){return slotHTML(s,false)}).join('')+(vis.length?'':'<p class="tt-empty">No '+(NAMES[filter]||'')+' sessions on '+d.label+'</p>');
   }
   document.getElementById('prevWeek').addEventListener('click',function(){if(wk>0){wk--;render()}});
   document.getElementById('nextWeek').addEventListener('click',function(){if(wk<WEEKS.length-1){wk++;render()}});
