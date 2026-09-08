@@ -49,6 +49,20 @@ scrollbar; entrances play once.
   buttons, the nav underline follows the pointer and rests on Services while
   that section is in view.
 
+**v14.1 — after your notes**
+
+- Hero: the orbit rings and their travelling pulse are gone, and so is the
+  arc "horizon" line. In their place a soft red glow drifts on long,
+  out-of-phase paths behind the headline (it never visibly repeats), and the
+  four stats float free with a slow bob and a little depth against the
+  pointer. The console's three dots fade in instead of bouncing.
+- Trusted: the label is just "Trusted by"; the panel and border are gone;
+  the logos sit in a clean strip sized by height, evenly spaced, fading at
+  both edges — still velocity-reactive.
+- Selected work: counters on one quiet line; no badge over the screenshot,
+  no tag pills, no dark overlay — sector / title / one line / url, with the
+  index in the foot; the column offsets are gone so the grid stays aligned.
+
 **Two bugs fixed along the way**
 
 - Your export called `arrow()` in the journal script without defining it, so

@@ -23,13 +23,9 @@
   
   <section class="hero">
     <div class="hero-ember" aria-hidden="true"></div>
-    <div class="hero-horizon" aria-hidden="true"></div>
-    
-    <div class="hero-orbits" aria-hidden="true">
-      <svg viewBox="0 0 1560 1100" fill="none">
-        <ellipse class="rail" cx="780" cy="700" rx="742" ry="640"/>
-        <ellipse class="rail" cx="780" cy="740" rx="560" ry="470" style="stroke:rgba(255,255,255,0.06)"/>
-      </svg>
+        
+    <div class="hero-aurora" aria-hidden="true"><i class="aurora aurora--1"></i><i class="aurora aurora--2"></i><i class="aurora aurora--3"></i></div>
+    <div class="hero-stats" aria-hidden="true">
       <span class="hero-stat hero-stat--a"><i></i><span><b>+312%</b><span>organic growth</span></span></span>
       <span class="hero-stat hero-stat--r hero-stat--b"><i></i><span><b>4.6×</b><span>return on ad spend</span></span></span>
       <span class="hero-stat hero-stat--r hero-stat--c"><i></i><span><b>18k+</b><span>keywords tracked</span></span></span>
@@ -112,8 +108,7 @@
   <section class="trusted" aria-label="Brands we work with">
     <div class="trusted__inner">
       <div class="trusted__head">
-        <span class="trusted__label">Trusted by the teams behind</span>
-        <span class="trusted__label trusted__count">9 UK &amp; international brands</span>
+        <span class="trusted__label">Trusted by</span>
       </div>
       <div class="ticker">
         <div class="ticker-track" id="tickerTrack"></div>
@@ -587,18 +582,12 @@
       card.innerHTML =
         '<div class="work-card__media">' +
           '<img src="' + esc(s.image || fallback) + '" alt="" width="' + (s.width || 900) + '" height="' + (s.height || 560) + '" loading="lazy" decoding="async">' +
-          '<span class="work-card__idx">' + idx + '</span>' +
         '</div>' +
         '<div class="work-card__body">' +
           '<span class="work-card__sector">' + esc(s.label) + '</span>' +
           '<h3 class="work-card__title">' + esc(s.title) + '</h3>' +
           '<p class="work-card__line">' + esc(s.headline) + '</p>' +
-          '<div class="work-card__tags">' +
-            s.capabilities.slice(0, 3).map(function (c) {
-              return '<span class="work-card__tag">' + esc(c) + '</span>';
-            }).join('') +
-          '</div>' +
-          '<span class="work-card__foot">' + esc(s.search) + outArrow() + '</span>' +
+          '<div class="work-card__foot"><span class="work-card__url">' + esc(s.search) + outArrow() + '</span><span class="work-card__num">' + idx + '</span></div>' +
         '</div>';
       /* swap in the stand-in if the screenshot 404s */
       var img = card.querySelector('img');
@@ -1096,14 +1085,14 @@
     intro
       .fromTo('#ydtHeader', { y: -14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.1, clearProps: 'transform' }, 0)
       .fromTo('.hero-ember', { scale: .7, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 2.4, ease: 'power2.out' }, .1)
-      .fromTo('.hero-horizon', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 2.2 }, .3)
+      .fromTo('.hero-aurora', { autoAlpha: 0 }, { autoAlpha: 1, duration: 2.6, ease: 'power1.inOut' }, .2)
       .fromTo('.hero-eyebrow', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: .8 }, .05)
       .set(lines, { autoAlpha: 1, yPercent: 112, rotation: 2.5, transformOrigin: '0 100%' }, 0)
       .to(lines, { yPercent: 0, rotation: 0, duration: 1.3, stagger: .13 }, .18)
       .fromTo('.hero-sub', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 1 }, .6)
       .fromTo('.hero-actions > a', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: .9, stagger: .09 }, .7)
       .fromTo('.console', { autoAlpha: 0, y: 70, rotationX: 9, transformOrigin: '50% 0' }, { autoAlpha: 1, y: 0, rotationX: 0, duration: 1.4 }, .75)
-      .fromTo('.console-dots i', { scale: 0 }, { scale: 1, duration: .5, stagger: .06, ease: 'back.out(2.5)' }, 1.05)
+      .fromTo('.console-dots i', { scale: .5, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .7, stagger: .07 }, 1.05)
       .fromTo(kpis, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: .8, stagger: .1 }, 1.1)
       .add(function () { showChannel(0, true); }, 1.2)
       .fromTo(line, { strokeDashoffset: lineLen }, { strokeDashoffset: 0, duration: 1.9, ease: 'power2.inOut' }, 1.2)
@@ -1111,19 +1100,32 @@
       .fromTo('.console-foot > *', { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: .6, stagger: .05 }, 1.45)
       .fromTo('.hero-stat', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 1, stagger: .12 }, 1.3);
 
-    /* orbit rails draw themselves, then a pulse travels each one */
-    $$('.hero-orbits .rail').forEach(function (rail, i) {
-      rail.setAttribute('pathLength', '100');
-      gsap.set(rail, { strokeDasharray: 100, strokeDashoffset: 100 });
-      intro.to(rail, { strokeDashoffset: 0, duration: 2.6, ease: 'power2.inOut' }, .9 + i * .2);
-      var pulse = rail.cloneNode(false);
-      pulse.removeAttribute('style'); pulse.setAttribute('class', 'motion-orbit');
-      pulse.setAttribute('pathLength', '100');
-      rail.parentNode.appendChild(pulse);
-      gsap.set(pulse, { attr: { 'stroke-dasharray': '5 95' }, stroke: '#ff6c5d', strokeWidth: 1.5, strokeLinecap: 'round', fill: 'none', opacity: 0, strokeDashoffset: i * 40 });
-      intro.to(pulse, { opacity: .85, duration: 1 }, 2.6);
-      gsap.to(pulse, { strokeDashoffset: '-=100', duration: 16 + i * 6, ease: 'none', repeat: -1 });
-    });
+    /* the glow drifts on long, out-of-phase sine paths — it never visibly
+       repeats — and the four stats float free. Paused while the hero is
+       off screen. */
+    var auroras = $$('.aurora'), stats = $$('.hero-stat');
+    var drift = [
+      { xPercent: 10, yPercent: 9, scale: 1.08, duration: 19 },
+      { xPercent: -9, yPercent: 12, scale: 1.12, duration: 24 },
+      { xPercent: 7, yPercent: -10, scale: 1.15, duration: 16 }
+    ];
+    var ambient = auroras.map(function (el, i) {
+      var d = drift[i % drift.length];
+      return gsap.to(el, { xPercent: d.xPercent, yPercent: d.yPercent, scale: d.scale, duration: d.duration, ease: 'sine.inOut', yoyo: true, repeat: -1 }).progress(Math.random());
+    }).concat(stats.map(function (el, i) {
+      return gsap.to(el, { y: 6 + (i % 2) * 3, duration: 3.6 + i * .5, ease: 'sine.inOut', yoyo: true, repeat: -1 }).progress(Math.random());
+    }));
+    ScrollTrigger.create({ trigger: hero, start: 'top bottom', end: 'bottom top', onToggle: function (s) { ambient.forEach(function (t) { t.paused(!s.isActive); }); } });
+
+    if (finePointer) {
+      var aurX = gsap.quickTo('.hero-aurora', 'x', { duration: 1.2, ease: 'power2' }), aurY = gsap.quickTo('.hero-aurora', 'y', { duration: 1.2, ease: 'power2' });
+      var stX = gsap.quickTo('.hero-stats', 'x', { duration: 1, ease: 'power2' }), stY = gsap.quickTo('.hero-stats', 'y', { duration: 1, ease: 'power2' });
+      hero.addEventListener('pointermove', function (e) {
+        if (e.pointerType === 'touch') return;
+        var nx = e.clientX / window.innerWidth * 2 - 1, ny = e.clientY / window.innerHeight * 2 - 1;
+        aurX(nx * -18); aurY(ny * -12); stX(nx * 10); stY(ny * 7);
+      }, { passive: true });
+    }
 
     /* the headline's word cycles once the intro has landed */
     if (word) {
@@ -1153,7 +1155,8 @@
       .to('.hero-inner', { y: -110, autoAlpha: .15, ease: 'none' }, 0)
       .to('.console-wrap', { y: 70, ease: 'none' }, 0)
       .to('.hero-ember', { yPercent: 18, ease: 'none' }, 0)
-      .to('.hero-orbits', { autoAlpha: 0, y: -40, ease: 'none' }, 0);
+      .to('.hero-stats', { autoAlpha: 0, y: -40, ease: 'none' }, 0)
+      .to('.hero-aurora', { yPercent: 14, autoAlpha: .45, ease: 'none' }, 0);
 
     /* pointer depth on the console (mice and trackpads only) */
     if (finePointer && console_.el) {
@@ -1271,13 +1274,6 @@
     ScrollTrigger.batch(cards, { start: 'top 88%', once: true, onEnter: function (els) {
       gsap.fromTo(els, { autoAlpha: 0, y: 48 }, { autoAlpha: 1, y: 0, duration: 1.1, stagger: .08, overwrite: true });
     } });
-    /* the three columns travel at slightly different speeds — depth, not decoration */
-    mm.add('(min-width: 1024px)', function () {
-      var drift = [0, -46, -18];
-      cells.forEach(function (cell, i) {
-        gsap.to(cell, { y: drift[i % 3], ease: 'none', scrollTrigger: { trigger: grid, start: 'top bottom', end: 'bottom top', scrub: .9 } });
-      });
-    });
     if (finePointer) cards.forEach(function (card) {
       var img = $('.work-card__media img', card); if (!img) return;
       gsap.set(img, { scale: 1.02 });
@@ -1287,7 +1283,7 @@
         var r = card.getBoundingClientRect();
         ix(((e.clientX - r.left) / r.width * 2 - 1) * 6); iy(((e.clientY - r.top) / r.height * 2 - 1) * 5);
       }, { passive: true });
-      card.addEventListener('mouseenter', function () { gsap.to(img, { scale: 1.07, duration: 1.1, overwrite: 'auto' }); });
+      card.addEventListener('mouseenter', function () { gsap.to(img, { scale: 1.06, duration: 1.1, overwrite: 'auto' }); });
       card.addEventListener('mouseleave', function () { ix(0); iy(0); gsap.to(img, { scale: 1.02, duration: 1.1, overwrite: 'auto' }); });
     });
   })();

@@ -979,7 +979,7 @@ html.ydt-js .ydt-page .journal-item,
 html.ydt-js .ydt-page .step-in,
 html.ydt-js .ydt-page .qcloud button { opacity: 0; visibility: hidden; }
 html.ydt-js .ydt-page .hero-ember,
-html.ydt-js .ydt-page .hero-horizon,
+html.ydt-js .ydt-page .hero-aurora,
 html.ydt-js .ydt-header { opacity: 0; }
 
 /* the engine composes transforms itself; a CSS transition on transform
@@ -1004,7 +1004,7 @@ html.ydt-js .ydt-page .hero-stat { transform: none; animation: none; }
   html.ydt-js .ydt-page .step-in,
   html.ydt-js .ydt-page .qcloud button { opacity: 1; visibility: visible; }
   html.ydt-js .ydt-page .hero-ember,
-  html.ydt-js .ydt-page .hero-horizon,
+  html.ydt-js .ydt-page .hero-aurora,
   html.ydt-js .ydt-header { opacity: 1; }
 }
 
@@ -1013,7 +1013,7 @@ html.ydt-js .ydt-page .hero-stat { transform: none; animation: none; }
 /* overflow:hidden still makes a box scrollable by script and by focus — the
    hero's 190vw glow gave it 176px of sideways travel, so a tap on a console
    chip could pan the whole hero. clip cuts without creating a scroller. */
-.ydt-page .hero, .ydt-page .ticker, .ydt-page .trusted__inner, .ydt-page .console, .ydt-page .hero-orbits { overflow: hidden; overflow: clip; }
+.ydt-page .hero, .ydt-page .ticker, .ydt-page .console, .ydt-page .hero-aurora { overflow: hidden; overflow: clip; }
 
 /* word masks: each word slides up out of its own clip. The padding gives
    ascenders and descenders room inside the clip; the negative margin
@@ -1089,6 +1089,57 @@ html.ydt-js .ydt-page .home-headline > .clip { overflow: hidden; padding: .1em .
 
 /* ── spotlight ── */
 .ydt-page .spotlight { will-change: transform, opacity; }
+
+/* ══ v14.1 ══ */
+
+/* ── hero: the rings are gone; a slow glow drifts behind the headline and the
+   four stats float free. No lines, nothing that races. ── */
+.ydt-page .hero-aurora { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.ydt-page .aurora { position: absolute; display: block; border-radius: 50%; will-change: transform; }
+.ydt-page .aurora--1 { width: 72vw; height: 72vw; max-width: 960px; max-height: 960px; left: 4%; top: -34%; background: radial-gradient(circle at 50% 50%, #ff453636 0%, #d81e0d1a 38%, #0000 68%); }
+.ydt-page .aurora--2 { width: 58vw; height: 58vw; max-width: 780px; max-height: 780px; right: -8%; top: -14%; background: radial-gradient(circle at 50% 50%, #ff615228 0%, #a0170c14 42%, #0000 68%); }
+.ydt-page .aurora--3 { width: 46vw; height: 46vw; max-width: 620px; max-height: 620px; left: 34%; top: 14%; background: radial-gradient(circle at 50% 50%, #d81e0d1f 0%, #0000 64%); }
+@media (max-width: 767px) { .ydt-page .aurora--3 { display: none; } .ydt-page .aurora--1, .ydt-page .aurora--2 { width: 120vw; height: 120vw; } }
+.ydt-page .hero-stats { position: absolute; inset: 0; z-index: 1; pointer-events: none; display: none; }
+@media (min-width: 1100px) { .ydt-page .hero-stats { display: block; } }
+.ydt-page .hero-stat { will-change: transform; }
+
+/* ── trusted: two words and a clean strip — no panel, logos sized by height,
+   the edges fade out ── */
+.ydt-page .trusted { padding: 0; }
+.ydt-page .trusted__inner { background: transparent; border: 0; border-radius: 0; max-width: 1200px; padding: 64px 24px 16px; }
+.ydt-page .trusted__head { margin-bottom: 36px; padding: 0; }
+.ydt-page .trusted__label { color: var(--gray5); letter-spacing: .18em; font-size: 11px; }
+.ydt-page .ticker { max-width: 1060px; margin: 0 auto; -webkit-mask-image: linear-gradient(90deg, #0000, #000 14% 86%, #0000); mask-image: linear-gradient(90deg, #0000, #000 14% 86%, #0000); }
+.ydt-page .ticker-group { gap: 64px; padding-right: 64px; }
+@media (min-width: 768px) { .ydt-page .ticker-group { gap: 84px; padding-right: 84px; } }
+body .ydt-page .ticker-logo { width: auto; min-width: 0; height: 26px; opacity: .42; }
+@media (min-width: 768px) { body .ydt-page .ticker-logo { height: 32px; } }
+body .ydt-page .ticker-logo img { width: auto; height: 100%; max-width: 160px; object-fit: contain; }
+.ydt-page .ticker-logo__name { color: var(--white); font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+@media (max-width: 640px) { .ydt-page .trusted__inner { padding: 52px 24px 8px; } .ydt-page .trusted__head { margin-bottom: 28px; } }
+
+/* ── selected work: quieter cards — one line of counters, no badge over the
+   screenshot, no tag pills; sector / title / line / url, index in the foot ── */
+.ydt-page .work-intro__meta { gap: 0; align-items: baseline; }
+.ydt-page .work-intro__stat { border: 0; background: transparent; border-radius: 0; padding: 0; gap: 8px; }
+.ydt-page .work-intro__stat + .work-intro__stat::before { content: "·"; color: var(--gray6); margin: 0 16px; }
+.ydt-page .work-grid { gap: 20px; }
+.ydt-page .work-card { border-radius: 16px; }
+.ydt-page .work-card__media { border-bottom: 1px solid var(--line); }
+.ydt-page .work-card__media::after { content: none; }
+.ydt-page .work-card__body { padding: 24px 24px 22px; }
+@media (min-width: 768px) { .ydt-page .work-card__body { padding: 24px 24px 22px; } }
+.ydt-page .work-card__sector { color: var(--gray5); margin-bottom: 14px; transition: color .3s; }
+.ydt-page .work-card:hover .work-card__sector { color: var(--data); }
+.ydt-page .work-card__title { font-size: 16px; font-weight: 600; letter-spacing: .01em; margin-bottom: 8px; }
+.ydt-page .work-card__line { margin-bottom: 26px; font-size: 13.5px; }
+.ydt-page .work-card__foot { display: flex; width: 100%; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--gray5); }
+.ydt-page .work-card__url { display: inline-flex; align-items: center; gap: 8px; color: var(--gray5); transition: color .3s; }
+.ydt-page .work-card:hover .work-card__url { color: var(--white); }
+.ydt-page .work-card__url svg { width: 12px; height: 12px; transition: transform .3s; }
+.ydt-page .work-card:hover .work-card__url svg { transform: translate(3px, -3px); }
+.ydt-page .work-card__num { color: var(--gray6); letter-spacing: .12em; }
 
 /* without the engine the marquee still runs, on CSS */
 @media (prefers-reduced-motion: no-preference) {
