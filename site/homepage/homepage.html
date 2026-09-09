@@ -923,11 +923,11 @@
   function placeUnderline(link) {
     if (!underline || !nav) return;
     if (!link) {
-      if (live) gsap.to(underline, { autoAlpha: 0, duration: .25 }); else underline.style.opacity = '0';
+      if (live) gsap.to(underline, { autoAlpha: 0, duration: .25, overwrite: true }); else underline.style.opacity = '0';
       return;
     }
     var p = nav.getBoundingClientRect(), r = link.getBoundingClientRect();
-    if (live) gsap.to(underline, { x: r.left - p.left, scaleX: r.width, autoAlpha: 1, duration: .5, ease: 'signal' });
+    if (live) gsap.to(underline, { x: r.left - p.left, scaleX: r.width, autoAlpha: 1, duration: .5, ease: 'signal', overwrite: true });
     else { underline.style.transform = 'translateX(' + (r.left - p.left) + 'px) scaleX(' + r.width + ')'; underline.style.opacity = '1'; }
   }
   navLinks.forEach(function (a) {
