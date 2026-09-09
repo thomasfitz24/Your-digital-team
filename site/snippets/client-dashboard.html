@@ -1,0 +1,232 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     CLIENT DASHBOARD — landscape on wide screens, stacked on phones
+     Self-contained: styles, markup and script in this one block.
+     Fonts: Inter / IBM Plex Mono (the site's own).
+
+     Landscape (≥ 900px): client list as a sidebar on the left with the
+     tracked keyword and its journey; the chart and three KPIs on the right.
+     Mobile: everything stacks; the client list becomes a horizontal row
+     you can swipe, tap targets 40px.
+
+     Every number comes from the CLIENTS table in the script. Positions and
+     climbs are the ones from the app mock; the rest is illustrative and the
+     panel says so. Replace the figures with a client's real ones and the
+     chart, counters and labels follow. Tabs work without GSAP; GSAP adds the
+     counting, the chart morph and the entrance.
+     ═══════════════════════════════════════════════════════════════ -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  .ydt-dash { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; --panel: #0b0a09; --white: #f4f2f0; --gray5: #918a84; --gray6: #5e5852;
+    --line: rgba(255,255,255,.07); --line3: rgba(255,255,255,.12); --data: #ff4536; --data-dim: rgba(255,69,54,.14);
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace; --ease: cubic-bezier(.22,1,.36,1);
+    font-family: 'Inter', Arial, Helvetica, sans-serif; color: var(--white); background: var(--panel);
+    border: 1px solid var(--line3); border-radius: 20px; overflow: clip; box-shadow: 0 30px 80px rgba(0,0,0,.55); max-width: 1200px; margin: 0 auto; }
+  .ydt-dash *, .ydt-dash *::before, .ydt-dash *::after { box-sizing: border-box; }
+  .ydt-dash :where(button) { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }   /* :where() keeps the reset below any class */
+  .ydt-dash :focus-visible { outline: 2px solid #ff8e84; outline-offset: 3px; border-radius: 4px; }
+  .ydt-dash :where(svg) { display: block; }
+
+  /* bar */
+  .ydt-dash__bar { display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--gray5); }
+  .ydt-dash__brand { font-weight: 800; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--white); }
+  .ydt-dash__brand b { color: var(--data); }
+  .ydt-dash__title { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ydt-dash__live { display: inline-flex; align-items: center; gap: 7px; color: var(--data); text-transform: uppercase; letter-spacing: .1em; font-size: 10px; white-space: nowrap; }
+  .ydt-dash__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--data); box-shadow: 0 0 0 3px var(--data-dim); animation: ydtDashPulse 2.2s ease-in-out infinite; }
+  @keyframes ydtDashPulse { 0%, 100% { box-shadow: 0 0 0 3px var(--data-dim); } 50% { box-shadow: 0 0 0 6px rgba(255,69,54,.06); } }
+
+  /* body: sidebar + main on wide screens */
+  .ydt-dash__body { display: grid; grid-template-columns: 1fr; }
+  .ydt-dash__body > * { min-width: 0; }   /* the swipeable tab row must not widen the column */
+  .ydt-dash__tabs { min-width: 0; }
+  .ydt-dash__side { padding: 18px 20px 0; }
+  .ydt-dash__label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--gray6); margin-bottom: 10px; }
+  .ydt-dash__tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 4px; margin: 0 -20px; padding-left: 20px; padding-right: 20px; scroll-snap-type: x proximity; }
+  .ydt-dash__tabs::-webkit-scrollbar { display: none; }
+  .ydt-dash__tab { flex-shrink: 0; scroll-snap-align: start; min-height: 40px; padding: 10px 13px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--gray5); border: 1px solid var(--line); border-radius: 8px; line-height: 1; white-space: nowrap; transition: color .3s, border-color .3s, background .3s; }
+  .ydt-dash__tab:hover { color: var(--white); border-color: rgba(255,255,255,.22); }
+  .ydt-dash__tab.is-on { color: var(--data); background: var(--data-dim); border-color: rgba(255,69,54,.4); }
+  .ydt-dash__kw { display: grid; gap: 4px; padding: 18px 0 16px; border-bottom: 1px solid var(--line); }
+  .ydt-dash__kwname { font-size: 17px; font-weight: 600; letter-spacing: -.01em; overflow-wrap: anywhere; }
+  .ydt-dash__journey { display: inline-flex; align-items: baseline; gap: 8px; font-family: var(--mono); white-space: nowrap; margin-top: 4px; }
+  .ydt-dash__from { font-size: 14px; color: var(--gray6); text-decoration: line-through; text-decoration-color: rgba(255,255,255,.25); }
+  .ydt-dash__journey svg { width: 12px; height: 12px; color: var(--gray6); align-self: center; }
+  .ydt-dash__to { font-size: 30px; font-weight: 700; letter-spacing: .04em; color: var(--data); line-height: 1; }
+  .ydt-dash__since { font-size: 10.5px; color: var(--gray6); letter-spacing: .04em; }
+
+  .ydt-dash__main { padding: 18px 20px 6px; }
+  .ydt-dash__chart svg { width: 100%; height: 150px; }
+  .ydt-dash__axis { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0 14px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray6); }
+  .ydt-dash__axis span:nth-child(2) { color: var(--gray5); }
+  .ydt-dash__kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+  .ydt-dash__kpi { display: flex; flex-direction: column; gap: 6px; padding: 16px 12px 16px 0; background: var(--panel); }
+  .ydt-dash__kpi:nth-child(2) { padding-left: 14px; }
+  .ydt-dash__kpi:nth-child(3) { grid-column: 1 / -1; }
+  .ydt-dash__kpilabel { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--gray6); }
+  .ydt-dash__kpivalue { font-size: 26px; font-weight: 700; letter-spacing: -.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .ydt-dash__delta { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 11px; color: var(--data); }
+  .ydt-dash__delta svg { width: 11px; height: 11px; }
+  .ydt-dash__note { color: var(--gray6); margin-left: 2px; }
+  .ydt-dash__foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; padding: 14px 20px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 10.5px; letter-spacing: .02em; color: var(--gray6); }
+  .ydt-dash__foot a { display: inline-flex; align-items: center; gap: 6px; color: var(--gray5); text-decoration: none; transition: color .3s; }
+  .ydt-dash__foot a:hover { color: var(--white); }
+  .ydt-dash__foot a svg { width: 11px; height: 11px; }
+  .ydt-dash__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  @media (max-width: 640px) { .ydt-dash__title { display: none; } }
+
+  /* ── landscape ── */
+  @media (min-width: 900px) {
+    .ydt-dash__body { grid-template-columns: 300px 1fr; }
+    .ydt-dash__side { padding: 22px 0 22px 22px; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+    .ydt-dash__tabs { flex-direction: column; gap: 4px; overflow: visible; margin: 0; padding: 0 22px 0 0; }
+    .ydt-dash__tab { min-height: 0; padding: 11px 12px; border-radius: 8px; text-align: left; border-color: transparent; }
+    .ydt-dash__tab.is-on { border-color: rgba(255,69,54,.4); }
+    .ydt-dash__kw { margin: auto 22px 0 0; padding: 22px 0 0; border-bottom: 0; border-top: 1px solid var(--line); }
+    .ydt-dash__main { padding: 22px 22px 8px; display: flex; flex-direction: column; }
+    .ydt-dash__chart { flex: 1; }
+    .ydt-dash__chart svg { height: 210px; }
+    .ydt-dash__kpis { grid-template-columns: repeat(3, 1fr); }
+    .ydt-dash__kpi:nth-child(3) { grid-column: auto; padding-left: 14px; }
+    .ydt-dash__kpivalue { font-size: 28px; }
+  }
+</style>
+
+<div class="ydt-dash" id="ydtDash">
+  <div class="ydt-dash__bar">
+    <span class="ydt-dash__brand">yourdigitalteam<b>.</b></span>
+    <span class="ydt-dash__title">Client dashboard</span>
+    <span class="ydt-dash__live"><i class="ydt-dash__dot" aria-hidden="true"></i>Sample view</span>
+  </div>
+  <div class="ydt-dash__body">
+    <aside class="ydt-dash__side">
+      <span class="ydt-dash__label">Client</span>
+      <div class="ydt-dash__tabs" role="tablist" aria-label="Client">
+        <button type="button" role="tab" class="ydt-dash__tab is-on" aria-selected="true">Smart Plus Heating</button>
+        <button type="button" role="tab" class="ydt-dash__tab" aria-selected="false">Punt Caravan Parking</button>
+        <button type="button" role="tab" class="ydt-dash__tab" aria-selected="false">Sweep Sisters</button>
+        <button type="button" role="tab" class="ydt-dash__tab" aria-selected="false">Shoreline</button>
+      </div>
+      <div class="ydt-dash__kw">
+        <span class="ydt-dash__label" style="margin:0">Tracked keyword</span>
+        <span class="ydt-dash__kwname" id="ydtDashKw">boiler installation dartford</span>
+        <span class="ydt-dash__journey">
+          <span class="ydt-dash__from" id="ydtDashFrom">#12</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <span class="ydt-dash__to" id="ydtDashTo">#3</span>
+          <span class="ydt-dash__since" id="ydtDashSince">in 5 months</span>
+        </span>
+      </div>
+    </aside>
+    <div class="ydt-dash__main">
+      <div class="ydt-dash__chart">
+        <svg viewBox="0 0 640 200" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="ydtDashFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4536" stop-opacity="0.22"/><stop offset="1" stop-color="#ff4536" stop-opacity="0"/></linearGradient></defs>
+          <path class="ydt-dash__area" fill="url(#ydtDashFill)" d=""/>
+          <path class="ydt-dash__line" fill="none" stroke="#ff4536" stroke-width="2.5" stroke-linecap="round" d=""/>
+        </svg>
+        <div class="ydt-dash__axis"><span>12 months ago</span><span id="ydtDashChartLabel">Organic clicks</span><span>now</span></div>
+      </div>
+      <div class="ydt-dash__kpis">
+        <div class="ydt-dash__kpi"><span class="ydt-dash__kpilabel">Organic clicks / mo</span><span class="ydt-dash__kpivalue"><span class="ydt-dash__count">12.8k</span></span><span class="ydt-dash__delta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg><span class="ydt-dash__dval">34%</span><span class="ydt-dash__note">vs prev 28d</span></span></div>
+        <div class="ydt-dash__kpi"><span class="ydt-dash__kpilabel">Leads / mo</span><span class="ydt-dash__kpivalue"><span class="ydt-dash__count">41</span></span><span class="ydt-dash__delta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg><span class="ydt-dash__dval">28%</span><span class="ydt-dash__note">vs prev 28d</span></span></div>
+        <div class="ydt-dash__kpi"><span class="ydt-dash__kpilabel">Calls from Google</span><span class="ydt-dash__kpivalue"><span class="ydt-dash__count">118</span></span><span class="ydt-dash__delta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg><span class="ydt-dash__dval">52%</span><span class="ydt-dash__note">vs prev 28d</span></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ydt-dash__foot">
+    <span>Figures are illustrative until a client shares theirs.</span>
+    <a href="https://dev.yourdigiteam.com/">Clients log in here<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+<script>
+(function () {
+  'use strict';
+  var root = document.getElementById('ydtDash'); if (!root) return;
+  var $ = function (s, c) { return (c || root).querySelector(s); }, $$ = function (s, c) { return Array.prototype.slice.call((c || root).querySelectorAll(s)); };
+
+  /* ── one table drives everything ── */
+  var CLIENTS = [
+    { name: 'Smart Plus Heating', kw: 'boiler installation dartford', from: 12, to: 3, since: 'in 5 months', chart: 'Organic clicks',
+      kpis: [{ label: 'Organic clicks / mo', to: 12.8, dec: 1, suffix: 'k', delta: '34%' }, { label: 'Leads / mo', to: 41, dec: 0, delta: '28%' }, { label: 'Calls from Google', to: 118, dec: 0, delta: '52%' }],
+      series: [0.10, 0.16, 0.24, 0.30, 0.42, 0.48, 0.60, 0.66, 0.78, 0.84, 0.92, 0.98] },
+    { name: 'Punt Caravan Parking', kw: 'caravan storage costa brava', from: 5, to: 1, since: 'in 4 months', chart: 'Booking enquiries',
+      kpis: [{ label: 'Organic clicks / mo', to: 3.4, dec: 1, suffix: 'k', delta: '61%' }, { label: 'Booking enquiries / mo', to: 27, dec: 0, delta: '48%' }, { label: 'Countries sending traffic', to: 9, dec: 0, delta: '3' }],
+      series: [0.18, 0.20, 0.26, 0.24, 0.38, 0.52, 0.50, 0.64, 0.72, 0.80, 0.86, 0.94] },
+    { name: 'Sweep Sisters', kw: 'chimney sweep essex', from: 12, to: 1, since: 'in 6 months', chart: 'Bookings',
+      kpis: [{ label: 'Organic clicks / mo', to: 2.1, dec: 1, suffix: 'k', delta: '88%' }, { label: 'Bookings / mo', to: 64, dec: 0, delta: '57%' }, { label: 'Calls from Google', to: 92, dec: 0, delta: '44%' }],
+      series: [0.06, 0.08, 0.14, 0.22, 0.30, 0.44, 0.52, 0.68, 0.74, 0.86, 0.90, 0.98] },
+    { name: 'Shoreline', kw: 'defender restoration uk', from: 8, to: 2, since: 'in 7 months', chart: 'Organic clicks',
+      kpis: [{ label: 'Organic clicks / mo', to: 5.6, dec: 1, suffix: 'k', delta: '42%' }, { label: 'Enquiries / mo', to: 19, dec: 0, delta: '31%' }, { label: 'Gallery views / mo', to: 14, dec: 0, suffix: 'k', delta: '66%' }],
+      series: [0.22, 0.26, 0.24, 0.34, 0.40, 0.46, 0.56, 0.58, 0.70, 0.78, 0.84, 0.90] }
+  ];
+  /* a smooth curve through 12 monthly values, in the chart's 640×200 box */
+  function path(series) {
+    var W = 640, TOP = 10, BOTTOM = 184, pts = series.map(function (v, i) { return [i * (W / (series.length - 1)), BOTTOM - v * (BOTTOM - TOP)]; });
+    var d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
+    for (var i = 0; i < pts.length - 1; i++) {
+      var p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
+      var c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+      d += ' C' + c1[0].toFixed(1) + ' ' + c1[1].toFixed(1) + ' ' + c2[0].toFixed(1) + ' ' + c2[1].toFixed(1) + ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+    }
+    return d;
+  }
+  CLIENTS.forEach(function (c) { c.d = path(c.series); c.dArea = c.d + ' L640 200 L0 200 Z'; });
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var live = !!(window.gsap && window.ScrollTrigger) && !reduced;
+  var fmt = function (s, n) { return (s.prefix || '') + n.toFixed(s.dec || 0) + (s.suffix || ''); };
+
+  /* counters keep the real value for screen readers while the visible digits run */
+  function parts(el) {
+    if (!el.__p) { var v = document.createElement('span'); v.setAttribute('aria-hidden', 'true'); v.textContent = el.textContent;
+      var t = document.createElement('span'); t.className = 'ydt-dash__sr'; t.textContent = el.textContent; el.textContent = ''; el.appendChild(v); el.appendChild(t); el.__p = { v: v, t: t, value: 0 }; }
+    return el.__p;
+  }
+  function countTo(el, spec, animate, dur) {
+    var p = parts(el); p.t.textContent = fmt(spec, spec.to);
+    if (!animate || !live) { p.v.textContent = fmt(spec, spec.to); p.value = spec.to; return; }
+    var same = el.__spec && el.__spec.prefix === spec.prefix && el.__spec.suffix === spec.suffix, o = { n: same ? p.value : 0 };
+    gsap.to(o, { n: spec.to, duration: dur || 1.4, ease: 'power3.out', overwrite: true, onUpdate: function () { p.value = o.n; p.v.textContent = fmt(spec, o.n); } });
+    el.__spec = spec;
+  }
+
+  var tabs = $$('.ydt-dash__tab'), kpis = $$('.ydt-dash__kpi'), kw = $('#ydtDashKw'), from = $('#ydtDashFrom'), to = $('#ydtDashTo'), since = $('#ydtDashSince'),
+      label = $('#ydtDashChartLabel'), line = $('.ydt-dash__line'), area = $('.ydt-dash__area'), current = 0, touched = false;
+  function show(i, animate) {
+    var c = CLIENTS[i]; if (!c) return; current = i;
+    tabs.forEach(function (t, k) { t.classList.toggle('is-on', k === i); t.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    kw.textContent = c.kw; from.textContent = '#' + c.from; since.textContent = c.since; label.textContent = c.chart;
+    countTo(to, { to: c.to, dec: 0, prefix: '#\u200A' }, animate, .9);   /* hair space: Inter's # otherwise touches the digit */
+    kpis.forEach(function (k, n) { var s = c.kpis[n]; if (!s) return;
+      $('.ydt-dash__kpilabel', k).textContent = s.label; $('.ydt-dash__dval', k).textContent = s.delta; countTo($('.ydt-dash__count', k), s, animate);
+      if (animate && live) gsap.fromTo([$('.ydt-dash__kpilabel', k), $('.ydt-dash__dval', k)], { y: 6, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .5, stagger: .05, overwrite: true }); });
+    if (animate && live) {
+      gsap.fromTo([kw, from, since, label], { y: 6, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .5, stagger: .04, overwrite: true });
+      gsap.to(line, { attr: { d: c.d }, duration: 1.1, ease: 'power3.out', overwrite: 'auto' });
+      gsap.to(area, { attr: { d: c.dArea }, duration: 1.1, ease: 'power3.out', overwrite: 'auto' });
+    } else { line.setAttribute('d', c.d); area.setAttribute('d', c.dArea); }
+  }
+  tabs.forEach(function (t, i) { t.addEventListener('click', function () { touched = true; if (i !== current) show(i, true); }); });
+  line.setAttribute('d', CLIENTS[0].d); area.setAttribute('d', CLIENTS[0].dArea);
+
+  if (!live) { show(0, false); return; }
+
+  /* entrance: the panel rises, the line draws itself, the numbers count; then it
+     cycles through clients on its own until someone touches it */
+  gsap.registerPlugin(ScrollTrigger);
+  var len = line.getTotalLength(); gsap.set(line, { strokeDasharray: len });
+  var tl = gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 85%', once: true } });
+  tl.fromTo(root, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 1.2, ease: 'power3.out' }, 0)
+    .fromTo(tabs, { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: .5, stagger: .06 }, .35)
+    .add(function () { show(0, true); }, .5)
+    .fromTo(line, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 1.8, ease: 'power2.inOut' }, .5)
+    .fromTo(area, { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.2 }, 1.2)
+    .fromTo(kpis, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: .7, stagger: .08 }, .6);
+  var visible = false;
+  ScrollTrigger.create({ trigger: root, start: 'top bottom', end: 'bottom top', onToggle: function (s) { visible = s.isActive; } });
+  (function cycle() { if (touched) return; if (visible && !document.hidden) show((current + 1) % CLIENTS.length, true); gsap.delayedCall(6, cycle); })();
+})();
+</script>

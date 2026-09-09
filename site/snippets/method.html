@@ -1,0 +1,118 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     NO MYSTERY. JUST METHOD. — how we work
+     Self-contained: styles, markup and script in this one block.
+     Fonts: Inter (headings and body) / IBM Plex Mono (labels).
+
+     Wide screens: four steps across, a rail above them that fills as you
+     scroll through the section; each node lights as the fill reaches it.
+     Phones: the same rail runs down the left. Without GSAP everything is
+     shown lit; nothing is hidden.
+     ═══════════════════════════════════════════════════════════════ -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  .ydt-method { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; --black: #050505; --white: #f4f2f0; --gray5: #918a84; --gray6: #5e5852; --dim: #8f8781;
+    --line3: rgba(255,255,255,.12); --data: #ff4536; --data-bright: #ff6152; --data-deep: #d81e0d; --data-dim: rgba(255,69,54,.14);
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    background: var(--black); color: var(--white); font-family: 'Inter', Arial, Helvetica, sans-serif; padding: clamp(84px, 9vw, 132px) 24px; }
+  .ydt-method *, .ydt-method *::before, .ydt-method *::after { box-sizing: border-box; }
+  .ydt-method :where(h2, h3, p, li) { margin: 0; padding: 0; }   /* :where() keeps the reset below any class */
+  .ydt-method__inner { max-width: 1200px; margin: 0 auto; }
+  .ydt-method__head { max-width: 760px; margin-bottom: clamp(40px, 5vw, 64px); }
+  .ydt-method__eyebrow { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--gray5); }
+  .ydt-method__mark { width: 7px; height: 7px; border-radius: 50%; background: var(--data); box-shadow: 0 0 0 4px var(--data-dim); flex-shrink: 0; }
+  .ydt-method__title { font-size: clamp(2.2rem, 4.6vw, 3.9rem); font-weight: 700; letter-spacing: -.035em; line-height: 1.02; margin: 20px 0 18px; }
+  .ydt-method__title .dim { color: var(--dim); }
+  .ydt-method__sub { font-size: 1rem; line-height: 1.75; color: #aaa39e; max-width: 34rem; }
+
+  /* the rail: vertical on phones, horizontal on wide screens */
+  .ydt-method__steps { position: relative; display: grid; grid-template-columns: 1fr; gap: 36px; margin: 0; padding: 0 0 0 34px; list-style: none; }
+  .ydt-method__rail { position: absolute; left: 5px; top: 6px; bottom: 6px; width: 2px; background: var(--line3); border-radius: 2px; }
+  .ydt-method__fill { position: absolute; inset: 0; display: block; background: linear-gradient(180deg, var(--data-bright), var(--data-deep)); transform: scaleY(0); transform-origin: 50% 0; border-radius: 2px; }
+  .ydt-method__step { position: relative; }
+  .ydt-method__node { position: absolute; left: -34px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--black); border: 2px solid var(--gray6); transition: border-color .4s, background .4s, box-shadow .4s; }
+  .ydt-method__step.is-lit .ydt-method__node { border-color: var(--data); background: var(--data); box-shadow: 0 0 0 4px var(--data-dim); }
+  .ydt-method__when { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--data); margin-bottom: 12px; }
+  .ydt-method__step h3 { font-size: 19px; font-weight: 600; letter-spacing: -.015em; margin-bottom: 10px; }
+  .ydt-method__step p { font-size: 15px; line-height: 1.7; color: var(--gray5); max-width: 34rem; }
+  .ydt-method__get { display: inline-flex; align-items: baseline; gap: 10px; margin-top: 16px; padding: 10px 14px; border: 1px solid var(--line3); border-radius: 10px; font-size: 13px; color: var(--white); background: rgba(255,255,255,.02); }
+  .ydt-method__get b { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gray6); white-space: nowrap; }
+  @media (min-width: 900px) {
+    .ydt-method__steps { grid-template-columns: repeat(4, 1fr); gap: 36px; padding: 34px 0 0; }
+    .ydt-method__rail { left: 0; right: 0; top: 5px; bottom: auto; width: auto; height: 2px; }
+    .ydt-method__fill { transform: scaleX(0); transform-origin: 0 50%; background: linear-gradient(90deg, var(--data-bright), var(--data-deep)); }
+    .ydt-method__node { left: 0; top: -34px; }
+    .ydt-method__step p { max-width: none; }
+  }
+  /* no engine: nothing waits on it */
+  .ydt-method--static .ydt-method__fill { transform: none; }
+  .ydt-method--static .ydt-method__node { border-color: var(--data); background: var(--data); }
+</style>
+
+<section class="ydt-method" id="ydtMethod" aria-labelledby="ydtMethodTitle">
+  <div class="ydt-method__inner">
+    <div class="ydt-method__head">
+      <p class="ydt-method__eyebrow"><span class="ydt-method__mark" aria-hidden="true"></span>How we work</p>
+      <h2 class="ydt-method__title" id="ydtMethodTitle">No mystery. <span class="dim">Just method.</span></h2>
+      <p class="ydt-method__sub">Audit first. No long contracts. A plain-English note every week. Here is what the first three months look like, and what you hold at the end of each step.</p>
+    </div>
+    <ol class="ydt-method__steps">
+      <div class="ydt-method__rail" aria-hidden="true"><i class="ydt-method__fill"></i></div>
+      <li class="ydt-method__step">
+        <span class="ydt-method__node" aria-hidden="true"></span>
+        <span class="ydt-method__when">Week 1–2</span>
+        <h3>We audit everything</h3>
+        <p>Your site, your rankings, your ads, your competitors. You'll know exactly where the money is leaking and where the quickest wins are — even if you never hire us.</p>
+        <span class="ydt-method__get"><b>You get</b>A written audit, yours to keep</span>
+      </li>
+      <li class="ydt-method__step">
+        <span class="ydt-method__node" aria-hidden="true"></span>
+        <span class="ydt-method__when">Week 3</span>
+        <h3>We build the plan</h3>
+        <p>One page. Clear priorities, clear targets, clear costs. What we're doing this month, what it should produce, and how we'll measure it.</p>
+        <span class="ydt-method__get"><b>You get</b>A one-page plan with costs</span>
+      </li>
+      <li class="ydt-method__step">
+        <span class="ydt-method__node" aria-hidden="true"></span>
+        <span class="ydt-method__when">Ongoing</span>
+        <h3>We do the work</h3>
+        <p>Content shipped, campaigns live, fixes deployed. A plain-English update every week, not a quarterly deck of vanity metrics.</p>
+        <span class="ydt-method__get"><b>You get</b>A short note every week</span>
+      </li>
+      <li class="ydt-method__step">
+        <span class="ydt-method__node" aria-hidden="true"></span>
+        <span class="ydt-method__when">Month 2+</span>
+        <h3>We scale what works</h3>
+        <p>Every month we cut what underperforms and double down on what converts. Deliberate decisions, not lucky breaks.</p>
+        <span class="ydt-method__get"><b>You get</b>A monthly call and a revised plan</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+<script>
+(function () {
+  'use strict';
+  var root = document.getElementById('ydtMethod'); if (!root) return;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || !window.ScrollTrigger || reduced) { root.classList.add('ydt-method--static'); return; }
+  gsap.registerPlugin(ScrollTrigger);
+  var steps = Array.prototype.slice.call(root.querySelectorAll('.ydt-method__step'));
+  var list = root.querySelector('.ydt-method__steps'), fill = root.querySelector('.ydt-method__fill'), head = root.querySelector('.ydt-method__head');
+
+  /* the heading and steps arrive; then the rail fills with the scroll and
+     each node lights as the fill reaches it — in both directions */
+  gsap.from(head.children, { autoAlpha: 0, y: 18, duration: .9, stagger: .1, ease: 'power3.out', scrollTrigger: { trigger: head, start: 'top 85%', once: true } });
+  ScrollTrigger.batch(steps, { start: 'top 88%', once: true, onEnter: function (els) { gsap.from(els, { autoAlpha: 0, y: 30, duration: 1, stagger: .12, ease: 'power3.out', overwrite: true }); } });
+
+  var mm = gsap.matchMedia();
+  mm.add({ wide: '(min-width: 900px)', narrow: '(max-width: 899px)' }, function (ctx) {
+    var wide = ctx.conditions.wide;
+    var tl = gsap.timeline({ scrollTrigger: { trigger: list, start: wide ? 'top 70%' : 'top 60%', end: wide ? 'top 25%' : 'bottom 60%', scrub: .5 } });
+    tl.fromTo(fill, wide ? { scaleX: 0 } : { scaleY: 0 }, wide ? { scaleX: 1, ease: 'none' } : { scaleY: 1, ease: 'none' }, 0);
+    tl.eventCallback('onUpdate', function () { var p = tl.progress(); steps.forEach(function (s, i) { s.classList.toggle('is-lit', p >= (i + .45) / steps.length); }); });
+    return function () { steps.forEach(function (s) { s.classList.remove('is-lit'); }); };
+  });
+})();
+</script>

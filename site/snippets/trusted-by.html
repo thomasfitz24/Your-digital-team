@@ -1,0 +1,102 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     TRUSTED BY — logo strip
+     Self-contained: styles, markup and script in this one block.
+     Fonts: Inter / IBM Plex Mono (the site's own). The Google Fonts link
+     below only matters when you open this file on its own — on the live
+     site the fonts are already there and it is harmless.
+     Motion: GSAP marquee that speeds up with scroll velocity and slows on
+     hover; falls back to a CSS marquee if GSAP is not present.
+     ═══════════════════════════════════════════════════════════════ -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  .ydt-trust { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; --white: #f4f2f0; --gray5: #918a84; --line: rgba(255,255,255,.07);
+    --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace; --ease: cubic-bezier(.22,1,.36,1);
+    position: relative; background: #050505; color: var(--white); font-family: 'Inter', Arial, Helvetica, sans-serif; padding: 56px 24px 24px; }
+  .ydt-trust *, .ydt-trust *::before, .ydt-trust *::after { box-sizing: border-box; }
+  .ydt-trust__inner { max-width: 1200px; margin: 0 auto; }
+  .ydt-trust__head { text-align: center; margin-bottom: 34px; }
+  .ydt-trust__label { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--gray5); }
+  .ydt-trust__ticker { position: relative; overflow: clip; max-width: 1060px; margin: 0 auto;
+    -webkit-mask-image: linear-gradient(90deg, #0000, #000 14% 86%, #0000); mask-image: linear-gradient(90deg, #0000, #000 14% 86%, #0000); }
+  .ydt-trust__track { display: flex; width: max-content; will-change: transform; }
+  .ydt-trust__group { display: flex; align-items: center; flex-shrink: 0; gap: 64px; padding-right: 64px; }
+  .ydt-trust__logo { display: flex; align-items: center; justify-content: center; height: 26px; opacity: .42; flex-shrink: 0; transition: opacity .35s var(--ease); }
+  .ydt-trust__logo img { display: block; width: auto; height: 100%; max-width: 160px; object-fit: contain; filter: brightness(0) invert(1); }
+  .ydt-trust__name { color: var(--white); font-size: 15px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; }
+  .ydt-trust__track:hover .ydt-trust__logo { opacity: .2; }
+  .ydt-trust__track:hover .ydt-trust__logo:hover { opacity: 1; }
+  @media (min-width: 768px) { .ydt-trust__group { gap: 84px; padding-right: 84px; } .ydt-trust__logo { height: 32px; } }
+  @media (max-width: 640px) { .ydt-trust { padding: 48px 20px 16px; } .ydt-trust__head { margin-bottom: 28px; } }
+  /* without GSAP the strip still moves, on CSS */
+  @keyframes ydtTrustScroll { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: no-preference) {
+    .ydt-trust--css .ydt-trust__track { animation: ydtTrustScroll 46s linear infinite; }
+    .ydt-trust--css .ydt-trust__track:hover { animation-play-state: paused; }
+  }
+</style>
+
+<section class="ydt-trust" id="ydtTrust" aria-label="Brands we work with">
+  <div class="ydt-trust__inner">
+    <div class="ydt-trust__head"><span class="ydt-trust__label">Trusted by</span></div>
+    <div class="ydt-trust__ticker"><div class="ydt-trust__track" id="ydtTrustTrack"></div></div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+<script>
+(function () {
+  'use strict';
+  var BASE = 'https://www.yourdigiteam.com';
+  var clients = [
+    { name: 'Shoreline',            url: BASE + '/optimized/client-43ff232e5157.webp', width: 360, height: 118 },
+    { name: '911 Backdate',         url: BASE + '/optimized/client-904334cf81fe.webp', width: 114, height: 120 },
+    { name: 'Gutters.co.uk',        url: BASE + '/optimized/client-ee7bfc9c8580.webp', width: 360, height: 98 },
+    { name: 'PilotQ',               url: BASE + '/optimized/client-498140e77916.webp', width: 166, height: 120 },
+    { name: 'Punt Caravan Parking', url: '' },
+    { name: 'SVD Group',            url: BASE + '/optimized/client-cb014304ab6e.webp', width: 116, height: 120 },
+    { name: 'Fitzgerald Capital',   url: BASE + '/optimized/client-9d0f020fb53c.webp', width: 360, height: 51 },
+    { name: 'Senttr',               url: BASE + '/optimized/client-d32d7c0717b6.webp', width: 360, height: 73 },
+    { name: 'Smart Plus Heating',   url: BASE + '/optimized/client-7ffbc5f816f5.webp', width: 300, height: 87 }
+  ];
+  var section = document.getElementById('ydtTrust'), track = document.getElementById('ydtTrustTrack');
+  if (!track) return;
+
+  /* build the track: one real group, then enough decorative copies to loop seamlessly */
+  function group(decorative) {
+    var g = document.createElement('div'); g.className = 'ydt-trust__group';
+    if (decorative) g.setAttribute('aria-hidden', 'true');
+    clients.forEach(function (c) {
+      var cell = document.createElement('div'); cell.className = 'ydt-trust__logo';
+      if (!c.url) { var n = document.createElement('span'); n.className = 'ydt-trust__name'; n.textContent = c.name; cell.appendChild(n); g.appendChild(cell); return; }
+      var img = document.createElement('img'); img.width = c.width; img.height = c.height; img.loading = 'lazy'; img.decoding = 'async'; img.src = c.url; img.alt = decorative ? '' : c.name;
+      img.addEventListener('error', function () { var n = document.createElement('span'); n.className = 'ydt-trust__name'; n.textContent = c.name; if (img.parentNode === cell) cell.replaceChild(n, img); });
+      cell.appendChild(img); g.appendChild(cell);
+    });
+    return g;
+  }
+  track.appendChild(group(false));
+  var w = track.firstChild.getBoundingClientRect().width, copies = w > 0 ? Math.max(1, Math.ceil(window.innerWidth / w)) : 1, n;
+  for (n = 1; n < copies; n++) track.appendChild(group(true));
+  for (n = 0; n < copies; n++) track.appendChild(group(true));
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || !window.ScrollTrigger || reduced) { section.classList.add('ydt-trust--css'); return; }
+
+  gsap.registerPlugin(ScrollTrigger);
+  var marquee = gsap.to(track, { xPercent: -50, ease: 'none', duration: 44, repeat: -1 });
+  var settle = gsap.to(marquee, { timeScale: 1, duration: 1.6, ease: 'power3.out', paused: true });
+  var skewTo = gsap.quickTo(track, 'skewX', { duration: .45, ease: 'power3' });
+  var relax = gsap.delayedCall(.3, function () { skewTo(0); }).pause();
+  var hovering = false;
+  ScrollTrigger.create({ trigger: section, start: 'top bottom', end: 'bottom top',
+    onToggle: function (s) { marquee.paused(!s.isActive); },      /* rests while off screen */
+    onUpdate: function (s) {                                       /* speeds up and leans with scroll velocity */
+      var v = s.getVelocity(); if (Math.abs(v) < 80 || hovering) return;
+      marquee.timeScale(gsap.utils.clamp(1, 6, 1 + Math.abs(v) / 700)); settle.invalidate().restart();
+      skewTo(gsap.utils.clamp(-7, 7, v / 320)); relax.restart(true);
+    } });
+  track.addEventListener('mouseenter', function () { hovering = true; gsap.to(marquee, { timeScale: .12, duration: .8, overwrite: true }); });
+  track.addEventListener('mouseleave', function () { hovering = false; gsap.to(marquee, { timeScale: 1, duration: .8, overwrite: true }); });
+})();
+</script>
