@@ -1,0 +1,718 @@
+<!-- ═══════════════════════════════════════════════════════════════════
+     ADS LANDING PAGE  ·  /web-design-quote
+     One self-contained block: markup, styles and script together.
+     Fonts: Inter + IBM Plex Mono (the site's own).
+
+     ┌───────────────────────────────────────────────────────────────┐
+     │  BEFORE THIS GOES LIVE — check the three ▼ EDIT blocks below. │
+     │  Each appears once in the file and nowhere else.              │
+     │                                                               │
+     │  1. HEADLINE — must match your ad copy word for word.         │
+     │     Search:  ▼ EDIT 1                                          │
+     │  2. PRICES  — set to £500 / £1,200 / £2,000 as you gave them.  │
+     │     Check they match the blog post before this goes live.      │
+     │     Search:  ▼ EDIT 2                                          │
+     │  3. TESTIMONIAL — I will not write a quote and put a real      │
+     │     client's name on it. The slot is built and empty.          │
+     │     Search:  ▼ EDIT 3                                          │
+     └───────────────────────────────────────────────────────────────┘
+
+     No site nav on purpose: paid traffic has one job here, and every
+     nav link is a way to leave without converting. Logo goes home,
+     the phone number is tappable, nothing else leads away.
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script>(function(){var d=document.documentElement;if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('ydt-js');setTimeout(function(){if(!(window.gsap&&window.ScrollTrigger))d.classList.remove('ydt-js')},3500)})()</script>
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   /web-design-quote — styles
+   Scoped to .ydt-lp so nothing here can reach the rest of the site.
+   Palette and faces are the site's own; no new fonts.
+   ═══════════════════════════════════════════════════════════════════ */
+.ydt-lp {
+  --black: #050505; --panel: #0b0a09; --panel2: #100e0c;
+  --white: #f4f2f0; --gray4: #c9c3bd; --gray5: #918a84; --gray6: #5e5852; --dim: #8f8781;
+  --line: rgba(255,255,255,.07); --line2: rgba(255,255,255,.12);
+  --data: #ff4536; --data-bright: #ff6152; --data-deep: #d81e0d; --data-dim: rgba(255,69,54,.14); --ink: #1c0503;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --ease: cubic-bezier(.22,1,.36,1);
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  position: relative; background: var(--black); color: var(--white);
+  font-family: 'Inter', Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: clip;
+}
+.ydt-lp *, .ydt-lp *::before, .ydt-lp *::after { box-sizing: border-box; }
+.ydt-lp :where(h1, h2, h3, p, ul, ol, li, figure, figcaption, blockquote) { margin: 0; padding: 0; }
+.ydt-lp :where(ul, ol) { list-style: none; }
+.ydt-lp :where(a) { color: inherit; text-decoration: none; }
+.ydt-lp :where(button) { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+.ydt-lp :where(img, svg) { display: block; }
+.ydt-lp :focus-visible { outline: 2px solid #ff8e84; outline-offset: 3px; border-radius: 4px; }
+.ydt-lp ::selection { background: var(--data); color: #fff; }
+.ydt-lp [id] { scroll-margin-top: 84px; }
+.ydt-lp .lp-wrap { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+.ydt-lp .lp-sec { padding: clamp(64px, 8vw, 104px) 0; }
+.ydt-lp .dim { color: var(--dim); }
+
+/* type */
+.ydt-lp .lp-eyebrow { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--gray5); }
+.ydt-lp .lp-mark { width: 7px; height: 7px; border-radius: 50%; background: var(--data); box-shadow: 0 0 0 4px var(--data-dim); flex-shrink: 0; }
+.ydt-lp .lp-mark--sm { width: 5px; height: 5px; box-shadow: 0 0 0 3px var(--data-dim); }
+.ydt-lp .lp-sectitle { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 700; letter-spacing: -.035em; line-height: 1.04; margin: 18px 0 16px; }
+.ydt-lp .lp-secsub { font-size: 1rem; line-height: 1.75; color: #aaa39e; max-width: 36rem; }
+.ydt-lp .lp-sechead { max-width: 700px; margin-bottom: clamp(34px, 4.5vw, 52px); }
+.ydt-lp .lp-sechead--tight { margin-bottom: 0; }
+
+/* buttons */
+.ydt-lp .lp-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 17px 24px; border-radius: 9999px; font-size: 16px; font-weight: 700; line-height: 1; white-space: nowrap; transition: box-shadow .3s, filter .3s, transform .3s var(--ease); }
+.ydt-lp .lp-btn svg { width: 17px; height: 17px; transition: transform .35s var(--ease); }
+.ydt-lp .lp-btn:hover svg { transform: translateX(3px); }
+.ydt-lp .lp-btn--go { width: 100%; background: linear-gradient(180deg, #ff7467, #f25343); color: var(--ink); box-shadow: 0 12px 34px rgba(255,69,54,.3), inset 0 1px 0 rgba(255,255,255,.35); }
+.ydt-lp .lp-btn--go:hover { filter: brightness(1.05); box-shadow: 0 14px 42px rgba(255,69,54,.42), inset 0 1px 0 rgba(255,255,255,.35); }
+.ydt-lp .lp-btn--go:disabled { opacity: .6; cursor: wait; filter: none; }
+
+/* ── header ── */
+.ydt-lp .lp-head { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 16px; max-width: 1160px; margin: 0 auto; padding: 20px 24px; }
+.ydt-lp .lp-head__logo { display: inline-flex; align-items: center; min-height: 44px; }
+.ydt-lp .lp-head__logo img { height: 22px; width: auto; max-width: 190px; object-fit: contain; }
+.ydt-lp .lp-head__tel { display: inline-flex; align-items: center; gap: 9px; min-height: 40px; padding: 9px 15px; border: 1px solid var(--line2); border-radius: 9999px; font-family: var(--mono); font-size: 13px; color: var(--white); transition: border-color .3s, background .3s; }
+.ydt-lp .lp-head__tel:hover { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.04); }
+.ydt-lp .lp-head__tel svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; }
+
+/* ── hero ── */
+.ydt-lp .lp-hero { position: relative; padding: clamp(28px, 5vw, 56px) 0 clamp(56px, 7vw, 88px); overflow: clip; isolation: isolate; }
+.ydt-lp .lp-hero__glow { position: absolute; z-index: 0; pointer-events: none; width: 90vw; height: 90vw; max-width: 1100px; max-height: 1100px; left: 50%; top: -46vw; transform: translateX(-50%); border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(255,69,54,.20) 0%, rgba(216,30,13,.09) 38%, transparent 70%); }
+.ydt-lp .lp-hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr; gap: 36px; align-items: start; }
+.ydt-lp .lp-hero__grid > * { min-width: 0; }
+@media (min-width: 940px) { .ydt-lp .lp-hero__grid { grid-template-columns: 1fr minmax(400px, 460px); gap: 56px; align-items: center; } }
+/* On phones the form comes before the supporting ticks — the checklist's
+   order is headline, subhead, form, and the ticks are an addition that
+   should not push the form most of a screen further down. display:contents
+   lifts the copy's children into the grid so they can be re-ordered. */
+@media (max-width: 939px) {
+  .ydt-lp .lp-hero__copy { display: contents; }
+  .ydt-lp .lp-hero__grid { gap: 22px; }
+  .ydt-lp .lp-hero__ticks { order: 2; margin-top: 4px; }
+  .ydt-lp .lp-formcard { order: 1; margin-top: 8px; }
+}
+.ydt-lp .lp-hero__title { font-size: clamp(2.4rem, 5.6vw, 4.2rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.02; margin: 20px 0 18px; }
+.ydt-lp .lp-hero__sub { font-size: clamp(1.02rem, 1.3vw, 1.15rem); line-height: 1.65; color: #aaa39e; max-width: 30rem; }
+.ydt-lp .lp-hero__ticks { display: grid; gap: 11px; margin-top: 26px; }
+.ydt-lp .lp-hero__ticks li { position: relative; padding-left: 26px; font-size: 15px; line-height: 1.5; color: var(--gray4); }
+.ydt-lp .lp-hero__ticks li::before { content: ""; position: absolute; left: 4px; top: .55em; width: 7px; height: 7px; border-radius: 50%; background: var(--data); box-shadow: 0 0 0 3px var(--data-dim); }
+
+/* ── form card (both forms) ── */
+.ydt-lp .lp-formcard { background: var(--panel); border: 1px solid var(--line2); border-radius: 20px; padding: clamp(22px, 3vw, 30px); box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+.ydt-lp .lp-formcard__title { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+.ydt-lp .lp-formcard__note { margin-top: 6px; font-size: 13.5px; color: var(--gray5); }
+.ydt-lp .lp-formcard__title + .lp-formcard__note + .lp-form { margin-top: 22px; }
+.ydt-lp .lp-fields { display: grid; gap: 16px; }
+@media (min-width: 520px) { .ydt-lp .lp-fields { grid-template-columns: 1fr 1fr; } .ydt-lp .lp-field--wide, .ydt-lp .lp-field:nth-child(4) { grid-column: 1 / -1; } }
+.ydt-lp .lp-field label { display: block; font-size: 13px; font-weight: 500; color: #ddd3ce; margin-bottom: 7px; }
+.ydt-lp .lp-field input, .ydt-lp .lp-field textarea { width: 100%; background: #080706; color: var(--white); border: 1px solid rgba(255,255,255,.14); border-radius: 9px; padding: 12px 14px; font: inherit; font-size: 16px; line-height: 1.5; transition: border-color .2s, box-shadow .2s; }
+.ydt-lp .lp-field input { height: 50px; }
+.ydt-lp .lp-field textarea { min-height: 92px; resize: vertical; }
+.ydt-lp .lp-field input::placeholder, .ydt-lp .lp-field textarea::placeholder { color: #7a6f68; opacity: 1; }
+.ydt-lp .lp-field input:hover, .ydt-lp .lp-field textarea:hover { border-color: rgba(255,255,255,.26); }
+.ydt-lp .lp-field input:focus-visible, .ydt-lp .lp-field textarea:focus-visible { outline: none; border-color: var(--data); box-shadow: 0 0 0 3px rgba(255,69,54,.2); }
+.ydt-lp .lp-field.is-bad input, .ydt-lp .lp-field.is-bad textarea { border-color: rgba(255,69,54,.65); }
+.ydt-lp .lp-field__err { display: block; margin-top: 6px; font-size: 12.5px; color: #ffb0a6; }
+.ydt-lp .lp-hp { position: absolute !important; left: -9999px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
+.ydt-lp .lp-form .lp-btn { margin-top: 20px; }
+.ydt-lp .lp-trust { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 14px; font-family: var(--mono); font-size: 12px; letter-spacing: .02em; color: var(--gray5); text-align: center; }
+.ydt-lp .lp-status { padding: 18px 20px; margin-bottom: 20px; border: 1px solid rgba(255,69,54,.32); border-radius: 12px; background: rgba(255,69,54,.06); font-size: 14.5px; line-height: 1.65; color: #ffc1b8; }
+.ydt-lp .lp-status.is-win { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.03); color: var(--white); }
+.ydt-lp .lp-status h3 { font-size: 21px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 8px; }
+.ydt-lp .lp-status .ref { display: block; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; color: var(--gray5); }
+.ydt-lp .lp-status a { color: #ffd9d2; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── prices ── */
+.ydt-lp .lp-tiers { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 820px) { .ydt-lp .lp-tiers { grid-template-columns: repeat(3, 1fr); } }
+.ydt-lp .lp-tier { position: relative; display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 28px 24px; transition: border-color .4s, transform .5s var(--ease); }
+.ydt-lp .lp-tier:hover { border-color: rgba(255,255,255,.18); transform: translateY(-2px); }
+.ydt-lp .lp-tier--pick { border-color: rgba(255,69,54,.4); background: linear-gradient(180deg, rgba(255,69,54,.05), transparent 48%), var(--panel); }
+.ydt-lp .lp-tier__flag { position: absolute; top: -10px; left: 24px; padding: 5px 11px; border-radius: 9999px; background: var(--data); color: var(--ink); font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; line-height: 1; }
+.ydt-lp .lp-tier__name { font-size: 15px; font-weight: 600; letter-spacing: .01em; color: var(--gray4); }
+.ydt-lp .lp-tier__price { display: flex; align-items: baseline; gap: 9px; margin-top: 12px; font-size: clamp(2.2rem, 3.4vw, 2.8rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.ydt-lp .lp-tier__from { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gray6); }
+.ydt-lp .lp-tier__unit { margin-top: 8px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--data); }
+.ydt-lp .lp-tier__for { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.6; color: var(--gray5); }
+.ydt-lp .lp-tier__list { display: grid; gap: 10px; margin-top: 18px; }
+.ydt-lp .lp-tier__list li { position: relative; padding-left: 22px; font-size: 14px; line-height: 1.5; color: var(--gray4); }
+.ydt-lp .lp-tier__list li::before { content: ""; position: absolute; left: 2px; top: .5em; width: 5px; height: 5px; border-radius: 50%; background: var(--data); }
+.ydt-lp .lp-prices__foot { margin-top: 26px; font-size: 14px; line-height: 1.7; color: var(--gray5); max-width: 46rem; }
+
+/* ── proof ── */
+.ydt-lp .lp-proof { padding-top: 0; }
+.ydt-lp .lp-proof__label { text-align: center; font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--gray5); margin-bottom: 30px; }
+.ydt-lp .lp-ticker { position: relative; overflow: clip; max-width: 1000px; margin: 0 auto;
+  -webkit-mask-image: linear-gradient(90deg, #0000, #000 14% 86%, #0000); mask-image: linear-gradient(90deg, #0000, #000 14% 86%, #0000); }
+.ydt-lp .lp-ticker__track { display: flex; width: max-content; will-change: transform; }
+.ydt-lp .lp-ticker__group { display: flex; align-items: center; flex-shrink: 0; gap: 60px; padding-right: 60px; }
+.ydt-lp .lp-ticker__logo { display: flex; align-items: center; justify-content: center; height: 25px; opacity: .4; flex-shrink: 0; }
+.ydt-lp .lp-ticker__logo img { width: auto; height: 100%; max-width: 150px; object-fit: contain; filter: brightness(0) invert(1); }
+.ydt-lp .lp-ticker__name { color: var(--white); font-size: 14px; font-weight: 600; white-space: nowrap; }
+@media (min-width: 768px) { .ydt-lp .lp-ticker__group { gap: 78px; padding-right: 78px; } .ydt-lp .lp-ticker__logo { height: 30px; } }
+@keyframes lpTick { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: no-preference) { .ydt-lp.lp--css .lp-ticker__track { animation: lpTick 44s linear infinite; } }
+.ydt-lp .lp-shots { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: clamp(40px, 5vw, 60px); }
+@media (min-width: 760px) { .ydt-lp .lp-shots { grid-template-columns: repeat(3, 1fr); } }
+.ydt-lp .lp-shot { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: clip; transition: border-color .4s, transform .5s var(--ease); }
+.ydt-lp .lp-shot:hover { border-color: rgba(255,255,255,.18); transform: translateY(-2px); }
+.ydt-lp .lp-shot img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; border-bottom: 1px solid var(--line); }
+.ydt-lp .lp-shot figcaption { display: grid; gap: 4px; padding: 16px 18px 18px; }
+.ydt-lp .lp-shot figcaption b { font-size: 14.5px; font-weight: 600; }
+.ydt-lp .lp-shot figcaption span { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray5); }
+
+/* ── what's included ── */
+.ydt-lp .lp-incl__grid { display: grid; grid-template-columns: 1fr; gap: 34px; align-items: start; }
+@media (min-width: 900px) { .ydt-lp .lp-incl__grid { grid-template-columns: .85fr 1.15fr; gap: 56px; } }
+.ydt-lp .lp-incl__list { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: clip; }
+.ydt-lp .lp-incl__list li { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; padding: 22px 24px; background: var(--panel); }
+.ydt-lp .lp-incl__tick { grid-row: 1 / span 2; display: grid; place-items: center; width: 26px; height: 26px; margin-top: 1px; border-radius: 50%; background: var(--data-dim); color: var(--data); }
+.ydt-lp .lp-incl__tick svg { width: 13px; height: 13px; }
+.ydt-lp .lp-incl__list b { font-size: 15.5px; font-weight: 600; letter-spacing: -.01em; }
+.ydt-lp .lp-incl__list span { font-size: 14px; line-height: 1.6; color: var(--gray5); }
+
+/* ── testimonial ── */
+.ydt-lp .lp-quote { text-align: center; }
+.ydt-lp .lp-quote__text { max-width: 46rem; margin: 0 auto; font-size: clamp(1.35rem, 2.6vw, 2rem); font-weight: 600; letter-spacing: -.025em; line-height: 1.32; }
+.ydt-lp .lp-quote__text p::before { content: "\201C"; color: var(--data); }
+.ydt-lp .lp-quote__text p::after { content: "\201D"; color: var(--data); }
+.ydt-lp .lp-quote__by { display: grid; gap: 5px; margin-top: 26px; }
+.ydt-lp .lp-quote__by b { font-size: 14.5px; font-weight: 600; }
+.ydt-lp .lp-quote__by span { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gray5); }
+
+/* ── second form ── */
+.ydt-lp .lp-again__grid { display: grid; grid-template-columns: 1fr; gap: 34px; align-items: center; }
+@media (min-width: 940px) { .ydt-lp .lp-again__grid { grid-template-columns: 1fr minmax(400px, 460px); gap: 56px; } }
+.ydt-lp .lp-again__grid > * { min-width: 0; }
+.ydt-lp .lp-again__direct { display: flex; flex-wrap: wrap; align-items: center; gap: 0 26px; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); }
+.ydt-lp .lp-again__direct a { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--mono); font-size: 14px; color: var(--gray4); box-shadow: inset 0 -1px 0 rgba(255,255,255,.2); transition: color .3s, box-shadow .3s; }
+.ydt-lp .lp-again__direct a:hover { box-shadow: inset 0 -1px 0 var(--white); }
+.ydt-lp .lp-again__direct a:hover { color: var(--white); }
+
+/* ── close ── */
+.ydt-lp .lp-close { text-align: center; padding: clamp(56px, 7vw, 88px) 0 clamp(80px, 8vw, 104px); border-top: 1px solid var(--line); background: radial-gradient(ellipse at 50% 120%, rgba(255,69,54,.07), transparent 60%); }
+.ydt-lp .lp-close__title { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 700; letter-spacing: -.035em; line-height: 1.06; }
+.ydt-lp .lp-close__sub { max-width: 34rem; margin: 16px auto 0; font-size: 15.5px; line-height: 1.7; color: #aaa39e; }
+.ydt-lp .lp-close__btn { width: auto; margin-top: 30px; padding-left: 34px; padding-right: 34px; }
+.ydt-lp .lp-close__legal { margin-top: 34px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--gray6); }
+.ydt-lp .lp-close__legal a { color: var(--gray5); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── sticky bar: phones only ── */
+.ydt-lp .lp-sticky { display: none; }
+@media (max-width: 767px) {
+  .ydt-lp .lp-sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; gap: 10px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(5,5,5,.86); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid var(--line2); }
+  .ydt-lp .lp-sticky[hidden] { display: none; }
+  .ydt-lp .lp-sticky__tel { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px; border: 1px solid var(--line2); border-radius: 9999px; font-weight: 600; font-size: 15px; }
+  .ydt-lp .lp-sticky__go { flex: 1; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 9999px; background: linear-gradient(180deg, #ff7467, #f25343); color: var(--ink); font-weight: 700; font-size: 15px; }
+  .ydt-lp .lp-close { padding-bottom: 128px; }   /* room for the bar */
+}
+
+/* ── pre-animation states ──
+   Applied only while <html class="ydt-js"> is set, which the gate script at
+   the top of the block adds before first paint and removes again if GSAP
+   never arrives. Selectors are listed here rather than set by script: an
+   attribute added after load would paint, hide, then reveal — a flash. */
+html.ydt-js .ydt-lp .lp-sechead,
+html.ydt-js .ydt-lp .lp-tier,
+html.ydt-js .ydt-lp .lp-prices__foot,
+html.ydt-js .ydt-lp .lp-proof__label,
+html.ydt-js .ydt-lp .lp-ticker,
+html.ydt-js .ydt-lp .lp-shot,
+html.ydt-js .ydt-lp .lp-incl__list li,
+html.ydt-js .ydt-lp .lp-quote__text,
+html.ydt-js .ydt-lp .lp-quote__by,
+html.ydt-js .ydt-lp .lp-again__copy > *,
+html.ydt-js .ydt-lp .lp-again .lp-formcard,
+html.ydt-js .ydt-lp .lp-close__title,
+html.ydt-js .ydt-lp .lp-close__sub,
+html.ydt-js .ydt-lp .lp-close__btn,
+html.ydt-js .ydt-lp .lp-close__legal { opacity: 0; visibility: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.ydt-js .ydt-lp .lp-sechead,
+  html.ydt-js .ydt-lp .lp-tier,
+  html.ydt-js .ydt-lp .lp-prices__foot,
+  html.ydt-js .ydt-lp .lp-proof__label,
+  html.ydt-js .ydt-lp .lp-ticker,
+  html.ydt-js .ydt-lp .lp-shot,
+  html.ydt-js .ydt-lp .lp-incl__list li,
+  html.ydt-js .ydt-lp .lp-quote__text,
+  html.ydt-js .ydt-lp .lp-quote__by,
+  html.ydt-js .ydt-lp .lp-again__copy > *,
+  html.ydt-js .ydt-lp .lp-again .lp-formcard,
+  html.ydt-js .ydt-lp .lp-close__title,
+  html.ydt-js .ydt-lp .lp-close__sub,
+  html.ydt-js .ydt-lp .lp-close__btn,
+  html.ydt-js .ydt-lp .lp-close__legal { opacity: 1; visibility: visible; }
+  .ydt-lp * { transition: none !important; }
+}
+
+</style>
+<div class="ydt-lp" id="ydtLp">
+
+  <!-- ── minimal header ── -->
+  <header class="lp-head">
+    <a class="lp-head__logo" href="https://www.yourdigiteam.com/" aria-label="Your Digital Team home">
+      <img src="https://www.yourdigiteam.com/logo.png" alt="Your Digital Team" width="1759" height="293">
+    </a>
+    <a class="lp-head__tel" href="tel:+447877411092">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>07877 411092</span>
+    </a>
+  </header>
+
+  <!-- ══════ 1 · HERO ══════ -->
+  <section class="lp-hero" id="top">
+    <div class="lp-hero__glow" aria-hidden="true"></div>
+    <div class="lp-wrap lp-hero__grid">
+      <div class="lp-hero__copy">
+        <p class="lp-eyebrow"><span class="lp-mark" aria-hidden="true"></span>Web design · UK</p>
+
+        <!-- ▼ EDIT 1 — replace with your ad headline, word for word.
+             What is here now is a placeholder that reads like the offer. -->
+        <h1 class="lp-hero__title">A website that brings you work.</h1>
+        <!-- ▲ EDIT 1 -->
+
+        <p class="lp-hero__sub">Tell us what you need and we'll send you a fixed quote — no meetings, no jargon, no obligation.</p>
+
+        <ul class="lp-hero__ticks">
+          <li>Fixed price, agreed before we start</li>
+          <li>Built, launched and handed over to you</li>
+          <li>UK team, one point of contact</li>
+        </ul>
+      </div>
+
+      <div class="lp-formcard" id="quoteTop">
+        <h2 class="lp-formcard__title">Get your quote</h2>
+        <p class="lp-formcard__note">Four questions. Takes about a minute.</p>
+        <form class="lp-form" data-form="hero" novalidate>
+          <div class="lp-status" role="status" tabindex="-1" hidden></div>
+          <div class="lp-fields">
+            <div class="lp-field">
+              <label for="f1name">Your name</label>
+              <input id="f1name" name="name" type="text" autocomplete="name" required placeholder="Alex Taylor">
+            </div>
+            <div class="lp-field">
+              <label for="f1email">Email</label>
+              <input id="f1email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="you@company.co.uk">
+            </div>
+            <div class="lp-field">
+              <label for="f1phone">Phone</label>
+              <input id="f1phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="07…">
+            </div>
+            <div class="lp-field">
+              <label for="f1msg">What do you need?</label>
+              <textarea id="f1msg" name="message" rows="3" required placeholder="A new site for my plumbing business — five pages, needs a booking form."></textarea>
+            </div>
+          </div>
+          <div class="lp-hp" aria-hidden="true"><label>Leave this empty<input name="website_check" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <button class="lp-btn lp-btn--go" type="submit">Get my quote<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          <p class="lp-trust"><span class="lp-mark lp-mark--sm" aria-hidden="true"></span>No obligation · Reply within 24 hours</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ 2 · PRICE ANCHOR ══════ -->
+  <section class="lp-sec lp-prices" id="prices">
+    <div class="lp-wrap">
+      <div class="lp-sechead">
+        <p class="lp-eyebrow"><span class="lp-mark" aria-hidden="true"></span>What it costs</p>
+        <h2 class="lp-sectitle">Prices up front. <span class="dim">No surprise invoice.</span></h2>
+        <p class="lp-secsub">Every quote is fixed before a line of code is written. Here's where most projects land.</p>
+      </div>
+
+      <!-- ▼ EDIT 2 — one-off build prices, as you gave them.
+           Labelled "one-off" throughout because your /pricing page sells
+           MONTHLY plans at £450–£950; without the word, £500 here and
+           £500 there read as the same thing. Change a number in one place
+           only — nothing else in the page repeats them. -->
+      <div class="lp-tiers">
+        <article class="lp-tier">
+          <h3 class="lp-tier__name">One-page</h3>
+          <p class="lp-tier__price"><span class="lp-tier__from">from</span>£500</p>
+          <p class="lp-tier__unit">one-off build</p>
+          <p class="lp-tier__for">For a single, focused page that turns visitors into calls.</p>
+          <ul class="lp-tier__list">
+            <li>One page, built to convert</li>
+            <li>Enquiry form and click-to-call</li>
+            <li>Live in about two weeks</li>
+          </ul>
+        </article>
+        <article class="lp-tier lp-tier--pick">
+          <span class="lp-tier__flag">Most projects</span>
+          <h3 class="lp-tier__name">Small business</h3>
+          <p class="lp-tier__price"><span class="lp-tier__from">from</span>£1,200</p>
+          <p class="lp-tier__unit">one-off build</p>
+          <p class="lp-tier__for">For a full site: services, about, contact, the lot.</p>
+          <ul class="lp-tier__list">
+            <li>Five to eight pages</li>
+            <li>Local SEO set up from day one</li>
+            <li>Google Analytics and call tracking</li>
+            <li>Live in about four weeks</li>
+          </ul>
+        </article>
+        <article class="lp-tier">
+          <h3 class="lp-tier__name">E-commerce</h3>
+          <p class="lp-tier__price"><span class="lp-tier__from">from</span>£2,000</p>
+          <p class="lp-tier__unit">one-off build</p>
+          <p class="lp-tier__for">For selling online, with stock and payments handled properly.</p>
+          <ul class="lp-tier__list">
+            <li>Product catalogue and checkout</li>
+            <li>Payments, shipping and tax</li>
+            <li>Product-level SEO</li>
+            <li>Live in about six weeks</li>
+          </ul>
+        </article>
+      </div>
+      <!-- ▲ EDIT 2 -->
+
+      <p class="lp-prices__foot">These are one-off build costs, not monthly fees. Every price is a starting point, not a bracket you get pushed up from — you'll get one number, in writing, before we begin.</p>
+    </div>
+  </section>
+
+  <!-- ══════ 3 · PROOF STRIP ══════ -->
+  <section class="lp-sec lp-proof">
+    <div class="lp-wrap">
+      <p class="lp-proof__label">Trusted by</p>
+      <div class="lp-ticker"><div class="lp-ticker__track" id="lpTicker"></div></div>
+
+      <div class="lp-shots">
+        <figure class="lp-shot">
+          <img src="https://www.yourdigiteam.com/optimized/work-f7e3fa345244.webp" alt="The Smart Plus Heating website" width="750" height="445" loading="lazy" decoding="async">
+          <figcaption><b>Smart Plus Heating</b><span>Heating &amp; air conditioning · Dartford</span></figcaption>
+        </figure>
+        <figure class="lp-shot">
+          <img src="https://www.yourdigiteam.com/optimized/work-df6e9afcad7e.webp" alt="The Sweep Sisters website" width="750" height="425" loading="lazy" decoding="async">
+          <figcaption><b>Sweep Sisters</b><span>Chimney &amp; property services · Essex</span></figcaption>
+        </figure>
+        <figure class="lp-shot">
+          <img src="https://www.yourdigiteam.com/optimized/work-7606d52b75ae.webp" alt="The Punt Caravan Parking website" width="750" height="429" loading="lazy" decoding="async">
+          <figcaption><b>Punt Caravan Parking</b><span>Caravan storage · Costa Brava</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ 4 · WHAT'S INCLUDED ══════ -->
+  <section class="lp-sec lp-incl">
+    <div class="lp-wrap lp-incl__grid">
+      <div class="lp-sechead lp-sechead--tight">
+        <p class="lp-eyebrow"><span class="lp-mark" aria-hidden="true"></span>What's included</p>
+        <h2 class="lp-sectitle">In every build. <span class="dim">Not extras.</span></h2>
+      </div>
+      <ul class="lp-incl__list">
+        <li>
+          <span class="lp-incl__tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <b>Mobile-first design</b><span>Built for the phone first, because that's where your customers are.</span>
+        </li>
+        <li>
+          <span class="lp-incl__tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <b>Fast load times</b><span>Pages that open before people give up and hit back.</span>
+        </li>
+        <li>
+          <span class="lp-incl__tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <b>SEO built in from day one</b><span>Structure, speed and local set-up done as we build, not sold back to you later.</span>
+        </li>
+        <li>
+          <span class="lp-incl__tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <b>Editable by you after handover</b><span>You own it. Change your prices and hours yourself, without ringing us.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════ 5 · TESTIMONIAL ══════ -->
+  <!-- ▼ EDIT 3 — needs a real quote, a real name and a specific result.
+       I have not written one: putting invented words next to a real
+       client's name would be a fake review. Fill the three slots below
+       and delete this comment. Until then the whole section stays
+       hidden — see .lp-quote[hidden] — so nothing half-finished ships. -->
+  <section class="lp-sec lp-quote" hidden>
+    <div class="lp-wrap">
+      <blockquote class="lp-quote__text">
+        <p>QUOTE GOES HERE — their words, and a number in it if you can get one.</p>
+      </blockquote>
+      <figcaption class="lp-quote__by">
+        <b>CLIENT NAME</b>
+        <span>THEIR BUSINESS · WHAT CHANGED, SPECIFICALLY</span>
+      </figcaption>
+    </div>
+  </section>
+  <!-- ▲ EDIT 3 -->
+
+  <!-- ══════ 6 · SECOND FORM ══════ -->
+  <section class="lp-sec lp-again" id="quote">
+    <div class="lp-wrap lp-again__grid">
+      <div class="lp-again__copy">
+        <p class="lp-eyebrow"><span class="lp-mark" aria-hidden="true"></span>Ready when you are</p>
+        <h2 class="lp-sectitle">Send it over and <span class="dim">we'll price it.</span></h2>
+        <p class="lp-secsub">Same four questions. We'll come back within one working day with a fixed number and a straight answer about what your site actually needs.</p>
+        <div class="lp-again__direct">
+          <a href="tel:+447877411092">07877 411092</a>
+          <a href="mailto:thomas@yourdigiteam.com">thomas@yourdigiteam.com</a>
+        </div>
+      </div>
+
+      <div class="lp-formcard">
+        <form class="lp-form" data-form="footer" novalidate>
+          <div class="lp-status" role="status" tabindex="-1" hidden></div>
+          <div class="lp-fields">
+            <div class="lp-field">
+              <label for="f2name">Your name</label>
+              <input id="f2name" name="name" type="text" autocomplete="name" required placeholder="Alex Taylor">
+            </div>
+            <div class="lp-field">
+              <label for="f2email">Email</label>
+              <input id="f2email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="you@company.co.uk">
+            </div>
+            <div class="lp-field">
+              <label for="f2phone">Phone</label>
+              <input id="f2phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="07…">
+            </div>
+            <div class="lp-field">
+              <label for="f2msg">What do you need?</label>
+              <textarea id="f2msg" name="message" rows="3" required placeholder="A new site for my plumbing business — five pages, needs a booking form."></textarea>
+            </div>
+          </div>
+          <div class="lp-hp" aria-hidden="true"><label>Leave this empty<input name="website_check" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <button class="lp-btn lp-btn--go" type="submit">Get my quote<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          <p class="lp-trust"><span class="lp-mark lp-mark--sm" aria-hidden="true"></span>No obligation · Reply within 24 hours</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ 7 · CLOSE ══════ -->
+  <section class="lp-close">
+    <div class="lp-wrap">
+      <h2 class="lp-close__title">Nothing to lose by asking.</h2>
+      <p class="lp-close__sub">You'll get a fixed price and an honest answer — including "you don't need a rebuild" if that's the truth. No retainer, no lock-in, no pressure.</p>
+      <a class="lp-btn lp-btn--go lp-close__btn" href="#quote">Get my quote<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <p class="lp-close__legal">Your Digital Team · UK · <a href="https://www.yourdigiteam.com/privacy">Privacy</a></p>
+    </div>
+  </section>
+
+  <!-- sticky bar: phone-only, appears once the hero form has scrolled away -->
+  <div class="lp-sticky" id="lpSticky" hidden>
+    <a class="lp-sticky__tel" href="tel:+447877411092">Call</a>
+    <a class="lp-sticky__go" href="#quote">Get my quote</a>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   /web-design-quote — behaviour
+   Everything that matters works without GSAP: both forms send, both
+   validate, the logo strip runs on CSS, the sticky bar shows. GSAP only
+   adds the entrances. Nothing is hidden unless the engine is present.
+   ═══════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  var root = document.getElementById('ydtLp'); if (!root) return;
+  var $ = function (s, c) { return (c || root).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || root).querySelectorAll(s)); };
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var live = !!(window.gsap && window.ScrollTrigger) && !reduced;
+  var PAGE_LOADED = Date.now();   /* the API rejects anything sent inside 1.2s */
+
+  /* ────────────────────────────────────────────────────────────────
+     LOGO STRIP — the nine clients, same list as the homepage
+     ──────────────────────────────────────────────────────────────── */
+  (function () {
+    var BASE = 'https://www.yourdigiteam.com';
+    var clients = [
+      { name: 'Shoreline',            url: BASE + '/optimized/client-43ff232e5157.webp', width: 360, height: 118 },
+      { name: '911 Backdate',         url: BASE + '/optimized/client-904334cf81fe.webp', width: 114, height: 120 },
+      { name: 'Gutters.co.uk',        url: BASE + '/optimized/client-ee7bfc9c8580.webp', width: 360, height: 98 },
+      { name: 'PilotQ',               url: BASE + '/optimized/client-498140e77916.webp', width: 166, height: 120 },
+      { name: 'Punt Caravan Parking', url: '' },
+      { name: 'SVD Group',            url: BASE + '/optimized/client-cb014304ab6e.webp', width: 116, height: 120 },
+      { name: 'Fitzgerald Capital',   url: BASE + '/optimized/client-9d0f020fb53c.webp', width: 360, height: 51 },
+      { name: 'Senttr',               url: BASE + '/optimized/client-d32d7c0717b6.webp', width: 360, height: 73 },
+      { name: 'Smart Plus Heating',   url: BASE + '/optimized/client-7ffbc5f816f5.webp', width: 300, height: 87 }
+    ];
+    var track = document.getElementById('lpTicker'); if (!track) return;
+    function group(decorative) {
+      var g = document.createElement('div'); g.className = 'lp-ticker__group';
+      if (decorative) g.setAttribute('aria-hidden', 'true');
+      clients.forEach(function (c) {
+        var cell = document.createElement('div'); cell.className = 'lp-ticker__logo';
+        if (!c.url) { var n = document.createElement('span'); n.className = 'lp-ticker__name'; n.textContent = c.name; cell.appendChild(n); g.appendChild(cell); return; }
+        var img = document.createElement('img');
+        img.width = c.width; img.height = c.height; img.loading = 'lazy'; img.decoding = 'async'; img.src = c.url; img.alt = decorative ? '' : c.name;
+        img.addEventListener('error', function () {   /* a missing file becomes the name, never a gap */
+          var n = document.createElement('span'); n.className = 'lp-ticker__name'; n.textContent = c.name;
+          if (img.parentNode === cell) cell.replaceChild(n, img);
+        });
+        cell.appendChild(img); g.appendChild(cell);
+      });
+      return g;
+    }
+    track.appendChild(group(false));
+    var w = track.firstChild.getBoundingClientRect().width;
+    var copies = w > 0 ? Math.max(1, Math.ceil(window.innerWidth / w)) : 1, n;
+    for (n = 1; n < copies; n++) track.appendChild(group(true));
+    for (n = 0; n < copies; n++) track.appendChild(group(true));
+    if (!live) root.classList.add('lp--css');
+  })();
+
+  /* ────────────────────────────────────────────────────────────────
+     FORMS — both post to the same /api/contact the contact page uses
+     ──────────────────────────────────────────────────────────────── */
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var PHONE = /[0-9]/;   /* deliberately loose: a UK number has many valid shapes */
+
+  function setError(input, text) {
+    var field = input.closest('.lp-field'); if (!field) return;
+    var err = field.querySelector('.lp-field__err');
+    if (!text) { field.classList.remove('is-bad'); input.removeAttribute('aria-invalid'); if (err) err.remove(); return; }
+    field.classList.add('is-bad'); input.setAttribute('aria-invalid', 'true');
+    if (!err) { err = document.createElement('span'); err.className = 'lp-field__err'; field.appendChild(err); }
+    err.textContent = text;
+  }
+  function esc(t) { return String(t == null ? '' : t).replace(/[<>&"]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]; }); }
+
+  /* Google Ads / GA4 conversion. Fires only on a confirmed save, and only
+     if a tag is actually on the page — no tag, no error.
+     To add the Google Ads conversion: paste its snippet in the page header
+     and put its send_to id in ADS_SEND_TO below. */
+  var ADS_SEND_TO = '';   /* e.g. 'AW-123456789/AbCdEfGhIj' */
+  function trackLead(which, reference) {
+    try {
+      if (window.dataLayer && typeof window.dataLayer.push === 'function') {
+        window.dataLayer.push({ event: 'quote_request', form: which, reference: reference });
+      }
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', { form: which, currency: 'GBP', value: 1 });
+        if (ADS_SEND_TO) window.gtag('event', 'conversion', { send_to: ADS_SEND_TO });
+      }
+    } catch (e) { /* tracking must never break the confirmation */ }
+  }
+
+  $$('.lp-form').forEach(function (form) {
+    var which = form.dataset.form || 'form';
+    var status = $('.lp-status', form);
+    var button = form.querySelector('button[type=submit]');
+    var sending = false;
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      if (sending) return;
+      var name = form.elements.name, email = form.elements.email, phone = form.elements.phone, message = form.elements.message;
+      var ok = true;
+      function check(el, good, msg) { setError(el, good ? '' : msg); if (!good) ok = false; }
+      check(name, !!name.value.trim(), 'Please add your name.');
+      check(email, EMAIL.test(email.value.trim()), 'Please add a valid email.');
+      check(phone, PHONE.test(phone.value), 'Please add a number we can reach you on.');
+      check(message, !!message.value.trim(), 'A sentence is enough.');
+      if (!ok) { (form.querySelector('.is-bad input, .is-bad textarea') || name).focus(); return; }
+
+      sending = true; button.disabled = true; button.setAttribute('aria-busy', 'true');
+      var payload = {
+        name: name.value.trim(), email: email.value.trim(), phone: phone.value.trim(), message: message.value.trim(),
+        company: '', website: '', budget: '', needs: '',
+        plan: 'Web design quote — ' + (which === 'hero' ? 'top form' : 'second form'),
+        website_check: form.elements.website_check ? form.elements.website_check.value : '',
+        started_at: String(PAGE_LOADED),
+        source_path: window.location.pathname + window.location.search
+      };
+
+      function done(html, win) {
+        status.innerHTML = html; status.classList.toggle('is-win', !!win); status.hidden = false; status.focus();
+        button.disabled = false; button.removeAttribute('aria-busy'); sending = false;
+        if (win) {   /* the form has served its purpose; leave only the confirmation */
+          $$('.lp-fields, .lp-trust', form).forEach(function (el) { el.hidden = true; });
+          button.hidden = true;
+        }
+      }
+
+      fetch('/api/contact', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) })
+        .then(function (r) { return r.json().catch(function () { return null; }).then(function (j) { return { ok: r.ok, j: j }; }); })
+        .then(function (res) {
+          if (!res.ok || !res.j || res.j.ok !== true) throw new Error((res.j && res.j.error) || "We couldn't save your enquiry just now.");
+          trackLead(which, res.j.reference);
+          done('<h3>Got it — thanks.</h3><p>We\'ll come back within 24 hours with your quote. If it\'s urgent, call <a href="tel:+447877411092">07877 411092</a>.</p>'
+             + (res.j.reference !== undefined ? '<span class="ref">Reference: ' + esc(res.j.reference) + '</span>' : ''), true);
+        })
+        .catch(function (e) {
+          done('<p>' + esc(e.message || e) + ' Your details are still here — try again, or call <a href="tel:+447877411092">07877 411092</a>.</p>', false);
+        });
+    });
+  });
+
+  /* ────────────────────────────────────────────────────────────────
+     STICKY BAR (phones) — appears once the top form is gone, hides
+     again over the second form so it never covers what you're filling
+     ──────────────────────────────────────────────────────────────── */
+  (function () {
+    var bar = document.getElementById('lpSticky'), top = document.getElementById('quoteTop'), bottom = document.getElementById('quote');
+    if (!bar || !top || !bottom || !('IntersectionObserver' in window)) return;
+    var topGone = false, bottomHere = false;
+    function sync() { bar.hidden = !(topGone && !bottomHere); }
+    new IntersectionObserver(function (es) { topGone = !es[0].isIntersecting; sync(); }, { threshold: 0 }).observe(top);
+    new IntersectionObserver(function (es) { bottomHere = es[0].isIntersecting; sync(); }, { threshold: 0 }).observe(bottom);
+  })();
+
+  /* ────────────────────────────────────────────────────────────────
+     ENTRANCES — the only thing GSAP is responsible for
+     ──────────────────────────────────────────────────────────────── */
+  if (!live) { document.documentElement.classList.remove('ydt-js'); return; }
+  gsap.registerPlugin(ScrollTrigger);
+  var ease = 'power3.out';
+
+  var intro = gsap.timeline({ delay: .05 });
+  intro.from('.lp-head', { y: -12, autoAlpha: 0, duration: .8, ease: ease }, 0)
+       .from('.lp-hero__glow', { autoAlpha: 0, scale: .85, duration: 1.8, ease: 'power1.inOut' }, 0)
+       .from('.lp-hero__copy > *', { y: 20, autoAlpha: 0, duration: .8, stagger: .08, ease: ease }, .1)
+       .from('.lp-hero__ticks li', { x: -10, autoAlpha: 0, duration: .6, stagger: .07, ease: ease }, .45)
+       .from('#quoteTop', { y: 26, autoAlpha: 0, duration: 1, ease: ease }, .25);
+
+  function reveal(sel, vars) {
+    var els = $$(sel); if (!els.length) return;
+    /* Anything already on screen at load is shown at once. Without this an
+       element peeking below the fold sits blank until you scroll it past
+       the 92% line — a gap the visitor sees before they touch anything. */
+    var showing = els.filter(function (el) { var r = el.getBoundingClientRect(); return r.top < window.innerHeight && r.bottom > 0; });
+    if (showing.length) { gsap.set(showing, { autoAlpha: 1 }); els = els.filter(function (el) { return showing.indexOf(el) === -1; }); }
+    if (!els.length) return;
+    /* clamp() keeps start/end inside the page. Without it a trigger for an
+       element near the bottom can start past the maximum scroll and never
+       fire — which is exactly what happened to the closing button. */
+    ScrollTrigger.batch(els, { start: 'clamp(top 92%)', once: true, onEnter: function (batch) {
+      gsap.fromTo(batch, { autoAlpha: 0, y: (vars && vars.y) || 28 },
+        { autoAlpha: 1, y: 0, duration: (vars && vars.duration) || 1, stagger: (vars && vars.stagger) || .08, ease: ease, overwrite: true });
+    } });
+  }
+  reveal('.lp-sechead');
+  reveal('.lp-tier', { stagger: .1 });
+  reveal('.lp-prices__foot', { y: 16 });
+  reveal('.lp-proof__label', { y: 14 });
+  reveal('.lp-ticker', { y: 16 });
+  reveal('.lp-shot', { stagger: .1 });
+  reveal('.lp-incl__list li', { y: 20, stagger: .07 });
+  reveal('.lp-quote__text, .lp-quote__by', { y: 20 });
+  reveal('.lp-again__copy > *, .lp-again .lp-formcard', { y: 22 });
+  reveal('.lp-close__title, .lp-close__sub, .lp-close__btn, .lp-close__legal', { y: 18, stagger: .07 });
+
+  /* the logo strip drifts; it rests while off screen */
+  (function () {
+    var track = document.getElementById('lpTicker'); if (!track || !track.children.length) return;
+    var marquee = gsap.to(track, { xPercent: -50, ease: 'none', duration: 44, repeat: -1 });
+    ScrollTrigger.create({ trigger: '.lp-proof', start: 'top bottom', end: 'bottom top', onToggle: function (s) { marquee.paused(!s.isActive); } });
+  })();
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+  window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+})();
+</script>
