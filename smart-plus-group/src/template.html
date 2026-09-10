@@ -174,7 +174,7 @@ a.sh-tb-item:focus-visible { outline: 2px solid var(--accent) !important; outlin
 .sh-logo { display: flex !important; align-items: center !important; text-decoration: none !important; flex-shrink: 0 !important; padding: 0 !important; margin: 0 !important; border: none !important; background: none !important; box-sizing: border-box !important; outline: none !important; }
 .sh-logo:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 4px !important; }
 .sh-logo img { height: 64px !important; width: auto !important; display: block !important; border: none !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; max-width: none !important; }
-body[data-brand="group"] .sh-hd .sh-logo img { height: 54px !important; }
+body[data-brand="group"] .sh-hd .sh-logo img { height: 60px !important; }
 
 /* Nav */
 .sh-nav { display: flex !important; align-items: center !important; gap: 5px !important; list-style: none !important; padding: 0 !important; margin: 0 !important; border: none !important; box-sizing: border-box !important; }
@@ -198,9 +198,9 @@ body[data-brand="group"] .sh-hd .sh-logo img { height: 54px !important; }
 .sh-drop-divider { display: block !important; height: 1px !important; background: #262626 !important; margin: 7px 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
 /* brand entries always show their own colour, whatever page you are on */
 .sh-drop-link.sh-brand, .sh-mob-link.sh-brand { color: #e5e5e5 !important; font-weight: 600 !important; }
-.sh-brand-heating svg  { color: var(--c-heating) !important; }
-.sh-brand-electric svg { color: var(--c-electric) !important; }
-.sh-brand-aircon svg   { color: var(--c-aircon) !important; }
+.sh-drop-link.sh-brand-heating svg,  .sh-mob-link.sh-brand-heating svg  { color: var(--c-heating) !important; }
+.sh-drop-link.sh-brand-electric svg, .sh-mob-link.sh-brand-electric svg { color: var(--c-electric) !important; }
+.sh-drop-link.sh-brand-aircon svg,   .sh-mob-link.sh-brand-aircon svg   { color: var(--c-aircon) !important; }
 .sh-drop-link.sh-brand-heating:hover  { background: rgba(var(--c-heating-rgb),0.12) !important; }
 .sh-drop-link.sh-brand-electric:hover { background: rgba(var(--c-electric-rgb),0.12) !important; }
 .sh-drop-link.sh-brand-aircon:hover   { background: rgba(var(--c-aircon-rgb),0.12) !important; }
@@ -227,7 +227,7 @@ body[data-brand="group"] .sh-hd .sh-logo img { height: 54px !important; }
 .sh-mob.sh-open { display: flex !important; }
 .sh-mob-top { display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 18px 26px !important; border: none !important; border-bottom: 1px solid #222222 !important; margin: 0 !important; box-sizing: border-box !important; flex-shrink: 0 !important; }
 .sh-mob-top .sh-logo img { height: 47px !important; }
-body[data-brand="group"] .sh-mob-top .sh-logo img { height: 40px !important; }
+body[data-brand="group"] .sh-mob-top .sh-logo img { height: 44px !important; max-width: calc(100vw - 110px) !important; object-fit: contain !important; }
 .sh-mob-close { display: flex !important; align-items: center !important; justify-content: center !important; background: none !important; border: none !important; color: #ffffff !important; cursor: pointer !important; padding: 9px !important; margin: 0 !important; box-sizing: border-box !important; outline: none !important; }
 .sh-mob-close:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 2px !important; }
 .sh-mob-close svg { width: 26px !important; height: 26px !important; min-width: 26px !important; min-height: 26px !important; display: block !important; color: #ffffff !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
@@ -249,10 +249,17 @@ body[data-brand="group"] .sh-mob-top .sh-logo img { height: 40px !important; }
 .sh-mob-whatsapp svg { width: 20px !important; height: 20px !important; min-width: 20px !important; min-height: 20px !important; display: block !important; color: #22c55e !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
 
 /* ═══ RESPONSIVE ═══ */
-@media (max-width: 1180px) {
+@media (max-width: 1240px) {
   .sh-nav-link { padding: 12px 16px !important; font-size: 1.12rem !important; }
   .sh-cta { padding: 14px 24px !important; font-size: 1.12rem !important; }
-  body[data-brand="group"] .sh-hd .sh-logo img { height: 46px !important; }
+  .sh-logo img { height: 56px !important; }
+  body[data-brand="group"] .sh-hd .sh-logo img { height: 50px !important; }
+}
+@media (max-width: 1060px) {
+  .sh-nav-link { padding: 12px 12px !important; font-size: 1.05rem !important; }
+  .sh-cta { padding: 13px 18px !important; font-size: 1.05rem !important; margin-left: 8px !important; }
+  .sh-logo img { height: 50px !important; }
+  body[data-brand="group"] .sh-hd .sh-logo img { height: 42px !important; }
 }
 @media (max-width: 1024px) {
   .sh-tb-inner { padding: 0 24px !important; }
@@ -265,13 +272,20 @@ body[data-brand="group"] .sh-mob-top .sh-logo img { height: 40px !important; }
   .sh-burger { display: block !important; }
   .sh-hd-inner { height: 85px !important; }
   .sh-logo img { height: 47px !important; }
-  body[data-brand="group"] .sh-hd .sh-logo img { height: 40px !important; }
+  body[data-brand="group"] .sh-hd .sh-logo img { height: 44px !important; }
+}
+@media (max-width: 900px) {
+  /* not enough room for the opening hours next to the Gas Safe number on tablets */
+  .sh-tb-hours, .sh-tb-hours-sep { display: none !important; }
 }
 @media (max-width: 768px) {
   .sh-tb { display: none !important; }
 }
 @media (max-width: 400px) {
   .sh-logo img { height: 40px !important; }
+  body[data-brand="group"] .sh-hd .sh-logo img { height: 38px !important; }
+}
+@media (max-width: 360px) {
   body[data-brand="group"] .sh-hd .sh-logo img { height: 34px !important; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -297,8 +311,7 @@ body[data-brand="group"] .sh-mob-top .sh-logo img { height: 40px !important; }
 .sp-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.85) 15%, rgba(0,0,0,0.6) 50%, transparent); }
 .sp-hero .sp-container { margin-left: 0; margin-right: 0; max-width: 100%; padding: 0 1.5rem; text-align: left; }
 @media (min-width: 1024px) { .sp-hero .sp-container { padding: 0 3rem; } }
-.sp-hero-content { position: relative; z-index: 1; max-width: 960px; margin-left: 3rem; margin-right: auto; text-align: left; }
-@media (max-width: 1023px) { .sp-hero-content { margin-left: 1.5rem; } }
+.sp-hero-content { position: relative; z-index: 1; max-width: 960px; margin-right: auto; text-align: left; }
 .sp-h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.08; letter-spacing: -0.02em; text-align: left; color: #fff; }
 @media (min-width: 768px)  { .sp-h1 { font-size: 3.6rem; } }
 @media (min-width: 1280px) { .sp-h1 { font-size: 4.4rem; } }
@@ -335,7 +348,7 @@ body[data-brand="group"] .sh-mob-top .sh-logo img { height: 40px !important; }
 @media (min-width: 768px) { .sp-brands-header .sp-h2 { font-size: 3.25rem; } }
 .sp-brands-header p { color: var(--text-neutral-400); font-size: 1.125rem; line-height: 1.8; }
 .sp-brand-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-@media (min-width: 900px) { .sp-brand-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
+@media (min-width: 1024px) { .sp-brand-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
 .sp-brand-card { --card: #fff; --card-rgb: 255,255,255; --card-ink: #000; position: relative; background: var(--bg-black); border: 1px solid var(--bg-neutral-800); border-radius: 2px; padding: 2.5rem 2rem 2rem; display: flex; flex-direction: column; gap: 1.25rem; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; overflow: hidden; }
 .sp-brand-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--card); }
 .sp-brand-card:hover { transform: translateY(-6px); border-color: rgba(var(--card-rgb),0.55); box-shadow: 0 24px 48px rgba(var(--card-rgb),0.10); }
@@ -348,7 +361,8 @@ body[data-brand="group"] .sh-mob-top .sh-logo img { height: 40px !important; }
 .sp-brand-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; }
 .sp-brand-list li { display: flex; gap: 0.6rem; align-items: center; color: var(--text-neutral-300); font-size: 0.9rem; font-weight: 500; }
 .sp-brand-list svg { width: 1rem; height: 1rem; stroke: var(--card); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-.sp-brand-cta { margin-top: auto; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.95rem 1.5rem; background: var(--card); color: var(--card-ink); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.08em; text-decoration: none; border-radius: 2px; transition: transform 0.2s, filter 0.2s; }
+.sp-brand-cta { margin-top: auto; display: flex; width: 100%; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.95rem 1rem; background: var(--card); color: var(--card-ink); font-weight: 700; text-transform: uppercase; font-size: clamp(0.68rem, 0.9vw, 0.8rem); letter-spacing: 0.06em; white-space: nowrap; text-decoration: none; border-radius: 2px; transition: transform 0.2s, filter 0.2s; }
+@media (max-width: 1023px) { .sp-brand-cta { font-size: 0.8rem; } }
 .sp-brand-cta:hover { transform: translateY(-2px); filter: brightness(0.9); }
 .sp-brand-cta svg { width: 1rem; height: 1rem; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .sp-brands-more { text-align: center; margin-top: 3rem; }
@@ -467,8 +481,7 @@ body[data-brand="group"] .sh-mob-top .sh-logo img { height: 40px !important; }
 .svc-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.55; }
 .svc-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.85) 15%, rgba(0,0,0,0.6) 50%, transparent); }
 .svc-hero .svc-container { margin-left: 0; margin-right: 0; max-width: 100%; text-align: left; }
-.svc-hero-content { position: relative; z-index: 1; max-width: 900px; margin-left: 3rem; margin-right: auto; text-align: left; }
-@media (max-width: 1023px) { .svc-hero-content { margin-left: 1.5rem; } }
+.svc-hero-content { position: relative; z-index: 1; max-width: 900px; margin-right: auto; text-align: left; }
 .svc-h1 { font-size: 2.75rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1; letter-spacing: -0.02em; text-align: left; color: white; }
 @media (min-width: 768px) { .svc-h1 { font-size: 4.5rem; } }
 .svc-accent { color: var(--accent); }
@@ -532,7 +545,8 @@ body[data-brand="group"] .sh-mob-top .sh-logo img { height: 40px !important; }
 .svc-card:hover { border-color: rgba(var(--accent-rgb), 0.5); transform: translateY(-8px); box-shadow: 0 20px 40px 0 rgba(var(--accent-rgb), 0.1); }
 .svc-card-icon { width: 3.5rem; height: 3.5rem; background: white; border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; transition: all 0.3s; }
 .svc-card-icon svg { width: 2rem; height: 2rem; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s; }
-.svc-card:hover .svc-card-icon { background: var(--accent); transform: scale(1.1); }
+body[data-brand="electric"] .svc-card-icon { background: #0a0a0a; border: 1px solid var(--bg-neutral-700); }
+.svc-card:hover .svc-card-icon { background: var(--accent); border-color: var(--accent); transform: scale(1.1); }
 .svc-card:hover .svc-card-icon svg { stroke: var(--accent-ink); }
 .svc-card h3 { font-size: 1.125rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.75rem; color: white; letter-spacing: 0.02em; line-height: 1.3; }
 .svc-card p { color: var(--text-neutral-400); font-size: 0.875rem; line-height: 1.7; flex-grow: 1; }
@@ -563,8 +577,8 @@ body[data-brand="group"] .sh-mob-top .sh-logo img { height: 40px !important; }
 @media (min-width: 480px)  { .svc-brand-card { padding: 1.5rem 1rem; gap: 1rem; } }
 @media (min-width: 1024px) { .svc-brand-card { padding: 2.5rem 1.5rem; gap: 1.25rem; } }
 .svc-brand-card:hover { border-color: rgba(var(--accent-rgb), 0.5); transform: translateY(-4px); }
-.svc-brand-logo { height: 36px; width: auto; max-width: 100%; object-fit: contain; opacity: 0.85; transition: all 0.3s; }
-@media (min-width: 768px) { .svc-brand-logo { height: 48px; max-width: 160px; } }
+.svc-brand-logo { width: 100%; max-width: 150px; height: 64px; object-fit: contain; background: #fff; padding: 0.5rem 0.75rem; border-radius: 4px; box-sizing: border-box; opacity: 0.92; transition: all 0.3s; }
+@media (min-width: 768px) { .svc-brand-logo { max-width: 170px; height: 76px; } }
 .svc-brand-card:hover .svc-brand-logo { opacity: 1; }
 .svc-brand-name { font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-neutral-300); }
 @media (min-width: 768px) { .svc-brand-name { font-size: 0.875rem; } }
@@ -594,11 +608,11 @@ body[data-brand="group"] .sh-mob-top .sh-logo img { height: 40px !important; }
    ════════════════════════════════════════════════════════════ */
 .sf-root { display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important; border: none !important; font-family: var(--font-sans) !important; line-height: 1.6 !important; box-sizing: border-box !important; }
 .sf-main { display: block !important; background: #111111 !important; border: none !important; border-top: 1px solid #222222 !important; width: 100% !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; }
-.sf-inner { display: grid !important; grid-template-columns: 1.4fr 1fr 1fr 1fr !important; gap: 48px !important; max-width: 1440px !important; margin: 0 auto !important; padding: 64px 48px 56px !important; box-sizing: border-box !important; border: none !important; }
+.sf-inner { display: grid !important; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) !important; gap: 48px !important; max-width: 1440px !important; margin: 0 auto !important; padding: 64px 48px 56px !important; box-sizing: border-box !important; border: none !important; }
 .sf-brand { display: flex !important; flex-direction: column !important; gap: 20px !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
 .sf-logo { display: inline-flex !important; align-items: center !important; text-decoration: none !important; margin: 0 !important; padding: 0 !important; border: none !important; background: none !important; box-sizing: border-box !important; outline: none !important; align-self: flex-start !important; }
 .sf-logo img { height: 52px !important; width: auto !important; display: block !important; border: none !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; max-width: none !important; }
-body[data-brand="group"] .sf-logo img { height: 46px !important; }
+body[data-brand="group"] .sf-logo img { height: 52px !important; max-width: 100% !important; object-fit: contain !important; }
 .sf-tagline { display: block !important; color: #737373 !important; font-size: 0.9375rem !important; font-weight: 400 !important; line-height: 1.7 !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; max-width: 360px !important; }
 .sf-brand-links { display: flex !important; flex-wrap: wrap !important; gap: 8px !important; margin: 0 !important; padding: 0 !important; list-style: none !important; }
 .sf-brand-links li { list-style: none !important; margin: 0 !important; padding: 0 !important; }
@@ -634,14 +648,14 @@ a.sf-contact-item:hover { color: #ffffff !important; }
 .sf-credit-link { font-weight: 500 !important; color: #a3a3a3 !important; text-decoration: none !important; border: none !important; background: none !important; transition: color 0.2s ease !important; }
 .sf-credit-link:hover { color: var(--accent) !important; }
 @media (max-width: 1024px) {
-  .sf-inner { padding: 56px 24px 48px !important; gap: 36px !important; }
+  .sf-inner { grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important; padding: 56px 24px 48px !important; gap: 40px 36px !important; }
   .sf-bottom-inner { padding: 20px 24px !important; }
 }
 @media (max-width: 860px) {
-  .sf-inner { grid-template-columns: 1fr 1fr !important; gap: 40px 36px !important; padding: 48px 24px 40px !important; }
+  .sf-inner { padding: 48px 24px 40px !important; }
 }
 @media (max-width: 560px) {
-  .sf-inner { grid-template-columns: 1fr !important; gap: 36px !important; padding: 40px 24px 32px !important; }
+  .sf-inner { grid-template-columns: minmax(0,1fr) !important; gap: 36px !important; padding: 40px 24px 32px !important; }
   .sf-tagline { max-width: none !important; }
   .sf-link { white-space: normal !important; }
   .sf-bottom-inner { justify-content: center !important; text-align: center !important; }
@@ -672,8 +686,8 @@ a.sf-contact-item:hover { color: #ffffff !important; }
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           info@smartplusheating.com
         </a>
-        <div class="sh-tb-sep"></div>
-        <span class="sh-tb-item">
+        <div class="sh-tb-sep sh-tb-hours-sep"></div>
+        <span class="sh-tb-item sh-tb-hours">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           Mon – Fri: 8am – 6pm
         </span>
@@ -739,7 +753,7 @@ a.sf-contact-item:hover { color: #ffffff !important; }
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
                 Boiler Breakdowns
               </a></li>
-              <li><a href="#heating" class="sh-drop-link">
+              <li><a href="#heating/servicing" class="sh-drop-link">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="m9 14 2 2 4-4"/></svg>
                 Boiler Servicing
               </a></li>
@@ -847,7 +861,7 @@ a.sf-contact-item:hover { color: #ffffff !important; }
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
       Boiler Breakdowns
     </a>
-    <a href="#heating" class="sh-mob-link">
+    <a href="#heating/servicing" class="sh-mob-link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="m9 14 2 2 4-4"/></svg>
       Boiler Servicing
     </a>
@@ -1204,13 +1218,13 @@ a.sf-contact-item:hover { color: #ffffff !important; }
 
   <section class="svc-hero">
     <div class="svc-hero-bg">
-      <img src="{{IMG:hero-heating}}" alt="Smart Plus Heating Boiler Servicing">
+      <img src="{{IMG:hero-heating}}" alt="Smart Plus Heating — heating and boiler engineers">
       <div class="svc-hero-overlay"></div>
     </div>
     <div class="svc-container">
       <div class="svc-hero-content fade-in-up">
-        <h1 class="svc-h1">Boiler <br><span class="svc-accent">Servicing</span></h1>
-        <p class="svc-hero-p">Professional boiler servicing across London, Kent, Essex, Sussex and the South East. Your boiler's annual service will help keep your central heating system in optimum condition, extend its lifespan, and identify problems that could prove dangerous if left unfixed.</p>
+        <h1 class="svc-h1">Heating <br><span class="svc-accent">&amp; Boilers</span></h1>
+        <p class="svc-hero-p">Gas Safe registered engineers for boiler installation, annual servicing, breakdowns and repairs, power flushing and landlord gas safety certificates across London, Kent, Essex, Sussex and the South East. Your boiler's annual service keeps your central heating in optimum condition, extends its lifespan, and identifies problems that could prove dangerous if left unfixed.</p>
         <div class="svc-btn-group">
           <a href="tel:01322474990" class="svc-btn svc-btn-primary">
             <svg class="svc-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -1224,13 +1238,13 @@ a.sf-contact-item:hover { color: #ffffff !important; }
         <div class="svc-hero-badges">
           <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Gas Safe Registered</div>
           <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Manufacturer Trained</div>
-          <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>From £75 + VAT</div>
+          <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Servicing from £75 + VAT</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="svc-section">
+  <section id="servicing" class="svc-section">
     <div class="svc-container">
       <div class="svc-section-head">
         <span class="svc-label">Annual Maintenance</span>
@@ -1632,7 +1646,7 @@ a.sf-contact-item:hover { color: #ffffff !important; }
           <li><a href="/air-conditioning-servicing" class="sf-link">Air Conditioning Servicing</a></li>
           <li><a href="/boiler-installations" class="sf-link">Boiler Installation</a></li>
           <li><a href="/boiler-breakdowns" class="sf-link">Emergency Repairs</a></li>
-          <li><a href="#heating" class="sf-link">Boiler Servicing</a></li>
+          <li><a href="#heating/servicing" class="sf-link">Boiler Servicing</a></li>
           <li><a href="/power-flushing" class="sf-link">Power Flushing</a></li>
           <li><a href="/landlord-gas-safety" class="sf-link">Landlord Gas Safety</a></li>
           <li><a href="#electrical" class="sf-link">Electrical Services</a></li>
@@ -1706,7 +1720,7 @@ a.sf-contact-item:hover { color: #ffffff !important; }
      #home | #heating | #electrical | #cooling   (+ "/section" to scroll to an id) */
   var PAGES = {
     home:       { brand: 'group',    title: 'Smart Plus Group | Heating, Air Conditioning & Electrics in Dartford & Kent' },
-    heating:    { brand: 'heating',  title: 'Boiler Servicing | Smart Plus Heating' },
+    heating:    { brand: 'heating',  title: 'Heating & Boilers | Smart Plus Heating' },
     electrical: { brand: 'electric', title: 'Electrical Services | Smart Plus Electric' },
     cooling:    { brand: 'aircon',   title: 'Air Conditioning | Smart Plus Aircon' }
   };
@@ -1736,8 +1750,17 @@ a.sf-contact-item:hover { color: #ffffff !important; }
     var parts = h.split('/');
     return { page: PAGES[parts[0]] ? parts[0] : 'home', section: parts[1] || '' };
   }
+  var currentPage = null;
+  var readMoreChecks = [];
+  function jumpToTop() {
+    /* an explicit "instant" beats the html { scroll-behavior: smooth } rule, which
+       would otherwise animate the new page up from the old scroll position */
+    try { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); } catch (e) { window.scrollTo(0, 0); }
+  }
   function route() {
     var r = parseHash(), cfg = PAGES[r.page], brand = cfg.brand;
+    var pageChanged = (r.page !== currentPage);
+    currentPage = r.page;
     document.body.setAttribute('data-brand', brand);
     each('.page', function (p) { p.hidden = (p.id !== 'page-' + r.page); });
     each('.js-brand-logo', function (img) { img.src = LOGOS[brand]; img.alt = NAMES[brand]; });
@@ -1748,12 +1771,24 @@ a.sf-contact-item:hover { color: #ffffff !important; }
       a.classList.toggle('is-active', pages.indexOf(r.page) !== -1);
     });
     closeNav();
+    /* the Services dropdown opens on :focus-within, so drop focus from the link that was clicked */
+    if (document.activeElement && document.activeElement.closest && document.activeElement.closest('.sh-dropdown')) document.activeElement.blur();
+    /* the review clamp check only works while the homepage is visible */
+    if (r.page === 'home') readMoreChecks.forEach(function (fn) { fn(); });
     if (r.section) {
       var el = document.getElementById(r.section);
-      if (el) { window.requestAnimationFrame(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); return; }
+      if (el) {
+        if (pageChanged) jumpToTop();
+        var go = function () { el.scrollIntoView({ behavior: pageChanged ? 'instant' : 'smooth', block: 'start' }); };
+        window.requestAnimationFrame(go);
+        /* on a fresh load the browser scrolls to the top once the document finishes loading, so repeat after that */
+        if (document.readyState !== 'complete') window.addEventListener('load', function () { setTimeout(go, 0); });
+        return;
+      }
     }
-    window.scrollTo(0, 0);
+    if (pageChanged) jumpToTop(); else window.scrollTo(0, 0);
   }
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.addEventListener('hashchange', route);
 
   /* ── Link handling ──
@@ -1764,6 +1799,7 @@ a.sf-contact-item:hover { color: #ffffff !important; }
     if (!a) return;
     var href = a.getAttribute('href') || '';
     if (href.charAt(0) === '#') {
+      if (a.closest('.sh-dropdown')) a.blur();
       if (href === location.hash) { e.preventDefault(); route(); }
       return;
     }
@@ -1804,8 +1840,11 @@ a.sf-contact-item:hover { color: #ffffff !important; }
     var para = card.querySelector('.sp-quote');
     var btn = card.querySelector('.sp-read-more-btn');
     if (!para || !btn) return;
-    function check() { if (!para.classList.contains('expanded') && para.scrollHeight > para.clientHeight + 2) btn.style.display = 'block'; }
-    setTimeout(check, 150);
+    function check() {
+      if (para.classList.contains('expanded')) return;
+      btn.style.display = (para.scrollHeight > para.clientHeight + 2) ? 'block' : 'none';
+    }
+    readMoreChecks.push(check);
     window.addEventListener('resize', check);
     btn.addEventListener('click', function () {
       para.classList.toggle('expanded');

@@ -13,7 +13,13 @@ embedded, so it works offline and can be emailed as one file.
 | `#electrical` | Smart Plus Electric | ELECTRIC (yellow)    | yellow `#F7C719`     |
 | `#cooling`    | Smart Plus Aircon   | AIRCON (blue)        | blue `#1E9BE8`       |
 
-Add `/section` to scroll, e.g. `#home/contact`, `#home/reviews`, `#home/brands`.
+Add `/section` to scroll, e.g. `#home/contact`, `#home/reviews`, `#home/brands`,
+`#heating/servicing`.
+
+The Heating page carries the boiler-servicing content that was supplied, re-headed
+as "Heating & Boilers" so it reads as the brand page; the servicing block is the
+`#servicing` section. The Electrical and Cooling pages use the supplied content
+as-is (Cooling copy now says "Smart Plus Aircon" to match the logo).
 
 The **Services** dropdown (and the mobile menu) has an "Our Brands" group linking to
 the three brand pages, followed by the existing service links. Switching page sets
@@ -46,8 +52,11 @@ The four logos in `src/assets/logo-*.png` were rebuilt from the existing Smart P
 wordmark plus Montserrat Bold for the coloured descriptor. To use the official
 artwork, drop the files in with the same names (`logo-group.png`, `logo-heating.png`,
 `logo-electric.png`, `logo-aircon.png`; transparent PNG, white wordmark) and rebuild.
-Header sizing assumes roughly a 4.5:1 aspect for the sub-brands and a wider group
-logo; adjust `.sh-logo img` heights in the template if the artwork differs.
+Header sizing assumes roughly a 4.5:1 aspect for the sub-brands and about 6:1 for
+the group lockup; adjust the `.sh-logo img` heights in the template if the artwork
+differs. The group logo's three descriptor words are inherently small in a header,
+so a stacked/compact variant for phones would be worth producing with the final
+artwork.
 
 ## Moving it into Squarespace
 

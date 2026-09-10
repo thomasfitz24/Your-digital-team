@@ -85,17 +85,20 @@ sub_logo("AIRCON",BLUE,"logo-aircon.png")
 
 # ---- 4. group logo: wordmark + HEATING / AIR CONDITIONING / ELECTRICS row ----
 def group_logo(fname):
-    font=load_font("Montserrat-Bold.ttf",40); tracking=40*0.28; gap=64
+    # Compact lockup: the descriptor row is the widest element, so the wordmark is
+    # sized to it and the descriptor is kept as large as possible relative to the
+    # total height so it stays legible when the logo is scaled down in a header.
+    font=load_font("Montserrat-Bold.ttf",46); tracking=46*0.2; gap=52
     words=[("HEATING",RED),("AIR CONDITIONING",BLUE),("ELECTRICS",YELLOW)]
     widths=[text_width(font,w,tracking) for w,_ in words]
     row_w=sum(widths)+gap*(len(words)-1)
-    wm=fit_wordmark(700)
-    CW=int(row_w+120); CH=14+wm.height+22+52+14
+    wm=fit_wordmark(int(row_w*0.62))
+    CW=int(row_w+40); CH=10+wm.height+14+50+10
     im=Image.new("RGBA",(CW,CH),(0,0,0,0))
-    im.alpha_composite(wm,((CW-wm.width)//2,14))
+    im.alpha_composite(wm,((CW-wm.width)//2,10))
     d=ImageDraw.Draw(im)
     capTop=font.getbbox("H")[1]
-    ty=14+wm.height+22-capTop
+    ty=10+wm.height+14-capTop
     x=(CW-row_w)/2
     for (w,c),ww in zip(words,widths):
         draw_tracked(d,(x,ty),w,font,c,tracking); x+=ww+gap
