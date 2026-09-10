@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Plus Group | Heating, Air Conditioning &amp; Electrics in Dartford &amp; Kent</title>
+<meta name="description" content="Smart Plus Group brings together Smart Plus Heating, Smart Plus Aircon and Smart Plus Electric: Gas Safe, F-Gas and NICEIC registered engineers serving Dartford, Kent, London and the South East.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<!-- ============================================================
+     SMART PLUS GROUP — SINGLE-FILE PROTOTYPE
+     Four pages in one file, switched by URL hash:
+       #home        Smart Plus Group     (white accent, group logo)
+       #heating     Smart Plus Heating   (red accent)
+       #electrical  Smart Plus Electric  (yellow accent)
+       #cooling     Smart Plus Aircon    (blue accent)
+     Add "/section" to scroll, e.g. #home/contact or #home/reviews.
+     Brand colours + logos live in the BRAND TOKENS block and the
+     LOGOS map at the bottom of the file. Everything is embedded.
+     Generated from src/template.html by src/build.py.
+     ============================================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HVACBusiness",
+  "@id": "https://smartplusheating.com/#business",
+  "name": "Smart Plus Group",
+  "alternateName": ["Smart Plus Heating", "Smart Plus Aircon", "Smart Plus Electric"],
+  "telephone": "+441322474990",
+  "email": "info@smartplusheating.com",
+  "priceRange": "££",
+  "url": "https://smartplusheating.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "The Bridge Nucleus, 2 Brunel Way",
+    "addressLocality": "Dartford",
+    "addressRegion": "Kent",
+    "postalCode": "DA1 5GA",
+    "addressCountry": "GB"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "08:00",
+    "closes": "18:00"
+  }],
+  "areaServed": [
+    { "@type": "City", "name": "Dartford" },
+    { "@type": "City", "name": "Bexleyheath" },
+    { "@type": "City", "name": "Gravesend" },
+    { "@type": "City", "name": "Sevenoaks" },
+    { "@type": "City", "name": "Swanley" },
+    { "@type": "City", "name": "Sidcup" },
+    { "@type": "City", "name": "Erith" },
+    { "@type": "City", "name": "Crayford" },
+    { "@type": "AdministrativeArea", "name": "Kent" }
+  ],
+  "brand": [
+    { "@type": "Brand", "name": "Smart Plus Heating" },
+    { "@type": "Brand", "name": "Smart Plus Aircon" },
+    { "@type": "Brand", "name": "Smart Plus Electric" }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Heating, Air Conditioning and Electrical Services",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Air Conditioning Installation", "url": "https://smartplusheating.com/air-conditioning" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Air Conditioning Servicing", "url": "https://smartplusheating.com/air-conditioning-servicing" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Boiler Installation", "url": "https://smartplusheating.com/boiler-installations" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Boiler Breakdowns and Repairs", "url": "https://smartplusheating.com/boiler-breakdowns" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Boiler Servicing", "url": "https://smartplusheating.com/boiler-servicing" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Power Flushing", "url": "https://smartplusheating.com/power-flushing" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Landlord Gas Safety Certificates", "url": "https://smartplusheating.com/landlord-gas-safety" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Electrical Services", "url": "https://smartplusheating.com/electrical" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Renewable Heating Solutions", "url": "https://smartplusheating.com/renewable-solutions" } }
+    ]
+  }
+}
+</script>
+
+<style>
+/* ════════════════════════════════════════════════════════════
+   BRAND TOKENS
+   The three fixed brand colours (never change per page) and the
+   per-page "accent" that everything else hooks into.
+   ════════════════════════════════════════════════════════════ */
+:root {
+  --c-heating: #E5232A;  --c-heating-rgb: 229, 35, 42;
+  --c-electric: #F7C719; --c-electric-rgb: 247, 199, 25;
+  --c-aircon: #1E9BE8;   --c-aircon-rgb: 30, 155, 232;
+  --c-group: #FFFFFF;    --c-group-rgb: 255, 255, 255;
+
+  --bg-black: #000000;
+  --bg-neutral-950: #0a0a0a;
+  --bg-neutral-900: #171717;
+  --bg-neutral-800: #262626;
+  --bg-neutral-700: #404040;
+  --text-white: #ffffff;
+  --text-neutral-300: #d4d4d4;
+  --text-neutral-400: #a3a3a3;
+  --text-neutral-500: #737373;
+  --border-neutral-200: #e5e5e5;
+  --max-width: 1440px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* default accent = group (white) */
+  --accent: var(--c-group);
+  --accent-rgb: var(--c-group-rgb);
+  --accent-hover: #e2e2e2;
+  --accent-ink: #000000;       /* text/icon colour placed ON the accent */
+}
+body[data-brand="group"]    { --accent: var(--c-group);    --accent-rgb: var(--c-group-rgb);    --accent-hover: #e2e2e2; --accent-ink: #000000; }
+body[data-brand="heating"]  { --accent: var(--c-heating);  --accent-rgb: var(--c-heating-rgb);  --accent-hover: #c41d23; --accent-ink: #ffffff; }
+body[data-brand="electric"] { --accent: var(--c-electric); --accent-rgb: var(--c-electric-rgb); --accent-hover: #dfb210; --accent-ink: #000000; }
+body[data-brand="aircon"]   { --accent: var(--c-aircon);   --accent-rgb: var(--c-aircon-rgb);   --accent-hover: #1886cc; --accent-ink: #ffffff; }
+
+html { scroll-behavior: smooth; }
+html, body { margin: 0; padding: 0; background: var(--bg-black); color: var(--text-white); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; }
+.page[hidden] { display: none !important; }
+.c-heating  { color: var(--c-heating) !important; }
+.c-electric { color: var(--c-electric) !important; }
+.c-aircon   { color: var(--c-aircon) !important; }
+
+/* shared entrance animations */
+.fade-in-up    { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.fade-in-left  { animation: fadeInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.fade-in-right { animation: fadeInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes fadeInUp    { from { opacity: 0; transform: translateY(30px); }  to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInLeft  { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeInRight { from { opacity: 0; transform: translateX(40px); }  to { opacity: 1; transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-up, .fade-in-left, .fade-in-right { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* prototype-only notice for links that live on the real site */
+.proto-toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+  background: #1a1a1a; color: #fff; border: 1px solid #333; border-left: 4px solid var(--accent);
+  padding: 14px 18px; border-radius: 2px; font-size: 0.9rem; line-height: 1.4; max-width: min(92vw, 520px);
+  opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s; z-index: 100000; font-family: var(--font-sans);
+}
+.proto-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ════════════════════════════════════════════════════════════
+   SITE HEADER  (prefix: sh-)
+   Kept with !important so it can be pasted back into Squarespace
+   Code Injection unchanged. Colours all come from --accent.
+   ════════════════════════════════════════════════════════════ */
+#sh-root {
+  display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important; border: none !important;
+  font-family: var(--font-sans) !important; line-height: 1 !important; box-sizing: border-box !important;
+  position: relative !important; z-index: 9999 !important;
+}
+
+/* ═══ TOP BAR ═══ */
+.sh-tb { display: block !important; background: #1a1a1a !important; border: none !important; border-bottom: 1px solid #262626 !important; width: 100% !important; position: relative !important; z-index: 9999 !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; }
+.sh-tb-inner { display: flex !important; align-items: center !important; justify-content: space-between !important; max-width: 1440px !important; height: 48px !important; margin: 0 auto !important; padding: 0 48px !important; box-sizing: border-box !important; border: none !important; }
+.sh-tb-left { display: flex !important; align-items: center !important; gap: 38px !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sh-tb-right { display: flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sh-tb-item { display: flex !important; align-items: center !important; gap: 10px !important; color: #a3a3a3 !important; font-size: 0.975rem !important; font-weight: 400 !important; font-family: inherit !important; text-decoration: none !important; white-space: nowrap !important; letter-spacing: 0.01em !important; line-height: 1 !important; background: none !important; border: none !important; padding: 0 !important; margin: 0 !important; box-sizing: border-box !important; transition: color 0.2s ease !important; cursor: default !important; outline: none !important; }
+a.sh-tb-item { cursor: pointer !important; }
+a.sh-tb-item:hover { color: #ffffff !important; }
+a.sh-tb-item:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 3px !important; color: #ffffff !important; }
+.sh-tb-item svg { width: 17px !important; height: 17px !important; min-width: 17px !important; min-height: 17px !important; color: var(--accent) !important; flex-shrink: 0 !important; display: block !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; overflow: visible !important; }
+.sh-tb-gas svg { width: 19px !important; height: 19px !important; min-width: 19px !important; min-height: 19px !important; }
+.sh-tb-sep { display: block !important; width: 1px !important; height: 19px !important; background: #333333 !important; flex-shrink: 0 !important; border: none !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; }
+
+/* ═══ HEADER ═══ */
+.sh-hd { display: block !important; background: #111111 !important; width: 100% !important; position: relative !important; z-index: 9998 !important; border: none !important; border-bottom: 1px solid #222222 !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; }
+.sh-hd-inner { display: flex !important; align-items: center !important; justify-content: space-between !important; max-width: 1440px !important; height: 103px !important; margin: 0 auto !important; padding: 0 48px !important; box-sizing: border-box !important; border: none !important; }
+
+/* Logo — the <img> src is swapped per brand by the router */
+.sh-logo { display: flex !important; align-items: center !important; text-decoration: none !important; flex-shrink: 0 !important; padding: 0 !important; margin: 0 !important; border: none !important; background: none !important; box-sizing: border-box !important; outline: none !important; }
+.sh-logo:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 4px !important; }
+.sh-logo img { height: 64px !important; width: auto !important; display: block !important; border: none !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; max-width: none !important; }
+body[data-brand="group"] .sh-hd .sh-logo img { height: 54px !important; }
+
+/* Nav */
+.sh-nav { display: flex !important; align-items: center !important; gap: 5px !important; list-style: none !important; padding: 0 !important; margin: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sh-nav-item { position: relative !important; padding: 0 !important; margin: 0 !important; list-style: none !important; border: none !important; box-sizing: border-box !important; }
+.sh-nav-link { display: flex !important; align-items: center !important; gap: 7px !important; padding: 12px 23px !important; color: #a3a3a3 !important; font-size: 1.26rem !important; font-weight: 400 !important; font-family: inherit !important; text-decoration: none !important; border-radius: 2px !important; white-space: nowrap !important; cursor: pointer !important; line-height: 1 !important; background: none !important; border: none !important; margin: 0 !important; box-sizing: border-box !important; outline: none !important; transition: color 0.2s ease, background 0.2s ease !important; }
+.sh-nav-link:hover, .sh-nav-link.is-active { color: #ffffff !important; background: rgba(255,255,255,0.05) !important; }
+.sh-nav-link:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: -2px !important; color: #ffffff !important; }
+.sh-nav-link svg { width: 17px !important; height: 17px !important; min-width: 17px !important; min-height: 17px !important; flex-shrink: 0 !important; display: block !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; transition: transform 0.2s ease !important; }
+
+/* Services Dropdown */
+.sh-dropdown { position: absolute !important; top: calc(100% + 8px) !important; left: 50% !important; transform: translateX(-50%) translateY(4px) !important; background: #1a1a1a !important; border: 1px solid #262626 !important; border-radius: 2px !important; padding: 10px 0 !important; min-width: 306px !important; opacity: 0 !important; visibility: hidden !important; transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease !important; box-shadow: 0 12px 32px rgba(0,0,0,0.5) !important; list-style: none !important; z-index: 100 !important; margin: 0 !important; box-sizing: border-box !important; }
+.sh-dropdown::before { content: '' !important; position: absolute !important; top: -8px !important; left: 0 !important; right: 0 !important; height: 8px !important; background: transparent !important; border: none !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; }
+.sh-dropdown li { list-style: none !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sh-nav-item:hover .sh-dropdown, .sh-nav-item:focus-within .sh-dropdown { opacity: 1 !important; visibility: visible !important; transform: translateX(-50%) translateY(0) !important; }
+.sh-nav-item:hover .sh-chevron, .sh-nav-item:focus-within .sh-chevron { transform: rotate(180deg) !important; }
+.sh-drop-label { display: block !important; padding: 8px 24px 8px !important; color: #525252 !important; font-size: 0.7rem !important; font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 0.1em !important; line-height: 1 !important; margin: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sh-drop-link { display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 24px !important; color: #a3a3a3 !important; font-size: 0.975rem !important; font-weight: 400 !important; font-family: inherit !important; text-decoration: none !important; line-height: 1 !important; margin: 0 !important; border: none !important; background: none !important; box-sizing: border-box !important; white-space: nowrap !important; transition: color 0.15s ease, background 0.15s ease, padding-left 0.15s ease !important; }
+.sh-drop-link:hover { color: #ffffff !important; background: rgba(var(--accent-rgb),0.08) !important; padding-left: 28px !important; }
+.sh-drop-link:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: -2px !important; color: #ffffff !important; background: rgba(var(--accent-rgb),0.08) !important; }
+.sh-drop-link svg { width: 18px !important; height: 18px !important; min-width: 18px !important; min-height: 18px !important; color: var(--accent) !important; flex-shrink: 0 !important; display: block !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sh-drop-divider { display: block !important; height: 1px !important; background: #262626 !important; margin: 7px 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+/* brand entries always show their own colour, whatever page you are on */
+.sh-drop-link.sh-brand, .sh-mob-link.sh-brand { color: #e5e5e5 !important; font-weight: 600 !important; }
+.sh-brand-heating svg  { color: var(--c-heating) !important; }
+.sh-brand-electric svg { color: var(--c-electric) !important; }
+.sh-brand-aircon svg   { color: var(--c-aircon) !important; }
+.sh-drop-link.sh-brand-heating:hover  { background: rgba(var(--c-heating-rgb),0.12) !important; }
+.sh-drop-link.sh-brand-electric:hover { background: rgba(var(--c-electric-rgb),0.12) !important; }
+.sh-drop-link.sh-brand-aircon:hover   { background: rgba(var(--c-aircon-rgb),0.12) !important; }
+
+/* WhatsApp */
+.sh-whatsapp { color: #22c55e !important; gap: 8px !important; }
+.sh-whatsapp:hover { color: #22c55e !important; }
+.sh-whatsapp svg { width: 23px !important; height: 23px !important; min-width: 23px !important; min-height: 23px !important; color: #22c55e !important; }
+
+/* CTA */
+.sh-cta { display: flex !important; align-items: center !important; gap: 12px !important; padding: 14px 35px !important; background: var(--accent) !important; color: var(--accent-ink) !important; font-size: 1.26rem !important; font-weight: 500 !important; font-family: inherit !important; text-decoration: none !important; border-radius: 2px !important; white-space: nowrap !important; line-height: 1 !important; margin: 0 0 0 14px !important; border: none !important; box-sizing: border-box !important; outline: none !important; transition: background 0.2s ease !important; }
+.sh-cta:hover { background: var(--accent-hover) !important; color: var(--accent-ink) !important; }
+.sh-cta:focus-visible { outline: 2px solid #ffffff !important; outline-offset: 3px !important; }
+.sh-cta svg { width: 22px !important; height: 22px !important; min-width: 22px !important; min-height: 22px !important; flex-shrink: 0 !important; display: block !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; color: var(--accent-ink) !important; }
+
+/* Mobile toggle */
+.sh-burger { display: none !important; background: none !important; border: none !important; color: #ffffff !important; cursor: pointer !important; padding: 10px !important; border-radius: 2px !important; margin: 0 !important; box-sizing: border-box !important; outline: none !important; }
+.sh-burger:hover { background: rgba(255,255,255,0.05) !important; }
+.sh-burger:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 2px !important; }
+.sh-burger svg { width: 29px !important; height: 29px !important; min-width: 29px !important; min-height: 29px !important; display: block !important; color: #ffffff !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+
+/* ═══ MOBILE OVERLAY ═══ */
+.sh-mob { display: none !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background: #111111 !important; z-index: 99999 !important; flex-direction: column !important; overflow-y: auto !important; -webkit-overflow-scrolling: touch !important; font-family: var(--font-sans) !important; margin: 0 !important; padding: 0 0 32px 0 !important; border: none !important; box-sizing: border-box !important; }
+.sh-mob.sh-open { display: flex !important; }
+.sh-mob-top { display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 18px 26px !important; border: none !important; border-bottom: 1px solid #222222 !important; margin: 0 !important; box-sizing: border-box !important; flex-shrink: 0 !important; }
+.sh-mob-top .sh-logo img { height: 47px !important; }
+body[data-brand="group"] .sh-mob-top .sh-logo img { height: 40px !important; }
+.sh-mob-close { display: flex !important; align-items: center !important; justify-content: center !important; background: none !important; border: none !important; color: #ffffff !important; cursor: pointer !important; padding: 9px !important; margin: 0 !important; box-sizing: border-box !important; outline: none !important; }
+.sh-mob-close:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 2px !important; }
+.sh-mob-close svg { width: 26px !important; height: 26px !important; min-width: 26px !important; min-height: 26px !important; display: block !important; color: #ffffff !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sh-mob-section { padding: 18px 0 !important; margin: 0 !important; list-style: none !important; border: none !important; box-sizing: border-box !important; flex-shrink: 0 !important; }
+.sh-mob-link { display: flex !important; align-items: center !important; gap: 13px !important; padding: 15px 26px !important; color: #d4d4d4 !important; font-size: 1.1rem !important; font-weight: 400 !important; font-family: inherit !important; text-decoration: none !important; border: none !important; border-bottom: 1px solid #1a1a1a !important; margin: 0 !important; background: none !important; line-height: 1.3 !important; box-sizing: border-box !important; transition: background 0.15s ease !important; }
+.sh-mob-link:hover { background: rgba(255,255,255,0.03) !important; }
+.sh-mob-link:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: -2px !important; background: rgba(255,255,255,0.03) !important; }
+.sh-mob-link svg { width: 20px !important; height: 20px !important; min-width: 20px !important; min-height: 20px !important; color: var(--accent) !important; flex-shrink: 0 !important; display: block !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sh-mob-label { display: block !important; padding: 22px 26px 9px !important; color: #525252 !important; font-size: 0.756rem !important; font-weight: 400 !important; text-transform: uppercase !important; letter-spacing: 0.08em !important; margin: 0 !important; line-height: 1 !important; border: none !important; box-sizing: border-box !important; flex-shrink: 0 !important; }
+.sh-mob-cta { display: flex !important; align-items: center !important; justify-content: center !important; gap: 9px !important; margin: 26px !important; padding: 15px 26px !important; background: var(--accent) !important; color: var(--accent-ink) !important; font-size: 1.03rem !important; font-weight: 500 !important; font-family: inherit !important; text-decoration: none !important; border-radius: 2px !important; border: none !important; line-height: 1 !important; box-sizing: border-box !important; outline: none !important; flex-shrink: 0 !important; }
+.sh-mob-cta:hover { background: var(--accent-hover) !important; color: var(--accent-ink) !important; }
+.sh-mob-cta:focus-visible { outline: 2px solid #ffffff !important; outline-offset: 3px !important; }
+.sh-mob-cta svg { width: 20px !important; height: 20px !important; min-width: 20px !important; min-height: 20px !important; display: block !important; color: var(--accent-ink) !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+
+/* Mobile WhatsApp */
+.sh-mob-whatsapp { display: flex !important; align-items: center !important; justify-content: center !important; gap: 9px !important; margin: 0 26px !important; padding: 15px 26px !important; background: rgba(34,197,94,0.1) !important; color: #22c55e !important; font-size: 1.03rem !important; font-weight: 400 !important; font-family: inherit !important; text-decoration: none !important; border-radius: 2px !important; border: 1px solid rgba(34,197,94,0.25) !important; line-height: 1 !important; box-sizing: border-box !important; outline: none !important; flex-shrink: 0 !important; transition: background 0.2s ease, border-color 0.2s ease !important; }
+.sh-mob-whatsapp:hover { background: rgba(34,197,94,0.18) !important; border-color: rgba(34,197,94,0.4) !important; color: #22c55e !important; }
+.sh-mob-whatsapp:focus-visible { outline: 2px solid #22c55e !important; outline-offset: 3px !important; }
+.sh-mob-whatsapp svg { width: 20px !important; height: 20px !important; min-width: 20px !important; min-height: 20px !important; display: block !important; color: #22c55e !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1180px) {
+  .sh-nav-link { padding: 12px 16px !important; font-size: 1.12rem !important; }
+  .sh-cta { padding: 14px 24px !important; font-size: 1.12rem !important; }
+  body[data-brand="group"] .sh-hd .sh-logo img { height: 46px !important; }
+}
+@media (max-width: 1024px) {
+  .sh-tb-inner { padding: 0 24px !important; }
+  .sh-tb-left { gap: 24px !important; }
+  .sh-hd-inner { padding: 0 24px !important; }
+}
+@media (max-width: 960px) {
+  .sh-nav { display: none !important; }
+  .sh-cta { display: none !important; }
+  .sh-burger { display: block !important; }
+  .sh-hd-inner { height: 85px !important; }
+  .sh-logo img { height: 47px !important; }
+  body[data-brand="group"] .sh-hd .sh-logo img { height: 40px !important; }
+}
+@media (max-width: 768px) {
+  .sh-tb { display: none !important; }
+}
+@media (max-width: 400px) {
+  .sh-logo img { height: 40px !important; }
+  body[data-brand="group"] .sh-hd .sh-logo img { height: 34px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sh-nav-link, .sh-nav-link svg, .sh-drop-link, .sh-dropdown, .sh-cta, .sh-mob-link, .sh-mob-whatsapp, .sh-tb-item { transition: none !important; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   HOMEPAGE — SMART PLUS GROUP  (prefix: sp-)
+   ════════════════════════════════════════════════════════════ */
+.sp-wrapper, .sp-wrapper * { box-sizing: border-box; margin: 0; padding: 0; }
+.sp-wrapper { background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; width: 100%; }
+.sp-container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; width: 100%; }
+@media (min-width: 1024px) { .sp-container { padding: 0 3rem; } }
+
+.sp-accent-text { color: var(--accent); }
+.sp-label { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.15em; display: block; margin-bottom: 0.5rem; }
+
+/* HERO */
+.sp-hero { position: relative; padding: 4rem 0; min-height: 60vh; width: 100%; display: flex; align-items: center; background-color: var(--bg-neutral-900); overflow: hidden; }
+@media (min-width: 1024px) { .sp-hero { padding: 5rem 0; min-height: 65vh; } }
+.sp-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.sp-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.55; }
+.sp-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.85) 15%, rgba(0,0,0,0.6) 50%, transparent); }
+.sp-hero .sp-container { margin-left: 0; margin-right: 0; max-width: 100%; padding: 0 1.5rem; text-align: left; }
+@media (min-width: 1024px) { .sp-hero .sp-container { padding: 0 3rem; } }
+.sp-hero-content { position: relative; z-index: 1; max-width: 960px; margin-left: 3rem; margin-right: auto; text-align: left; }
+@media (max-width: 1023px) { .sp-hero-content { margin-left: 1.5rem; } }
+.sp-h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.08; letter-spacing: -0.02em; text-align: left; color: #fff; }
+@media (min-width: 768px)  { .sp-h1 { font-size: 3.6rem; } }
+@media (min-width: 1280px) { .sp-h1 { font-size: 4.4rem; } }
+.sp-h1 .sp-h1-line { white-space: nowrap; }
+@media (max-width: 767px) { .sp-h1 .sp-h1-line { white-space: normal; } }
+.sp-hero-p { font-size: 1.25rem; color: var(--text-neutral-400); margin-bottom: 2.5rem; padding-left: 1.5rem; border-left: 4px solid var(--accent); max-width: 680px; text-align: left; }
+
+.sp-btn-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: flex-start; }
+.sp-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 2.5rem; font-weight: 700; text-transform: uppercase; text-decoration: none; font-size: 0.875rem; letter-spacing: 0.05em; transition: all 0.3s ease; border-radius: 2px; cursor: pointer; }
+.sp-btn-primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 10px 15px -3px rgba(var(--accent-rgb),0.2); border: none; }
+.sp-btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+.sp-btn-outline { border: 1px solid rgba(255,255,255,0.2); color: white; background: transparent; }
+.sp-btn-outline:hover { background: white; color: black; transform: translateY(-2px); }
+
+.sp-hero-badges { margin-top: 3rem; display: flex; gap: 2rem; flex-wrap: wrap; justify-content: flex-start; }
+.sp-badge { display: flex; align-items: center; gap: 0.5rem; color: var(--text-neutral-400); font-size: 0.875rem; font-weight: 500; }
+.sp-badge-icon { width: 1rem; height: 1rem; fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+/* ACCREDITATIONS TICKER */
+.sp-accreditations { background: white; padding: 1.5rem 0; border-bottom: 1px solid var(--border-neutral-200); position: relative; z-index: 10; width: 100%; display: flex; flex-direction: column; justify-content: center; }
+.sp-scroll-wrapper { overflow: hidden; white-space: nowrap; position: relative; width: 100%; }
+.sp-scroll-track { display: inline-flex; gap: 3rem; animation: scroll 40s linear infinite; align-items: center; }
+.sp-scroll-track img { max-height: 48px; height: auto; width: auto; opacity: 0.8; transition: all 0.3s; object-fit: contain; }
+.sp-scroll-track img:hover { opacity: 1; }
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.sp-fade-left { position: absolute; left: 0; top: 0; bottom: 0; width: 100px; background: linear-gradient(to right, white, transparent); z-index: 2; pointer-events: none; }
+.sp-fade-right { position: absolute; right: 0; top: 0; bottom: 0; width: 100px; background: linear-gradient(to left, white, transparent); z-index: 2; pointer-events: none; }
+
+/* OUR BRANDS */
+.sp-brands { padding: 6rem 0; background: var(--bg-neutral-950); border-top: 1px solid var(--bg-neutral-900); }
+.sp-brands-header { text-align: center; max-width: 860px; margin: 0 auto 3.5rem auto; }
+.sp-brands-header .sp-label { text-align: center; }
+.sp-brands-header .sp-h2 { text-align: center; font-size: 2.6rem; }
+@media (min-width: 768px) { .sp-brands-header .sp-h2 { font-size: 3.25rem; } }
+.sp-brands-header p { color: var(--text-neutral-400); font-size: 1.125rem; line-height: 1.8; }
+.sp-brand-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@media (min-width: 900px) { .sp-brand-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
+.sp-brand-card { --card: #fff; --card-rgb: 255,255,255; --card-ink: #000; position: relative; background: var(--bg-black); border: 1px solid var(--bg-neutral-800); border-radius: 2px; padding: 2.5rem 2rem 2rem; display: flex; flex-direction: column; gap: 1.25rem; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; overflow: hidden; }
+.sp-brand-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--card); }
+.sp-brand-card:hover { transform: translateY(-6px); border-color: rgba(var(--card-rgb),0.55); box-shadow: 0 24px 48px rgba(var(--card-rgb),0.10); }
+.sp-brand-card[data-b="heating"]  { --card: var(--c-heating);  --card-rgb: var(--c-heating-rgb);  --card-ink: #fff; }
+.sp-brand-card[data-b="electric"] { --card: var(--c-electric); --card-rgb: var(--c-electric-rgb); --card-ink: #000; }
+.sp-brand-card[data-b="aircon"]   { --card: var(--c-aircon);   --card-rgb: var(--c-aircon-rgb);   --card-ink: #fff; }
+.sp-brand-logo { height: 58px; width: auto; align-self: flex-start; }
+.sp-brand-card h3 { font-size: 1.25rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; color: #fff; }
+.sp-brand-card > p { color: var(--text-neutral-400); font-size: 0.95rem; line-height: 1.7; }
+.sp-brand-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+.sp-brand-list li { display: flex; gap: 0.6rem; align-items: center; color: var(--text-neutral-300); font-size: 0.9rem; font-weight: 500; }
+.sp-brand-list svg { width: 1rem; height: 1rem; stroke: var(--card); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.sp-brand-cta { margin-top: auto; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.95rem 1.5rem; background: var(--card); color: var(--card-ink); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.08em; text-decoration: none; border-radius: 2px; transition: transform 0.2s, filter 0.2s; }
+.sp-brand-cta:hover { transform: translateY(-2px); filter: brightness(0.9); }
+.sp-brand-cta svg { width: 1rem; height: 1rem; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.sp-brands-more { text-align: center; margin-top: 3rem; }
+
+/* WHY CHOOSE US */
+.sp-why { padding: 6rem 0; background: var(--bg-black); border-top: 1px solid var(--bg-neutral-900); }
+.sp-why-grid { display: grid; grid-template-columns: 1fr; gap: 5rem; align-items: center; }
+@media (min-width: 1024px) { .sp-why-grid { grid-template-columns: 1.2fr 0.8fr; gap: 8rem; } }
+.sp-why .sp-hero-p { margin: 0 0 2rem 0; max-width: 650px; }
+.sp-why-list { list-style: none; padding: 0; margin: 2rem 0; }
+.sp-why-item { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; color: var(--text-neutral-300); font-weight: 500; }
+.sp-why-icon { color: var(--accent); flex-shrink: 0; width: 1.25rem; height: 1.25rem; }
+.sp-why-img { height: 500px; position: relative; border-radius: 2px; overflow: hidden; border: 1px solid var(--bg-neutral-800); }
+.sp-why-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: transform 0.7s; }
+.sp-why-img:hover img { transform: scale(1.05); }
+.sp-stats { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); padding: 2rem; display: flex; gap: 3rem; border-top: 1px solid rgba(255,255,255,0.1); }
+.sp-stat-val { font-size: 2rem; font-weight: 800; color: white; line-height: 1; }
+.sp-stat-label { font-size: 0.75rem; color: var(--text-neutral-400); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; margin-top: 0.25rem; }
+
+.sp-h2 { font-size: 2.25rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1rem; text-align: left; color: #fff; }
+
+/* REVIEWS */
+.sp-dark-bottom { background-color: var(--bg-neutral-950); }
+.sp-testimonials { padding: 6rem 0; border-top: 1px solid var(--bg-neutral-800); }
+.sp-reviews-head { text-align: center; width: 100%; margin-bottom: 2rem; }
+.sp-reviews-head .sp-h2 { font-size: 3rem; margin-bottom: 0.5rem; text-align: center; }
+.sp-reviews-rating { display: flex; flex-direction: column; gap: 1rem; color: var(--text-neutral-400); align-items: center; font-size: 1.125rem; }
+.sp-reviews-rating b { font-weight: 700; color: white; }
+.sp-reviews-rating u { text-decoration: underline; text-decoration-color: #404040; }
+.sp-stars { color: #eab308; display: flex; gap: 0.25rem; margin-bottom: 1.5rem; }
+.sp-quote-icon { position: absolute; top: 1.5rem; right: 2rem; width: 2rem; height: 2rem; color: rgba(var(--accent-rgb), 0.2); z-index: 0; }
+.sp-quote-container { position: relative; z-index: 1; margin-bottom: 2rem; min-height: 80px; }
+.sp-quote { font-size: 1rem; color: var(--text-neutral-300); line-height: 1.7; margin: 0; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; transition: all 0.3s ease; }
+.sp-quote.expanded { -webkit-line-clamp: unset; }
+.sp-read-more-btn { background: none; border: none; color: var(--accent); font-size: 0.875rem; font-weight: 700; padding: 0; margin-top: 0.5rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; display: none; }
+.sp-read-more-btn:hover { color: var(--accent-hover); text-decoration: underline; }
+.sp-author { font-weight: 800; font-size: 1rem; color: white; }
+.sp-location { font-size: 0.75rem; color: var(--text-neutral-500); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; }
+.sp-reviews-wrapper { margin-bottom: 3rem; position: relative; }
+.sp-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 1.5rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; align-items: start; }
+.sp-grid::-webkit-scrollbar { display: none; }
+.sp-testimonial-card { flex: 0 0 100%; scroll-snap-align: start; background: var(--bg-black); border: 1px solid var(--bg-neutral-800); padding: 2.5rem; position: relative; transition: all 0.3s; display: flex; flex-direction: column; }
+.sp-testimonial-card:hover { border-color: var(--text-neutral-500); }
+@media (min-width: 768px)  { .sp-testimonial-card { flex: 0 0 calc(50% - 0.75rem); } }
+@media (min-width: 1024px) { .sp-testimonial-card { flex: 0 0 calc(33.3333% - 1rem); } }
+.sp-testimonial-meta { margin-top: auto; }
+.sp-slider-controls { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+.sp-slider-arrow { background: var(--bg-neutral-800); border: 1px solid var(--bg-neutral-700); color: white; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; }
+.sp-slider-arrow:hover { background: var(--bg-neutral-700); }
+.sp-slider-arrow:active { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.sp-slider-arrow svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.sp-review-badges { display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center; }
+.sp-review-item { display: flex; align-items: center; gap: 0.75rem; background: var(--bg-neutral-800); padding: 0.5rem 1rem; border-radius: 2px; text-decoration: none; color: white; transition: background 0.3s; }
+.sp-review-item:hover { background: var(--bg-neutral-700); }
+.sp-trust-logo, .sp-google-logo { height: 1.25rem; width: auto; }
+.sp-review-text { font-size: 0.8125rem; font-weight: 700; color: var(--text-neutral-300); }
+
+/* FAQ */
+.sp-faq { padding: 6rem 0; background: var(--bg-neutral-950); border-top: 1px solid var(--bg-neutral-900); }
+.sp-faq-header { text-align: center; max-width: 800px; margin: 0 auto 3rem auto; }
+.sp-faq-header .sp-label, .sp-faq-header .sp-h2 { text-align: center; }
+.sp-faq-list { max-width: 800px; margin: 0 auto; }
+.sp-faq-item { background: var(--bg-black); border: 1px solid var(--bg-neutral-800); border-radius: 2px; margin-bottom: 0.75rem; overflow: hidden; transition: border-color 0.3s; }
+.sp-faq-item:hover { border-color: rgba(var(--accent-rgb), 0.4); }
+.sp-faq-q { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.5rem 1.75rem; cursor: pointer; width: 100%; background: none; border: none; color: inherit; font: inherit; text-align: left; }
+.sp-faq-q h3 { font-size: 1rem; font-weight: 800; color: white; margin: 0; }
+.sp-faq-chevron { width: 1.25rem; height: 1.25rem; flex-shrink: 0; color: var(--accent); transition: transform 0.3s ease; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.sp-faq-item.open .sp-faq-chevron { transform: rotate(180deg); }
+.sp-faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.sp-faq-item.open .sp-faq-a { max-height: 300px; }
+.sp-faq-a p { color: var(--text-neutral-400); font-size: 0.95rem; line-height: 1.7; padding: 0 1.75rem 1.5rem 1.75rem; margin: 0; }
+.sp-faq-cta { text-align: center; margin-top: 2.5rem; }
+
+/* CONTACT */
+.sp2i-contact { padding: 6rem 0; background: var(--bg-black); border-top: 1px solid var(--bg-neutral-900); }
+.sp2i-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; }
+@media (min-width: 768px) { .sp2i-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+.sp2i-h2 { font-size: 2.5rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1.5rem; color: #ffffff; text-align: left; }
+@media (min-width: 768px) { .sp2i-h2 { font-size: 3rem; } }
+.sp2i-intro { color: var(--text-neutral-400); font-size: 1.125rem; margin-bottom: 2.5rem; text-align: left; max-width: 760px; }
+.sp2i-info-box { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; }
+.sp2i-icon-wrap { padding: 0.75rem; background: var(--bg-neutral-800); border-radius: 8px; color: white; transition: background 0.3s, color 0.3s; flex-shrink: 0; }
+.sp2i-info-box:hover .sp2i-icon-wrap { background: var(--accent); color: var(--accent-ink); }
+.sp2i-h3 { color: white; font-weight: 700; font-size: 1.125rem; margin-bottom: 0.25rem; }
+.sp2i-text { color: var(--text-neutral-400); margin: 0; }
+.sp2i-subtext { color: var(--text-neutral-500); font-size: 0.875rem; margin: 0; }
+.sp2i-icon { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#sp2i-form-target { width: 100%; }
+.sp2i-form { background: var(--bg-neutral-900); border: 1px solid var(--bg-neutral-800); border-radius: 2px; padding: 2rem; display: grid; gap: 1.1rem; }
+.sp2i-form label { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-neutral-400); margin-bottom: 0.45rem; }
+.sp2i-form input, .sp2i-form select, .sp2i-form textarea { width: 100%; background: #000; border: 1px solid var(--bg-neutral-700); color: #fff; padding: 0.85rem 1rem; font: inherit; font-size: 0.95rem; border-radius: 2px; transition: border-color 0.2s, box-shadow 0.2s; }
+.sp2i-form textarea { min-height: 130px; resize: vertical; }
+.sp2i-form input:focus, .sp2i-form select:focus, .sp2i-form textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2); }
+.sp2i-form-row { display: grid; gap: 1.1rem; }
+@media (min-width: 640px) { .sp2i-form-row { grid-template-columns: 1fr 1fr; } }
+.sp2i-form .sp-btn { width: 100%; }
+.sp2i-form-note { font-size: 0.8rem; color: var(--text-neutral-500); margin: 0; }
+
+.sp-icon { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.sp-icon-lg { width: 1.5rem; height: 1.5rem; }
+
+/* ════════════════════════════════════════════════════════════
+   SERVICE PAGES — shared by Heating / Electrical / Cooling (prefix: svc-)
+   Same layout system as the original bs-/el-/ac- blocks, with every
+   colour taken from --accent so one stylesheet serves all three brands.
+   ════════════════════════════════════════════════════════════ */
+.svc-wrapper *, .svc-wrapper *::before, .svc-wrapper *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.svc-wrapper { background-color: var(--bg-black); color: var(--text-white); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+.svc-container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+@media (min-width: 1024px) { .svc-container { padding: 0 3rem; } }
+
+/* Hero */
+.svc-hero { position: relative; padding: 4rem 0; min-height: 60vh; display: flex; align-items: center; background-color: var(--bg-neutral-900); overflow: hidden; }
+@media (min-width: 1024px) { .svc-hero { padding: 5rem 0; min-height: 65vh; } }
+.svc-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.svc-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.55; }
+.svc-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.85) 15%, rgba(0,0,0,0.6) 50%, transparent); }
+.svc-hero .svc-container { margin-left: 0; margin-right: 0; max-width: 100%; text-align: left; }
+.svc-hero-content { position: relative; z-index: 1; max-width: 900px; margin-left: 3rem; margin-right: auto; text-align: left; }
+@media (max-width: 1023px) { .svc-hero-content { margin-left: 1.5rem; } }
+.svc-h1 { font-size: 2.75rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1; letter-spacing: -0.02em; text-align: left; color: white; }
+@media (min-width: 768px) { .svc-h1 { font-size: 4.5rem; } }
+.svc-accent { color: var(--accent); }
+.svc-hero-p { font-size: 1.25rem; color: var(--text-neutral-400); margin-bottom: 2.5rem; padding-left: 1.5rem; border-left: 4px solid var(--accent); max-width: 650px; text-align: left; }
+
+/* Buttons */
+.svc-btn-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: flex-start; }
+.svc-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem 2.5rem; font-weight: 700; text-transform: uppercase; text-decoration: none; font-size: 0.875rem; letter-spacing: 0.05em; transition: all 0.3s ease; border-radius: 2px; cursor: pointer; }
+.svc-btn-primary { background: var(--accent); color: var(--accent-ink); box-shadow: 0 10px 15px -3px rgba(var(--accent-rgb), 0.2); border: none; }
+.svc-btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+.svc-btn-outline { border: 1px solid rgba(255,255,255,0.2); color: white; background: transparent; }
+.svc-btn-outline:hover { background: white; color: black; transform: translateY(-2px); }
+.svc-btn-whatsapp { border: 1px solid rgba(34,197,94,0.3); color: #22c55e; background: rgba(34,197,94,0.04); }
+.svc-btn-whatsapp:hover { background: #22c55e; color: white; border-color: #22c55e; transform: translateY(-2px); }
+.svc-btn-whatsapp svg { width: 1.25rem; height: 1.25rem; fill: currentColor; }
+
+/* Hero badges */
+.svc-hero-badges { margin-top: 3rem; display: flex; gap: 2rem; flex-wrap: wrap; justify-content: flex-start; }
+.svc-badge { display: flex; align-items: center; gap: 0.5rem; color: var(--text-neutral-400); font-size: 0.875rem; font-weight: 500; }
+.svc-badge-icon { width: 1rem; height: 1rem; fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+/* Section labels */
+.svc-label { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.15em; display: block; margin-bottom: 0.5rem; }
+.svc-h2 { font-size: 2.25rem; font-weight: 800; text-transform: uppercase; margin-bottom: 1rem; text-align: left; color: white; }
+.svc-section-head { max-width: 800px; }
+
+/* Main content section */
+.svc-section { padding: 6rem 0; background: var(--bg-black); }
+.svc-intro { max-width: 900px; margin-top: 2rem; margin-bottom: 4rem; }
+.svc-intro p { color: var(--text-neutral-400); font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem; }
+.svc-intro p:last-child { margin-bottom: 0; }
+.svc-split { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: start; }
+@media (min-width: 1024px) { .svc-split { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+.svc-split-img { position: relative; border-radius: 2px; overflow: hidden; border: 1px solid var(--bg-neutral-800); aspect-ratio: 4 / 3; }
+@media (min-width: 1024px) { .svc-split-img { position: sticky; top: 2rem; aspect-ratio: 4 / 5; } }
+.svc-split-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.9; transition: transform 0.7s; }
+.svc-split-img:hover img { transform: scale(1.05); }
+
+/* Feature list */
+.svc-feature-list { list-style: none; padding: 0; margin: 0 0 2.5rem 0; }
+.svc-feature-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: rgba(255,255,255,0.03); border: 1px solid var(--bg-neutral-800); margin-bottom: 0.75rem; border-radius: 2px; transition: border-color 0.3s; }
+.svc-feature-item:hover { border-color: rgba(var(--accent-rgb), 0.3); }
+.svc-feature-item svg { color: var(--accent); flex-shrink: 0; margin-top: 0.15rem; }
+.svc-feature-item span { color: var(--text-neutral-300); font-weight: 500; font-size: 0.9375rem; }
+
+/* Pricing badge (Heating) */
+.svc-pricing { background: var(--bg-neutral-900); border: 2px solid var(--accent); border-radius: 2px; padding: 2rem; margin-bottom: 2.5rem; text-align: center; }
+.svc-pricing-label { color: var(--text-neutral-400); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+.svc-pricing-amount { font-size: 3rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
+.svc-pricing-vat { color: var(--text-neutral-400); font-size: 1rem; }
+
+/* Featured banner + service cards (Electrical) */
+.svc-featured-img { position: relative; border-radius: 2px; overflow: hidden; border: 1px solid var(--bg-neutral-800); margin-bottom: 4rem; height: 400px; }
+.svc-featured-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; object-position: center; }
+.svc-cards { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@media (min-width: 640px)  { .svc-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .svc-cards { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
+.svc-card { background: var(--bg-neutral-900); border: 1px solid var(--bg-neutral-800); border-radius: 2px; padding: 2rem; transition: all 0.3s; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+.svc-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 0; background: var(--accent); transition: height 0.3s ease; }
+.svc-card:hover::before { height: 100%; }
+.svc-card:hover { border-color: rgba(var(--accent-rgb), 0.5); transform: translateY(-8px); box-shadow: 0 20px 40px 0 rgba(var(--accent-rgb), 0.1); }
+.svc-card-icon { width: 3.5rem; height: 3.5rem; background: white; border-radius: 2px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; transition: all 0.3s; }
+.svc-card-icon svg { width: 2rem; height: 2rem; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.3s; }
+.svc-card:hover .svc-card-icon { background: var(--accent); transform: scale(1.1); }
+.svc-card:hover .svc-card-icon svg { stroke: var(--accent-ink); }
+.svc-card h3 { font-size: 1.125rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.75rem; color: white; letter-spacing: 0.02em; line-height: 1.3; }
+.svc-card p { color: var(--text-neutral-400); font-size: 0.875rem; line-height: 1.7; flex-grow: 1; }
+
+/* Logo / accreditation strip (Electrical) */
+.svc-logo-badge { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2.5rem 5rem; padding: 4rem 1.5rem; background: var(--bg-neutral-950); border-top: 1px solid var(--bg-neutral-900); border-bottom: 1px solid var(--bg-neutral-900); }
+.svc-logo-badge img { height: auto; max-width: 100%; display: block; }
+.svc-logo-brand { width: 320px; }
+.svc-logo-accred { width: 200px; background: #fff; padding: 0.9rem 1.1rem; border-radius: 6px; }
+
+/* Brands */
+.svc-brands { padding: 4rem 0; background: var(--bg-neutral-950); border-top: 1px solid var(--bg-neutral-900); }
+@media (min-width: 1024px) { .svc-brands { padding: 6rem 0; } }
+.svc-brands-header { text-align: center; max-width: 800px; margin: 0 auto 2.5rem auto; }
+@media (min-width: 1024px) { .svc-brands-header { margin-bottom: 4rem; } }
+.svc-brands-header .svc-label, .svc-brands-header .svc-h2 { text-align: center; }
+.svc-brands-header p { color: var(--text-neutral-400); font-size: 1rem; text-align: center; }
+@media (min-width: 1024px) { .svc-brands-header p { font-size: 1.125rem; } }
+.svc-brands-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+@media (min-width: 480px) { .svc-brands-grid { gap: 1rem; } }
+@media (min-width: 768px) { .svc-brands-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
+@media (min-width: 1024px) {
+  .svc-brands-grid { grid-template-columns: repeat(5, 1fr); }
+  .svc-brands-grid--3 { display: flex; justify-content: center; gap: 2rem; }
+  .svc-brands-grid--3 .svc-brand-card { min-width: 240px; }
+}
+.svc-brand-card { background: var(--bg-neutral-900); border: 1px solid var(--bg-neutral-800); border-radius: 2px; padding: 1.25rem 0.75rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; transition: all 0.3s; }
+@media (min-width: 480px)  { .svc-brand-card { padding: 1.5rem 1rem; gap: 1rem; } }
+@media (min-width: 1024px) { .svc-brand-card { padding: 2.5rem 1.5rem; gap: 1.25rem; } }
+.svc-brand-card:hover { border-color: rgba(var(--accent-rgb), 0.5); transform: translateY(-4px); }
+.svc-brand-logo { height: 36px; width: auto; max-width: 100%; object-fit: contain; opacity: 0.85; transition: all 0.3s; }
+@media (min-width: 768px) { .svc-brand-logo { height: 48px; max-width: 160px; } }
+.svc-brand-card:hover .svc-brand-logo { opacity: 1; }
+.svc-brand-name { font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-neutral-300); }
+@media (min-width: 768px) { .svc-brand-name { font-size: 0.875rem; } }
+
+/* Process */
+.svc-process { padding: 6rem 0; background: var(--bg-black); border-top: 1px solid var(--bg-neutral-800); }
+.svc-process-header { margin-bottom: 4rem; border-bottom: 1px solid var(--bg-neutral-800); padding-bottom: 3rem; }
+.svc-process-header p { color: var(--text-neutral-400); font-size: 1.125rem; max-width: 700px; }
+.svc-process-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@media (min-width: 768px)  { .svc-process-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .svc-process-grid { grid-template-columns: repeat(4, 1fr); } }
+.svc-step { background: var(--bg-neutral-900); border: 1px solid var(--bg-neutral-800); border-radius: 2px; padding: 2.5rem 2rem; position: relative; transition: all 0.3s; }
+.svc-step:hover { border-color: rgba(var(--accent-rgb), 0.5); transform: translateY(-4px); }
+.svc-step-num { font-size: 3rem; font-weight: 800; color: var(--accent); opacity: 0.3; line-height: 1; margin-bottom: 1.25rem; }
+.svc-step:hover .svc-step-num { opacity: 0.6; }
+.svc-step-icon { width: 3rem; height: 3rem; background: var(--bg-neutral-800); color: var(--accent); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; border-radius: 2px; transition: all 0.3s; }
+.svc-step:hover .svc-step-icon { background: var(--accent); color: var(--accent-ink); }
+.svc-step h3 { font-size: 1.125rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.02em; color: white; }
+.svc-step p { color: var(--text-neutral-400); font-size: 0.875rem; line-height: 1.6; }
+
+/* Icons */
+.svc-icon { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.svc-icon-lg { width: 1.5rem; height: 1.5rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ════════════════════════════════════════════════════════════
+   SITE FOOTER  (prefix: sf-)
+   ════════════════════════════════════════════════════════════ */
+.sf-root { display: block !important; width: 100% !important; margin: 0 !important; padding: 0 !important; border: none !important; font-family: var(--font-sans) !important; line-height: 1.6 !important; box-sizing: border-box !important; }
+.sf-main { display: block !important; background: #111111 !important; border: none !important; border-top: 1px solid #222222 !important; width: 100% !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; }
+.sf-inner { display: grid !important; grid-template-columns: 1.4fr 1fr 1fr 1fr !important; gap: 48px !important; max-width: 1440px !important; margin: 0 auto !important; padding: 64px 48px 56px !important; box-sizing: border-box !important; border: none !important; }
+.sf-brand { display: flex !important; flex-direction: column !important; gap: 20px !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sf-logo { display: inline-flex !important; align-items: center !important; text-decoration: none !important; margin: 0 !important; padding: 0 !important; border: none !important; background: none !important; box-sizing: border-box !important; outline: none !important; align-self: flex-start !important; }
+.sf-logo img { height: 52px !important; width: auto !important; display: block !important; border: none !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; max-width: none !important; }
+body[data-brand="group"] .sf-logo img { height: 46px !important; }
+.sf-tagline { display: block !important; color: #737373 !important; font-size: 0.9375rem !important; font-weight: 400 !important; line-height: 1.7 !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; max-width: 360px !important; }
+.sf-brand-links { display: flex !important; flex-wrap: wrap !important; gap: 8px !important; margin: 0 !important; padding: 0 !important; list-style: none !important; }
+.sf-brand-links li { list-style: none !important; margin: 0 !important; padding: 0 !important; }
+.sf-brand-pill { display: inline-flex !important; align-items: center !important; gap: 7px !important; padding: 7px 12px !important; border-radius: 2px !important; background: #1a1a1a !important; border: 1px solid #262626 !important; color: #d4d4d4 !important; font-size: 0.8rem !important; font-weight: 600 !important; text-decoration: none !important; transition: border-color 0.2s ease, background 0.2s ease !important; }
+.sf-brand-pill svg { width: 14px !important; height: 14px !important; display: block !important; }
+.sf-brand-pill.sf-heating svg  { color: var(--c-heating) !important; }
+.sf-brand-pill.sf-electric svg { color: var(--c-electric) !important; }
+.sf-brand-pill.sf-aircon svg   { color: var(--c-aircon) !important; }
+.sf-brand-pill.sf-heating:hover  { border-color: var(--c-heating) !important; }
+.sf-brand-pill.sf-electric:hover { border-color: var(--c-electric) !important; }
+.sf-brand-pill.sf-aircon:hover   { border-color: var(--c-aircon) !important; }
+.sf-socials { display: flex !important; align-items: center !important; gap: 12px !important; margin: 8px 0 0 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sf-social-link { display: flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; min-width: 36px !important; min-height: 36px !important; border-radius: 2px !important; background: #1a1a1a !important; border: 1px solid #262626 !important; color: #a3a3a3 !important; text-decoration: none !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; outline: none !important; transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease !important; cursor: pointer !important; }
+.sf-social-link:hover { background: rgba(var(--accent-rgb),0.1) !important; color: var(--accent) !important; border-color: rgba(var(--accent-rgb),0.3) !important; }
+.sf-social-link:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 2px !important; }
+.sf-social-link svg { width: 16px !important; height: 16px !important; min-width: 16px !important; min-height: 16px !important; display: block !important; flex-shrink: 0 !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sf-col { display: flex !important; flex-direction: column !important; gap: 0 !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sf-col-title { display: block !important; color: #ffffff !important; font-size: 1rem !important; font-weight: 600 !important; letter-spacing: 0.02em !important; margin: 0 0 20px 0 !important; padding: 0 0 14px 0 !important; border: none !important; border-bottom: 2px solid var(--accent) !important; box-sizing: border-box !important; line-height: 1 !important; text-transform: none !important; }
+.sf-col-list { display: flex !important; flex-direction: column !important; gap: 0 !important; list-style: none !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sf-col-list li { list-style: none !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sf-link { display: flex !important; align-items: center !important; gap: 10px !important; color: #a3a3a3 !important; font-size: 0.9375rem !important; font-weight: 400 !important; font-family: inherit !important; text-decoration: none !important; padding: 8px 0 !important; margin: 0 !important; border: none !important; background: none !important; box-sizing: border-box !important; line-height: 1.4 !important; transition: color 0.2s ease !important; cursor: pointer !important; outline: none !important; white-space: nowrap !important; }
+.sf-link:hover { color: #ffffff !important; }
+.sf-link:focus-visible, a.sf-contact-item:focus-visible, .sf-logo:focus-visible, .sf-credit-link:focus-visible { outline: 2px solid var(--accent) !important; outline-offset: 2px !important; color: #ffffff !important; }
+.sf-contact-item { display: flex !important; align-items: flex-start !important; gap: 10px !important; color: #a3a3a3 !important; font-size: 0.9375rem !important; font-weight: 400 !important; font-family: inherit !important; text-decoration: none !important; padding: 8px 0 !important; margin: 0 !important; border: none !important; background: none !important; box-sizing: border-box !important; line-height: 1.4 !important; cursor: default !important; }
+a.sf-contact-item { cursor: pointer !important; transition: color 0.2s ease !important; }
+a.sf-contact-item:hover { color: #ffffff !important; }
+.sf-contact-item svg { width: 15px !important; height: 15px !important; min-width: 15px !important; min-height: 15px !important; color: var(--accent) !important; flex-shrink: 0 !important; display: block !important; margin: 3px 0 0 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; }
+.sf-bottom { display: block !important; background: #0a0a0a !important; border: none !important; border-top: 1px solid #1a1a1a !important; width: 100% !important; margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; }
+.sf-bottom-inner { display: flex !important; align-items: center !important; justify-content: space-between !important; flex-wrap: wrap !important; gap: 8px 24px !important; max-width: 1440px !important; margin: 0 auto !important; padding: 20px 48px !important; box-sizing: border-box !important; border: none !important; }
+.sf-copyright, .sf-credit { display: block !important; color: #525252 !important; font-size: 0.8125rem !important; font-weight: 400 !important; font-family: inherit !important; margin: 0 !important; padding: 0 !important; border: none !important; box-sizing: border-box !important; line-height: 1.5 !important; }
+.sf-copyright { text-align: left !important; }
+.sf-credit { text-align: right !important; }
+.sf-credit-link { font-weight: 500 !important; color: #a3a3a3 !important; text-decoration: none !important; border: none !important; background: none !important; transition: color 0.2s ease !important; }
+.sf-credit-link:hover { color: var(--accent) !important; }
+@media (max-width: 1024px) {
+  .sf-inner { padding: 56px 24px 48px !important; gap: 36px !important; }
+  .sf-bottom-inner { padding: 20px 24px !important; }
+}
+@media (max-width: 860px) {
+  .sf-inner { grid-template-columns: 1fr 1fr !important; gap: 40px 36px !important; padding: 48px 24px 40px !important; }
+}
+@media (max-width: 560px) {
+  .sf-inner { grid-template-columns: 1fr !important; gap: 36px !important; padding: 40px 24px 32px !important; }
+  .sf-tagline { max-width: none !important; }
+  .sf-link { white-space: normal !important; }
+  .sf-bottom-inner { justify-content: center !important; text-align: center !important; }
+  .sf-copyright, .sf-credit { text-align: center !important; width: 100% !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sf-social-link, .sf-link, a.sf-contact-item, .sf-credit-link { transition: none !important; }
+}
+</style>
+</head>
+<body data-brand="group">
+
+<!-- ============================================================
+     SITE HEADER (shared by all four pages)
+     The logo <img class="js-brand-logo"> is swapped by the router.
+     ============================================================ -->
+<div id="sh-root">
+
+  <div class="sh-tb">
+    <div class="sh-tb-inner">
+      <div class="sh-tb-left">
+        <a href="tel:+441322474990" class="sh-tb-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          01322 474 990
+        </a>
+        <div class="sh-tb-sep"></div>
+        <a href="mailto:info@smartplusheating.com" class="sh-tb-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          info@smartplusheating.com
+        </a>
+        <div class="sh-tb-sep"></div>
+        <span class="sh-tb-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Mon – Fri: 8am – 6pm
+        </span>
+      </div>
+      <div class="sh-tb-right">
+        <span class="sh-tb-item sh-tb-gas">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Gas Safe: 670242
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh-hd">
+    <div class="sh-hd-inner">
+
+      <a href="#home" class="sh-logo" aria-label="Smart Plus Group — home">
+        <img class="js-brand-logo" alt="Smart Plus Group" decoding="async" />
+      </a>
+
+      <nav aria-label="Main">
+        <ul class="sh-nav">
+          <li class="sh-nav-item">
+            <a href="#home" class="sh-nav-link" data-nav="home">Home</a>
+          </li>
+          <li class="sh-nav-item">
+            <a href="/about-us" class="sh-nav-link">About Us</a>
+          </li>
+          <li class="sh-nav-item">
+            <a href="#home/brands" class="sh-nav-link" data-nav="heating electrical cooling">
+              Services
+              <svg class="sh-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>
+            </a>
+            <ul class="sh-dropdown">
+              <li class="sh-drop-label">Our Brands</li>
+              <li><a href="#heating" class="sh-drop-link sh-brand sh-brand-heating">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                Smart Plus Heating
+              </a></li>
+              <li><a href="#electrical" class="sh-drop-link sh-brand sh-brand-electric">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+                Smart Plus Electric
+              </a></li>
+              <li><a href="#cooling" class="sh-drop-link sh-brand sh-brand-aircon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="2" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg>
+                Smart Plus Aircon
+              </a></li>
+              <li class="sh-drop-divider"></li>
+              <li><a href="#cooling" class="sh-drop-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg>
+                Air Conditioning
+              </a></li>
+              <li><a href="/air-conditioning-servicing" class="sh-drop-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                Air Conditioning Servicing
+              </a></li>
+              <li class="sh-drop-divider"></li>
+              <li><a href="/boiler-installations" class="sh-drop-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M12 11v6"/><path d="M9 14h6"/></svg>
+                Boiler Installations
+              </a></li>
+              <li><a href="/boiler-breakdowns" class="sh-drop-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                Boiler Breakdowns
+              </a></li>
+              <li><a href="#heating" class="sh-drop-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="m9 14 2 2 4-4"/></svg>
+                Boiler Servicing
+              </a></li>
+              <li><a href="/power-flushing" class="sh-drop-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+                Power Flushing
+              </a></li>
+              <li class="sh-drop-divider"></li>
+              <li><a href="/landlord-gas-safety" class="sh-drop-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                Landlord Gas Safety
+              </a></li>
+              <li><a href="#electrical" class="sh-drop-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+                Electrical Services
+              </a></li>
+              <li><a href="/renewable-solutions" class="sh-drop-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                Renewable Solutions
+              </a></li>
+            </ul>
+          </li>
+          <li class="sh-nav-item">
+            <a href="https://wa.me/447769546505" target="_blank" rel="nofollow noopener noreferrer" class="sh-nav-link sh-whatsapp">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#22c55e" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              WhatsApp
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <a href="#home/contact" class="sh-cta">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Contact Us
+      </a>
+
+      <button type="button" class="sh-burger" aria-label="Open menu" aria-controls="sh-mobile-nav" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </button>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ MOBILE OVERLAY ═══ -->
+<div id="sh-mobile-nav" class="sh-mob">
+  <div class="sh-mob-top">
+    <a href="#home" class="sh-logo" aria-label="Smart Plus Group — home">
+      <img class="js-brand-logo" alt="Smart Plus Group" decoding="async" />
+    </a>
+    <button type="button" class="sh-mob-close" aria-label="Close menu">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="sh-mob-section">
+    <a href="#home" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </a>
+    <a href="/about-us" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      About Us
+    </a>
+  </div>
+
+  <div class="sh-mob-label">Our Brands</div>
+
+  <div class="sh-mob-section">
+    <a href="#heating" class="sh-mob-link sh-brand sh-brand-heating">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+      Smart Plus Heating
+    </a>
+    <a href="#electrical" class="sh-mob-link sh-brand sh-brand-electric">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+      Smart Plus Electric
+    </a>
+    <a href="#cooling" class="sh-mob-link sh-brand sh-brand-aircon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="2" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg>
+      Smart Plus Aircon
+    </a>
+  </div>
+
+  <div class="sh-mob-label">Our Services</div>
+
+  <div class="sh-mob-section">
+    <a href="#home/brands" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+      All Services
+    </a>
+    <a href="#cooling" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg>
+      Air Conditioning
+    </a>
+    <a href="/air-conditioning-servicing" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      Air Conditioning Servicing
+    </a>
+    <a href="/boiler-installations" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M12 11v6"/><path d="M9 14h6"/></svg>
+      Boiler Installations
+    </a>
+    <a href="/boiler-breakdowns" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      Boiler Breakdowns
+    </a>
+    <a href="#heating" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="m9 14 2 2 4-4"/></svg>
+      Boiler Servicing
+    </a>
+    <a href="/power-flushing" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+      Power Flushing
+    </a>
+    <a href="/landlord-gas-safety" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+      Landlord Gas Safety
+    </a>
+    <a href="#electrical" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+      Electrical Services
+    </a>
+    <a href="/renewable-solutions" class="sh-mob-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      Renewable Solutions
+    </a>
+  </div>
+
+  <a href="https://wa.me/447769546505" target="_blank" rel="nofollow noopener noreferrer" class="sh-mob-whatsapp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#22c55e" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+    WhatsApp Us
+  </a>
+
+  <a href="#home/contact" class="sh-mob-cta">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Contact Us
+  </a>
+
+</div>
+
+<!-- ============================================================
+     PAGE 1 — SMART PLUS GROUP HOMEPAGE  (#home)
+     ============================================================ -->
+<main id="page-home" class="page">
+<div class="sp-wrapper">
+
+  <!-- HERO -->
+  <section class="sp-hero">
+    <div class="sp-hero-bg">
+      <img src="{{IMG:hero-home}}" alt="Smart Plus Group — Gas Safe, F-Gas and NICEIC registered engineers in Dartford and Kent">
+      <div class="sp-hero-overlay"></div>
+    </div>
+    <div class="sp-container">
+      <div class="sp-hero-content fade-in-up">
+        <h1 class="sp-h1"><span class="sp-h1-line"><span class="c-heating">Heating</span>, <span class="c-aircon">Air Conditioning</span></span><br>&amp; <span class="c-electric">Electrics</span></h1>
+        <p class="sp-hero-p">Smart Plus Group brings together three specialist teams, Smart Plus Heating, Smart Plus Aircon and Smart Plus Electric, serving London, Kent, Essex, Sussex and the South East. Gas Safe, F-Gas and NICEIC registered engineers for boiler installation, servicing and repairs, air conditioning, EV chargers, rewires and renewable heating.</p>
+        <div class="sp-btn-group">
+          <a href="tel:01322474990" class="sp-btn sp-btn-primary">
+            <svg class="sp-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call 01322 474 990
+          </a>
+          <a href="#home/brands" class="sp-btn sp-btn-outline">
+            Our Brands
+            <svg class="sp-icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="sp-hero-badges">
+          <div class="sp-badge"><svg class="sp-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Gas Safe Registered</div>
+          <div class="sp-badge"><svg class="sp-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>F-Gas Registered</div>
+          <div class="sp-badge"><svg class="sp-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Which? Trusted Trader</div>
+          <div class="sp-badge"><svg class="sp-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>British Gas Partner</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCREDITATIONS TICKER (the track is duplicated by JS for a seamless loop) -->
+  <div class="sp-accreditations">
+    <div class="sp-container" style="text-align: center;">
+      <p style="color: var(--text-neutral-500); font-size: 1rem; margin: 0 0 2.5rem 0;">Trusted and certified by leading industry bodies</p>
+    </div>
+    <div class="sp-scroll-wrapper">
+      <div class="sp-fade-left"></div>
+      <div class="sp-fade-right"></div>
+      <div class="sp-scroll-track">
+        <img src="{{IMG:acc-gassafe}}" alt="Gas Safe Register">
+        <img src="{{IMG:acc-britishgas}}" alt="British Gas Partner">
+        <img src="{{IMG:acc-worcester}}" alt="Worcester Bosch Accredited Installer">
+        <img src="{{IMG:acc-vaillant}}" alt="Vaillant Advanced Installer">
+        <img src="{{IMG:acc-panasonic}}" alt="Panasonic Pro Partner">
+        <img src="{{IMG:acc-eo}}" alt="EO Approved EV Charger Installer">
+        <img src="{{IMG:acc-fgas}}" alt="F-Gas Register">
+        <img src="{{IMG:acc-safecontractor}}" alt="Safe Contractor Approved">
+        <img src="{{IMG:acc-niceic}}" alt="NICEIC Approved Electrician">
+        <img src="{{IMG:acc-bwc}}" alt="Buy With Confidence">
+        <img src="{{IMG:acc-mixergy}}" alt="Mixergy Approved Installer">
+        <img src="{{IMG:acc-iso}}" alt="UKAS ISO 9001">
+        <img src="{{IMG:acc-mitsubishi-installer}}" alt="Mitsubishi Electric Installer">
+      </div>
+    </div>
+  </div>
+
+  <!-- OUR BRANDS -->
+  <section id="brands" class="sp-brands">
+    <div class="sp-container">
+      <div class="sp-brands-header fade-in-up">
+        <span class="sp-label">The Smart Plus Group</span>
+        <h2 class="sp-h2">One Group. <span class="sp-accent-text">Three Specialist Teams.</span></h2>
+        <p>From emergency boiler repairs to new boiler installation, air conditioning and full rewires, Smart Plus Group provides comprehensive heating, cooling and electrical solutions across Dartford, Bexleyheath, Gravesend and Kent. Every job is carried out by our own accredited engineers, backed by industry-leading warranties and 7-day support.</p>
+      </div>
+
+      <div class="sp-brand-grid">
+        <article class="sp-brand-card fade-in-up" data-b="heating">
+          <img class="sp-brand-logo" data-logo="heating" alt="Smart Plus Heating">
+          <h3>Heating &amp; Boilers</h3>
+          <p>Gas Safe registered engineers for boiler installation, annual servicing, breakdowns, power flushing and landlord gas safety certificates.</p>
+          <ul class="sp-brand-list">
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Boiler installation &amp; servicing</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Emergency breakdowns &amp; repairs</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Landlord gas safety certificates</li>
+          </ul>
+          <a href="#heating" class="sp-brand-cta">Visit Smart Plus Heating <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </article>
+
+        <article class="sp-brand-card fade-in-up" data-b="aircon">
+          <img class="sp-brand-logo" data-logo="aircon" alt="Smart Plus Aircon">
+          <h3>Air Conditioning</h3>
+          <p>F-Gas qualified installation and servicing of Panasonic, Daikin, Mitsubishi Electric and Samsung systems for homes and businesses.</p>
+          <ul class="sp-brand-list">
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Single &amp; multi-room installation</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Air conditioning servicing</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Free home survey &amp; fixed-price quote</li>
+          </ul>
+          <a href="#cooling" class="sp-brand-cta">Visit Smart Plus Aircon <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </article>
+
+        <article class="sp-brand-card fade-in-up" data-b="electric">
+          <img class="sp-brand-logo" data-logo="electric" alt="Smart Plus Electric">
+          <h3>Electrical</h3>
+          <p>NICEIC approved electricians for EV charger installation, consumer unit upgrades, EICRs, full and partial rewires and exterior lighting.</p>
+          <ul class="sp-brand-list">
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>EV charging points</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Fuse board upgrades &amp; EICRs</li>
+            <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Full &amp; partial rewires</li>
+          </ul>
+          <a href="#electrical" class="sp-brand-cta">Visit Smart Plus Electric <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </article>
+      </div>
+
+      <div class="sp-brands-more fade-in-up">
+        <a href="/services" class="sp-btn sp-btn-outline">
+          See All Our Services
+          <svg class="sp-icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="sp-why">
+    <div class="sp-container">
+      <div class="sp-why-grid">
+        <div class="fade-in-left">
+          <span class="sp-label">Why Choose Us</span>
+          <h2 class="sp-h2">Why Dartford Homeowners Choose <span style="color: white;">Smart Plus Group</span></h2>
+          <p class="sp-hero-p">We don't just install boilers, we build lasting relationships. As a British Gas partner with over 9,000 boiler installations across Dartford, Bexleyheath and Kent, Smart Plus Group brings national standards with genuine local care, whether you need heating, cooling or electrical work.</p>
+          <ul class="sp-why-list">
+            <li class="sp-why-item"><svg class="sp-icon sp-why-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m22 4-10 10-5-5"/></svg>No hidden call-out fees or unexpected costs.</li>
+            <li class="sp-why-item"><svg class="sp-icon sp-why-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m22 4-10 10-5-5"/></svg>Up to 12-year manufacturer warranties on all boiler installs.</li>
+            <li class="sp-why-item"><svg class="sp-icon sp-why-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m22 4-10 10-5-5"/></svg>Fully insured, Gas Safe registered engineers (No. 670242).</li>
+            <li class="sp-why-item"><svg class="sp-icon sp-why-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m22 4-10 10-5-5"/></svg>Worcester Bosch &amp; Vaillant accredited installers.</li>
+            <li class="sp-why-item"><svg class="sp-icon sp-why-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m22 4-10 10-5-5"/></svg>F-Gas registered air conditioning engineers and NICEIC approved electricians.</li>
+          </ul>
+          <a href="#home/reviews" class="sp-btn sp-btn-outline">See Our Reviews</a>
+        </div>
+        <div class="sp-why-img fade-in-right">
+          <img src="{{IMG:why-us}}" alt="Smart Plus Group engineers in Dartford">
+          <div class="sp-stats">
+            <div><div class="sp-stat-val">9,000+</div><div class="sp-stat-label">Boilers Installed</div></div>
+            <div style="width: 1px; background: rgba(255,255,255,0.2);"></div>
+            <div><div class="sp-stat-val">5+</div><div class="sp-stat-label">Years Serving Kent</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <div class="sp-dark-bottom">
+    <section id="reviews" class="sp-testimonials">
+      <div class="sp-container">
+        <div class="sp-reviews-head fade-in-up">
+          <h2 class="sp-h2">Client Feedback</h2>
+          <div class="sp-reviews-rating">
+            <div><b>4.9/5</b> Average Rating based on <u>40+ Reviews</u></div>
+          </div>
+        </div>
+
+        <div class="sp-reviews-wrapper">
+          <div class="sp-grid" id="spReviewSlider">
+            <div class="sp-testimonial-card fade-in-up">
+              <svg class="sp-quote-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              <div class="sp-stars">★★★★★</div>
+              <div class="sp-quote-container">
+                <p class="sp-quote">"I recently had two air conditioning units installed by Smart Plus Heating and I cannot praise the company enough. Joe responded immediately and came to assess the property in person — unlike other companies who wanted me to describe everything online. The team of three worked tirelessly for 12 hours to complete the installation in one day. They left the house spotless. The cost was competitive and I would recommend Smart Plus to anyone looking for air conditioning or heating work in the area."</p>
+                <button type="button" class="sp-read-more-btn">Read More</button>
+              </div>
+              <div class="sp-testimonial-meta"><div class="sp-author">Ann Noble</div><div class="sp-location">7 months ago</div></div>
+            </div>
+            <div class="sp-testimonial-card fade-in-up">
+              <svg class="sp-quote-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              <div class="sp-stars">★★★★★</div>
+              <div class="sp-quote-container">
+                <p class="sp-quote">"We used Smart Plus for air conditioning installation in a garden room/gym and two office units. Communication was excellent, the installation was fast, and the property was left completely tidy. Would highly recommend Joe and the team."</p>
+                <button type="button" class="sp-read-more-btn">Read More</button>
+              </div>
+              <div class="sp-testimonial-meta"><div class="sp-author">Michelle Adams</div><div class="sp-location">9 months ago</div></div>
+            </div>
+            <div class="sp-testimonial-card fade-in-up">
+              <svg class="sp-quote-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              <div class="sp-stars">★★★★★</div>
+              <div class="sp-quote-container">
+                <p class="sp-quote">"Smart Plus Heating installed a Panasonic air conditioning unit in our bedroom. Minimum mess, arrived on time, fully professional and respectful of our property. Would have no qualms recommending them to anyone."</p>
+                <button type="button" class="sp-read-more-btn">Read More</button>
+              </div>
+              <div class="sp-testimonial-meta"><div class="sp-author">Andrea Costello</div><div class="sp-location">7 months ago</div></div>
+            </div>
+            <div class="sp-testimonial-card fade-in-up">
+              <svg class="sp-quote-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              <div class="sp-stars">★★★★★</div>
+              <div class="sp-quote-container">
+                <p class="sp-quote">"I recently had an air conditioning system installed by Smart Plus Heating and couldn't be more impressed. They began with a thorough on-site assessment — something many companies skip. The engineers were experienced professionals, worked cleanly, and communicated throughout. A top-tier service all around."</p>
+                <button type="button" class="sp-read-more-btn">Read More</button>
+              </div>
+              <div class="sp-testimonial-meta"><div class="sp-author">Pedro Caires</div><div class="sp-location">8 months ago</div></div>
+            </div>
+            <div class="sp-testimonial-card fade-in-up">
+              <svg class="sp-quote-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              <div class="sp-stars">★★★★★</div>
+              <div class="sp-quote-container">
+                <p class="sp-quote">"Smart Plus Heating installed four air conditioning units in our house. From the quote to completion they were professional and easy to work with. Tidy, considerate and the quality of the work was exceptional. Could not recommend highly enough."</p>
+                <button type="button" class="sp-read-more-btn">Read More</button>
+              </div>
+              <div class="sp-testimonial-meta"><div class="sp-author">Brad Carson</div><div class="sp-location">3 months ago</div></div>
+            </div>
+          </div>
+
+          <div class="sp-slider-controls">
+            <button type="button" class="sp-slider-arrow" id="spBtnPrev" aria-label="Previous review"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+            <button type="button" class="sp-slider-arrow" id="spBtnNext" aria-label="Next review"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="sp-review-badges">
+          <a href="https://uk.trustpilot.com/review/smartplusheating.com" target="_blank" rel="noopener noreferrer" class="sp-review-item">
+            <img src="{{IMG:trustpilot}}" alt="Trustpilot" class="sp-trust-logo">
+            <span class="sp-review-text">Trustpilot Reviews</span>
+          </a>
+          <a href="https://share.google/vLzJxjdf8oPBbeFRI" target="_blank" rel="noopener noreferrer" class="sp-review-item">
+            <img src="{{IMG:google-g}}" alt="Google" class="sp-google-logo">
+            <span class="sp-review-text">Google Reviews</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FAQ -->
+  <section class="sp-faq">
+    <div class="sp-container">
+      <div class="sp-faq-header fade-in-up">
+        <span class="sp-label">Common Questions</span>
+        <h2 class="sp-h2">Frequently Asked <span class="sp-accent-text">Questions</span></h2>
+      </div>
+      <div class="sp-faq-list">
+        <div class="sp-faq-item">
+          <button type="button" class="sp-faq-q" aria-expanded="false"><h3>How much does air conditioning installation cost?</h3><svg class="sp-faq-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="sp-faq-a"><p>Cost depends on the size of the space, the number of rooms, and the system you choose. We offer a free, no-obligation home survey so we can give you an accurate, fixed-price quote tailored to your property.</p></div>
+        </div>
+        <div class="sp-faq-item">
+          <button type="button" class="sp-faq-q" aria-expanded="false"><h3>Do you install air conditioning in both homes and businesses?</h3><svg class="sp-faq-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="sp-faq-a"><p>Yes, we install residential and commercial air conditioning systems across London, Kent, Essex, Sussex and the South East, from single-room units to full multi-room and commercial setups.</p></div>
+        </div>
+        <div class="sp-faq-item">
+          <button type="button" class="sp-faq-q" aria-expanded="false"><h3>How long does an air conditioning installation take?</h3><svg class="sp-faq-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="sp-faq-a"><p>Most single-room installations are completed in a single day. Multi-room or commercial systems can take longer depending on the number of units and property access.</p></div>
+        </div>
+        <div class="sp-faq-item">
+          <button type="button" class="sp-faq-q" aria-expanded="false"><h3>Are your engineers qualified to work on gas, electrical and air conditioning systems?</h3><svg class="sp-faq-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="sp-faq-a"><p>Yes. All gas work is carried out directly by our own Gas Safe registered engineers, all air conditioning work by our own F-Gas qualified team, and all electrical work by our NICEIC approved electricians.</p></div>
+        </div>
+        <div class="sp-faq-item">
+          <button type="button" class="sp-faq-q" aria-expanded="false"><h3>Do you offer free quotes?</h3><svg class="sp-faq-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="sp-faq-a"><p>Yes, every job starts with a free, no-obligation survey and a clear, fixed-price quote before any work begins.</p></div>
+        </div>
+      </div>
+      <div class="sp-faq-cta fade-in-up">
+        <a href="/faq" class="sp-btn sp-btn-outline">See All FAQs<svg class="sp-icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="sp2i-contact">
+    <div class="sp-container">
+      <h2 class="sp2i-h2">Contact <span style="color: white;">Us</span></h2>
+      <p class="sp2i-intro">Our team of Gas Safe, F-Gas and NICEIC registered engineers covers Dartford, Bexleyheath, Gravesend, Sevenoaks and across Kent. Get in touch for a free quote on heating, air conditioning or electrical work.</p>
+      <div class="sp2i-grid">
+        <div>
+          <div class="sp2i-info-box">
+            <div class="sp2i-icon-wrap"><svg class="sp2i-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><h3 class="sp2i-h3">Phone</h3><p class="sp2i-text">01322 474 990</p><p class="sp2i-subtext">Mon–Fri: 8:00 AM – 6:00 PM</p></div>
+          </div>
+          <div class="sp2i-info-box">
+            <div class="sp2i-icon-wrap"><svg class="sp2i-icon" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+            <div><h3 class="sp2i-h3">Email</h3><p class="sp2i-text">info@smartplusheating.com</p><p class="sp2i-subtext">We reply within 24 hours</p></div>
+          </div>
+          <div class="sp2i-info-box">
+            <div class="sp2i-icon-wrap"><svg class="sp2i-icon" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><h3 class="sp2i-h3">Office Address</h3><p class="sp2i-text">The Bridge Nucleus</p><p class="sp2i-text">Brunel Way</p><p class="sp2i-text">Dartford, DA1 5GA</p></div>
+          </div>
+          <div class="sp2i-info-box">
+            <div class="sp2i-icon-wrap"><svg class="sp2i-icon" viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><h3 class="sp2i-h3">Areas We Cover</h3><p class="sp2i-text">Dartford · Bexleyheath · Gravesend</p><p class="sp2i-text">Sevenoaks · Swanley · Sidcup</p><p class="sp2i-text">Erith · Crayford · across Kent</p></div>
+          </div>
+        </div>
+        <!-- On the live site the Squarespace form block is moved into this container.
+             The form below is a styled placeholder so the prototype shows the layout. -->
+        <div id="sp2i-form-target">
+          <form class="sp2i-form" action="#" onsubmit="return false;">
+            <div class="sp2i-form-row">
+              <div><label for="cf-name">Name</label><input id="cf-name" name="name" type="text" autocomplete="name" placeholder="Your name"></div>
+              <div><label for="cf-phone">Phone</label><input id="cf-phone" name="phone" type="tel" autocomplete="tel" placeholder="01322 000 000"></div>
+            </div>
+            <div><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" autocomplete="email" placeholder="you@example.com"></div>
+            <div><label for="cf-service">What do you need help with?</label>
+              <select id="cf-service" name="service">
+                <option>Heating &amp; boilers (Smart Plus Heating)</option>
+                <option>Air conditioning (Smart Plus Aircon)</option>
+                <option>Electrical work (Smart Plus Electric)</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div><label for="cf-msg">Message</label><textarea id="cf-msg" name="message" placeholder="Tell us a little about the job..."></textarea></div>
+            <button type="submit" class="sp-btn sp-btn-primary">Request a Free Quote</button>
+            <p class="sp2i-form-note">Prototype form — on the live site this is replaced by the Squarespace contact form.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<!-- ============================================================
+     PAGE 2 — SMART PLUS HEATING  (#heating)  accent: red
+     ============================================================ -->
+<main id="page-heating" class="page" hidden>
+<div class="svc-wrapper">
+
+  <section class="svc-hero">
+    <div class="svc-hero-bg">
+      <img src="{{IMG:hero-heating}}" alt="Smart Plus Heating Boiler Servicing">
+      <div class="svc-hero-overlay"></div>
+    </div>
+    <div class="svc-container">
+      <div class="svc-hero-content fade-in-up">
+        <h1 class="svc-h1">Boiler <br><span class="svc-accent">Servicing</span></h1>
+        <p class="svc-hero-p">Professional boiler servicing across London, Kent, Essex, Sussex and the South East. Your boiler's annual service will help keep your central heating system in optimum condition, extend its lifespan, and identify problems that could prove dangerous if left unfixed.</p>
+        <div class="svc-btn-group">
+          <a href="tel:01322474990" class="svc-btn svc-btn-primary">
+            <svg class="svc-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call 01322 474 990
+          </a>
+          <a href="#home/contact" class="svc-btn svc-btn-outline">
+            Book Your Service
+            <svg class="svc-icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="svc-hero-badges">
+          <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Gas Safe Registered</div>
+          <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Manufacturer Trained</div>
+          <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>From £75 + VAT</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-section">
+    <div class="svc-container">
+      <div class="svc-section-head">
+        <span class="svc-label">Annual Maintenance</span>
+        <h2 class="svc-h2">Professional Boiler <span class="svc-accent">Servicing</span></h2>
+      </div>
+
+      <div class="svc-intro">
+        <p>At Smart Plus Heating, our engineers will provide thorough inspections and maintenance to ensure your boiler is working efficiently and give advice and recommendations to enhance your system's performance further.</p>
+        <p>Getting your boiler serviced annually helps keep its warranty valid, reduces the risks of costly repairs or replacements and improves its overall energy efficiency.</p>
+      </div>
+
+      <div class="svc-split">
+        <div class="svc-split-img fade-in-left">
+          <img src="{{IMG:heating-service}}" alt="Boiler Servicing">
+        </div>
+
+        <div class="fade-in-right">
+          <div class="svc-pricing">
+            <div class="svc-pricing-label">Starting From</div>
+            <div class="svc-pricing-amount">£75</div>
+            <div class="svc-pricing-vat">+ VAT</div>
+          </div>
+
+          <ul class="svc-feature-list">
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Comprehensive system inspection and safety checks.</span></li>
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Cleaning of key components to maintain efficiency.</span></li>
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Testing of controls and safety devices.</span></li>
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Flue gas analysis for optimal performance.</span></li>
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Pressure checks and system optimisation.</span></li>
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Detailed report with recommendations.</span></li>
+          </ul>
+
+          <a href="#home/contact" class="svc-btn svc-btn-primary">
+            Book Your Service Today
+            <svg class="svc-icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-brands">
+    <div class="svc-container">
+      <div class="svc-brands-header fade-in-up">
+        <span class="svc-label">Manufacturer Approved</span>
+        <h2 class="svc-h2">Brands We <span class="svc-accent">Service</span></h2>
+        <p>Our engineers are trained and certified to service all major boiler brands to the highest manufacturer standards.</p>
+      </div>
+      <div class="svc-brands-grid svc-brands-grid--3">
+        <div class="svc-brand-card fade-in-up"><img src="{{IMG:acc-worcester}}" alt="Worcester Bosch" class="svc-brand-logo"><div class="svc-brand-name">Worcester Bosch</div></div>
+        <div class="svc-brand-card fade-in-up"><img src="{{IMG:acc-vaillant}}" alt="Vaillant" class="svc-brand-logo"><div class="svc-brand-name">Vaillant</div></div>
+        <div class="svc-brand-card fade-in-up"><img src="{{IMG:acc-britishgas}}" alt="British Gas" class="svc-brand-logo"><div class="svc-brand-name">British Gas</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-process">
+    <div class="svc-container">
+      <div class="svc-process-header fade-in-up">
+        <span class="svc-label">How It Works</span>
+        <h2 class="svc-h2">Our Service <span class="svc-accent">Process</span></h2>
+        <p>A straightforward, professional service from start to finish. Book your annual boiler service today.</p>
+      </div>
+      <div class="svc-process-grid">
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">01</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg></div>
+          <h3>Book Appointment</h3>
+          <p>Choose a convenient time slot that works for you. We offer flexible scheduling across Dartford and Kent.</p>
+        </div>
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">02</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></div>
+          <h3>Full Inspection</h3>
+          <p>Our Gas Safe engineer performs a thorough inspection, cleaning, and testing of your boiler and heating system.</p>
+        </div>
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">03</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+          <h3>Expert Advice</h3>
+          <p>Receive a detailed report with our findings and professional recommendations for optimal system performance.</p>
+        </div>
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">04</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3>Peace of Mind</h3>
+          <p>Your boiler is serviced to manufacturer standards, keeping your warranty valid and your home safe and warm.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<!-- ============================================================
+     PAGE 3 — SMART PLUS ELECTRIC  (#electrical)  accent: yellow
+     ============================================================ -->
+<main id="page-electrical" class="page" hidden>
+<div class="svc-wrapper">
+
+  <section class="svc-hero">
+    <div class="svc-hero-bg">
+      <img src="{{IMG:hero-electrical}}" alt="Smart Plus Electric — Electrical Services">
+      <div class="svc-hero-overlay"></div>
+    </div>
+    <div class="svc-container">
+      <div class="svc-hero-content fade-in-up">
+        <h1 class="svc-h1">Electrical <br><span class="svc-accent">Services</span></h1>
+        <p class="svc-hero-p">At Smart Plus Electric we have your electrical needs covered too. Whether you're looking to upgrade your fuse board, completely rewire your home or install exterior power and lighting, our team of skilled electricians are here to help.</p>
+        <div class="svc-btn-group">
+          <a href="tel:01322474990" class="svc-btn svc-btn-primary">
+            <svg class="svc-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call 01322 474 990
+          </a>
+          <a href="#home/contact" class="svc-btn svc-btn-outline">
+            Get a Free Quote
+            <svg class="svc-icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="svc-hero-badges">
+          <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Certified Electricians</div>
+          <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Safety Compliant</div>
+          <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Fast Response</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-section">
+    <div class="svc-container">
+      <div class="svc-section-head" style="margin-bottom: 3rem;">
+        <span class="svc-label">Professional Services</span>
+        <h2 class="svc-h2">Electrical Solutions <span class="svc-accent">We Offer</span></h2>
+      </div>
+
+      <div class="svc-featured-img fade-in-up">
+        <img src="{{IMG:electrical-mid}}" alt="Electrical Installation">
+      </div>
+
+      <div class="svc-cards">
+        <div class="svc-card fade-in-up">
+          <div class="svc-card-icon"><svg viewBox="0 0 24 24"><path d="M18.37 2.63 14 7l-1.59-1.59a2 2 0 0 0-2.82 0L8 7l9 9 1.59-1.59a2 2 0 0 0 0-2.82L17 10l4.37-4.37a2.12 2.12 0 1 0-3-3Z"/><path d="M9 8c-2 3-4 3.5-7 4l6 6c.5-3 1-5 4-7"/><path d="M14.5 17.5 4.5 15"/></svg></div>
+          <h3>Electric Vehicle (EV) Charging Points</h3>
+          <p>Tired of queuing at public charging stations to power your vehicle? Our EV charging point installation services make it simple to plug in and charge from the comfort and convenience of your driveway.</p>
+        </div>
+        <div class="svc-card fade-in-up">
+          <div class="svc-card-icon"><svg viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></div>
+          <h3>EICR – Electrical Installation Condition Report</h3>
+          <p>We help landlords protect their property investments and keep tenants safe by providing thorough Electrical Installation Condition Reports. Our qualified electricians identify any defects, wear, damage, or potential hazards.</p>
+        </div>
+        <div class="svc-card fade-in-up">
+          <div class="svc-card-icon"><svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><rect width="3" height="9" x="7" y="7"/><rect width="3" height="5" x="14" y="7"/></svg></div>
+          <h3>Consumer Unit Update (New Fuse Board)</h3>
+          <p>Is your fuse board outdated or in need of an upgrade? We specialise in installing modern and safer fuse boards that fully comply with the latest electrical regulations.</p>
+        </div>
+        <div class="svc-card fade-in-up">
+          <div class="svc-card-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.6 3 12"/><polyline points="21 12 16.5 14.6 16.5 19.79"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" x2="12" y1="22.08" y2="12"/></svg></div>
+          <h3>Partial/Full Rewire</h3>
+          <p>If your home's wiring is outdated, damaged or potentially unsafe, a rewire may be necessary. Our experienced electricians handle all aspects of the rewiring process, from planning to certification.</p>
+        </div>
+        <div class="svc-card fade-in-up">
+          <div class="svc-card-icon"><svg viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div>
+          <h3>Electrical Breakdown Callouts</h3>
+          <p>Have you unexpectedly lost power? Our team provides fast and reliable breakdown services to restore power and address any electrical problems you may encounter, swiftly and professionally.</p>
+        </div>
+        <div class="svc-card fade-in-up">
+          <div class="svc-card-icon"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <h3>Home Renovation Electrical Installation</h3>
+          <p>Planning a home renovation or extension? Our electricians have the expertise to handle all your electrical installation needs. From lighting fixtures to power outlets and appliances.</p>
+        </div>
+        <div class="svc-card fade-in-up">
+          <div class="svc-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></div>
+          <h3>Exterior Power and Lighting</h3>
+          <p>Enhance the security, safety and aesthetics of your outdoor space. Whether you need outdoor sockets, security lighting or decorative lighting to create ambience, we have you covered.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-logo-badge">
+    <img class="svc-logo-brand" data-logo="electric" alt="Smart Plus Electric">
+    <img class="svc-logo-accred" src="{{IMG:acc-eo}}" alt="EO Approved Installer">
+  </section>
+
+  <section class="svc-process">
+    <div class="svc-container">
+      <div class="svc-process-header fade-in-up">
+        <span class="svc-label">How It Works</span>
+        <h2 class="svc-h2">Our Installation <span class="svc-accent">Process</span></h2>
+        <p>From first contact to final handover, we make the process simple and stress-free. Your perfect electrical solution starts here.</p>
+      </div>
+      <div class="svc-process-grid">
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">01</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <h3>Initial Contact</h3>
+          <p>Get in touch with our friendly team to discuss your electrical needs. We'll schedule a convenient time for a site visit.</p>
+        </div>
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">02</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></div>
+          <h3>Site Survey</h3>
+          <p>Our certified electricians assess your property, discuss your requirements, and provide a detailed quote with no hidden costs.</p>
+        </div>
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">03</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div>
+          <h3>Professional Installation</h3>
+          <p>Our skilled electricians complete the work to the highest standards, ensuring full compliance with all safety regulations.</p>
+        </div>
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">04</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3>Testing &amp; Certification</h3>
+          <p>We thoroughly test all work and provide you with the necessary certification for complete peace of mind and compliance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<!-- ============================================================
+     PAGE 4 — SMART PLUS AIRCON  (#cooling)  accent: blue
+     ============================================================ -->
+<main id="page-cooling" class="page" hidden>
+<div class="svc-wrapper">
+
+  <section class="svc-hero">
+    <div class="svc-hero-bg">
+      <img src="{{IMG:hero-aircon}}" alt="Smart Plus Aircon — Air Conditioning Installation">
+      <div class="svc-hero-overlay"></div>
+    </div>
+    <div class="svc-container">
+      <div class="svc-hero-content fade-in-up">
+        <h1 class="svc-h1">Air<br><span class="svc-accent">Conditioning</span></h1>
+        <p class="svc-hero-p">At Smart Plus Aircon we help customers to create the perfect home climate and environment throughout the seasons. Expert air conditioning solutions providing efficient cooling and heating across London, Kent, Essex, Sussex and the South East.</p>
+        <div class="svc-btn-group">
+          <a href="tel:01322474990" class="svc-btn svc-btn-primary">
+            <svg class="svc-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call 01322 474 990
+          </a>
+          <a href="https://wa.me/447769546505" target="_blank" rel="noopener noreferrer" class="svc-btn svc-btn-whatsapp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+          <a href="#home/contact" class="svc-btn svc-btn-outline">
+            Get a Free Quote
+            <svg class="svc-icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="svc-hero-badges">
+          <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>F-Gas Qualified</div>
+          <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Free Home Survey</div>
+          <div class="svc-badge"><svg class="svc-badge-icon" viewBox="0 0 24 24"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>Single or Multi-Room</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-section">
+    <div class="svc-container">
+      <div class="svc-section-head">
+        <span class="svc-label">Perfect Climate Control</span>
+        <h2 class="svc-h2">Air Conditioning <span class="svc-accent">Installation</span></h2>
+      </div>
+
+      <div class="svc-intro">
+        <p>Whether you're preparing for the heat of summer or ensuring year-round comfort, our expert air conditioning solutions provide efficient cooling and heating for homes across London, Kent, Essex, Sussex and the South East.</p>
+        <p>From Panasonic to Toshiba to Mitsubishi and more, we offer our customers a wide range of sleek, state-of-the-art models to suit your property.</p>
+        <p>Our F-Gas qualified and experienced engineers will guide you through the whole process and tailor a solution to meet all of your needs, whether you are looking for air conditioning in a single room or multiple units.</p>
+        <p>Your perfect home climate is just one installation away – get in touch today.</p>
+      </div>
+
+      <div class="svc-split">
+        <div class="svc-split-img fade-in-left">
+          <img src="{{IMG:aircon-install}}" alt="Air Conditioning Unit Installation">
+        </div>
+
+        <div class="fade-in-right">
+          <ul class="svc-feature-list">
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Free, no-obligation home survey and fixed-price quote.</span></li>
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Energy-efficient models for year-round heating and cooling.</span></li>
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Expert installation by F-Gas qualified engineers.</span></li>
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Single room or multi-room system configurations.</span></li>
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Smart controls with Wi-Fi connectivity and app control.</span></li>
+            <li class="svc-feature-item"><svg class="svc-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Manufacturer warranties registered and aftercare support.</span></li>
+          </ul>
+
+          <div class="svc-btn-group">
+            <a href="#home/contact" class="svc-btn svc-btn-primary">
+              Request a Free Survey
+              <svg class="svc-icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="https://wa.me/447769546505" target="_blank" rel="noopener noreferrer" class="svc-btn svc-btn-whatsapp">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              WhatsApp Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-brands">
+    <div class="svc-container">
+      <div class="svc-brands-header fade-in-up">
+        <span class="svc-label">Manufacturer Partners</span>
+        <h2 class="svc-h2">Brands We <span class="svc-accent">Install</span></h2>
+        <p>We partner with the world's leading air conditioning manufacturers to deliver premium, reliable climate control systems.</p>
+      </div>
+      <div class="svc-brands-grid">
+        <div class="svc-brand-card fade-in-up"><img src="{{IMG:acc-panasonic}}" alt="Panasonic" class="svc-brand-logo"><div class="svc-brand-name">Panasonic</div></div>
+        <div class="svc-brand-card fade-in-up"><img src="{{IMG:brand-samsung}}" alt="Samsung" class="svc-brand-logo"><div class="svc-brand-name">Samsung</div></div>
+        <div class="svc-brand-card fade-in-up"><img src="{{IMG:brand-daikin}}" alt="Daikin" class="svc-brand-logo"><div class="svc-brand-name">Daikin</div></div>
+        <div class="svc-brand-card fade-in-up"><img src="{{IMG:brand-mitsubishi}}" alt="Mitsubishi Electric" class="svc-brand-logo"><div class="svc-brand-name">Mitsubishi Electric</div></div>
+        <div class="svc-brand-card fade-in-up"><img src="{{IMG:brand-bosch}}" alt="Bosch" class="svc-brand-logo"><div class="svc-brand-name">Bosch</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-process">
+    <div class="svc-container">
+      <div class="svc-process-header fade-in-up">
+        <span class="svc-label">How It Works</span>
+        <h2 class="svc-h2">Our Installation <span class="svc-accent">Process</span></h2>
+        <p>From first contact to final handover, we make the process simple and stress-free. Most installations are completed in a single day.</p>
+      </div>
+      <div class="svc-process-grid">
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">01</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></div>
+          <h3>Free Survey</h3>
+          <p>We visit your home, assess your cooling and heating needs, and provide a fixed-price quote with no hidden costs.</p>
+        </div>
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">02</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg></div>
+          <h3>Book a Date</h3>
+          <p>Choose a date that suits you. We'll confirm everything in writing and arrive on time, ready to get started.</p>
+        </div>
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">03</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+          <h3>Installation Day</h3>
+          <p>Our F-Gas qualified engineers install your system, run refrigerant pipework, and set up smart controls.</p>
+        </div>
+        <div class="svc-step fade-in-up">
+          <div class="svc-step-num">04</div>
+          <div class="svc-step-icon"><svg class="svc-icon-lg" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3>Handover</h3>
+          <p>We demonstrate your new system, register warranties, provide maintenance guidance, and leave your home clean.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<!-- ============================================================
+     SITE FOOTER (shared by all four pages)
+     ============================================================ -->
+<footer class="sf-root">
+  <div class="sf-main">
+    <div class="sf-inner">
+
+      <div class="sf-brand">
+        <a href="#home" class="sf-logo" aria-label="Smart Plus Group — home">
+          <img class="js-brand-logo" alt="Smart Plus Group" loading="lazy" decoding="async" />
+        </a>
+        <p class="sf-tagline">
+          Smart Plus Group: heating, air conditioning and electrical specialists setting the standard for workmanship in Dartford and Kent. Trusted, accredited, and professional.
+        </p>
+        <ul class="sf-brand-links" aria-label="Our brands">
+          <li><a href="#heating" class="sf-brand-pill sf-heating"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>Heating</a></li>
+          <li><a href="#cooling" class="sf-brand-pill sf-aircon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="2" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg>Aircon</a></li>
+          <li><a href="#electrical" class="sf-brand-pill sf-electric"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>Electric</a></li>
+        </ul>
+        <div class="sf-socials">
+          <a href="https://facebook.com" target="_blank" rel="nofollow noopener noreferrer" class="sf-social-link" aria-label="Smart Plus Group on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="nofollow noopener noreferrer" class="sf-social-link" aria-label="Smart Plus Group on Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </a>
+          <a href="https://wa.me/447769546505" target="_blank" rel="nofollow noopener noreferrer" class="sf-social-link" aria-label="Message Smart Plus Group on WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <nav class="sf-col" aria-label="Services">
+        <div class="sf-col-title">Our Services</div>
+        <ul class="sf-col-list">
+          <li><a href="#cooling" class="sf-link">Air Conditioning</a></li>
+          <li><a href="/air-conditioning-servicing" class="sf-link">Air Conditioning Servicing</a></li>
+          <li><a href="/boiler-installations" class="sf-link">Boiler Installation</a></li>
+          <li><a href="/boiler-breakdowns" class="sf-link">Emergency Repairs</a></li>
+          <li><a href="#heating" class="sf-link">Boiler Servicing</a></li>
+          <li><a href="/power-flushing" class="sf-link">Power Flushing</a></li>
+          <li><a href="/landlord-gas-safety" class="sf-link">Landlord Gas Safety</a></li>
+          <li><a href="#electrical" class="sf-link">Electrical Services</a></li>
+          <li><a href="/renewable-solutions" class="sf-link">Renewable Solutions</a></li>
+        </ul>
+      </nav>
+
+      <div class="sf-col">
+        <div class="sf-col-title">Contact Us</div>
+        <div class="sf-contact-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>The Bridge Nucleus, Brunel Way<br>Dartford, DA1 5GA</span>
+        </div>
+        <a href="tel:01322474990" class="sf-contact-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          01322 474 990
+        </a>
+        <a href="mailto:info@smartplusheating.com" class="sf-contact-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          info@smartplusheating.com
+        </a>
+        <div class="sf-contact-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Mon–Fri: 8:00 AM – 6:00 PM</span>
+        </div>
+      </div>
+
+      <nav class="sf-col" aria-label="Quick links">
+        <div class="sf-col-title">Quick Links</div>
+        <ul class="sf-col-list">
+          <li><a href="#home" class="sf-link">Home</a></li>
+          <li><a href="/about-us" class="sf-link">About Us</a></li>
+          <li><a href="#heating" class="sf-link">Smart Plus Heating</a></li>
+          <li><a href="#cooling" class="sf-link">Smart Plus Aircon</a></li>
+          <li><a href="#electrical" class="sf-link">Smart Plus Electric</a></li>
+          <li><a href="/faq" class="sf-link">FAQs</a></li>
+          <li><a href="#home/reviews" class="sf-link">Reviews</a></li>
+          <li><a href="#home/contact" class="sf-link">Contact</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+
+  <div class="sf-bottom">
+    <div class="sf-bottom-inner">
+      <span class="sf-copyright">
+        &copy; 2026 Smart Plus Group. All rights reserved. Smart Plus Heating Ltd, registered in England &amp; Wales. Gas Safe Register No. 670242.
+      </span>
+      <span class="sf-credit">
+        Site built by <a href="https://www.yourdigiteam.com/" target="_blank" rel="nofollow noopener noreferrer" class="sf-credit-link">yourdigiteam.com</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Brand logos (one embedded copy each; swapped into header, mobile nav, footer and cards) ── */
+  var LOGOS = {
+    group:    "{{IMG:logo-group}}",
+    heating:  "{{IMG:logo-heating}}",
+    electric: "{{IMG:logo-electric}}",
+    aircon:   "{{IMG:logo-aircon}}"
+  };
+  var NAMES = { group: 'Smart Plus Group', heating: 'Smart Plus Heating', electric: 'Smart Plus Electric', aircon: 'Smart Plus Aircon' };
+
+  /* ── Routes ─────────────────────────────────────────────────
+     #home | #heating | #electrical | #cooling   (+ "/section" to scroll to an id) */
+  var PAGES = {
+    home:       { brand: 'group',    title: 'Smart Plus Group | Heating, Air Conditioning & Electrics in Dartford & Kent' },
+    heating:    { brand: 'heating',  title: 'Boiler Servicing | Smart Plus Heating' },
+    electrical: { brand: 'electric', title: 'Electrical Services | Smart Plus Electric' },
+    cooling:    { brand: 'aircon',   title: 'Air Conditioning | Smart Plus Aircon' }
+  };
+
+  function each(sel, fn) { Array.prototype.forEach.call(document.querySelectorAll(sel), fn); }
+
+  /* fixed logo slots (brand cards on the homepage, accreditation strip on the electrical page) */
+  each('[data-logo]', function (img) {
+    var k = img.getAttribute('data-logo');
+    if (LOGOS[k]) { img.src = LOGOS[k]; if (!img.getAttribute('alt')) img.alt = NAMES[k]; }
+  });
+
+  /* ── Mobile nav ── */
+  var mobNav = document.getElementById('sh-mobile-nav');
+  var burger = document.querySelector('.sh-burger');
+  var closeBtn = document.querySelector('.sh-mob-close');
+  function openNav()  { if (!mobNav) return; mobNav.classList.add('sh-open');    document.body.style.overflow = 'hidden'; if (burger) burger.setAttribute('aria-expanded', 'true'); }
+  function closeNav() { if (!mobNav) return; mobNav.classList.remove('sh-open'); document.body.style.overflow = '';       if (burger) burger.setAttribute('aria-expanded', 'false'); }
+  if (burger)   burger.addEventListener('click', openNav);
+  if (closeBtn) closeBtn.addEventListener('click', closeNav);
+  if (mobNav)   mobNav.addEventListener('click', function (e) { if (e.target.closest('a')) closeNav(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && mobNav && mobNav.classList.contains('sh-open')) closeNav(); });
+
+  /* ── Router ── */
+  function parseHash() {
+    var h = (location.hash || '').replace(/^#\/?/, '');
+    var parts = h.split('/');
+    return { page: PAGES[parts[0]] ? parts[0] : 'home', section: parts[1] || '' };
+  }
+  function route() {
+    var r = parseHash(), cfg = PAGES[r.page], brand = cfg.brand;
+    document.body.setAttribute('data-brand', brand);
+    each('.page', function (p) { p.hidden = (p.id !== 'page-' + r.page); });
+    each('.js-brand-logo', function (img) { img.src = LOGOS[brand]; img.alt = NAMES[brand]; });
+    each('.js-brand-name', function (el) { el.textContent = NAMES[brand]; });
+    document.title = cfg.title;
+    each('[data-nav]', function (a) {
+      var pages = a.getAttribute('data-nav').split(' ');
+      a.classList.toggle('is-active', pages.indexOf(r.page) !== -1);
+    });
+    closeNav();
+    if (r.section) {
+      var el = document.getElementById(r.section);
+      if (el) { window.requestAnimationFrame(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); return; }
+    }
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+
+  /* ── Link handling ──
+     Same-hash clicks re-run the router (so "Home" always scrolls to top).
+     Root-relative links (/about-us, /faq …) are pages on the live site that are not in this prototype. */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (href.charAt(0) === '#') {
+      if (href === location.hash) { e.preventDefault(); route(); }
+      return;
+    }
+    if (href.charAt(0) === '/') {
+      e.preventDefault();
+      toast('"' + href + '" is a page on the live site and is not part of this prototype.');
+    }
+  });
+  var toastEl = document.createElement('div');
+  toastEl.className = 'proto-toast'; toastEl.setAttribute('role', 'status');
+  document.body.appendChild(toastEl);
+  var toastTimer;
+  function toast(msg) {
+    toastEl.textContent = msg; toastEl.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 3200);
+  }
+
+  /* ── Accreditation ticker: duplicate once for a seamless loop ── */
+  var track = document.querySelector('.sp-scroll-track');
+  if (track) track.innerHTML += track.innerHTML;
+
+  /* ── Reviews slider ── */
+  var slider = document.getElementById('spReviewSlider');
+  var btnPrev = document.getElementById('spBtnPrev');
+  var btnNext = document.getElementById('spBtnNext');
+  function slide(dir) {
+    var card = slider.querySelector('.sp-testimonial-card');
+    var gap = parseFloat(window.getComputedStyle(slider).gap) || 24;
+    slider.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: 'smooth' });
+  }
+  if (slider && btnPrev && btnNext) {
+    btnNext.addEventListener('click', function () { slide(1); });
+    btnPrev.addEventListener('click', function () { slide(-1); });
+  }
+
+  /* ── "Read more" on long reviews (shown only when the quote is clamped) ── */
+  each('.sp-testimonial-card', function (card) {
+    var para = card.querySelector('.sp-quote');
+    var btn = card.querySelector('.sp-read-more-btn');
+    if (!para || !btn) return;
+    function check() { if (!para.classList.contains('expanded') && para.scrollHeight > para.clientHeight + 2) btn.style.display = 'block'; }
+    setTimeout(check, 150);
+    window.addEventListener('resize', check);
+    btn.addEventListener('click', function () {
+      para.classList.toggle('expanded');
+      btn.textContent = para.classList.contains('expanded') ? 'Read Less' : 'Read More';
+    });
+  });
+
+  /* ── FAQ accordion ── */
+  each('.sp-faq-item', function (item) {
+    var q = item.querySelector('.sp-faq-q');
+    q.addEventListener('click', function () {
+      var wasOpen = item.classList.contains('open');
+      each('.sp-faq-item.open', function (openItem) { if (openItem !== item) { openItem.classList.remove('open'); openItem.querySelector('.sp-faq-q').setAttribute('aria-expanded', 'false'); } });
+      item.classList.toggle('open', !wasOpen);
+      q.setAttribute('aria-expanded', String(!wasOpen));
+    });
+  });
+
+  route();
+})();
+</script>
+</body>
+</html>
