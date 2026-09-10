@@ -9,7 +9,7 @@
      │                                                               │
      │  1. HEADLINE — must match your ad copy word for word.         │
      │     Search:  ▼ EDIT 1                                          │
-     │  2. PRICES  — set to £500 / £1,200 / £2,000 as you gave them.  │
+     │  2. PRICES  — £150 / £500 / £1,200 / £2,000 as you gave them.  │
      │     Check they match the blog post before this goes live.      │
      │     Search:  ▼ EDIT 2                                          │
      │  3. TESTIMONIAL — I will not write a quote and put a real      │
@@ -109,8 +109,9 @@
 .ydt-lp .lp-formcard__note { margin-top: 6px; font-size: 13.5px; color: var(--gray5); }
 .ydt-lp .lp-formcard__title + .lp-formcard__note + .lp-form { margin-top: 22px; }
 .ydt-lp .lp-fields { display: grid; gap: 16px; }
-@media (min-width: 520px) { .ydt-lp .lp-fields { grid-template-columns: 1fr 1fr; } .ydt-lp .lp-field--wide, .ydt-lp .lp-field:nth-child(4) { grid-column: 1 / -1; } }
+@media (min-width: 520px) { .ydt-lp .lp-fields { grid-template-columns: 1fr 1fr; } .ydt-lp .lp-field--wide { grid-column: 1 / -1; } }
 .ydt-lp .lp-field label { display: block; font-size: 13px; font-weight: 500; color: #ddd3ce; margin-bottom: 7px; }
+.ydt-lp .lp-field__opt { font-weight: 400; color: var(--gray6); }
 .ydt-lp .lp-field input, .ydt-lp .lp-field textarea { width: 100%; background: #080706; color: var(--white); border: 1px solid rgba(255,255,255,.14); border-radius: 9px; padding: 12px 14px; font: inherit; font-size: 16px; line-height: 1.5; transition: border-color .2s, box-shadow .2s; }
 .ydt-lp .lp-field input { height: 50px; }
 .ydt-lp .lp-field textarea { min-height: 92px; resize: vertical; }
@@ -130,19 +131,21 @@
 
 /* ── prices ── */
 .ydt-lp .lp-tiers { display: grid; grid-template-columns: 1fr; gap: 16px; }
-@media (min-width: 820px) { .ydt-lp .lp-tiers { grid-template-columns: repeat(3, 1fr); } }
-.ydt-lp .lp-tier { position: relative; display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 28px 24px; transition: border-color .4s, transform .5s var(--ease); }
+@media (min-width: 660px) { .ydt-lp .lp-tiers { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .ydt-lp .lp-tiers { grid-template-columns: repeat(4, 1fr); } }
+.ydt-lp .lp-tier { position: relative; display: flex; flex-direction: column; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 28px 22px; transition: border-color .4s, transform .5s var(--ease); }
 .ydt-lp .lp-tier:hover { border-color: rgba(255,255,255,.18); transform: translateY(-2px); }
 .ydt-lp .lp-tier--pick { border-color: rgba(255,69,54,.4); background: linear-gradient(180deg, rgba(255,69,54,.05), transparent 48%), var(--panel); }
 .ydt-lp .lp-tier__flag { position: absolute; top: -10px; left: 24px; padding: 5px 11px; border-radius: 9999px; background: var(--data); color: var(--ink); font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; line-height: 1; }
 .ydt-lp .lp-tier__name { font-size: 15px; font-weight: 600; letter-spacing: .01em; color: var(--gray4); }
-.ydt-lp .lp-tier__price { display: flex; align-items: baseline; gap: 9px; margin-top: 12px; font-size: clamp(2.2rem, 3.4vw, 2.8rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.ydt-lp .lp-tier__price { display: flex; align-items: baseline; gap: 9px; margin-top: 12px; font-size: clamp(2rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
 .ydt-lp .lp-tier__from { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gray6); }
 .ydt-lp .lp-tier__unit { margin-top: 8px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--data); }
 .ydt-lp .lp-tier__for { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.6; color: var(--gray5); }
 .ydt-lp .lp-tier__list { display: grid; gap: 10px; margin-top: 18px; }
 .ydt-lp .lp-tier__list li { position: relative; padding-left: 22px; font-size: 14px; line-height: 1.5; color: var(--gray4); }
 .ydt-lp .lp-tier__list li::before { content: ""; position: absolute; left: 2px; top: .5em; width: 5px; height: 5px; border-radius: 50%; background: var(--data); }
+.ydt-lp .lp-tier__list b { font-weight: 600; color: var(--white); }
 .ydt-lp .lp-prices__foot { margin-top: 26px; font-size: 14px; line-height: 1.7; color: var(--gray5); max-width: 46rem; }
 
 /* ── proof ── */
@@ -291,7 +294,7 @@ html.ydt-js .ydt-lp .lp-close__legal { opacity: 0; visibility: hidden; }
 
       <div class="lp-formcard" id="quoteTop">
         <h2 class="lp-formcard__title">Get your quote</h2>
-        <p class="lp-formcard__note">Four questions. Takes about a minute.</p>
+        <p class="lp-formcard__note">Five questions. Takes about a minute.</p>
         <form class="lp-form" data-form="hero" novalidate>
           <div class="lp-status" role="status" tabindex="-1" hidden></div>
           <div class="lp-fields">
@@ -308,6 +311,10 @@ html.ydt-js .ydt-lp .lp-close__legal { opacity: 0; visibility: hidden; }
               <input id="f1phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="07…">
             </div>
             <div class="lp-field">
+              <label for="f1site">Your website <span class="lp-field__opt">if you have one</span></label>
+              <input id="f1site" name="website" type="url" autocomplete="url" inputmode="url" placeholder="yourbusiness.co.uk">
+            </div>
+            <div class="lp-field lp-field--wide">
               <label for="f1msg">What do you need?</label>
               <textarea id="f1msg" name="message" rows="3" required placeholder="A new site for my plumbing business — five pages, needs a booking form."></textarea>
             </div>
@@ -332,16 +339,29 @@ html.ydt-js .ydt-lp .lp-close__legal { opacity: 0; visibility: hidden; }
       <!-- ▼ EDIT 2 — one-off build prices, as you gave them.
            Labelled "one-off" throughout because your /pricing page sells
            MONTHLY plans at £450–£950; without the word, £500 here and
-           £500 there read as the same thing. Change a number in one place
-           only — nothing else in the page repeats them. -->
+           £500 there read as the same thing. SEO starts at Small business
+           and is named in every tier above it, so the ladder is legible.
+           Change a number in one place only — nothing repeats them. -->
       <div class="lp-tiers">
         <article class="lp-tier">
-          <h3 class="lp-tier__name">One-page</h3>
+          <h3 class="lp-tier__name">One page</h3>
+          <p class="lp-tier__price"><span class="lp-tier__from">from</span>£150</p>
+          <p class="lp-tier__unit">one-off build</p>
+          <p class="lp-tier__for">One focused page that turns visitors into calls.</p>
+          <ul class="lp-tier__list">
+            <li>Single page, built to convert</li>
+            <li>Enquiry form and click-to-call</li>
+            <li>Live in about a week</li>
+          </ul>
+        </article>
+        <article class="lp-tier">
+          <h3 class="lp-tier__name">Basic site</h3>
           <p class="lp-tier__price"><span class="lp-tier__from">from</span>£500</p>
           <p class="lp-tier__unit">one-off build</p>
-          <p class="lp-tier__for">For a single, focused page that turns visitors into calls.</p>
+          <p class="lp-tier__for">Two to four pages — enough to explain what you do properly.</p>
           <ul class="lp-tier__list">
-            <li>One page, built to convert</li>
+            <li>2–4 pages</li>
+            <li>Mobile-first, fast to load</li>
             <li>Enquiry form and click-to-call</li>
             <li>Live in about two weeks</li>
           </ul>
@@ -351,10 +371,10 @@ html.ydt-js .ydt-lp .lp-close__legal { opacity: 0; visibility: hidden; }
           <h3 class="lp-tier__name">Small business</h3>
           <p class="lp-tier__price"><span class="lp-tier__from">from</span>£1,200</p>
           <p class="lp-tier__unit">one-off build</p>
-          <p class="lp-tier__for">For a full site: services, about, contact, the lot.</p>
+          <p class="lp-tier__for">A full site, plus the SEO to get it found.</p>
           <ul class="lp-tier__list">
             <li>Five to eight pages</li>
-            <li>Local SEO set up from day one</li>
+            <li><b>SEO included</b> — set up as we build</li>
             <li>Google Analytics and call tracking</li>
             <li>Live in about four weeks</li>
           </ul>
@@ -367,7 +387,7 @@ html.ydt-js .ydt-lp .lp-close__legal { opacity: 0; visibility: hidden; }
           <ul class="lp-tier__list">
             <li>Product catalogue and checkout</li>
             <li>Payments, shipping and tax</li>
-            <li>Product-level SEO</li>
+            <li><b>SEO included</b> — down to product level</li>
             <li>Live in about six weeks</li>
           </ul>
         </article>
@@ -386,16 +406,16 @@ html.ydt-js .ydt-lp .lp-close__legal { opacity: 0; visibility: hidden; }
 
       <div class="lp-shots">
         <figure class="lp-shot">
+          <img src="https://www.yourdigiteam.com/optimized/work-1e5346cb1e50.webp" alt="The Shoreline Vehicle Design website" width="750" height="426" loading="lazy" decoding="async">
+          <figcaption><b>Shoreline Vehicle Design</b><span>Bespoke Land Rover Defenders · UK &amp; Miami</span></figcaption>
+        </figure>
+        <figure class="lp-shot">
+          <img src="https://www.yourdigiteam.com/optimized/work-1b62a8626cd5.webp" alt="The Senttr website" width="750" height="426" loading="lazy" decoding="async">
+          <figcaption><b>Senttr</b><span>AI &amp; automation platform · London</span></figcaption>
+        </figure>
+        <figure class="lp-shot">
           <img src="https://www.yourdigiteam.com/optimized/work-f7e3fa345244.webp" alt="The Smart Plus Heating website" width="750" height="445" loading="lazy" decoding="async">
           <figcaption><b>Smart Plus Heating</b><span>Heating &amp; air conditioning · Dartford</span></figcaption>
-        </figure>
-        <figure class="lp-shot">
-          <img src="https://www.yourdigiteam.com/optimized/work-df6e9afcad7e.webp" alt="The Sweep Sisters website" width="750" height="425" loading="lazy" decoding="async">
-          <figcaption><b>Sweep Sisters</b><span>Chimney &amp; property services · Essex</span></figcaption>
-        </figure>
-        <figure class="lp-shot">
-          <img src="https://www.yourdigiteam.com/optimized/work-7606d52b75ae.webp" alt="The Punt Caravan Parking website" width="750" height="429" loading="lazy" decoding="async">
-          <figcaption><b>Punt Caravan Parking</b><span>Caravan storage · Costa Brava</span></figcaption>
         </figure>
       </div>
     </div>
@@ -454,7 +474,7 @@ html.ydt-js .ydt-lp .lp-close__legal { opacity: 0; visibility: hidden; }
       <div class="lp-again__copy">
         <p class="lp-eyebrow"><span class="lp-mark" aria-hidden="true"></span>Ready when you are</p>
         <h2 class="lp-sectitle">Send it over and <span class="dim">we'll price it.</span></h2>
-        <p class="lp-secsub">Same four questions. We'll come back within one working day with a fixed number and a straight answer about what your site actually needs.</p>
+        <p class="lp-secsub">Same five questions. We'll come back within one working day with a fixed number and a straight answer about what your site actually needs.</p>
         <div class="lp-again__direct">
           <a href="tel:+447877411092">07877 411092</a>
           <a href="mailto:thomas@yourdigiteam.com">thomas@yourdigiteam.com</a>
@@ -478,6 +498,10 @@ html.ydt-js .ydt-lp .lp-close__legal { opacity: 0; visibility: hidden; }
               <input id="f2phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="07…">
             </div>
             <div class="lp-field">
+              <label for="f2site">Your website <span class="lp-field__opt">if you have one</span></label>
+              <input id="f2site" name="website" type="url" autocomplete="url" inputmode="url" placeholder="yourbusiness.co.uk">
+            </div>
+            <div class="lp-field lp-field--wide">
               <label for="f2msg">What do you need?</label>
               <textarea id="f2msg" name="message" rows="3" required placeholder="A new site for my plumbing business — five pages, needs a booking form."></textarea>
             </div>
@@ -621,7 +645,8 @@ html.ydt-js .ydt-lp .lp-close__legal { opacity: 0; visibility: hidden; }
       sending = true; button.disabled = true; button.setAttribute('aria-busy', 'true');
       var payload = {
         name: name.value.trim(), email: email.value.trim(), phone: phone.value.trim(), message: message.value.trim(),
-        company: '', website: '', budget: '', needs: '',
+        company: '', budget: '', needs: '',
+        website: form.elements.website ? form.elements.website.value.trim() : '',
         plan: 'Web design quote — ' + (which === 'hero' ? 'top form' : 'second form'),
         website_check: form.elements.website_check ? form.elements.website_check.value : '',
         started_at: String(PAGE_LOADED),
