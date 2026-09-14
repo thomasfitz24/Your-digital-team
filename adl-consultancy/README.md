@@ -106,14 +106,53 @@ Verified by loading the build with JavaScript disabled.
 
 ## Placeholders
 
-9 amber `.adl-placeholder` blocks mark content the client has not supplied —
-contact details, the News and Partners hero copy, the truncated ISO 42001 bullet
-list, training course details, and the two county pages. Each states exactly what
-is needed. Find them all with:
+**3** amber `.adl-placeholder` blocks remain, down from 9. The old WordPress
+database (`ADL_Database_2.sql`, supplied 14 Sep) closed six of them — see
+"Recovered from the database" below. What is still genuinely missing:
+
+| Page | Missing |
+|---|---|
+| Contact | full postal address + company registration number — not in the database or anywhere on the old site |
+| Contact | no standalone `/privacy-policy/` page; the notice lives inside the contact page |
+| Training | pricing, duration, delivery format, booking route — the live page really is a bare list |
+
+Find them with:
 
 ```
 grep -rl 'adl-placeholder' dist/*.html
 ```
+
+## Recovered from the database
+
+The old WordPress dump filled in most of what the content inventory could not
+reach, because the site had already moved to Squarespace and was 404ing:
+
+- **Every real hero H1 and sub-heading**, pulled from the Fusion slider's
+  `pyre_heading` / `pyre_caption` meta. News is "A word from our consultants",
+  Partners "Meet our partners", Contact "Why not get in touch?" — all three were
+  guesses before.
+- **The real enquiry form**: full name, telephone, email, enquiry, a privacy
+  opt-in, and a "Let's Talk" button. Submissions went to
+  `customerservices@adlconsultancy.com`. The mock-up we had invented a company
+  field and a standards dropdown that never existed.
+- **All 38 news posts** with real slugs and dates. The inventory had 14, six of
+  them with no recoverable URL.
+- **The two missing ISO 42001 focus areas** — "Security and safety" and "Ethical
+  AI development". The indexed copy was truncated after three of five.
+- **Full Hertfordshire and Suffolk page content**, so both are now real pages
+  rather than one orphan paragraph behind a placeholder.
+- **The true homepage hero**: a self-hosted `/videos/Website.mp4`, muted and
+  looping, with `adl_video_placeholder-scaled.jpg` as its poster. The MP4 itself
+  404s now — it did not survive the migration. The build uses ADL's own YouTube
+  "Home Page Intro" in its place, with the original poster frame restored.
+
+### Three county pages nobody knew about
+
+The database has **five** `/iso-consultants-in-{county}/` pages, not two. Built:
+Hertfordshire, Suffolk. **Not built** (they were not in the content inventory, so
+they were outside the agreed scope): **Cambridgeshire, Kent, Norfolk** — roughly
+29k, 35k and 51k characters of real copy each, sitting in the dump. Say the word
+and they are a short job, since the generator already handles this page shape.
 
 ## Copy that needs client sign-off
 

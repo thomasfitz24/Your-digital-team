@@ -223,6 +223,7 @@ html,body{margin:0;padding:0;background:#fff}
 .adl-page .benefit .icon{width:40px;height:40px;padding:9px;border-radius:11px;background:var(--blue-xl);color:var(--blue);margin-bottom:var(--s4)}
 .adl-page .benefit h3{font-size:1.0625rem;margin-bottom:var(--s3)}
 .adl-page .benefit p{font-size:.9375rem;color:var(--grey);line-height:1.65}
+.adl-page .benefits.four{grid-template-columns:repeat(2,1fr)}
 @media (max-width:980px){.adl-page .benefits{grid-template-columns:1fr 1fr}}
 @media (max-width:620px){.adl-page .benefits{grid-template-columns:1fr}}
 
@@ -317,6 +318,9 @@ html,body{margin:0;padding:0;background:#fff}
 
 /* ---- contact ---- */
 .adl-page .contact-grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,5vw,64px);align-items:start}
+.adl-page .contact-card{min-width:0}
+/* long unbroken strings (the enquiry email) must not set the column's min-content width */
+.adl-page .contact-card a,.adl-page .contact-card .tlist li{overflow-wrap:anywhere}
 .adl-page .contact-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s7) var(--s6);box-shadow:0 24px 48px -32px rgba(34,32,33,.3)}
 .adl-page .contact-card .tel{display:inline-flex;align-items:center;gap:var(--s3);font-size:clamp(1.6rem,3vw,2.1rem);font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-.03em;margin-bottom:var(--s4)}
 .adl-page .contact-card .tel .icon{width:26px;height:26px;color:var(--blue)}
@@ -326,7 +330,7 @@ html,body{margin:0;padding:0;background:#fff}
 .adl-page .field input,.adl-page .field textarea,.adl-page .field select{font:inherit;font-size:.9688rem;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;width:100%;min-height:48px}
 .adl-page .field textarea{min-height:130px;resize:vertical}
 .adl-page .field input:focus-visible,.adl-page .field textarea:focus-visible,.adl-page .field select:focus-visible{outline:3px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
-@media (max-width:860px){.adl-page .contact-grid{grid-template-columns:1fr}}
+@media (max-width:860px){.adl-page .contact-grid{grid-template-columns:minmax(0,1fr)}}
 
 /* ---- FAQ ---- */
 .adl-page .faqs{background:var(--bg-soft)}
@@ -547,6 +551,16 @@ html,body{margin:0;padding:0;background:#fff}
         <p>Identify risks associated with AI systems throughout their lifecycle and evaluate the impacts of using AI, helping mitigate negative effects.</p>
       </article>
       <article class="benefit">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-lock"/></svg>
+        <h3>Security and safety</h3>
+        <p>Ensuring AI systems are protected from cyber attacks and unauthorised access, and keep them operating reliably.</p>
+      </article>
+      <article class="benefit">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-heart"/></svg>
+        <h3>Ethical AI development</h3>
+        <p>Meaning fairness and transparency in AI decisions and accountability for the outcomes of their AI systems. Data quality must be accurate to train AI systems to avoid errors and biases.</p>
+      </article>
+      <article class="benefit">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-sliders"/></svg>
         <h3>Performance optimisation</h3>
         <p>Have processes for monitoring AI systems and enhancing them in the future, ensuring efficient operation and compliance legally.</p>
@@ -556,11 +570,6 @@ html,body{margin:0;padding:0;background:#fff}
         <h3>Ongoing support</h3>
         <p>After you receive your ISO 42001 certificate, we are still here to give you advice about future changes and offer support with ongoing consultancy and auditing, if required.</p>
       </article>
-    </div>
-    <div class="adl-placeholder">
-      <strong>Placeholder &mdash; incomplete source</strong>
-      <p>The live ISO 42001 page lists more focus areas than the three above. The indexed copy in the content inventory is truncated mid-list, so the remaining bullets could not be recovered.</p>
-      <p><b>Needed from ADL:</b> the full list of ISO 42001 focus areas as it currently appears on the live page.</p>
     </div>
   </div>
 </section>
