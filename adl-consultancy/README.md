@@ -156,10 +156,12 @@ and they are a short job, since the generator already handles this page shape.
 
 ## Copy that needs client sign-off
 
-Three blocks were written by us rather than recovered, to bring thin pages up to
+Two blocks were written by us rather than recovered, to bring thin pages up to
 the depth of ISO 9001 and ISO 45001. They are marked with `NEW COPY` comments in
 `src/pages/`:
 
 - ISO 14001 — "Why invest in ISO 14001?"
 - ISO 27001 — "Why invest in ISO 27001?"
-- News and Partners — hero H1 and sub-heading
+
+(The News and Partners hero copy was on this list until the database arrived —
+both are now ADL's own wording, so they no longer need sign-off.)
