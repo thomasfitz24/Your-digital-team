@@ -1,6 +1,6 @@
 # ADL Consultancy — website build
 
-14 static pages, plus a header and a footer that are their own code.
+17 static pages, plus a header and a footer that are their own code.
 
 ```
 python3 build.py
@@ -46,7 +46,7 @@ src/
     styles.css            ~700 shared lines, every rule scoped under .adl-page
     scripts.js            progressive enhancement only — nothing here is required
     shell.html            the preview document wrapper
-  pages/                  14 pages: body content + a <!--meta--> block each
+  pages/                  17 pages: body content + a <!--meta--> block each
 dist/                     GENERATED. Open any file in a browser. Never hand-edit.
 dist/wp/                  GENERATED. Body-only paste payloads + shared CSS/JS.
 ```
@@ -146,13 +146,18 @@ reach, because the site had already moved to Squarespace and was 404ing:
   404s now — it did not survive the migration. The build uses ADL's own YouTube
   "Home Page Intro" in its place, with the original poster frame restored.
 
-### Three county pages nobody knew about
+### Five county pages, all built
 
-The database has **five** `/iso-consultants-in-{county}/` pages, not two. Built:
-Hertfordshire, Suffolk. **Not built** (they were not in the content inventory, so
-they were outside the agreed scope): **Cambridgeshire, Kent, Norfolk** — roughly
-29k, 35k and 51k characters of real copy each, sitting in the dump. Say the word
-and they are a short job, since the generator already handles this page shape.
+The database revealed **five** `/iso-consultants-in-{county}/` pages, not the two
+the content inventory knew about. All five are now built from their real copy:
+Hertfordshire, Suffolk, Cambridgeshire, Kent and Norfolk. Each carries its own
+intro, four standard blocks (9001/AS9100, 14001, 27001, 45001) and a "How we can
+help" close, and all five are linked from the footer.
+
+Worth repeating the caveat from the keyword work: none of these county terms has
+any search volume — `iso consultants hertfordshire` and `iso consultants suffolk`
+both return **zero** in Semrush's UK database. They are useful as sales collateral
+to link to directly, not as pages that will attract traffic on their own.
 
 ## Copy that needs client sign-off
 
