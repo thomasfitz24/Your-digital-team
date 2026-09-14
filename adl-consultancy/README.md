@@ -26,8 +26,9 @@ Two consequences for this build:
 1. **Images are vendored, not hotlinked.** All 29 are in `assets/img/`, recovered
    before the old site went down. They are the only surviving copies we have.
 2. **The `wp:` slugs in each page's meta block are the *old* WordPress URLs.** They
-   are recorded so nothing is lost, but they need remapping to the new Squarespace
-   URL structure before `dist/wp/` is any use. Until that happens, use `dist/`.
+   are recorded so nothing is lost, and the deliverable's internal links are built
+   from them — so they need remapping to the new URL structure before launch.
+   `dist/preview/` uses local filenames instead and is unaffected.
 
 The four hero videos are unaffected — they live on ADL's own YouTube channel
 (`@adlconsultancy8840`), not on the website.
@@ -37,18 +38,19 @@ The four hero videos are unaffected — they live on ADL's own YouTube channel
 ## Layout
 
 ```
-build.py                  the whole build, ~140 lines
-assets/img/               29 vendored images (recovered from the old WordPress site)
+build.py                  the whole build, ~170 lines
+assets/img/               31 vendored images (recovered from the old WordPress site)
 src/
   partials/
     header.html           ← THE header. Edit here, nowhere else.
     footer.html           ← THE footer. Edit here, nowhere else.
+    icons.html            the 25-icon SVG sprite, shared by everything
     styles.css            ~700 shared lines, every rule scoped under .adl-page
     scripts.js            progressive enhancement only — nothing here is required
     shell.html            the preview document wrapper
   pages/                  17 pages: body content + a <!--meta--> block each
-dist/                     GENERATED. Open any file in a browser. Never hand-edit.
-dist/wp/                  GENERATED. Body-only paste payloads + shared CSS/JS.
+dist/                     GENERATED — the deliverable. Never hand-edit.
+dist/preview/             GENERATED — review only. Do NOT hand these off.
 ```
 
 Edit `src/`. Run `python3 build.py`. Both output trees regenerate.
@@ -69,10 +71,10 @@ description: …                          meta description
 
 ## Tokens
 
-| Token | in `dist/` | in `dist/wp/` |
+| Token | in `dist/preview/` | in `dist/` (deliverable) |
 |---|---|---|
 | `{{url:iso-27001}}` | `iso-27001.html` | the page's `wp:` slug |
-| `{{img:BSI-logo.png}}` | `assets/img/BSI-logo.png` | `WP_ASSET_BASE` + filename |
+| `{{img:BSI-logo.png}}` | `../assets/img/BSI-logo.png` | `WP_ASSET_BASE` + filename |
 
 `WP_ASSET_BASE` is set near the top of `build.py`. Change it once the images have
 been uploaded to the new platform, then rebuild.
@@ -80,18 +82,37 @@ been uploaded to the new platform, then rebuild.
 The build fails loudly on an unknown page key or a missing image, rather than
 emitting a broken link.
 
-## Two output trees, and why
+## What to hand off
 
-`dist/` bakes the header and footer into every page, so any file opens standalone
-in a browser for client review.
+`dist/` is the deliverable. **Every page file is body markup only** — no header,
+no footer, no `<html>`/`<head>`/`<body>` wrapper — because the header and footer
+are their own files.
 
-`dist/wp/` contains body markup only, because on the live site the header and
-footer are global. Pasting a full `dist/` page into a site that already has a
-global header would render the header **twice**. Also in `dist/wp/`:
+| File | Where it goes |
+|---|---|
+| `header.html` | the site's global header — **once**, site-wide |
+| `footer.html` | the site's global footer — **once**, site-wide |
+| `_icons.html` | **once**, site-wide, before the content (see below) |
+| `_shared-styles.css` | once, site-wide (a Custom CSS box, or enqueued) |
+| `_shared-scripts.js` | once, site-wide |
+| `index.html`, `iso-27001.html`, … | one per page, into that page's content area |
 
-- `_shared-styles.css` — paste once, site-wide (Custom CSS)
-- `_shared-scripts.js` — enqueue once, site-wide
-- `header.html` / `footer.html` — the global header and footer
+Each page file's opening comment names its target URL.
+
+### `_icons.html` is not optional
+
+All 25 SVG icon definitions live in one sprite. The header, the footer and every
+page reference it — **343 `<use>` references** in total. It used to sit inside
+`header.html`, which meant the pages silently depended on the ADL header being
+present; if anyone used a different global header, every icon on the site would
+render blank with no error. It is now its own file so that coupling is explicit.
+Add it once, site-wide, before the content.
+
+### `dist/preview/`
+
+The same pages with header, footer and sprite assembled in, so they open in a
+browser for review. **Do not hand these off** — pasting one into a site that
+already has a global header gives you two headers.
 
 ## Nothing breaks without JavaScript
 
