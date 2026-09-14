@@ -47,6 +47,9 @@
 .adl-page .sec-head p{margin-top:var(--s4);color:var(--grey);font-size:1.0625rem;line-height:1.65}
 .adl-page .eyebrow{display:inline-block;font-size:.8125rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-dk);margin-bottom:var(--s3)}
 .adl-page .lede{font-size:1.125rem;line-height:1.7;color:var(--ink-soft)}
+/* Centred measure by default — every page was repeating this inline. */
+.adl-page .prose{max-width:76ch;margin-inline:auto}
+.adl-page .prose.full{max-width:none}
 .adl-page .prose p{margin-bottom:var(--s4);line-height:1.75;color:var(--ink-soft)}
 .adl-page .prose p:last-child{margin-bottom:0}
 
@@ -374,6 +377,106 @@
   .adl-footer .cols{grid-template-columns:1fr;gap:var(--s6)}
   .adl-footer .bottom{flex-direction:column;text-align:center}
 }
+
+/* ============================================================================
+   Components added for the full page build-out.
+   Everything below is used by more than one page — nothing here is a one-off.
+   ========================================================================= */
+
+/* ---- breadcrumb, sits inside the dark .hero ---- */
+.adl-page .crumbs{list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);margin-bottom:var(--s5);font-size:.875rem;color:rgba(255,255,255,.72)}
+.adl-page .crumbs li{display:flex;align-items:center;gap:var(--s2)}
+.adl-page .crumbs li+li::before{content:"/";color:rgba(255,255,255,.4)}
+.adl-page .crumbs a{color:rgba(255,255,255,.8);text-decoration:none;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.adl-page .crumbs a:hover{color:#fff;border-bottom-color:rgba(255,255,255,.6)}
+.adl-page .crumbs [aria-current="page"]{color:#fff;font-weight:600}
+
+/* ---- numbers band ---- */
+.adl-page .stat-band{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5)}
+.adl-page .stat-item{background:var(--bg-tint);border:1px solid var(--blue-lite);border-radius:var(--r-md);padding:var(--s6) var(--s5);text-align:center}
+.adl-page .stat-item .icon{color:var(--blue-dk);margin:0 auto var(--s3);width:24px;height:24px}
+.adl-page .stat-item .n{display:block;color:var(--ink);font-size:clamp(1.9rem,3.2vw,2.5rem);font-weight:800;letter-spacing:-.035em;line-height:1}
+.adl-page .stat-item .lbl{display:block;margin-top:var(--s2);font-size:.9375rem;color:var(--grey);line-height:1.5}
+@media (max-width:860px){.adl-page .stat-band{grid-template-columns:1fr 1fr}}
+@media (max-width:420px){.adl-page .stat-band{grid-template-columns:1fr}}
+
+/* ---- comparison table. .adl-page * zeroes padding, so a bare <table> would
+        render collapsed and unreadable — always wrap it in .table-wrap. ---- */
+.adl-page .table-wrap{max-width:var(--maxw);margin:0 auto;overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-md);background:#fff}
+.adl-page .spec-table{width:100%;border-collapse:collapse;font-size:.9688rem;min-width:520px}
+.adl-page .spec-table caption{caption-side:bottom;padding:var(--s4) var(--s5);font-size:.875rem;color:var(--grey);text-align:left}
+.adl-page .spec-table th,.adl-page .spec-table td{padding:var(--s4) var(--s5);text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.adl-page .spec-table thead th{background:var(--bg-soft);color:var(--ink);font-weight:700;font-size:.875rem;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.adl-page .spec-table tbody th{color:var(--ink);font-weight:600}
+.adl-page .spec-table tbody tr:last-child th,.adl-page .spec-table tbody tr:last-child td{border-bottom:0}
+.adl-page .spec-table .yes{color:var(--blue-dk);font-weight:600}
+.adl-page .spec-table .no{color:var(--grey)}
+
+/* ---- vertical process timeline (the 4-across .steps-grid stays for short sets) ---- */
+.adl-page .timeline{max-width:820px;margin:0 auto;list-style:none;position:relative;padding-left:var(--s7)}
+.adl-page .timeline::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--blue-lite)}
+.adl-page .tl-item{position:relative;padding-bottom:var(--s6)}
+.adl-page .tl-item:last-child{padding-bottom:0}
+.adl-page .tl-item::before{content:"";position:absolute;left:calc(-1 * var(--s7) + 4px);top:6px;width:18px;height:18px;border-radius:50%;background:var(--blue);border:3px solid #fff;box-shadow:0 0 0 2px var(--blue-lite)}
+.adl-page .tl-item .when{display:inline-block;font-size:.8125rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-dk);margin-bottom:var(--s2)}
+.adl-page .tl-item h3{margin-bottom:var(--s2)}
+.adl-page .tl-item p{color:var(--grey);line-height:1.7;max-width:64ch}
+
+/* ---- alternating image + copy rows. Auto-flips, so no .flip to remember. ---- */
+.adl-page .feature-rows{max-width:var(--maxw);margin:0 auto;display:grid;gap:clamp(48px,6vw,88px)}
+.adl-page .feature-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:center}
+.adl-page .feature-row:nth-child(even) .fr-media{order:-1}
+.adl-page .feature-row .fr-media img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg);background:var(--line)}
+.adl-page .feature-row h3{font-size:clamp(1.35rem,2.2vw,1.75rem);margin-bottom:var(--s3)}
+.adl-page .feature-row .fr-copy>p{color:var(--grey);line-height:1.7;max-width:56ch;margin-bottom:var(--s4)}
+@media (max-width:900px){
+  .adl-page .feature-row{grid-template-columns:1fr;gap:var(--s6)}
+  .adl-page .feature-row:nth-child(even) .fr-media{order:0}
+}
+
+/* ---- callout. NOT .adl-placeholder — this one is meant for visitors. ---- */
+.adl-page .callout{display:flex;gap:var(--s4);align-items:flex-start;max-width:820px;margin:var(--s6) auto;padding:var(--s5);background:var(--blue-xl);border:1px solid var(--blue-lite);border-left:4px solid var(--blue);border-radius:var(--r-md)}
+.adl-page .callout .icon{color:var(--blue-dk);margin-top:2px;width:22px;height:22px}
+.adl-page .callout h4{margin-bottom:var(--s2)}
+.adl-page .callout p{color:var(--ink-soft);font-size:.9688rem;line-height:1.7}
+.adl-page .callout.warn{background:var(--amber-bg);border-color:var(--amber-line);border-left-color:var(--amber)}
+.adl-page .callout.warn .icon{color:var(--amber)}
+
+/* ---- related-page cards. Replaces the hand-rolled "More on X →" links. ---- */
+.adl-page .link-cards{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
+.adl-page .link-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s6) var(--s5);text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .2s}
+.adl-page .link-card:hover{border-color:var(--blue-lite);box-shadow:0 18px 36px -26px rgba(34,32,33,.4);transform:translateY(-3px)}
+.adl-page .link-card .icon{color:var(--blue);margin-bottom:var(--s4);width:24px;height:24px}
+.adl-page .link-card h3{margin-bottom:var(--s2)}
+.adl-page .link-card p{color:var(--grey);font-size:.9375rem;line-height:1.65;flex-grow:1;margin-bottom:var(--s4)}
+.adl-page .link-card .go{display:inline-flex;align-items:center;gap:var(--s2);color:var(--blue-dk);font-weight:700;font-size:.9375rem}
+.adl-page .link-card .go .icon{margin:0;width:16px;height:16px;transition:transform .2s}
+.adl-page .link-card:hover .go .icon{transform:translateX(3px)}
+@media (max-width:900px){.adl-page .link-cards{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.adl-page .link-cards{grid-template-columns:1fr}}
+
+/* ---- two-column checklist, for lists too long to read in one column ---- */
+.adl-page .check-cols{max-width:var(--maxw);margin:0 auto;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) clamp(32px,5vw,72px)}
+.adl-page .check-cols li{display:flex;gap:var(--s3);align-items:flex-start;line-height:1.7;color:var(--ink-soft)}
+.adl-page .check-cols .icon{color:var(--blue);margin-top:5px;width:18px;height:18px}
+@media (max-width:760px){.adl-page .check-cols{grid-template-columns:1fr}}
+
+/* ---- single testimonial, light enough to drop into any page ---- */
+.adl-page .pullquote{max-width:820px;margin:0 auto;background:var(--bg-tint);border:1px solid var(--blue-lite);border-radius:var(--r-lg);padding:clamp(28px,4vw,48px);text-align:center}
+.adl-page .pullquote .stars{display:flex;gap:3px;color:var(--blue);margin:0 auto var(--s4);justify-content:center}
+.adl-page .pullquote .stars svg{width:18px;height:18px}
+.adl-page .pullquote blockquote{color:var(--ink);font-size:clamp(1.0625rem,1.8vw,1.3125rem);line-height:1.6;font-weight:500;letter-spacing:-.015em;margin-bottom:var(--s5)}
+.adl-page .pullquote .who{font-style:normal}
+.adl-page .pullquote .who strong{display:block;color:var(--ink);font-size:.9375rem;font-weight:700}
+.adl-page .pullquote .who span{font-size:.875rem;color:var(--grey)}
+
+/* ---- mid-page conversion bar. .cta is full-bleed and closes a page; this
+        one sits inside it without ending it. ---- */
+.adl-page .cta-slim{max-width:var(--maxw);margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s5);background:var(--ink);border-radius:var(--r-lg);padding:clamp(28px,3.5vw,44px) clamp(24px,3.5vw,48px)}
+.adl-page .cta-slim h3{color:#fff;font-size:clamp(1.25rem,2.2vw,1.625rem);margin-bottom:var(--s2)}
+.adl-page .cta-slim p{color:#C9CACC;font-size:.9688rem;line-height:1.6;max-width:56ch}
+.adl-page .cta-slim .btn-row{flex-shrink:0}
+@media (max-width:760px){.adl-page .cta-slim{flex-direction:column;align-items:stretch}}
 
 /* ---- reduced motion: no autoplaying video, no transforms ---- */
 @media (prefers-reduced-motion:reduce){
