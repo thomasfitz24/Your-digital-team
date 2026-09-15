@@ -1,9 +1,11 @@
 # ADL Consultancy — website build
 
-17 static pages, plus a header and a footer that are their own code.
+18 static pages, plus a header and a footer that are their own code.
+Every page runs 8-11 sections; the homepage, which the client approved, is the bar.
 
 ```
-python3 build.py
+python3 check.py     # validate src/ — fails on anything that must not ship
+python3 build.py     # assemble dist/ and dist/preview/
 ```
 
 No dependencies. Python 3 standard library only.
@@ -39,6 +41,10 @@ The four hero videos are unaffected — they live on ADL's own YouTube channel
 
 ```
 build.py                  the whole build, ~170 lines
+check.py                  source validator — run it before build.py
+tools-gen-counties.py     regenerates the five county pages from one skeleton
+tools-gen-testimonials.py regroups the 30 testimonials by standard
+tools-gen-news.py         regroups the 38 news posts by topic
 assets/img/               31 vendored images (recovered from the old WordPress site)
 src/
   partials/
@@ -48,7 +54,7 @@ src/
     styles.css            ~700 shared lines, every rule scoped under .adl-page
     scripts.js            progressive enhancement only — nothing here is required
     shell.html            the preview document wrapper
-  pages/                  17 pages: body content + a <!--meta--> block each
+  pages/                  18 pages: body content + a <!--meta--> block each
 dist/                     GENERATED — the deliverable. Never hand-edit.
 dist/preview/             GENERATED — review only. Do NOT hand these off.
 ```
@@ -127,15 +133,19 @@ Verified by loading the build with JavaScript disabled.
 
 ## Placeholders
 
-**3** amber `.adl-placeholder` blocks remain, down from 9. The old WordPress
-database (`ADL_Database_2.sql`, supplied 14 Sep) closed six of them — see
-"Recovered from the database" below. What is still genuinely missing:
+**3** amber `.adl-placeholder` blocks remain. Each one was searched for
+exhaustively across `wp_posts`, `wp_options` and the old site before being left
+open — these are genuinely absent, not merely unfound:
 
 | Page | Missing |
 |---|---|
-| Contact | full postal address + company registration number — not in the database or anywhere on the old site |
-| Contact | no standalone `/privacy-policy/` page; the notice lives inside the contact page |
-| Training | pricing, duration, delivery format, booking route — the live page really is a bare list |
+| Contact | full postal address + company registration number |
+| Training | pricing, duration, delivery format, booking route |
+| Privacy policy | registered office, company number, ICO number, retention period |
+
+The privacy policy is now its own page (`18-privacy-policy.html`), built from
+the real Privacy Notice and Cookie statement recovered from the contact page,
+and the footer links to it. That closes the third of the original nine.
 
 Find them with:
 

@@ -487,6 +487,15 @@ html,body{margin:0;padding:0;background:#fff}
 .adl-page .cta-slim .btn-row{flex-shrink:0}
 @media (max-width:760px){.adl-page .cta-slim{flex-direction:column;align-items:stretch}}
 
+/* ---- form odds and ends the contact page was doing with inline styles ---- */
+.adl-page .field.check{flex-direction:row;align-items:flex-start;gap:var(--s3)}
+.adl-page .field.check input{width:auto;min-height:0;margin-top:4px;flex-shrink:0}
+.adl-page .field.check label{font-weight:400;font-size:.9375rem;line-height:1.5}
+.adl-page .btn.full{width:100%}
+.adl-page .form-note{font-size:.8125rem;color:var(--grey);margin-top:var(--s3);line-height:1.6}
+.adl-page .contact-card .note{color:var(--grey);font-size:.9375rem;line-height:1.7}
+.adl-page .contact-card h3{margin-bottom:var(--s5)}
+
 /* ---- reduced motion: no autoplaying video, no transforms ---- */
 @media (prefers-reduced-motion:reduce){
   .adl-page *,.adl-page *::before,.adl-page *::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
@@ -1024,8 +1033,8 @@ html,body{margin:0;padding:0;background:#fff}
     <div class="bottom">
       <p>&copy; <span id="adlYear">2026</span> ADL Consultancy Ltd. All rights reserved.</p>
       <div class="legal">
-        <a href="contact.html#privacy">Privacy policy</a>
-        <a href="contact.html#cookies">Cookie policy</a>
+        <a href="privacy-policy.html">Privacy policy</a>
+        <a href="privacy-policy.html#cookies">Cookie policy</a>
       </div>
     </div>
 
