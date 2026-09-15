@@ -1,0 +1,347 @@
+<!-- ═══════════════════════════════════════════════════════════════════
+     web-design-newcastle.html  →  Squarespace page /web-design-newcastle
+     Paste the whole of this into ONE Code Block on that page.
+     Requires the header injection (header-injection.html) for the site
+     chrome and fonts. Nothing else to install.
+
+     PAGE SETTINGS (Squarespace → page → Settings → SEO):
+       SEO title        Web Design Newcastle | Your Digital Team
+       SEO description  Websites for Newcastle businesses, built fast, mobile-first, and with SEO baked in from day one. Free quote in 24 hours.
+     Navigation: leave this page OUT of the main nav (Not Linked section).
+     It stays indexable; the Code Block below carries the schema.
+
+     Target: web design newcastle
+     Also covers: website designer newcastle, web developer newcastle, newcastle website design company
+
+     Design system — "signal", same as every page: base #050505, panels
+     #0b0a09 / #100e0c, Inter + IBM Plex Mono, signal red #ff4536 → #d81e0d.
+     ═══════════════════════════════════════════════════════════════════ -->
+<script>document.documentElement.classList.add('ydt-js');</script>
+<style>
+/* ── tokens + reset, scoped so nothing reaches the site chrome ── */
+.ydt-loc{--black:#050505;--panel:#0b0a09;--panel2:#100e0c;--white:#f4f2f0;--gray4:#c9c3bd;--gray5:#918a84;--gray6:#5e5852;--dim:#8f8781;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.12);--data:#ff4536;--data-bright:#ff6152;--data-deep:#d81e0d;--data-dim:rgba(255,69,54,.14);--ink:#1c0503;--mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;--ease:cubic-bezier(.22,1,.36,1);-webkit-text-size-adjust:100%;text-size-adjust:100%;position:relative;background:var(--black);color:var(--white);font-family:'Inter',Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+.ydt-loc *,.ydt-loc *::before,.ydt-loc *::after{box-sizing:border-box}
+.ydt-loc :where(h1,h2,h3,p,ul,ol,li,figure,figcaption,blockquote){margin:0;padding:0}
+.ydt-loc :where(ul,ol){list-style:none}
+.ydt-loc :where(a){color:inherit;text-decoration:none}
+.ydt-loc :where(button,input,textarea){font:inherit;color:inherit}
+.ydt-loc .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.ydt-loc .sec{padding:clamp(64px,8vw,112px) 0;border-top:1px solid var(--line)}
+.ydt-loc .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gray5)}
+.ydt-loc .mark{width:7px;height:7px;border-radius:50%;background:var(--data);box-shadow:0 0 0 4px var(--data-dim);flex-shrink:0}
+.ydt-loc h2{font-size:clamp(2rem,4.2vw,3.4rem);font-weight:700;letter-spacing:-.035em;line-height:1.04;margin:18px 0 16px;text-wrap:balance}
+.ydt-loc h3{font-size:19px;font-weight:600;letter-spacing:-.015em}
+.ydt-loc .dim{color:var(--dim)}
+.ydt-loc .intro{font-size:1.02rem;line-height:1.75;color:#aaa39e;max-width:38rem}
+.ydt-loc .head{max-width:760px;margin-bottom:clamp(36px,4.5vw,56px)}
+.ydt-loc .split{display:grid;grid-template-columns:1fr;gap:28px}
+@media(min-width:900px){.ydt-loc .split{grid-template-columns:5fr 7fr;gap:64px;align-items:start}.ydt-loc .split .head{margin-bottom:0}}
+
+/* ── buttons ── */
+.ydt-loc .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.ydt-loc .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:13px 22px;border-radius:12px;font-weight:600;font-size:15px;letter-spacing:-.01em;border:1px solid var(--line2);color:var(--white);background:rgba(255,255,255,.03);cursor:pointer;transition:background .3s,border-color .3s,filter .3s}
+.ydt-loc .btn:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.22)}
+.ydt-loc .btn svg{width:16px;height:16px;transition:transform .3s var(--ease)}
+.ydt-loc .btn:hover svg{transform:translateX(3px)}
+.ydt-loc .btn--go{background:linear-gradient(180deg,#ff7467,#f25343);border-color:transparent;color:var(--ink);box-shadow:0 12px 34px rgba(255,69,54,.3),inset 0 1px 0 rgba(255,255,255,.35)}
+.ydt-loc .btn--go:hover{filter:brightness(1.05);background:linear-gradient(180deg,#ff7467,#f25343);box-shadow:0 14px 42px rgba(255,69,54,.42),inset 0 1px 0 rgba(255,255,255,.35)}
+.ydt-loc .btn--go:disabled{opacity:.6;cursor:wait;filter:none}
+
+/* ── hero ── */
+.ydt-loc .hero{position:relative;padding:clamp(120px,14vw,168px) 0 clamp(64px,7vw,96px);overflow:clip;isolation:isolate}
+.ydt-loc .hero__glow{position:absolute;z-index:0;pointer-events:none;width:90vw;height:90vw;max-width:1100px;max-height:1100px;left:50%;top:-46vw;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(255,69,54,.20) 0%,rgba(216,30,13,.09) 38%,transparent 70%)}
+.ydt-loc .hero__grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:40px;align-items:start}
+.ydt-loc .hero__grid>*{min-width:0}
+@media(min-width:960px){.ydt-loc .hero__grid{grid-template-columns:1.15fr minmax(380px,.85fr);gap:56px;align-items:center}}
+.ydt-loc h1{font-size:clamp(2.3rem,5.2vw,4.1rem);font-weight:700;letter-spacing:-.04em;line-height:1.02;margin:20px 0 18px;text-wrap:balance}
+.ydt-loc .lede{font-size:clamp(1.02rem,1.3vw,1.15rem);line-height:1.7;color:#b3aca6;max-width:36rem}
+.ydt-loc .stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:36px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.015);overflow:clip}
+.ydt-loc .stat{padding:16px 18px;border-left:1px solid var(--line);min-width:0}
+.ydt-loc .stat:first-child{border-left:0}
+.ydt-loc .stat b{display:block;font-family:var(--mono);font-weight:500;font-size:clamp(1.05rem,1.6vw,1.35rem);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ydt-loc .stat span{display:block;margin-top:4px;font-size:12px;line-height:1.4;color:var(--gray5)}
+@media(max-width:520px){.ydt-loc .stats{grid-template-columns:1fr}.ydt-loc .stat{border-left:0;border-top:1px solid var(--line)}.ydt-loc .stat:first-child{border-top:0}}
+
+/* ── console (diagnostic) ── */
+.ydt-loc .console{position:relative;border:1px solid var(--line2);border-radius:18px;background:linear-gradient(180deg,rgba(16,14,12,.92),rgba(11,10,9,.96));box-shadow:0 30px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);padding:22px 22px 18px}
+.ydt-loc .console__bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.ydt-loc .console__title{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray5)}
+.ydt-loc .console__live{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--data);white-space:nowrap}
+.ydt-loc .console__live i{width:6px;height:6px;border-radius:50%;background:var(--data);box-shadow:0 0 0 3px var(--data-dim)}
+.ydt-loc .console__intro{font-size:13.5px;line-height:1.6;color:var(--gray5);margin:14px 0 6px}
+.ydt-loc .check{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+.ydt-loc .check:last-child{border-bottom:0}
+.ydt-loc .check i{width:22px;height:22px;border-radius:7px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--data);background:rgba(255,69,54,.06)}
+.ydt-loc .check i svg{width:12px;height:12px}
+.ydt-loc .check b{display:block;font-size:14px;font-weight:600;letter-spacing:-.01em}
+.ydt-loc .check span{display:block;margin-top:3px;font-size:12.5px;line-height:1.5;color:var(--gray5)}
+
+/* ── bento tiles (why) ── */
+.ydt-loc .head--wide{max-width:860px}
+.ydt-loc .tiles{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:680px){.ydt-loc .tiles{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.ydt-loc .tiles{grid-template-columns:repeat(4,1fr)}.ydt-loc .tile--hot{grid-column:span 2}}
+.ydt-loc .tile{position:relative;padding:26px 24px 28px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,var(--panel2),var(--panel));min-height:220px;display:flex;flex-direction:column;transition:border-color .35s}
+.ydt-loc .tile:hover{border-color:rgba(255,255,255,.16)}
+.ydt-loc .tile--hot{background:linear-gradient(135deg,rgba(255,69,54,.12),var(--panel) 55%);border-color:rgba(255,69,54,.25)}
+.ydt-loc .tile i{font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:.12em;color:var(--data);margin-bottom:auto;padding-bottom:26px}
+.ydt-loc .tile p{margin-top:10px;font-size:14.5px;line-height:1.7;color:var(--gray5)}
+
+/* ── service cards ── */
+.ydt-loc .cards{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:680px){.ydt-loc .cards{grid-template-columns:repeat(2,1fr)}}
+.ydt-loc .card{padding:26px 24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,var(--panel2),var(--panel));transition:border-color .35s}
+.ydt-loc .card:hover{border-color:rgba(255,255,255,.16)}
+.ydt-loc .card p{margin-top:10px;font-size:14.5px;line-height:1.7;color:var(--gray5)}
+.ydt-loc .card ul{margin-top:16px;display:grid;gap:8px}
+.ydt-loc .card li{position:relative;padding-left:18px;font-size:14px;color:var(--gray4)}
+.ydt-loc .card li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--data)}
+.ydt-loc .card a{display:inline-flex;align-items:center;gap:8px;margin-top:18px;min-height:44px;font-size:13.5px;font-weight:600;transition:color .3s}
+.ydt-loc .card a:hover{color:var(--data-bright)}
+.ydt-loc .card a svg{width:14px;height:14px}
+
+/* ── included checklist ── */
+.ydt-loc .incl{display:grid;gap:10px}
+@media(min-width:1100px){.ydt-loc .incl{grid-template-columns:repeat(2,1fr)}}
+.ydt-loc .incl li{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.ydt-loc .incl i{width:22px;height:22px;border-radius:7px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--data);background:rgba(255,69,54,.06);margin-top:1px}
+.ydt-loc .incl i svg{width:12px;height:12px}
+.ydt-loc .incl b{display:block;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.ydt-loc .incl span{display:block;margin-top:4px;font-size:13.5px;line-height:1.55;color:var(--gray5)}
+
+/* ── process rail ── */
+.ydt-loc .steps{position:relative;display:grid;grid-template-columns:1fr;gap:34px;padding:0 0 0 34px}
+.ydt-loc .rail{position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line2);border-radius:2px}
+.ydt-loc .rail i{position:absolute;inset:0;display:block;background:linear-gradient(180deg,var(--data-bright),var(--data-deep));transform:scaleY(0);transform-origin:50% 0;border-radius:2px;transition:transform 1.4s var(--ease)}
+.ydt-loc .step{position:relative}
+.ydt-loc .step>i{position:absolute;left:-34px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--black);border:2px solid var(--gray6);transition:border-color .5s,background .5s,box-shadow .5s}
+.ydt-loc .step small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--data);margin-bottom:10px}
+.ydt-loc .step h3{margin-bottom:8px}
+.ydt-loc .step p{font-size:14.5px;line-height:1.7;color:var(--gray5);max-width:34rem}
+.ydt-loc .step b{display:inline-flex;align-items:baseline;gap:10px;margin-top:14px;padding:9px 13px;border:1px solid var(--line2);border-radius:10px;font-size:13px;font-weight:400;background:rgba(255,255,255,.02)}
+.ydt-loc .step b em{font-family:var(--mono);font-style:normal;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gray6);white-space:nowrap}
+@media(min-width:900px){.ydt-loc .steps{grid-template-columns:repeat(4,1fr);gap:32px;padding:34px 0 0}.ydt-loc .rail{left:0;right:0;top:5px;bottom:auto;width:auto;height:2px}.ydt-loc .rail i{transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,var(--data-bright),var(--data-deep))}.ydt-loc .step>i{left:0;top:-34px}.ydt-loc .step p{max-width:none}}
+.ydt-loc .steps.in-view .rail i{transform:none}
+.ydt-loc .steps.in-view .step>i{border-color:var(--data);background:var(--data);box-shadow:0 0 0 4px var(--data-dim)}
+.ydt-loc .steps.in-view .step:nth-child(3)>i{transition-delay:.3s}.ydt-loc .steps.in-view .step:nth-child(4)>i{transition-delay:.6s}.ydt-loc .steps.in-view .step:nth-child(5)>i{transition-delay:.9s}
+.ydt-loc:not(.ydt-loc--js) .rail i{transform:none}
+.ydt-loc:not(.ydt-loc--js) .step>i{border-color:var(--data);background:var(--data)}
+
+/* ── pricing ── */
+.ydt-loc .price{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:clip}
+.ydt-loc .prow{display:grid;grid-template-columns:1fr;gap:6px;padding:20px 22px;border-top:1px solid var(--line);position:relative}
+.ydt-loc .prow:first-child{border-top:0}
+@media(min-width:720px){.ydt-loc .prow{grid-template-columns:1.2fr 1fr 2fr;gap:20px;align-items:center}}
+.ydt-loc .prow--pick{background:linear-gradient(90deg,rgba(255,69,54,.07),transparent 60%)}
+.ydt-loc .prow--pick::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--data-bright),var(--data-deep))}
+.ydt-loc .pname{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.ydt-loc .pname small{display:inline-block;margin-left:8px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--data);vertical-align:middle}
+.ydt-loc .pfrom{font-family:var(--mono);font-size:15px;font-variant-numeric:tabular-nums}
+.ydt-loc .pfrom small{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray6);margin-left:6px}
+.ydt-loc .pnote{font-size:14px;line-height:1.55;color:var(--gray5)}
+.ydt-loc .pfoot{margin-top:18px;font-size:14px;line-height:1.7;color:var(--gray5);max-width:44rem}
+
+/* ── work ── */
+.ydt-loc .works{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:720px){.ydt-loc .works{grid-template-columns:repeat(3,1fr)}}
+.ydt-loc .work{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:clip;transition:border-color .35s}
+.ydt-loc .work:hover{border-color:rgba(255,255,255,.16)}
+.ydt-loc .work__img{aspect-ratio:750/426;overflow:clip;background:#0e0c0b;border-bottom:1px solid var(--line)}
+.ydt-loc .work__img img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 1.2s var(--ease)}
+.ydt-loc .work:hover .work__img img{transform:scale(1.03)}
+.ydt-loc .work figcaption{padding:16px 18px 18px}
+.ydt-loc .work figcaption b{display:block;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.ydt-loc .work figcaption span{display:block;margin-top:5px;font-size:13.5px;line-height:1.55;color:var(--gray5)}
+.ydt-loc .work__named{margin-top:18px;font-size:14.5px;line-height:1.7;color:var(--gray4);max-width:44rem}
+.ydt-loc .clients{margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+.ydt-loc .clients b,.ydt-loc .places b{display:block;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray6);margin-bottom:10px}
+.ydt-loc .clients ul,.ydt-loc .places ul{display:flex;flex-wrap:wrap;gap:8px}
+.ydt-loc .clients li{font-size:12.5px;color:var(--gray5);padding:6px 11px;border:1px solid var(--line);border-radius:9999px}
+
+/* ── proof facts + result slot ── */
+.ydt-loc .facts{display:grid;gap:10px}
+.ydt-loc .fact{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.ydt-loc .fact i{font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:.1em;color:var(--data);padding-top:3px}
+.ydt-loc .fact span{font-size:14.5px;line-height:1.6;color:var(--gray4)}
+.ydt-loc .result{margin-top:18px;padding:26px 24px;border:1px solid rgba(255,69,54,.25);border-radius:18px;background:linear-gradient(135deg,rgba(255,69,54,.10),var(--panel) 60%)}
+.ydt-loc .result blockquote{font-size:1.15rem;line-height:1.6;letter-spacing:-.01em}
+.ydt-loc .result figcaption{margin-top:14px;display:flex;gap:10px;align-items:baseline;font-size:13.5px}
+.ydt-loc .result figcaption b{font-weight:600}
+.ydt-loc .result figcaption span{color:var(--gray5)}
+
+/* ── prose + places ── */
+.ydt-loc .prose p{font-size:1.02rem;line-height:1.8;color:#b3aca6}
+.ydt-loc .prose p+p{margin-top:18px}
+.ydt-loc .places{margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+.ydt-loc .places li{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;color:var(--gray4);padding:9px 14px 9px 11px;border:1px solid var(--line);border-radius:9999px;background:rgba(255,255,255,.015)}
+.ydt-loc .places li svg{width:13px;height:13px;color:var(--data);flex-shrink:0}
+
+/* ── services at a glance ── */
+.ydt-loc .glances{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:680px){.ydt-loc .glances{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.ydt-loc .glances{grid-template-columns:repeat(3,1fr)}}
+.ydt-loc .glance{position:relative;display:block;padding:22px 52px 22px 22px;border:1px solid var(--line);border-radius:16px;background:var(--panel);min-height:44px;transition:border-color .35s,background .35s}
+.ydt-loc .glance:hover{border-color:rgba(255,255,255,.18);background:var(--panel2)}
+.ydt-loc .glance b{display:block;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.ydt-loc .glance span{display:block;margin-top:6px;font-size:13.5px;line-height:1.55;color:var(--gray5)}
+.ydt-loc .glance i{position:absolute;right:18px;top:22px;width:28px;height:28px;border-radius:8px;border:1px solid var(--line2);display:grid;place-items:center;color:var(--data);transition:transform .3s var(--ease)}
+.ydt-loc .glance i svg{width:13px;height:13px}
+.ydt-loc .glance:hover i{transform:translateX(3px)}
+
+/* ── faq ── */
+.ydt-loc details{border-top:1px solid var(--line)}
+.ydt-loc details:last-child{border-bottom:1px solid var(--line)}
+.ydt-loc summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:56px;padding:16px 0;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.ydt-loc summary::-webkit-details-marker{display:none}
+.ydt-loc summary i{width:26px;height:26px;border-radius:8px;border:1px solid var(--line2);display:grid;place-items:center;flex-shrink:0;transition:transform .4s var(--ease),border-color .3s}
+.ydt-loc summary i svg{width:12px;height:12px}
+.ydt-loc details[open] summary i{transform:rotate(45deg);border-color:var(--data)}
+.ydt-loc details p{padding:0 0 18px;font-size:14.5px;line-height:1.75;color:var(--gray5);max-width:40rem}
+
+/* ── audit form ── */
+.ydt-loc .auditform{position:relative;padding:26px 24px;border:1px solid var(--line2);border-radius:18px;background:linear-gradient(180deg,var(--panel2),var(--panel))}
+.ydt-loc .af-row{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:600px){.ydt-loc .af-row{grid-template-columns:1fr 1fr}}
+.ydt-loc .field{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.ydt-loc .field label{font-size:13px;font-weight:500;color:var(--gray4)}
+.ydt-loc .field .opt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray6);margin-left:6px}
+.ydt-loc .field input,.ydt-loc .field textarea{width:100%;min-height:48px;padding:12px 14px;border:1px solid var(--line2);border-radius:10px;background:rgba(255,255,255,.03);color:var(--white);font-size:15px;outline:none;transition:border-color .3s,background .3s}
+.ydt-loc .field textarea{resize:vertical;min-height:88px}
+.ydt-loc .field input:focus,.ydt-loc .field textarea:focus{border-color:var(--data);background:rgba(255,69,54,.05)}
+.ydt-loc .field input[aria-invalid="true"]{border-color:var(--data-deep)}
+.ydt-loc .auditform .btn{width:100%}
+.ydt-loc .af-trust{margin-top:14px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray6)}
+.ydt-loc .af-msg{margin-top:12px;text-align:center;font-size:14px;line-height:1.5;color:var(--gray4);min-height:1.5em}
+.ydt-loc .af-msg.is-err{color:var(--data-bright)}
+
+/* ── links strip ── */
+.ydt-loc .sec--links{padding:clamp(40px,5vw,64px) 0}
+.ydt-loc .links{display:grid;grid-template-columns:1fr;gap:28px}
+@media(min-width:800px){.ydt-loc .links{grid-template-columns:1fr 1fr;gap:48px}}
+.ydt-loc .links h3{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray6);margin-bottom:10px}
+.ydt-loc .links ul{display:grid;gap:4px}
+.ydt-loc .links a{display:inline-flex;align-items:center;gap:9px;min-height:44px;font-size:14.5px;color:var(--gray4);transition:color .3s}
+.ydt-loc .links a:hover{color:var(--white)}
+.ydt-loc .links a svg{width:13px;height:13px;color:var(--data);flex-shrink:0}
+
+/* ── cta ── */
+.ydt-loc .cta{position:relative;overflow:clip;isolation:isolate}
+.ydt-loc .cta__card{position:relative;border:1px solid var(--line2);border-radius:22px;background:linear-gradient(180deg,var(--panel2),var(--panel));padding:clamp(40px,6vw,72px) clamp(24px,5vw,64px);text-align:center;overflow:clip}
+.ydt-loc .cta__card::before{content:"";position:absolute;z-index:-1;left:50%;top:-40%;width:70%;height:120%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,69,54,.16),transparent 65%);pointer-events:none}
+.ydt-loc .cta h2{margin-top:0}
+.ydt-loc .cta p{margin:0 auto;max-width:34rem;font-size:1.02rem;line-height:1.7;color:#aaa39e}
+.ydt-loc .cta .actions{justify-content:center}
+.ydt-loc .cta__trust{margin-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray6)}
+.ydt-loc .cta__trust a{color:var(--gray5);display:inline-block;padding:12px 0}
+
+/* ── motion: only once the script has confirmed it is running ── */
+.ydt-loc--js [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.ydt-loc--js [data-reveal].in-view{opacity:1;transform:none}
+.ydt-loc--js .cards>[data-reveal]:nth-child(2),.ydt-loc--js .tiles>[data-reveal]:nth-child(2),.ydt-loc--js .works>[data-reveal]:nth-child(2),.ydt-loc--js .glances>[data-reveal]:nth-child(2){transition-delay:.08s}
+.ydt-loc--js .cards>[data-reveal]:nth-child(3),.ydt-loc--js .tiles>[data-reveal]:nth-child(3),.ydt-loc--js .works>[data-reveal]:nth-child(3),.ydt-loc--js .glances>[data-reveal]:nth-child(3){transition-delay:.16s}
+.ydt-loc--js .cards>[data-reveal]:nth-child(4),.ydt-loc--js .tiles>[data-reveal]:nth-child(4),.ydt-loc--js .glances>[data-reveal]:nth-child(4){transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){.ydt-loc--js [data-reveal]{opacity:1;transform:none;transition:none}.ydt-loc .rail i,.ydt-loc .step>i,.ydt-loc .work__img img{transition:none}}
+
+</style>
+<div class="ydt-loc" id="ydtLoc" data-page="web-design-newcastle">
+
+<section class="hero" aria-labelledby="pageTitle">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="wrap hero__grid">
+    <div>
+      <p class="eyebrow"><span class="mark" aria-hidden="true"></span>Web design · Newcastle upon Tyne</p>
+      <h1 id="pageTitle">Web Design Newcastle <span class="dim">Websites built to rank.</span></h1>
+      <p class="lede">Newcastle is the busiest market in the North East, and a customer here has three tabs open before they call anyone. We build websites for Newcastle businesses that win that comparison: fast, mobile-first, priced in the open, and with SEO baked in from the first page so Google finds you for the searches people in NE1 to NE7 actually type.</p>
+      <div class="actions"><a class="btn btn--go" href="/web-design-quote"><span>Get a free quote</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn" href="tel:+447877411092"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Call 07877 411092</span></a></div>
+      <div class="stats" aria-label="At a glance"><div class="stat"><b>from £150</b><span>One page, built to convert</span></div><div class="stat"><b>24 hrs</b><span>Quote back, in writing</span></div><div class="stat"><b>0</b><span>Long contracts</span></div></div>
+    </div>
+    <aside class="console" aria-labelledby="diagTitle">
+      <div class="console__bar"><span class="console__title" id="diagTitle">What we check on a Newcastle site</span><span class="console__live"><i aria-hidden="true"></i>Checked first</span></div>
+      <p class="console__intro">Before a quote, we look at what your current site does in the moment that matters. Most fail at least two of these.</p>
+      <ul><li class="check"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><div><b>Loads in under 3 seconds on 4G</b><span>Tested on the Metro, not from an office fibre line</span></div></li><li class="check"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><div><b>Price or price range visible</b><span>Hidden prices lose the comparison before it starts</span></div></li><li class="check"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><div><b>One-tap call and enquiry</b><span>Number tappable from the first screen on a phone</span></div></li><li class="check"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><div><b>Ranks for its own name</b><span>Surprisingly often a directory outranks the business</span></div></li><li class="check"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><div><b>Reviews shown, not claimed</b><span>Google rating and count on the page, kept current</span></div></li></ul>
+    </aside>
+  </div>
+</section>
+<section class="sec" aria-labelledby="why"><div class="wrap"><div class="head head--wide" data-reveal><p class="eyebrow"><span class="mark" aria-hidden="true"></span>Why us</p><h2 id="why">Why Newcastle businesses choose us</h2><p class="intro">The city has more agencies and freelancers per square mile than anywhere else in the region. The bar is high, and the reasons people pick us are specific.</p></div><div class="tiles"><article class="tile tile--hot" data-reveal><i>01</i><h3>One fixed price, in writing, within a working day</h3><p>You fill in five fields, we reply with one number. Not a bracket, not a range you get pushed up from. The price on the quote is the price on the invoice.</p></article><article class="tile" data-reveal><i>02</i><h3>Built for the compare-three-quotes moment</h3><p>Your customer has your site open next to two competitors. We answer their three questions faster than the other tabs: what you do, what it costs, how to reach you.</p></article><article class="tile" data-reveal><i>03</i><h3>SEO from the first page, not bolted on</h3><p>Structure, titles, local schema and your Google Business Profile matched to the site. On the Small business tier and up it is included, not an upsell.</p></article><article class="tile" data-reveal><i>04</i><h3>North East based, not a London agency with a Newcastle page</h3><p>We are in County Durham, twenty minutes down the A1. We meet on the Quayside or in Jesmond when it helps, and most builds never need a meeting at all.</p></article><article class="tile" data-reveal><i>05</i><h3>You own it and can edit it</h3><p>Domain in your name, site on a platform you can log into, and a walkthrough at handover. Words, prices and hours are yours to change without calling anyone.</p></article></div></div></section><section class="sec" aria-labelledby="build"><div class="wrap"><div class="head" data-reveal><p class="eyebrow"><span class="mark" aria-hidden="true"></span>The offer</p><h2 id="build">What we build</h2><p class="intro">Four kinds of build. Each is a one-off price and each is handed over as something you can run yourself.</p></div><div class="cards"><article class="card" data-reveal><h3>One-page sites</h3><p>For a single service, a launch, or a business that lives on Google and word of mouth. One focused page, live in about a week.</p><ul><li>From £150, one-off</li><li>Enquiry form and click-to-call</li><li>Your Google listing linked and matched</li></ul></article><article class="card" data-reveal><h3>Small business sites</h3><p>Five to eight pages with the SEO set up as we build. Service pages that rank, a contact page that converts, analytics you can actually read.</p><ul><li>From £1,200, one-off</li><li>SEO included from day one</li><li>Call tracking and Google Analytics</li></ul></article><article class="card" data-reveal><h3>E-commerce</h3><p>A shop with stock, shipping, tax and payments handled properly, and product pages Google can index one at a time.</p><ul><li>From £2,000, one-off</li><li>Product-level SEO</li><li>Live in about six weeks</li></ul></article><article class="card" data-reveal><h3>Rebuilds and rescues</h3><p>A site that looks fine on your laptop and falls apart on a phone. We rebuild it on a stack you can edit and keep every URL that already ranks.</p><ul><li>Redirect map included</li><li>No lost rankings on launch</li><li>Handover walkthrough</li></ul><a href="/web-development">Web development in detail<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article></div></div></section><section class="sec" aria-labelledby="pricing"><div class="wrap"><div class="head" data-reveal><p class="eyebrow"><span class="mark" aria-hidden="true"></span>Pricing</p><h2 id="pricing">Pricing</h2><p class="intro">Stated before you ask. These are starting points you get in writing, not brackets.</p></div><div class="price" data-reveal><div class="prow"><div class="pname">One page</div><div class="pfrom">from £150<small>one-off</small></div><div class="pnote">Single page, enquiry form, click-to-call. Live in about a week.</div></div><div class="prow"><div class="pname">Basic site</div><div class="pfrom">from £500<small>one-off</small></div><div class="pnote">2–4 pages, mobile-first, live in about two weeks.</div></div><div class="prow prow--pick"><div class="pname">Small business<small>Most chosen</small></div><div class="pfrom">from £1,200<small>one-off</small></div><div class="pnote">5–8 pages with SEO included as we build.</div></div><div class="prow"><div class="pname">E-commerce</div><div class="pfrom">from £2,000<small>one-off</small></div><div class="pnote">Catalogue, checkout, payments, product-level SEO.</div></div></div><p class="pfoot" data-reveal>One-off build costs, not monthly fees, and the same figures as our quote page. Want it to keep improving after launch? SEO + Fixes + Growth is £500 a month and includes on-page work, four blogs and two new pages every month. Optional, never a condition of the build.</p></div></section><section class="sec" aria-labelledby="work"><div class="wrap"><div class="head" data-reveal><p class="eyebrow"><span class="mark" aria-hidden="true"></span>Proof</p><h2 id="work">Recent Newcastle work</h2><p class="intro">Builds from across Tyneside and the wider North East, all live and clickable. Three that show the jobs a Newcastle site has to do; the full nine are on the site. Ask and we will send you the ones nearest to your kind of business.</p></div><div class="works"><figure class="work" data-reveal><div class="work__img"><img src="https://www.yourdigiteam.com/optimized/work-1e5346cb1e50.webp" alt="The Shoreline Vehicle Design website" width="750" height="426" loading="lazy" decoding="async"></div><figcaption><b>Shoreline Vehicle Design</b><span>Specialist vehicle business. Quote form built to be finished, not abandoned.</span></figcaption></figure><figure class="work" data-reveal><div class="work__img"><img src="https://www.yourdigiteam.com/optimized/work-f7e3fa345244.webp" alt="The Smart Plus Heating website" width="750" height="445" loading="lazy" decoding="async"></div><figcaption><b>Smart Plus Heating</b><span>Trades site on Squarespace. Number first, reviews carry the weight.</span></figcaption></figure><figure class="work" data-reveal><div class="work__img"><img src="https://www.yourdigiteam.com/optimized/work-1b62a8626cd5.webp" alt="The Senttr website" width="750" height="426" loading="lazy" decoding="async"></div><figcaption><b>Senttr</b><span>Product site that explains something new in one screen.</span></figcaption></figure></div><div class="clients" data-reveal><b>All nine client builds on the site</b><ul><li>Shoreline</li><li>911 Backdate</li><li>Gutters.co.uk</li><li>PilotQ</li><li>Punt Caravan Parking</li><li>SVD Group</li><li>Fitzgerald Capital</li><li>Senttr</li><li>Smart Plus Heating</li></ul></div></div></section><section class="sec" aria-labelledby="faq"><div class="wrap split"><div class="head" data-reveal><p class="eyebrow"><span class="mark" aria-hidden="true"></span>Questions</p><h2 id="faq">FAQs</h2></div><div data-reveal><details><summary>How much does web design cost in Newcastle?<i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>From £150 for a single page, £500 for a basic two-to-four page site, £1,200 for a small business site with SEO included, and £2,000 for e-commerce. Those are one-off build prices. You get one number in writing before anything starts.</p></details><details><summary>Are you actually in Newcastle?<i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>We are based in Bishop Auckland, County Durham, and work across Tyneside every week. If a meeting helps we come to you, whether that is the Quayside, Jesmond, Gosforth or one of the business parks off the A1. Most builds run over email and a shared link and never need one.</p></details><details><summary>Will I be able to edit the site myself?<i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>Yes. Every build is handed over with a walkthrough. Text, images, prices and opening hours are all yours to change without calling anyone.</p></details><details><summary>What happens to my rankings when the site changes?<i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>We keep every URL that already ranks, or map it to its new home with a redirect. Rankings drop when links get lost, not when a site gets better, and we do not lose them.</p></details><details><summary>Is SEO included?<i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>On the Small business and E-commerce tiers, yes: structure, page titles, local schema and your Google Business Profile matched to the site. One-page and Basic builds get the fundamentals, and ongoing SEO is available monthly if you want to push further.</p></details><details><summary>How long does a build take?<i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></i></summary><p>A one-page site in about a week, a basic site in about two, a small business site in about four and e-commerce in about six. The clock starts when we have your words and photos.</p></details></div></div></section>
+
+<section class="sec sec--links" aria-labelledby="alsoTitle">
+  <div class="wrap links">
+    <div data-reveal><h3 id="alsoTitle">Also serving</h3><ul><li><a href="/digital-marketing-agency-gateshead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Digital marketing in Gateshead</span></a></li><li><a href="/web-design-south-tyneside"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Web design in South Tyneside</span></a></li><li><a href="/website-designers-sunderland"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Website designers in Sunderland</span></a></li><li><a href="/seo-agency-durham"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>SEO agency in Durham</span></a></li><li><a href="/squarespace-designer-north-east"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Squarespace designer, North East</span></a></li></ul></div>
+    <div data-reveal><h3>More from Your Digital Team</h3><ul><li><a href="/web-development"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Web development</span></a></li><li><a href="/seo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>SEO</span></a></li><li><a href="/pricing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Monthly plans</span></a></li></ul></div>
+  </div>
+</section>
+
+<section class="sec cta" aria-labelledby="ctaTitle">
+  <div class="wrap">
+    <div class="cta__card" data-reveal>
+      <h2 id="ctaTitle">Get a free quote <span class="dim">for a Newcastle website.</span></h2>
+      <p>Five fields, no obligation, a reply within a working day with one fixed number. Or call and talk it through first.</p>
+      <div class="actions"><a class="btn btn--go" href="/web-design-quote"><span>Get a free quote</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn" href="tel:+447877411092"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Call 07877 411092</span></a></div>
+      <p class="cta__trust">No obligation · Reply within 24 hours · <a href="mailto:thomas@yourdigiteam.com">thomas@yourdigiteam.com</a></p>
+    </div>
+  </div>
+</section>
+</div>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Service", "@id": "https://www.yourdigiteam.com/web-design-newcastle#service", "name": "Web design in Newcastle", "serviceType": "Web design", "url": "https://www.yourdigiteam.com/web-design-newcastle", "description": "Websites for Newcastle businesses, built fast, mobile-first, and with SEO baked in from day one. Free quote in 24 hours.", "areaServed": [{"@type": "Place", "name": "Newcastle upon Tyne"}, {"@type": "Place", "name": "Tyne and Wear"}], "provider": {"@type": "ProfessionalService", "@id": "https://www.yourdigiteam.com/#organization", "name": "Your Digital Team", "url": "https://www.yourdigiteam.com", "telephone": "+447877411092", "email": "thomas@yourdigiteam.com", "address": {"@type": "PostalAddress", "addressLocality": "Bishop Auckland", "addressRegion": "County Durham", "addressCountry": "GB"}, "areaServed": {"@type": "Place", "name": "North East England"}, "priceRange": "££"}, "offers": [{"@type": "Offer", "name": "One page", "price": "150", "priceCurrency": "GBP", "description": "Single page, enquiry form, click-to-call. Live in about a week. (one-off)"}, {"@type": "Offer", "name": "Basic site", "price": "500", "priceCurrency": "GBP", "description": "2–4 pages, mobile-first, live in about two weeks. (one-off)"}, {"@type": "Offer", "name": "Small business", "price": "1200", "priceCurrency": "GBP", "description": "5–8 pages with SEO included as we build. (one-off)"}, {"@type": "Offer", "name": "E-commerce", "price": "2000", "priceCurrency": "GBP", "description": "Catalogue, checkout, payments, product-level SEO. (one-off)"}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.yourdigiteam.com/"}, {"@type": "ListItem", "position": 2, "name": "Web design in Newcastle", "item": "https://www.yourdigiteam.com/web-design-newcastle"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "@id": "https://www.yourdigiteam.com/web-design-newcastle#faq", "mainEntity": [{"@type": "Question", "name": "How much does web design cost in Newcastle?", "acceptedAnswer": {"@type": "Answer", "text": "From £150 for a single page, £500 for a basic two-to-four page site, £1,200 for a small business site with SEO included, and £2,000 for e-commerce. Those are one-off build prices. You get one number in writing before anything starts."}}, {"@type": "Question", "name": "Are you actually in Newcastle?", "acceptedAnswer": {"@type": "Answer", "text": "We are based in Bishop Auckland, County Durham, and work across Tyneside every week. If a meeting helps we come to you, whether that is the Quayside, Jesmond, Gosforth or one of the business parks off the A1. Most builds run over email and a shared link and never need one."}}, {"@type": "Question", "name": "Will I be able to edit the site myself?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Every build is handed over with a walkthrough. Text, images, prices and opening hours are all yours to change without calling anyone."}}, {"@type": "Question", "name": "What happens to my rankings when the site changes?", "acceptedAnswer": {"@type": "Answer", "text": "We keep every URL that already ranks, or map it to its new home with a redirect. Rankings drop when links get lost, not when a site gets better, and we do not lose them."}}, {"@type": "Question", "name": "Is SEO included?", "acceptedAnswer": {"@type": "Answer", "text": "On the Small business and E-commerce tiers, yes: structure, page titles, local schema and your Google Business Profile matched to the site. One-page and Basic builds get the fundamentals, and ongoing SEO is available monthly if you want to push further."}}, {"@type": "Question", "name": "How long does a build take?", "acceptedAnswer": {"@type": "Answer", "text": "A one-page site in about a week, a basic site in about two, a small business site in about four and e-commerce in about six. The clock starts when we have your words and photos."}}]}]</script>
+<script>
+(function () {
+  'use strict';
+  var root = document.getElementById('ydtLoc');
+  if (!root) return;
+
+  /* ── reveal on scroll. The class that hides things is only added once
+     this is running, so a page where the script never ran stays fully
+     visible. Elements already on screen are marked in the same task, so
+     nothing flashes. ── */
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if ('IntersectionObserver' in window && !reduced) {
+    root.classList.add('ydt-loc--js');
+    var els = [].slice.call(root.querySelectorAll('[data-reveal], .steps'));
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in-view'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+    els.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in-view'); else io.observe(el);
+    });
+  } else {
+    root.querySelectorAll('.steps').forEach(function (el) { el.classList.add('in-view'); });
+  }
+
+  /* ── audit form (Durham page only). Same endpoint and rules as the
+     contact and quote pages: name, valid email, a message, and at least
+     1.2s on the page before submit. ── */
+  var form = document.getElementById('auditForm');
+  if (!form) return;
+  var loaded = Date.now();
+  var msg = document.getElementById('auditMsg');
+  var btn = form.querySelector('button[type="submit"]');
+  function say(t, err) { msg.textContent = t; msg.classList.toggle('is-err', !!err); }
+  function valid(el) { var ok = el.checkValidity() && el.value.trim() !== ''; el.setAttribute('aria-invalid', ok ? 'false' : 'true'); return ok; }
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var name = form.elements.name, email = form.elements.email, site = form.elements.website;
+    var ok = valid(name) & valid(email) & valid(site);
+    if (!ok) { say('Please check your name, email and website.', true); return; }
+    if (form.elements.website_check.value) { say('Thanks.'); return; }
+    var web = site.value.trim();
+    var note = form.elements.message.value.trim();
+    var payload = {
+      name: name.value.trim(), email: email.value.trim(), phone: '', company: '', budget: '', needs: '',
+      website: web,
+      message: 'Free SEO audit request for ' + web + (note ? '. ' + note : '.'),
+      plan: 'Free SEO audit — Durham page',
+      website_check: '',
+      started_at: String(loaded),
+      source_path: window.location.pathname + window.location.search
+    };
+    btn.disabled = true; say('Sending…');
+    fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      .then(function (r) { if (!r.ok) throw new Error('bad'); return r.json ? r.json().catch(function () { return {}; }) : {}; })
+      .then(function () { form.reset(); say('Got it. The audit is on its way within a working day.'); })
+      .catch(function () { say('That did not send. Email ' + 'thomas@yourdigiteam.com' + ' or call 07877 411092 and we will start the audit from there.', true); })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+
+</script>
