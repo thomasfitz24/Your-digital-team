@@ -179,6 +179,64 @@ def build():
 
     (OUT / "3-custom-css.css").write_text(custom_css, encoding="utf-8")
 
+    # ---- 3. header and footer as two self-contained files -----------------
+    # Each carries the stylesheet, the icon sprite and the scripts, so either
+    # works on its own wherever it is pasted. Guards make using both safe: the
+    # sprite defines ids, so only the first copy survives, and the script
+    # refuses to initialise twice.
+    sprite_guard = (
+        "<script>\n"
+        "/* Both files carry a sprite so either can be used alone. Two copies in\n"
+        "   one document would mean duplicate ids, so keep only the first. */\n"
+        "(function () {\n"
+        "  var s = document.querySelectorAll('[data-adl-icons]');\n"
+        "  for (var i = 1; i < s.length; i++) s[i].remove();\n"
+        "})();\n"
+        "</script>"
+    )
+    sprite = icons.replace("<svg", "<svg data-adl-icons", 1)
+
+    for name, markup, where in (
+        ("HEADER", header, "wherever the site header goes"),
+        ("FOOTER", footer, "wherever the site footer goes"),
+    ):
+        (OUT / f"SELF-CONTAINED-{name}.html").write_text(
+            f"""{STAMP}
+<!-- ===========================================================================
+     ADL site {name.lower()} — SELF-CONTAINED.
+
+     Everything it needs is in this one file: the stylesheet, the CSS that hides
+     Squarespace's own header and footer, the icon sprite and the JavaScript.
+     Paste the whole thing {where}.
+
+     Safe to use alongside the other one — the sprite and the script both guard
+     against loading twice.
+
+     Caveat: this CSS sits in the body rather than in <head>, so it applies after
+     the browser has drawn the page, and Squarespace's own header can flicker
+     into view before it is hidden. Pasting 3-custom-css.css into
+     Design > Custom CSS as well removes that, because that loads in <head>.
+     ======================================================================== -->
+<style>
+{styles}
+
+{custom_css}
+</style>
+
+{sprite}
+{sprite_guard}
+
+{markup}
+
+<script>
+/* Runs once, however many of these files are on the page. */
+if (!window.__adlInit) {{
+  window.__adlInit = true;
+{scripts}
+}}
+</script>
+""", encoding="utf-8")
+
     # ---- 4. one file per page ---------------------------------------------
     # Two flavours. The default keeps the stylesheet in <head> via Code Injection.
     # The "self-styled" copies carry it inside the page instead, for anyone who
