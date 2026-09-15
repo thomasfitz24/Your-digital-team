@@ -1,0 +1,456 @@
+<!-- ADL Consultancy — SITE HEADER
+     Self-contained: the CSS and images it needs are inside this file.
+     Paste the whole thing into a Squarespace Code Block or Code Injection.
+     Safe to use alongside the other ADL files. -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap');
+.adl-page{
+  --blue:#078BD0; --blue-dk:#0670A8; --blue-xl:#EAF6FC; --blue-lite:#C7E6F6;
+  --ink:#222021; --ink-soft:#4A4A4C; --grey:#6B6C70;
+  --line:#E4E5E8; --bg:#FFFFFF; --bg-soft:#F7F8FA; --bg-tint:#F2F8FC;
+  --amber:#B4690E; --amber-bg:#FDF6EC; --amber-line:#EBD6B4;
+  --r-sm:8px; --r-md:14px; --r-lg:22px; --r-pill:999px;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px;
+  --s6:32px; --s7:48px; --s8:64px; --s9:88px;
+  --pad-x:clamp(20px,5vw,64px); --maxw:1280px;
+  font-family:'Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  font-size:17px; line-height:1.6; color:var(--ink-soft); background:var(--bg);
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+.adl-page *,.adl-page *::before,.adl-page *::after{box-sizing:border-box;margin:0;padding:0;font-family:inherit}
+.adl-page [id]{scroll-margin-top:120px}
+.adl-page a,.adl-page button,.adl-page summary{cursor:pointer}
+.adl-page a:focus-visible,.adl-page button:focus-visible,.adl-page summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+.adl-page .on-dark:focus-visible{outline-color:#fff}
+.adl-page img{max-width:100%;display:block}
+.adl-page h1,.adl-page h2,.adl-page h3,.adl-page h4{color:var(--ink);font-weight:700;letter-spacing:-.028em;line-height:1.1;text-wrap:balance}
+.adl-page h1{font-size:clamp(2.2rem,4.4vw,3.5rem);font-weight:800;letter-spacing:-.035em}
+.adl-page h2{font-size:clamp(1.9rem,3.4vw,2.8rem)}
+.adl-page h3{font-size:1.25rem;letter-spacing:-.02em}
+.adl-page h4{font-size:1rem;letter-spacing:-.01em}
+.adl-page .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.adl-page .icon{width:20px;height:20px;flex-shrink:0;stroke-width:2}
+.adl-page .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);min-height:52px;padding:var(--s3) var(--s6);font-size:1rem;font-weight:600;letter-spacing:-.01em;border-radius:var(--r-pill);border:1.5px solid transparent;text-decoration:none;white-space:nowrap;transition:background-color .2s,border-color .2s,color .2s,box-shadow .2s,transform .2s}
+.adl-page .btn:hover{transform:translateY(-1px)}
+.adl-page .btn .icon{width:18px;height:18px}
+.adl-page .btn-blue{background:var(--blue);color:#fff;box-shadow:0 6px 16px -6px rgba(7,139,208,.6)}
+.adl-page .btn-blue:hover{background:var(--blue-dk);box-shadow:0 10px 22px -8px rgba(7,139,208,.7)}
+.adl-page .btn-outline{background:#fff;color:var(--ink);border-color:var(--line)}
+.adl-page .btn-outline:hover{border-color:var(--ink);background:var(--bg-soft)}
+.adl-page .btn-white{background:#fff;color:var(--ink)}
+.adl-page .btn-white:hover{background:var(--bg-soft)}
+.adl-page .btn-ghost-light{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.adl-page .btn-ghost-light:hover{background:rgba(255,255,255,.2);border-color:#fff}
+.adl-page .btn-row{display:flex;gap:var(--s3);flex-wrap:wrap}
+.adl-page .pill{display:inline-flex;align-items:center;gap:var(--s2);border-radius:var(--r-pill);padding:6px var(--s4);font-size:.875rem;font-weight:600;margin-bottom:var(--s5)}
+.adl-page .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--blue)}
+@media (max-width:560px){.adl-page .btn{width:100%}
+.adl-page .btn-row,.adl-page .panel-acts{flex-direction:column;align-items:stretch}}
+.adl-page .btn.full{width:100%}
+@media (prefers-reduced-motion:reduce){.adl-page *,.adl-page *::before,.adl-page *::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}.adl-page .skip-link{position:absolute;left:50%;top:8px;transform:translate(-50%,-160%);background:var(--ink);color:#fff;padding:12px 24px;border-radius:var(--r-pill);font-weight:600;text-decoration:none;z-index:300;transition:transform .2s ease}
+.adl-page .skip-link:focus-visible{transform:translate(-50%,0)}
+.adl-header{position:sticky;top:0;z-index:9999;padding:20px var(--pad-x) 0;margin-bottom:-100px;transition:padding .3s ease}
+.adl-header.is-stuck{padding-top:10px}
+.adl-header .header-box{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.6);border-radius:var(--r-md);
+  padding:10px 12px 10px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+  box-shadow:0 2px 4px rgba(34,32,33,.04),0 18px 40px -16px rgba(34,32,33,.22);
+  transition:box-shadow .3s ease,background-color .3s ease}
+.adl-header.is-stuck .header-box{background:rgba(255,255,255,.97);box-shadow:0 12px 34px -14px rgba(34,32,33,.4)}
+.adl-header .header-logo-img{height:38px;width:auto;display:block}
+.adl-header .desktop-nav{display:none}
+.adl-header .nav-links{display:flex;gap:2px;list-style:none;align-items:center}
+.adl-header .nav-links>li{position:relative}
+.adl-header .nav-links a,.adl-header .nav-links .navbtn{display:inline-flex;align-items:center;gap:5px;background:none;border:0;font:inherit;color:var(--ink);font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap;
+  padding:10px 12px;border-radius:10px;transition:color .2s ease,background-color .2s ease}
+.adl-header .nav-links a:hover,.adl-header .nav-links .navbtn:hover,.adl-header .nav-links .navbtn[aria-expanded="true"]{color:var(--blue);background:var(--blue-xl)}
+.adl-header .nav-links .navbtn .icon{width:14px;height:14px;transition:transform .2s}
+.adl-header .nav-links .navbtn[aria-expanded="true"] .icon{transform:rotate(180deg)}
+.adl-header .dropdown{position:absolute;top:calc(100% + 10px);left:0;z-index:20;min-width:330px;background:#fff;border:1px solid var(--line);border-radius:var(--r-md);box-shadow:0 24px 48px -20px rgba(34,32,33,.4);padding:8px;list-style:none;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s}
+.adl-header .dropdown.open{opacity:1;visibility:visible;transform:none}
+.adl-header .dropdown a{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;align-items:center;padding:10px 12px;border-radius:8px;width:100%}
+.adl-header .dropdown .code{grid-row:span 2;font-size:.75rem;font-weight:800;color:var(--blue-dk);background:var(--blue-xl);border:1px solid var(--blue-lite);border-radius:6px;padding:6px 8px;white-space:nowrap}
+.adl-header .dropdown strong{font-size:.9375rem;font-weight:700;color:var(--ink)}
+.adl-header .dropdown span{font-size:.8125rem;color:var(--grey);font-weight:400;line-height:1.4}
+.adl-header .header-actions{display:flex;align-items:center;gap:var(--s4)}
+.adl-header .header-tel{display:none;align-items:center;gap:7px;font-weight:700;font-size:15px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.adl-header .header-tel .icon{width:17px;height:17px;color:var(--blue)}
+.adl-header .header-tel:hover{color:var(--blue-dk)}
+.adl-header .header-btn{padding:13px 24px;font-size:14px;min-height:0}
+.adl-header .header-call{display:none;align-items:center;justify-content:center;
+  width:46px;height:46px;background:var(--blue);color:#fff;border:0;border-radius:12px;
+  text-decoration:none;box-shadow:0 6px 16px -6px rgba(7,139,208,.6);transition:background-color .2s}
+.adl-header .header-call:hover{background:var(--blue-dk)}
+.adl-header .header-call .icon{width:20px;height:20px}
+.adl-header .hamburger{display:none;flex-direction:column;gap:5px;align-items:center;justify-content:center;
+  width:46px;height:46px;background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;z-index:2}
+.adl-header .hamburger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .3s ease,opacity .2s ease}
+.adl-page.menu-open .adl-header .hamburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.adl-page.menu-open .adl-header .hamburger span:nth-child(2){opacity:0}
+.adl-page.menu-open .adl-header .hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (min-width:1140px){.adl-header .desktop-nav{display:block}
+.adl-header .header-tel{display:inline-flex}}
+@media (max-width:1139px){.adl-header .hamburger{display:flex}
+.adl-header .header-call{display:inline-flex}
+.adl-header .header-btn{display:none}
+.adl-header .header-actions{gap:var(--s2)}}
+.adl-page .mobile-menu{position:fixed;inset:0;background:rgba(255,255,255,.98);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:9998;
+  display:flex;flex-direction:column;padding:96px 0 0;
+  opacity:0;visibility:hidden;transform:translateY(-12px);
+  transition:opacity .32s ease,transform .32s cubic-bezier(.16,1,.3,1),visibility .32s}
+.adl-page.menu-open .mobile-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.adl-page .mobile-menu nav{flex:1 1 auto;min-height:0;overflow-y:auto;
+  overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  padding:0 var(--pad-x)}
+.adl-page .mobile-nav{list-style:none;width:100%;max-width:520px;margin:0 auto;
+  display:flex;flex-direction:column}
+.adl-page .mobile-nav a{display:flex;align-items:center;gap:var(--s3);
+  font-size:17px;font-weight:700;color:var(--ink);text-decoration:none;
+  padding:11px 12px;border-radius:10px;transition:color .2s,background-color .2s}
+.adl-page .mobile-nav a:hover{color:var(--blue);background:var(--blue-xl)}
+.adl-page .mobile-nav .grp{font-size:.6875rem;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--grey);padding:16px 12px 4px}
+.adl-page .mobile-nav .sub a{font-size:15px;font-weight:600;color:var(--ink-soft);padding:9px 12px}
+.adl-page .mobile-nav .sub .code{flex-shrink:0;min-width:74px;font-size:.6875rem;font-weight:800;
+  color:var(--blue-dk);background:var(--blue-xl);border:1px solid var(--blue-lite);
+  border-radius:6px;padding:4px 7px;text-align:center;letter-spacing:.01em}
+.adl-page .mobile-foot{flex:0 0 auto;display:grid;gap:var(--s3);
+  width:100%;max-width:520px;margin:0 auto;
+  padding:var(--s4) var(--pad-x) calc(var(--s5) + env(safe-area-inset-bottom,0px));
+  background:#fff;border-top:1px solid var(--line);
+  box-shadow:0 -10px 24px -18px rgba(34,32,33,.5)}
+.adl-page .mobile-foot .btn{width:100%}
+@media (max-width:1139px){.adl-page .mobile-foot{max-width:none}}
+/* Squarespace: hide its own header, and pin ours. */
+#header, .header, .sqs-announcement-bar-dropzone { display: none !important; }
+.adl-header { position: fixed !important; top: 0; left: 0; right: 0; margin-bottom: 0 !important; }
+
+</style>
+
+<!-- GENERATED by build.py — edit src/, not this file -->
+<!-- ===========================================================================
+     ADL CONSULTANCY — SHARED ICON SPRITE
+     25 icon definitions referenced by <use href="#i-…"> from the header, the
+     footer and every page (343 references in total). It is its own file so the
+     pages do not silently depend on the header being present — without this
+     block, every icon on the site renders blank.
+     Add it once, site-wide, before the content.
+     ======================================================================== -->
+<svg data-adl-icons width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <g id="i-check"><polyline points="20 6 9 17 4 12"/></g>
+  <g id="i-arrow"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></g>
+  <g id="i-chev"><polyline points="6 9 12 15 18 9"/></g>
+  <g id="i-plus"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></g>
+  <g id="i-x"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></g>
+  <g id="i-play"><polygon points="6 3 20 12 6 21 6 3" fill="currentColor"/></g>
+  <g id="i-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></g>
+  <g id="i-mail"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></g>
+  <g id="i-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></g>
+  <g id="i-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g>
+  <g id="i-award"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></g>
+  <g id="i-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></g>
+  <g id="i-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></g>
+  <g id="i-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></g>
+  <g id="i-leaf"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></g>
+  <g id="i-lock"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></g>
+  <g id="i-cpu"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></g>
+  <g id="i-hard"><path d="M2 18a10 10 0 0 1 20 0v2H2z"/><path d="M12 3v5"/><path d="M6 20h12"/></g>
+  <g id="i-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></g>
+  <g id="i-sliders"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></g>
+  <g id="i-laptop"><rect x="3" y="4" width="18" height="12" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/></g>
+  <g id="i-filex"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9.5" y1="12.5" x2="14.5" y2="17.5"/><line x1="14.5" y1="12.5" x2="9.5" y2="17.5"/></g>
+  <g id="i-cal"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></g>
+  <g id="i-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></g>
+  <g id="i-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></g>
+</defs></svg>
+
+<script>
+/* Each file carries a sprite so any one of them works alone. Two copies in one
+   document would mean duplicate ids, so keep only the first. */
+(function () {
+  var s = document.querySelectorAll('[data-adl-icons]');
+  for (var i = 1; i < s.length; i++) s[i].remove();
+})();
+</script>
+
+<!-- GENERATED by build.py — edit src/, not this file -->
+<!-- ADL site header. Goes in the platform's global header, once, site-wide. Not in the page files. -->
+<div class="adl-page">
+<!-- ===========================================================================
+     ADL CONSULTANCY — SITE HEADER
+     This is the single source of truth for the header. Edit it here, run
+     `python3 build.py`, and all pages pick up the change.
+     WordPress: paste dist/wp/header.html into Avada → Global Header.
+     ======================================================================== -->
+<a class="skip-link" href="#adl-main">Skip to main content</a>
+
+
+<header class="adl-header" id="adlHeader">
+  <div class="header-box">
+    <a href="/" class="logo-link" aria-label="ADL Consultancy — home">
+      <img src="data:image/png;base64,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"
+           alt="ADL Consultancy" class="header-logo-img" width="158" height="38">
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      <ul class="nav-links">
+        <li>
+          <button type="button" class="navbtn" id="adlStdToggle" aria-expanded="false" aria-controls="adlStdMenu">
+            Standards
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-chev"/></svg>
+          </button>
+          <ul class="dropdown" id="adlStdMenu">
+            <li><a href="/iso-9001-as9100-quality-aerospace/"><span class="code">ISO 9001</span><strong>Quality &amp; AS9100 Aerospace</strong><span>The standard most tenders ask for</span></a></li>
+            <li><a href="/iso-14001-environmental/"><span class="code">ISO 14001</span><strong>Environmental</strong><span>Evidence your environmental commitments</span></a></li>
+            <li><a href="/iso-27001-information-security/"><span class="code">ISO 27001</span><strong>Information Security</strong><span>What enterprise clients ask for first</span></a></li>
+            <li><a href="/iso-42001-consultants-essex/"><span class="code">ISO 42001</span><strong>Artificial Intelligence</strong><span>Governance for the AI you build or use</span></a></li>
+            <li><a href="/iso-45001-health-safety/"><span class="code">ISO 45001</span><strong>Health &amp; Safety</strong><span>For teams on site, on the road or at client premises</span></a></li>
+          </ul>
+        </li>
+        <li><a href="/training/">Training</a></li>
+        <li><a href="/meet-the-family/">Meet the Family</a></li>
+        <li><a href="/testimonials/">Testimonials</a></li>
+        <li><a href="/partners/">Partners</a></li>
+        <li><a href="/news/">News</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:+441279293007" class="header-tel">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>
+        01279 293007
+      </a>
+      <a href="/contact-us/" class="btn btn-blue header-btn">Contact us</a>
+      <a href="tel:+441279293007" class="header-call" aria-label="Call ADL Consultancy on 01279 293007">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>
+      </a>
+      <button class="hamburger" type="button" id="adlMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="adlMobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Rendered open-but-static without JS; scripts.js hides it and wires the toggle. -->
+<div class="mobile-menu" id="adlMobileMenu">
+  <nav aria-label="Mobile">
+    <ul class="mobile-nav">
+      <li class="grp">Standards</li>
+      <li class="sub"><a href="/iso-9001-as9100-quality-aerospace/"><span class="code">ISO 9001</span> Quality &amp; AS9100</a></li>
+      <li class="sub"><a href="/iso-14001-environmental/"><span class="code">ISO 14001</span> Environmental</a></li>
+      <li class="sub"><a href="/iso-27001-information-security/"><span class="code">ISO 27001</span> Information Security</a></li>
+      <li class="sub"><a href="/iso-42001-consultants-essex/"><span class="code">ISO 42001</span> Artificial Intelligence</a></li>
+      <li class="sub"><a href="/iso-45001-health-safety/"><span class="code">ISO 45001</span> Health &amp; Safety</a></li>
+      <li class="grp">Company</li>
+      <li><a href="/training/">Training</a></li>
+      <li><a href="/meet-the-family/">Meet the Family</a></li>
+      <li><a href="/testimonials/">Testimonials</a></li>
+      <li><a href="/partners/">Partners</a></li>
+      <li><a href="/news/">News</a></li>
+    </ul>
+  </nav>
+  <div class="mobile-foot">
+    <a href="/contact-us/" class="btn btn-blue">Contact us</a>
+    <a href="tel:+441279293007" class="btn btn-outline">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>
+      01279 293007
+    </a>
+  </div>
+</div>
+
+</div>
+
+
+<script>
+/* Runs once, however many of these files are on the page. */
+if (!window.__adlInit) {
+  window.__adlInit = true;
+/* GENERATED by build.py — edit src/partials/scripts.js, not this file.
+   Add once, site-wide. Every feature it powers degrades gracefully:
+   with this file absent the site is still fully readable and navigable. */
+
+/* ADL Consultancy — progressive enhancement only.
+   Every feature below upgrades markup that already works without JavaScript:
+   the hero shows its poster frame, the standards panels render stacked, the
+   nav renders as a plain list. Nothing here is required to read or navigate
+   the site — which matters because WordPress editors often strip inline
+   <script> from pasted content. */
+(function () {
+  'use strict';
+
+  var page = document.querySelector('.adl-page');
+  if (!page) return;
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- current year in the footer ------------------------------------- */
+  var yr = document.getElementById('adlYear');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+  /* ---- sticky header shadow ------------------------------------------- */
+  var header = document.getElementById('adlHeader');
+  if (header) {
+    var onScroll = function () {
+      header.classList.toggle('is-stuck', window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ---- standards dropdown --------------------------------------------- */
+  var ddBtn = document.getElementById('adlStdToggle');
+  var ddMenu = document.getElementById('adlStdMenu');
+  if (ddBtn && ddMenu) {
+    var hoverOpened = false;
+    var hoverTimer;
+    var setDd = function (open) {
+      ddMenu.classList.toggle('open', open);
+      ddBtn.setAttribute('aria-expanded', String(open));
+      if (!open) hoverOpened = false;
+    };
+    // A click must not close a menu the pointer only just hover-opened.
+    ddBtn.addEventListener('click', function () {
+      var open = ddMenu.classList.contains('open');
+      if (open && hoverOpened) { hoverOpened = false; return; }
+      setDd(!open);
+    });
+    var li = ddBtn.parentNode;
+    li.addEventListener('mouseenter', function () {
+      clearTimeout(hoverTimer);
+      if (!ddMenu.classList.contains('open')) { setDd(true); hoverOpened = true; }
+    });
+    li.addEventListener('mouseleave', function () {
+      hoverTimer = setTimeout(function () { if (hoverOpened) setDd(false); }, 160);
+    });
+    document.addEventListener('click', function (e) {
+      if (!ddBtn.contains(e.target) && !ddMenu.contains(e.target)) setDd(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && ddMenu.classList.contains('open')) { setDd(false); ddBtn.focus(); }
+    });
+  }
+
+  /* ---- mobile menu ------------------------------------------------------ */
+  var burger = document.getElementById('adlMenuToggle');
+  var mobile = document.getElementById('adlMobileMenu');
+  if (burger && mobile) {
+    var setMenu = function (open) {
+      page.classList.toggle('menu-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (open) { mobile.hidden = false; }
+      else {
+        setTimeout(function () {
+          if (!page.classList.contains('menu-open')) mobile.hidden = true;
+        }, 340);
+      }
+    };
+    mobile.hidden = true; // only hide it once JS is available to bring it back
+    burger.addEventListener('click', function () {
+      setMenu(!page.classList.contains('menu-open'));
+    });
+    mobile.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && page.classList.contains('menu-open')) { setMenu(false); burger.focus(); }
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 1140 && page.classList.contains('menu-open')) setMenu(false);
+    });
+  }
+
+  /* ---- standards: upgrade stacked panels into a tablist ----------------- */
+  var tablist = document.querySelector('.tabs[role="tablist"]');
+  if (tablist) {
+    var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
+    var panels = tabs
+      .map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); })
+      .filter(Boolean);
+
+    if (tabs.length && panels.length === tabs.length) {
+      tablist.classList.add('is-live'); // CSS keeps the tab strip hidden until now
+      var select = function (tab, focus) {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          var panel = document.getElementById(t.getAttribute('aria-controls'));
+          t.setAttribute('aria-selected', String(on));
+          t.setAttribute('tabindex', on ? '0' : '-1');
+          if (panel) panel.hidden = !on;
+        });
+        if (focus) tab.focus();
+      };
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () { select(tab, false); });
+        tab.addEventListener('keydown', function (e) {
+          var next = null;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = tabs[(i + 1) % tabs.length];
+          else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = tabs[(i - 1 + tabs.length) % tabs.length];
+          else if (e.key === 'Home') next = tabs[0];
+          else if (e.key === 'End') next = tabs[tabs.length - 1];
+          if (next) { e.preventDefault(); select(next, true); }
+        });
+      });
+      select(tabs[0], false);
+    }
+  }
+
+  /* ---- hero: swap the poster for a muted looping video ------------------ */
+  var media = document.querySelector('.hero-media[data-video]');
+  if (media && !reduced && window.innerWidth >= 860) {
+    var id = media.getAttribute('data-video');
+    if (id) {
+      var frame = document.createElement('iframe');
+      frame.setAttribute('title', 'ADL Consultancy background video');
+      frame.setAttribute('aria-hidden', 'true');
+      frame.setAttribute('tabindex', '-1');
+      frame.setAttribute('allow', 'autoplay; encrypted-media');
+      frame.setAttribute('frameborder', '0');
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + id +
+        '?autoplay=1&mute=1&loop=1&playlist=' + id +
+        '&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1';
+      media.appendChild(frame);
+    }
+  }
+
+  /* ---- video modal: the same film, with sound --------------------------- */
+  var modal = document.getElementById('adlVideoModal');
+  if (modal) {
+    var modalFrame = modal.querySelector('iframe');
+    var lastFocus = null;
+    var openModal = function (id) {
+      lastFocus = document.activeElement;
+      modalFrame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      var closeBtn = modal.querySelector('.close');
+      if (closeBtn) closeBtn.focus();
+    };
+    var closeModal = function () {
+      modal.classList.remove('open');
+      // about:blank, not '' — an empty src resolves to the current document URL,
+      // which would reload the whole page inside the hidden iframe.
+      modalFrame.src = 'about:blank'; // stops playback
+      document.body.style.overflow = '';
+      if (lastFocus) lastFocus.focus();
+    };
+    document.querySelectorAll('[data-play]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal(btn.getAttribute('data-play'));
+      });
+    });
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal || e.target.closest('.close')) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+  }
+})();
+
+}
+</script>

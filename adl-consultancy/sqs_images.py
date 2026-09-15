@@ -74,7 +74,22 @@ def embed():
             cache[name] = f"data:{mime};base64," + base64.b64encode(f.read_bytes()).decode()
         return cache[name]
 
-    print(f"\n  {'PAGE':<36}{'SIZE':>9}")
+    # Also build copies that carry the stylesheet AS WELL as the images, so a
+    # page is genuinely standalone: paste it and it looks right, with no header,
+    # no footer and no code injection anywhere.
+    styled_src = ROOT / "dist" / "squarespace" / "pages-self-styled"
+    both = ROOT / "dist" / "squarespace" / "pages-embedded-styled"
+    both.mkdir(parents=True, exist_ok=True)
+    for page in sorted(styled_src.glob("*.html")):
+        text = re.sub(r"/assets/img/([^\"')]+)", lambda m: data_uri(m.group(1)),
+                      page.read_text(encoding="utf-8"))
+        (both / page.name).write_text(
+            "<!-- Stylesheet AND images are both inside this file. Paste it into a\n"
+            "     Code Block and the page looks right on its own. You still need the\n"
+            "     header and footer file somewhere for the navigation. -->\n" + text,
+            encoding="utf-8")
+
+    print(f"\n  {'PAGE':<36}{'IMAGES ONLY':>13}{'+ CSS':>9}")
     for page in sorted(PAGES.glob("*.html")):
         text = page.read_text(encoding="utf-8")
         text = re.sub(r"/assets/img/([^\"')]+)", lambda m: data_uri(m.group(1)), text)
@@ -83,7 +98,9 @@ def embed():
                   "     Squarespace and use ../pages/ instead — Squarespace serves its own\n"
                   "     files from a CDN and the browser caches them between pages. -->\n")
         (OUT / page.name).write_text(header + text, encoding="utf-8")
-        print(f"  {page.name:<36}{(OUT/page.name).stat().st_size/1024:>8.0f}K")
+        b = both / page.name
+        print(f"  {page.name:<36}{(OUT/page.name).stat().st_size/1024:>12.0f}K"
+              f"{b.stat().st_size/1024:>8.0f}K")
 
 
 def embed_chrome():
