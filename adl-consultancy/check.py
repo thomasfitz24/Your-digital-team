@@ -25,7 +25,11 @@ ASSETS = ROOT / "assets" / "img"
 # none of these may appear inside one. <script> is here because hosted CMS
 # editors strip inline scripts silently: anything that depends on one is a
 # feature that will vanish without an error.
-FORBIDDEN_TAGS = ("<html", "<head", "<body", "<header", "<footer", "<script", "<nav")
+FORBIDDEN_TAGS = ("<html", "<head", "<body", "<header", "<footer", "<script")
+
+# A <nav> is fine inside a page for a breadcrumb; what must never appear is the
+# site navigation, which lives in header.html. These classes are how you tell.
+SITE_NAV_MARKERS = ("desktop-nav", "nav-links", "mobile-menu", "mobile-nav", "adl-header", "adl-footer")
 
 MIN_SECTIONS = 7          # the homepage runs 8; nothing should be thinner than 7
 DESC_MIN, DESC_MAX = 110, 200
@@ -90,6 +94,9 @@ def check_page(path, page_keys, icon_ids, images):
     for tag in FORBIDDEN_TAGS:
         if tag in body.lower():
             errs.append(f"contains {tag}> — pages are body markup only, and inline JS gets stripped")
+    for marker in SITE_NAV_MARKERS:
+        if marker in body:
+            errs.append(f"contains the site {marker!r} markup — the header and footer are separate files")
 
     h1s = len(H1_RE.findall(body))
     if h1s != 1:
