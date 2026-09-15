@@ -162,6 +162,15 @@ body {{
 """, encoding="utf-8")
 
     # ---- 4. one file per page ---------------------------------------------
+    # Two flavours. The default keeps the stylesheet in <head> via Code Injection.
+    # The "self-styled" copies carry it inside the page instead, for anyone who
+    # would rather paste one thing per page than manage a site-wide injection.
+    # Same bytes either way — Squarespace inlines Code Injection into every page,
+    # it is not a cached external file — but CSS below <head> paints late, so the
+    # page flashes unstyled first.
+    styled_out = OUT / "pages-self-styled"
+    styled_out.mkdir(exist_ok=True)
+
     count = 0
     for page in sorted(DIST.glob("*.html")):
         if page.name.startswith("_") or page.name in ("header.html", "footer.html"):
@@ -170,6 +179,21 @@ body {{
         # Strip the build's own comment header; the client pastes the markup.
         body = re.sub(r"^<!--.*?-->\s*", "", body, flags=re.S)
         assert "<script" not in body.lower(), f"{page.name} contains a script"
+        (styled_out / page.name).write_text(f"""<!-- {page.stem} — SELF-STYLED copy.
+     Carries the whole stylesheet with it, so this is the only thing you paste
+     on this page. You still need the Footer code injection (file 2) once,
+     site-wide, for the header, footer, icons and scripts.
+
+     Trade-off: a stylesheet this far down the document paints after the browser
+     has already drawn the page, so visitors see a flash of unstyled text first.
+     If that bothers you, use ../pages/ and file 1 instead.
+
+     Still set this section's id to "{SECTION_ID}". -->
+<style>
+{styles}
+</style>
+{body}""", encoding="utf-8")
+
         (PAGES_OUT / page.name).write_text(f"""<!-- {page.stem} — paste into a Code Block on this page.
      Squarespace: add a section, add a Code Block, paste everything below.
      Then set the section's id to "{SECTION_ID}" (Edit section > ... > Section ID)
@@ -178,7 +202,8 @@ body {{
         count += 1
 
     write_install(count)
-    print(f"  4 paste files + {count} page files -> dist/squarespace/")
+    print(f"  4 paste files + {count} page files "
+          f"(+ {count} self-styled copies) -> dist/squarespace/")
 
 
 def write_install(count):
