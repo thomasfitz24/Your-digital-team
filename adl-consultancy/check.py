@@ -132,8 +132,14 @@ def check_page(path, page_keys, icon_ids, images):
     # a verbatim quote from ADL's own news post, which we do not rewrite.
     for match in FAMILY_RUN_RE.finditer(body):
         line = body[:match.start()].count("\n") + 1
-        context = body[max(0, match.start() - 90):match.start() + 40]
-        if "<!-- verbatim:" in context:
+        # A "<!-- verbatim: ... -->" comment marks a quotation from the client's
+        # own published words, which we do not rewrite. It applies to the block
+        # it opens, so it counts only if no block has closed since.
+        before = body[:match.start()]
+        marker = before.rfind("<!-- verbatim:")
+        closed = max(before.rfind("</article>"), before.rfind("</figure>"),
+                     before.rfind("</section>"))
+        if marker != -1 and marker > closed:
             continue
         errs.append(f"line {line}: {match.group(0)!r} — the client asked for 'family consultancy'")
     if desc and FAMILY_RUN_RE.search(desc):
