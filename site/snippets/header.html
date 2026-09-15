@@ -1,0 +1,81 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     HEADER — landing-page header, self-contained
+     Styles and markup in this one block. Nothing to inject elsewhere.
+     Fonts: Inter (wordmark area) / IBM Plex Mono (the number).
+
+     Deliberately not a nav. Paid traffic has one job on a landing
+     page, and every nav link is a way to leave without converting.
+     The logo goes home, the number is tappable, nothing else leads
+     away. If you want this on a normal page, add your links in the
+     marked slot and the layout takes them — but note the slot shows
+     on wide screens only. There is no burger menu here, because a
+     landing page does not want one. For a full site page you would
+     need one adding.
+
+     Two things to set before it goes live:
+       1. the phone number — it appears twice, in href and in text
+       2. the logo URL, if yours is not at /logo.png
+     ═══════════════════════════════════════════════════════════════ -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+.ydt-head {
+  --black: #050505; --white: #f4f2f0; --gray5: #918a84;
+  --line2: rgba(255,255,255,.12);
+  --data: #ff4536;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  background: var(--black); color: var(--white);
+  font-family: 'Inter', Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased;
+}
+.ydt-head *, .ydt-head *::before, .ydt-head *::after { box-sizing: border-box; }
+/* :where() keeps this reset below any class, so a later rule always wins */
+.ydt-head :where(a) { text-decoration: none; color: inherit; }
+.ydt-head :where(ul) { margin: 0; padding: 0; list-style: none; }
+
+.ydt-head__bar { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  max-width: 1160px; margin: 0 auto; padding: 20px 24px; }
+
+/* logo — min-height 44px so the tap target is a full one even though
+   the image itself is 22px tall */
+.ydt-head__logo { display: inline-flex; align-items: center; min-height: 44px; }
+.ydt-head__logo img { height: 22px; width: auto; max-width: 190px; object-fit: contain; }
+
+/* optional link slot — empty by default, styled and ready */
+.ydt-head__nav { display: none; gap: 26px; margin-left: auto; margin-right: 8px; font-size: 14px; color: var(--gray5); }
+@media (min-width: 860px) { .ydt-head__nav:not(:empty) { display: flex; } }
+.ydt-head__nav a { display: inline-flex; align-items: center; min-height: 44px; transition: color .3s; }
+.ydt-head__nav a:hover { color: var(--white); }
+
+/* phone */
+.ydt-head__tel { display: inline-flex; align-items: center; gap: 9px; min-height: 40px; padding: 9px 15px;
+  border: 1px solid var(--line2); border-radius: 9999px;
+  font-family: var(--mono); font-size: 13px; color: var(--white);
+  transition: border-color .3s, background .3s; }
+.ydt-head__tel:hover { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.04); }
+.ydt-head__tel svg { width: 14px; height: 14px; color: var(--data); flex-shrink: 0; }
+/* narrow phones: the number alone, no pill, so it never crowds the logo */
+@media (max-width: 400px) {
+  .ydt-head__bar { padding: 16px 18px; }
+  .ydt-head__tel { padding: 9px 11px; font-size: 12.5px; }
+  .ydt-head__logo img { height: 20px; }
+}
+</style>
+
+<header class="ydt-head">
+  <div class="ydt-head__bar">
+    <a class="ydt-head__logo" href="https://www.yourdigiteam.com/" aria-label="Your Digital Team home">
+      <img src="https://www.yourdigiteam.com/logo.png" alt="Your Digital Team" width="1759" height="293">
+    </a>
+
+    <!-- link slot — add anchors here and they appear on wide screens.
+         Left empty it takes no space at all.
+         <nav class="ydt-head__nav"><a href="/seo">SEO</a><a href="/web-design">Web design</a></nav> -->
+    <nav class="ydt-head__nav" aria-label="Main"></nav>
+
+    <a class="ydt-head__tel" href="tel:+447877411092">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>07877 411092</span>
+    </a>
+  </div>
+</header>
