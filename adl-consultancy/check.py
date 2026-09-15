@@ -111,6 +111,24 @@ def check_page(path, page_keys, icon_ids, images):
         if count > 1:
             errs.append(f"id=\"{dupe}\" used {count} times — ids must be unique within a page")
 
+    # Every for=, aria-labelledby=, aria-controls= and in-page href must point at
+    # an id that exists. Renaming an id and missing one of its references breaks a
+    # form label or a heading association silently — no browser complains.
+    have = set(ids)
+    for attr in ("for", "aria-labelledby", "aria-controls"):
+        for ref in re.findall(rf'{attr}="([\w-]+)"', body):
+            if ref not in have:
+                errs.append(f'{attr}="{ref}" points at an id this page does not define')
+    for ref in re.findall(r'href="#([\w-]+)"', body):
+        if not ref.startswith("i-") and ref not in have:   # i-* live in icons.html
+            errs.append(f'href="#{ref}" points at an id this page does not define')
+
+    # Generic ids collide with the host platform's own markup. Squarespace ships
+    # plenty of its own; ours are namespaced so they cannot clash.
+    for i in ids:
+        if not i.startswith("adl-"):
+            errs.append(f'id="{i}" is not namespaced — page ids must start with "adl-"')
+
     # ---- tokens resolve ---------------------------------------------------
     for key in sorted(set(URL_RE.findall(body))):
         if key not in page_keys:

@@ -1,0 +1,236 @@
+<!-- contact — paste into a Code Block on this page.
+     Squarespace: add a section, add a Code Block, paste everything below.
+     Then set the section's id to "adl-section" (Edit section > ... > Section ID)
+     so the Custom CSS can let it run edge to edge. -->
+<!-- Contact ADL Consultancy | ISO Consultants in Essex & London -->
+<!-- Page content only. The header and footer are separate files:
+     header.html and footer.html. Shared CSS/JS: _shared-styles.css,
+     _shared-scripts.js. Target URL: /contact-us/ -->
+<div class="adl-page" id="adl-main" data-page="contact">
+<!-- ===== HERO ===== -->
+<section class="hero" aria-labelledby="adl-h1">
+  <div class="hero-media">
+    <img src="/assets/img/3556.jpg" alt="" aria-hidden="true" fetchpriority="high">
+  </div>
+  <div class="hero-inner">
+    <nav aria-label="Breadcrumb">
+      <ol class="crumbs">
+        <li><a href="/">Home</a></li>
+        <li><span aria-current="page">Contact us</span></li>
+      </ol>
+    </nav>
+    <span class="pill"><span class="dot" aria-hidden="true"></span> Contact</span>
+    <h1 id="adl-h1">Why not get in touch?</h1>
+    <p class="sub">We are based in Harlow, Essex. Please feel free to contact us on 01279 293007, or fill in the enquiry form below and one of our consultants will come back to you.</p>
+    <div class="btn-row">
+      <a href="tel:+441279293007" class="btn btn-blue">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>
+        01279 293007
+      </a>
+      <a href="#adl-enquiry" class="btn btn-ghost-light on-dark">Send us a message
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+    <p class="hero-note">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg>
+      No call centre &mdash; whoever answers is one of the eight people who would do the work.
+    </p>
+  </div>
+</section>
+
+<!-- ===== CONTACT + FORM ===== -->
+<section id="adl-enquiry" aria-labelledby="adl-c-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Get in touch</span>
+      <h2 id="adl-c-t">Talk to a consultant</h2>
+      <p>Tell us what a client or a tender has asked you for. We'll tell you honestly what it would take &mdash; including if the answer is that you don't need certification yet.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="eyebrow">Call the team</span>
+        <a href="tel:+441279293007" class="tel">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>
+          01279 293007
+        </a>
+        <ul class="tlist">
+          <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-clock"/></svg> Monday to Friday, 9:00am &ndash; 5:30pm</li>
+          <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-mail"/></svg> <a href="mailto:customerservices@adlconsultancy.com">customerservices@adlconsultancy.com</a></li>
+          <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-pin"/></svg> Harlow, Essex</li>
+          <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-linkedin"/></svg> <a href="https://www.linkedin.com/company/adl-consultancy">ADL Consultancy on LinkedIn</a></li>
+          <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> Serving Essex, London, Hertfordshire, Cambridgeshire, Kent, Suffolk, Norfolk and Middlesex</li>
+        </ul>
+        <p class="note">Prefer email? Use the form and one of our consultants will come back to you. We read everything that comes in &mdash; there is no call centre here.</p>
+      </div>
+
+      <form class="contact-card" onsubmit="return false" aria-labelledby="adl-form-t">
+        <h3 id="adl-form-t">Send us a message</h3>
+        <div class="field"><label for="adl-f-name">Full name</label><input id="adl-f-name" name="your-name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="adl-f-phone">Telephone number</label><input id="adl-f-phone" name="tel-696" type="tel" autocomplete="tel" required></div>
+        <div class="field"><label for="adl-f-email">Your email</label><input id="adl-f-email" name="your-email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="adl-f-msg">Your enquiry</label><textarea id="adl-f-msg" name="your-message"></textarea></div>
+        <div class="field check">
+          <input id="adl-f-optin" name="acceptance" type="checkbox">
+          <label for="adl-f-optin">Please confirm you have read our <a href="/privacy-policy/">Privacy Notice</a> and opt in</label>
+        </div>
+        <button type="submit" class="btn btn-blue full">Let&rsquo;s Talk</button>
+        <p class="form-note">These are the same fields as ADL's current enquiry form, recovered from the old site. It is not yet wired to an inbox &mdash; see the note below.</p>
+      </form>
+    </div>
+
+    <div class="adl-placeholder">
+      <strong>Placeholder &mdash; postal address, company number, and the form still to be wired up</strong>
+      <p>The phone number, both email addresses and the exact enquiry-form fields were recovered from ADL's old WordPress database, so the form above matches the real one field for field.</p>
+      <p><b>Still needed from ADL:</b> the full postal address and the company registration number &mdash; neither appears anywhere in the database or on the old site, and a registration number is routinely asked for in the tender paperwork these clients are chasing.</p>
+      <p><b>For whoever wires the form up:</b> submissions went to <code>customerservices@adlconsultancy.com</code> with a reply-to of <code>admin@adlconsultancy.com</code> and the subject line &ldquo;Website Enquiry&rdquo;.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHAT HAPPENS NEXT ===== -->
+<section class="faqs" aria-labelledby="adl-next-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">What to expect</span>
+      <h2 id="adl-next-t">What happens after you get in touch</h2>
+      <p>Four steps, and you are not committed to anything at any of them.</p>
+    </div>
+    <div class="steps-grid">
+      <article class="step">
+        <span class="n">1</span>
+        <h3>We respond to your enquiry</h3>
+        <p>A consultant reads it &mdash; not an inbox robot &mdash; and comes back to you with questions or an answer.</p>
+      </article>
+      <article class="step">
+        <span class="n">2</span>
+        <h3>We arrange a meeting</h3>
+        <p>At your premises or over a call, whichever suits. We want to see how you actually work before saying anything about what a system would look like.</p>
+      </article>
+      <article class="step">
+        <span class="n">3</span>
+        <h3>We provide a quotation</h3>
+        <p>Based on what we have seen rather than on a price list. If you are not ready for certification, we will say that instead.</p>
+      </article>
+      <article class="step">
+        <span class="n">4</span>
+        <h3>You decide, with no contract</h3>
+        <p>There is no contract to sign and you are free to exit the process at any point if your circumstances change.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHO YOU WILL SPEAK TO ===== -->
+<section aria-labelledby="adl-who-t">
+  <div class="split">
+    <div>
+      <span class="eyebrow">The people</span>
+      <h2 id="adl-who-t">You will be speaking to the family</h2>
+      <p>ADL Consultancy is eight people. There is no account management layer between you and the person who builds your system &mdash; the consultant you speak to first is the consultant you keep.</p>
+      <ul class="tlist">
+        <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> <b>David</b> &mdash; Managing Director. ISO 27001 Lead Auditor with IT Governance, BSI qualified AS9100 auditor, ISO 42001</li>
+        <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> <b>Lucy</b> &mdash; Operations Director. ISO 14001, with a NEBOSH Certificate in Environmental Management</li>
+        <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> <b>Martin</b> &mdash; Commercial Director. ISO 45001, CertIOSH and MIIRSM</li>
+        <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> <b>Stephen and Joseph</b> &mdash; consultants on quality and health and safety</li>
+        <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-check"/></svg> <b>Sarah</b> &mdash; admin and invoicing, and training as an environmental consultant</li>
+      </ul>
+      <div class="btn-row">
+        <a href="/meet-the-family/" class="btn btn-blue">Meet the family</a>
+        <a href="/testimonials/" class="btn btn-outline">What clients say</a>
+      </div>
+    </div>
+    <img src="/assets/img/3586.jpg" alt="The ADL Consultancy team" loading="lazy">
+  </div>
+</section>
+
+<!-- ===== COVERAGE ===== -->
+<section class="industries" aria-labelledby="adl-cov-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Coverage</span>
+      <h2 id="adl-cov-t">Where we work</h2>
+      <p>We are an Essex based company willing to serve organisations in London, Hertfordshire, Cambridgeshire, Suffolk, Norfolk, Kent, and the surrounding areas.</p>
+    </div>
+    <ul class="ind-list">
+      <li><a href="/iso-consultants-in-hertfordshire/">Hertfordshire</a></li>
+      <li><a href="/iso-consultants-in-cambridgeshire/">Cambridgeshire</a></li>
+      <li><a href="/iso-consultants-in-kent/">Kent</a></li>
+      <li><a href="/iso-consultants-in-suffolk/">Suffolk</a></li>
+      <li><a href="/iso-consultants-in-norfolk/">Norfolk</a></li>
+      <li>Essex</li>
+      <li>London</li>
+      <li>Middlesex</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== PROOF ===== -->
+<section class="faqs" aria-labelledby="adl-proof-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="adl-proof-t">What it is like once you get in touch</h2>
+    </div>
+    <figure class="pullquote">
+      <div class="stars" aria-label="Five out of five"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-star"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-star"/></svg></div>
+      <blockquote>&ldquo;ADL Consultancy helped us obtain our ISO9001 accreditation extremely seamlessly. We could not have done it without their knowledge and expertise. They are extremely reliable, quick to respond and always available to help even after we were certified.&rdquo;</blockquote>
+      <figcaption class="who"><strong>Commercial Director</strong><span>Inspection Services Ltd</span></figcaption>
+    </figure>
+    <div class="quotes-foot">
+      <a href="/testimonials/" class="btn btn-outline">Read all 30 testimonials
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BEFORE YOU GET IN TOUCH ===== -->
+<section aria-labelledby="adl-bef-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="adl-bef-t">Before you get in touch</h2>
+      <p>If you would rather read first, these are the three pages people usually want.</p>
+    </div>
+    <div class="link-cards">
+      <a class="link-card" href="/training/">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-book"/></svg>
+        <h3>ISO training for your team</h3>
+        <p>Auditor and awareness courses for ISO 9001, 14001, 27001 and 45001, delivered around your own procedures.</p>
+        <span class="go">See the courses
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </span>
+      </a>
+      <a class="link-card" href="/testimonials/">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-star"/></svg>
+        <h3>What our clients say</h3>
+        <p>Thirty businesses, grouped by the standard they went through, in their own words.</p>
+        <span class="go">Read them
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </span>
+      </a>
+      <a class="link-card" href="/privacy-policy/">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-lock"/></svg>
+        <h3>What we do with your details</h3>
+        <p>Used solely to respond, arrange a meeting and quote. Never sold, leased or distributed.</p>
+        <span class="go">Privacy policy
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta" aria-labelledby="adl-cta-t">
+  <div class="cta-inner">
+    <h2 id="adl-cta-t">Rather just pick up the phone?</h2>
+    <p>The line is answered by one of our consultants between 9:00am and 5:30pm, Monday to Friday. There is no contract to sign, and no obligation from a first conversation.</p>
+    <div class="btn-row">
+      <a href="tel:+441279293007" class="btn btn-white">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-phone"/></svg>
+        01279 293007
+      </a>
+      <a href="mailto:customerservices@adlconsultancy.com" class="btn btn-ghost-light on-dark">Email us instead</a>
+    </div>
+  </div>
+</section>
+</div>

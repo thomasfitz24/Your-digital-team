@@ -4,8 +4,10 @@
 Every page runs 8-11 sections; the homepage, which the client approved, is the bar.
 
 ```
-python3 check.py     # validate src/ — fails on anything that must not ship
-python3 build.py     # assemble dist/ and dist/preview/
+python3 check.py       # validate src/ — fails on anything that must not ship
+python3 build.py       # assemble dist/ and dist/preview/
+python3 sqs_build.py   # package dist/squarespace/ for Squarespace 7.1
+python3 sqs_harness.py # wrap it in a simulated Squarespace page for testing
 ```
 
 No dependencies. Python 3 standard library only.
@@ -41,6 +43,8 @@ The four hero videos are unaffected — they live on ADL's own YouTube channel
 
 ```
 build.py                  the whole build, ~170 lines
+sqs_build.py              packages dist/ for Squarespace 7.1
+sqs_harness.py            simulates Squarespace so the package can be tested
 check.py                  source validator — run it before build.py
 tools-gen-counties.py     regenerates the five county pages from one skeleton
 tools-gen-testimonials.py regroups the 30 testimonials by standard
@@ -55,8 +59,11 @@ src/
     scripts.js            progressive enhancement only — nothing here is required
     shell.html            the preview document wrapper
   pages/                  18 pages: body content + a <!--meta--> block each
-dist/                     GENERATED — the deliverable. Never hand-edit.
-dist/preview/             GENERATED — review only. Do NOT hand these off.
+dist/                     GENERATED — body fragments. Never hand-edit.
+dist/preview/             GENERATED — assembled pages, for looking at.
+dist/squarespace/         GENERATED — THE DELIVERABLE for Squarespace 7.1.
+dist/sqs-test/            GENERATED — the squarespace/ files inside a simulated
+                          Squarespace page, so they can be tested in a browser.
 ```
 
 Edit `src/`. Run `python3 build.py`. Both output trees regenerate.
@@ -201,3 +208,42 @@ the depth of ISO 9001 and ISO 45001. They are marked with `NEW COPY` comments in
 
 (The News and Partners hero copy was on this list until the database arrived —
 both are now ADL's own wording, so they no longer need sign-off.)
+
+
+---
+
+## Going on Squarespace 7.1
+
+`dist/squarespace/` is what the client pastes. `INSTALL.md` inside it is the
+instruction sheet. Four things go in once, site-wide, then one code block per page.
+
+The two decisions behind it:
+
+- **Our header replaces Squarespace's.** Squarespace's native header cannot hold
+  the Standards dropdown, so its header and footer are hidden by CSS and ours is
+  injected instead. The cost is that ADL edit the navigation by editing code
+  rather than in Squarespace's menu editor, and it wants re-testing after a major
+  Squarespace release.
+- **Squarespace's "Header" code injection writes into `<head>`.** Markup there
+  does not render, so the visible header markup goes in the *Footer* injection —
+  which writes before `</body>` — and CSS pins it to the top.
+
+### Three things that would otherwise break
+
+| | |
+|---|---|
+| `width:100vw` on the hero video | `vw` includes the scrollbar, so it made the page scroll sideways. Now `100%`. |
+| Fluid Engine's inline styles | Fluid Engine writes layout inline, and only `!important` beats an inline style. The full-bleed override uses it, scoped to our section id alone. |
+| Generic ids | `id="h1"` on eighteen pages, beside Squarespace's own markup. Every page id is now `adl-` prefixed, and `check.py` fails the build if one is not. |
+
+### The harness is an approximation
+
+`sqs_harness.py` reproduces the container chain, the `--sqs-site-max-width` and
+`--sqs-site-gutter` properties, Fluid Engine's inline grid styles, a stand-in
+native header and footer, and aggressive base typography. It does **not**
+reproduce Squarespace's full stylesheet or its JavaScript.
+
+It is a real test — emptying `3-custom-css.css` makes it fail 276 assertions,
+including the hero collapsing to 321px inside a 390px viewport. But passing it
+means the known collisions are handled, not that nothing can go wrong. Check a
+staging page before launch.

@@ -143,7 +143,7 @@ def build():
             f"<!-- Page content only. The header and footer are separate files:\n"
             f"     header.html and footer.html. Shared CSS/JS: _shared-styles.css,\n"
             f"     _shared-scripts.js. Target URL: {page['wp']} -->\n"
-            f'<div class="adl-page" data-page="{page["key"]}">\n{body}\n</div>\n',
+            f'<div class="adl-page" id="adl-main" data-page="{page["key"]}">\n{body}\n</div>\n',
             encoding="utf-8",
         )
 
