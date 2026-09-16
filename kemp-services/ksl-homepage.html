@@ -7,504 +7,332 @@
 <meta name="description" content="Kemp Services is a commercial cleaning company based in east London with over 30 years' experience. Contract cleaning, office cleaning, builders cleans and more across London and the UK.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* ============================================================
-   KSL / Kemp Services — Homepage
-   Design system: "Trust & Authority + Conversion"
-   Palette sampled from the KSL logo artwork:
-     navy  #0C1D27   sky #70BFE6   slate #515558
-   Type: Poppins (headings) + Open Sans (body)
-   NOTE: header and footer are intentionally not built yet.
+   Kemp Services / KSL — Homepage
+   Direction: flat corporate, editorial. Square corners, no
+   shadows, no gradients. Photography and type do the work.
+   Palette from the KSL logo: navy #0C1D27, sky #70BFE6.
+   Type: Manrope 800 headings, Open Sans body.
+   Header and footer intentionally not built yet.
    ============================================================ */
 
-/* ---------- 1. Tokens ---------- */
 :root{
-  /* brand */
-  --navy:          #0C1D27;
-  --navy-700:      #12303F;
-  --navy-600:      #1B4257;
-  --sky:           #70BFE6;
-  --sky-400:       #8FCFEF;
-  --sky-100:       #E3F2FB;
-  --sky-50:        #F2F9FD;
+  --navy:#0C1D27;
+  --navy-2:#13303F;
+  --sky:#70BFE6;
+  --sky-light:#9AD4F0;     /* hover only */
+  --white:#FFFFFF;
+  --grey-1:#F2F3F5;        /* section band */
+  --grey-2:#E7E8EB;        /* rules, image placeholders */
+  --grey-3:#C9CDD3;
+  --ink:#0C1D27;
+  --body:#3A4149;          /* 9.6:1 on white */
+  --body-light:#C9D5DD;    /* on navy */
 
-  /* neutrals */
-  --paper:         #FFFFFF;
-  --bone:          #F5F7F9;
-  --line:          #DCE4EA;
-  --line-strong:   #C3D0D9;
-  --ink:           #0C1D27;
-  --muted:         #4A5560;   /* 7.6:1 on white */
-  --muted-dark:    #B9CBD6;   /* 8.1:1 on navy  */
+  --head:'Manrope',system-ui,sans-serif;
+  --text:'Open Sans',system-ui,sans-serif;
 
-  /* semantic */
-  --focus:         #0C1D27;
-  --focus-dark:    #70BFE6;
-
-  /* type */
-  --font-head: 'Poppins', system-ui, -apple-system, sans-serif;
-  --font-body: 'Open Sans', system-ui, -apple-system, sans-serif;
-
-  /* spacing scale — 4pt rhythm, density 4/10 (standard) */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 32px;
-  --space-6: 48px;
-  --space-7: 64px;
-  --space-8: 96px;
-
-  /* radius + elevation */
-  --r-sm: 8px;
-  --r-md: 14px;
-  --r-lg: 22px;
-  --r-pill: 999px;
-  --e-1: 0 1px 2px rgba(12,29,39,.06), 0 2px 8px rgba(12,29,39,.05);
-  --e-2: 0 2px 6px rgba(12,29,39,.07), 0 12px 28px rgba(12,29,39,.09);
-  --e-3: 0 8px 20px rgba(12,29,39,.10), 0 28px 60px rgba(12,29,39,.14);
-
-  /* motion tokens — motion dial 4/10 (standard) */
-  --t-fast: 150ms;
-  --t-base: 240ms;
-  --ease: cubic-bezier(.22,.61,.36,1);
-
-  --container: 1200px;
-  --gutter: 24px;
+  --max:1240px;
+  --gut:32px;
+  --band:104px;
 }
 
-/* ---------- 2. Reset ---------- */
-*,*::before,*::after{box-sizing:border-box;}
-*{margin:0;padding:0;}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
 html,body{overflow-x:clip;}
 body{
-  font-family:var(--font-body);
-  font-size:17px;
-  line-height:1.65;
-  color:var(--ink);
-  background:var(--paper);
+  font-family:var(--text);font-size:17px;line-height:1.6;
+  color:var(--body);background:var(--white);
   -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
 }
 img{display:block;max-width:100%;height:auto;}
-svg{flex:none;}
 a{color:inherit;text-decoration:none;}
 ul{list-style:none;}
-:is(h1,h2,h3,h4){
-  font-family:var(--font-head);
-  line-height:1.15;
-  letter-spacing:-.015em;
-  text-wrap:balance;
-  color:var(--ink);
-}
-p{overflow-wrap:break-word;}
+svg{flex:none;}
 
-/* visible focus everywhere — never removed */
-:is(a,button,input,textarea,select,[tabindex]):focus-visible{
-  outline:3px solid var(--focus);
-  outline-offset:3px;
-  border-radius:var(--r-sm);
-}
-.on-navy :is(a,button):focus-visible{outline-color:var(--focus-dark);}
+:is(a,button):focus-visible{outline:3px solid var(--sky);outline-offset:3px;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
 
-.sr-only{
-  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
-  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
-}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gut);}
+.band{padding-block:var(--band);}
+.band--grey{background:var(--grey-1);}
+.band--navy{background:var(--navy);color:var(--body-light);}
 
-/* ---------- 3. Layout primitives ---------- */
-.wrap{
-  width:100%;
-  max-width:var(--container);
-  margin-inline:auto;
-  padding-inline:var(--gutter);
+/* ---------- type ---------- */
+h1,h2,h3,h4{font-family:var(--head);font-weight:800;color:var(--ink);letter-spacing:-.025em;line-height:1.05;}
+.band--navy :is(h1,h2,h3,h4){color:var(--white);}
+.t-hero{font-size:clamp(2.6rem,1.6rem + 4.4vw,5rem);}
+.t-1{font-size:clamp(2.1rem,1.4rem + 2.6vw,3.4rem);}
+.t-2{font-size:clamp(1.35rem,1.2rem + .5vw,1.6rem);letter-spacing:-.015em;line-height:1.2;}
+.t-label{
+  font-family:var(--head);font-weight:700;font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
 }
-.section{padding-block:var(--space-8);}
-.section--tight{padding-block:var(--space-7);}
+.band--navy .t-label{color:var(--sky);}
+.t-lead{font-size:clamp(1.1rem,1rem + .5vw,1.35rem);line-height:1.55;}
+p + p{margin-top:1em;}
 
-.eyebrow{
-  display:inline-flex;align-items:center;gap:var(--space-2);
-  font-family:var(--font-head);
-  font-size:12px;font-weight:600;
-  letter-spacing:.14em;text-transform:uppercase;
-  color:var(--navy-600);
-}
-.eyebrow::before{
-  content:"";width:26px;height:2px;border-radius:2px;
-  background:var(--sky);
-}
-.on-navy .eyebrow{color:var(--sky);}
-.on-navy .eyebrow::before{background:var(--sky);}
-
-.h1{font-size:clamp(2.35rem,1.5rem + 3.6vw,4.1rem);font-weight:700;}
-.h2{font-size:clamp(1.85rem,1.3rem + 2.2vw,2.9rem);font-weight:700;}
-.h3{font-size:clamp(1.15rem,1.05rem + .4vw,1.4rem);font-weight:600;}
-.lede{
-  font-size:clamp(1.05rem,1rem + .35vw,1.25rem);
-  line-height:1.7;color:var(--muted);max-width:62ch;
-}
-.on-navy .lede{color:var(--muted-dark);}
-.on-navy :is(h1,h2,h3,h4){color:#fff;}
-
-/* ---------- 4. Buttons ---------- */
+/* ---------- buttons: square, flat ---------- */
 .btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  min-height:52px;               /* > 44px touch target */
-  padding:14px 30px;
-  font-family:var(--font-head);
-  font-size:16px;font-weight:600;
+  display:inline-flex;align-items:center;gap:14px;
+  min-height:56px;padding:0 28px;
+  font-family:var(--head);font-weight:700;font-size:15px;
+  letter-spacing:.02em;
   border:2px solid transparent;
-  border-radius:var(--r-pill);
-  cursor:pointer;
-  touch-action:manipulation;
-  transition:background-color var(--t-base) var(--ease),
-             border-color var(--t-base) var(--ease),
-             color var(--t-base) var(--ease),
-             box-shadow var(--t-base) var(--ease),
-             transform var(--t-fast) var(--ease);
+  transition:background-color .18s,border-color .18s,color .18s;
 }
-.btn svg{width:17px;height:17px;transition:transform var(--t-base) var(--ease);}
-.btn:hover svg{transform:translateX(3px);}
-.btn:active{transform:translateY(1px);}
+.btn svg{width:18px;height:18px;transition:transform .18s;}
+.btn:hover svg{transform:translateX(4px);}
+.btn-sky{background:var(--sky);color:var(--navy);}
+.btn-sky:hover{background:var(--sky-light);}
+.btn-navy{background:var(--navy);color:var(--white);}
+.btn-navy:hover{background:var(--navy-2);}
+.btn-line{border-color:var(--white);color:var(--white);}
+.btn-line:hover{background:var(--white);color:var(--navy);}
+.btn-line-navy{border-color:var(--navy);color:var(--navy);}
+.btn-line-navy:hover{background:var(--navy);color:var(--white);}
 
-/* sky on navy = 8.9:1 */
-.btn--primary{background:var(--sky);color:var(--navy);box-shadow:var(--e-2);}
-.btn--primary:hover{background:var(--sky-400);box-shadow:var(--e-3);}
-
-.btn--solid{background:var(--navy);color:#fff;}
-.btn--solid:hover{background:var(--navy-600);}
-
-.btn--ghost{border-color:rgba(255,255,255,.5);color:#fff;}
-.btn--ghost:hover{border-color:#fff;background:rgba(255,255,255,.12);}
-
-/* inline text link with chevron */
-.link{
-  display:inline-flex;align-items:center;gap:7px;
+.arrow-link{
+  display:inline-flex;align-items:center;gap:10px;
   min-height:44px;
-  font-family:var(--font-head);
-  font-size:15px;font-weight:600;
-  color:var(--navy-600);
+  font-family:var(--head);font-weight:700;font-size:15px;color:var(--navy);
+  text-decoration:underline;text-decoration-color:var(--sky);
+  text-underline-offset:6px;text-decoration-thickness:2px;
 }
-.link::after{
-  content:"";width:16px;height:16px;flex:none;
-  background:currentColor;
-  -webkit-mask:var(--chev) center/contain no-repeat;
-          mask:var(--chev) center/contain no-repeat;
-  transition:transform var(--t-base) var(--ease);
+.arrow-link svg{width:16px;height:16px;transition:transform .18s;}
+.arrow-link:hover{text-decoration-color:var(--navy);}
+.arrow-link:hover svg{transform:translateX(4px);}
+
+/* ---------- image placeholders: flat, quiet ---------- */
+.img{
+  position:relative;background:var(--grey-2);overflow:hidden;
+  display:flex;align-items:flex-end;
 }
-:root{--chev:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");}
-.link:hover::after{transform:translateX(4px);}
-.link:hover{color:var(--navy);}
+.img span{
+  margin:14px;font-family:var(--head);font-weight:700;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:#5D6670;
+}
+.img-16x9{aspect-ratio:16/9;}
+.img-4x3{aspect-ratio:4/3;}
+.img-3x4{aspect-ratio:3/4;}
+.img-1x1{aspect-ratio:1/1;}
 
 /* ============================================================
-   5. IMAGE PLACEHOLDERS
-   Swap each .ph for a real <img> (or set --img on the hero).
-   They keep their aspect ratio so nothing shifts on swap (CLS).
-   ============================================================ */
-.ph{
-  position:relative;
-  display:flex;align-items:center;justify-content:center;
-  background:
-    linear-gradient(135deg,var(--sky-100) 0%,var(--sky-50) 55%,#EDF4F8 100%);
-  border:1px dashed var(--line-strong);
-  border-radius:var(--r-md);
-  overflow:hidden;
-  color:var(--navy-600);
-}
-.ph::before{
-  /* subtle diagonal hatch so it reads as "asset pending" */
-  content:"";position:absolute;inset:0;opacity:.5;
-  background-image:repeating-linear-gradient(
-    45deg,transparent 0 11px,rgba(12,29,39,.045) 11px 22px);
-}
-.ph__label{
-  position:relative;
-  display:flex;flex-direction:column;align-items:center;gap:var(--space-2);
-  padding:var(--space-3);
-  font-family:var(--font-head);
-  font-size:12px;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;
-  text-align:center;
-}
-.ph__label svg{width:26px;height:26px;stroke:currentColor;opacity:.75;}
-.ph--wide{aspect-ratio:16/10;}
-.ph--card{aspect-ratio:3/2;border-radius:0;border:0;border-bottom:1px solid var(--line);}
-.ph--tall{aspect-ratio:4/5;}
-
-/* ============================================================
-   6. HERO — full-bleed image background
+   HERO — full-bleed photo, solid text panel
    ============================================================ */
 .hero{
-  position:relative;
-  isolation:isolate;
-  min-height:clamp(560px,78vh,760px);
-  display:flex;align-items:center;
-  padding-block:var(--space-8);
-  background-color:var(--navy);
-  color:#fff;
+  position:relative;min-height:min(82vh,760px);
+  display:flex;align-items:flex-end;
+  background:var(--grey-3);           /* fallback behind the photo */
+  color:var(--white);
 }
-/* -- Replace the gradient below with your photograph: --------
-   .hero{ --img:url("images/hero-office-cleaning.jpg"); }
-   ----------------------------------------------------------- */
-.hero{
-  --img:linear-gradient(135deg,#123244 0%,#0C1D27 45%,#1B4257 100%);
+/* set the photograph here */
+.hero{--img:none;}
+.hero-photo{
+  position:absolute;inset:0;
+  background:var(--img) center/cover no-repeat,var(--grey-3);
 }
-.hero__media{
-  position:absolute;inset:0;z-index:-2;
-  background-image:var(--img);
-  background-size:cover;
-  background-position:center;
+.hero-photo::after{                   /* placeholder tag; remove with photo */
+  content:"Hero photograph";
+  position:absolute;top:24px;right:32px;
+  font-family:var(--head);font-weight:700;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:#4E5760;
 }
-/* placeholder watermark — delete once a real photo is set */
-.hero__media::after{
-  content:"HERO IMAGE";
-  position:absolute;right:24px;top:24px;
-  padding:6px 14px;
-  border:1px dashed rgba(255,255,255,.3);
-  border-radius:var(--r-pill);
-  font-family:var(--font-head);font-size:11px;font-weight:600;
-  letter-spacing:.24em;color:rgba(255,255,255,.4);
-  white-space:nowrap;
+.hero-panel{
+  position:relative;width:100%;
+  background:var(--navy);
 }
-/* scrim: measured for 4.5:1+ on the darkest brand photo */
-.hero__scrim{
-  position:absolute;inset:0;z-index:-1;
-  background:
-    linear-gradient(90deg,rgba(12,29,39,.94) 0%,rgba(12,29,39,.82) 46%,rgba(12,29,39,.55) 100%),
-    linear-gradient(180deg,rgba(12,29,39,.55) 0%,rgba(12,29,39,.2) 40%,rgba(12,29,39,.72) 100%);
+.hero-panel .wrap{
+  display:grid;grid-template-columns:1.25fr .75fr;gap:64px;align-items:end;
+  padding-block:56px 64px;
 }
-.hero__inner{max-width:720px;}
-.hero .h1{margin-block:var(--space-4) var(--space-4);}
-.hero .h1 em{font-style:normal;color:var(--sky);}
-.hero__lede{
-  font-size:clamp(1.08rem,1rem + .45vw,1.3rem);
-  line-height:1.65;color:#DCE8EF;max-width:56ch;
-}
-.hero__actions{
-  display:flex;flex-wrap:wrap;gap:var(--space-3);
-  margin-top:var(--space-6);
-}
-/* credibility strip pinned to the hero base */
-.hero__stats{
-  display:flex;flex-wrap:wrap;gap:var(--space-5) var(--space-7);
-  margin-top:var(--space-7);
-  padding-top:var(--space-5);
-  border-top:1px solid rgba(255,255,255,.18);
-}
-.stat__n{
-  display:block;
-  font-family:var(--font-head);font-size:2rem;font-weight:700;
-  color:var(--sky);
-  font-variant-numeric:tabular-nums;
-}
-.stat__l{font-size:14px;color:#C6D6DF;}
+.hero h1{color:var(--white);max-width:14ch;}
+.hero-aside p{color:var(--body-light);font-size:1.05rem;max-width:40ch;}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;}
 
 /* ============================================================
-   7. INTRO — copy + portrait image
+   ACCREDITATION STRIP
    ============================================================ */
-.intro__grid{
-  display:grid;gap:var(--space-7);
-  grid-template-columns:1.15fr .85fr;
-  align-items:center;
+.logos{border-bottom:1px solid var(--grey-2);}
+.logos .wrap{
+  display:flex;align-items:center;gap:40px;flex-wrap:wrap;
+  padding-block:28px;
 }
-.intro__copy > * + *{margin-top:var(--space-4);}
-.intro__copy p{color:var(--muted);max-width:60ch;}
-
-/* coverage chips */
-.chips{
-  display:flex;flex-wrap:wrap;gap:var(--space-2);
-  margin-top:var(--space-5);
-}
-.chip{
-  display:inline-flex;align-items:center;
-  min-height:36px;padding:6px 15px;
-  background:var(--sky-50);
-  border:1px solid var(--line);
-  border-radius:var(--r-pill);
-  font-size:14px;font-weight:600;color:var(--navy-600);
-}
-
-/* ============================================================
-   8. PROMISE — vetting + flexibility + USP checklist
-   ============================================================ */
-.promise{background:var(--bone);}
-.promise__grid{
-  display:grid;gap:var(--space-7);
-  grid-template-columns:1fr 1fr;
-  align-items:start;
-}
-.promise__copy > * + *{margin-top:var(--space-4);}
-.promise__copy p{color:var(--muted);max-width:58ch;}
-
-.checklist{
-  display:grid;gap:var(--space-2);
-  padding:var(--space-5);
-  background:var(--paper);
-  border:1px solid var(--line);
-  border-radius:var(--r-lg);
-  box-shadow:var(--e-1);
-}
-.checklist h3{margin-bottom:var(--space-2);}
-.checklist ul{display:grid;}
-.checklist li{
-  display:flex;align-items:flex-start;gap:var(--space-3);
-  padding-block:var(--space-3);
-  border-top:1px solid var(--line);
-  font-weight:600;font-size:16px;
-}
-.checklist li:first-of-type{border-top:0;}
-.checklist li svg{
-  width:22px;height:22px;margin-top:2px;
-  stroke:var(--navy);
-  background:var(--sky-100);
-  border-radius:var(--r-pill);
-  padding:3px;
-}
-
-/* ============================================================
-   9. SERVICES — 9-card grid
-   ============================================================ */
-.services__head{
-  display:flex;flex-wrap:wrap;gap:var(--space-4);
-  align-items:flex-end;justify-content:space-between;
-  margin-bottom:var(--space-6);
-}
-.services__head .lede{margin-top:var(--space-3);}
-
-.grid-cards{
-  display:grid;gap:var(--space-4);
-  grid-template-columns:repeat(3,1fr);
-}
-.card{
-  display:flex;flex-direction:column;
-  background:var(--paper);
-  border:1px solid var(--line);
-  border-radius:var(--r-lg);
-  overflow:hidden;
-  box-shadow:var(--e-1);
-  transition:box-shadow var(--t-base) var(--ease),
-             border-color var(--t-base) var(--ease),
-             transform var(--t-base) var(--ease);
-}
-.card:hover,
-.card:focus-within{
-  box-shadow:var(--e-3);
-  border-color:var(--sky);
-  transform:translateY(-4px);
-}
-.card__body{
-  display:flex;flex-direction:column;flex:1;
-  gap:var(--space-3);
-  padding:var(--space-5);
-}
-.card__body p{font-size:15.5px;color:var(--muted);flex:1;}
-.card .link{margin-top:auto;}
-/* whole card is clickable, but the link keeps the accessible name */
-.card__link::after{content:"";position:absolute;inset:0;}
-.card{position:relative;}
-
-/* ============================================================
-   10. F.A.C.T. guarantee
-   ============================================================ */
-.fact{background:var(--navy);color:#fff;}
-.fact__head{max-width:720px;margin-bottom:var(--space-7);}
-.fact__grid{
-  display:grid;gap:var(--space-4);
-  grid-template-columns:repeat(4,1fr);
-}
-.pillar{
-  padding:var(--space-5);
-  background:rgba(255,255,255,.055);
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:var(--r-lg);
-  transition:background-color var(--t-base) var(--ease),
-             border-color var(--t-base) var(--ease);
-}
-.pillar:hover{background:rgba(112,191,230,.12);border-color:var(--sky);}
-.pillar__mark{
+.logos .t-label{color:#5D6670;flex:none;}
+.logos ul{display:flex;flex:1;gap:16px;flex-wrap:wrap;}
+.logos li{
+  flex:1 1 120px;height:56px;background:var(--grey-1);
   display:flex;align-items:center;justify-content:center;
-  width:52px;height:52px;margin-bottom:var(--space-4);
-  background:var(--sky);border-radius:var(--r-md);
+  font-family:var(--head);font-weight:700;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:#5D6670;
 }
-.pillar__mark svg{width:26px;height:26px;stroke:var(--navy);}
-.pillar__letter{
-  font-family:var(--font-head);font-size:13px;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--sky);
-}
-.pillar h3{margin:var(--space-1) 0 var(--space-2);font-size:1.3rem;}
-.pillar p{font-size:15.5px;color:var(--muted-dark);}
-
-/* risk-free guarantee panel */
-.guarantee{
-  display:grid;gap:var(--space-6);
-  grid-template-columns:auto 1fr auto;
-  align-items:center;
-  margin-top:var(--space-6);
-  padding:var(--space-6);
-  background:linear-gradient(120deg,rgba(112,191,230,.16),rgba(112,191,230,.06));
-  border:1px solid rgba(112,191,230,.4);
-  border-radius:var(--r-lg);
-}
-.guarantee__badge{
-  display:flex;align-items:center;justify-content:center;
-  width:78px;height:78px;
-  background:var(--sky);border-radius:var(--r-pill);
-}
-.guarantee__badge svg{width:38px;height:38px;stroke:var(--navy);}
-.guarantee h3{font-size:1.45rem;margin-bottom:var(--space-2);}
-.guarantee p{color:#DCE8EF;font-size:16px;max-width:64ch;}
-.guarantee .note{
-  display:block;margin-top:var(--space-2);
-  font-size:13.5px;color:var(--muted-dark);
-}
-.guarantee strong{color:var(--sky);}
 
 /* ============================================================
-   11. Responsive — mobile-first fallbacks
+   QUICK CONTACT BANNER
+   ============================================================ */
+.quick{background:var(--sky);color:var(--navy);}
+.quick .wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:32px;flex-wrap:wrap;padding-block:28px;
+}
+.quick h2{font-size:clamp(1.35rem,1.2rem + .8vw,1.9rem);}
+.quick a.tel{
+  font-family:var(--head);font-weight:800;
+  font-size:clamp(1.5rem,1.2rem + 1.2vw,2.4rem);
+  letter-spacing:-.02em;color:var(--navy);
+  display:inline-flex;align-items:center;gap:14px;
+  min-height:48px;
+}
+.quick a.tel svg{width:28px;height:28px;}
+
+/* ============================================================
+   INTRO — editorial split
+   ============================================================ */
+.intro .split{display:grid;grid-template-columns:5fr 7fr;gap:64px;}
+.intro h2{margin-top:16px;}
+.intro-copy{columns:2;column-gap:40px;}
+.intro-copy p{break-inside:avoid;}
+.intro-copy .t-lead{column-span:all;margin-bottom:28px;color:var(--ink);font-weight:600;}
+
+.facts{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  margin-top:72px;border-top:1px solid var(--grey-2);
+}
+.facts div{padding:32px 32px 0 0;border-right:1px solid var(--grey-2);}
+.facts div:last-child{border-right:0;}
+.facts div + div{padding-left:32px;}
+.facts b{
+  display:block;font-family:var(--head);font-weight:800;
+  font-size:clamp(2.4rem,2rem + 2vw,3.6rem);letter-spacing:-.03em;
+  color:var(--navy);line-height:1;
+}
+.facts small{display:block;margin-top:10px;font-size:15px;}
+
+/* ============================================================
+   COVERAGE — photo + list
+   ============================================================ */
+.coverage .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.coverage h2{margin-top:16px;margin-bottom:20px;}
+.regions{
+  display:grid;grid-template-columns:1fr 1fr;
+  margin-top:28px;border-top:1px solid var(--grey-3);
+}
+.regions li{
+  padding:12px 0;border-bottom:1px solid var(--grey-3);
+  font-family:var(--head);font-weight:700;font-size:15px;color:var(--ink);
+}
+.regions li:nth-child(odd){padding-right:20px;}
+.regions li:nth-child(even){padding-left:20px;border-left:1px solid var(--grey-3);}
+
+/* ============================================================
+   SERVICES — 3x3, square image cards
+   ============================================================ */
+.services-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:48px;}
+.services-head h2{margin-top:16px;max-width:16ch;}
+.services{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--grey-2);border:1px solid var(--grey-2);
+}
+.service{
+  background:var(--white);display:flex;flex-direction:column;
+}
+.service .img{transition:none;}
+.service-body{padding:28px 28px 32px;display:flex;flex-direction:column;flex:1;}
+.service h3{margin-bottom:12px;}
+.service p{font-size:15.5px;flex:1;}
+.service ul{font-size:15.5px;display:grid;gap:6px;margin-bottom:8px;}
+.service ul li{padding-left:16px;position:relative;}
+.service ul li::before{content:"";position:absolute;left:0;top:.7em;width:7px;height:2px;background:var(--sky);}
+.service .arrow-link{margin-top:20px;}
+.service:hover .arrow-link{text-decoration-color:var(--navy);}
+.service:hover .arrow-link svg{transform:translateX(4px);}
+.service-link::after{content:"";position:absolute;inset:0;}
+.service{position:relative;}
+
+/* ============================================================
+   STAFF — grey band, photo + checklist
+   ============================================================ */
+.staff .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.staff h2{margin-top:16px;margin-bottom:20px;}
+.checks{margin-top:32px;border-top:2px solid var(--navy);}
+.checks li{
+  display:flex;align-items:center;gap:16px;
+  padding:16px 0;border-bottom:1px solid var(--grey-3);
+  font-family:var(--head);font-weight:700;font-size:16px;color:var(--ink);
+}
+.checks svg{width:20px;height:20px;stroke:var(--navy);}
+
+/* ============================================================
+   F.A.C.T. — four plain columns
+   ============================================================ */
+.fact-head{max-width:760px;margin-bottom:56px;}
+.fact-head h2{margin-top:16px;margin-bottom:20px;}
+.fact{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:40px;
+  border-top:1px solid var(--grey-2);
+}
+.fact article{padding-top:28px;position:relative;}
+.fact article::before{
+  content:"";position:absolute;top:-1px;left:0;width:56px;height:3px;background:var(--sky);
+}
+.fact .letter{
+  display:block;font-family:var(--head);font-weight:800;
+  font-size:4.5rem;line-height:1;letter-spacing:-.04em;color:var(--navy);
+}
+.fact h3{margin:14px 0 10px;}
+.fact p{font-size:15.5px;}
+
+/* guarantee: navy band */
+.guarantee .wrap{
+  display:grid;grid-template-columns:7fr 5fr;gap:64px;align-items:center;
+}
+.guarantee h2{margin-top:16px;margin-bottom:20px;}
+.guarantee p{font-size:1.05rem;}
+.guarantee strong{color:var(--sky);font-weight:700;}
+.guarantee small{display:block;margin-top:20px;font-size:14px;color:#8FA3B0;}
+.guarantee-side{
+  padding:40px;border:1px solid rgba(255,255,255,.18);
+}
+.guarantee-side .t-label{margin-bottom:12px;}
+.guarantee-side h3{color:var(--white);font-size:1.5rem;margin-bottom:24px;}
+
+/* ============================================================
+   Responsive
    ============================================================ */
 @media (max-width:1024px){
-  :root{--gutter:22px;}
-  .grid-cards{grid-template-columns:repeat(2,1fr);}
-  .fact__grid{grid-template-columns:repeat(2,1fr);}
-  .intro__grid,.promise__grid{grid-template-columns:1fr;gap:var(--space-6);}
-  .intro__media{max-width:520px;}
-  .guarantee{grid-template-columns:auto 1fr;}
-  .guarantee .btn{grid-column:1 / -1;justify-self:start;}
+  :root{--gut:24px;--band:80px;}
+  .hero-panel .wrap{grid-template-columns:1fr;gap:28px;}
+  .intro .split,.coverage .wrap,.staff .wrap,.guarantee .wrap{grid-template-columns:1fr;gap:40px;}
+  .services{grid-template-columns:repeat(2,1fr);}
+  .fact{grid-template-columns:repeat(2,1fr);}
+  .intro-copy{columns:1;}
 }
-@media (max-width:720px){
-  :root{--gutter:16px;--space-8:64px;--space-7:48px;}
+@media (max-width:680px){
+  :root{--gut:18px;--band:64px;}
   body{font-size:16px;}
-  .hero{min-height:auto;padding-block:var(--space-7);}
-  .hero__scrim{
-    background:linear-gradient(180deg,rgba(12,29,39,.82) 0%,rgba(12,29,39,.9) 100%);
-  }
-  .hero__actions .btn{width:100%;}
-  .hero__stats{
-    display:grid;grid-template-columns:repeat(3,1fr);
-    gap:var(--space-3);
-  }
-  .stat__n{font-size:1.5rem;}
-  .stat__l{font-size:12.5px;line-height:1.4;}
-  .grid-cards,.fact__grid{grid-template-columns:1fr;}
-  .services__head{flex-direction:column;align-items:flex-start;}
-  .guarantee{grid-template-columns:1fr;text-align:left;padding:var(--space-5);}
-  .checklist{padding:var(--space-4);}
+  .hero{min-height:0;display:block;}
+  .hero-photo{position:relative;height:62vw;max-height:360px;}
+  .hero-photo::after{top:16px;right:18px;}
+  .hero-cta .btn{width:100%;justify-content:center;}
+  .quick .wrap{flex-direction:column;align-items:flex-start;}
+  .services,.fact{grid-template-columns:1fr;}
+  .services-head{flex-direction:column;align-items:flex-start;}
+  .facts{grid-template-columns:1fr;}
+  .facts div{border-right:0;border-bottom:1px solid var(--grey-2);padding:24px 0;}
+  .facts div + div{padding-left:0;}
+  .facts div:last-child{border-bottom:0;}
+  .regions{grid-template-columns:1fr;}
+  .regions li:nth-child(even){padding-left:0;border-left:0;}
+  .regions li:nth-child(odd){padding-right:0;}
+  .fact .letter{font-size:3.5rem;}
+  .guarantee-side{padding:28px;}
 }
-
-/* ---------- 12. Motion preferences ---------- */
 @media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto;}
-  *,*::before,*::after{
-    animation-duration:.01ms !important;
-    animation-iteration-count:1 !important;
-    transition-duration:.01ms !important;
-    scroll-behavior:auto !important;
-  }
-  .card:hover,.card:focus-within{transform:none;}
-  .btn:hover svg,.link:hover::after{transform:none;}
+  *,*::before,*::after{transition-duration:.01ms !important;}
+  .btn:hover svg,.arrow-link:hover svg,.service:hover .arrow-link svg{transform:none;}
 }
 </style>
 </head>
@@ -512,68 +340,69 @@ p{overflow-wrap:break-word;}
 <body>
 <main id="main">
 
-  <!-- ==========================================================
-       HERO — image background
-       ========================================================== -->
-  <section class="hero on-navy" aria-labelledby="hero-title">
-    <!-- swap .hero{--img:url(...)} in the CSS for the real photo -->
-    <div class="hero__media" role="img" aria-label="Commercial cleaning team at work in a London office"></div>
-    <div class="hero__scrim" aria-hidden="true"></div>
+  <!-- ================= HERO ================= -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="hero-photo" role="img" aria-label="Kemp Services cleaning operative at work in a London office"></div>
 
-    <div class="wrap">
-      <div class="hero__inner">
-        <span class="eyebrow">Commercial Cleaning</span>
-
-        <h1 class="h1" id="hero-title">
-          Leave the cleaning <em>to us</em>
-        </h1>
-
-        <p class="hero__lede">
-          At Kemp Services, we want to build a long-term relationship with our
-          commercial cleaning clients to ensure you know you can concentrate on
-          running your business and leave the cleaning to us.
-        </p>
-
-        <div class="hero__actions">
-          <a class="btn btn--primary" href="#quote">
-            Get a quote today
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-          <a class="btn btn--ghost" href="#services">View our services</a>
+    <div class="hero-panel">
+      <div class="wrap">
+        <div>
+          <p class="t-label" style="color:var(--sky)">Commercial cleaning · London &amp; the UK</p>
+          <h1 class="t-hero" id="hero-h" style="margin-top:18px">Leave the cleaning to us.</h1>
         </div>
-
-        <dl class="hero__stats">
-          <div class="stat">
-            <dt class="sr-only">Years of experience</dt>
-            <dd><span class="stat__n">30+</span><span class="stat__l">Years' experience</span></dd>
+        <div class="hero-aside">
+          <p>
+            At Kemp Services, we want to build a long-term relationship with our
+            commercial cleaning clients to ensure you know you can concentrate on
+            running your business and leave the cleaning to us.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-sky" href="#quote">
+              Get a quote today
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-line" href="#services">Our services</a>
           </div>
-          <div class="stat">
-            <dt class="sr-only">Services offered</dt>
-            <dd><span class="stat__n">9</span><span class="stat__l">Specialist services</span></dd>
-          </div>
-          <div class="stat">
-            <dt class="sr-only">Staff vetting</dt>
-            <dd><span class="stat__n">100%</span><span class="stat__l">Vetted &amp; trained staff</span></dd>
-          </div>
-        </dl>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ================= ACCREDITATIONS ================= -->
+  <section class="logos" aria-label="Accreditations">
+    <div class="wrap">
+      <p class="t-label">Accredited &amp; insured</p>
+      <ul>
+        <li>Accreditation logo</li>
+        <li>Accreditation logo</li>
+        <li>Accreditation logo</li>
+        <li>Accreditation logo</li>
+        <li>Accreditation logo</li>
+      </ul>
+    </div>
+  </section>
 
-  <!-- ==========================================================
-       INTRO
-       ========================================================== -->
-  <section class="section intro" aria-labelledby="intro-title">
-    <div class="wrap intro__grid">
+  <!-- ================= QUICK CONTACT ================= -->
+  <section class="quick" aria-labelledby="quick-h">
+    <div class="wrap">
+      <h2 id="quick-h">Need cleaners, fast? We're ready when you are.</h2>
+      <!-- replace with the real number -->
+      <a class="tel" href="tel:+442000000000" aria-label="Call Kemp Services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.7a2 2 0 0 1 1.7 2z"/></svg>
+        020 0000 0000
+      </a>
+    </div>
+  </section>
 
-      <div class="intro__copy">
-        <span class="eyebrow">Who we are</span>
-        <h2 class="h2" id="intro-title">
-          Our specialist London commercial cleaning contractors are ready to help you
-        </h2>
-
-        <p>
+  <!-- ================= INTRO ================= -->
+  <section class="band intro" aria-labelledby="intro-h">
+    <div class="wrap split">
+      <div>
+        <p class="t-label">Who we are</p>
+        <h2 class="t-1" id="intro-h">Our specialist London commercial cleaning contractors are ready to help you.</h2>
+      </div>
+      <div class="intro-copy">
+        <p class="t-lead">
           Kemp Services is a commercial cleaning company based in east London. With
           over 30 years' experience, our team of experts can assist with all your
           commercial cleaning needs.
@@ -586,372 +415,231 @@ p{overflow-wrap:break-word;}
         <p>
           Clean and presentable premises not only make a difference to the general
           health and wellbeing of staff, but it also creates a positive first
-          impression to visitors. Regardless of the type of property — office, retail,
-          welfare facilities, warehouse — we can help keep your premises looking
+          impression to visitors. Regardless of the type of property – office, retail,
+          welfare facilities, warehouse – we can help keep your premises looking
           sparkling clean at all times.
         </p>
-
-        <h3 class="h3" style="margin-top:var(--space-5)">Where we work</h3>
-        <ul class="chips">
-          <li class="chip">London</li>
-          <li class="chip">Essex</li>
-          <li class="chip">Kent</li>
-          <li class="chip">Surrey</li>
-          <li class="chip">Middlesex</li>
-          <li class="chip">Hertfordshire</li>
-          <li class="chip">Manchester</li>
-          <li class="chip">Newcastle</li>
-          <li class="chip">Nottingham</li>
-          <li class="chip">Liverpool</li>
-          <li class="chip">Cardiff</li>
-          <li class="chip">Birmingham</li>
-        </ul>
       </div>
+    </div>
 
-      <!-- IMAGE PLACEHOLDER -->
-      <div class="intro__media">
-        <div class="ph ph--tall">
-          <span class="ph__label">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Image — team on site
-          </span>
-        </div>
+    <div class="wrap">
+      <div class="facts">
+        <div><b>30+</b><small>Years' experience in commercial cleaning</small></div>
+        <div><b>9</b><small>Specialist services under one contract</small></div>
+        <div><b>12</b><small>Regions covered across England and Wales</small></div>
       </div>
-
     </div>
   </section>
 
-
-  <!-- ==========================================================
-       PROMISE / USP
-       ========================================================== -->
-  <section class="section promise" aria-labelledby="promise-title">
-    <div class="wrap promise__grid">
-
-      <div class="promise__copy">
-        <span class="eyebrow">Why choose us</span>
-        <h2 class="h2" id="promise-title">All our commercial cleaning staff are fully vetted</h2>
+  <!-- ================= COVERAGE ================= -->
+  <section class="band band--grey coverage" aria-labelledby="cov-h">
+    <div class="wrap">
+      <div class="img img-4x3"><span>Photograph — office reception</span></div>
+      <div>
+        <p class="t-label">Where we work</p>
+        <h2 class="t-1" id="cov-h">Based in east London. Working across the country.</h2>
         <p>
-          When it comes to working hours and patterns, we offer great flexibility. If
-          you would prefer us to clean when your premises are empty, we can work
+          Our clients are mainly based across London, Essex, Kent, Surrey, Middlesex
+          and Hertfordshire. We also have contracts in Manchester, Newcastle,
+          Nottingham, Liverpool, Cardiff and Birmingham.
+        </p>
+        <ul class="regions" aria-label="Regions we cover">
+          <li>London</li><li>Manchester</li>
+          <li>Essex</li><li>Newcastle</li>
+          <li>Kent</li><li>Nottingham</li>
+          <li>Surrey</li><li>Liverpool</li>
+          <li>Middlesex</li><li>Cardiff</li>
+          <li>Hertfordshire</li><li>Birmingham</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SERVICES ================= -->
+  <section class="band" id="services" aria-labelledby="serv-h">
+    <div class="wrap">
+      <div class="services-head">
+        <div>
+          <p class="t-label">What we do</p>
+          <h2 class="t-1" id="serv-h">Our professional cleaning services.</h2>
+        </div>
+        <a class="btn btn-line-navy" href="#quote">Get a quote today</a>
+      </div>
+
+      <div class="services">
+
+        <article class="service">
+          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="service-body">
+            <h3 class="t-2">Contract Cleaning</h3>
+            <p>We offer bespoke and flexible contract cleaning services to office, retail, construction and clients in London and across England. We provide an impeccable standard of cleaning and excellent customer service at competitive prices. Our contract cleaners are dedicated, smart and certified. We conduct regular site visits to ensure that our customers are always satisfied.</p>
+            <a class="arrow-link service-link" href="#">Find out more<span class="sr-only"> about contract cleaning</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="service">
+          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="service-body">
+            <h3 class="t-2">Office Cleaning</h3>
+            <p>Office cleaning gives a good first impression to your customers and visitors, as well as enhancing your staff's physical and emotional wellbeing. Our professional office cleaning staff are vetted, trained and supported by our experienced management team. Our office cleaning team will work to reducing allergens, dust, and mould. We are also working hard to make your premises safe against Covid.</p>
+            <a class="arrow-link service-link" href="#">Find out more<span class="sr-only"> about office cleaning</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="service">
+          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="service-body">
+            <h3 class="t-2">Builders Clean</h3>
+            <p>At the end of any new building, refurbishment or renovation project, the last trade on site before that all important handover, is us; your specialist post construction cleaners. We have worked on projects of varying sizes in London and across the UK; removing the dust and grime. We can provide professional, quality after builders clean, 'or final clean', 'sparkle clean' or 'construction site cleaning'.</p>
+            <a class="arrow-link service-link" href="#">Find out more<span class="sr-only"> about builders cleans</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="service">
+          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="service-body">
+            <h3 class="t-2">Welfare Area Cleaning</h3>
+            <p>On any construction site, keeping your welfare facilities clean and hygienic is vital. We offer an excellent, cost effective and consistent building site cabin cleaning service at a frequency to suit your requirements from ad-hoc or daily welfare cleaning services to a weekly welfare cleaning service. We cover all types of welfare from small office accommodation to multi-bay construction site offices.</p>
+            <a class="arrow-link service-link" href="#">Find out more<span class="sr-only"> about welfare area cleaning</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="service">
+          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="service-body">
+            <h3 class="t-2">Communal Block Cleaning</h3>
+            <p>We provide communal area cleaning services to housing associations, property management companies and residence associations. We can clean and maintain common areas including staircases, reception areas, post boxes and windows (internally and externally). If you are a landlord or property management company, we carry out communal block cleaning services at competitive rates.</p>
+            <a class="arrow-link service-link" href="#">Find out more<span class="sr-only"> about communal block cleaning</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="service">
+          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="service-body">
+            <h3 class="t-2">Pre/Post Tenancy Cleans</h3>
+            <p>Pre-tenancy cleaning gives the benefit of a clean and fresh start when moving into a new property. The purpose of post-tenancy cleaning is to ensure all rooms are spotless. During the end of tenancy cleaning service all floors are swept and mopped, carpets are hoovered, skirting boards cleaned, all corners and furniture are dusted, and the bathroom and kitchen are thoroughly cleaned and sanitised.</p>
+            <a class="arrow-link service-link" href="#">Find out more<span class="sr-only"> about pre and post tenancy cleans</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="service">
+          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="service-body">
+            <h3 class="t-2">Carpet &amp; Floor Cleaning</h3>
+            <p>Your home or office carpets and flooring can easily become breeding grounds for bacteria and other undesirable microorganisms. We recommend regular carpet cleaning to keep them not only looking good but keeping your environment fresh and healthy. Kemp Services provides a bespoke carpet cleaning service, regardless of the fabric your flooring is made from. We can help restore the look of tired and stained carpets.</p>
+            <a class="arrow-link service-link" href="#">Find out more<span class="sr-only"> about carpet and floor cleaning</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="service">
+          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="service-body">
+            <h3 class="t-2">Deep Cleaning</h3>
+            <p>The reasons why people choose a deep cleaning service vary. The most common ones include:</p>
+            <ul>
+              <li>when the task of cleaning a residential or commercial property is much but there is a need for an extra clean.</li>
+              <li>before selling a property a deep clean can help with a sale.</li>
+              <li>deep cleaning for visitors; before or after a party, or before the arrival of a new baby.</li>
+            </ul>
+            <a class="arrow-link service-link" href="#">Find out more<span class="sr-only"> about deep cleaning</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="service">
+          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="service-body">
+            <h3 class="t-2">Window Cleaning</h3>
+            <p>We provide a commercial window cleaning service throughout London and across the UK. We have worked for many commercial and residential clients to ensure that their windows are sparkling clean. Our certified professional window cleaners are experts in transforming old and dirty windows into gleaming, sparkling pieces of glazing. Learn more about our contract window cleaning service today.</p>
+            <a class="arrow-link service-link" href="#">Find out more<span class="sr-only"> about window cleaning</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STAFF ================= -->
+  <section class="band band--grey staff" aria-labelledby="staff-h">
+    <div class="wrap">
+      <div>
+        <p class="t-label">Our people</p>
+        <h2 class="t-1" id="staff-h">All our commercial cleaning staff are fully vetted.</h2>
+        <p>
+          When it comes to working hours and patterns, we offer great flexibility! If
+          you would prefer us to clean when your premises are empty; we can work
           outside of usual business hours.
         </p>
         <p>
           Alternatively, our commercial cleaner(s) can work alongside your staff
           without disrupting them.
         </p>
-
-        <!-- IMAGE PLACEHOLDER -->
-        <div class="ph ph--wide" style="margin-top:var(--space-5)">
-          <span class="ph__label">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Image — vetted cleaning operative
-          </span>
-        </div>
-      </div>
-
-      <div class="checklist">
-        <h3 class="h3" id="incl-title">What every contract includes</h3>
-        <ul aria-labelledby="incl-title">
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          Competitive rates
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          Flexible contracts
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          Fully insured, trained and vetted staff
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          Tailored cleaning schedule
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          Regular site inspections
-        </li>
+        <ul class="checks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Competitive rates</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Flexible contracts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Fully insured, trained and vetted staff</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Tailored cleaning schedule</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Regular site inspections</li>
         </ul>
       </div>
-
+      <div class="img img-3x4"><span>Photograph — cleaning operative</span></div>
     </div>
   </section>
 
-
-  <!-- ==========================================================
-       SERVICES — 9 cards
-       ========================================================== -->
-  <section class="section" id="services" aria-labelledby="services-title">
+  <!-- ================= F.A.C.T. ================= -->
+  <section class="band" aria-labelledby="fact-h">
     <div class="wrap">
-
-      <div class="services__head">
-        <div>
-          <span class="eyebrow">What we do</span>
-          <h2 class="h2" id="services-title">Our professional cleaning services</h2>
-          <p class="lede">
-            Bespoke, flexible cleaning contracts for offices, retail, construction and
-            residential clients across London and the UK.
-          </p>
-        </div>
-        <a class="btn btn--solid" href="#quote">Get a quote today</a>
+      <div class="fact-head">
+        <p class="t-label">Our guarantee</p>
+        <h2 class="t-1" id="fact-h">Our F.A.C.T. Guarantee.</h2>
+        <p class="t-lead">Four commitments behind every contract we sign.</p>
       </div>
-
-      <div class="grid-cards">
-
-        <!-- 1 -->
-        <article class="card">
-          <div class="ph ph--card">
-            <span class="ph__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Image</span>
-          </div>
-          <div class="card__body">
-            <h3 class="h3">Contract Cleaning</h3>
-            <p>
-              We offer bespoke and flexible contract cleaning services to office,
-              retail, construction and clients in London and across England. We provide
-              an impeccable standard of cleaning and excellent customer service at
-              competitive prices. Our contract cleaners are dedicated, smart and
-              certified. We conduct regular site visits to ensure that our customers are
-              always satisfied.
-            </p>
-            <a class="link card__link" href="#">Find out more<span class="sr-only"> about contract cleaning</span></a>
-          </div>
-        </article>
-
-        <!-- 2 -->
-        <article class="card">
-          <div class="ph ph--card">
-            <span class="ph__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Image</span>
-          </div>
-          <div class="card__body">
-            <h3 class="h3">Office Cleaning</h3>
-            <p>
-              Office cleaning gives a good first impression to your customers and
-              visitors, as well as enhancing your staff's physical and emotional
-              wellbeing. Our professional office cleaning staff are vetted, trained and
-              supported by our experienced management team. Our office cleaning team
-              will work to reducing allergens, dust, and mould. We are also working hard
-              to make your premises safe against Covid.
-            </p>
-            <a class="link card__link" href="#">Find out more<span class="sr-only"> about office cleaning</span></a>
-          </div>
-        </article>
-
-        <!-- 3 -->
-        <article class="card">
-          <div class="ph ph--card">
-            <span class="ph__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Image</span>
-          </div>
-          <div class="card__body">
-            <h3 class="h3">Builders Clean</h3>
-            <p>
-              At the end of any new building, refurbishment or renovation project, the
-              last trade on site before that all important handover, is us; your
-              specialist post construction cleaners. We have worked on projects of
-              varying sizes in London and across the UK; removing the dust and grime. We
-              can provide professional, quality after builders clean, 'or final clean',
-              'sparkle clean' or 'construction site cleaning'.
-            </p>
-            <a class="link card__link" href="#">Find out more<span class="sr-only"> about builders cleans</span></a>
-          </div>
-        </article>
-
-        <!-- 4 -->
-        <article class="card">
-          <div class="ph ph--card">
-            <span class="ph__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Image</span>
-          </div>
-          <div class="card__body">
-            <h3 class="h3">Welfare Area Cleaning</h3>
-            <p>
-              On any construction site, keeping your welfare facilities clean and
-              hygienic is vital. We offer an excellent, cost effective and consistent
-              building site cabin cleaning service at a frequency to suit your
-              requirements from ad-hoc or daily welfare cleaning services to a weekly
-              welfare cleaning service. We cover all types of welfare from small office
-              accommodation to multi-bay construction site offices.
-            </p>
-            <a class="link card__link" href="#">Find out more<span class="sr-only"> about welfare area cleaning</span></a>
-          </div>
-        </article>
-
-        <!-- 5 -->
-        <article class="card">
-          <div class="ph ph--card">
-            <span class="ph__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Image</span>
-          </div>
-          <div class="card__body">
-            <h3 class="h3">Communal Block Cleaning</h3>
-            <p>
-              We provide communal area cleaning services to housing associations,
-              property management companies and residence associations. We can clean and
-              maintain common areas including staircases, reception areas, post boxes
-              and windows (internally and externally). If you are a landlord or property
-              management company, we carry out communal block cleaning services at
-              competitive rates.
-            </p>
-            <a class="link card__link" href="#">Find out more<span class="sr-only"> about communal block cleaning</span></a>
-          </div>
-        </article>
-
-        <!-- 6 -->
-        <article class="card">
-          <div class="ph ph--card">
-            <span class="ph__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Image</span>
-          </div>
-          <div class="card__body">
-            <h3 class="h3">Pre/Post Tenancy Cleans</h3>
-            <p>
-              Pre-tenancy cleaning gives the benefit of a clean and fresh start when
-              moving into a new property. The purpose of post-tenancy cleaning is to
-              ensure all rooms are spotless. During the end of tenancy cleaning service
-              all floors are swept and mopped, carpets are hoovered, skirting boards
-              cleaned, all corners and furniture are dusted, and the bathroom and
-              kitchen are thoroughly cleaned and sanitised.
-            </p>
-            <a class="link card__link" href="#">Find out more<span class="sr-only"> about pre and post tenancy cleans</span></a>
-          </div>
-        </article>
-
-        <!-- 7 -->
-        <article class="card">
-          <div class="ph ph--card">
-            <span class="ph__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Image</span>
-          </div>
-          <div class="card__body">
-            <h3 class="h3">Carpet &amp; Floor Cleaning</h3>
-            <p>
-              Your home or office carpets and flooring can easily become breeding
-              grounds for bacteria and other undesirable microorganisms. We recommend
-              regular carpet cleaning to keep them not only looking good but keeping
-              your environment fresh and healthy. Kemp Services provides a bespoke
-              carpet cleaning service, regardless of the fabric your flooring is made
-              from. We can help restore the look of tired and stained carpets.
-            </p>
-            <a class="link card__link" href="#">Find out more<span class="sr-only"> about carpet and floor cleaning</span></a>
-          </div>
-        </article>
-
-        <!-- 8 -->
-        <article class="card">
-          <div class="ph ph--card">
-            <span class="ph__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Image</span>
-          </div>
-          <div class="card__body">
-            <h3 class="h3">Deep Cleaning</h3>
-            <p>The reasons why people choose a deep cleaning service vary. The most common ones include:</p>
-            <ul style="display:grid;gap:var(--space-2);color:var(--muted);font-size:15.5px">
-              <li style="display:flex;gap:10px"><span aria-hidden="true" style="color:var(--sky);font-weight:700">•</span>when the task of cleaning a residential or commercial property is much but there is a need for an extra clean.</li>
-              <li style="display:flex;gap:10px"><span aria-hidden="true" style="color:var(--sky);font-weight:700">•</span>before selling a property a deep clean can help with a sale.</li>
-              <li style="display:flex;gap:10px"><span aria-hidden="true" style="color:var(--sky);font-weight:700">•</span>deep cleaning for visitors; before or after a party, or before the arrival of a new baby.</li>
-            </ul>
-            <a class="link card__link" href="#">Find out more<span class="sr-only"> about deep cleaning</span></a>
-          </div>
-        </article>
-
-        <!-- 9 -->
-        <article class="card">
-          <div class="ph ph--card">
-            <span class="ph__label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>Image</span>
-          </div>
-          <div class="card__body">
-            <h3 class="h3">Window Cleaning</h3>
-            <p>
-              We provide a commercial window cleaning service throughout London and
-              across the UK. We have worked for many commercial and residential clients
-              to ensure that their windows are sparkling clean. Our certified
-              professional window cleaners are experts in transforming old and dirty
-              windows into gleaming, sparkling pieces of glazing. Learn more about our
-              contract window cleaning service today.
-            </p>
-            <a class="link card__link" href="#">Find out more<span class="sr-only"> about window cleaning</span></a>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ==========================================================
-       F.A.C.T. GUARANTEE
-       ========================================================== -->
-  <section class="section fact on-navy" id="quote" aria-labelledby="fact-title">
-    <div class="wrap">
-
-      <div class="fact__head">
-        <span class="eyebrow">Our promise</span>
-        <h2 class="h2" id="fact-title">Our F.A.C.T. Guarantee</h2>
-        <p class="lede">
-          Four commitments that shape every contract we sign — and a first month that
-          carries no risk at all.
-        </p>
-      </div>
-
-      <div class="fact__grid">
-
-        <article class="pillar">
-          <span class="pillar__mark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M7 20h10M5 8h14M12 4a1 1 0 1 0 0-.01"/><path d="M5 8 2.5 14a3 3 0 0 0 5 0Z"/><path d="M19 8l-2.5 6a3 3 0 0 0 5 0Z"/></svg>
-          </span>
-          <span class="pillar__letter">F</span>
-          <h3>Fair</h3>
+      <div class="fact">
+        <article>
+          <span class="letter" aria-hidden="true">F</span>
+          <h3 class="t-2">Fair</h3>
           <p>Our prices are competitive which benefits your business and ours.</p>
         </article>
-
-        <article class="pillar">
-          <span class="pillar__mark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4.5 13H11l-1 9 8.5-11H12Z"/></svg>
-          </span>
-          <span class="pillar__letter">A</span>
-          <h3>Agile</h3>
+        <article>
+          <span class="letter" aria-hidden="true">A</span>
+          <h3 class="t-2">Agile</h3>
           <p>We tailor our services to meet your requirement.</p>
         </article>
-
-        <article class="pillar">
-          <span class="pillar__mark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M6 4h12v5a6 6 0 0 1-12 0Z"/><path d="M18 5h2.5a2.5 2.5 0 0 1 0 5H18M6 5H3.5a2.5 2.5 0 0 0 0 5H6"/></svg>
-          </span>
-          <span class="pillar__letter">C</span>
-          <h3>Capable</h3>
+        <article>
+          <span class="letter" aria-hidden="true">C</span>
+          <h3 class="t-2">Capable</h3>
           <p>We have over 30 years' experience providing cleaning services.</p>
         </article>
-
-        <article class="pillar">
-          <span class="pillar__mark">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
-          </span>
-          <span class="pillar__letter">T</span>
-          <h3>Trusted</h3>
+        <article>
+          <span class="letter" aria-hidden="true">T</span>
+          <h3 class="t-2">Trusted</h3>
           <p>We thoroughly train and vet our staff.</p>
         </article>
-
       </div>
+    </div>
+  </section>
 
-      <div class="guarantee">
-        <span class="guarantee__badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
-        </span>
-
-        <div>
-          <h3>Risk free, or your money back</h3>
-          <p>
-            We are confident in the services we provide, which is why we make signing up
-            with us a <strong>RISK FREE</strong> process. If you are not completely
-            satisfied with our service in the first month of your cleaning contract, we
-            will provide you a <strong>FULL REFUND</strong> for that month* —
-            100% guaranteed!
-          </p>
-          <span class="note">*Only applies to contract services.</span>
-        </div>
-
-        <a class="btn btn--primary" href="#quote">
+  <!-- ================= GUARANTEE / QUOTE ================= -->
+  <section class="band band--navy guarantee" id="quote" aria-labelledby="g-h">
+    <div class="wrap">
+      <div>
+        <p class="t-label">Risk free</p>
+        <h2 class="t-1" id="g-h">Not satisfied in your first month? You don't pay for it.</h2>
+        <p>
+          We are confident in the services we provide, which is why we make signing up
+          with us a <strong>RISK FREE</strong> process. If you are not completely
+          satisfied with our service in the first month of your cleaning contract, we
+          will provide you a <strong>FULL REFUND</strong> for that month* – 100% guaranteed!
+        </p>
+        <small>*Only applies to contract services.</small>
+      </div>
+      <div class="guarantee-side">
+        <p class="t-label">Get in touch</p>
+        <h3>Tell us about your premises and we'll put a quote together.</h3>
+        <a class="btn btn-sky" href="#quote">
           Get a quote today
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
-
     </div>
   </section>
 
