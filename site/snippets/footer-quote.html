@@ -1,0 +1,172 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER IDEA D — "the last form"
+     A footer that does the job the page was for: a three-field quote
+     form right in the footer, on the same contact API the quote page
+     and contact page use. Beside it, the promise and the links. Along
+     the bottom edge, the nine client logos scrolling. The footer is
+     the last chance to ask, so it asks.
+     Self-contained: styles, markup and script in this one block.
+     Social links are still '#'.
+     ═══════════════════════════════════════════════════════════════ -->
+<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/nb-international-pro">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+.ydt-foot { --black:#050505; --panel:#0b0a09; --panel2:#100e0c; --white:#f4f2f0; --gray4:#c9c3bd; --gray5:#918a84; --gray6:#5e5852;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14); --data:#ff4536; --data-bright:#ff6152; --data-dim:rgba(255,69,54,.14); --ink:#1c0503;
+  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace; --ease:cubic-bezier(.22,1,.36,1);
+  -webkit-text-size-adjust:100%; text-size-adjust:100%; position:relative; overflow:clip; isolation:isolate;
+  background:var(--black); color:var(--white); font-family:'NB International Pro','Inter',Arial,sans-serif; -webkit-font-smoothing:antialiased;
+  border-top:1px solid var(--line); padding:clamp(64px,8vw,112px) 24px 0; }
+.ydt-foot *, .ydt-foot *::before, .ydt-foot *::after { box-sizing:border-box; }
+.ydt-foot :where(h2,h3,p,ul,li) { margin:0; padding:0; }
+.ydt-foot :where(ul) { list-style:none; }
+.ydt-foot :where(a) { color:inherit; text-decoration:none; }
+.ydt-foot :where(button,input,textarea) { font:inherit; color:inherit; }
+.ydt-foot :focus-visible { outline:2px solid var(--data); outline-offset:3px; }
+.ydt-foot__glow { position:absolute; z-index:-1; left:50%; top:-20%; width:70vw; max-width:900px; height:60vw; max-height:700px; transform:translateX(-50%); border-radius:50%; background:radial-gradient(circle, rgba(255,69,54,.14), transparent 62%); pointer-events:none; }
+.ydt-foot__inner { max-width:1200px; margin:0 auto; }
+.ydt-foot__grid { display:grid; grid-template-columns:1fr; gap:40px; align-items:start; }
+@media (min-width:960px) { .ydt-foot__grid { grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:72px; } }
+
+.ydt-foot__eyebrow { display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--gray5); }
+.ydt-foot__eyebrow i { width:7px; height:7px; border-radius:50%; background:var(--data); box-shadow:0 0 0 4px var(--data-dim); }
+.ydt-foot h2 { font-size:clamp(2rem,4vw,3.3rem); font-weight:700; letter-spacing:-.035em; line-height:1.05; margin:16px 0 16px; text-wrap:balance; }
+.ydt-foot h2 .dim { color:#8f8781; }
+.ydt-foot__p { font-size:15.5px; line-height:1.7; color:var(--gray5); max-width:30rem; }
+.ydt-foot__ticks { display:grid; gap:8px; margin-top:22px; }
+.ydt-foot__ticks li { display:grid; grid-template-columns:20px 1fr; gap:10px; align-items:start; font-size:14px; color:var(--gray4); min-width:0; }
+.ydt-foot__ticks li > span { display:block; }
+.ydt-foot__ticks i { width:20px; height:20px; border-radius:6px; border:1px solid var(--line2); display:grid; place-items:center; color:var(--data); }
+.ydt-foot__ticks svg { width:11px; height:11px; }
+.ydt-foot__cols { display:flex; flex-wrap:wrap; gap:6px 20px; margin-top:26px; padding-top:20px; border-top:1px solid var(--line); }
+.ydt-foot__cols a { display:inline-flex; align-items:center; min-height:40px; font-size:14px; color:var(--gray5); transition:color .25s; }
+.ydt-foot__cols a:hover, .ydt-foot__cols a[aria-current="page"] { color:var(--white); }
+
+/* the form */
+.ydt-foot__form { position:relative; padding:26px 24px; border:1px solid var(--line2); border-radius:20px; background:linear-gradient(180deg,var(--panel2),var(--panel)); box-shadow:0 30px 80px rgba(0,0,0,.45); }
+.ydt-foot__row2 { display:grid; grid-template-columns:1fr; gap:14px; }
+@media (min-width:600px) { .ydt-foot__row2 { grid-template-columns:1fr 1fr; } }
+.ydt-foot__field { display:flex; flex-direction:column; gap:7px; margin-bottom:14px; }
+.ydt-foot__field label { font-size:13px; font-weight:500; color:var(--gray4); }
+.ydt-foot__field .opt { font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gray6); margin-left:6px; }
+.ydt-foot__field input, .ydt-foot__field textarea { width:100%; min-height:48px; padding:12px 14px; border:1px solid var(--line2); border-radius:10px; background:rgba(255,255,255,.03); color:var(--white); font-size:15px; outline:none; transition:border-color .3s, background .3s; }
+.ydt-foot__field textarea { resize:vertical; min-height:80px; }
+.ydt-foot__field input:focus, .ydt-foot__field textarea:focus { border-color:var(--data); background:rgba(255,69,54,.05); }
+.ydt-foot__field input[aria-invalid="true"] { border-color:#d81e0d; }
+.ydt-foot__go { display:inline-flex; align-items:center; justify-content:center; gap:10px; width:100%; min-height:50px; padding:14px 24px; border:0; border-radius:12px; font-weight:600; font-size:15px; cursor:pointer;
+  background:linear-gradient(180deg,#ff7467,#f25343); color:var(--ink); box-shadow:0 12px 34px rgba(255,69,54,.3), inset 0 1px 0 rgba(255,255,255,.35); transition:filter .25s; }
+.ydt-foot__go:hover { filter:brightness(1.05); }
+.ydt-foot__go:disabled { opacity:.6; cursor:wait; }
+.ydt-foot__go svg { width:16px; height:16px; }
+.ydt-foot__trust { margin-top:12px; text-align:center; font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--gray6); }
+.ydt-foot__msg { margin-top:10px; text-align:center; font-size:14px; line-height:1.5; color:var(--gray4); min-height:1.5em; }
+.ydt-foot__msg.is-err { color:var(--data-bright); }
+
+/* the logo edge */
+.ydt-foot__edge { margin-top:clamp(48px,6vw,80px); border-top:1px solid var(--line); padding:18px 0; overflow:clip; -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); }
+.ydt-foot__track { display:flex; align-items:center; gap:56px; width:max-content; animation:ydtFootMarq 40s linear infinite; }
+.ydt-foot__edge:hover .ydt-foot__track { animation-play-state:paused; }
+@keyframes ydtFootMarq { to { transform:translateX(-50%); } }
+.ydt-foot__track img { height:22px; width:auto; max-width:150px; object-fit:contain; filter:grayscale(1) brightness(1.6); opacity:.5; transition:opacity .3s, filter .3s; }
+.ydt-foot__track img:hover { opacity:1; filter:none; }
+.ydt-foot__track span { font-size:13px; font-weight:600; color:var(--gray5); white-space:nowrap; }
+
+/* bar */
+.ydt-foot__bar { padding:18px 0 22px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 24px; }
+.ydt-foot__brand { font-size:15px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+.ydt-foot__brand em { font-style:normal; color:var(--data); }
+.ydt-foot__legal { font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gray6); }
+.ydt-foot__legal a { color:var(--gray5); display:inline-block; padding:13px 0; }
+.ydt-foot__legal a:hover { color:var(--white); }
+.ydt-foot__social { display:flex; gap:6px; }
+.ydt-foot__social a { display:grid; place-items:center; width:40px; height:40px; border-radius:10px; color:var(--gray5); transition:color .25s, background .25s; }
+.ydt-foot__social a:hover { color:var(--white); background:rgba(255,255,255,.05); }
+.ydt-foot__social svg { width:15px; height:15px; display:block; }
+@media (prefers-reduced-motion:reduce) { .ydt-foot__track { animation:none; flex-wrap:wrap; width:auto; gap:18px 32px; } .ydt-foot__edge { mask-image:none; -webkit-mask-image:none; } }
+</style>
+
+<footer class="ydt-foot" id="ydtFoot" aria-label="Site footer">
+  <div class="ydt-foot__glow" aria-hidden="true"></div>
+  <div class="ydt-foot__inner">
+    <div class="ydt-foot__grid">
+      <div>
+        <p class="ydt-foot__eyebrow"><i aria-hidden="true"></i>Before you go</p>
+        <h2>Get a fixed quote <span class="dim">while you are here.</span></h2>
+        <p class="ydt-foot__p">Three fields. One number back within a working day, in writing. No meeting, no deck, no obligation.</p>
+        <ul class="ydt-foot__ticks">
+          <li><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Sites from £150, SEO plans from £500 a month</li>
+          <li><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Based in Bishop Auckland, working across the North East</li>
+          <li><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><span>Or call <a href="tel:+447877411092" style="color:var(--white);display:inline-block;padding:12px 0;margin:-12px 0;white-space:nowrap">07877 411092</a></span></li>
+        </ul>
+        <div class="ydt-foot__cols">
+          <a href="/seo">SEO</a><a href="/ppc">PPC</a><a href="/social">Social</a><a href="/email">Email</a><a href="/content">Content</a><a href="/web-development">Web Development</a><a href="/about">About</a><a href="/pricing">Pricing</a><a href="https://dev.yourdigiteam.com/">Client Login</a><a href="/contact">Contact</a>
+        </div>
+      </div>
+      <form class="ydt-foot__form" id="ydtFootForm" novalidate>
+        <div class="ydt-foot__row2">
+          <div class="ydt-foot__field"><label for="ffName">Your name</label><input id="ffName" name="name" type="text" autocomplete="name" required></div>
+          <div class="ydt-foot__field"><label for="ffEmail">Email</label><input id="ffEmail" name="email" type="email" autocomplete="email" inputmode="email" required></div>
+        </div>
+        <div class="ydt-foot__field"><label for="ffMsg">What do you need?</label><textarea id="ffMsg" name="message" rows="3" placeholder="A new site, more enquiries, a rebuild…" required></textarea></div>
+        <div class="ydt-foot__field"><label for="ffSite">Your website <span class="opt">if you have one</span></label><input id="ffSite" name="website" type="url" autocomplete="url" inputmode="url" placeholder="yourbusiness.co.uk"></div>
+        <input type="text" name="website_check" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+        <button class="ydt-foot__go" type="submit"><span>Get my quote</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="ydt-foot__trust">No obligation · Reply within 24 hours</p>
+        <p class="ydt-foot__msg" id="ydtFootMsg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <div class="ydt-foot__edge" aria-label="Client builds on the site">
+      <div class="ydt-foot__track" aria-hidden="true" id="ydtFootTrack"></div>
+    </div>
+
+    <div class="ydt-foot__bar">
+      <span class="ydt-foot__brand">yourdigitalteam<em>.</em></span>
+      <p class="ydt-foot__legal">© <span id="ydtFootYear">2026</span> yourdigitalteam. All rights reserved. · <a href="/privacy">Privacy</a></p>
+      <div class="ydt-foot__social" aria-label="Social links">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.8s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.5.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 2.3h3.3l-7.2 8.2L22.8 22h-6.6l-5.2-6.8L5.1 22H1.8l7.7-8.8L1.5 2.3h6.8l4.7 6.2 5.2-6.2zm-1.2 17.7h1.8L7.1 4.2H5.2L17 20z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.3v1.6h.1a3.7 3.7 0 0 1 3.3-1.8c3.6 0 4.3 2.3 4.3 5.4v6.2zM5.3 7.4a2.1 2.1 0 1 1 2.1-2.1 2.1 2.1 0 0 1-2.1 2.1zm1.8 13H3.6V9h3.5v11.4zM22.2 0H1.8A1.8 1.8 0 0 0 0 1.8v20.4A1.8 1.8 0 0 0 1.8 24h20.4a1.8 1.8 0 0 0 1.8-1.8V1.8A1.8 1.8 0 0 0 22.2 0z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var root = document.getElementById('ydtFoot'); if (!root) return;
+  document.getElementById('ydtFootYear').textContent = String(new Date().getFullYear());
+  var here = location.pathname.replace(/\/+$/, '') || '/';
+  root.querySelectorAll('.ydt-foot__cols a').forEach(function (a) { var h = a.getAttribute('href') || ''; if (h.charAt(0) === '/' && (h.replace(/\/+$/, '') || '/') === here) a.setAttribute('aria-current', 'page'); });
+
+  /* the nine client marks, same files as the trusted-by strip */
+  var BASE = 'https://www.yourdigiteam.com/optimized/';
+  var LOGOS = [['Shoreline','client-43ff232e5157.webp',360,118],['911 Backdate','client-904334cf81fe.webp',114,120],['Gutters.co.uk','client-ee7bfc9c8580.webp',360,98],['PilotQ','client-498140e77916.webp',166,120],['Punt Caravan Parking','',0,0],['SVD Group','client-cb014304ab6e.webp',116,120],['Fitzgerald Capital','client-9d0f020fb53c.webp',360,51],['Senttr','client-d32d7c0717b6.webp',360,73],['Smart Plus Heating','client-7ffbc5f816f5.webp',300,87]];
+  var track = document.getElementById('ydtFootTrack'), html = '';
+  LOGOS.forEach(function (l) { html += l[1] ? '<img src="' + BASE + l[1] + '" alt="' + l[0] + '" width="' + l[2] + '" height="' + l[3] + '" decoding="async">' : '<span>' + l[0] + '</span>'; });
+  track.innerHTML = html + html;
+
+  /* the form: same endpoint and rules as the contact and quote pages */
+  var form = document.getElementById('ydtFootForm'), msg = document.getElementById('ydtFootMsg'), btn = form.querySelector('button[type="submit"]'), loaded = Date.now();
+  function say(t, err) { msg.textContent = t; msg.classList.toggle('is-err', !!err); }
+  function valid(el) { var ok = el.checkValidity() && el.value.trim() !== ''; el.setAttribute('aria-invalid', ok ? 'false' : 'true'); return ok; }
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var name = form.elements.name, email = form.elements.email, m = form.elements.message;
+    if (!(valid(name) & valid(email) & valid(m))) { say('Please add your name, email and what you need.', true); return; }
+    if (form.elements.website_check.value) { say('Thanks.'); return; }
+    var payload = { name: name.value.trim(), email: email.value.trim(), phone: '', company: '', budget: '', needs: '',
+      website: form.elements.website.value.trim(), message: m.value.trim(), plan: 'Footer quote form', website_check: '',
+      started_at: String(loaded), source_path: window.location.pathname + window.location.search };
+    btn.disabled = true; say('Sending…');
+    fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      .then(function (r) { if (!r.ok) throw new Error('bad'); })
+      .then(function () { form.reset(); say('Got it. One number back within a working day.'); })
+      .catch(function () { say('That did not send. Email thomas@yourdigiteam.com or call 07877 411092.', true); })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+</script>

@@ -1,0 +1,121 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER IDEA B — "the ledger"
+     A footer that reads like the console on the homepage: a set of
+     hairline rows in the mono face, each one a fact you can act on.
+     Status at the top (open for projects, response time, local time),
+     links as ledger lines, brand strip at the bottom. Rows tick in
+     one after another when the footer is reached.
+     Self-contained: styles, markup and script in this one block.
+     Social links are still '#'.
+     ═══════════════════════════════════════════════════════════════ -->
+<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/nb-international-pro">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+.ydt-foot { --black:#050505; --panel:#0b0a09; --white:#f4f2f0; --gray4:#c9c3bd; --gray5:#918a84; --gray6:#5e5852;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14); --data:#ff4536; --data-bright:#ff6152; --data-dim:rgba(255,69,54,.14);
+  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace; --ease:cubic-bezier(.22,1,.36,1);
+  -webkit-text-size-adjust:100%; text-size-adjust:100%; position:relative; overflow:clip;
+  background:var(--black); color:var(--white); font-family:'NB International Pro','Inter',Arial,sans-serif; -webkit-font-smoothing:antialiased;
+  border-top:1px solid var(--line); padding:clamp(64px,8vw,112px) 24px 28px; }
+.ydt-foot *, .ydt-foot *::before, .ydt-foot *::after { box-sizing:border-box; }
+.ydt-foot :where(h2,p,ul,li,dl,dt,dd) { margin:0; padding:0; }
+.ydt-foot :where(ul) { list-style:none; }
+.ydt-foot :where(a) { color:inherit; text-decoration:none; }
+.ydt-foot :focus-visible { outline:2px solid var(--data); outline-offset:3px; }
+.ydt-foot__inner { max-width:1200px; margin:0 auto; }
+
+/* status strip */
+.ydt-foot__status { display:grid; grid-template-columns:1fr; gap:0; border:1px solid var(--line2); border-radius:16px; overflow:clip; background:linear-gradient(180deg,rgba(16,14,12,.9),rgba(11,10,9,.95)); }
+@media (min-width:760px) { .ydt-foot__status { grid-template-columns:repeat(3,1fr); } }
+.ydt-foot__cell { padding:20px 22px; border-top:1px solid var(--line); }
+.ydt-foot__cell:first-child { border-top:0; }
+@media (min-width:760px) { .ydt-foot__cell { border-top:0; border-left:1px solid var(--line); } .ydt-foot__cell:first-child { border-left:0; } }
+.ydt-foot__cell b { display:block; font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gray6); margin-bottom:8px; }
+.ydt-foot__cell span { display:block; font-size:15px; color:var(--white); }
+.ydt-foot__cell .ydt-foot__live { display:inline-flex; align-items:center; gap:9px; }
+.ydt-foot__live i { width:8px; height:8px; border-radius:50%; background:var(--data); box-shadow:0 0 0 4px var(--data-dim); animation:ydtFootPulse 2.2s ease-in-out infinite; }
+@keyframes ydtFootPulse { 50% { box-shadow:0 0 0 7px rgba(255,69,54,.06); } }
+.ydt-foot__clock { font-family:var(--mono); font-variant-numeric:tabular-nums; }
+
+/* the ledger */
+.ydt-foot__ledger { margin-top:clamp(36px,5vw,64px); display:grid; grid-template-columns:1fr; gap:0 64px; }
+@media (min-width:900px) { .ydt-foot__ledger { grid-template-columns:1fr 1fr; } }
+.ydt-foot__row { display:grid; grid-template-columns:110px 1fr; gap:18px; align-items:baseline; padding:15px 0; border-top:1px solid var(--line); opacity:0; transform:translateY(8px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+.ydt-foot:not(.ydt-foot--js) .ydt-foot__row, .ydt-foot.is-in .ydt-foot__row { opacity:1; transform:none; }
+.ydt-foot__row:nth-child(2) { transition-delay:.06s } .ydt-foot__row:nth-child(3) { transition-delay:.12s } .ydt-foot__row:nth-child(4) { transition-delay:.18s } .ydt-foot__row:nth-child(5) { transition-delay:.24s } .ydt-foot__row:nth-child(6) { transition-delay:.3s } .ydt-foot__row:nth-child(7) { transition-delay:.36s }
+.ydt-foot__k { font-family:var(--mono); font-size:10.5px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--gray6); }
+.ydt-foot__v { display:flex; flex-wrap:wrap; gap:4px 18px; font-size:15px; color:var(--gray4); }
+.ydt-foot__v a { display:inline-flex; align-items:center; min-height:40px; transition:color .25s; }
+.ydt-foot__v a:hover { color:var(--white); }
+.ydt-foot__v a[aria-current="page"] { color:var(--white); }
+.ydt-foot__v .mail { font-family:var(--mono); color:var(--white); border-bottom:1px solid var(--line2); }
+.ydt-foot__v .mail:hover { border-color:var(--data); color:var(--data-bright); }
+.ydt-foot__v .tel { font-family:var(--mono); color:var(--white); }
+@media (max-width:520px) { .ydt-foot__row { grid-template-columns:1fr; gap:4px; } }
+
+/* brand strip */
+.ydt-foot__bar { margin-top:clamp(36px,5vw,56px); padding-top:22px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px 24px; }
+.ydt-foot__brand { font-size:15px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+.ydt-foot__brand em { font-style:normal; color:var(--data); }
+.ydt-foot__legal { font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gray6); }
+.ydt-foot__legal a { color:var(--gray5); display:inline-block; padding:13px 0; }
+.ydt-foot__legal a:hover { color:var(--white); }
+.ydt-foot__social { display:flex; gap:6px; }
+.ydt-foot__social a { display:grid; place-items:center; width:40px; height:40px; border-radius:10px; color:var(--gray5); transition:color .25s, background .25s; }
+.ydt-foot__social a:hover { color:var(--white); background:rgba(255,255,255,.05); }
+.ydt-foot__social svg { width:15px; height:15px; display:block; }
+@media (prefers-reduced-motion:reduce) { .ydt-foot__row { transition:none; opacity:1; transform:none; } .ydt-foot__live i { animation:none; } }
+</style>
+
+<footer class="ydt-foot" id="ydtFoot" aria-label="Site footer">
+  <div class="ydt-foot__inner">
+    <div class="ydt-foot__status" aria-label="Status">
+      <div class="ydt-foot__cell"><b>Status</b><span class="ydt-foot__live"><i aria-hidden="true"></i>Open for new projects</span></div>
+      <div class="ydt-foot__cell"><b>Reply time</b><span>Within one working day, in writing</span></div>
+      <div class="ydt-foot__cell"><b>Local time · Bishop Auckland</b><span class="ydt-foot__clock" id="ydtFootClock">--:--</span></div>
+    </div>
+
+    <div class="ydt-foot__ledger">
+      <div>
+        <div class="ydt-foot__row"><span class="ydt-foot__k">Email</span><span class="ydt-foot__v"><a class="mail" href="mailto:thomas@yourdigiteam.com">thomas@yourdigiteam.com</a></span></div>
+        <div class="ydt-foot__row"><span class="ydt-foot__k">Phone</span><span class="ydt-foot__v"><a class="tel" href="tel:+447877411092">07877 411092</a></span></div>
+        <div class="ydt-foot__row"><span class="ydt-foot__k">Based</span><span class="ydt-foot__v">Bishop Auckland, County Durham</span></div>
+        <div class="ydt-foot__row"><span class="ydt-foot__k">Working</span><span class="ydt-foot__v">Newcastle · Gateshead · Sunderland · Durham · the North East</span></div>
+      </div>
+      <div>
+        <div class="ydt-foot__row"><span class="ydt-foot__k">Services</span><span class="ydt-foot__v"><a href="/seo">SEO</a><a href="/ppc">PPC</a><a href="/social">Social Media</a><a href="/email">Email Marketing</a><a href="/content">Content</a><a href="/web-development">Web Development</a></span></div>
+        <div class="ydt-foot__row"><span class="ydt-foot__k">Company</span><span class="ydt-foot__v"><a href="/">Home</a><a href="/about">About</a><a href="/services">All Services</a><a href="/pricing">Pricing</a><a href="/contact">Contact</a></span></div>
+        <div class="ydt-foot__row"><span class="ydt-foot__k">Clients</span><span class="ydt-foot__v"><a href="https://dev.yourdigiteam.com/">Client Login</a><a href="/web-design-quote">Get a quote</a></span></div>
+      </div>
+    </div>
+
+    <div class="ydt-foot__bar">
+      <span class="ydt-foot__brand">yourdigitalteam<em>.</em></span>
+      <p class="ydt-foot__legal">© <span id="ydtFootYear">2026</span> yourdigitalteam. All rights reserved. · <a href="/privacy">Privacy</a></p>
+      <div class="ydt-foot__social" aria-label="Social links">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.8s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.5.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 2.3h3.3l-7.2 8.2L22.8 22h-6.6l-5.2-6.8L5.1 22H1.8l7.7-8.8L1.5 2.3h6.8l4.7 6.2 5.2-6.2zm-1.2 17.7h1.8L7.1 4.2H5.2L17 20z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.3v1.6h.1a3.7 3.7 0 0 1 3.3-1.8c3.6 0 4.3 2.3 4.3 5.4v6.2zM5.3 7.4a2.1 2.1 0 1 1 2.1-2.1 2.1 2.1 0 0 1-2.1 2.1zm1.8 13H3.6V9h3.5v11.4zM22.2 0H1.8A1.8 1.8 0 0 0 0 1.8v20.4A1.8 1.8 0 0 0 1.8 24h20.4a1.8 1.8 0 0 0 1.8-1.8V1.8A1.8 1.8 0 0 0 22.2 0z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var root = document.getElementById('ydtFoot'); if (!root) return;
+  document.getElementById('ydtFootYear').textContent = String(new Date().getFullYear());
+  var here = location.pathname.replace(/\/+$/, '') || '/';
+  root.querySelectorAll('.ydt-foot__v a').forEach(function (a) { var h = a.getAttribute('href') || ''; if (h.charAt(0) === '/' && (h.replace(/\/+$/, '') || '/') === here) a.setAttribute('aria-current', 'page'); });
+  var clock = document.getElementById('ydtFootClock');
+  function tick() { clock.textContent = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/London' }).format(new Date()); }
+  tick(); setInterval(tick, 15000);
+  if (!('IntersectionObserver' in window)) return;
+  root.classList.add('ydt-foot--js');
+  var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { root.classList.add('is-in'); io.disconnect(); } }, { threshold: 0.15 });
+  io.observe(root.querySelector('.ydt-foot__ledger'));
+})();
+</script>
