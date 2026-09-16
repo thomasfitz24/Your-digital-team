@@ -34,27 +34,31 @@ a{text-decoration:none;color:inherit;}
   overflow:hidden;
 }
 
+/* The photo runs wider than its half and its left edge is masked away,
+   so it dissolves into the navy over a long distance instead of
+   meeting it on a hard line. */
 .hero img{
   position:absolute;
   right:0;
   top:0;
-  width:50%;
+  width:64%;
   height:100%;
   object-fit:cover;
-  object-position:46% center;
-}
-
-/* softens the hard seam between panel and photograph */
-.hero::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:0;
-  width:150px;
-  height:100%;
-  z-index:1;
-  background:linear-gradient(90deg,var(--navy),rgba(13,29,39,0));
-  pointer-events:none;
+  object-position:50% center;
+  -webkit-mask-image:linear-gradient(90deg,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,.06) 12%,
+    rgba(0,0,0,.28) 24%,
+    rgba(0,0,0,.62) 36%,
+    rgba(0,0,0,.88) 46%,
+    rgba(0,0,0,1) 56%);
+  mask-image:linear-gradient(90deg,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,.06) 12%,
+    rgba(0,0,0,.28) 24%,
+    rgba(0,0,0,.62) 36%,
+    rgba(0,0,0,.88) 46%,
+    rgba(0,0,0,1) 56%);
 }
 
 .inner{
@@ -126,10 +130,17 @@ p{
   .hero img{
     position:relative;
     width:100%;
-    height:44svh;
+    height:48svh;
     object-position:46% center;
+    /* same idea turned on its side: the photo melts down into the panel */
+    -webkit-mask-image:linear-gradient(180deg,
+      rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,.72) 72%,
+      rgba(0,0,0,.3) 88%, rgba(0,0,0,0) 100%);
+    mask-image:linear-gradient(180deg,
+      rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,.72) 72%,
+      rgba(0,0,0,.3) 88%, rgba(0,0,0,0) 100%);
   }
-  .hero::after{display:none;}
+  .inner{margin-top:-26px;}
   .inner{padding:48px 20px 72px;}
   .copy{max-width:none;}
   .btn{width:100%;justify-content:center;}
