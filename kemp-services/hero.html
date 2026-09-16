@@ -338,6 +338,7 @@ p{
   padding:46px 38px;
   box-shadow:0 10px 24px rgba(13,29,39,.26);
   display:flex;
+  transition:background .3s ease;
   flex-direction:column;
   justify-content:center;
 }
@@ -368,6 +369,7 @@ p{
 .btn-dark svg{width:12px;height:12px;}
 .btn-dark:hover{background:#1B3548;}
 .btn-dark:focus-visible{outline:3px solid var(--deep);outline-offset:3px;}
+.sbox:hover{background:var(--sky);}
 .btn-line{
   align-self:stretch;
   display:flex;
@@ -496,11 +498,25 @@ p{
    in sequence as it scrolls into view, and stands still for anyone who
    has asked for reduced motion. */
 .guar{
-  background:#fff;
+  position:relative;
+  background:var(--navy);
   padding:104px 0 110px;
   overflow:hidden;
 }
+/* photograph under a heavy navy wash, the same treatment as the hero */
+.guar-bg{position:absolute;inset:0;z-index:0;}
+.guar-bg img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center 40%;
+  filter:grayscale(1) brightness(.72) contrast(1.05);
+}
+.guar-bg::after{
+  content:"";position:absolute;inset:0;
+  background:var(--navy);opacity:.8;
+}
 .gw{
+  position:relative;
+  z-index:1;
   max-width:1280px;
   margin-inline:auto;
   padding-inline:40px;
@@ -512,11 +528,11 @@ p{
   gap:32px;
   flex-wrap:wrap;
   padding-bottom:28px;
-  border-bottom:2px solid var(--navy);
+  border-bottom:2px solid rgba(255,255,255,.4);
 }
 .guar h2{
   margin:0;
-  color:var(--navy);
+  color:#fff;
   font-size:clamp(1.8rem, 1.3rem + 1.6vw, 2.6rem);
   font-weight:500;
   line-height:1.1;
@@ -524,7 +540,7 @@ p{
 }
 .gsub{
   margin:0;
-  color:var(--deep);
+  color:var(--sky);
   font-size:1.05rem;
   font-weight:600;
   letter-spacing:-.01em;
@@ -538,7 +554,7 @@ p{
 }
 .letters li{
   padding:44px 32px 40px 0;
-  border-right:1px solid var(--line);
+  border-right:1px solid rgba(255,255,255,.16);
 }
 .letters li + li{padding-left:32px;}
 .letters li:last-child{border-right:0;padding-right:0;}
@@ -549,7 +565,7 @@ p{
   font-weight:700;
   line-height:.82;
   letter-spacing:-.07em;
-  color:var(--navy);
+  color:#fff;
   transition:color .25s ease;
 }
 /* a sky bar under each letter that draws in as the letter lands */
@@ -561,17 +577,17 @@ p{
   background:var(--sky);
   transform-origin:left;
 }
-.letters li:hover .L{color:var(--deep);}
+.letters li:hover .L{color:var(--sky);}
 .letters h3{
   margin:22px 0 8px;
-  color:var(--navy);
+  color:#fff;
   font-size:1.25rem;
   font-weight:600;
   letter-spacing:-.02em;
 }
 .letters p{
   margin:0;
-  color:var(--body);
+  color:#C9D7E0;
   font-size:.98rem;
   line-height:1.6;
 }
@@ -583,10 +599,10 @@ p{
   align-items:center;
   margin-top:48px;
   padding:44px 52px;
-  background:var(--navy);
+  background:#fff;
 }
 .pct{
-  color:var(--sky);
+  color:var(--deep);
   font-size:clamp(3.2rem, 2.4rem + 2.6vw, 5rem);
   font-weight:700;
   line-height:.9;
@@ -597,7 +613,7 @@ p{
 .pct small{
   display:block;
   margin-top:10px;
-  color:#fff;
+  color:var(--navy);
   font-size:.95rem;
   font-weight:600;
   letter-spacing:-.01em;
@@ -606,15 +622,15 @@ p{
 .ptext p{
   margin:0;
   max-width:64ch;
-  color:#DCE8EF;
+  color:var(--body);
   font-size:1.02rem;
   line-height:1.65;
 }
-.ptext b{color:var(--sky);font-weight:700;}
+.ptext b{color:var(--deep);font-weight:700;}
 .ptext small{
   display:block;
   margin-top:12px;
-  color:#9FB6C4;
+  color:#5E6A74;
   font-size:12.5px;
 }
 
@@ -647,7 +663,7 @@ p{
   .letters li{padding:36px 28px 34px 0;}
   .letters li + li{padding-left:28px;}
   .letters li:nth-child(2n){border-right:0;padding-right:0;}
-  .letters li:nth-child(-n+2){border-bottom:1px solid var(--line);}
+  .letters li:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.16);}
   .letters li:nth-child(3){padding-left:0;}
 }
 @media (max-width:900px){
@@ -657,7 +673,7 @@ p{
 }
 @media (max-width:560px){
   .letters{grid-template-columns:1fr;}
-  .letters li,.letters li + li,.letters li:nth-child(3){padding:30px 0 28px;border-right:0;border-bottom:1px solid var(--line);}
+  .letters li,.letters li + li,.letters li:nth-child(3){padding:30px 0 28px;border-right:0;border-bottom:1px solid rgba(255,255,255,.16);}
   .letters li:last-child{border-bottom:0;}
 }
 
@@ -802,6 +818,9 @@ p{
 </section>
 
 <section class="guar" id="guarantee" aria-labelledby="guar-heading">
+  <div class="guar-bg" aria-hidden="true">
+    <img src="https://images.unsplash.com/photo-1669101602108-fa5ba89507ee?w=2000&q=72&auto=format&fit=crop" alt="" loading="lazy">
+  </div>
   <div class="gw">
 
     <div class="ghead">
