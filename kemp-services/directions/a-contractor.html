@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kemp Services — Commercial Cleaning, London</title>
+<meta name="description" content="Kemp Services is a commercial cleaning company based in east London with over 30 years' experience, working across London and the UK.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+/* DIRECTION A — "The Contractor"
+   Understated British trade. Type-led, asymmetric, long copy, few
+   flourishes. Serif headings against a plain sans. Navy + sky only. */
+
+:root{
+  --navy:#0D1D27; --sky:#6FBFE5; --deep:#17739F;
+  --paper:#FCFCFB; --rule:#D8DCDF; --ink:#16212B; --body:#454F59; --dim:#6F7982;
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif;
+  --max:1180px; --gut:28px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;} html,body{overflow-x:clip;}
+body{font-family:var(--sans);font-size:17px;line-height:1.62;color:var(--body);background:var(--paper);-webkit-font-smoothing:antialiased;}
+img{display:block;max-width:100%;height:auto;} a{color:inherit;text-decoration:none;} ul{list-style:none;}
+:is(a,button,input,textarea):focus-visible{outline:2px solid var(--deep);outline-offset:3px;}
+.w{max-width:var(--max);margin-inline:auto;padding-inline:var(--gut);}
+h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--ink);line-height:1.12;letter-spacing:-.012em;}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+/* header */
+.hd{border-bottom:1px solid var(--rule);background:var(--paper);}
+.hd .w{display:flex;align-items:center;gap:26px;min-height:78px;}
+.mark{display:inline-flex;align-items:center;min-height:44px;font-family:var(--serif);font-size:23px;color:var(--ink);margin-right:auto;letter-spacing:-.01em;}
+.mark b{font-weight:500;} .mark span{color:var(--dim);font-size:13px;font-family:var(--sans);margin-left:9px;}
+.hd nav{display:flex;gap:4px;}
+.hd nav a{padding:10px 13px;font-size:15px;color:var(--body);border-radius:3px;}
+.hd nav a:hover{color:var(--ink);background:#EFF1F2;}
+.hd .tel{display:inline-flex;align-items:center;min-height:44px;font-size:15px;color:var(--ink);font-weight:500;padding-left:22px;border-left:1px solid var(--rule);}
+.bg{display:none;width:46px;height:46px;border:0;background:none;cursor:pointer;color:var(--ink);}
+.bg svg{width:24px;height:24px;} #nt{position:absolute;opacity:0;pointer-events:none;}
+
+/* hero: photo with an overlapping text block, deliberately off-centre */
+.hero{position:relative;}
+.hero-img{aspect-ratio:21/9;background:#E7EAEC;position:relative;}
+.hero-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.hero-box{background:var(--paper);max-width:730px;margin-top:-104px;position:relative;padding:44px 52px 0 0;}
+.hero h1{font-size:clamp(2.1rem,1.4rem + 2.8vw,3.35rem);}
+.hero p{margin-top:20px;max-width:56ch;}
+.hero .row{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:28px;}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:50px;padding:0 24px;background:var(--navy);color:#fff;font-size:15px;font-weight:500;border:1px solid var(--navy);transition:background .18s;}
+.btn:hover{background:#1B3446;}
+.btn-o{background:none;color:var(--ink);border-color:var(--rule);}
+.btn-o:hover{background:#EFF1F2;}
+
+/* running text section, two measures, no labels */
+.s{padding:82px 0;}
+.s-rule{border-top:1px solid var(--rule);}
+.lede{font-family:var(--serif);font-size:clamp(1.45rem,1.2rem + 1vw,2rem);line-height:1.3;color:var(--ink);max-width:24ch;}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:34px;}
+.two p+p{margin-top:1em;}
+.aside{margin-top:40px;padding-top:22px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:34px;font-size:15px;color:var(--dim);}
+.aside b{color:var(--ink);font-weight:600;}
+
+/* services as a numbered index, not cards */
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;}
+.svc li{border-top:1px solid var(--rule);}
+.svc a{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:baseline;padding:20px 0;}
+.svc a:hover .nm{color:var(--deep);}
+.svc .no{font-family:var(--serif);font-size:14px;color:var(--dim);width:24px;}
+.svc .nm{font-family:var(--serif);font-size:1.28rem;color:var(--ink);transition:color .15s;}
+.svc .dx{grid-column:2;font-size:14.5px;color:var(--dim);margin-top:2px;}
+.svc .ar{color:var(--dim);font-size:15px;}
+
+/* full-bleed plate with a caption, breaks the rhythm */
+.plate{position:relative;}
+.plate-img{aspect-ratio:24/9;background:#E7EAEC;position:relative;}
+.plate-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.plate figcaption{padding:12px 0 0;font-size:13.5px;color:var(--dim);}
+
+/* vetted: photo + copy, plain list with rules */
+.split{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center;}
+.split .ph{aspect-ratio:4/5;background:#E7EAEC;position:relative;}
+.split .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.split h2{font-size:clamp(1.6rem,1.3rem + 1.2vw,2.2rem);}
+.split p{margin-top:18px;}
+.inc{margin-top:26px;}
+.inc li{padding:13px 0;border-top:1px solid var(--rule);font-size:15.5px;color:var(--ink);}
+
+/* F.A.C.T. as four rows, letters set in the serif */
+.fact-row{display:grid;grid-template-columns:auto 1fr 2fr;gap:28px;align-items:baseline;padding:26px 0;border-top:1px solid var(--rule);}
+.fact-row .L{font-family:var(--serif);font-size:2.5rem;color:var(--sky);line-height:1;width:44px;}
+.fact-row h3{font-size:1.25rem;}
+.fact-row p{font-size:15.5px;}
+.note{margin-top:40px;padding:28px 32px;border:1px solid var(--navy);background:#fff;}
+.note h3{font-size:1.2rem;margin-bottom:8px;}
+.note p{font-size:15.5px;} .note b{color:var(--ink);}
+.note small{display:block;margin-top:10px;font-size:13px;color:var(--dim);}
+
+/* contact */
+.cta{background:var(--navy);color:#C3D2DB;}
+.cta .w{padding:78px var(--gut);display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.cta h2{color:#fff;font-size:clamp(1.7rem,1.4rem + 1.3vw,2.4rem);}
+.cta p{margin-top:16px;}
+.cta .tel-l{display:inline-flex;align-items:center;gap:12px;margin-top:24px;font-family:var(--serif);font-size:1.7rem;color:#fff;min-height:44px;}
+.cta .btn{background:var(--sky);color:var(--navy);border-color:var(--sky);}
+.cta .btn:hover{background:#95D2EF;}
+.f-list li{padding:12px 0;border-top:1px solid rgba(255,255,255,.18);font-size:15.5px;color:#fff;}
+
+/* footer */
+.ft{background:var(--navy);color:#9FB2BE;padding:0 0 34px;}
+.ft .w{padding-top:44px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-wrap:wrap;gap:22px 40px;align-items:baseline;font-size:14px;}
+.ft a{min-height:44px;display:inline-flex;align-items:center;}
+.ft a:hover{color:#fff;} .ft .sp{margin-left:auto;}
+
+@media(max-width:900px){
+  .hd nav{display:none;position:absolute;left:0;right:0;top:100%;z-index:9;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--rule);}
+  .hd nav a{padding:15px var(--gut);border-top:1px solid var(--rule);border-radius:0;}
+  #nt:checked ~ nav{display:flex;} .bg{display:grid;place-items:center;} .hd .tel{display:none;}
+  .hero-img{aspect-ratio:4/3;} .hero-box{margin-top:-60px;padding:32px 0 0;}
+  .two,.split,.svc,.cta .w{grid-template-columns:1fr;gap:28px;}
+  .fact-row{grid-template-columns:auto 1fr;gap:18px;}
+  .fact-row p{grid-column:2;}
+  .s{padding:56px 0;}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+
+<header class="hd">
+  <div class="w">
+    <a class="mark" href="#"><b>Kemp Services</b><span>Est. 1994</span></a>
+    <input type="checkbox" id="nt" aria-hidden="true">
+    <nav aria-label="Main">
+      <a href="#about">About</a><a href="#services">Services</a><a href="#people">Our people</a><a href="#guarantee">Guarantee</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="tel" href="tel:+442000000000">020 0000 0000</a>
+    <label class="bg" for="nt" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg></label>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1718152421680-d1580e843cc9?w=2000&q=75&auto=format&fit=crop" alt="Kemp Services operative machine-cleaning a corridor floor">
+    </div>
+    <div class="w">
+      <div class="hero-box">
+        <h1>Commercial cleaning across London and the UK.</h1>
+        <p>At Kemp Services, we want to build a long-term relationship with our commercial cleaning clients to ensure you know you can concentrate on running your business and leave the cleaning to us.</p>
+        <div class="row">
+          <a class="btn" href="#contact">Get a quote today</a>
+          <a class="btn btn-o" href="#services">See what we clean</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" id="about">
+    <div class="w">
+      <p class="lede">Our specialist London commercial cleaning contractors are ready to help you.</p>
+      <div class="two">
+        <div>
+          <p>Kemp Services is a commercial cleaning company based in east London. With over 30 years' experience, our team of experts can assist with all your commercial cleaning needs. Our clients are mainly based across London, Essex, Kent, Surrey, Middlesex and Hertfordshire. We also have contracts in Manchester, Newcastle, Nottingham, Liverpool, Cardiff, Birmingham.</p>
+        </div>
+        <div>
+          <p>We offer a professional, high-quality service and pride ourselves on being a flexible and responsive commercial cleaning contractor. We make a difference to the properties we clean and the clients we work with. Regardless of the type of property — office, retail, welfare facilities, warehouse — we can help keep your premises looking sparkling clean at all times.</p>
+        </div>
+      </div>
+      <p class="aside">
+        <span><b>30 years</b> in commercial cleaning</span>
+        <span><b>12 regions</b> across England and Wales</span>
+        <span><b>Vetted, insured</b> and directly employed</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="s s-rule" id="services">
+    <div class="w">
+      <p class="lede" style="margin-bottom:34px">Our professional cleaning services.</p>
+      <ul class="svc">
+        <li><a href="#"><span class="no">01</span><span class="nm">Contract Cleaning</span><span class="ar">→</span><span class="dx">Bespoke, flexible contracts for office, retail and construction clients, with regular site visits.</span></a></li>
+        <li><a href="#"><span class="no">02</span><span class="nm">Office Cleaning</span><span class="ar">→</span><span class="dx">Vetted, trained staff working to reduce allergens, dust and mould.</span></a></li>
+        <li><a href="#"><span class="no">03</span><span class="nm">Builders Clean</span><span class="ar">→</span><span class="dx">The last trade on site before handover, removing dust and grime.</span></a></li>
+        <li><a href="#"><span class="no">04</span><span class="nm">Welfare Area Cleaning</span><span class="ar">→</span><span class="dx">Site cabin cleaning, from ad-hoc to daily, for all types of welfare.</span></a></li>
+        <li><a href="#"><span class="no">05</span><span class="nm">Communal Block Cleaning</span><span class="ar">→</span><span class="dx">Staircases, receptions, post boxes and windows for landlords and managing agents.</span></a></li>
+        <li><a href="#"><span class="no">06</span><span class="nm">Pre / Post Tenancy Cleans</span><span class="ar">→</span><span class="dx">A clean start on move-in, and a spotless handover on move-out.</span></a></li>
+        <li><a href="#"><span class="no">07</span><span class="nm">Carpet &amp; Floor Cleaning</span><span class="ar">→</span><span class="dx">Bespoke carpet cleaning whatever the fabric, restoring tired flooring.</span></a></li>
+        <li><a href="#"><span class="no">08</span><span class="nm">Deep Cleaning</span><span class="ar">→</span><span class="dx">For when a property needs more than the regular clean.</span></a></li>
+        <li><a href="#"><span class="no">09</span><span class="nm">Window Cleaning</span><span class="ar">→</span><span class="dx">Commercial window cleaning throughout London and across the UK.</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <figure class="plate">
+    <div class="plate-img">
+      <img src="https://images.unsplash.com/photo-1580256081112-e49377338b7f?w=2000&q=75&auto=format&fit=crop" alt="Cleaning trolley and vacuum in a communal corridor" loading="lazy">
+    </div>
+    <div class="w"><figcaption>Communal areas, cleaned on a schedule that suits the building.</figcaption></div>
+  </figure>
+
+  <section class="s" id="people">
+    <div class="w split">
+      <div class="ph">
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1100&q=75&auto=format&fit=crop" alt="Operative cleaning interior window shutters" loading="lazy">
+      </div>
+      <div>
+        <h2>All our commercial cleaning staff are fully vetted.</h2>
+        <p>When it comes to working hours and patterns, we offer great flexibility. If you would prefer us to clean when your premises are empty, we can work outside of usual business hours. Alternatively, our commercial cleaner(s) can work alongside your staff without disrupting them.</p>
+        <ul class="inc">
+          <li>Competitive rates</li>
+          <li>Flexible contracts</li>
+          <li>Fully insured, trained and vetted staff</li>
+          <li>Tailored cleaning schedule</li>
+          <li>Regular site inspections</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="s s-rule" id="guarantee">
+    <div class="w">
+      <p class="lede" style="margin-bottom:26px">Our F.A.C.T. Guarantee.</p>
+      <div class="fact-row"><span class="L">F</span><h3>Fair</h3><p>Our prices are competitive which benefits your business and ours.</p></div>
+      <div class="fact-row"><span class="L">A</span><h3>Agile</h3><p>We tailor our services to meet your requirement.</p></div>
+      <div class="fact-row"><span class="L">C</span><h3>Capable</h3><p>We have over 30 years' experience providing cleaning services.</p></div>
+      <div class="fact-row"><span class="L">T</span><h3>Trusted</h3><p>We thoroughly train and vet our staff.</p></div>
+
+      <div class="note">
+        <h3>Risk free, or your money back.</h3>
+        <p>We are confident in the services we provide, which is why we make signing up with us a <b>RISK FREE</b> process. If you are not completely satisfied with our service in the first month of your cleaning contract, we will provide you a <b>FULL REFUND</b> for that month* — 100% guaranteed!</p>
+        <small>*Only applies to contract services.</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="w">
+      <div>
+        <h2>Tell us about your premises.</h2>
+        <p>We will talk through frequency, hours and access, then put a quote together. No obligation.</p>
+        <a class="tel-l" href="tel:+442000000000">020 0000 0000</a>
+        <div style="margin-top:22px"><a class="btn" href="#">Request a quote</a></div>
+      </div>
+      <ul class="f-list">
+        <li>Offices, retail and warehousing</li>
+        <li>Construction sites and welfare facilities</li>
+        <li>Communal blocks and managed residential</li>
+        <li>One-off deep, tenancy and builders cleans</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="ft">
+  <div class="w">
+    <span>© Kemp Services Limited</span>
+    <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Modern Slavery</a>
+    <span class="sp">East London · Working nationwide</span>
+  </div>
+</footer>
+
+</body>
+</html>
