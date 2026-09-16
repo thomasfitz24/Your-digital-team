@@ -212,20 +212,12 @@ p{
 .group li{
   display:flex;
   align-items:center;
-  gap:34px;
-  padding-right:34px;
-  color:var(--navy);
-  font-size:1.05rem;
-  font-weight:500;
-  letter-spacing:-.01em;
-  white-space:nowrap;
+  padding-right:72px;
 }
-.group li::after{
-  content:"";
-  width:6px;height:6px;
-  flex:none;
-  background:var(--sky);
-  transform:rotate(45deg);
+.group li img{
+  display:block;
+  height:40px;
+  width:auto;
 }
 
 .pbtn{
@@ -252,7 +244,8 @@ p{
     padding-inline:20px;
   }
   .tlabel{width:100%;}
-  .group li{font-size:.98rem;gap:26px;padding-right:26px;}
+  .group li{padding-right:48px;}
+  .group li img{height:34px;}
   /* a longer fade, since the strip is much narrower here */
   .marquee{
     -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 15%,#000 85%,transparent 100%);
@@ -338,7 +331,6 @@ p{
   padding:46px 38px;
   box-shadow:0 10px 24px rgba(13,29,39,.26);
   display:flex;
-  transition:background .3s ease;
   flex-direction:column;
   justify-content:center;
 }
@@ -364,12 +356,11 @@ p{
   color:#fff;
   font-size:14.5px;
   font-weight:600;
-  transition:background .18s ease;
+  transition:background .18s ease,color .18s ease;
 }
 .btn-dark svg{width:12px;height:12px;}
-.btn-dark:hover{background:#1B3548;}
+.btn-dark:hover{background:var(--sky);color:var(--navy);}
 .btn-dark:focus-visible{outline:3px solid var(--deep);outline-offset:3px;}
-.sbox:hover{background:var(--sky);}
 .btn-line{
   align-self:stretch;
   display:flex;
@@ -383,10 +374,10 @@ p{
   color:var(--navy);
   font-size:14.5px;
   font-weight:600;
-  transition:background .18s ease,color .18s ease;
+  transition:background .18s ease,color .18s ease,border-color .18s ease;
 }
 .btn-line svg{width:12px;height:12px;}
-.btn-line:hover{background:var(--navy);color:#fff;}
+.btn-line:hover{background:var(--sky);border-color:var(--sky);color:var(--navy);}
 .btn-line:focus-visible{outline:3px solid var(--deep);outline-offset:3px;}
 
 @media (max-width:1100px){
@@ -725,24 +716,20 @@ p{
     <div class="marquee">
       <div class="track">
         <ul class="group">
-          <li>Housing associations</li>
-          <li>Main contractors</li>
-          <li>Managing agents</li>
-          <li>Property management companies</li>
-          <li>Office landlords</li>
-          <li>Retail groups</li>
-          <li>Construction sites</li>
-          <li>Warehousing &amp; logistics</li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
         </ul>
         <ul class="group" aria-hidden="true">
-          <li>Housing associations</li>
-          <li>Main contractors</li>
-          <li>Managing agents</li>
-          <li>Property management companies</li>
-          <li>Office landlords</li>
-          <li>Retail groups</li>
-          <li>Construction sites</li>
-          <li>Warehousing &amp; logistics</li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
+          <li><img src="https://ocs.com/app/uploads/2024/09/OCS-Group-Logo-300x116.png" alt="OCS Group" width="300" height="116" loading="lazy"></li>
         </ul>
       </div>
     </div>
