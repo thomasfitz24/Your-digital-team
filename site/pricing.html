@@ -1,18 +1,18 @@
-<!-- ═══════════════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════════════════════════════
      pricing.html  →  Squarespace page /pricing
      Paste the whole of this into ONE Code Block on that page.
      Requires the header injection (see header-injection.html).
 
-     Every graphic on this page is inline SVG or CSS — no image
-     files, nothing to re-upload, nothing that can 404. The old
-     Space Grotesk / purple version's linked images are gone.
+     Four monthly plans: Essentials £250 · Local SEO £500 · Growth £750
+     · Dominate £1,000. Every figure on the page is derived from one
+     table in the build, so the cards, the bars, the coverage switcher
+     and the curve cannot disagree with each other.
 
-     Design system — "signal", same as the homepage:
-       base #050505 · panels #0b0a09 · hairlines at 7% white
-       Inter (display/body) + IBM Plex Mono (data)
-       signal red #ff4536 → #d81e0d for data, the primary CTA and
-       the ambient glow. Never on body copy.
-     ═══════════════════════════════════════════════════════════ -->
+     Every graphic is inline SVG or CSS — nothing to upload, nothing
+     that can 404. Design system "signal", same as the homepage:
+     base #050505 · panels #0b0a09 · Inter + IBM Plex Mono · signal
+     red #ff4536 → #d81e0d for data, the primary CTA and the glow.
+     ═══════════════════════════════════════════════════════════════ -->
 <style>
 .ydt-page {
     --black: #050505;
@@ -213,7 +213,7 @@
 /* ══════════ PLANS ══════════ */
 .ydt-page .plans { padding: 104px 0 0; }
 .ydt-page .plan-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-@media (min-width: 900px) { .ydt-page .plan-grid { grid-template-columns: repeat(2, 1fr); } }
+
 .ydt-page .plan {
     position: relative; display: flex; flex-direction: column;
     background: var(--card-bg); border: 1px solid var(--card-line);
@@ -401,41 +401,6 @@
     border-top: 1px solid var(--line2); line-height: 1.7;
 }
 
-/* ══════════ REBUILD BANNER ══════════ */
-.ydt-page .rebuild { padding-bottom: 112px; }
-.ydt-page .rebuild-panel {
-    position: relative; overflow: hidden;
-    background: var(--panel); border: 1px solid var(--card-line);
-    border-radius: 24px; padding: 40px 30px;
-    display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center;
-}
-@media (min-width: 900px) {
-    .ydt-page .rebuild-panel { grid-template-columns: 1.15fr 1fr; padding: 52px 56px; gap: 52px; }
-}
-.ydt-page .rebuild-panel::before {
-    content: ''; position: absolute; top: -50%; right: -10%;
-    width: 60%; height: 130%;
-    background: radial-gradient(50% 50% at 50% 50%, rgba(216, 30, 13, 0.16), transparent 70%);
-    filter: blur(52px); pointer-events: none;
-}
-.ydt-page .rebuild-panel > * { position: relative; }
-.ydt-page .rebuild h3 {
-    font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700;
-    letter-spacing: -0.03em; line-height: 1.1; margin: 16px 0 14px;
-}
-.ydt-page .rebuild p { font-size: 14px; line-height: 1.7; color: var(--gray5); margin-bottom: 26px; }
-/* graphic: a broken layout becoming a clean one */
-.ydt-page .wire { width: 100%; height: auto; display: block; }
-.ydt-page .wire .old rect { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.10); }
-.ydt-page .wire .new rect { fill: rgba(255,255,255,0.07); stroke: rgba(255,255,255,0.16); }
-.ydt-page .wire .new rect.hot { fill: var(--data-dim); stroke: rgba(255,69,54,0.45); }
-.ydt-page .wire .cap {
-    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em;
-    text-transform: uppercase; fill: var(--gray6);
-}
-.ydt-page .wire .cap-hot { fill: var(--data); }
-.ydt-page .wire .arrow { stroke: rgba(255,69,54,0.7); fill: none; stroke-width: 1.4; }
-
 /* ══════════ CTA ══════════ */
 .ydt-page .cta { padding-bottom: 128px; }
 .ydt-page .cta-panel {
@@ -477,6 +442,91 @@
 }
 .ydt-page .curve .val { font-family: var(--mono); font-size: 12px; fill: var(--white); }
 
+
+/* ══════════ FOUR PLANS ══════════ */
+.ydt-page .plan-num, .ydt-page .plan-flag { white-space: nowrap; }
+.ydt-page .plan-top { flex-wrap: wrap; row-gap: 8px; }
+/* three lines reserved so the prices line up across the row */
+@media (min-width: 720px) { .ydt-page .plan-for { min-height: calc(1.6em * 3); } }
+@media (min-width: 620px) { .ydt-page .rail--4 { grid-template-columns: repeat(2, 1fr); max-width: 860px; } }
+@media (min-width: 900px) { .ydt-page .rail--4 { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 720px) { .ydt-page .plan-grid--4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1180px) { .ydt-page .plan-grid--4 { grid-template-columns: repeat(4, 1fr); gap: 14px; } .ydt-page .plan-grid--4 .plan { padding: 26px 22px; } .ydt-page .plan-grid--4 .plan-price b { font-size: 36px; } }
+.ydt-page .hours {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin: -8px 0 22px; font-size: 13px; color: var(--gray5);
+}
+.ydt-page .hours i { width: 7px; height: 7px; border-radius: 50%; background: var(--data); box-shadow: 0 0 0 4px var(--data-dim); flex-shrink: 0; }
+.ydt-page .hours b { color: var(--white); font-weight: 600; }
+.ydt-page .hours em { font-style: normal; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray6); margin-left: auto; white-space: nowrap; }
+.ydt-page .plan-base { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--data); margin-bottom: -10px; }
+.ydt-page .more-lead { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray6); margin-bottom: 12px; }
+.ydt-page .more-list { list-style: none; display: grid; gap: 9px; padding-bottom: 6px; }
+.ydt-page .more-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.55; color: var(--gray5); }
+.ydt-page .more-list svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 3px; color: var(--data); }
+.ydt-page .plan--key .more-list svg { color: var(--data); }
+/* four swatches on one ramp: opacity carries the order, no new colours */
+.ydt-page .sw-1, .ydt-page .bar-1 { background: rgba(255, 255, 255, 0.22); }
+.ydt-page .sw-2, .ydt-page .bar-2 { background: rgba(255, 97, 82, 0.45); }
+.ydt-page .sw-3, .ydt-page .bar-3 { background: rgba(255, 97, 82, 0.75); }
+.ydt-page .sw-4, .ydt-page .bar-4 { background: linear-gradient(90deg, var(--data), var(--data-deep)); }
+.ydt-page .bar-key { width: 74px; }
+.ydt-page .compare-legend span { gap: 8px; }
+
+/* ══════════ WHERE YOU SHOW UP ══════════ */
+.ydt-page .where { padding-bottom: 112px; }
+.ydt-page .sw { background: var(--panel); border: 1px solid var(--card-line); border-radius: 24px; overflow: hidden; }
+.ydt-page .sw-tabs { display: grid; grid-template-columns: repeat(2, 1fr); border-bottom: 1px solid var(--line2); }
+@media (min-width: 720px) { .ydt-page .sw-tabs { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .sw-tab {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+    padding: 20px 22px; min-height: 76px; background: none; border: none; cursor: pointer; color: var(--gray5);
+    border-right: 1px solid var(--line2); text-align: left; position: relative; transition: color 0.3s, background 0.3s;
+}
+.ydt-page .sw-tab:last-child { border-right: 0; }
+@media (max-width: 719px) { .ydt-page .sw-tab:nth-child(2) { border-right: 0; } .ydt-page .sw-tab:nth-child(n+3) { border-top: 1px solid var(--line2); } }
+.ydt-page .sw-tab b { font-size: 20px; font-weight: 700; letter-spacing: -0.03em; color: var(--white); font-variant-numeric: tabular-nums; line-height: 1; }
+.ydt-page .sw-tab span { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; }
+.ydt-page .sw-tab::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--data), var(--data-deep)); transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.45s var(--ease); }
+.ydt-page .sw-tab:hover { background: rgba(255, 255, 255, 0.025); color: var(--white); }
+.ydt-page .sw-tab.is-on { color: var(--data); background: rgba(255, 69, 54, 0.05); }
+.ydt-page .sw-tab.is-on::after { transform: scaleX(1); }
+.ydt-page .sw-panel { padding: 30px 30px 26px; }
+@media (min-width: 768px) { .ydt-page .sw-panel { padding: 36px 44px 30px; } }
+.ydt-page .sw-list { list-style: none; display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 560px) { .ydt-page .sw-list { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .ydt-page .sw-list { grid-template-columns: repeat(4, 1fr); } }
+.ydt-page .sf {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px;
+    border: 1px solid var(--line2); background: rgba(255, 255, 255, 0.02); color: var(--gray6);
+    font-size: 14px; transition: color 0.4s, border-color 0.4s, background 0.4s, transform 0.5s var(--ease);
+}
+.ydt-page .sf i { width: 22px; height: 22px; border-radius: 7px; border: 1px solid var(--line); display: grid; place-items: center; color: transparent; flex-shrink: 0; transition: color 0.4s, border-color 0.4s, background 0.4s; }
+.ydt-page .sf i svg { width: 11px; height: 11px; }
+.ydt-page .sf.is-on { color: var(--white); border-color: rgba(255, 69, 54, 0.35); background: rgba(255, 69, 54, 0.06); }
+.ydt-page .sf.is-on i { color: var(--data); border-color: rgba(255, 69, 54, 0.5); background: var(--data-dim); }
+.ydt-page .sf.is-new { transform: translateY(-3px); }
+.ydt-page .sw-reads { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line2); }
+@media (min-width: 720px) { .ydt-page .sw-reads { grid-template-columns: repeat(3, 1fr); gap: 14px; } }
+.ydt-page .sw-read b { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gray6); margin-bottom: 6px; font-weight: 500; }
+.ydt-page .sw-read span { display: block; font-size: 14.5px; color: var(--white); line-height: 1.5; transition: opacity 0.3s; }
+.ydt-page .sw-read span.is-swap { opacity: 0; }
+.ydt-page .sw-foot { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--gray6); margin-top: 20px; line-height: 1.7; }
+.ydt-page .sw-foot b { color: var(--white); font-weight: 500; }
+
+/* ══════════ TERMS ══════════ */
+.ydt-page .terms { padding-bottom: 112px; }
+.ydt-page .terms-grid { list-style: none; display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 720px) { .ydt-page .terms-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .ydt-page .terms-grid { grid-template-columns: repeat(3, 1fr); } }
+.ydt-page .terms-grid li { display: grid; grid-template-columns: 24px 1fr; gap: 14px; align-items: start; padding: 20px 22px; border: 1px solid var(--card-line); border-radius: 18px; background: var(--panel); transition: border-color 0.3s; }
+.ydt-page .terms-grid li:hover { border-color: rgba(255, 255, 255, 0.15); }
+.ydt-page .terms-grid i { width: 24px; height: 24px; border-radius: 7px; border: 1px solid rgba(255, 69, 54, 0.4); background: var(--data-dim); display: grid; place-items: center; color: var(--data); }
+.ydt-page .terms-grid i svg { width: 12px; height: 12px; }
+.ydt-page .terms-grid b { display: block; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 4px; }
+.ydt-page .terms-grid span { display: block; font-size: 13.5px; line-height: 1.55; color: var(--gray5); }
+@media (max-width: 767px) { .ydt-page .where, .ydt-page .terms { padding-bottom: 80px; } .ydt-page .sw-panel { padding: 24px 20px 22px; } .ydt-page .hours em, .ydt-page .plan-base, .ydt-page .more-lead, .ydt-page .sw-tab span, .ydt-page .sw-read b, .ydt-page .sw-foot { font-size: 10px; letter-spacing: 0.1em; } }
+
 /* ══════════ MOTION FALLBACKS ══════════ */
 @media (prefers-reduced-motion: reduce) {
     .ydt-page [data-reveal], .ydt-page .clip > .slide { opacity: 1; transform: none; filter: none; transition: none; }
@@ -495,7 +545,6 @@
     .ydt-page .hero { padding: calc(var(--header-h) + 52px) 0 60px; }
     .ydt-page .plans { padding-top: 72px; }
     .ydt-page .compare { padding: 80px 0; }
-    .ydt-page .rebuild { padding-bottom: 80px; }
     .ydt-page .cta { padding-bottom: 88px; }
     .ydt-page .plan { padding: 24px 22px; }
     .ydt-page .plan-price b { font-size: 36px; }
@@ -538,20 +587,16 @@
     <div class="hero-horizon" aria-hidden="true"></div>
     <div class="container">
       <div class="hero-inner">
-        <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Every plan includes SEO as standard</p>
+        <p class="hero-eyebrow" data-reveal><span class="live-dot" aria-hidden="true"></span>Four plans, one number each</p>
         <h1>
-          <span class="clip"><span class="slide">Simple, transparent</span></span>
-          <span class="clip"><span class="slide"><span class="dim">pricing plans.</span></span></span>
+          <span class="clip"><span class="slide">Pick the plan</span></span>
+          <span class="clip"><span class="slide"><span class="dim">that fits the hours.</span></span></span>
         </h1>
         <p class="hero-sub" data-reveal>
-          Whether you need pure SEO, ongoing site fixes, growth support or a full rebuild —
-          there's a plan that matches exactly where your website is right now.
+          Every plan is a fixed number of hours a month, spent on the things that get a local business found:
+          content, pages, updates, and the search setups most sites never get. Each step up adds to the one before it.
         </p>
-        <div class="rail" data-reveal>
-          <a href="#plan-1"><b>£500</b><span>SEO + fixes + growth</span></a>
-          <a href="#plan-2" class="is-key"><b>£950</b><span>Heavy build &amp; update</span></a>
-          <a href="#rebuild"><b>Quoted</b><span>Website rebuild</span></a>
-        </div>
+        <div class="rail rail--4" data-reveal><a href="#plan-1"><b data-count="250">£250</b><span>Essentials · 10h</span></a><a href="#plan-2"><b data-count="500">£500</b><span>Local SEO · 20h</span></a><a href="#plan-3"><b data-count="750">£750</b><span>Growth · 31h</span></a><a href="#plan-4" class="is-key"><b data-count="1000">£1,000</b><span>Dominate · 45h</span></a></div>
       </div>
     </div>
   </section>
@@ -565,52 +610,32 @@
           <span>All services</span>
         </a>
       </div>
-
       <div class="sec-head" style="margin-top:32px;">
         <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Monthly plans</span></div>
-        <h2 class="sec-title" id="plansTitle" data-reveal>Pick the level that <span class="dim">matches your site.</span></h2>
-        <p class="sec-sub" data-reveal>Every plan includes SEO as standard. Each tier builds on the one before it — the graphics below show exactly what lands each month.</p>
+        <h2 class="sec-title" id="plansTitle" data-reveal>Four levels. <span class="dim">Each one builds on the last.</span></h2>
+        <p class="sec-sub" data-reveal>The tiles show what lands every month. Open any plan for the full list, and the hours line tells you roughly how much of our week you are buying.</p>
       </div>
-
-      <div class="plan-grid">
-
-        <!-- ── PLAN 1 ── -->
+      <div class="plan-grid plan-grid--4">
         <article class="plan" id="plan-1" data-reveal>
           <div class="plan-top">
             <span class="plan-num">Plan 1</span>
           </div>
+          <h3 class="plan-name">Essentials</h3>
+          <p class="plan-for">A first proper footing: the site kept healthy, found locally, and growing a little every month.</p>
+          <div class="plan-price"><b>£250</b><span>/ month</span></div>
+          <div class="hours" aria-label="About 10 hours of work a month"><i aria-hidden="true"></i><span>About <b>10 hours</b> a month</span><em>£25 / hour</em></div>
 
-          <!-- graphic: one tile per deliverable, so the allowance is countable -->
           <div class="drop" aria-hidden="true">
             <div class="drop-head"><span>Lands every month</span><span>Plan 1</span></div>
             <div class="drop-rows">
-              <div class="drop-row drop-row--lit">
-                <span class="drop-label">Blogs</span>
-                <span class="drop-tiles"><i></i><i></i><i></i><i></i></span>
-                <span class="drop-count">4</span>
-              </div>
-              <div class="drop-row drop-row--lit">
-                <span class="drop-label">Pages</span>
-                <span class="drop-tiles"><i></i><i></i></span>
-                <span class="drop-count">2</span>
-              </div>
-              <div class="drop-row">
-                <span class="drop-label">Changes</span>
-                <span class="drop-tiles drop-tiles--dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                <span class="drop-count">10</span>
-              </div>
+              <div class="drop-row drop-row--lit"><span class="drop-label">Blogs</span><span class="drop-tiles"><i></i><i></i></span><span class="drop-count">2</span></div>
+              <div class="drop-row drop-row--lit"><span class="drop-label">Pages</span><span class="drop-tiles"><i></i></span><span class="drop-count">1</span></div>
+              <div class="drop-row"><span class="drop-label">Updates</span><span class="drop-tiles drop-tiles--dots"><i></i><i></i><i></i><i></i><i></i></span><span class="drop-count">5</span></div>
             </div>
           </div>
 
-          <h3 class="plan-name">SEO + Fixes + Growth</h3>
-          <p class="plan-for">For clients actively growing, not just maintaining.</p>
-          <div class="plan-price"><b>£500</b><span>/ month</span></div>
-
-          <ul class="plan-list">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SEO content, on-page optimisation &amp; fundamentals fixes</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 blogs a month</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 new page builds a month included</li>
-          </ul>
+          <p class="plan-base">What lands every month</p>
+          <ul class="plan-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 blogs and 1 new page a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Onboarding SEO audit and keyword plan</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Business Profile set up and optimised</li></ul>
 
           <div class="more">
             <button class="more-toggle" type="button" aria-expanded="false" aria-controls="detail-1">
@@ -618,74 +643,33 @@
               <span class="more-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
             </button>
             <div class="more-body" id="detail-1"><div>
-              <div class="more-item">
-                <b>Content &amp; on-page SEO</b>
-                <p>Ongoing content creation and on-page optimisation across existing pages, aimed at improving rankings for target keywords, plus re-optimisation whenever Google publishes a core update.</p>
-              </div>
-              <div class="more-item">
-                <b>Up to 10 website updates / month</b>
-                <p>Changes to pages, blog posts, or products — edits, layout tweaks, content swaps, anything within normal update scope.</p>
-              </div>
-              <div class="more-item">
-                <b>Fundamentals fixes</b>
-                <p>Fixing broken or poorly-built code and layout issues so pages can actually be crawled, read, and ranked by Google — whether the site is technically sound already or needs the repair work.</p>
-              </div>
-              <div class="more-item">
-                <b>4 blogs / month</b>
-                <p>Four blog posts written and published each month, targeted at keywords your customers are searching for. Blogs are one of the most effective ways to build topical authority and rank for a wider spread of search terms — fresh, regular content signals to Google that a site is active and worth crawling more often, which compounds rankings over time.</p>
-              </div>
-              <div class="more-item">
-                <b>2 new page builds / month</b>
-                <p>Two new pages built per month as standard, included in the price (e.g. new landing pages, service pages, or product pages). If more pages are needed than the plan covers in a given month, the extra pages are built and billed on the following month's invoice.</p>
-              </div>
+              <p class="more-lead">What lands every month:</p>
+              <ul class="more-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 blogs a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 new page a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 5 website updates a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Onboarding SEO audit and keyword plan</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Search Console and Google Analytics setup</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Business Profile setup and optimisation</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>LocalBusiness schema markup</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Hosting, security and backups</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Technical SEO health check and fixes</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Monthly strategy call</li></ul>
             </div></div>
           </div>
 
-          <a href="/contact" class="ember-btn plan-cta">
-            Get started
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
+          <a href="/contact" class="ember-btn plan-cta">Start on Essentials<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         </article>
-
-        <!-- ── PLAN 2 ── -->
-        <article class="plan plan--key" id="plan-2" data-reveal>
+        <article class="plan" id="plan-2" data-reveal>
           <div class="plan-top">
             <span class="plan-num">Plan 2</span>
-            <span class="plan-flag"><span class="live-dot" aria-hidden="true"></span>Most chosen</span>
           </div>
+          <h3 class="plan-name">Local SEO</h3>
+          <p class="plan-for">For a business that wants to own its town on Google: citations, reviews, competitors watched.</p>
+          <div class="plan-price"><b>£500</b><span>/ month</span></div>
+          <div class="hours" aria-label="About 20 hours of work a month"><i aria-hidden="true"></i><span>About <b>20 hours</b> a month</span><em>£25 / hour</em></div>
 
           <div class="drop" aria-hidden="true">
             <div class="drop-head"><span>Lands every month</span><span>Plan 2</span></div>
             <div class="drop-rows">
-              <div class="drop-row drop-row--lit">
-                <span class="drop-label">Blogs</span>
-                <span class="drop-tiles"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                <span class="drop-count">8</span>
-              </div>
-              <div class="drop-row drop-row--lit">
-                <span class="drop-label">Pages</span>
-                <span class="drop-tiles"><i></i><i></i><i></i><i></i><i></i></span>
-                <span class="drop-count">5</span>
-              </div>
-              <div class="drop-row">
-                <span class="drop-label">Changes</span>
-                <span class="drop-tiles drop-tiles--dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                <span class="drop-count">25</span>
-              </div>
+              <div class="drop-row drop-row--lit"><span class="drop-label">Blogs</span><span class="drop-tiles"><i></i><i></i><i></i><i></i></span><span class="drop-count">4</span></div>
+              <div class="drop-row drop-row--lit"><span class="drop-label">Pages</span><span class="drop-tiles"><i></i><i></i></span><span class="drop-count">2</span></div>
+              <div class="drop-row"><span class="drop-label">Updates</span><span class="drop-tiles drop-tiles--dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="drop-count">10</span></div>
             </div>
           </div>
 
-          <h3 class="plan-name">Heavy Build &amp; Update</h3>
-          <p class="plan-for">For clients needing frequent rebuilds and high-volume edits.</p>
-          <div class="plan-price"><b>£950</b><span>/ month</span></div>
-
-          <ul class="plan-list">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Everything in Plan 1</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Ads management</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>8 blogs a month</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>5 page rebuilds a month</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 25 changes a month</li>
-          </ul>
+          <p class="plan-base">Everything in £250, plus</p>
+          <ul class="plan-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 blogs and 2 new pages a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Local citations and directory listings</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Monthly report on rankings, traffic and enquiries</li></ul>
 
           <div class="more">
             <button class="more-toggle" type="button" aria-expanded="false" aria-controls="detail-2">
@@ -693,131 +677,132 @@
               <span class="more-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
             </button>
             <div class="more-body" id="detail-2"><div>
-              <div class="more-item">
-                <b>Everything in Plan 1</b>
-                <p>Full SEO, fundamentals fixes, and 2 page builds a month, all included.</p>
-              </div>
-              <div class="more-item">
-                <b>Google Ads management</b>
-                <p>Ongoing management of the client's Google Ads campaigns.</p>
-              </div>
-              <div class="more-item">
-                <b>8 blogs / month</b>
-                <p>Eight blog posts written and published each month — double Plan 1's allowance. Blogs are one of the most effective ways to build topical authority and rank for a wider spread of search terms — fresh, regular content signals to Google that a site is active and worth crawling more often, which compounds rankings over time. At this volume, it's suited to sites actively competing for a broad range of keywords.</p>
-              </div>
-              <div class="more-item">
-                <b>5 page rebuilds / month</b>
-                <p>Five page builds or rebuilds included per month — well beyond Plan 1's allowance. If more pages are needed than the plan covers in a given month, the extra pages are built and billed on the following month's invoice.</p>
-              </div>
-              <div class="more-item">
-                <b>Up to 25 changes / month</b>
-                <p>A higher-volume allowance for page, blog, and product edits, on top of the page rebuilds.</p>
-              </div>
+              <p class="more-lead">Everything in £250, plus:</p>
+              <ul class="more-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 blogs a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 new pages a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 10 website updates a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Search Console and Bing Webmaster Tools setup</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Review link and QR code setup</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Local citations and directory listings</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Competitor tracking</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Monthly report on rankings, traffic and enquiries</li></ul>
             </div></div>
           </div>
 
-          <a href="/contact" class="ember-btn plan-cta">
-            Get started
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
+          <a href="/contact" class="ember-btn plan-cta">Start on Local SEO<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         </article>
+        <article class="plan" id="plan-3" data-reveal>
+          <div class="plan-top">
+            <span class="plan-num">Plan 3</span>
+          </div>
+          <h3 class="plan-name">Growth</h3>
+          <p class="plan-for">Search plus paid: Google Ads managed, every engine and Apple set up, a start on AI search.</p>
+          <div class="plan-price"><b>£750</b><span>/ month</span></div>
+          <div class="hours" aria-label="About 31 hours of work a month"><i aria-hidden="true"></i><span>About <b>31 hours</b> a month</span><em>£24.19 / hour</em></div>
 
+          <div class="drop" aria-hidden="true">
+            <div class="drop-head"><span>Lands every month</span><span>Plan 3</span></div>
+            <div class="drop-rows">
+              <div class="drop-row drop-row--lit"><span class="drop-label">Blogs</span><span class="drop-tiles"><i></i><i></i><i></i><i></i></span><span class="drop-count">4</span></div>
+              <div class="drop-row drop-row--lit"><span class="drop-label">Pages</span><span class="drop-tiles"><i></i><i></i><i></i></span><span class="drop-count">3</span></div>
+              <div class="drop-row"><span class="drop-label">Updates</span><span class="drop-tiles drop-tiles--dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="drop-count">15</span></div>
+            </div>
+          </div>
+
+          <p class="plan-base">Everything in £500, plus</p>
+          <ul class="plan-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 new pages a month, including 1 Google Ads landing page</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Ads setup and management, spend up to £1,000/mo</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Work to show up in AI search (Google AI Overviews, ChatGPT)</li></ul>
+
+          <div class="more">
+            <button class="more-toggle" type="button" aria-expanded="false" aria-controls="detail-3">
+              <span>Full plan details</span>
+              <span class="more-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="more-body" id="detail-3"><div>
+              <p class="more-lead">Everything in £500, plus:</p>
+              <ul class="more-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 new pages a month, including 1 Google Ads landing page</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 15 website updates a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google and Bing setup (Bing also covers Yahoo and DuckDuckGo)</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apple Business Connect setup, for Apple Maps and Siri</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Ads setup and management (ad spend up to £1,000/mo)</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Call and enquiry tracking</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Work to help the business show up in AI search (Google AI Overviews, ChatGPT)</li></ul>
+            </div></div>
+          </div>
+
+          <a href="/contact" class="ember-btn plan-cta">Start on Growth<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </article>
+        <article class="plan plan--key" id="plan-4" data-reveal>
+          <div class="plan-top">
+            <span class="plan-num">Plan 4</span><span class="plan-flag"><span class="live-dot" aria-hidden="true"></span>Best per hour</span>
+          </div>
+          <h3 class="plan-name">Dominate</h3>
+          <p class="plan-for">The full engine: more content, bigger ad budgets, links built, conversion tested, reports every fortnight.</p>
+          <div class="plan-price"><b>£1,000</b><span>/ month</span></div>
+          <div class="hours" aria-label="About 45 hours of work a month"><i aria-hidden="true"></i><span>About <b>45 hours</b> a month</span><em>£22.22 / hour</em></div>
+
+          <div class="drop" aria-hidden="true">
+            <div class="drop-head"><span>Lands every month</span><span>Plan 4</span></div>
+            <div class="drop-rows">
+              <div class="drop-row drop-row--lit"><span class="drop-label">Blogs</span><span class="drop-tiles"><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="drop-count">6</span></div>
+              <div class="drop-row drop-row--lit"><span class="drop-label">Pages</span><span class="drop-tiles"><i></i><i></i><i></i></span><span class="drop-count">3</span></div>
+              <div class="drop-row"><span class="drop-label">Updates</span><span class="drop-tiles drop-tiles--dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="drop-count">20</span></div>
+            </div>
+          </div>
+
+          <p class="plan-base">Everything in £750, plus</p>
+          <ul class="plan-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>6 blogs and 3 new pages a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Ads management for spend up to £2,500/mo</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Conversion testing, link building and a report every 2 weeks</li></ul>
+
+          <div class="more">
+            <button class="more-toggle" type="button" aria-expanded="false" aria-controls="detail-4">
+              <span>Full plan details</span>
+              <span class="more-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+            </button>
+            <div class="more-body" id="detail-4"><div>
+              <p class="more-lead">Everything in £750, plus:</p>
+              <ul class="more-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>6 blogs a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 new pages a month (service, area or ads landing pages)</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 20 website updates a month</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google, Bing, Yahoo, DuckDuckGo and Apple all set up</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Ads management for ad spend up to £2,500/mo</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Conversion improvements (A/B testing on forms, calls to action and page layouts)</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Link building (2 links a month)</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>A report every 2 weeks instead of monthly</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priority support, with replies within 24 hours</li></ul>
+            </div></div>
+          </div>
+
+          <a href="/contact" class="ember-btn plan-cta">Start on Dominate<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ══════════ ALLOWANCE COMPARISON ══════════ -->
+  <!-- ══════════ COMPARE ══════════ -->
   <section class="compare" aria-labelledby="compareTitle">
     <div class="container">
       <div class="sec-head">
         <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Side by side</span></div>
-        <h2 class="sec-title" id="compareTitle" data-reveal>What the extra <span class="dim">£450 buys.</span></h2>
-        <p class="sec-sub" data-reveal>The same three allowances, drawn to scale. Plan 2 roughly doubles the content and more than doubles the build and edit volume.</p>
+        <h2 class="sec-title" id="compareTitle" data-reveal>What each step up <span class="dim">actually buys.</span></h2>
+        <p class="sec-sub" data-reveal>The four allowances, drawn to scale. Hours are the honest measure: the price per hour falls as you go up.</p>
       </div>
-
       <div class="compare-panel" id="comparePanel">
-        <div class="compare-legend" aria-hidden="true">
-          <span><i class="swatch-1"></i>Plan 1 — £500</span>
-          <span><i class="swatch-2"></i>Plan 2 — £950</span>
-        </div>
-
-        <div class="metric">
-          <p class="metric-name">Blogs published / month</p>
-          <div class="bar"><span class="bar-key">Plan 1</span><span class="bar-track"><span class="bar-fill bar-1" style="--w:32%"></span></span><span class="bar-val">4</span></div>
-          <div class="bar"><span class="bar-key">Plan 2</span><span class="bar-track"><span class="bar-fill bar-2" style="--w:64%"></span></span><span class="bar-val">8</span></div>
-        </div>
-
-        <div class="metric">
-          <p class="metric-name">Page builds &amp; rebuilds / month</p>
-          <div class="bar"><span class="bar-key">Plan 1</span><span class="bar-track"><span class="bar-fill bar-1" style="--w:16%"></span></span><span class="bar-val">2</span></div>
-          <div class="bar"><span class="bar-key">Plan 2</span><span class="bar-track"><span class="bar-fill bar-2" style="--w:40%"></span></span><span class="bar-val">5</span></div>
-        </div>
-
-        <div class="metric">
-          <p class="metric-name">Site changes / month</p>
-          <div class="bar"><span class="bar-key">Plan 1</span><span class="bar-track"><span class="bar-fill bar-1" style="--w:40%"></span></span><span class="bar-val">10</span></div>
-          <div class="bar"><span class="bar-key">Plan 2</span><span class="bar-track"><span class="bar-fill bar-2" style="--w:100%"></span></span><span class="bar-val">25</span></div>
-        </div>
-
-        <p class="compare-note">
-          Plan 2 also adds Google Ads management. Go over an allowance in a given month and the
-          extra work is built and billed on the following month's invoice — nothing stops mid-month.
-        </p>
+        <div class="compare-legend" aria-hidden="true"><span><i class="sw-1"></i>Essentials · £250</span><span><i class="sw-2"></i>Local SEO · £500</span><span><i class="sw-3"></i>Growth · £750</span><span><i class="sw-4"></i>Dominate · £1,000</span></div>
+        <div class="metric"><p class="metric-name">Blogs a month</p><div class="bar"><span class="bar-key">Essentials</span><span class="bar-track"><span class="bar-fill bar-1" style="--w:33%"></span></span><span class="bar-val">2</span></div><div class="bar"><span class="bar-key">Local SEO</span><span class="bar-track"><span class="bar-fill bar-2" style="--w:67%"></span></span><span class="bar-val">4</span></div><div class="bar"><span class="bar-key">Growth</span><span class="bar-track"><span class="bar-fill bar-3" style="--w:67%"></span></span><span class="bar-val">4</span></div><div class="bar"><span class="bar-key">Dominate</span><span class="bar-track"><span class="bar-fill bar-4" style="--w:100%"></span></span><span class="bar-val">6</span></div></div><div class="metric"><p class="metric-name">New pages a month</p><div class="bar"><span class="bar-key">Essentials</span><span class="bar-track"><span class="bar-fill bar-1" style="--w:33%"></span></span><span class="bar-val">1</span></div><div class="bar"><span class="bar-key">Local SEO</span><span class="bar-track"><span class="bar-fill bar-2" style="--w:67%"></span></span><span class="bar-val">2</span></div><div class="bar"><span class="bar-key">Growth</span><span class="bar-track"><span class="bar-fill bar-3" style="--w:100%"></span></span><span class="bar-val">3</span></div><div class="bar"><span class="bar-key">Dominate</span><span class="bar-track"><span class="bar-fill bar-4" style="--w:100%"></span></span><span class="bar-val">3</span></div></div><div class="metric"><p class="metric-name">Website updates a month</p><div class="bar"><span class="bar-key">Essentials</span><span class="bar-track"><span class="bar-fill bar-1" style="--w:25%"></span></span><span class="bar-val">5</span></div><div class="bar"><span class="bar-key">Local SEO</span><span class="bar-track"><span class="bar-fill bar-2" style="--w:50%"></span></span><span class="bar-val">10</span></div><div class="bar"><span class="bar-key">Growth</span><span class="bar-track"><span class="bar-fill bar-3" style="--w:75%"></span></span><span class="bar-val">15</span></div><div class="bar"><span class="bar-key">Dominate</span><span class="bar-track"><span class="bar-fill bar-4" style="--w:100%"></span></span><span class="bar-val">20</span></div></div><div class="metric"><p class="metric-name">Hours of work a month</p><div class="bar"><span class="bar-key">Essentials</span><span class="bar-track"><span class="bar-fill bar-1" style="--w:22%"></span></span><span class="bar-val">10</span></div><div class="bar"><span class="bar-key">Local SEO</span><span class="bar-track"><span class="bar-fill bar-2" style="--w:44%"></span></span><span class="bar-val">20</span></div><div class="bar"><span class="bar-key">Growth</span><span class="bar-track"><span class="bar-fill bar-3" style="--w:69%"></span></span><span class="bar-val">31</span></div><div class="bar"><span class="bar-key">Dominate</span><span class="bar-track"><span class="bar-fill bar-4" style="--w:100%"></span></span><span class="bar-val">45</span></div></div>
+        <p class="compare-note">Go over an allowance in a month and the extra is quoted at £50 an hour and billed on the next invoice. Nothing stops mid-month.</p>
       </div>
     </div>
   </section>
 
-  <!-- ══════════ WEBSITE REBUILD ══════════ -->
-  <section class="rebuild" id="rebuild" aria-labelledby="rebuildTitle">
+  <!-- ══════════ WHERE YOU SHOW UP ══════════ -->
+  <section class="where" id="where" aria-labelledby="whereTitle">
     <div class="container">
-      <div class="rebuild-panel" data-reveal>
-        <div>
-          <div class="sec-eyebrow"><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Plan 3 · quoted per project</span></div>
-          <h3 id="rebuildTitle">Website Rebuild</h3>
-          <p>
-            Got an outdated site, or poor mobile and desktop layouts? We'll build you a brand new
-            website and layout, quoted per project. Pages are built with on-page SEO fundamentals in
-            place from the start — structure, code and layout all built to be readable and rankable
-            by Google — but this is a one-off build, not ongoing optimisation. No continued content
-            or re-optimisation work is included. On completion, SEO&nbsp;+&nbsp;Fixes&nbsp;+&nbsp;Growth or
-            Heavy Build&nbsp;&amp;&nbsp;Update is recommended as the natural next step to keep improving
-            rankings after launch.
-          </p>
-          <a href="/contact" class="ember-btn">
-            Get a quote
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-
-        <!-- graphic: a broken layout rebuilt into a clean, crawlable one -->
-        <svg class="wire" viewBox="0 0 420 260" fill="none" aria-hidden="true">
-          <g class="old">
-            <text class="cap" x="0" y="12">Before</text>
-            <rect x="0"  y="26"  width="112" height="20" rx="4"/>
-            <rect x="0"  y="54"  width="150" height="9"  rx="3"/>
-            <rect x="0"  y="70"  width="128" height="9"  rx="3"/>
-            <rect x="0"  y="94"  width="66"  height="52" rx="5"/>
-            <rect x="74" y="102" width="76"  height="44" rx="5"/>
-            <rect x="0"  y="158" width="96"  height="9"  rx="3"/>
-            <rect x="0"  y="174" width="150" height="9"  rx="3"/>
-            <rect x="0"  y="198" width="54"  height="26" rx="6"/>
-          </g>
-          <path class="arrow" d="M182 128 h44" stroke-linecap="round"/>
-          <path class="arrow" d="M218 121 l8 7 -8 7" stroke-linecap="round" stroke-linejoin="round"/>
-          <g class="new" transform="translate(258,0)">
-            <text class="cap cap-hot" x="0" y="12">After</text>
-            <rect class="hot" x="0" y="26" width="162" height="24" rx="6"/>
-            <rect x="0"   y="58"  width="162" height="9" rx="3"/>
-            <rect x="0"   y="74"  width="118" height="9" rx="3"/>
-            <rect x="0"   y="98"  width="50"  height="50" rx="6"/>
-            <rect x="56"  y="98"  width="50"  height="50" rx="6"/>
-            <rect x="112" y="98"  width="50"  height="50" rx="6"/>
-            <rect x="0"   y="158" width="162" height="9" rx="3"/>
-            <rect x="0"   y="174" width="134" height="9" rx="3"/>
-            <rect class="hot" x="0" y="198" width="86" height="28" rx="8"/>
-          </g>
-        </svg>
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Coverage</span></div>
+        <h2 class="sec-title" id="whereTitle" data-reveal>Where you <span class="dim">show up.</span></h2>
+        <p class="sec-sub" data-reveal>Google is where most searches happen, but not all of them. Pick a plan to see which places get set up and kept current.</p>
       </div>
+      <div class="sw" id="surfaces" data-reveal>
+        <div class="sw-tabs" role="tablist" aria-label="Plan"><button class="sw-tab is-on" type="button" role="tab" id="swtab-0" aria-selected="true" aria-controls="swpanel" data-plan="0"><b>£250</b><span>Essentials</span></button><button class="sw-tab" type="button" role="tab" id="swtab-1" aria-selected="false" aria-controls="swpanel" data-plan="1"><b>£500</b><span>Local SEO</span></button><button class="sw-tab" type="button" role="tab" id="swtab-2" aria-selected="false" aria-controls="swpanel" data-plan="2"><b>£750</b><span>Growth</span></button><button class="sw-tab" type="button" role="tab" id="swtab-3" aria-selected="false" aria-controls="swpanel" data-plan="3"><b>£1,000</b><span>Dominate</span></button></div>
+        <div class="sw-panel" id="swpanel" role="tabpanel" aria-labelledby="swtab-0">
+          <ul class="sw-list"><li class="sf" data-sf="0"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><span>Google Search</span></li><li class="sf" data-sf="1"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><span>Google Business Profile</span></li><li class="sf" data-sf="2"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><span>Bing</span></li><li class="sf" data-sf="3"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><span>Yahoo</span></li><li class="sf" data-sf="4"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><span>DuckDuckGo</span></li><li class="sf" data-sf="5"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><span>Apple Maps &amp; Siri</span></li><li class="sf" data-sf="6"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><span>Google Ads</span></li><li class="sf" data-sf="7"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><span>AI search</span></li></ul>
+          <div class="sw-reads">
+            <div class="sw-read"><b>Google Ads</b><span id="swAds"></span></div>
+            <div class="sw-read"><b>Reporting</b><span id="swReport"></span></div>
+            <div class="sw-read"><b>Support</b><span id="swSupport"></span></div>
+          </div>
+          <p class="sw-foot"><span id="swCount"></span> of 8 places covered on <b id="swName"></b>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ TERMS ══════════ -->
+  <section class="terms" aria-labelledby="termsTitle">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-eyebrow" data-reveal><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Terms for every plan</span></div>
+        <h2 class="sec-title" id="termsTitle" data-reveal>The same six terms, <span class="dim">whichever plan you pick.</span></h2>
+      </div>
+      <ul class="terms-grid"><li data-reveal><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><div><b>3-month minimum</b><span>then rolling monthly with 30 days’ notice.</span></div></li><li data-reveal><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><div><b>Ad spend is separate</b><span>paid directly to Google and not included in the price.</span></div></li><li data-reveal><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><div><b>Allowances do not roll over</b><span>unused blogs, pages and updates end with the month.</span></div></li><li data-reveal><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><div><b>You own everything</b><span>your website content, Google accounts and ad accounts.</span></div></li><li data-reveal><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><div><b>Extra work is £50 an hour</b><span>quoted before it starts, billed on the next invoice.</span></div></li><li data-reveal><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></i><div><b>Move up or down any time</b><span>plans change at the next month, no fee to switch.</span></div></li></ul>
     </div>
   </section>
 
@@ -828,45 +813,20 @@
         <div>
           <div class="sec-eyebrow"><span class="sec-eyebrow-mark" aria-hidden="true">●</span><span class="sec-eyebrow-text">Not sure which fits</span></div>
           <h2 id="ctaTitle">Tell us where your <span class="dim">site is today.</span></h2>
-          <p>
-            Every business is different, and your website's needs might sit between plans. Tell us
-            where your site is today and we'll recommend the right level of support — no pressure,
-            no upselling.
-          </p>
-          <p class="lead">If a cheaper plan is the right one, that's the one we'll say.</p>
+          <p>Most businesses sit between two plans. Tell us where your site is now and we will say which level fits, and why. If the cheaper plan is the right one, that is the one we will recommend.</p>
+          <p class="lead">Need a site first? Fixed-price builds start at £150, quoted within a working day.</p>
           <div class="cta-actions">
-            <a href="/contact" class="ember-btn">
-              Book a free consultation
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </a>
-            <a href="mailto:thomas@yourdigiteam.com" class="ghost-btn">Email us instead</a>
+            <a href="/contact" class="ember-btn">Book a free consultation<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            <a href="/web-design-quote" class="ghost-btn">Get a build quote</a>
           </div>
         </div>
-
-        <!-- graphic: the three tiers plotted as one rising curve -->
         <svg class="curve" id="priceCurve" viewBox="0 0 420 250" fill="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="ydtPriceFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#ff4536" stop-opacity="0.22"/>
-              <stop offset="1" stop-color="#ff4536" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <g class="grid-l">
-            <line x1="0" y1="60"  x2="420" y2="60"/>
-            <line x1="0" y1="120" x2="420" y2="120"/>
-            <line x1="0" y1="180" x2="420" y2="180"/>
-          </g>
-          <path class="area" d="M44 186 C120 178 150 150 216 116 C280 84 320 58 386 40 L386 210 L44 210 Z"/>
-          <path class="line" d="M44 186 C120 178 150 150 216 116 C280 84 320 58 386 40"/>
-          <circle class="node" cx="44"  cy="186" r="5.5"/>
-          <circle class="node" cx="216" cy="116" r="5.5"/>
-          <circle class="node" cx="386" cy="40"  r="5.5"/>
-          <text class="val" x="14"  y="216">£500</text>
-          <text class="lbl" x="14"  y="232">Plan 1</text>
-          <text class="val" x="188" y="216">£950</text>
-          <text class="lbl" x="188" y="232">Plan 2</text>
-          <text class="val" x="336" y="216">Quoted</text>
-          <text class="lbl" x="336" y="232">Rebuild</text>
+          <defs><linearGradient id="ydtPriceFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4536" stop-opacity="0.22"/><stop offset="1" stop-color="#ff4536" stop-opacity="0"/></linearGradient></defs>
+          <g class="grid-l"><line x1="0" y1="60" x2="420" y2="60"/><line x1="0" y1="120" x2="420" y2="120"/><line x1="0" y1="180" x2="420" y2="180"/></g>
+          <path class="area" d="M44 186 C101 186 101 137 158 137 C215 137 215 89 272 89 C329 89 329 40 386 40 L386 210 L44 210 Z"/>
+          <path class="line" d="M44 186 C101 186 101 137 158 137 C215 137 215 89 272 89 C329 89 329 40 386 40"/>
+          <circle class="node" cx="44" cy="186" r="5.5"/><circle class="node" cx="158" cy="137" r="5.5"/><circle class="node" cx="272" cy="89" r="5.5"/><circle class="node" cx="386" cy="40" r="5.5"/>
+          <text class="val" x="14" y="216">£250</text><text class="lbl" x="14" y="232">Essentials</text><text class="val" x="128" y="216">£500</text><text class="lbl" x="128" y="232">Local SEO</text><text class="val" x="242" y="216">£750</text><text class="lbl" x="242" y="232">Growth</text><text class="val" x="356" y="216">£1,000</text><text class="lbl" x="356" y="232">Dominate</text>
         </svg>
       </div>
     </div>
@@ -874,7 +834,6 @@
 
 </main>
 </div>
-
 <script>
 (function () {
   'use strict';
@@ -933,6 +892,50 @@
       fill.style.transitionDelay = (0.09 * i) + 's';
     });
   }
+
+
+  /* ══════ PLAN SWITCHER (where you show up) ══════
+     One data table drives the chips and the three readouts. */
+  var SW = [{"on": [0, 1], "ads": "Not included", "report": "Monthly strategy call", "support": "Standard", "name": "Essentials"}, {"on": [0, 1, 2], "ads": "Not included", "report": "Monthly report and call", "support": "Standard", "name": "Local SEO"}, {"on": [0, 1, 2, 3, 4, 5, 6, 7], "ads": "Ad spend up to £1,000 a month", "report": "Monthly report and call", "support": "Standard", "name": "Growth"}, {"on": [0, 1, 2, 3, 4, 5, 6, 7], "ads": "Ad spend up to £2,500 a month", "report": "A report every 2 weeks", "support": "Priority, replies within 24 hours", "name": "Dominate"}];
+  var swTabs = document.querySelectorAll('.ydt-page .sw-tab');
+  var swChips = document.querySelectorAll('.ydt-page .sf');
+  var swAds = document.getElementById('swAds'), swReport = document.getElementById('swReport'), swSupport = document.getElementById('swSupport'), swCount = document.getElementById('swCount'), swName = document.getElementById('swName'), swPanel = document.getElementById('swpanel');
+  function swShow(k) {
+    var d = SW[k];
+    swTabs.forEach(function (t, i) { var on = i === k; t.classList.toggle('is-on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1; });
+    swPanel.setAttribute('aria-labelledby', 'swtab-' + k);
+    swChips.forEach(function (c, i) {
+      var was = c.classList.contains('is-on'), now = d.on.indexOf(i) !== -1;
+      c.classList.toggle('is-on', now); c.classList.toggle('is-new', now && !was);
+      if (now && !was) setTimeout(function () { c.classList.remove('is-new'); }, 500);
+    });
+    [swAds, swReport, swSupport].forEach(function (el) { el.classList.add('is-swap'); });
+    setTimeout(function () {
+      swAds.textContent = d.ads; swReport.textContent = d.report; swSupport.textContent = d.support;
+      [swAds, swReport, swSupport].forEach(function (el) { el.classList.remove('is-swap'); });
+    }, reduceMotion ? 0 : 160);
+    swCount.textContent = String(d.on.length); swName.textContent = d.name;
+  }
+  if (swTabs.length) {
+    swTabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { swShow(i); });
+      t.addEventListener('keydown', function (e) {
+        var n = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = (i + 1) % swTabs.length;
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = (i - 1 + swTabs.length) % swTabs.length;
+        if (n !== null) { e.preventDefault(); swShow(n); swTabs[n].focus(); }
+      });
+    });
+    swShow(0);
+  }
+
+  /* ══════ HERO PRICES COUNT UP ══════ */
+  if (!reduceMotion) document.querySelectorAll('.ydt-page .rail [data-count]').forEach(function (b, i) {
+    var to = +b.getAttribute('data-count'), t0 = null;
+    function f(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0 - i * 90) / 1100); if (p < 0) p = 0; p = 1 - Math.pow(1 - p, 3);
+      b.textContent = '\u00a3' + Math.round(to * p).toLocaleString('en-GB'); if (p < 1) requestAnimationFrame(f); }
+    requestAnimationFrame(f);
+  });
 
   /* ══════ SMOOTH JUMP FROM THE PRICE RAIL ══════ */
   document.querySelectorAll('.ydt-page .rail a[href^="#"]').forEach(function (a) {
