@@ -115,6 +115,7 @@ p + p{margin-top:1em;}
   margin:14px;font-family:var(--head);font-weight:700;font-size:11px;
   letter-spacing:.14em;text-transform:uppercase;color:#5D6670;
 }
+.img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .img-16x9{aspect-ratio:16/9;}
 .img-4x3{aspect-ratio:4/3;}
 .img-3x4{aspect-ratio:3/4;}
@@ -130,16 +131,10 @@ p + p{margin-top:1em;}
   color:var(--white);
 }
 /* set the photograph here */
-.hero{--img:none;}
+.hero{--img:url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1800&q=75&auto=format&fit=crop');}
 .hero-photo{
   position:absolute;inset:0;
   background:var(--img) center/cover no-repeat,var(--grey-3);
-}
-.hero-photo::after{                   /* placeholder tag; remove with photo */
-  content:"Hero photograph";
-  position:absolute;top:24px;right:32px;
-  font-family:var(--head);font-weight:700;font-size:11px;
-  letter-spacing:.14em;text-transform:uppercase;color:#4E5760;
 }
 .hero-panel{
   position:relative;width:100%;
@@ -315,7 +310,6 @@ p + p{margin-top:1em;}
   body{font-size:16px;}
   .hero{min-height:0;display:block;}
   .hero-photo{position:relative;height:62vw;max-height:360px;}
-  .hero-photo::after{top:16px;right:18px;}
   .hero-cta .btn{width:100%;justify-content:center;}
   .quick .wrap{flex-direction:column;align-items:flex-start;}
   .services,.fact{grid-template-columns:1fr;}
@@ -434,7 +428,7 @@ p + p{margin-top:1em;}
   <!-- ================= COVERAGE ================= -->
   <section class="band band--grey coverage" aria-labelledby="cov-h">
     <div class="wrap">
-      <div class="img img-4x3"><span>Photograph — office reception</span></div>
+      <div class="img img-4x3"><img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&q=75&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=900&q=75&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1400&q=75&auto=format&fit=crop 1400w" sizes="(max-width:680px) 100vw, (max-width:1024px) 50vw, 33vw" alt="Modern office reception area kept clean and presentable" loading="lazy"></div>
       <div>
         <p class="t-label">Where we work</p>
         <h2 class="t-1" id="cov-h">Based in east London. Working across the country.</h2>
@@ -469,7 +463,7 @@ p + p{margin-top:1em;}
       <div class="services">
 
         <article class="service">
-          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="img img-16x9"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=75&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=75&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=75&auto=format&fit=crop 1400w" sizes="(max-width:680px) 100vw, (max-width:1024px) 50vw, 33vw" alt="Clean, empty modern office floor" loading="lazy"></div>
           <div class="service-body">
             <h3 class="t-2">Contract Cleaning</h3>
             <p>We offer bespoke and flexible contract cleaning services to office, retail, construction and clients in London and across England. We provide an impeccable standard of cleaning and excellent customer service at competitive prices. Our contract cleaners are dedicated, smart and certified. We conduct regular site visits to ensure that our customers are always satisfied.</p>
@@ -478,7 +472,7 @@ p + p{margin-top:1em;}
         </article>
 
         <article class="service">
-          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="img img-16x9"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&q=75&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&q=75&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1400&q=75&auto=format&fit=crop 1400w" sizes="(max-width:680px) 100vw, (max-width:1024px) 50vw, 33vw" alt="Office with glass partitions and meeting rooms" loading="lazy"></div>
           <div class="service-body">
             <h3 class="t-2">Office Cleaning</h3>
             <p>Office cleaning gives a good first impression to your customers and visitors, as well as enhancing your staff's physical and emotional wellbeing. Our professional office cleaning staff are vetted, trained and supported by our experienced management team. Our office cleaning team will work to reducing allergens, dust, and mould. We are also working hard to make your premises safe against Covid.</p>
@@ -487,7 +481,7 @@ p + p{margin-top:1em;}
         </article>
 
         <article class="service">
-          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="img img-16x9"><img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=900&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&q=75&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=900&q=75&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1400&q=75&auto=format&fit=crop 1400w" sizes="(max-width:680px) 100vw, (max-width:1024px) 50vw, 33vw" alt="Construction site nearing handover" loading="lazy"></div>
           <div class="service-body">
             <h3 class="t-2">Builders Clean</h3>
             <p>At the end of any new building, refurbishment or renovation project, the last trade on site before that all important handover, is us; your specialist post construction cleaners. We have worked on projects of varying sizes in London and across the UK; removing the dust and grime. We can provide professional, quality after builders clean, 'or final clean', 'sparkle clean' or 'construction site cleaning'.</p>
@@ -496,7 +490,7 @@ p + p{margin-top:1em;}
         </article>
 
         <article class="service">
-          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="img img-16x9"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=75&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=75&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&q=75&auto=format&fit=crop 1400w" sizes="(max-width:680px) 100vw, (max-width:1024px) 50vw, 33vw" alt="Site office with drawings on the desk" loading="lazy"></div>
           <div class="service-body">
             <h3 class="t-2">Welfare Area Cleaning</h3>
             <p>On any construction site, keeping your welfare facilities clean and hygienic is vital. We offer an excellent, cost effective and consistent building site cabin cleaning service at a frequency to suit your requirements from ad-hoc or daily welfare cleaning services to a weekly welfare cleaning service. We cover all types of welfare from small office accommodation to multi-bay construction site offices.</p>
@@ -505,7 +499,7 @@ p + p{margin-top:1em;}
         </article>
 
         <article class="service">
-          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="img img-16x9"><img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=75&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&q=75&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1400&q=75&auto=format&fit=crop 1400w" sizes="(max-width:680px) 100vw, (max-width:1024px) 50vw, 33vw" alt="Communal lounge in a residential block" loading="lazy"></div>
           <div class="service-body">
             <h3 class="t-2">Communal Block Cleaning</h3>
             <p>We provide communal area cleaning services to housing associations, property management companies and residence associations. We can clean and maintain common areas including staircases, reception areas, post boxes and windows (internally and externally). If you are a landlord or property management company, we carry out communal block cleaning services at competitive rates.</p>
@@ -514,7 +508,7 @@ p + p{margin-top:1em;}
         </article>
 
         <article class="service">
-          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="img img-16x9"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=900&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&q=75&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=900&q=75&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1400&q=75&auto=format&fit=crop 1400w" sizes="(max-width:680px) 100vw, (max-width:1024px) 50vw, 33vw" alt="Freshly cleaned living room ready for new tenants" loading="lazy"></div>
           <div class="service-body">
             <h3 class="t-2">Pre/Post Tenancy Cleans</h3>
             <p>Pre-tenancy cleaning gives the benefit of a clean and fresh start when moving into a new property. The purpose of post-tenancy cleaning is to ensure all rooms are spotless. During the end of tenancy cleaning service all floors are swept and mopped, carpets are hoovered, skirting boards cleaned, all corners and furniture are dusted, and the bathroom and kitchen are thoroughly cleaned and sanitised.</p>
@@ -523,7 +517,7 @@ p + p{margin-top:1em;}
         </article>
 
         <article class="service">
-          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="img img-16x9"><img src="https://images.unsplash.com/photo-1558317374-067fb5f30001?w=900&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1558317374-067fb5f30001?w=600&q=75&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1558317374-067fb5f30001?w=900&q=75&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1558317374-067fb5f30001?w=1400&q=75&auto=format&fit=crop 1400w" sizes="(max-width:680px) 100vw, (max-width:1024px) 50vw, 33vw" alt="Vacuum cleaner on a carpeted floor" loading="lazy"></div>
           <div class="service-body">
             <h3 class="t-2">Carpet &amp; Floor Cleaning</h3>
             <p>Your home or office carpets and flooring can easily become breeding grounds for bacteria and other undesirable microorganisms. We recommend regular carpet cleaning to keep them not only looking good but keeping your environment fresh and healthy. Kemp Services provides a bespoke carpet cleaning service, regardless of the fabric your flooring is made from. We can help restore the look of tired and stained carpets.</p>
@@ -532,7 +526,7 @@ p + p{margin-top:1em;}
         </article>
 
         <article class="service">
-          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="img img-16x9"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=900&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=75&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=900&q=75&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1400&q=75&auto=format&fit=crop 1400w" sizes="(max-width:680px) 100vw, (max-width:1024px) 50vw, 33vw" alt="Bathroom being deep cleaned" loading="lazy"></div>
           <div class="service-body">
             <h3 class="t-2">Deep Cleaning</h3>
             <p>The reasons why people choose a deep cleaning service vary. The most common ones include:</p>
@@ -546,7 +540,7 @@ p + p{margin-top:1em;}
         </article>
 
         <article class="service">
-          <div class="img img-16x9"><span>Photograph</span></div>
+          <div class="img img-16x9"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=75&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=75&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&q=75&auto=format&fit=crop 1400w" sizes="(max-width:680px) 100vw, (max-width:1024px) 50vw, 33vw" alt="Glass office towers with clean windows" loading="lazy"></div>
           <div class="service-body">
             <h3 class="t-2">Window Cleaning</h3>
             <p>We provide a commercial window cleaning service throughout London and across the UK. We have worked for many commercial and residential clients to ensure that their windows are sparkling clean. Our certified professional window cleaners are experts in transforming old and dirty windows into gleaming, sparkling pieces of glazing. Learn more about our contract window cleaning service today.</p>
@@ -581,7 +575,7 @@ p + p{margin-top:1em;}
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Regular site inspections</li>
         </ul>
       </div>
-      <div class="img img-3x4"><span>Photograph — cleaning operative</span></div>
+      <div class="img img-3x4"><img src="https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=1000&q=75&auto=format&fit=crop" srcset="https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=600&q=75&auto=format&fit=crop 600w, https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=900&q=75&auto=format&fit=crop 900w, https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?w=1400&q=75&auto=format&fit=crop 1400w" sizes="(max-width:680px) 100vw, (max-width:1024px) 50vw, 33vw" alt="Gloved cleaning operative wiping down a work surface" loading="lazy"></div>
     </div>
   </section>
 
