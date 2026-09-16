@@ -21,12 +21,14 @@ body{
 }
 img{display:block;max-width:100%;}
 a{text-decoration:none;color:inherit;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
 
 /* Split hero: solid navy for the words, the photograph left untouched
    on the right so it stays bright instead of turning to mud. */
 .hero{
   position:relative;
-  min-height:100svh;
+  /* leaves room for the strip, so hero + strip fill one screen */
+  min-height:calc(100svh - 92px);
   display:grid;
   grid-template-columns:1fr 1fr;
   align-items:center;
@@ -147,8 +149,121 @@ p{
   .actions{gap:14px;}
 }
 
+/* ---------- trusted by strip ---------- */
+.trusted{
+  position:relative;
+  background:#122A38;
+  border-top:1px solid rgba(111,191,229,.22);
+  height:92px;
+}
+.tw{
+  display:flex;
+  align-items:center;
+  gap:32px;
+  height:100%;
+  padding-inline:max(40px, calc((100vw - 1280px)/2 + 40px)) 40px;
+}
+.tlabel{
+  flex:none;
+  margin:0;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  color:var(--sky);
+}
+
+/* the checkbox is the real control; the label beside it is its button */
+.cb{
+  position:absolute;
+  width:1px;height:1px;
+  opacity:0;
+  pointer-events:none;
+}
+
+.marquee{
+  flex:1;
+  min-width:0;
+  overflow:hidden;
+  /* items fade in and out at the edges rather than being cut off */
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);
+}
+.track{
+  display:flex;
+  width:max-content;
+  animation:marquee 46s linear infinite;
+}
+@keyframes marquee{ to{ transform:translateX(-50%); } }
+
+.marquee:hover .track{animation-play-state:paused;}
+.cb:checked ~ .marquee .track{animation-play-state:paused;}
+
+.group{
+  display:flex;
+  align-items:center;
+  gap:0;
+  margin:0;padding:0;
+  list-style:none;
+}
+.group li{
+  display:flex;
+  align-items:center;
+  gap:34px;
+  padding-right:34px;
+  color:#fff;
+  font-size:1.05rem;
+  font-weight:500;
+  letter-spacing:-.01em;
+  white-space:nowrap;
+}
+.group li::after{
+  content:"";
+  width:6px;height:6px;
+  flex:none;
+  background:var(--sky);
+  transform:rotate(45deg);
+}
+
+.pbtn{
+  flex:none;
+  display:grid;
+  place-items:center;
+  width:44px;height:44px;
+  color:#9FC4D8;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.2);
+}
+.pbtn:hover{color:#fff;border-color:rgba(255,255,255,.45);}
+.pbtn svg{width:14px;height:14px;}
+.pbtn .i-play{display:none;}
+.cb:checked ~ .pbtn .i-play{display:block;}
+.cb:checked ~ .pbtn .i-pause{display:none;}
+.cb:focus-visible ~ .pbtn{outline:3px solid var(--sky);outline-offset:2px;}
+
+@media (max-width:860px){
+  .trusted{height:auto;padding:18px 0 20px;}
+  .tw{
+    flex-wrap:wrap;
+    gap:12px 16px;
+    padding-inline:20px;
+  }
+  .tlabel{width:100%;}
+  .group li{font-size:.98rem;gap:26px;padding-right:26px;}
+  /* a longer fade, since the strip is much narrower here */
+  .marquee{
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 15%,#000 85%,transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 15%,#000 85%,transparent 100%);
+  }
+}
+
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;}
+  /* nothing moves on its own; the strip becomes a swipeable list */
+  .track{animation:none;}
+  .marquee{overflow-x:auto;}
+  .track .group[aria-hidden="true"]{display:none;}
+  .pbtn{display:none;}
 }
 </style>
 </head>
@@ -175,6 +290,45 @@ p{
         </a>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="trusted" aria-labelledby="trusted-label">
+  <div class="tw">
+    <p class="tlabel" id="trusted-label">Trusted by</p>
+
+    <input class="cb" type="checkbox" id="mpause">
+
+    <div class="marquee">
+      <div class="track">
+        <ul class="group">
+          <li>Housing associations</li>
+          <li>Main contractors</li>
+          <li>Managing agents</li>
+          <li>Property management companies</li>
+          <li>Office landlords</li>
+          <li>Retail groups</li>
+          <li>Construction sites</li>
+          <li>Warehousing &amp; logistics</li>
+        </ul>
+        <ul class="group" aria-hidden="true">
+          <li>Housing associations</li>
+          <li>Main contractors</li>
+          <li>Managing agents</li>
+          <li>Property management companies</li>
+          <li>Office landlords</li>
+          <li>Retail groups</li>
+          <li>Construction sites</li>
+          <li>Warehousing &amp; logistics</li>
+        </ul>
+      </div>
+    </div>
+
+    <label class="pbtn" for="mpause">
+      <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+      <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5 20 12 7 19.5Z"/></svg>
+      <span class="sr-only">Pause the scrolling list</span>
+    </label>
   </div>
 </section>
 
