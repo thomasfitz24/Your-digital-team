@@ -1,0 +1,166 @@
+<!-- ═══════════════════════════════════════════════════════════════
+     SITE FOOTER — a sign-off, not a sitemap
+     Self-contained: styles, markup and script in this one block.
+     Fonts: NB International Pro with Inter behind it; IBM Plex Mono
+     for the small labels. Same faces as the header.
+
+     The idea: the old footer was a card full of columns. This one is
+     the last line of the page. One sentence, the email at display
+     size, a single row of links, where we are and what time it is
+     there, and the wordmark set enormous and cropped at the bottom
+     edge like a sign-off. Motion is quiet: the wordmark rises in once,
+     the clock ticks, links brighten on hover.
+
+     To use it in place of the injected footer: put
+       <div data-site-footer></div>
+     nowhere (the injection builds its own), and instead remove the
+     footer part of header-injection.html, or ask me to merge this in.
+
+     Before it goes live:
+       1. the social links are still '#' — paste the real profiles
+       2. PROPRIETOR and SERVICE_ADDRESS in the legal line, if you want
+          them shown (UK business-names rules for a sole trader)
+     ═══════════════════════════════════════════════════════════════ -->
+<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/nb-international-pro">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+.ydt-foot { --black:#050505; --panel:#0b0a09; --white:#f4f2f0; --gray4:#c9c3bd; --gray5:#918a84; --gray6:#5e5852;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14); --data:#ff4536; --data-bright:#ff6152; --data-deep:#d81e0d; --data-dim:rgba(255,69,54,.14);
+  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace; --ease:cubic-bezier(.22,1,.36,1);
+  -webkit-text-size-adjust:100%; text-size-adjust:100%; position:relative; overflow:clip; isolation:isolate;
+  background:var(--black); color:var(--white); font-family:'NB International Pro','Inter',Arial,sans-serif; -webkit-font-smoothing:antialiased;
+  border-top:1px solid var(--line); padding:clamp(72px,9vw,128px) 24px 0; }
+.ydt-foot *, .ydt-foot *::before, .ydt-foot *::after { box-sizing:border-box; }
+.ydt-foot :where(h2,p,ul,li) { margin:0; padding:0; }
+.ydt-foot :where(ul) { list-style:none; }
+.ydt-foot :where(a) { color:inherit; text-decoration:none; }
+.ydt-foot :focus-visible { outline:2px solid var(--data); outline-offset:3px; }
+.ydt-foot__glow { position:absolute; z-index:-1; left:50%; bottom:-30vw; width:90vw; max-width:1200px; height:60vw; max-height:800px; transform:translateX(-50%); border-radius:50%;
+  background:radial-gradient(circle, rgba(255,69,54,.16), transparent 62%); pointer-events:none; }
+.ydt-foot__inner { max-width:1200px; margin:0 auto; container-type:inline-size; }
+
+/* ── the sign-off: one sentence and the email at display size ── */
+.ydt-foot__eyebrow { display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--gray5); }
+.ydt-foot__eyebrow i { width:7px; height:7px; border-radius:50%; background:var(--data); box-shadow:0 0 0 4px var(--data-dim); }
+.ydt-foot__say { font-size:clamp(1.9rem,4vw,3.3rem); font-weight:700; letter-spacing:-.035em; line-height:1.05; margin:18px 0 26px; max-width:18ch; text-wrap:balance; }
+.ydt-foot__say .dim { color:#8f8781; }
+.ydt-foot__mail { display:inline-flex; align-items:center; gap:14px; font-family:var(--mono); font-weight:500; font-size:clamp(1.05rem,2.4vw,1.7rem); letter-spacing:-.02em; min-height:48px; color:var(--white);
+  border-bottom:2px solid rgba(255,255,255,.18); padding-bottom:6px; transition:border-color .3s, color .3s; }
+.ydt-foot__mail svg { width:.9em; height:.9em; color:var(--data); transition:transform .35s var(--ease); flex-shrink:0; }
+.ydt-foot__mail:hover { border-color:var(--data); color:var(--data-bright); }
+.ydt-foot__mail:hover svg { transform:translate(3px,-3px); }
+
+/* ── the row: links, place, time ── */
+.ydt-foot__row { display:grid; grid-template-columns:1fr; gap:36px; margin-top:clamp(48px,6vw,80px); padding-top:28px; border-top:1px solid var(--line); }
+@media (min-width:900px) { .ydt-foot__row { grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:64px; } }
+.ydt-foot__group + .ydt-foot__group { margin-top:22px; }
+.ydt-foot__lab { display:block; font-family:var(--mono); font-size:10.5px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--gray6); margin-bottom:12px; }
+.ydt-foot__links { display:flex; flex-wrap:wrap; gap:6px 22px; }
+.ydt-foot__links a { display:inline-flex; align-items:center; min-height:40px; font-size:15px; color:var(--gray4); transition:color .25s; }
+.ydt-foot__links a:hover { color:var(--white); }
+.ydt-foot__links a[aria-current="page"] { color:var(--white); }
+.ydt-foot__where { display:grid; gap:18px; align-content:start; }
+.ydt-foot__fact { display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:baseline; padding:16px 18px; border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.015); }
+.ydt-foot__fact b { font-family:var(--mono); font-weight:500; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gray6); white-space:nowrap; }
+.ydt-foot__fact span { font-size:14.5px; line-height:1.55; color:var(--gray4); }
+.ydt-foot__tel { color:var(--white); display:inline-block; padding:12px 0; margin:-12px 0; }
+.ydt-foot__clock { font-family:var(--mono); font-variant-numeric:tabular-nums; color:var(--white); }
+.ydt-foot__clock i { font-style:normal; animation:ydtFootBlink 1s steps(1) infinite; }
+@keyframes ydtFootBlink { 50% { opacity:0; } }
+.ydt-foot__fact--open span::before { content:""; display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--data); margin-right:9px; vertical-align:1px; box-shadow:0 0 0 3px var(--data-dim); }
+
+/* ── the wordmark, set huge and cropped by the bottom edge ── */
+/* sized to the container so the whole word always fits the width; the bottom is cropped on purpose */
+.ydt-foot__mark { position:relative; margin-top:clamp(40px,6vw,80px); font-size:clamp(2.2rem,13cqw,10rem); height:.84em; overflow:clip; }
+.ydt-foot__mark span { position:absolute; left:50%; top:0; transform:translateX(-50%); font-size:1em; font-weight:800; letter-spacing:-.05em; line-height:1; white-space:nowrap; color:rgba(255,255,255,.92); user-select:none; }
+.ydt-foot__mark span em { font-style:normal; color:var(--data); }
+.ydt-foot--js .ydt-foot__mark span { transform:translate(-50%,40%); opacity:0; transition:transform 1.2s var(--ease), opacity .9s var(--ease); }
+.ydt-foot--js .ydt-foot__mark.is-in span { transform:translateX(-50%); opacity:1; }
+
+/* ── the legal line ── */
+.ydt-foot__bar { display:flex; flex-wrap:wrap; gap:14px 24px; align-items:center; justify-content:space-between; padding:18px 0 22px; border-top:1px solid var(--line); }
+.ydt-foot__legal { font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gray6); line-height:1.7; }
+.ydt-foot__legal a { color:var(--gray5); display:inline-block; padding:13px 0; }
+.ydt-foot__legal a:hover { color:var(--white); }
+.ydt-foot__social { display:flex; gap:6px; }
+.ydt-foot__social a { display:grid; place-items:center; width:40px; height:40px; border-radius:10px; color:var(--gray5); transition:color .25s, background .25s, transform .3s var(--ease); }
+.ydt-foot__social a:hover { color:var(--white); background:rgba(255,255,255,.05); transform:translateY(-2px); }
+.ydt-foot__social svg { width:15px; height:15px; display:block; }
+@media (prefers-reduced-motion:reduce) { .ydt-foot--js .ydt-foot__mark span { transform:translateX(-50%); opacity:1; transition:none; } .ydt-foot__clock i { animation:none; } }
+</style>
+
+<footer class="ydt-foot" id="ydtFoot" aria-label="Site footer">
+  <div class="ydt-foot__glow" aria-hidden="true"></div>
+  <div class="ydt-foot__inner">
+    <p class="ydt-foot__eyebrow"><i aria-hidden="true"></i>Start a project</p>
+    <h2 class="ydt-foot__say">Tell us what you need. <span class="dim">One number back within a working day.</span></h2>
+    <a class="ydt-foot__mail" href="mailto:thomas@yourdigiteam.com">thomas@yourdigiteam.com<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+
+    <div class="ydt-foot__row">
+      <div>
+        <div class="ydt-foot__group">
+          <span class="ydt-foot__lab">Services</span>
+          <ul class="ydt-foot__links">
+            <li><a href="/seo">SEO</a></li><li><a href="/ppc">PPC</a></li><li><a href="/social">Social Media</a></li><li><a href="/email">Email Marketing</a></li><li><a href="/content">Content</a></li><li><a href="/web-development">Web Development</a></li>
+          </ul>
+        </div>
+        <div class="ydt-foot__group">
+          <span class="ydt-foot__lab">Company</span>
+          <ul class="ydt-foot__links">
+            <li><a href="/">Home</a></li><li><a href="/about">About</a></li><li><a href="/services">All Services</a></li><li><a href="/pricing">Pricing</a></li><li><a href="https://dev.yourdigiteam.com/">Client Login</a></li><li><a href="/contact">Contact</a></li><li><a href="/privacy">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ydt-foot__where">
+        <div class="ydt-foot__fact"><b>Based</b><span>Bishop Auckland, County Durham. Working across the North East.</span></div>
+        <div class="ydt-foot__fact"><b>Time here</b><span class="ydt-foot__clock" id="ydtFootClock">--<i>:</i>--</span></div>
+        <div class="ydt-foot__fact ydt-foot__fact--open"><b>Reply</b><span>Within 24 hours, no obligation. <a class="ydt-foot__tel" href="tel:+447877411092">07877 411092</a></span></div>
+      </div>
+    </div>
+
+    <div class="ydt-foot__mark" aria-hidden="true"><span>yourdigitalteam<em>.</em></span></div>
+
+    <div class="ydt-foot__bar">
+      <p class="ydt-foot__legal">© <span id="ydtFootYear">2026</span> yourdigitalteam. All rights reserved. · <a href="/privacy">Privacy</a></p>
+      <div class="ydt-foot__social" aria-label="Social links">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.8s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.5.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 2.3h3.3l-7.2 8.2L22.8 22h-6.6l-5.2-6.8L5.1 22H1.8l7.7-8.8L1.5 2.3h6.8l4.7 6.2 5.2-6.2zm-1.2 17.7h1.8L7.1 4.2H5.2L17 20z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.6a2.9 2.9 0 0 0-2-2.1C19.1 5 12 5 12 5s-7.1 0-8.9.5a2.9 2.9 0 0 0-2.1 2.1A30 30 0 0 0 .5 12a30 30 0 0 0 .5 4.4 2.9 2.9 0 0 0 2.1 2.1c1.8.5 8.9.5 8.9.5s7.1 0 8.9-.5a2.9 2.9 0 0 0 2.1-2.1 30 30 0 0 0 .5-4.4 30 30 0 0 0-.5-4.4zM9.8 15.3V8.7l5.7 3.3z"/></svg></a>
+        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.8a4.8 4.8 0 0 1-1.2-3.2h-3.3v13.1a2.7 2.7 0 1 1-1.9-2.6V9.7a5.9 5.9 0 1 0 5.2 5.9V9.2A8 8 0 0 0 20 10.7V7.5a4.8 4.8 0 0 1-3.4-1.7z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.3v1.6h.1a3.7 3.7 0 0 1 3.3-1.8c3.6 0 4.3 2.3 4.3 5.4v6.2zM5.3 7.4a2.1 2.1 0 1 1 2.1-2.1 2.1 2.1 0 0 1-2.1 2.1zm1.8 13H3.6V9h3.5v11.4zM22.2 0H1.8A1.8 1.8 0 0 0 0 1.8v20.4A1.8 1.8 0 0 0 1.8 24h20.4a1.8 1.8 0 0 0 1.8-1.8V1.8A1.8 1.8 0 0 0 22.2 0z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var root = document.getElementById('ydtFoot'); if (!root) return;
+  document.getElementById('ydtFootYear').textContent = String(new Date().getFullYear());
+
+  /* the page you are on is not a link worth chasing */
+  var here = location.pathname.replace(/\/+$/, '') || '/';
+  root.querySelectorAll('.ydt-foot__links a').forEach(function (a) {
+    var h = a.getAttribute('href') || ''; if (h.charAt(0) !== '/') return;
+    if ((h.replace(/\/+$/, '') || '/') === here) a.setAttribute('aria-current', 'page');
+  });
+
+  /* UK time, ticking; the colon blinks in CSS */
+  var clock = document.getElementById('ydtFootClock');
+  function tick() {
+    var p = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/London' }).format(new Date()).split(':');
+    clock.innerHTML = p[0] + '<i>:</i>' + p[1] + ' <span style="color:var(--gray5);font-size:.85em">UK</span>';
+  }
+  tick(); setInterval(tick, 15000);
+
+  /* the wordmark rises in once. Without the ydt-js flag nothing is hidden. */
+  var mark = root.querySelector('.ydt-foot__mark');
+  if (!('IntersectionObserver' in window)) { mark.classList.add('is-in'); return; }
+  root.classList.add("ydt-foot--js");
+  var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { mark.classList.add('is-in'); io.disconnect(); } }, { threshold: 0.2 });
+  io.observe(mark);
+})();
+</script>
