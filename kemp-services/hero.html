@@ -15,7 +15,6 @@
   --tint:#EEF3F6;
   --line:#DCE3E8;
   --body:#414B54;
-  --sq:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Crect x='6' y='6' width='13' height='13' fill='none' stroke='%230D1D27' stroke-opacity='.13' stroke-width='2'/%3E%3C/svg%3E");
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{overflow-x:clip;}
@@ -158,7 +157,6 @@ p{
 .trusted{
   position:relative;
   background:#fff;
-  border-bottom:1px solid var(--line);
   height:92px;
 }
 .tw{
@@ -336,18 +334,11 @@ p{
   position:relative;
   overflow:hidden;
   background:#fff;
-  padding:46px 38px 100px;
+  padding:46px 38px;
   display:flex;
   flex-direction:column;
   justify-content:center;
   box-shadow:0 2px 8px rgba(13,29,39,.05), 0 20px 46px rgba(13,29,39,.09);
-}
-.sbox::after{
-  content:"";
-  position:absolute;
-  left:0;right:0;bottom:0;
-  height:78px;
-  background:var(--sq);
 }
 .sbox h2{
   margin:0;
@@ -389,7 +380,7 @@ p{
 @media (max-width:620px){
   .sw{grid-template-columns:1fr;}
   .scard{aspect-ratio:16/10;}
-  .sbox{padding:36px 28px 100px;}
+  .sbox{padding:36px 28px;}
   .btn-dark{width:100%;justify-content:center;}
 }
 
@@ -472,6 +463,14 @@ p{
 <section class="services" aria-labelledby="services-heading">
   <div class="sw">
 
+    <div class="sbox">
+      <h2 id="services-heading">Our professional cleaning services.</h2>
+      <a class="btn-dark" href="#">
+        See all the services we offer
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+    </div>
+
     <a class="scard" href="#">
       <img src="https://images.unsplash.com/photo-1718152421680-d1580e843cc9?w=900&q=76&auto=format&fit=crop"
            alt="Operative machine-cleaning a commercial floor" loading="lazy">
@@ -489,14 +488,6 @@ p{
            alt="Newly fitted-out office corridor after a builders clean" loading="lazy">
       <h3>Builders<br>Clean<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></h3>
     </a>
-
-    <div class="sbox">
-      <h2 id="services-heading">Our professional cleaning services.</h2>
-      <a class="btn-dark" href="#">
-        See all the services we offer
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
-      </a>
-    </div>
 
   </div>
 </section>
