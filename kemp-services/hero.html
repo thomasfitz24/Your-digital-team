@@ -265,8 +265,8 @@ p{
    below, so the row sits across the seam rather than inside a band. */
 .services{
   position:relative;
-  background:var(--tint);
-  padding:76px 0 104px;
+  background:var(--navy);   /* runs on into the about section below */
+  padding:76px 0 88px;
 }
 .services::before{
   content:"";
@@ -338,7 +338,6 @@ p{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  box-shadow:0 2px 8px rgba(13,29,39,.05), 0 20px 46px rgba(13,29,39,.09);
 }
 .sbox h2{
   margin:0;
@@ -385,19 +384,19 @@ p{
 }
 
 /* ---------- about ---------- */
-/* Text only, after an image-heavy row: heading held on the left, the
-   copy set beside it with the opening paragraph carrying more weight. */
+/* Heading and the coverage list on the left, the prose on the right on
+   one readable measure, so neither column is left empty. */
 .about{
   background:var(--navy);
-  padding:104px 0;
+  padding:96px 0 104px;
 }
 .aw{
   max-width:1280px;
   margin-inline:auto;
   padding-inline:40px;
   display:grid;
-  grid-template-columns:minmax(0,5fr) minmax(0,7fr);
-  gap:64px;
+  grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  gap:80px;
   align-items:start;
 }
 .about h2{
@@ -405,9 +404,9 @@ p{
   margin:0;
   padding-top:28px;
   color:#fff;
-  font-size:clamp(1.9rem, 1.4rem + 1.8vw, 2.9rem);
+  font-size:clamp(1.8rem, 1.3rem + 1.6vw, 2.6rem);
   font-weight:500;
-  line-height:1.1;
+  line-height:1.12;
   letter-spacing:-.03em;
 }
 .about h2::before{
@@ -419,24 +418,47 @@ p{
 }
 .about .lede{
   margin:0;
+  max-width:58ch;
   color:#DCE8EF;
-  font-size:clamp(1.08rem, 1rem + .4vw, 1.28rem);
+  font-size:clamp(1.08rem, 1rem + .4vw, 1.26rem);
   line-height:1.55;
   letter-spacing:-.005em;
 }
-.about .cols{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
-  margin-top:40px;
-  padding-top:36px;
-  border-top:1px solid rgba(255,255,255,.16);
-}
-.about .cols p{
-  margin:0;
+.about .prose p{
+  margin:22px 0 0;
+  max-width:58ch;
   color:#B6C9D6;
   font-size:1rem;
-  line-height:1.68;
+  line-height:1.7;
+}
+
+/* the twelve place names, out of the paragraph and into a proper list */
+.where{
+  margin-top:40px;
+  padding-top:28px;
+  border-top:1px solid rgba(255,255,255,.18);
+}
+.where h3{
+  margin:0 0 6px;
+  color:var(--sky);
+  font-size:11.5px;
+  font-weight:700;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+}
+.where ul{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0 28px;
+  list-style:none;
+  margin:0;padding:0;
+}
+.where li{
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  color:#fff;
+  font-size:14.5px;
+  font-weight:500;
 }
 
 @media (max-width:900px){
@@ -444,7 +466,7 @@ p{
   .aw{grid-template-columns:1fr;gap:34px;padding-inline:20px;}
 }
 @media (max-width:620px){
-  .about .cols{grid-template-columns:1fr;gap:20px;margin-top:30px;padding-top:28px;}
+  .where ul{grid-template-columns:1fr;}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -557,15 +579,26 @@ p{
 
 <section class="about" aria-labelledby="about-heading">
   <div class="aw">
-    <h2 id="about-heading">Our specialist London commercial cleaning contractors are ready to help you.</h2>
-
     <div>
-      <p class="lede">Kemp Services is a commercial cleaning company based in east London. With over 30 years' experience, our team of experts can assist with all your commercial cleaning needs. Our clients are mainly based across London, Essex, Kent, Surrey, Middlesex and Hertfordshire. We also have contracts in Manchester, Newcastle, Nottingham, Liverpool, Cardiff, Birmingham.</p>
+      <h2 id="about-heading">Our specialist London commercial cleaning contractors are ready to help you.</h2>
 
-      <div class="cols">
-        <p>We offer a professional, high-quality service and pride ourselves on being a flexible and responsive commercial cleaning contractor. We make a difference to the properties we clean and the clients we work with.</p>
-        <p>Clean and presentable premises not only make a difference to the general health and wellbeing of staff, but it also creates a positive first impression to visitors. Regardless of the type of property – office, retail, welfare facilities, warehouse – we can help keep your premises looking sparkling clean at all times.</p>
+      <div class="where">
+        <h3>Where we work</h3>
+        <ul>
+          <li>London</li><li>Manchester</li>
+          <li>Essex</li><li>Newcastle</li>
+          <li>Kent</li><li>Nottingham</li>
+          <li>Surrey</li><li>Liverpool</li>
+          <li>Middlesex</li><li>Cardiff</li>
+          <li>Hertfordshire</li><li>Birmingham</li>
+        </ul>
       </div>
+    </div>
+
+    <div class="prose">
+      <p class="lede">Kemp Services is a commercial cleaning company based in east London. With over 30 years' experience, our team of experts can assist with all your commercial cleaning needs.</p>
+      <p>We offer a professional, high-quality service and pride ourselves on being a flexible and responsive commercial cleaning contractor. We make a difference to the properties we clean and the clients we work with.</p>
+      <p>Clean and presentable premises not only make a difference to the general health and wellbeing of staff, but it also creates a positive first impression to visitors. Regardless of the type of property – office, retail, welfare facilities, warehouse – we can help keep your premises looking sparkling clean at all times.</p>
     </div>
   </div>
 </section>
