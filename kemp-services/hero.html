@@ -11,6 +11,11 @@
 :root{
   --navy:#0D1D27;
   --sky:#6FBFE5;
+  --deep:#17739F;      /* same hue as the sky, dark enough for text on white */
+  --tint:#EEF3F6;
+  --line:#DCE3E8;
+  --body:#414B54;
+  --sq:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Crect x='6' y='6' width='13' height='13' fill='none' stroke='%230D1D27' stroke-opacity='.13' stroke-width='2'/%3E%3C/svg%3E");
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{overflow-x:clip;}
@@ -152,8 +157,8 @@ p{
 /* ---------- trusted by strip ---------- */
 .trusted{
   position:relative;
-  background:#122A38;
-  border-top:1px solid rgba(111,191,229,.22);
+  background:#fff;
+  border-bottom:1px solid var(--line);
   height:92px;
 }
 .tw{
@@ -170,7 +175,7 @@ p{
   font-weight:700;
   letter-spacing:.17em;
   text-transform:uppercase;
-  color:var(--sky);
+  color:var(--deep);
 }
 
 /* the checkbox is the real control; the label beside it is its button */
@@ -211,7 +216,7 @@ p{
   align-items:center;
   gap:34px;
   padding-right:34px;
-  color:#fff;
+  color:var(--navy);
   font-size:1.05rem;
   font-weight:500;
   letter-spacing:-.01em;
@@ -230,16 +235,16 @@ p{
   display:grid;
   place-items:center;
   width:44px;height:44px;
-  color:#9FC4D8;
+  color:#5E6A74;
   cursor:pointer;
-  border:1px solid rgba(255,255,255,.2);
+  border:1px solid var(--line);
 }
-.pbtn:hover{color:#fff;border-color:rgba(255,255,255,.45);}
+.pbtn:hover{color:var(--navy);border-color:#9AA6AF;}
 .pbtn svg{width:14px;height:14px;}
 .pbtn .i-play{display:none;}
 .cb:checked ~ .pbtn .i-play{display:block;}
 .cb:checked ~ .pbtn .i-pause{display:none;}
-.cb:focus-visible ~ .pbtn{outline:3px solid var(--sky);outline-offset:2px;}
+.cb:focus-visible ~ .pbtn{outline:3px solid var(--deep);outline-offset:2px;}
 
 @media (max-width:860px){
   .trusted{height:auto;padding:18px 0 20px;}
@@ -257,8 +262,140 @@ p{
   }
 }
 
+/* ---------- services row ---------- */
+/* The cards straddle the join between the white above and the tint
+   below, so the row sits across the seam rather than inside a band. */
+.services{
+  position:relative;
+  background:var(--tint);
+  padding:76px 0 104px;
+}
+.services::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:190px;
+  background:#fff;
+}
+.sw{
+  position:relative;
+  max-width:1280px;
+  margin-inline:auto;
+  padding-inline:40px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:26px;
+  align-items:stretch;
+}
+
+.scard{
+  position:relative;
+  display:block;
+  aspect-ratio:4/5;
+  overflow:hidden;
+  background:#D9E2E8;
+}
+.scard img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .6s ease;
+}
+.scard:hover img{transform:scale(1.045);}
+.scard::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,
+    rgba(13,29,39,0) 38%,
+    rgba(13,29,39,.55) 68%,
+    rgba(13,29,39,.92) 100%);
+}
+.scard h3{
+  position:absolute;
+  left:26px;right:24px;bottom:24px;
+  z-index:1;
+  margin:0;
+  color:#fff;
+  font-size:1.4rem;
+  font-weight:500;
+  line-height:1.16;
+  letter-spacing:-.02em;
+}
+.scard h3 svg{
+  width:11px;height:11px;
+  margin-left:8px;
+  vertical-align:baseline;
+  color:var(--sky);
+}
+.scard:focus-visible{outline:3px solid var(--deep);outline-offset:3px;}
+
+.sbox{
+  position:relative;
+  overflow:hidden;
+  background:#fff;
+  padding:46px 38px 100px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  box-shadow:0 2px 8px rgba(13,29,39,.05), 0 20px 46px rgba(13,29,39,.09);
+}
+.sbox::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:78px;
+  background:var(--sq);
+}
+.sbox h2{
+  margin:0;
+  color:var(--navy);
+  font-size:clamp(1.5rem, 1.2rem + .8vw, 1.85rem);
+  font-weight:500;
+  line-height:1.14;
+  letter-spacing:-.025em;
+}
+.btn-dark{
+  align-self:stretch;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  min-height:56px;
+  margin-top:26px;
+  padding:12px 22px;
+  text-align:left;
+  background:var(--navy);
+  color:#fff;
+  font-size:14.5px;
+  font-weight:600;
+  transition:background .18s ease;
+}
+.btn-dark svg{width:12px;height:12px;}
+.btn-dark:hover{background:#1B3548;}
+.btn-dark:focus-visible{outline:3px solid var(--deep);outline-offset:3px;}
+
+@media (max-width:1100px){
+  .sw{grid-template-columns:repeat(2,1fr);}
+  .services::before{height:150px;}
+}
+@media (max-width:860px){
+  .services{padding:56px 0 72px;}
+  .sw{padding-inline:20px;gap:18px;}
+  .services::before{height:110px;}
+}
+@media (max-width:620px){
+  .sw{grid-template-columns:1fr;}
+  .scard{aspect-ratio:16/10;}
+  .sbox{padding:36px 28px 100px;}
+  .btn-dark{width:100%;justify-content:center;}
+}
+
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;}
+  .scard:hover img{transform:none;}
   /* nothing moves on its own; the strip becomes a swipeable list */
   .track{animation:none;}
   .marquee{overflow-x:auto;}
@@ -329,6 +466,38 @@ p{
       <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5 20 12 7 19.5Z"/></svg>
       <span class="sr-only">Pause the scrolling list</span>
     </label>
+  </div>
+</section>
+
+<section class="services" aria-labelledby="services-heading">
+  <div class="sw">
+
+    <a class="scard" href="#">
+      <img src="https://images.unsplash.com/photo-1718152421680-d1580e843cc9?w=900&q=76&auto=format&fit=crop"
+           alt="Operative machine-cleaning a commercial floor" loading="lazy">
+      <h3>Contract<br>Cleaning<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></h3>
+    </a>
+
+    <a class="scard" href="#">
+      <img src="https://images.unsplash.com/photo-1577412647305-991150c7d163?w=900&q=76&auto=format&fit=crop"
+           alt="Clean open-plan office floor" loading="lazy">
+      <h3>Office<br>Cleaning<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></h3>
+    </a>
+
+    <a class="scard" href="#">
+      <img src="https://images.unsplash.com/photo-1504297050568-910d24c426d3?w=900&q=76&auto=format&fit=crop"
+           alt="Newly fitted-out office corridor after a builders clean" loading="lazy">
+      <h3>Builders<br>Clean<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></h3>
+    </a>
+
+    <div class="sbox">
+      <h2 id="services-heading">Our professional cleaning services.</h2>
+      <a class="btn-dark" href="#">
+        See all the services we offer
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+    </div>
+
   </div>
 </section>
 
