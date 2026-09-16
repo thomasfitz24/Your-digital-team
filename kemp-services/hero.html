@@ -292,7 +292,7 @@ p{
   aspect-ratio:4/5;
   overflow:hidden;
   background:#D9E2E8;
-  box-shadow:0 10px 26px rgba(0,0,0,.22);
+  box-shadow:0 10px 24px rgba(13,29,39,.26);
 }
 .scard img{
   position:absolute;
@@ -336,7 +336,7 @@ p{
   overflow:hidden;
   background:#fff;
   padding:46px 38px;
-  box-shadow:0 10px 26px rgba(0,0,0,.22);
+  box-shadow:0 10px 24px rgba(13,29,39,.26);
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -368,6 +368,24 @@ p{
 .btn-dark svg{width:12px;height:12px;}
 .btn-dark:hover{background:#1B3548;}
 .btn-dark:focus-visible{outline:3px solid var(--deep);outline-offset:3px;}
+.btn-line{
+  align-self:stretch;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  min-height:56px;
+  margin-top:10px;
+  padding:12px 22px;
+  border:1.5px solid var(--navy);
+  color:var(--navy);
+  font-size:14.5px;
+  font-weight:600;
+  transition:background .18s ease,color .18s ease;
+}
+.btn-line svg{width:12px;height:12px;}
+.btn-line:hover{background:var(--navy);color:#fff;}
+.btn-line:focus-visible{outline:3px solid var(--deep);outline-offset:3px;}
 
 @media (max-width:1100px){
   .sw{grid-template-columns:repeat(2,1fr);}
@@ -382,7 +400,7 @@ p{
   .sw{grid-template-columns:1fr;}
   .scard{aspect-ratio:16/10;}
   .sbox{padding:36px 28px;}
-  .btn-dark{width:100%;justify-content:center;}
+  .btn-dark,.btn-line{width:100%;justify-content:center;}
 }
 
 /* ---------- about ---------- */
@@ -472,116 +490,182 @@ p{
 }
 
 /* ---------- guarantee ---------- */
-/* Light, after two navy sections. The promise and the proof are split:
-   what we commit to on the left, the four things it rests on as rows on
-   the right. Rows rather than four matching cards, so it doesn't repeat
-   the shape of the services row. */
+/* The acronym is the design. Four oversized letters spell F.A.C.T.
+   across the width, each with its word beneath; the promise sits in a
+   navy panel under them with the 100% counting up. Everything reveals
+   in sequence as it scrolls into view, and stands still for anyone who
+   has asked for reduced motion. */
 .guar{
   background:#fff;
-  padding:104px 0;
+  padding:104px 0 110px;
+  overflow:hidden;
 }
 .gw{
   max-width:1280px;
   margin-inline:auto;
   padding-inline:40px;
-  display:grid;
-  grid-template-columns:minmax(0,5fr) minmax(0,6fr);
-  gap:80px;
-  align-items:start;
+}
+.ghead{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:32px;
+  flex-wrap:wrap;
+  padding-bottom:28px;
+  border-bottom:2px solid var(--navy);
 }
 .guar h2{
   margin:0;
   color:var(--navy);
   font-size:clamp(1.8rem, 1.3rem + 1.6vw, 2.6rem);
   font-weight:500;
-  line-height:1.12;
+  line-height:1.1;
   letter-spacing:-.03em;
 }
-/* the promise, set as a figure rather than a badge or an icon */
-.stamp{
-  display:flex;
-  align-items:center;
-  gap:20px;
-  margin-top:30px;
-  padding-top:28px;
-  border-top:2px solid var(--navy);
-}
-.stamp .num{
-  font-size:clamp(2.6rem, 2rem + 1.8vw, 3.6rem);
-  font-weight:700;
-  line-height:.9;
-  letter-spacing:-.045em;
+.gsub{
+  margin:0;
   color:var(--deep);
-  font-variant-numeric:tabular-nums;
-}
-.stamp .lbl{
-  color:var(--navy);
   font-size:1.05rem;
   font-weight:600;
-  line-height:1.2;
   letter-spacing:-.01em;
 }
-.guar .risk{
-  margin:28px 0 0;
-  max-width:54ch;
-  color:var(--body);
-  font-size:1rem;
-  line-height:1.7;
-}
-.guar .risk b{color:var(--deep);font-weight:700;}
-.guar .note{
-  display:block;
-  margin-top:14px;
-  color:#5E6A74;
-  font-size:12.5px;
-}
 
-.pillars{
+.letters{
   list-style:none;
   margin:0;padding:0;
-  border-top:1px solid var(--line);
-}
-.pillars li{
   display:grid;
-  grid-template-columns:64px 1fr;
-  gap:24px;
-  align-items:baseline;
-  padding:26px 0;
-  border-bottom:1px solid var(--line);
+  grid-template-columns:repeat(4,1fr);
 }
-.pillars .L{
-  font-size:2.4rem;
+.letters li{
+  padding:44px 32px 40px 0;
+  border-right:1px solid var(--line);
+}
+.letters li + li{padding-left:32px;}
+.letters li:last-child{border-right:0;padding-right:0;}
+.letters .L{
+  display:block;
+  position:relative;
+  font-size:clamp(4.4rem, 2.6rem + 5.4vw, 8.2rem);
   font-weight:700;
-  line-height:.85;
-  letter-spacing:-.05em;
-  color:var(--deep);
-}
-.pillars h3{
-  margin:0 0 6px;
+  line-height:.82;
+  letter-spacing:-.07em;
   color:var(--navy);
-  font-size:1.2rem;
+  transition:color .25s ease;
+}
+/* a sky bar under each letter that draws in as the letter lands */
+.letters .L::after{
+  content:"";
+  display:block;
+  width:56px;height:4px;
+  margin-top:22px;
+  background:var(--sky);
+  transform-origin:left;
+}
+.letters li:hover .L{color:var(--deep);}
+.letters h3{
+  margin:22px 0 8px;
+  color:var(--navy);
+  font-size:1.25rem;
   font-weight:600;
   letter-spacing:-.02em;
 }
-.pillars p{
+.letters p{
   margin:0;
   color:var(--body);
   font-size:.98rem;
   line-height:1.6;
 }
 
-@media (max-width:900px){
-  .guar{padding:72px 0;}
-  .gw{grid-template-columns:1fr;gap:44px;padding-inline:20px;}
+.promise{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:48px;
+  align-items:center;
+  margin-top:48px;
+  padding:44px 52px;
+  background:var(--navy);
 }
-@media (max-width:620px){
-  .pillars li{grid-template-columns:48px 1fr;gap:18px;padding:22px 0;}
-  .pillars .L{font-size:2rem;}
+.pct{
+  color:var(--sky);
+  font-size:clamp(3.2rem, 2.4rem + 2.6vw, 5rem);
+  font-weight:700;
+  line-height:.9;
+  letter-spacing:-.05em;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.pct small{
+  display:block;
+  margin-top:10px;
+  color:#fff;
+  font-size:.95rem;
+  font-weight:600;
+  letter-spacing:-.01em;
+  white-space:normal;
+}
+.ptext p{
+  margin:0;
+  max-width:64ch;
+  color:#DCE8EF;
+  font-size:1.02rem;
+  line-height:1.65;
+}
+.ptext b{color:var(--sky);font-weight:700;}
+.ptext small{
+  display:block;
+  margin-top:12px;
+  color:#9FB6C4;
+  font-size:12.5px;
+}
+
+/* reveal choreography: only once scripting is confirmed, so the page
+   never depends on it to show content */
+.js .letters li{opacity:0;transform:translateY(30px);}
+.js .letters li .L::after{transform:scaleX(0);}
+.js .letters.in li{
+  opacity:1;transform:none;
+  transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.2,1);
+}
+.js .letters.in li .L::after{
+  transform:scaleX(1);
+  transition:transform .55s cubic-bezier(.2,.7,.2,1) .35s;
+}
+.js .letters.in li:nth-child(2){transition-delay:.12s;}
+.js .letters.in li:nth-child(3){transition-delay:.24s;}
+.js .letters.in li:nth-child(4){transition-delay:.36s;}
+.js .letters.in li:nth-child(2) .L::after{transition-delay:.47s;}
+.js .letters.in li:nth-child(3) .L::after{transition-delay:.59s;}
+.js .letters.in li:nth-child(4) .L::after{transition-delay:.71s;}
+.js .promise{opacity:0;transform:translateY(22px);}
+.js .promise.in{
+  opacity:1;transform:none;
+  transition:opacity .7s ease .15s,transform .8s cubic-bezier(.2,.7,.2,1) .15s;
+}
+
+@media (max-width:1000px){
+  .letters{grid-template-columns:1fr 1fr;}
+  .letters li{padding:36px 28px 34px 0;}
+  .letters li + li{padding-left:28px;}
+  .letters li:nth-child(2n){border-right:0;padding-right:0;}
+  .letters li:nth-child(-n+2){border-bottom:1px solid var(--line);}
+  .letters li:nth-child(3){padding-left:0;}
+}
+@media (max-width:900px){
+  .guar{padding:72px 0 80px;}
+  .gw{padding-inline:20px;}
+  .promise{grid-template-columns:1fr;gap:26px;padding:34px 28px;margin-top:36px;}
+}
+@media (max-width:560px){
+  .letters{grid-template-columns:1fr;}
+  .letters li,.letters li + li,.letters li:nth-child(3){padding:30px 0 28px;border-right:0;border-bottom:1px solid var(--line);}
+  .letters li:last-child{border-bottom:0;}
 }
 
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;}
   .scard:hover img{transform:none;}
+  .js .letters li,.js .promise{opacity:1;transform:none;}
+  .js .letters li .L::after{transform:none;}
   /* nothing moves on its own; the strip becomes a swipeable list */
   .track{animation:none;}
   .marquee{overflow-x:auto;}
@@ -664,6 +748,10 @@ p{
         See all the services we offer
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
       </a>
+      <a class="btn-line" href="#">
+        Contact us
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
     </div>
 
     <a class="scard" href="#">
@@ -713,42 +801,92 @@ p{
   </div>
 </section>
 
-<section class="guar" aria-labelledby="guar-heading">
+<section class="guar" id="guarantee" aria-labelledby="guar-heading">
   <div class="gw">
 
-    <div>
+    <div class="ghead">
       <h2 id="guar-heading">Our F.A.C.T. Guarantee</h2>
-
-      <p class="stamp">
-        <span class="num">100%</span>
-        <span class="lbl">Satisfaction<br>Guaranteed</span>
-      </p>
-
-      <p class="risk">We are confident in the services we provide, which is why we make signing up with us a <b>RISK FREE</b> process. If you are not completely satisfied with our service in the first month of your cleaning contract, we will provide you a <b>FULL REFUND</b> for that month* – 100% guaranteed!</p>
-      <small class="note">*Only applies to contract services</small>
+      <p class="gsub">100% Satisfaction Guaranteed</p>
     </div>
 
-    <ul class="pillars">
+    <ol class="letters">
       <li>
         <span class="L" aria-hidden="true">F</span>
-        <div><h3>Fair</h3><p>Our prices are competitive which benefits your business and ours</p></div>
+        <h3>Fair</h3>
+        <p>Our prices are competitive which benefits your business and ours</p>
       </li>
       <li>
         <span class="L" aria-hidden="true">A</span>
-        <div><h3>Agile</h3><p>We tailor our services to meet your requirement</p></div>
+        <h3>Agile</h3>
+        <p>We tailor our services to meet your requirement</p>
       </li>
       <li>
         <span class="L" aria-hidden="true">C</span>
-        <div><h3>Capable</h3><p>We have over 30 years' experience providing cleaning services</p></div>
+        <h3>Capable</h3>
+        <p>We have over 30 years' experience providing cleaning services</p>
       </li>
       <li>
         <span class="L" aria-hidden="true">T</span>
-        <div><h3>Trusted</h3><p>We thoroughly train and vet our staff</p></div>
+        <h3>Trusted</h3>
+        <p>We thoroughly train and vet our staff</p>
       </li>
-    </ul>
+    </ol>
+
+    <div class="promise">
+      <div class="pct">
+        <span class="count" data-to="100">100</span>%
+        <small>Satisfaction guaranteed</small>
+      </div>
+      <div class="ptext">
+        <p>We are confident in the services we provide, which is why we make signing up with us a <b>RISK FREE</b> process. If you are not completely satisfied with our service in the first month of your cleaning contract, we will provide you a <b>FULL REFUND</b> for that month* – 100% guaranteed!</p>
+        <small>*Only applies to contract services</small>
+      </div>
+    </div>
 
   </div>
 </section>
+
+<script>
+/* Reveal the guarantee as it scrolls into view and count the 100% up.
+   Content is fully visible without this; the .js class only opts in. */
+document.documentElement.classList.add('js');
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var letters = document.querySelector('.letters');
+  var promise = document.querySelector('.promise');
+  var counter = document.querySelector('.count');
+  if(!letters || !promise || !counter) return;
+
+  function countUp(){
+    var to = parseInt(counter.getAttribute('data-to'), 10) || 100;
+    if(reduce){ counter.textContent = to; return; }
+    var t0 = null, dur = 1400;
+    counter.textContent = '0';
+    function step(ts){
+      if(t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      counter.textContent = Math.round(eased * to);
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  if(!('IntersectionObserver' in window)){
+    letters.classList.add('in'); promise.classList.add('in'); return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      en.target.classList.add('in');
+      if(en.target === promise) countUp();
+      io.unobserve(en.target);
+    });
+  }, {threshold: 0.2});
+  io.observe(letters);
+  io.observe(promise);
+})();
+</script>
 
 </body>
 </html>
