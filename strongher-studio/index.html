@@ -55,31 +55,62 @@
   }
   .on-dark a:focus-visible{outline-color:var(--rose-light);}
 
-  /* ---------- Header ---------- */
-  .site-header{
-    position:sticky;
+  /* ---------- Nav (sits inside the hero) ---------- */
+  .nav{
+    position:absolute;
     top:0;
-    z-index:50;
-    height:var(--header-h);
+    left:0;
+    right:0;
+    z-index:3;
     display:flex;
     align-items:center;
-    padding:0 var(--space-3);
-    background:var(--paper);
-    border-bottom:1px solid var(--blush-mid);
-  }
-  .site-header__inner{
-    width:100%;
+    justify-content:space-between;
+    gap:var(--space-3);
     max-width:1200px;
     margin:0 auto;
+    padding:var(--space-3);
   }
-  .logo{display:inline-block;}
-  .logo img{
-    height:30px;
-    width:auto;
+
+  .logo{display:inline-block;flex:none;}
+  .logo img{height:26px;width:auto;}
+
+  .nav__links{
+    display:none;
+    list-style:none;
+    align-items:center;
+    gap:var(--space-4);
+    font-size:16px;
+    font-weight:500;
   }
+  .nav__links a{
+    text-decoration:none;
+    color:var(--paper);
+    padding:6px 2px;
+    border-bottom:2px solid transparent;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .nav__links a:hover{border-bottom-color:var(--rose-light);}
+
+  .nav__cta{
+    flex:none;
+    display:inline-flex;
+    align-items:center;
+    min-height:44px;
+    padding:10px 22px;
+    border-radius:999px;
+    background:var(--paper);
+    color:var(--ink);
+    font-size:15px;
+    font-weight:600;
+    text-decoration:none;
+    transition:background-color .2s ease, color .2s ease;
+  }
+  .nav__cta:hover{background:var(--blush);color:var(--rose-deep);}
+
   @media (min-width:900px){
-    .site-header{padding:0 var(--space-4);}
-    .logo img{height:36px;}
+    .nav{padding:var(--space-4);}
+    .logo img{height:32px;}
+    .nav__links{display:flex;}
   }
 
   /* ---------- Section 1: Hero ---------- */
@@ -89,7 +120,7 @@
     display:flex;
     align-items:flex-start;
     min-height:min(86vh,760px);
-    padding:var(--space-6) var(--space-3) var(--space-7);
+    padding:calc(var(--space-7) + 24px) var(--space-3) var(--space-7);
     overflow:hidden;
     color:var(--paper);
   }
@@ -213,7 +244,7 @@
   .reassure svg{width:18px;height:18px;flex:none;color:var(--rose-light);}
 
   @media (min-width:900px){
-    .hero{padding:var(--space-7) var(--space-4);align-items:center;}
+    .hero{padding:calc(var(--space-7) + 40px) var(--space-4) var(--space-7);align-items:center;}
     .hero__copy{max-width:760px;}
     .hero::after{
       background:
@@ -243,26 +274,6 @@
     margin-bottom:var(--space-2);
   }
   .section-head p{color:var(--ink-soft);}
-
-  /* Placeholder image block */
-  .media-placeholder{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    aspect-ratio:16/6;
-    max-width:960px;
-    margin:0 auto var(--space-6);
-    border:2px dashed var(--petal);
-    border-radius:var(--radius-lg);
-    background:var(--blush);
-    color:var(--rose-deep);
-    font-size:15px;
-    font-weight:600;
-    text-align:center;
-    padding:var(--space-3);
-  }
-  .media-placeholder svg{width:22px;height:22px;flex:none;}
 
   .plans{
     display:grid;
@@ -321,7 +332,7 @@
     flex-direction:column;
     gap:10px;
     font-size:15px;
-    margin-bottom:var(--space-4);
+    margin-bottom:var(--space-3);
   }
   .plan__features li{display:flex;align-items:flex-start;gap:10px;}
   .plan__features svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--rose);}
@@ -330,7 +341,6 @@
     margin-top:auto;
     padding-top:var(--space-3);
     border-top:1px solid var(--blush-mid);
-    margin-bottom:var(--space-3);
   }
   .plan__amount{
     font-family:var(--disp);
@@ -353,7 +363,6 @@
   }
   .plan__rrp s{text-decoration-thickness:1px;}
 
-  .plan .btn{width:100%;}
 
   @media (min-width:640px){
     .plans{grid-template-columns:repeat(2,1fr);}
@@ -367,15 +376,6 @@
 </head>
 <body>
 
-<!-- ============ HEADER ============ -->
-<header class="site-header">
-  <div class="site-header__inner">
-    <a class="logo" href="/" aria-label="StrongHer Studio — home">
-      <img src="images/strongher-logo.webp" alt="StrongHer Studio" width="2000" height="653">
-    </a>
-  </div>
-</header>
-
 <!-- ============ SECTION 1 — HERO ============ -->
 <section class="hero on-dark" aria-labelledby="hero-title">
 
@@ -383,6 +383,21 @@
        src="images/hero-group.jpg"
        alt="A group of women of different ages and sizes warming up together outdoors with their coach, all smiling."
        fetchpriority="high">
+
+  <nav class="nav" aria-label="Primary">
+    <a class="logo" href="/" aria-label="StrongHer Studio — home">
+      <img src="images/strongher-logo.webp" alt="StrongHer Studio" width="2000" height="653">
+    </a>
+
+    <ul class="nav__links">
+      <li><a href="#events">Events</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#calendar">Calendar</a></li>
+    </ul>
+
+    <a class="nav__cta" href="#contact">Contact us</a>
+  </nav>
 
   <div class="hero__inner">
     <div class="hero__copy">
@@ -438,14 +453,6 @@
          never have to work out what to do on your own.</p>
     </div>
 
-    <!-- TODO: replace with a real studio photo -->
-    <div class="media-placeholder" role="img" aria-label="Placeholder for a studio photo, to be added">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="9" r="1.5"/><path d="m21 15-5-5L5 21"/>
-      </svg>
-      Placeholder image — studio photo to come
-    </div>
-
     <div class="plans">
 
       <!-- Premium -->
@@ -462,7 +469,6 @@
           <span class="plan__amount">£100<span>/month</span></span>
           <span class="plan__rrp">RRP <s>£129</s></span>
         </p>
-        <a class="btn btn--primary" href="#book">Choose Premium</a>
       </article>
 
       <!-- Plus -->
@@ -477,7 +483,6 @@
           <span class="plan__amount">£70<span>/month</span></span>
           <span class="plan__rrp">RRP <s>£80</s></span>
         </p>
-        <a class="btn btn--outline" href="#book">Choose Plus</a>
       </article>
 
       <!-- Base -->
@@ -491,7 +496,6 @@
           <span class="plan__amount">£35<span>/month</span></span>
           <span class="plan__rrp">RRP <s>£45</s></span>
         </p>
-        <a class="btn btn--outline" href="#book">Choose Base</a>
       </article>
 
       <!-- Flex -->
@@ -507,7 +511,6 @@
           <span class="plan__amount">£55</span>
           <span class="plan__rrp">One-off payment</span>
         </p>
-        <a class="btn btn--outline" href="#book">Choose Flex</a>
       </article>
 
     </div>
