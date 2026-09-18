@@ -493,20 +493,18 @@
 
   /* ---------- Section 3: Timetable ---------- */
   .cal{
-    --c-lift:#FFC24B;
-    --c-sgpt:#FF5D8F;
-    --c-sculpt:#B884FF;
-    --c-sweat:#FF8552;
-    --c-reset:#4FD8C4;
-    --c-pilates:#63BCFF;
-    --c-mama:#BEE84F;
+    --c-sgpt:#F6C3D2;
+    --c-lift:#F6DDAF;
+    --c-sculpt:#DCCBF3;
+    --c-sweat:#F8CCB9;
+    --c-pilates:#C4DDF2;
+    --c-reset:#BFE4DC;
+    --c-mama:#DCE8B4;
     --row:58px;
+    --line:rgba(36,26,30,.10);
 
     padding:var(--space-6) var(--space-3);
-    background:
-      radial-gradient(120% 80% at 80% 0%, rgba(184,66,92,.22) 0%, rgba(20,16,15,0) 60%),
-      #14100F;
-    color:var(--paper);
+    background:var(--paper);
   }
   .cal__inner{max-width:1200px;margin:0 auto;}
 
@@ -523,8 +521,16 @@
     letter-spacing:-.01em;
     margin-bottom:var(--space-2);
   }
-  .cal__head h2 em{font-style:italic;color:var(--rose-light);}
-  .cal__head p{color:#D9CBCE;}
+  .cal__head h2 em{font-style:italic;color:var(--rose);}
+  .cal__head p{color:var(--ink-soft);}
+
+  /* the grid sits on a soft blush panel */
+  .cal__panel{
+    padding:var(--space-3);
+    border-radius:var(--radius-lg);
+    background:var(--blush);
+    border:1px solid var(--blush-mid);
+  }
 
   /* Day switcher (mobile) */
   .cal__switch{
@@ -532,7 +538,7 @@
     gap:8px;
     overflow-x:auto;
     padding-bottom:var(--space-2);
-    margin-bottom:var(--space-3);
+    margin-bottom:var(--space-2);
     scrollbar-width:none;
   }
   .cal__switch::-webkit-scrollbar{display:none;}
@@ -548,16 +554,17 @@
     min-height:44px;
     padding:0 18px;
     border-radius:999px;
-    border:1px solid rgba(255,255,255,.22);
+    border:1px solid var(--blush-mid);
+    background:var(--paper);
     font-size:15px;
     font-weight:600;
-    color:#E7DBDE;
+    color:var(--ink-soft);
     cursor:pointer;
     transition:background-color .2s ease, color .2s ease, border-color .2s ease;
   }
-  .cal__switch label:hover{border-color:rgba(255,255,255,.5);}
+  .cal__switch label:hover{border-color:var(--petal);color:var(--rose-deep);}
   .cal input[type="radio"]:focus-visible + label{
-    outline:3px solid var(--rose-light);
+    outline:3px solid var(--rose);
     outline-offset:3px;
   }
 
@@ -568,17 +575,17 @@
   }
 
   .cal__axis{display:none;}
-
   .cal__day{display:none;}
+
   .cal__dayname{
     font-family:var(--disp);
     font-weight:500;
     font-size:14px;
     letter-spacing:.14em;
     text-transform:uppercase;
-    color:var(--rose-light);
+    color:var(--rose-deep);
     padding-bottom:var(--space-2);
-    border-bottom:1px solid rgba(255,255,255,.14);
+    border-bottom:1px solid var(--line);
     margin-bottom:var(--space-1);
   }
 
@@ -587,7 +594,7 @@
     align-items:center;
     gap:var(--space-2);
     padding:7px 0;
-    border-bottom:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid var(--line);
   }
   .cal__cell.is-empty{display:none;}
   .cal__time{
@@ -595,7 +602,7 @@
     width:74px;
     font-size:14px;
     font-variant-numeric:tabular-nums;
-    color:#B7A7AB;
+    color:var(--ink-soft);
   }
 
   .chip{
@@ -603,11 +610,12 @@
     align-items:center;
     min-height:32px;
     padding:0 14px;
-    border-radius:8px;
+    border-radius:10px;
     background:var(--chip,#fff);
-    color:#14100F;
+    border:1px solid rgba(36,26,30,.07);
+    color:var(--ink);
     font-size:13.5px;
-    font-weight:700;
+    font-weight:600;
     letter-spacing:.04em;
     text-transform:uppercase;
     white-space:nowrap;
@@ -621,36 +629,35 @@
   .chip--mama{--chip:var(--c-mama);}
 
   /* show only the chosen day on mobile */
-  #day-mon:checked ~ .cal__grid .cal__day--mon,
-  #day-tue:checked ~ .cal__grid .cal__day--tue,
-  #day-wed:checked ~ .cal__grid .cal__day--wed,
-  #day-thu:checked ~ .cal__grid .cal__day--thu,
-  #day-fri:checked ~ .cal__grid .cal__day--fri{display:block;}
+  #day-mon:checked ~ .cal__panel .cal__day--mon,
+  #day-tue:checked ~ .cal__panel .cal__day--tue,
+  #day-wed:checked ~ .cal__panel .cal__day--wed,
+  #day-thu:checked ~ .cal__panel .cal__day--thu,
+  #day-fri:checked ~ .cal__panel .cal__day--fri{display:block;}
 
-  #day-mon:checked ~ .cal__switch label[for="day-mon"],
-  #day-tue:checked ~ .cal__switch label[for="day-tue"],
-  #day-wed:checked ~ .cal__switch label[for="day-wed"],
-  #day-thu:checked ~ .cal__switch label[for="day-thu"],
-  #day-fri:checked ~ .cal__switch label[for="day-fri"]{
-    background:var(--paper);
-    border-color:var(--paper);
-    color:#14100F;
+  #day-mon:checked ~ .cal__panel label[for="day-mon"],
+  #day-tue:checked ~ .cal__panel label[for="day-tue"],
+  #day-wed:checked ~ .cal__panel label[for="day-wed"],
+  #day-thu:checked ~ .cal__panel label[for="day-thu"],
+  #day-fri:checked ~ .cal__panel label[for="day-fri"]{
+    background:var(--rose);
+    border-color:var(--rose);
+    color:var(--paper);
   }
 
   .cal__key{
     display:flex;
     flex-wrap:wrap;
     gap:10px var(--space-2);
-    margin-top:var(--space-4);
-    padding-top:var(--space-3);
-    border-top:1px solid rgba(255,255,255,.14);
+    margin-top:var(--space-3);
     font-size:13.5px;
-    color:#D9CBCE;
+    color:var(--ink-soft);
   }
   .cal__key li{display:flex;align-items:center;gap:8px;list-style:none;}
   .cal__key i{
-    width:11px;height:11px;border-radius:3px;
+    width:12px;height:12px;border-radius:4px;
     background:var(--chip);
+    border:1px solid rgba(36,26,30,.10);
     display:block;
   }
 
@@ -661,7 +668,7 @@
     gap:var(--space-2);
     margin-top:var(--space-4);
   }
-  .cal__foot p{color:#C9B9BD;font-size:15px;margin:0;}
+  .cal__foot p{color:var(--ink-soft);font-size:15px;margin:0;}
   .cal__foot .btn{width:100%;}
   @media (min-width:560px){
     .cal__foot .btn{width:auto;}
@@ -669,6 +676,7 @@
 
   @media (min-width:900px){
     .cal{padding:var(--space-7) var(--space-4);}
+    .cal__panel{padding:var(--space-4);}
     .cal__switch{display:none;}
 
     .cal__grid{
@@ -677,7 +685,7 @@
     }
     .cal__axis{
       display:block;
-      padding-top:38px;           /* clears the day name row */
+      padding-top:38px;
     }
     .cal__axis span{
       display:flex;
@@ -685,8 +693,8 @@
       height:var(--row);
       font-size:13.5px;
       font-variant-numeric:tabular-nums;
-      color:#B7A7AB;
-      border-bottom:1px solid rgba(255,255,255,.08);
+      color:var(--ink-soft);
+      border-bottom:1px solid var(--line);
     }
     .cal__day{display:block !important;}
     .cal__cell{
@@ -696,7 +704,7 @@
     .cal__cell.is-empty{
       display:block;
       height:var(--row);
-      border-bottom:1px solid rgba(255,255,255,.08);
+      border-bottom:1px solid var(--line);
     }
     .cal__time{display:none;}
     .chip{width:100%;justify-content:center;}
@@ -1065,6 +1073,8 @@
     <input type="radio" name="cal-day" id="day-thu">
     <input type="radio" name="cal-day" id="day-fri">
 
+    <div class="cal__panel">
+
     <div class="cal__switch" role="tablist" aria-label="Choose a day">
       <label for="day-mon">Mon</label>
       <label for="day-tue">Tue</label>
@@ -1256,6 +1266,8 @@
       <li><i class="chip--reset" style="--chip:var(--c-reset)"></i>Reset</li>
       <li><i class="chip--mama" style="--chip:var(--c-mama)"></i>Mama Move</li>
     </ul>
+
+    </div>
 
     <div class="cal__foot">
       <a class="btn btn--primary" href="#book">Book a class</a>
