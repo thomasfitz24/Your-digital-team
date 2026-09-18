@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StrongHer Studio | Women's Gym in Washington, North East</title>
+<meta name="description" content="A women-only studio gym in Washington, Tyne and Wear, built for beginners. No mirrors full of strangers, no judgement. Book a free look around before you join.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Brand — pink on white */
+    --rose:#B8425C;          /* primary: 5.9:1 on white */
+    --rose-deep:#8E2C44;     /* hover / headings accent */
+    --blush:#FDF2F4;         /* tinted surface */
+    --blush-mid:#F7DDE3;     /* borders, soft fills */
+    --petal:#EBB9C4;         /* decorative only */
+    --ink:#241A1E;           /* body text: 15:1 on white */
+    --ink-soft:#5C4A50;      /* secondary text: 7.1:1 on white */
+    --paper:#FFFFFF;
+
+    --disp:'Fraunces',Georgia,serif;
+    --body:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+
+    --space-1:8px; --space-2:16px; --space-3:24px; --space-4:32px;
+    --space-5:48px; --space-6:64px; --space-7:96px;
+    --radius:20px; --radius-lg:32px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
+  html,body{overflow-x:clip;}
+
+  body{
+    font-family:var(--body);
+    background:var(--paper);
+    color:var(--ink);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img{display:block;max-width:100%;height:auto;}
+  a{color:inherit;}
+  a:focus-visible,button:focus-visible{
+    outline:3px solid var(--rose);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  /* ---------- Section 1: Hero ---------- */
+  .hero{
+    position:relative;
+    padding:var(--space-6) var(--space-3) var(--space-7);
+    background:
+      radial-gradient(120% 90% at 8% 0%, var(--blush) 0%, rgba(253,242,244,0) 62%),
+      var(--paper);
+  }
+
+  .hero__inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:var(--space-5);
+    align-items:center;
+  }
+
+  .hero__eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 16px;
+    border-radius:999px;
+    background:var(--blush);
+    border:1px solid var(--blush-mid);
+    color:var(--rose-deep);
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:.02em;
+    margin-bottom:var(--space-3);
+  }
+  .hero__eyebrow svg{width:16px;height:16px;flex:none;}
+
+  .hero h1{
+    font-family:var(--disp);
+    font-weight:500;
+    font-size:clamp(38px,6.4vw,66px);
+    line-height:1.08;
+    letter-spacing:-.02em;
+    text-wrap:balance;
+    margin-bottom:var(--space-3);
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--rose);
+  }
+
+  .hero__lede{
+    font-size:clamp(17px,2.1vw,20px);
+    color:var(--ink-soft);
+    max-width:54ch;
+    margin-bottom:var(--space-4);
+  }
+
+  /* Buttons */
+  .actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:var(--space-2);
+    margin-bottom:var(--space-4);
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    min-height:52px;
+    padding:14px 26px;
+    border-radius:999px;
+    font-family:var(--body);
+    font-size:16px;
+    font-weight:600;
+    text-decoration:none;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:background-color .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .btn svg{width:18px;height:18px;flex:none;}
+
+  .btn--primary{
+    background:var(--rose);
+    color:var(--paper);
+  }
+  .btn--primary:hover{
+    background:var(--rose-deep);
+    transform:translateY(-2px);
+  }
+
+  .btn--secondary{
+    background:var(--paper);
+    color:var(--rose-deep);
+    border-color:var(--blush-mid);
+  }
+  .btn--secondary:hover{
+    background:var(--blush);
+    border-color:var(--petal);
+    transform:translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .btn:hover{transform:none;}
+  }
+
+  /* Reassurance list under the buttons */
+  .reassure{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:var(--space-2) var(--space-3);
+    font-size:15px;
+    color:var(--ink-soft);
+  }
+  .reassure li{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .reassure svg{
+    width:18px;height:18px;flex:none;color:var(--rose);
+  }
+
+  /* Hero image */
+  .hero__media{
+    position:relative;
+    isolation:isolate;
+  }
+  .hero__media img{
+    position:relative;
+    z-index:1;
+    width:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    object-position:center 42%;
+    border-radius:var(--radius-lg);
+  }
+  .hero__media::after{
+    /* soft blush panel offset behind the photo */
+    content:"";
+    position:absolute;
+    right:-18px;
+    bottom:-18px;
+    width:70%;
+    height:62%;
+    background:var(--blush);
+    border-radius:var(--radius-lg);
+    z-index:0;
+  }
+
+  .hero__caption{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    position:absolute;
+    z-index:2;
+    left:var(--space-2);
+    bottom:var(--space-2);
+    padding:10px 18px;
+    border-radius:999px;
+    background:var(--paper);
+    color:var(--ink);
+    font-size:14px;
+    font-weight:600;
+    box-shadow:0 8px 24px rgba(36,26,30,.14);
+  }
+  .hero__caption span{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--rose);flex:none;
+  }
+
+  @media (min-width:900px){
+    .hero{padding:var(--space-7) var(--space-4);}
+    .hero__inner{
+      grid-template-columns:1fr 1fr;
+      gap:var(--space-6);
+    }
+    .hero__media img{aspect-ratio:5/4;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ SECTION 1 — HERO ============ -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__inner">
+
+    <div class="hero__copy">
+      <p class="hero__eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 10c0 6-8 11-8 11s-8-5-8-11a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        Women-only studio gym · Washington, Tyne &amp; Wear
+      </p>
+
+      <h1 id="hero-title">
+        The gym for women who think gyms <em>aren't for them</em>
+      </h1>
+
+      <p class="hero__lede">
+        No wall of machines you don't know how to use. No one watching. Just a small,
+        women-only studio in Washington where beginners are the norm, and someone
+        shows you what to do from your very first session.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn--primary" href="#book">
+          Book a free look around
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
+        <a class="btn btn--secondary" href="#classes">
+          See classes &amp; prices
+        </a>
+      </div>
+
+      <ul class="reassure">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          No joining fee
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          Cancel any time
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          Complete beginners welcome
+        </li>
+      </ul>
+    </div>
+
+    <div class="hero__media">
+      <img src="images/hero-group.jpg"
+           width="1600" height="1067"
+           alt="A group of women of different ages and sizes warming up together outdoors with their coach, all smiling."
+           fetchpriority="high">
+      <p class="hero__caption"><span aria-hidden="true"></span>Real members. Every level.</p>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
