@@ -390,6 +390,76 @@
     }
   }
 
+  /* ---------- Section 2: About ---------- */
+  .about{
+    padding:var(--space-6) var(--space-3);
+    background:var(--blush);
+  }
+  .about__inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:var(--space-4);
+  }
+
+  .about h2{
+    font-family:var(--disp);
+    font-weight:300;
+    font-size:clamp(30px,4.4vw,48px);
+    line-height:1.1;
+    letter-spacing:-.01em;
+    text-wrap:balance;
+    margin-bottom:var(--space-3);
+  }
+  .about h2 em{font-style:italic;color:var(--rose);}
+
+  .about__copy p{
+    max-width:56ch;
+    margin-bottom:var(--space-2);
+  }
+  .about__copy .btn{margin-top:var(--space-2);}
+
+  .about__points{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:var(--space-2);
+  }
+  .about__point{
+    display:flex;
+    gap:var(--space-2);
+    padding:var(--space-3);
+    border-radius:var(--radius);
+    background:var(--paper);
+    border:1px solid var(--blush-mid);
+  }
+  .about__point svg{
+    width:26px;height:26px;flex:none;
+    color:var(--rose);
+  }
+  .about__point h3{
+    font-family:var(--disp);
+    font-weight:500;
+    font-size:19px;
+    letter-spacing:-.01em;
+    margin-bottom:2px;
+  }
+  .about__point p{
+    font-size:15px;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  @media (min-width:900px){
+    .about{padding:var(--space-7) var(--space-4);}
+    .about__inner{
+      grid-template-columns:1.05fr .95fr;
+      gap:var(--space-6);
+      align-items:center;
+    }
+  }
+
   /* ---------- Section: Pricing ---------- */
   .pricing{
     padding:var(--space-6) var(--space-3);
@@ -679,6 +749,66 @@
       </ul>
 
     </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 — ABOUT ============ -->
+<section class="about" id="about" aria-labelledby="about-title">
+  <div class="about__inner">
+
+    <div class="about__copy">
+      <h2 id="about-title">A gym that starts <em>where you are</em></h2>
+
+      <p>
+        StrongHer is a women-only studio in Washington. It exists because so many women
+        have stood outside a gym and quietly decided it wasn't for them. Too loud, too
+        busy, too many people who already look like they know what they're doing.
+      </p>
+      <p>
+        Inside, it's small and it's calm. You're shown how everything works before you're
+        left to get on with it, and every class has options so you can take it at the level
+        you're at that day. Trained for years or never set foot in a gym, there's a place
+        here for you.
+      </p>
+
+      <a class="btn btn--primary" href="#our-story">
+        Read our full story
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <ul class="about__points">
+      <li class="about__point">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="8" r="4"/><path d="M6 21v-1a6 6 0 0 1 12 0v1"/>
+        </svg>
+        <div>
+          <h3>Women only, always</h3>
+          <p>Every member, every class, every hour we're open.</p>
+        </div>
+      </li>
+      <li class="about__point">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 4.5l1.9 4.4 4.6.4-3.5 3.1 1 4.6L12 14.6 7.9 17l1-4.6L5.4 9.3l4.6-.4z"/>
+        </svg>
+        <div>
+          <h3>Beginners are the norm</h3>
+          <p>Most women here started with no idea what they were doing.</p>
+        </div>
+      </li>
+      <li class="about__point">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 12h4l3-7 4 14 3-7h2"/>
+        </svg>
+        <div>
+          <h3>Everything has options</h3>
+          <p>Take any session up or down to suit how you feel today.</p>
+        </div>
+      </li>
+    </ul>
+
   </div>
 </section>
 
