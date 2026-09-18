@@ -4,28 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>StrongHer Studio | Women's Gym in Washington, North East</title>
-<meta name="description" content="A women-only studio gym in Washington, Tyne and Wear, built for beginners. No mirrors full of strangers, no judgement. Book a free look around before you join.">
+<meta name="description" content="A women-only studio gym in Washington, Tyne and Wear, built for beginners. Small group PT, classes and open gym from £35 a month. Book a free look around before you join.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* Brand — pink on white */
-    --rose:#B8425C;          /* primary: 5.9:1 on white */
-    --rose-deep:#8E2C44;     /* hover / headings accent */
-    --blush:#FDF2F4;         /* tinted surface */
-    --blush-mid:#F7DDE3;     /* borders, soft fills */
-    --petal:#EBB9C4;         /* decorative only */
-    --ink:#241A1E;           /* body text: 15:1 on white */
-    --ink-soft:#5C4A50;      /* secondary text: 7.1:1 on white */
+    /* Brand */
+    --rose:#B8425C;          /* CTA on light: 5.9:1 on white */
+    --rose-deep:#8E2C44;
+    --rose-logo:#C98B8F;     /* the logo pink */
+    --rose-light:#F0BFC6;    /* accent on dark: 8.4:1 on near-black */
+    --blush:#FDF2F4;
+    --blush-mid:#F7DDE3;
+    --petal:#EBB9C4;
+    --ink:#241A1E;
+    --ink-soft:#5C4A50;
     --paper:#FFFFFF;
+    --night:#14100F;
 
-    --disp:'Fraunces',Georgia,serif;
+    --disp:'Jost',system-ui,sans-serif;
     --body:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
 
     --space-1:8px; --space-2:16px; --space-3:24px; --space-4:32px;
     --space-5:48px; --space-6:64px; --space-7:96px;
-    --radius:20px; --radius-lg:32px;
+    --radius:20px; --radius-lg:28px;
+    --header-h:76px;
   }
 
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -49,6 +53,34 @@
     outline-offset:3px;
     border-radius:4px;
   }
+  .on-dark a:focus-visible{outline-color:var(--rose-light);}
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    height:var(--header-h);
+    display:flex;
+    align-items:center;
+    padding:0 var(--space-3);
+    background:var(--paper);
+    border-bottom:1px solid var(--blush-mid);
+  }
+  .site-header__inner{
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .logo{display:inline-block;}
+  .logo img{
+    height:30px;
+    width:auto;
+  }
+  @media (min-width:900px){
+    .site-header{padding:0 var(--space-4);}
+    .logo img{height:36px;}
+  }
 
   /* ---------- Section 1: Hero ---------- */
   .hero{
@@ -56,12 +88,12 @@
     isolation:isolate;
     display:flex;
     align-items:flex-start;
-    min-height:min(92vh,780px);
+    min-height:min(86vh,760px);
     padding:var(--space-6) var(--space-3) var(--space-7);
     overflow:hidden;
+    color:var(--paper);
   }
 
-  /* Background photo */
   .hero__bg{
     position:absolute;
     inset:0;
@@ -69,18 +101,18 @@
     width:100%;
     height:100%;
     object-fit:cover;
-    object-position:80% 44%;
+    object-position:74% 44%;
   }
 
-  /* Soft white scrim so the copy stays readable on any crop */
+  /* Black scrim */
   .hero::after{
     content:"";
     position:absolute;
     inset:0;
     z-index:1;
     background:
-      linear-gradient(to bottom, rgba(255,255,255,.95) 0%, rgba(255,255,255,.92) 55%, rgba(255,255,255,.55) 78%, rgba(255,255,255,.22) 100%),
-      linear-gradient(to right, rgba(253,242,244,.85) 0%, rgba(253,242,244,.30) 65%, rgba(253,242,244,0) 100%);
+      linear-gradient(to bottom, rgba(10,8,8,.86) 0%, rgba(10,8,8,.74) 46%, rgba(10,8,8,.55) 78%, rgba(10,8,8,.45) 100%),
+      linear-gradient(to right, rgba(20,16,15,.55) 0%, rgba(20,16,15,.10) 70%, rgba(20,16,15,0) 100%);
   }
 
   .hero__inner{
@@ -91,42 +123,27 @@
     margin:0 auto;
   }
 
-  .hero__copy{max-width:600px;}
-
-  .hero__eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:8px 16px;
-    border-radius:999px;
-    background:var(--paper);
-    border:1px solid var(--blush-mid);
-    color:var(--rose-deep);
-    font-size:14px;
-    font-weight:600;
-    letter-spacing:.02em;
-    margin-bottom:var(--space-3);
-  }
-  .hero__eyebrow svg{width:16px;height:16px;flex:none;}
+  .hero__copy{max-width:640px;}
 
   .hero h1{
     font-family:var(--disp);
-    font-weight:500;
-    font-size:clamp(38px,6.4vw,66px);
-    line-height:1.08;
-    letter-spacing:-.02em;
+    font-weight:300;
+    font-size:clamp(40px,6.6vw,72px);
+    line-height:1.06;
+    letter-spacing:-.01em;
     text-wrap:balance;
     margin-bottom:var(--space-3);
   }
   .hero h1 em{
     font-style:italic;
-    color:var(--rose);
+    font-weight:400;
+    color:var(--rose-light);
   }
 
   .hero__lede{
     font-size:clamp(17px,2.1vw,20px);
-    color:var(--ink-soft);
-    max-width:44ch;
+    color:#EFE6E7;
+    max-width:46ch;
     margin-bottom:var(--space-4);
   }
 
@@ -159,61 +176,208 @@
   .btn--primary{
     background:var(--rose);
     color:var(--paper);
-    box-shadow:0 10px 24px rgba(184,66,92,.22);
+    box-shadow:0 10px 26px rgba(0,0,0,.28);
   }
-  .btn--primary:hover{
-    background:var(--rose-deep);
+  .btn--primary:hover{background:var(--rose-deep);transform:translateY(-2px);}
+
+  .btn--ghost{
+    background:transparent;
+    color:var(--paper);
+    border-color:rgba(255,255,255,.55);
+  }
+  .btn--ghost:hover{
+    background:rgba(255,255,255,.12);
+    border-color:var(--paper);
     transform:translateY(-2px);
   }
 
-  .btn--secondary{
+  .btn--outline{
     background:var(--paper);
     color:var(--rose-deep);
     border-color:var(--blush-mid);
   }
-  .btn--secondary:hover{
-    background:var(--blush);
-    border-color:var(--petal);
-    transform:translateY(-2px);
-  }
+  .btn--outline:hover{background:var(--blush);border-color:var(--petal);transform:translateY(-2px);}
 
-  @media (prefers-reduced-motion:reduce){
-    .btn:hover{transform:none;}
-  }
+  @media (prefers-reduced-motion:reduce){ .btn:hover{transform:none;} }
 
-  /* Reassurance list under the buttons */
+  /* Reassurance list */
   .reassure{
     list-style:none;
     display:flex;
     flex-wrap:wrap;
     gap:var(--space-2) var(--space-3);
     font-size:15px;
-    color:var(--ink-soft);
+    color:#EADFE1;
   }
-  .reassure li{
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .reassure svg{
-    width:18px;height:18px;flex:none;color:var(--rose);
-  }
+  .reassure li{display:flex;align-items:center;gap:8px;}
+  .reassure svg{width:18px;height:18px;flex:none;color:var(--rose-light);}
 
   @media (min-width:900px){
     .hero{padding:var(--space-7) var(--space-4);align-items:center;}
+    .hero__copy{max-width:760px;}
     .hero::after{
       background:
-        linear-gradient(to right, rgba(255,255,255,.98) 0%, rgba(255,255,255,.96) 40%, rgba(255,255,255,.80) 56%, rgba(255,255,255,.28) 78%, rgba(255,255,255,.10) 100%),
-        linear-gradient(to bottom, rgba(253,242,244,.70) 0%, rgba(253,242,244,.10) 60%, rgba(253,242,244,.45) 100%);
+        linear-gradient(to right, rgba(10,8,8,.90) 0%, rgba(10,8,8,.80) 42%, rgba(10,8,8,.55) 66%, rgba(10,8,8,.30) 100%),
+        linear-gradient(to bottom, rgba(10,8,8,.35) 0%, rgba(10,8,8,.15) 50%, rgba(10,8,8,.45) 100%);
     }
   }
 
+  /* ---------- Section: Pricing ---------- */
+  .pricing{
+    padding:var(--space-7) var(--space-3);
+    background:var(--paper);
+  }
+  .pricing__inner{max-width:1200px;margin:0 auto;}
+
+  .section-head{
+    max-width:60ch;
+    margin:0 auto var(--space-6);
+    text-align:center;
+  }
+  .section-head h2{
+    font-family:var(--disp);
+    font-weight:300;
+    font-size:clamp(32px,4.4vw,48px);
+    line-height:1.1;
+    letter-spacing:-.01em;
+    margin-bottom:var(--space-2);
+  }
+  .section-head p{color:var(--ink-soft);}
+
+  /* Placeholder image block */
+  .media-placeholder{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    aspect-ratio:16/6;
+    max-width:960px;
+    margin:0 auto var(--space-6);
+    border:2px dashed var(--petal);
+    border-radius:var(--radius-lg);
+    background:var(--blush);
+    color:var(--rose-deep);
+    font-size:15px;
+    font-weight:600;
+    text-align:center;
+    padding:var(--space-3);
+  }
+  .media-placeholder svg{width:22px;height:22px;flex:none;}
+
+  .plans{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:var(--space-3);
+    align-items:stretch;
+  }
+
+  .plan{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    padding:var(--space-4);
+    border:1px solid var(--blush-mid);
+    border-radius:var(--radius-lg);
+    background:var(--paper);
+  }
+  .plan--featured{
+    border-color:var(--rose);
+    border-width:2px;
+    background:var(--blush);
+  }
+
+  .plan__badge{
+    position:absolute;
+    top:-14px;
+    left:var(--space-4);
+    padding:5px 14px;
+    border-radius:999px;
+    background:var(--rose);
+    color:var(--paper);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+
+  .plan__name{
+    font-family:var(--disp);
+    font-weight:400;
+    font-size:26px;
+    letter-spacing:.04em;
+    text-transform:lowercase;
+    color:var(--rose-deep);
+    margin-bottom:var(--space-1);
+  }
+  .plan__blurb{
+    color:var(--ink-soft);
+    font-size:15px;
+    margin-bottom:var(--space-3);
+  }
+
+  .plan__features{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    font-size:15px;
+    margin-bottom:var(--space-4);
+  }
+  .plan__features li{display:flex;align-items:flex-start;gap:10px;}
+  .plan__features svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--rose);}
+
+  .plan__price{
+    margin-top:auto;
+    padding-top:var(--space-3);
+    border-top:1px solid var(--blush-mid);
+    margin-bottom:var(--space-3);
+  }
+  .plan__amount{
+    font-family:var(--disp);
+    font-weight:400;
+    font-size:38px;
+    line-height:1.1;
+    letter-spacing:-.01em;
+  }
+  .plan__amount span{
+    font-family:var(--body);
+    font-size:16px;
+    font-weight:500;
+    color:var(--ink-soft);
+  }
+  .plan__rrp{
+    display:block;
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-top:4px;
+  }
+  .plan__rrp s{text-decoration-thickness:1px;}
+
+  .plan .btn{width:100%;}
+
+  @media (min-width:640px){
+    .plans{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (min-width:1100px){
+    .pricing{padding:var(--space-7) var(--space-4);}
+    .plans{grid-template-columns:repeat(4,1fr);gap:var(--space-2);}
+    .plan{padding:var(--space-3);}
+  }
 </style>
 </head>
 <body>
 
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="logo" href="/" aria-label="StrongHer Studio — home">
+      <img src="images/strongher-logo.webp" alt="StrongHer Studio" width="2000" height="653">
+    </a>
+  </div>
+</header>
+
 <!-- ============ SECTION 1 — HERO ============ -->
-<section class="hero" aria-labelledby="hero-title">
+<section class="hero on-dark" aria-labelledby="hero-title">
 
   <img class="hero__bg"
        src="images/hero-group.jpg"
@@ -222,12 +386,6 @@
 
   <div class="hero__inner">
     <div class="hero__copy">
-      <p class="hero__eyebrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M20 10c0 6-8 11-8 11s-8-5-8-11a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
-        </svg>
-        Women-only studio gym &middot; Washington, Tyne &amp; Wear
-      </p>
 
       <h1 id="hero-title">
         The gym for women who think gyms <em>aren't for them</em>
@@ -246,7 +404,7 @@
             <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
           </svg>
         </a>
-        <a class="btn btn--secondary" href="#classes">
+        <a class="btn btn--ghost" href="#pricing">
           See classes &amp; prices
         </a>
       </div>
@@ -265,9 +423,95 @@
           Complete beginners welcome
         </li>
       </ul>
+
     </div>
   </div>
+</section>
 
+<!-- ============ SECTION — PRICING ============ -->
+<section class="pricing" id="pricing" aria-labelledby="pricing-title">
+  <div class="pricing__inner">
+
+    <div class="section-head">
+      <h2 id="pricing-title">Here are the prices</h2>
+      <p>Four ways to train with us. Every option includes a proper induction, so you
+         never have to work out what to do on your own.</p>
+    </div>
+
+    <!-- TODO: replace with a real studio photo -->
+    <div class="media-placeholder" role="img" aria-label="Placeholder for a studio photo, to be added">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="9" r="1.5"/><path d="m21 15-5-5L5 21"/>
+      </svg>
+      Placeholder image — studio photo to come
+    </div>
+
+    <div class="plans">
+
+      <!-- Premium -->
+      <article class="plan plan--featured">
+        <p class="plan__badge">Most support</p>
+        <h3 class="plan__name">Premium</h3>
+        <p class="plan__blurb">Our all-access option for maximum support and results.</p>
+        <ul class="plan__features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>3 small group PT sessions per week</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>1 class per week</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Unlimited open gym access</li>
+        </ul>
+        <p class="plan__price">
+          <span class="plan__amount">£100<span>/month</span></span>
+          <span class="plan__rrp">RRP <s>£129</s></span>
+        </p>
+        <a class="btn btn--primary" href="#book">Choose Premium</a>
+      </article>
+
+      <!-- Plus -->
+      <article class="plan">
+        <h3 class="plan__name">Plus</h3>
+        <p class="plan__blurb">Perfect for women who love classes with added flexibility.</p>
+        <ul class="plan__features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>10 classes per month</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Unlimited open gym access</li>
+        </ul>
+        <p class="plan__price">
+          <span class="plan__amount">£70<span>/month</span></span>
+          <span class="plan__rrp">RRP <s>£80</s></span>
+        </p>
+        <a class="btn btn--outline" href="#book">Choose Plus</a>
+      </article>
+
+      <!-- Base -->
+      <article class="plan">
+        <h3 class="plan__name">Base</h3>
+        <p class="plan__blurb">Simple, affordable access to train on your own terms.</p>
+        <ul class="plan__features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Unlimited open gym access</li>
+        </ul>
+        <p class="plan__price">
+          <span class="plan__amount">£35<span>/month</span></span>
+          <span class="plan__rrp">RRP <s>£45</s></span>
+        </p>
+        <a class="btn btn--outline" href="#book">Choose Base</a>
+      </article>
+
+      <!-- Flex -->
+      <article class="plan">
+        <h3 class="plan__name">Flex</h3>
+        <p class="plan__blurb">Ideal for short-term goals or trying us out.</p>
+        <ul class="plan__features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>10 classes</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Valid for 6 weeks</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>No open gym access</li>
+        </ul>
+        <p class="plan__price">
+          <span class="plan__amount">£55</span>
+          <span class="plan__rrp">One-off payment</span>
+        </p>
+        <a class="btn btn--outline" href="#book">Choose Flex</a>
+      </article>
+
+    </div>
+  </div>
 </section>
 
 </body>
