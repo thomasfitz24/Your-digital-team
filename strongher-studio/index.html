@@ -488,6 +488,218 @@
       align-items:start;
     }
     .about__cta{align-self:start;}
+    .about__points{align-self:center;}
+  }
+
+  /* ---------- Section 3: Timetable ---------- */
+  .cal{
+    --c-lift:#FFC24B;
+    --c-sgpt:#FF5D8F;
+    --c-sculpt:#B884FF;
+    --c-sweat:#FF8552;
+    --c-reset:#4FD8C4;
+    --c-pilates:#63BCFF;
+    --c-mama:#BEE84F;
+    --row:58px;
+
+    padding:var(--space-6) var(--space-3);
+    background:
+      radial-gradient(120% 80% at 80% 0%, rgba(184,66,92,.22) 0%, rgba(20,16,15,0) 60%),
+      #14100F;
+    color:var(--paper);
+  }
+  .cal__inner{max-width:1200px;margin:0 auto;}
+
+  .cal__head{
+    max-width:60ch;
+    margin:0 auto var(--space-4);
+    text-align:center;
+  }
+  .cal__head h2{
+    font-family:var(--disp);
+    font-weight:300;
+    font-size:clamp(30px,4.4vw,48px);
+    line-height:1.1;
+    letter-spacing:-.01em;
+    margin-bottom:var(--space-2);
+  }
+  .cal__head h2 em{font-style:italic;color:var(--rose-light);}
+  .cal__head p{color:#D9CBCE;}
+
+  /* Day switcher (mobile) */
+  .cal__switch{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:var(--space-2);
+    margin-bottom:var(--space-3);
+    scrollbar-width:none;
+  }
+  .cal__switch::-webkit-scrollbar{display:none;}
+  .cal input[type="radio"]{
+    position:absolute;
+    opacity:0;
+    width:1px;height:1px;
+  }
+  .cal__switch label{
+    flex:none;
+    display:inline-flex;
+    align-items:center;
+    min-height:44px;
+    padding:0 18px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.22);
+    font-size:15px;
+    font-weight:600;
+    color:#E7DBDE;
+    cursor:pointer;
+    transition:background-color .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .cal__switch label:hover{border-color:rgba(255,255,255,.5);}
+  .cal input[type="radio"]:focus-visible + label{
+    outline:3px solid var(--rose-light);
+    outline-offset:3px;
+  }
+
+  .cal__grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:0;
+  }
+
+  .cal__axis{display:none;}
+
+  .cal__day{display:none;}
+  .cal__dayname{
+    font-family:var(--disp);
+    font-weight:500;
+    font-size:14px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--rose-light);
+    padding-bottom:var(--space-2);
+    border-bottom:1px solid rgba(255,255,255,.14);
+    margin-bottom:var(--space-1);
+  }
+
+  .cal__cell{
+    display:flex;
+    align-items:center;
+    gap:var(--space-2);
+    padding:7px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .cal__cell.is-empty{display:none;}
+  .cal__time{
+    flex:none;
+    width:74px;
+    font-size:14px;
+    font-variant-numeric:tabular-nums;
+    color:#B7A7AB;
+  }
+
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    min-height:32px;
+    padding:0 14px;
+    border-radius:8px;
+    background:var(--chip,#fff);
+    color:#14100F;
+    font-size:13.5px;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .chip--lift{--chip:var(--c-lift);}
+  .chip--sgpt{--chip:var(--c-sgpt);}
+  .chip--sculpt{--chip:var(--c-sculpt);}
+  .chip--sweat{--chip:var(--c-sweat);}
+  .chip--reset{--chip:var(--c-reset);}
+  .chip--pilates{--chip:var(--c-pilates);}
+  .chip--mama{--chip:var(--c-mama);}
+
+  /* show only the chosen day on mobile */
+  #day-mon:checked ~ .cal__grid .cal__day--mon,
+  #day-tue:checked ~ .cal__grid .cal__day--tue,
+  #day-wed:checked ~ .cal__grid .cal__day--wed,
+  #day-thu:checked ~ .cal__grid .cal__day--thu,
+  #day-fri:checked ~ .cal__grid .cal__day--fri{display:block;}
+
+  #day-mon:checked ~ .cal__switch label[for="day-mon"],
+  #day-tue:checked ~ .cal__switch label[for="day-tue"],
+  #day-wed:checked ~ .cal__switch label[for="day-wed"],
+  #day-thu:checked ~ .cal__switch label[for="day-thu"],
+  #day-fri:checked ~ .cal__switch label[for="day-fri"]{
+    background:var(--paper);
+    border-color:var(--paper);
+    color:#14100F;
+  }
+
+  .cal__key{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px var(--space-2);
+    margin-top:var(--space-4);
+    padding-top:var(--space-3);
+    border-top:1px solid rgba(255,255,255,.14);
+    font-size:13.5px;
+    color:#D9CBCE;
+  }
+  .cal__key li{display:flex;align-items:center;gap:8px;list-style:none;}
+  .cal__key i{
+    width:11px;height:11px;border-radius:3px;
+    background:var(--chip);
+    display:block;
+  }
+
+  .cal__foot{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:var(--space-2);
+    margin-top:var(--space-4);
+  }
+  .cal__foot p{color:#C9B9BD;font-size:15px;margin:0;}
+  .cal__foot .btn{width:100%;}
+  @media (min-width:560px){
+    .cal__foot .btn{width:auto;}
+  }
+
+  @media (min-width:900px){
+    .cal{padding:var(--space-7) var(--space-4);}
+    .cal__switch{display:none;}
+
+    .cal__grid{
+      grid-template-columns:86px repeat(5,1fr);
+      gap:0 var(--space-2);
+    }
+    .cal__axis{
+      display:block;
+      padding-top:38px;           /* clears the day name row */
+    }
+    .cal__axis span{
+      display:flex;
+      align-items:center;
+      height:var(--row);
+      font-size:13.5px;
+      font-variant-numeric:tabular-nums;
+      color:#B7A7AB;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .cal__day{display:block !important;}
+    .cal__cell{
+      height:var(--row);
+      padding:0;
+    }
+    .cal__cell.is-empty{
+      display:block;
+      height:var(--row);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .cal__time{display:none;}
+    .chip{width:100%;justify-content:center;}
   }
 
   /* ---------- Section: Pricing ---------- */
@@ -838,7 +1050,221 @@
   </div>
 </section>
 
-<!-- ============ SECTION — PRICING ============ -->
+<!-- ============ SECTION 3 — TIMETABLE ============ -->
+<section class="cal" id="calendar" aria-labelledby="cal-title">
+  <div class="cal__inner">
+
+    <div class="cal__head">
+      <h2 id="cal-title">What's on, <em>every week</em></h2>
+      <p>The same timetable runs week in, week out, so you can pick your sessions once and stick to them.</p>
+    </div>
+
+    <input type="radio" name="cal-day" id="day-mon" checked>
+    <input type="radio" name="cal-day" id="day-tue">
+    <input type="radio" name="cal-day" id="day-wed">
+    <input type="radio" name="cal-day" id="day-thu">
+    <input type="radio" name="cal-day" id="day-fri">
+
+    <div class="cal__switch" role="tablist" aria-label="Choose a day">
+      <label for="day-mon">Mon</label>
+      <label for="day-tue">Tue</label>
+      <label for="day-wed">Wed</label>
+      <label for="day-thu">Thu</label>
+      <label for="day-fri">Fri</label>
+    </div>
+
+    <div class="cal__grid">
+
+      <div class="cal__axis" aria-hidden="true">
+        <span>6.00am</span>
+        <span>7.00am</span>
+        <span>9.20am</span>
+        <span>9.30am</span>
+        <span>10.00am</span>
+        <span>4.30pm</span>
+        <span>4.45pm</span>
+        <span>5.30pm</span>
+        <span>6.15pm</span>
+      </div>
+
+      <div class="cal__day cal__day--mon">
+        <h3 class="cal__dayname">Monday</h3>
+        <div class="cal__cell">
+          <span class="cal__time">6.00am</span>
+          <span class="chip chip--lift">Lift</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">7.00am</span>
+          <span class="chip chip--sculpt">Sculpt</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">9.20am</span>
+          <span class="chip chip--sweat">Sweat</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell">
+          <span class="cal__time">10.00am</span>
+          <span class="chip chip--pilates">Pilates</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell">
+          <span class="cal__time">4.45pm</span>
+          <span class="chip chip--sculpt">Sculpt</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">5.30pm</span>
+          <span class="chip chip--sweat">Sweat</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">6.15pm</span>
+          <span class="chip chip--lift">Lift Club</span>
+        </div>
+      </div>
+
+      <div class="cal__day cal__day--tue">
+        <h3 class="cal__dayname">Tuesday</h3>
+        <div class="cal__cell">
+          <span class="cal__time">6.00am</span>
+          <span class="chip chip--sgpt">SGPT</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">7.00am</span>
+          <span class="chip chip--sweat">Sweat</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell">
+          <span class="cal__time">9.30am</span>
+          <span class="chip chip--mama">Mama Move</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell">
+          <span class="cal__time">4.30pm</span>
+          <span class="chip chip--pilates">Pilates</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell">
+          <span class="cal__time">5.30pm</span>
+          <span class="chip chip--reset">Reset</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">6.15pm</span>
+          <span class="chip chip--sgpt">SGPT</span>
+        </div>
+      </div>
+
+      <div class="cal__day cal__day--wed">
+        <h3 class="cal__dayname">Wednesday</h3>
+        <div class="cal__cell">
+          <span class="cal__time">6.00am</span>
+          <span class="chip chip--sgpt">SGPT</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">7.00am</span>
+          <span class="chip chip--reset">Reset</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">9.20am</span>
+          <span class="chip chip--lift">Lift Club</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell">
+          <span class="cal__time">10.00am</span>
+          <span class="chip chip--pilates">Pilates</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell">
+          <span class="cal__time">4.45pm</span>
+          <span class="chip chip--lift">Lift Club</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">5.30pm</span>
+          <span class="chip chip--sculpt">Sculpt</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">6.15pm</span>
+          <span class="chip chip--sgpt">SGPT</span>
+        </div>
+      </div>
+
+      <div class="cal__day cal__day--thu">
+        <h3 class="cal__dayname">Thursday</h3>
+        <div class="cal__cell">
+          <span class="cal__time">6.00am</span>
+          <span class="chip chip--sgpt">SGPT</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">7.00am</span>
+          <span class="chip chip--sweat">Sweat</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell">
+          <span class="cal__time">9.30am</span>
+          <span class="chip chip--mama">Mama Move</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell">
+          <span class="cal__time">4.30pm</span>
+          <span class="chip chip--pilates">Pilates</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell">
+          <span class="cal__time">5.30pm</span>
+          <span class="chip chip--sweat">Sweat</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">6.15pm</span>
+          <span class="chip chip--sgpt">SGPT</span>
+        </div>
+      </div>
+
+      <div class="cal__day cal__day--fri">
+        <h3 class="cal__dayname">Friday</h3>
+        <div class="cal__cell">
+          <span class="cal__time">6.00am</span>
+          <span class="chip chip--lift">Lift Club</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">7.00am</span>
+          <span class="chip chip--sculpt">Sculpt</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">9.20am</span>
+          <span class="chip chip--sweat">Sweat</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell">
+          <span class="cal__time">4.30pm</span>
+          <span class="chip chip--sweat">Sweat</span>
+        </div>
+        <div class="cal__cell">
+          <span class="cal__time">4.45pm</span>
+          <span class="chip chip--lift">Lift Club</span>
+        </div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <div class="cal__cell is-empty" aria-hidden="true"></div>
+      </div>
+
+    </div>
+
+    <ul class="cal__key">
+      <li><i class="chip--sgpt" style="--chip:var(--c-sgpt)"></i>SGPT</li>
+      <li><i class="chip--lift" style="--chip:var(--c-lift)"></i>Lift Club</li>
+      <li><i class="chip--sculpt" style="--chip:var(--c-sculpt)"></i>Sculpt</li>
+      <li><i class="chip--sweat" style="--chip:var(--c-sweat)"></i>Sweat</li>
+      <li><i class="chip--pilates" style="--chip:var(--c-pilates)"></i>Pilates</li>
+      <li><i class="chip--reset" style="--chip:var(--c-reset)"></i>Reset</li>
+      <li><i class="chip--mama" style="--chip:var(--c-mama)"></i>Mama Move</li>
+    </ul>
+
+    <div class="cal__foot">
+      <a class="btn btn--primary" href="#book">Book a class</a>
+      <p>New to us? Start with Reset or Pilates, they are the gentlest way in.</p>
+    </div>
+
+  </div>
+</section>
+<!-- ============ SECTION 4 — PRICING ============ -->
 <section class="pricing" id="pricing" aria-labelledby="pricing-title">
   <div class="pricing__inner">
 
