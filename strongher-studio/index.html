@@ -200,6 +200,7 @@
   .menu__links li:nth-child(2){animation-delay:.09s;}
   .menu__links li:nth-child(3){animation-delay:.14s;}
   .menu__links li:nth-child(4){animation-delay:.19s;}
+  .menu__links li:nth-child(5){animation-delay:.24s;}
   @keyframes menuIn{to{opacity:1;transform:none;}}
 
   .menu__foot{
@@ -500,11 +501,10 @@
     --c-pilates:#C4DDF2;
     --c-reset:#BFE4DC;
     --c-mama:#DCE8B4;
-    --row:58px;
     --line:rgba(36,26,30,.10);
 
     padding:var(--space-6) var(--space-3);
-    background:var(--paper);
+    background:var(--blush);
   }
   .cal__inner{max-width:1200px;margin:0 auto;}
 
@@ -524,15 +524,7 @@
   .cal__head h2 em{font-style:italic;color:var(--rose);}
   .cal__head p{color:var(--ink-soft);}
 
-  /* the grid sits on a soft blush panel */
-  .cal__panel{
-    padding:var(--space-3);
-    border-radius:var(--radius-lg);
-    background:var(--blush);
-    border:1px solid var(--blush-mid);
-  }
-
-  /* Day switcher (mobile) */
+  /* Day switcher (mobile only) */
   .cal__switch{
     display:flex;
     gap:8px;
@@ -542,11 +534,7 @@
     scrollbar-width:none;
   }
   .cal__switch::-webkit-scrollbar{display:none;}
-  .cal input[type="radio"]{
-    position:absolute;
-    opacity:0;
-    width:1px;height:1px;
-  }
+  .cal input[type="radio"]{position:absolute;opacity:0;width:1px;height:1px;}
   .cal__switch label{
     flex:none;
     display:inline-flex;
@@ -560,46 +548,58 @@
     font-weight:600;
     color:var(--ink-soft);
     cursor:pointer;
-    transition:background-color .2s ease, color .2s ease, border-color .2s ease;
+    transition:background-color .2s ease,color .2s ease,border-color .2s ease;
   }
   .cal__switch label:hover{border-color:var(--petal);color:var(--rose-deep);}
-  .cal input[type="radio"]:focus-visible + label{
-    outline:3px solid var(--rose);
-    outline-offset:3px;
-  }
+  .cal input[type="radio"]:focus-visible + label{outline:3px solid var(--rose);outline-offset:3px;}
 
   .cal__grid{
     display:grid;
     grid-template-columns:1fr;
-    gap:0;
+    gap:var(--space-2);
   }
 
-  .cal__axis{display:none;}
-  .cal__day{display:none;}
-
+  .cal__day{
+    display:none;
+    padding:var(--space-3);
+    border-radius:var(--radius);
+    background:var(--paper);
+    border:1px solid var(--blush-mid);
+  }
+  .cal__dayhead{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:var(--space-2);
+    padding-bottom:var(--space-2);
+    margin-bottom:var(--space-1);
+    border-bottom:1px solid var(--line);
+  }
   .cal__dayname{
     font-family:var(--disp);
     font-weight:500;
-    font-size:14px;
+    font-size:15px;
     letter-spacing:.14em;
     text-transform:uppercase;
     color:var(--rose-deep);
-    padding-bottom:var(--space-2);
-    border-bottom:1px solid var(--line);
-    margin-bottom:var(--space-1);
+  }
+  .cal__count{
+    font-size:13px;
+    color:var(--ink-soft);
+    white-space:nowrap;
   }
 
-  .cal__cell{
+  .cal__list{list-style:none;}
+  .cal__slot{
     display:flex;
     align-items:center;
     gap:var(--space-2);
-    padding:7px 0;
-    border-bottom:1px solid var(--line);
+    padding:9px 0;
   }
-  .cal__cell.is-empty{display:none;}
+  .cal__slot + .cal__slot{border-top:1px solid var(--line);}
   .cal__time{
     flex:none;
-    width:74px;
+    width:66px;
     font-size:14px;
     font-variant-numeric:tabular-nums;
     color:var(--ink-soft);
@@ -608,13 +608,13 @@
   .chip{
     display:inline-flex;
     align-items:center;
-    min-height:32px;
-    padding:0 14px;
-    border-radius:10px;
+    min-height:30px;
+    padding:0 13px;
+    border-radius:9px;
     background:var(--chip,#fff);
     border:1px solid rgba(36,26,30,.07);
     color:var(--ink);
-    font-size:13.5px;
+    font-size:13px;
     font-weight:600;
     letter-spacing:.04em;
     text-transform:uppercase;
@@ -628,21 +628,18 @@
   .chip--pilates{--chip:var(--c-pilates);}
   .chip--mama{--chip:var(--c-mama);}
 
-  /* show only the chosen day on mobile */
-  #day-mon:checked ~ .cal__panel .cal__day--mon,
-  #day-tue:checked ~ .cal__panel .cal__day--tue,
-  #day-wed:checked ~ .cal__panel .cal__day--wed,
-  #day-thu:checked ~ .cal__panel .cal__day--thu,
-  #day-fri:checked ~ .cal__panel .cal__day--fri{display:block;}
+  #day-mon:checked ~ .cal__grid .cal__day--mon,
+  #day-tue:checked ~ .cal__grid .cal__day--tue,
+  #day-wed:checked ~ .cal__grid .cal__day--wed,
+  #day-thu:checked ~ .cal__grid .cal__day--thu,
+  #day-fri:checked ~ .cal__grid .cal__day--fri{display:block;}
 
-  #day-mon:checked ~ .cal__panel label[for="day-mon"],
-  #day-tue:checked ~ .cal__panel label[for="day-tue"],
-  #day-wed:checked ~ .cal__panel label[for="day-wed"],
-  #day-thu:checked ~ .cal__panel label[for="day-thu"],
-  #day-fri:checked ~ .cal__panel label[for="day-fri"]{
-    background:var(--rose);
-    border-color:var(--rose);
-    color:var(--paper);
+  #day-mon:checked ~ .cal__switch label[for="day-mon"],
+  #day-tue:checked ~ .cal__switch label[for="day-tue"],
+  #day-wed:checked ~ .cal__switch label[for="day-wed"],
+  #day-thu:checked ~ .cal__switch label[for="day-thu"],
+  #day-fri:checked ~ .cal__switch label[for="day-fri"]{
+    background:var(--rose);border-color:var(--rose);color:var(--paper);
   }
 
   .cal__key{
@@ -670,44 +667,244 @@
   }
   .cal__foot p{color:var(--ink-soft);font-size:15px;margin:0;}
   .cal__foot .btn{width:100%;}
-  @media (min-width:560px){
-    .cal__foot .btn{width:auto;}
-  }
+  @media (min-width:560px){ .cal__foot .btn{width:auto;} }
 
   @media (min-width:900px){
     .cal{padding:var(--space-7) var(--space-4);}
-    .cal__panel{padding:var(--space-4);}
     .cal__switch{display:none;}
-
-    .cal__grid{
-      grid-template-columns:86px repeat(5,1fr);
-      gap:0 var(--space-2);
-    }
-    .cal__axis{
-      display:block;
-      padding-top:38px;
-    }
-    .cal__axis span{
-      display:flex;
-      align-items:center;
-      height:var(--row);
-      font-size:13.5px;
-      font-variant-numeric:tabular-nums;
-      color:var(--ink-soft);
-      border-bottom:1px solid var(--line);
-    }
+    .cal__grid{grid-template-columns:repeat(5,1fr);align-items:start;}
     .cal__day{display:block !important;}
-    .cal__cell{
-      height:var(--row);
-      padding:0;
+  }
+
+  /* ---------- Section 4: Events ---------- */
+  .events{
+    padding:var(--space-6) var(--space-3);
+    background:var(--paper);
+  }
+  .events__inner{max-width:1200px;margin:0 auto;}
+
+  .events__head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:end;
+    justify-content:space-between;
+    gap:var(--space-2);
+    margin-bottom:var(--space-4);
+  }
+  .events__head h2{
+    font-family:var(--disp);
+    font-weight:300;
+    font-size:clamp(30px,4.4vw,48px);
+    line-height:1.1;
+    letter-spacing:-.01em;
+  }
+  .events__head h2 em{font-style:italic;color:var(--rose);}
+  .events__head a{
+    font-weight:600;
+    color:var(--rose-deep);
+    text-decoration:none;
+    border-bottom:2px solid var(--blush-mid);
+    padding-bottom:2px;
+  }
+  .events__head a:hover{border-bottom-color:var(--rose);}
+
+  .events__grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:var(--space-3);
+  }
+
+  .event{
+    display:flex;
+    flex-direction:column;
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    background:var(--paper);
+    border:1px solid var(--blush-mid);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .event__media{
+    position:relative;
+    aspect-ratio:1/1;
+    overflow:hidden;
+    background:var(--blush);
+  }
+  .event__media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center top;
+    transition:transform .4s ease;
+  }
+  .event__tag{
+    position:absolute;
+    top:var(--space-2);
+    left:var(--space-2);
+    padding:6px 14px;
+    border-radius:999px;
+    background:var(--paper);
+    color:var(--rose-deep);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  .event__body{
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    padding:var(--space-3);
+  }
+  .event h3{
+    font-family:var(--disp);
+    font-weight:500;
+    font-size:23px;
+    letter-spacing:-.01em;
+    margin-bottom:var(--space-1);
+  }
+  .event__meta{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:var(--space-2);
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+  .event__meta li{display:flex;align-items:center;gap:8px;}
+  .event__meta svg{width:16px;height:16px;flex:none;color:var(--rose);}
+  .event__body > p{
+    font-size:15px;
+    color:var(--ink-soft);
+    margin-bottom:var(--space-3);
+  }
+  .event__link{
+    margin-top:auto;
+    align-self:flex-start;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    min-height:44px;
+    font-weight:600;
+    color:var(--rose-deep);
+    text-decoration:none;
+  }
+  .event__link svg{width:16px;height:16px;transition:transform .2s ease;}
+  .event__link:hover svg{transform:translateX(3px);}
+
+  @media (hover:hover) and (min-width:900px){
+    .event:hover{
+      transform:translateY(-6px);
+      border-color:var(--petal);
+      box-shadow:0 18px 40px rgba(36,26,30,.13);
     }
-    .cal__cell.is-empty{
-      display:block;
-      height:var(--row);
-      border-bottom:1px solid var(--line);
+    .event:hover .event__media img{transform:scale(1.04);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .event,.event__media img,.event__link svg{transition:none;}
+    .event:hover{transform:none;}
+    .event:hover .event__media img{transform:none;}
+  }
+
+  @media (min-width:700px){
+    .events__grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (min-width:1000px){
+    .events{padding:var(--space-7) var(--space-4);}
+    .events__grid{grid-template-columns:repeat(3,1fr);}
+  }
+
+  /* ---------- Section 6: Contact ---------- */
+  .contact{
+    padding:var(--space-6) var(--space-3);
+    background:var(--blush);
+  }
+  .contact__inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:var(--space-4);
+  }
+
+  .contact h2{
+    font-family:var(--disp);
+    font-weight:300;
+    font-size:clamp(30px,4.4vw,48px);
+    line-height:1.1;
+    letter-spacing:-.01em;
+    text-wrap:balance;
+    margin-bottom:var(--space-2);
+  }
+  .contact h2 em{font-style:italic;color:var(--rose);}
+  .contact__intro{color:var(--ink-soft);max-width:48ch;margin-bottom:var(--space-3);}
+
+  .contact__details{list-style:none;display:flex;flex-direction:column;gap:var(--space-2);}
+  .contact__details li{display:flex;gap:var(--space-2);align-items:flex-start;}
+  .contact__details svg{width:20px;height:20px;flex:none;color:var(--rose);margin-top:3px;}
+  .contact__details strong{display:block;font-weight:600;}
+  .contact__details span{color:var(--ink-soft);font-size:15px;}
+  .contact__details a{color:var(--rose-deep);}
+
+  .form{
+    padding:var(--space-3);
+    border-radius:var(--radius-lg);
+    background:var(--paper);
+    border:1px solid var(--blush-mid);
+  }
+  .field{margin-bottom:var(--space-3);}
+  .field label{
+    display:block;
+    font-size:15px;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .field .req{color:var(--rose);}
+  .field .hint{
+    display:block;
+    font-weight:400;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+  .field input,.field select,.field textarea{
+    width:100%;
+    min-height:50px;
+    padding:12px 14px;
+    border-radius:12px;
+    border:1px solid var(--blush-mid);
+    background:var(--paper);
+    font-family:var(--body);
+    font-size:16px;
+    color:var(--ink);
+  }
+  .field textarea{min-height:130px;resize:vertical;}
+  .field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{
+    outline:3px solid var(--rose);
+    outline-offset:2px;
+    border-color:var(--rose);
+  }
+  .field input::placeholder,.field textarea::placeholder{color:#9B8A8F;}
+
+  .form .btn{width:100%;}
+  .form__note{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin-top:var(--space-2);
+  }
+  .form__hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+
+  @media (min-width:640px){
+    .form__row{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);}
+    .form .btn{width:auto;}
+  }
+  @media (min-width:900px){
+    .contact{padding:var(--space-7) var(--space-4);}
+    .contact__inner{
+      grid-template-columns:.85fr 1.15fr;
+      gap:var(--space-6);
+      align-items:start;
     }
-    .cal__time{display:none;}
-    .chip{width:100%;justify-content:center;}
   }
 
   /* ---------- Section: Pricing ---------- */
@@ -918,8 +1115,9 @@
     <ul class="nav__links">
       <li><a href="#events">Events</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#classes">Classes</a></li>
       <li><a href="#calendar">Calendar</a></li>
+      <li><a href="#pricing">Pricing</a></li>
     </ul>
 
     <div class="nav__right">
@@ -948,8 +1146,9 @@
       <ul class="menu__links">
         <li><a href="#events">Events</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#classes">Classes</a></li>
         <li><a href="#calendar">Calendar</a></li>
+        <li><a href="#pricing">Pricing</a></li>
       </ul>
 
       <div class="menu__foot">
@@ -974,7 +1173,7 @@
       </p>
 
       <div class="actions">
-        <a class="btn btn--primary" href="#book">
+        <a class="btn btn--primary" href="#contact">
           Book a free look around
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
@@ -1073,9 +1272,7 @@
     <input type="radio" name="cal-day" id="day-thu">
     <input type="radio" name="cal-day" id="day-fri">
 
-    <div class="cal__panel">
-
-    <div class="cal__switch" role="tablist" aria-label="Choose a day">
+    <div class="cal__switch" aria-label="Choose a day">
       <label for="day-mon">Mon</label>
       <label for="day-tue">Tue</label>
       <label for="day-wed">Wed</label>
@@ -1084,199 +1281,259 @@
     </div>
 
     <div class="cal__grid">
-
-      <div class="cal__axis" aria-hidden="true">
-        <span>6.00am</span>
-        <span>7.00am</span>
-        <span>9.20am</span>
-        <span>9.30am</span>
-        <span>10.00am</span>
-        <span>4.30pm</span>
-        <span>4.45pm</span>
-        <span>5.30pm</span>
-        <span>6.15pm</span>
-      </div>
-
       <div class="cal__day cal__day--mon">
-        <h3 class="cal__dayname">Monday</h3>
-        <div class="cal__cell">
-          <span class="cal__time">6.00am</span>
-          <span class="chip chip--lift">Lift</span>
+        <div class="cal__dayhead">
+          <h3 class="cal__dayname">Monday</h3>
+          <span class="cal__count">7 classes</span>
         </div>
-        <div class="cal__cell">
-          <span class="cal__time">7.00am</span>
-          <span class="chip chip--sculpt">Sculpt</span>
-        </div>
-        <div class="cal__cell">
-          <span class="cal__time">9.20am</span>
-          <span class="chip chip--sweat">Sweat</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell">
-          <span class="cal__time">10.00am</span>
-          <span class="chip chip--pilates">Pilates</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell">
-          <span class="cal__time">4.45pm</span>
-          <span class="chip chip--sculpt">Sculpt</span>
-        </div>
-        <div class="cal__cell">
-          <span class="cal__time">5.30pm</span>
-          <span class="chip chip--sweat">Sweat</span>
-        </div>
-        <div class="cal__cell">
-          <span class="cal__time">6.15pm</span>
-          <span class="chip chip--lift">Lift Club</span>
-        </div>
+        <ul class="cal__list">
+          <li class="cal__slot">
+            <span class="cal__time">6.00am</span>
+            <span class="chip chip--lift">Lift</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">7.00am</span>
+            <span class="chip chip--sculpt">Sculpt</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">9.20am</span>
+            <span class="chip chip--sweat">Sweat</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">10.00am</span>
+            <span class="chip chip--pilates">Pilates</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">4.45pm</span>
+            <span class="chip chip--sculpt">Sculpt</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">5.30pm</span>
+            <span class="chip chip--sweat">Sweat</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">6.15pm</span>
+            <span class="chip chip--lift">Lift Club</span>
+          </li>
+        </ul>
       </div>
-
       <div class="cal__day cal__day--tue">
-        <h3 class="cal__dayname">Tuesday</h3>
-        <div class="cal__cell">
-          <span class="cal__time">6.00am</span>
-          <span class="chip chip--sgpt">SGPT</span>
+        <div class="cal__dayhead">
+          <h3 class="cal__dayname">Tuesday</h3>
+          <span class="cal__count">6 classes</span>
         </div>
-        <div class="cal__cell">
-          <span class="cal__time">7.00am</span>
-          <span class="chip chip--sweat">Sweat</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell">
-          <span class="cal__time">9.30am</span>
-          <span class="chip chip--mama">Mama Move</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell">
-          <span class="cal__time">4.30pm</span>
-          <span class="chip chip--pilates">Pilates</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell">
-          <span class="cal__time">5.30pm</span>
-          <span class="chip chip--reset">Reset</span>
-        </div>
-        <div class="cal__cell">
-          <span class="cal__time">6.15pm</span>
-          <span class="chip chip--sgpt">SGPT</span>
-        </div>
+        <ul class="cal__list">
+          <li class="cal__slot">
+            <span class="cal__time">6.00am</span>
+            <span class="chip chip--sgpt">SGPT</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">7.00am</span>
+            <span class="chip chip--sweat">Sweat</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">9.30am</span>
+            <span class="chip chip--mama">Mama Move</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">4.30pm</span>
+            <span class="chip chip--pilates">Pilates</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">5.30pm</span>
+            <span class="chip chip--reset">Reset</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">6.15pm</span>
+            <span class="chip chip--sgpt">SGPT</span>
+          </li>
+        </ul>
       </div>
-
       <div class="cal__day cal__day--wed">
-        <h3 class="cal__dayname">Wednesday</h3>
-        <div class="cal__cell">
-          <span class="cal__time">6.00am</span>
-          <span class="chip chip--sgpt">SGPT</span>
+        <div class="cal__dayhead">
+          <h3 class="cal__dayname">Wednesday</h3>
+          <span class="cal__count">7 classes</span>
         </div>
-        <div class="cal__cell">
-          <span class="cal__time">7.00am</span>
-          <span class="chip chip--reset">Reset</span>
-        </div>
-        <div class="cal__cell">
-          <span class="cal__time">9.20am</span>
-          <span class="chip chip--lift">Lift Club</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell">
-          <span class="cal__time">10.00am</span>
-          <span class="chip chip--pilates">Pilates</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell">
-          <span class="cal__time">4.45pm</span>
-          <span class="chip chip--lift">Lift Club</span>
-        </div>
-        <div class="cal__cell">
-          <span class="cal__time">5.30pm</span>
-          <span class="chip chip--sculpt">Sculpt</span>
-        </div>
-        <div class="cal__cell">
-          <span class="cal__time">6.15pm</span>
-          <span class="chip chip--sgpt">SGPT</span>
-        </div>
+        <ul class="cal__list">
+          <li class="cal__slot">
+            <span class="cal__time">6.00am</span>
+            <span class="chip chip--sgpt">SGPT</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">7.00am</span>
+            <span class="chip chip--reset">Reset</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">9.20am</span>
+            <span class="chip chip--lift">Lift Club</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">10.00am</span>
+            <span class="chip chip--pilates">Pilates</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">4.45pm</span>
+            <span class="chip chip--lift">Lift Club</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">5.30pm</span>
+            <span class="chip chip--sculpt">Sculpt</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">6.15pm</span>
+            <span class="chip chip--sgpt">SGPT</span>
+          </li>
+        </ul>
       </div>
-
       <div class="cal__day cal__day--thu">
-        <h3 class="cal__dayname">Thursday</h3>
-        <div class="cal__cell">
-          <span class="cal__time">6.00am</span>
-          <span class="chip chip--sgpt">SGPT</span>
+        <div class="cal__dayhead">
+          <h3 class="cal__dayname">Thursday</h3>
+          <span class="cal__count">6 classes</span>
         </div>
-        <div class="cal__cell">
-          <span class="cal__time">7.00am</span>
-          <span class="chip chip--sweat">Sweat</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell">
-          <span class="cal__time">9.30am</span>
-          <span class="chip chip--mama">Mama Move</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell">
-          <span class="cal__time">4.30pm</span>
-          <span class="chip chip--pilates">Pilates</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell">
-          <span class="cal__time">5.30pm</span>
-          <span class="chip chip--sweat">Sweat</span>
-        </div>
-        <div class="cal__cell">
-          <span class="cal__time">6.15pm</span>
-          <span class="chip chip--sgpt">SGPT</span>
-        </div>
+        <ul class="cal__list">
+          <li class="cal__slot">
+            <span class="cal__time">6.00am</span>
+            <span class="chip chip--sgpt">SGPT</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">7.00am</span>
+            <span class="chip chip--sweat">Sweat</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">9.30am</span>
+            <span class="chip chip--mama">Mama Move</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">4.30pm</span>
+            <span class="chip chip--pilates">Pilates</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">5.30pm</span>
+            <span class="chip chip--sweat">Sweat</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">6.15pm</span>
+            <span class="chip chip--sgpt">SGPT</span>
+          </li>
+        </ul>
       </div>
-
       <div class="cal__day cal__day--fri">
-        <h3 class="cal__dayname">Friday</h3>
-        <div class="cal__cell">
-          <span class="cal__time">6.00am</span>
-          <span class="chip chip--lift">Lift Club</span>
+        <div class="cal__dayhead">
+          <h3 class="cal__dayname">Friday</h3>
+          <span class="cal__count">5 classes</span>
         </div>
-        <div class="cal__cell">
-          <span class="cal__time">7.00am</span>
-          <span class="chip chip--sculpt">Sculpt</span>
-        </div>
-        <div class="cal__cell">
-          <span class="cal__time">9.20am</span>
-          <span class="chip chip--sweat">Sweat</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell">
-          <span class="cal__time">4.30pm</span>
-          <span class="chip chip--sweat">Sweat</span>
-        </div>
-        <div class="cal__cell">
-          <span class="cal__time">4.45pm</span>
-          <span class="chip chip--lift">Lift Club</span>
-        </div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
-        <div class="cal__cell is-empty" aria-hidden="true"></div>
+        <ul class="cal__list">
+          <li class="cal__slot">
+            <span class="cal__time">6.00am</span>
+            <span class="chip chip--lift">Lift Club</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">7.00am</span>
+            <span class="chip chip--sculpt">Sculpt</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">9.20am</span>
+            <span class="chip chip--sweat">Sweat</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">4.30pm</span>
+            <span class="chip chip--sweat">Sweat</span>
+          </li>
+          <li class="cal__slot">
+            <span class="cal__time">4.45pm</span>
+            <span class="chip chip--lift">Lift Club</span>
+          </li>
+        </ul>
       </div>
-
     </div>
 
     <ul class="cal__key">
-      <li><i class="chip--sgpt" style="--chip:var(--c-sgpt)"></i>SGPT</li>
-      <li><i class="chip--lift" style="--chip:var(--c-lift)"></i>Lift Club</li>
-      <li><i class="chip--sculpt" style="--chip:var(--c-sculpt)"></i>Sculpt</li>
-      <li><i class="chip--sweat" style="--chip:var(--c-sweat)"></i>Sweat</li>
-      <li><i class="chip--pilates" style="--chip:var(--c-pilates)"></i>Pilates</li>
-      <li><i class="chip--reset" style="--chip:var(--c-reset)"></i>Reset</li>
-      <li><i class="chip--mama" style="--chip:var(--c-mama)"></i>Mama Move</li>
+      <li><i style="--chip:var(--c-sgpt)"></i>SGPT</li>
+      <li><i style="--chip:var(--c-lift)"></i>Lift Club</li>
+      <li><i style="--chip:var(--c-sculpt)"></i>Sculpt</li>
+      <li><i style="--chip:var(--c-sweat)"></i>Sweat</li>
+      <li><i style="--chip:var(--c-pilates)"></i>Pilates</li>
+      <li><i style="--chip:var(--c-reset)"></i>Reset</li>
+      <li><i style="--chip:var(--c-mama)"></i>Mama Move</li>
     </ul>
 
-    </div>
-
     <div class="cal__foot">
-      <a class="btn btn--primary" href="#book">Book a class</a>
+      <a class="btn btn--primary" href="#contact">Book a class</a>
       <p>New to us? Start with Reset or Pilates, they are the gentlest way in.</p>
     </div>
 
   </div>
 </section>
-<!-- ============ SECTION 4 — PRICING ============ -->
+<!-- ============ SECTION 4 — EVENTS ============ -->
+<section class="events" id="events" aria-labelledby="events-title">
+  <div class="events__inner">
+
+    <div class="events__head">
+      <h2 id="events-title">What's coming <em>up</em></h2>
+      <a href="#contact">Ask about an event</a>
+    </div>
+
+    <div class="events__grid">
+
+      <article class="event">
+        <div class="event__media">
+          <img src="images/events/pilates-pumpkins.jpg"
+               alt="Pink and white painted pumpkins with little ghost faces, from the Pilates and Pumpkins event."
+               width="607" height="900" loading="lazy">
+          <p class="event__tag">Seasonal</p>
+        </div>
+        <div class="event__body">
+          <h3>Pilates &amp; Pumpkins</h3>
+          <ul class="event__meta">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>10 October</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>5pm to 7pm</li>
+          </ul>
+          <p>A gentle Pilates flow followed by pumpkin painting. No experience needed, just come as you are.</p>
+          <a class="event__link" href="#contact">Save me a spot <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+      </article>
+
+      <article class="event">
+        <div class="event__media">
+          <img src="images/events/free-pilates-sunday.jpg"
+               alt="Free Pilates every Sunday, written in pink lettering."
+               width="387" height="375" loading="lazy">
+          <p class="event__tag">Weekly</p>
+        </div>
+        <div class="event__body">
+          <h3>Free Pilates every Sunday</h3>
+          <ul class="event__meta">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>Every Sunday</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 11-8 11s-8-5-8-11a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>At the studio</li>
+          </ul>
+          <p>Our easiest way in. Free, every week, and the room is full of women trying it for the first time.</p>
+          <a class="event__link" href="#contact">Come along <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+      </article>
+
+      <article class="event">
+        <div class="event__media">
+          <img src="images/events/womens-run-club.jpg"
+               alt="A large group of women running together along a country road at Herrington Country Park."
+               width="725" height="900" loading="lazy">
+          <p class="event__tag">StrongHer &times; Love Lily</p>
+        </div>
+        <div class="event__body">
+          <h3>Women's Run Club</h3>
+          <ul class="event__meta">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>Monday 31 August, 10am</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 11-8 11s-8-5-8-11a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Herrington Country Park</li>
+          </ul>
+          <p>Meet at Love Lily, run at whatever pace suits you, then coffee at Love Lily afterwards.</p>
+          <a class="event__link" href="#contact">Join the run <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5 — PRICING ============ -->
 <section class="pricing" id="pricing" aria-labelledby="pricing-title">
   <div class="pricing__inner">
 
@@ -1428,6 +1685,88 @@
     });
   })();
 </script>
+
+<!-- ============ SECTION 6 — CONTACT ============ -->
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="contact__inner">
+
+    <div class="contact__copy">
+      <h2 id="contact-title">Come and <em>have a look</em></h2>
+      <p class="contact__intro">
+        Tell us a bit about yourself and we'll get back to you. There's no pressure to
+        join anything, and plenty of women message us before they ever walk through
+        the door.
+      </p>
+
+      <ul class="contact__details">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 11-8 11s-8-5-8-11a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div>
+            <strong>StrongHer Studio</strong>
+            <span>Washington, Tyne &amp; Wear</span>
+          </div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+          <div>
+            <strong>Email us</strong>
+            <span><a href="mailto:hello@strongherstudio.com">hello@strongherstudio.com</a></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- TODO: point action at a real form endpoint before launch -->
+    <form class="form" action="#" method="post" novalidate>
+
+      <div class="form__row">
+        <div class="field">
+          <label for="f-name">Your name <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required>
+        </div>
+
+        <div class="field">
+          <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-phone">Phone <span class="hint">Optional, if you'd rather we rang you.</span></label>
+        <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+      </div>
+
+      <div class="field">
+        <label for="f-about">What can we help with?</label>
+        <select id="f-about" name="about">
+          <option value="look-around">Booking a free look around</option>
+          <option value="membership">Choosing a membership</option>
+          <option value="class">Booking a class</option>
+          <option value="event">An event</option>
+          <option value="other">Something else</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="f-message">Message
+          <span class="hint">Tell us how much or how little you like. "I've never been to a gym" is a perfectly good message.</span>
+        </label>
+        <textarea id="f-message" name="message" rows="5"></textarea>
+      </div>
+
+      <p class="form__hp" aria-hidden="true">
+        <label for="f-website">Leave this field empty</label>
+        <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </p>
+
+      <button class="btn btn--primary" type="submit">
+        Send message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+      <p class="form__note">We'll only use your details to reply. No mailing list unless you ask.</p>
+    </form>
+
+  </div>
+</section>
 
 </body>
 </html>
