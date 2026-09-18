@@ -422,33 +422,46 @@
 
   .about__points{
     list-style:none;
-    display:flex;
-    flex-direction:column;
-    gap:var(--space-2);
+    counter-reset:point;
+    border-top:1px solid var(--blush-mid);
   }
   .about__point{
-    display:flex;
-    gap:var(--space-2);
-    padding:var(--space-3);
-    border-radius:var(--radius);
-    background:var(--paper);
-    border:1px solid var(--blush-mid);
+    counter-increment:point;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    align-items:baseline;
+    column-gap:var(--space-3);
+    padding:var(--space-3) 0;
+    border-bottom:1px solid var(--blush-mid);
   }
-  .about__point svg{
-    width:26px;height:26px;flex:none;
-    color:var(--rose);
+  .about__point::before{
+    content:counter(point,decimal-leading-zero);
+    font-family:var(--disp);
+    font-weight:300;
+    font-size:34px;
+    line-height:1;
+    color:var(--petal);
+    transition:color .25s ease;
   }
   .about__point h3{
     font-family:var(--disp);
     font-weight:500;
-    font-size:19px;
+    font-size:20px;
     letter-spacing:-.01em;
-    margin-bottom:2px;
+    margin-bottom:4px;
   }
   .about__point p{
-    font-size:15px;
+    font-size:15.5px;
     color:var(--ink-soft);
+    max-width:40ch;
     margin:0;
+  }
+
+  @media (hover:hover) and (min-width:900px){
+    .about__point:hover::before{color:var(--rose);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .about__point::before{transition:none;}
   }
 
   @media (min-width:900px){
@@ -468,9 +481,11 @@
   .pricing__inner{max-width:1200px;margin:0 auto;}
 
   .section-head{
-    margin:0 0 var(--space-4);
+    margin:0 auto var(--space-4);
+    max-width:60ch;
+    text-align:center;
   }
-  .section-head p{max-width:56ch;}
+  .section-head p{margin:0 auto;}
   .section-head h2{
     font-family:var(--disp);
     font-weight:300;
@@ -642,7 +657,7 @@
   }
   @media (min-width:1100px){
     .pricing{padding:var(--space-7) var(--space-4);}
-    .section-head{margin:0 0 var(--space-6);}
+    .section-head{margin:0 auto var(--space-6);}
     .plans{grid-template-columns:repeat(4,1fr);gap:var(--space-2);}
     .plan{padding:var(--space-3);}
   }
@@ -781,27 +796,18 @@
 
     <ul class="about__points">
       <li class="about__point">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="8" r="4"/><path d="M6 21v-1a6 6 0 0 1 12 0v1"/>
-        </svg>
         <div>
           <h3>Women only, always</h3>
           <p>Every member, every class, every hour we're open.</p>
         </div>
       </li>
       <li class="about__point">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 4.5l1.9 4.4 4.6.4-3.5 3.1 1 4.6L12 14.6 7.9 17l1-4.6L5.4 9.3l4.6-.4z"/>
-        </svg>
         <div>
           <h3>Beginners are the norm</h3>
           <p>Most women here started with no idea what they were doing.</p>
         </div>
       </li>
       <li class="about__point">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M4 12h4l3-7 4 14 3-7h2"/>
-        </svg>
         <div>
           <h3>Everything has options</h3>
           <p>Take any session up or down to suit how you feel today.</p>
