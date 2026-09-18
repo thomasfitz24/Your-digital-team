@@ -61,18 +61,24 @@
     top:0;
     left:0;
     right:0;
-    z-index:3;
+    z-index:40;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:var(--space-3);
+    gap:var(--space-2);
     max-width:1200px;
     margin:0 auto;
     padding:var(--space-3);
   }
 
   .logo{display:inline-block;flex:none;}
-  .logo img{height:26px;width:auto;}
+  .logo img{height:44px;width:auto;}
+
+  .nav__right{
+    display:flex;
+    align-items:center;
+    gap:var(--space-2);
+  }
 
   .nav__links{
     display:none;
@@ -107,10 +113,59 @@
   }
   .nav__cta:hover{background:var(--blush);color:var(--rose-deep);}
 
+  /* Burger */
+  .nav__toggle{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:48px;
+    height:48px;
+    flex:none;
+    border:1px solid rgba(255,255,255,.45);
+    border-radius:14px;
+    background:rgba(20,16,15,.35);
+    color:var(--paper);
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .nav__toggle svg{width:24px;height:24px;pointer-events:none;}
+  .nav__toggle .icon-close{display:none;}
+  .nav__toggle[aria-expanded="true"] .icon-open{display:none;}
+  .nav__toggle[aria-expanded="true"] .icon-close{display:block;}
+
+  /* Mobile drop-down panel */
+  .nav__panel{
+    position:absolute;
+    top:calc(100% - 8px);
+    left:var(--space-3);
+    right:var(--space-3);
+    padding:var(--space-2);
+    border-radius:var(--radius);
+    background:var(--paper);
+    box-shadow:0 20px 44px rgba(0,0,0,.34);
+    list-style:none;
+  }
+  .nav__panel[hidden]{display:none;}
+  .nav__panel a{
+    display:flex;
+    align-items:center;
+    min-height:52px;
+    padding:0 var(--space-2);
+    border-radius:12px;
+    color:var(--ink);
+    font-size:17px;
+    font-weight:600;
+    text-decoration:none;
+  }
+  .nav__panel a:hover{background:var(--blush);color:var(--rose-deep);}
+  .nav__panel li + li{border-top:1px solid var(--blush-mid);}
+
   @media (min-width:900px){
     .nav{padding:var(--space-4);}
-    .logo img{height:32px;}
+    .logo img{height:60px;}
     .nav__links{display:flex;}
+    .nav__toggle{display:none;}
+    .nav__panel{display:none !important;}
   }
 
   /* ---------- Section 1: Hero ---------- */
@@ -396,7 +451,25 @@
       <li><a href="#calendar">Calendar</a></li>
     </ul>
 
-    <a class="nav__cta" href="#contact">Contact us</a>
+    <div class="nav__right">
+      <a class="nav__cta" href="#contact">Contact us</a>
+      <button class="nav__toggle" type="button"
+              aria-expanded="false" aria-controls="nav-panel" aria-label="Open menu">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/>
+        </svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12"/><path d="M18 6 6 18"/>
+        </svg>
+      </button>
+    </div>
+
+    <ul class="nav__panel" id="nav-panel" hidden>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#calendar">Calendar</a></li>
+    </ul>
   </nav>
 
   <div class="hero__inner">
@@ -516,6 +589,40 @@
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    var toggle = document.querySelector('.nav__toggle');
+    var panel  = document.getElementById('nav-panel');
+    if (!toggle || !panel) return;
+
+    function setOpen(open) {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      panel.hidden = !open;
+    }
+
+    toggle.addEventListener('click', function () {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    panel.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setOpen(false);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (toggle.getAttribute('aria-expanded') !== 'true') return;
+      if (!e.target.closest('.nav')) setOpen(false);
+    });
+  })();
+</script>
 
 </body>
 </html>
