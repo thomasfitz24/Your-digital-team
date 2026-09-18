@@ -400,7 +400,18 @@
     margin:0 auto;
     display:grid;
     grid-template-columns:1fr;
+    grid-template-areas:
+      "copy"
+      "points"
+      "cta";
     gap:var(--space-4);
+  }
+  .about__copy{grid-area:copy;}
+  .about__points{grid-area:points;}
+  .about__cta{grid-area:cta;}
+  .about__cta .btn{width:100%;}
+  @media (min-width:560px){
+    .about__cta .btn{width:auto;}
   }
 
   .about h2{
@@ -418,7 +429,7 @@
     max-width:56ch;
     margin-bottom:var(--space-2);
   }
-  .about__copy .btn{margin-top:var(--space-2);}
+
 
   .about__points{
     list-style:none;
@@ -468,9 +479,15 @@
     .about{padding:var(--space-7) var(--space-4);}
     .about__inner{
       grid-template-columns:1.05fr .95fr;
-      gap:var(--space-6);
-      align-items:center;
+      grid-template-areas:
+        "copy points"
+        "cta  points";
+      grid-template-rows:auto 1fr;
+      column-gap:var(--space-6);
+      row-gap:var(--space-4);
+      align-items:start;
     }
+    .about__cta{align-self:start;}
   }
 
   /* ---------- Section: Pricing ---------- */
@@ -786,12 +803,6 @@
         here for you.
       </p>
 
-      <a class="btn btn--primary" href="#our-story">
-        Read our full story
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-        </svg>
-      </a>
     </div>
 
     <ul class="about__points">
@@ -814,6 +825,15 @@
         </div>
       </li>
     </ul>
+
+    <div class="about__cta">
+      <a class="btn btn--primary" href="#our-story">
+        Read our full story
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
 
   </div>
 </section>
