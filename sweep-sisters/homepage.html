@@ -59,6 +59,12 @@
 .ss-page .ss-lead{font-size:clamp(1.06rem,1.6vw,1.2rem)!important;line-height:1.55;color:var(--ss-body)}
 .ss-page .ss-eyebrow{display:block;font-family:var(--ss-sans);font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ss-ember-deep);margin:0 0 .9rem}
 
+/* WCAG 2.2 target size: standalone links get a 24px+ line box; prose capped at 72ch */
+.ss-page.ss-page :is(.ss-feature__link,.ss-areas h3 a,.ss-info a,.ss-card__more){display:inline-block;padding-top:.3rem;padding-bottom:.3rem;margin:-.3rem 0}
+.ss-page.ss-page .ss-faq__a a,.ss-page.ss-page .ss-note a,.ss-page.ss-page .ss-form-fallback a{display:inline-block;padding:.25rem 0;margin:-.25rem 0}
+.ss-page.ss-page p{max-width:72ch}
+.ss-page .ss-head--center p,.ss-page .ss-note[style*="center"],.ss-page .ss-form-fallback{margin-left:auto;margin-right:auto}
+
 /* ---------- sections ---------- */
 .ss-page .ss-sec{position:relative;padding:clamp(3rem,6vw,5rem) var(--ss-gutter);background:var(--ss-paper);color:var(--ss-body)}
 .ss-page .ss-sec--grey{background:var(--ss-paper-2)}
@@ -299,7 +305,7 @@
 <div class="ss-page">
 
   <section class="ss-hero">
-    <div class="ss-hero__bg"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1500w" alt="" width="1500" height="1000" fetchpriority="high" decoding="async"></div>
+    <div class="ss-hero__bg"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1000w" srcset="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1500w 1500w" sizes="100vw" alt="" width="1500" height="1000" fetchpriority="high" decoding="async"></div>
     <div class="ss-hero__inner"><div class="ss-hero__text">
       <p class="ss-eyebrow">Sweep Sisters · Essex &amp; Hertfordshire</p>
       <h1>Chimney sweeps who clean up after themselves</h1>
@@ -314,25 +320,31 @@
     </div></div>
   </section>
 
+  <section class="ss-sec ss-sec--grey"><div class="ss-wrap">
+    <div class="ss-head ss-head--center"><h2>What our customers say</h2><p class="ss-lead">Reviews from homeowners across Essex and Hertfordshire.</p></div>
+    <div class="ss-reviews"><script src="https://widget.trustmary.com/ebsaJUe2M"></script></div>
+    <div class="ss-actions" style="margin-top:2rem;justify-content:center"><a class="ss-btn" href="#quote">Book a sweep</a><a class="ss-btn ss-btn--outline" href="tel:03301332121">Call 0330 133 2121</a></div>
+  </div></section>
+
   <section class="ss-sec"><div class="ss-wrap">
     <div class="ss-head ss-head--center"><h2>One team for the flue, the stove and the stack</h2><p class="ss-lead">Everything a chimney, stove or open fire needs, from the sweep itself to the cowl on top.</p></div>
     <!-- IMAGE SLOTS: swap each src for a photo of that job. Keep width/height so the page does not jump. -->
     <div class="ss-features">
       <div class="ss-split ss-feature">
         <div><h3>Chimney and stove sweeping</h3><p>Wood burners, multi-fuel stoves and open fires, swept to the pot, smoke-tested and certified. Dust sheets down and the vacuum running before a rod goes near the flue.</p><a class="ss-feature__link" href="/chimney-services#sweeping">More about sweeping</a></div>
-        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w" alt="Chimney sweep sweeping a wood burning stove" width="1000" height="750" loading="lazy" decoding="async"></div>
+        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w" srcset="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1500w 1500w" sizes="(min-width: 900px) 50vw, 100vw" alt="Chimney sweep sweeping a wood burning stove" width="1000" height="750" loading="lazy" decoding="async"></div>
       </div>
       <div class="ss-split ss-feature ss-split--flip">
         <div><h3>Stove servicing and repairs</h3><p>Rope seals, glass and baffles on the stove, plus re-pointing, pots and stack repairs up top. Priced once we have seen it, agreed before we start.</p><a class="ss-feature__link" href="/chimney-services#repairs">More about servicing and repairs</a></div>
-        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1000w" alt="Stove servicing and chimney repairs" width="1000" height="750" loading="lazy" decoding="async"></div>
+        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1000w" srcset="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1500w 1500w" sizes="(min-width: 900px) 50vw, 100vw" alt="Stove servicing and chimney repairs" width="1000" height="750" loading="lazy" decoding="async"></div>
       </div>
       <div class="ss-split ss-feature">
         <div><h3>Cowls and bird guards</h3><p>Fitted to suit your pot, to keep out nesting jackdaws, rain and downdraughts. We will tell you which one you actually need.</p><a class="ss-feature__link" href="/chimney-services#cowls">More about cowls and bird guards</a></div>
-        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w" alt="Chimney cowl fitted on a chimney pot" width="1000" height="750" loading="lazy" decoding="async"></div>
+        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w" srcset="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1500w 1500w" sizes="(min-width: 900px) 50vw, 100vw" alt="Chimney cowl fitted on a chimney pot" width="1000" height="750" loading="lazy" decoding="async"></div>
       </div>
       <div class="ss-split ss-feature ss-split--flip">
         <div><h3>CCTV flue inspections</h3><p>The whole flue on camera, with photos of anything that needs attention. The sensible first step before you buy a house, reopen a fireplace or fit a stove.</p><a class="ss-feature__link" href="/chimney-services#cctv">More about CCTV inspections</a></div>
-        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1000w" alt="CCTV camera inspection of a chimney flue" width="1000" height="750" loading="lazy" decoding="async"></div>
+        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1000w" srcset="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1500w 1500w" sizes="(min-width: 900px) 50vw, 100vw" alt="CCTV camera inspection of a chimney flue" width="1000" height="750" loading="lazy" decoding="async"></div>
       </div>
     </div>
   </div></section>
@@ -359,7 +371,7 @@
         <div class="ss-actions" style="margin-top:1.5rem"><a class="ss-btn" href="#quote">Book a sweep</a><a class="ss-btn ss-btn--outline" href="/about">More about us</a></div>
       </div>
       <div>
-        <div class="ss-split__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w" alt="Sweep Sisters chimney sweep inspecting a wood burning stove" width="1000" height="1250" loading="lazy" decoding="async"></div>
+        <div class="ss-split__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w" srcset="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w 1000w, https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1500w 1500w" sizes="(min-width: 900px) 50vw, 100vw" alt="Sweep Sisters chimney sweep inspecting a wood burning stove" width="1000" height="1250" loading="lazy" decoding="async"></div>
         <p class="ss-caption">Checking over a wood burner before the sweep. Sheets go down before the toolbox does.</p>
       </div>
     </div>
@@ -385,10 +397,6 @@
     </dl>
   </div></section>
 
-  <section class="ss-sec"><div class="ss-wrap">
-    <div class="ss-head ss-head--center"><h2>What our customers say</h2><p class="ss-lead">Reviews from homeowners across Essex and Hertfordshire.</p></div>
-    <div class="ss-reviews"><script src="https://widget.trustmary.com/ebsaJUe2M"></script></div>
-  </div></section>
 
   <section class="ss-sec"><div class="ss-wrap ss-wrap--narrow">
     <div class="ss-head ss-head--center" style="margin-bottom:1.25rem"><h2>Common questions</h2></div>
