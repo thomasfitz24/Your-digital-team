@@ -118,8 +118,16 @@
 .ss-page .ss-index a:hover h3{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;color:var(--ss-ember-deep)}
 .ss-page.ss-page .ss-index p{margin:0!important;font-size:1rem!important;color:var(--ss-muted);max-width:58ch}
 @media (min-width:820px){.ss-page.ss-page .ss-index a{grid-template-columns:minmax(0,19rem) minmax(0,1fr);gap:0 2.5rem;align-items:baseline}}
-.ss-page .ss-index--sub{margin-top:clamp(2rem,4vw,2.75rem)}
-.ss-page .ss-index__title{margin-bottom:.85rem}
+
+/* ---------- feature rows: text one side, photo the other, alternating ---------- */
+.ss-page .ss-features{display:grid;gap:clamp(2.5rem,6vw,4.5rem)}
+.ss-page .ss-feature{align-items:center}
+@media (min-width:900px){.ss-page .ss-feature{grid-template-columns:1fr 1fr}}
+.ss-page.ss-page .ss-feature h3{font-size:clamp(1.35rem,2.4vw,1.75rem);margin-bottom:.6rem}
+.ss-page .ss-feature p{max-width:48ch;color:var(--ss-muted)}
+.ss-page .ss-feature .ss-btn{margin-top:.25rem}
+.ss-page .ss-feature__img img{aspect-ratio:4/3}
+@media (max-width:899px){.ss-page .ss-feature>div:first-child{order:2}}
 
 /* ---------- cards: flat sheets with a hairline ---------- */
 .ss-page .ss-grid{display:grid;gap:clamp(1rem,2.2vw,1.5rem);grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
@@ -299,18 +307,24 @@
 
   <section class="ss-sec"><div class="ss-wrap">
     <div class="ss-head"><h2>One team for the flue, the stove and the stack</h2><p class="ss-lead">Everything a chimney, stove or open fire needs, from the sweep itself to the cowl on top.</p></div>
-    <ul class="ss-index">
-      <li><a href="/chimney-services#sweeping"><h3>Chimney and stove sweeping</h3><p>Wood burners, multi-fuel stoves and open fires, swept, smoke-tested and certified.</p></a></li>
-      <li><a href="/chimney-services#repairs"><h3>Stove servicing and repairs</h3><p>Rope seals, glass and baffles, plus re-pointing, pots and stack repairs.</p></a></li>
-      <li><a href="/chimney-services#cowls"><h3>Cowls and bird guards</h3><p>Fitted to suit your pot, to keep out nesting jackdaws, rain and downdraughts.</p></a></li>
-      <li><a href="/chimney-services#cctv"><h3>CCTV flue inspections</h3><p>See the whole flue on camera before you buy a house, reopen a fireplace or fit a stove.</p></a></li>
-    </ul>
-    <div class="ss-index--sub">
-      <h3 class="ss-index__title">We also do</h3>
-      <ul class="ss-index">
-        <li><a href="/professional-gutter-cleaning"><h3>Gutter cleaning</h3><p>High-reach vacuum clearing with camera proof and no ladders. It can be booked with your sweep.</p></a></li>
-        <li><a href="/outdoor-cleaning-services"><h3>Outdoor cleaning</h3><p>Exterior cleaning for homes across Essex and Hertfordshire.</p></a></li>
-      </ul>
+    <!-- IMAGE SLOTS: swap each src for a photo of that job. Keep width/height so the page does not jump. -->
+    <div class="ss-features">
+      <div class="ss-split ss-feature">
+        <div><h3>Chimney and stove sweeping</h3><p>Wood burners, multi-fuel stoves and open fires, swept to the pot, smoke-tested and certified. Dust sheets down and the vacuum running before a rod goes near the flue.</p><a class="ss-btn ss-btn--outline" href="/chimney-services#sweeping">Sweeping</a></div>
+        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w" alt="Chimney sweep sweeping a wood burning stove" width="1000" height="750" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="ss-split ss-feature ss-split--flip">
+        <div><h3>Stove servicing and repairs</h3><p>Rope seals, glass and baffles on the stove, plus re-pointing, pots and stack repairs up top. Priced once we have seen it, agreed before we start.</p><a class="ss-btn ss-btn--outline" href="/chimney-services#repairs">Servicing and repairs</a></div>
+        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1000w" alt="Stove servicing and chimney repairs" width="1000" height="750" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="ss-split ss-feature">
+        <div><h3>Cowls and bird guards</h3><p>Fitted to suit your pot, to keep out nesting jackdaws, rain and downdraughts. We will tell you which one you actually need.</p><a class="ss-btn ss-btn--outline" href="/chimney-services#cowls">Cowls and bird guards</a></div>
+        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w" alt="Chimney cowl fitted on a chimney pot" width="1000" height="750" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="ss-split ss-feature ss-split--flip">
+        <div><h3>CCTV flue inspections</h3><p>The whole flue on camera, with photos of anything that needs attention. The sensible first step before you buy a house, reopen a fireplace or fit a stove.</p><a class="ss-btn ss-btn--outline" href="/chimney-services#cctv">CCTV inspections</a></div>
+        <div class="ss-split__img ss-feature__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1000w" alt="CCTV camera inspection of a chimney flue" width="1000" height="750" loading="lazy" decoding="async"></div>
+      </div>
     </div>
   </div></section>
 
