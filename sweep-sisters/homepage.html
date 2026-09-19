@@ -1,0 +1,700 @@
+<!--
+  SWEEP SISTERS | Homepage
+  URL slug ........ / (home)
+  SEO title ....... Sweep Sisters | Female-Led Chimney Sweeps, Essex & Hertfordshire
+  Meta description  Female-led, HETAS certified chimney sweeps covering Essex and Hertfordshire. Stove and chimney sweeping, servicing, cowls and repairs, with sweeps from £95.
+  Primary keyword . sweep sisters (brand) + female chimney sweep
+  Paste into ONE full-width Code Block (Display Source OFF). Self-contained: CSS, script and business schema included.
+
+  DESIGN NOTES (2026 rebuild)
+  Palette is hand-mixed off the trade: soot, limewash, brick-ember, brass. No stock blue/grey ramp.
+  Type is Fraunces (warm display serif, optical sizing) over Hanken Grotesk. Serif headings + hairline
+  rules do the work that icon tiles and gradient buttons used to. Nothing lifts on hover; things
+  underline, darken or slide a rule instead. Photo captions, a signature and a menu-style price sheet
+  are deliberate: they read as written by a person, not assembled by a template.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+/* =====================================================================
+   SWEEP SISTERS - SHARED PAGE LAYOUT (scoped to .ss-page)
+   Lives ONCE in Settings > Advanced > Code Injection > HEADER.
+   Every page code block only contains HTML + its own schema.
+   ===================================================================== */
+.ss-page{
+  /* soot, limewash, brick-ember, brass */
+  --ss-ember:#c4451f; --ss-ember-deep:#9c3415; --ss-ember-lift:#e2764a;
+  --ss-brass:#a9782c;
+  --ss-ink:#1a1512; --ss-body:#4a4038; --ss-muted:#6d6055;
+  --ss-paper:#faf6ef; --ss-paper-2:#f2eae0; --ss-line:#e0d4c3; --ss-line-soft:#ebe1d5;
+  --ss-soot:#171310; --ss-soot-2:#231c17; --ss-soot-line:#3a2f27;
+  --ss-red:#a32718; --ss-green:#3f6b53; --ss-blue:#2f5470;
+
+  /* one small radius, used sparingly. Nothing here is a pill. */
+  --ss-radius:3px; --ss-gutter:clamp(1.25rem,4vw,2.5rem); --ss-header-h:0px;
+  --ss-disp:'Fraunces',Georgia,'Times New Roman',serif;
+  --ss-sans:'Hanken Grotesk',system-ui,-apple-system,sans-serif;
+
+  font-family:var(--ss-sans); color:var(--ss-body); line-height:1.62;
+  background:var(--ss-paper);
+  width:100%; max-width:100%; overflow-x:clip; position:relative; z-index:1;
+  -webkit-font-smoothing:antialiased; font-feature-settings:"kern" 1;
+}
+.ss-page *,.ss-page *::before,.ss-page *::after{box-sizing:border-box}
+.ss-page :where(section,div,p,h1,h2,h3,h4,ul,ol,li,a,span,img,svg,table){max-width:100%;min-width:0}
+.ss-page img{display:block;height:auto}
+.ss-page :focus-visible{outline:2px solid var(--ss-ember);outline-offset:3px;border-radius:2px}
+.ss-page .ss-sec--dark :focus-visible,.ss-page .ss-hero :focus-visible{outline-color:var(--ss-ember-lift)}
+
+/* ---------- typography (doubled class beats Squarespace theme rules) ---------- */
+.ss-page.ss-page :is(h1,h2,h3,h4){font-family:var(--ss-disp);color:var(--ss-ink);margin:0 0 .6rem;overflow-wrap:break-word;text-transform:none;white-space:normal;font-variation-settings:"SOFT" 18,"WONK" 1}
+.ss-page.ss-page h1{font-size:clamp(2.3rem,6vw,4.1rem);font-weight:600;line-height:1.02;letter-spacing:-.022em}
+.ss-page.ss-page h2{font-size:clamp(1.75rem,3.9vw,2.7rem);font-weight:600;line-height:1.1;letter-spacing:-.018em}
+.ss-page.ss-page h3{font-size:clamp(1.18rem,2vw,1.4rem);font-weight:600;line-height:1.22;letter-spacing:-.01em}
+.ss-page.ss-page h4{font-size:1.05rem;font-weight:600;line-height:1.3}
+.ss-page.ss-page p{font-size:clamp(1rem,1.25vw,1.0625rem);margin:0 0 1.1rem;white-space:normal;color:inherit}
+.ss-page.ss-page a{color:var(--ss-ember-deep);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:rgba(156,52,21,.4);transition:text-decoration-color .15s,color .15s}
+.ss-page.ss-page a:hover{color:var(--ss-ember);text-decoration-color:currentColor}
+.ss-page .ss-lead{font-size:clamp(1.08rem,1.7vw,1.24rem)!important;line-height:1.55;color:var(--ss-body)}
+.ss-page .ss-em{font-family:var(--ss-disp);font-style:italic;font-weight:500}
+
+/* kicker: small caps label with a short ember rule. Replaces the old pill eyebrow. */
+.ss-page .ss-eyebrow{display:flex;align-items:center;gap:.7rem;font-family:var(--ss-sans);font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ss-ember-deep);margin:0 0 1.1rem}
+.ss-page .ss-eyebrow::before{content:"";width:1.75rem;height:2px;background:var(--ss-ember);flex:none}
+.ss-page .ss-head--center .ss-eyebrow{justify-content:center}
+
+/* ---------- grain: 3% soot over dark panels, keeps flats from looking printed ---------- */
+.ss-page .ss-grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.055;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---------- sections ---------- */
+.ss-page .ss-sec{position:relative;padding:clamp(3.5rem,7.5vw,6.5rem) var(--ss-gutter);background:var(--ss-paper);color:var(--ss-body)}
+.ss-page .ss-sec--grey{background:var(--ss-paper-2)}
+.ss-page .ss-sec--dark{background:var(--ss-soot);color:#cfc4b8}
+.ss-page.ss-page .ss-sec--dark :is(h1,h2,h3,h4),.ss-page.ss-page .ss-hero :is(h1,h2),.ss-page.ss-page .ss-emergency :is(h2,h3){color:var(--ss-paper)}
+.ss-page .ss-sec--dark .ss-lead{color:#b3a598}
+.ss-page .ss-sec--dark .ss-eyebrow{color:var(--ss-ember-lift)}
+.ss-page .ss-sec--dark .ss-eyebrow::before{background:var(--ss-ember-lift)}
+.ss-page.ss-page .ss-sec--dark a{color:var(--ss-ember-lift);text-decoration-color:rgba(226,118,74,.45)}
+.ss-page.ss-page .ss-sec--dark a:hover{color:#f0a179}
+.ss-page .ss-sec--tight{padding-top:clamp(2.25rem,4vw,3.25rem);padding-bottom:clamp(2.25rem,4vw,3.25rem)}
+/* hairline between same-coloured sections, so the page reads as stacked sheets */
+.ss-page .ss-sec+.ss-sec:not(.ss-sec--dark):not(.ss-emergency){border-top:1px solid var(--ss-line)}
+.ss-page .ss-wrap{max-width:1180px;margin:0 auto;width:100%}
+.ss-page .ss-wrap--narrow{max-width:760px}
+.ss-page .ss-head{max-width:46ch;margin:0 0 clamp(2rem,4vw,3rem)}
+.ss-page .ss-head--center{margin-left:auto;margin-right:auto;text-align:center}
+/* editorial header: label column left, heading right. Only on wide screens. */
+.ss-page .ss-head--split{max-width:none;display:grid;gap:.5rem 3rem;align-items:start}
+@media (min-width:900px){.ss-page .ss-head--split{grid-template-columns:14rem minmax(0,1fr)}
+  .ss-page .ss-head--split .ss-eyebrow{margin-top:.55rem}
+  .ss-page .ss-head--split>div{max-width:52ch}}
+.ss-page .ss-head p:last-child{margin-bottom:0}
+.ss-page :is(h1,h2,h3){color:var(--ss-ink)}
+
+/* ---------- hero ---------- */
+.ss-page .ss-hero{position:relative;background:var(--ss-soot);color:#d8cec3;display:flex;align-items:flex-end;min-height:min(84vh,780px);overflow:hidden;
+  padding:calc(var(--ss-header-h) + clamp(4rem,10vw,7.5rem)) var(--ss-gutter) clamp(2.75rem,6vw,4.5rem)}
+.ss-page .ss-hero--short{min-height:0;align-items:center}
+.ss-page .ss-hero__bg{position:absolute;inset:0;z-index:0}
+.ss-page .ss-hero__bg img{width:100%;height:100%;object-fit:cover;object-position:62% center;filter:saturate(.72) contrast(1.04)}
+/* two-stop scrim, warm not neutral: reads as firelight rather than a black overlay */
+.ss-page .ss-hero__bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(104deg,rgba(18,14,11,.94) 0%,rgba(18,14,11,.86) 34%,rgba(23,19,16,.5) 68%,rgba(60,32,18,.32) 100%)}
+.ss-page .ss-hero--plain{background:var(--ss-soot)}
+.ss-page .ss-hero__inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;width:100%}
+.ss-page .ss-hero__text{max-width:32ch}
+.ss-page.ss-page .ss-hero h1{color:var(--ss-paper)}
+.ss-page.ss-page .ss-hero h1 .ss-em{color:var(--ss-ember-lift)}
+.ss-page .ss-hero .ss-lead{color:#c9bdb1;margin-bottom:1.9rem;max-width:44ch}
+.ss-page .ss-hero .ss-eyebrow{color:#d8cec3}
+.ss-page .ss-hero .ss-eyebrow::before{background:var(--ss-ember-lift)}
+/* credentials: hairline-separated small caps, not badges */
+.ss-page .ss-creds{list-style:none;display:flex;flex-wrap:wrap;gap:.45rem 1.15rem;padding:1.6rem 0 0;margin:2rem 0 0;border-top:1px solid rgba(250,246,239,.18);
+  font-size:.775rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#bdb0a3}
+.ss-page .ss-creds li{display:flex;align-items:center;gap:1.15rem}
+.ss-page .ss-creds li+li::before{content:"";width:3px;height:3px;border-radius:50%;background:var(--ss-ember-lift);flex:none}
+.ss-page .ss-crumbs{display:flex;flex-wrap:wrap;gap:.35rem;list-style:none;padding:0;margin:0 0 1.25rem;font-size:.82rem;letter-spacing:.02em;color:#a2958a}
+.ss-page .ss-crumbs li+li::before{content:"/";margin-right:.35rem;color:#6d6055}
+.ss-page.ss-page .ss-crumbs a{color:#cfc4b8;text-decoration:none}
+.ss-page.ss-page .ss-crumbs a:hover{color:var(--ss-paper);text-decoration:underline}
+
+/* ---------- buttons: flat ember, no gradient, no lift ---------- */
+.ss-page .ss-actions{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center}
+.ss-page.ss-page .ss-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:48px;padding:.85rem 1.7rem;border-radius:var(--ss-radius);
+  font-family:var(--ss-sans);font-weight:600;font-size:1rem;letter-spacing:.005em;line-height:1.2;text-decoration:none;text-align:center;border:1px solid var(--ss-ember);cursor:pointer;
+  background:var(--ss-ember);color:#fff8f3!important;box-shadow:none;transition:background .18s ease,border-color .18s ease,color .18s ease}
+.ss-page.ss-page .ss-btn:hover{background:var(--ss-ember-deep);border-color:var(--ss-ember-deep);color:#fff8f3!important}
+.ss-page.ss-page .ss-btn--ghost{background:transparent;border-color:rgba(250,246,239,.42);color:var(--ss-paper)!important}
+.ss-page.ss-page .ss-btn--ghost:hover{background:rgba(250,246,239,.1);border-color:var(--ss-paper);color:var(--ss-paper)!important}
+.ss-page.ss-page .ss-btn--outline{background:transparent;border-color:var(--ss-ink);color:var(--ss-ink)!important}
+.ss-page.ss-page .ss-btn--outline:hover{background:var(--ss-ink);border-color:var(--ss-ink);color:var(--ss-paper)!important}
+.ss-page .ss-btn svg{width:17px;height:17px;flex-shrink:0}
+
+/* ---------- service index: ruled editorial rows, numbered ---------- */
+.ss-page .ss-index{list-style:none;padding:0;margin:0;border-top:1px solid var(--ss-line)}
+.ss-page.ss-page .ss-index a{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.35rem 1.4rem;align-items:baseline;
+  padding:1.45rem .25rem;border-bottom:1px solid var(--ss-line);text-decoration:none;color:inherit;transition:background .18s ease,padding-left .18s ease}
+.ss-page.ss-page .ss-index a:hover,.ss-page.ss-page .ss-index a:focus-visible{background:rgba(196,69,31,.05);padding-left:.9rem}
+.ss-page .ss-index__num{font-family:var(--ss-disp);font-size:.95rem;font-weight:600;color:var(--ss-ember);font-variant-numeric:tabular-nums;line-height:1.5}
+.ss-page .ss-index h3{margin:0;justify-self:start;background-image:linear-gradient(currentColor,currentColor);background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .25s ease}
+.ss-page .ss-index a:hover h3,.ss-page .ss-index a:focus-visible h3{background-size:100% 1px}
+.ss-page .ss-index p{grid-column:2;margin:.3rem 0 0!important;font-size:1rem!important;color:var(--ss-muted);max-width:58ch}
+@media (min-width:860px){
+  .ss-page.ss-page .ss-index a{grid-template-columns:auto minmax(0,22rem) minmax(0,1fr);gap:0 2.5rem}
+  .ss-page .ss-index p{grid-column:3;margin-top:0!important}
+}
+
+/* ---------- cards: flat sheets with a hairline, no hover lift ---------- */
+.ss-page .ss-grid{display:grid;gap:clamp(1rem,2.2vw,1.6rem);grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.ss-page .ss-grid--2{grid-template-columns:repeat(auto-fit,minmax(min(100%,370px),1fr))}
+.ss-page .ss-grid--3{grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr))}
+.ss-page .ss-card{position:relative;background:#fff;border:1px solid var(--ss-line);border-radius:var(--ss-radius);padding:clamp(1.35rem,2.6vw,1.9rem);display:flex;flex-direction:column;
+  transition:border-color .18s ease,background .18s ease}
+.ss-page .ss-sec--grey .ss-card{background:#fffdfa}
+.ss-page .ss-sec--dark .ss-card{background:var(--ss-soot-2);border-color:var(--ss-soot-line);color:#c3b7ab}
+.ss-page .ss-card:hover{border-color:var(--ss-ember)}
+.ss-page .ss-card h3{margin-bottom:.45rem}
+.ss-page .ss-card p{font-size:.99rem!important;margin-bottom:0;color:var(--ss-muted)}
+.ss-page .ss-sec--dark .ss-card p{color:#ab9e92}
+.ss-page .ss-card p+p{margin-top:.7rem}
+/* icon sits bare in ember, no tinted rounded tile */
+.ss-page .ss-card__icon{width:auto;height:auto;background:none;color:var(--ss-ember);display:block;margin:0 0 1.1rem}
+.ss-page .ss-card__icon svg{width:28px;height:28px;stroke-width:1.4}
+.ss-page .ss-sec--dark .ss-card__icon{color:var(--ss-ember-lift)}
+.ss-page.ss-page .ss-card__more{margin-top:auto;padding-top:1.2rem;font-weight:600;font-size:.88rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ss-ember-deep);text-decoration:none}
+.ss-page.ss-page a.ss-card{text-decoration:none;color:inherit}
+.ss-page a.ss-card:hover .ss-card__more{text-decoration:underline;text-underline-offset:4px}
+.ss-page a.ss-card h3{color:var(--ss-ink)}
+.ss-page.ss-page .ss-sec--dark .ss-card h3{color:var(--ss-paper)}
+.ss-page.ss-page .ss-sec--dark .ss-card__more{color:var(--ss-ember-lift)}
+.ss-page .ss-card__tag{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ss-brass);margin-bottom:.55rem}
+
+/* ---------- split (text + image) ---------- */
+.ss-page .ss-split{display:grid;gap:clamp(2rem,5vw,4.5rem);align-items:center;grid-template-columns:1fr}
+@media (min-width:900px){.ss-page .ss-split{grid-template-columns:1.05fr .95fr}.ss-page .ss-split--flip>:first-child{order:2}}
+.ss-page .ss-split__img{border-radius:var(--ss-radius);overflow:hidden;box-shadow:none;position:relative}
+.ss-page .ss-split__img img{width:100%;aspect-ratio:4/5;object-fit:cover}
+@media (max-width:899px){.ss-page .ss-split__img img{aspect-ratio:4/3}}
+/* a real caption. Templates don't write captions. */
+.ss-page .ss-caption{display:block;margin-top:.8rem;font-size:.85rem;line-height:1.5;color:var(--ss-muted);border-left:2px solid var(--ss-line);padding-left:.8rem}
+.ss-page .ss-sign{font-family:var(--ss-disp);font-style:italic;font-weight:500;font-size:1.3rem;color:var(--ss-ink);margin:1.4rem 0 0}
+
+/* ---------- lists ---------- */
+.ss-page .ss-check{list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:.65rem}
+.ss-page .ss-check--cols{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:.65rem 1.75rem}
+.ss-page .ss-check li{display:flex;gap:.65rem;align-items:flex-start;font-size:1rem}
+.ss-page .ss-check li svg{width:18px;height:18px;flex-shrink:0;margin-top:.28rem;color:var(--ss-ember);stroke-width:1.6}
+.ss-page .ss-check--red li svg{color:var(--ss-red)}
+.ss-page .ss-check--green li svg{color:var(--ss-green)}
+.ss-page .ss-check strong{color:inherit}
+/* towns: a ruled wrap-around list, not a bank of pills */
+.ss-page .ss-pills{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.35rem 0}
+.ss-page .ss-pills li{font-size:1rem;font-weight:500;padding:.25rem 1.1rem .25rem 0;margin-right:1.1rem;border-right:1px solid var(--ss-line);color:var(--ss-ink)}
+.ss-page .ss-pills li:last-child{border-right:0;margin-right:0}
+.ss-page.ss-page .ss-pills a{text-decoration:none;color:inherit;border-bottom:1px solid var(--ss-line);padding-bottom:1px}
+.ss-page.ss-page .ss-pills a:hover{color:var(--ss-ember);border-bottom-color:var(--ss-ember)}
+.ss-page .ss-sec--dark .ss-pills li{border-right-color:var(--ss-soot-line);color:#d8cec3}
+.ss-page .ss-jump{margin-top:1.5rem}
+
+/* ---------- price sheet: menu leaders + tabular figures ---------- */
+.ss-page .ss-prices{border-top:2px solid var(--ss-ink);background:transparent;border-radius:0;overflow:visible}
+.ss-page .ss-price{display:block;padding:1.3rem 0;border-bottom:1px solid var(--ss-line);border-top:0}
+.ss-page .ss-price__row{display:flex;align-items:baseline;gap:.75rem}
+.ss-page .ss-price__dots{flex:1 1 auto;min-width:1.5rem;border-bottom:1px dotted var(--ss-line);transform:translateY(-.25rem)}
+.ss-page.ss-page .ss-price h3{font-size:1.15rem!important;margin:0!important;color:var(--ss-ink)}
+.ss-page.ss-page .ss-price p{font-size:.96rem!important;color:var(--ss-muted);margin:.4rem 0 0!important;max-width:60ch}
+.ss-page .ss-price__amt{font-family:var(--ss-disp);font-size:1.5rem;font-weight:600;color:var(--ss-ember);white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1}
+.ss-page .ss-price--hl .ss-price__amt{font-size:1.9rem}
+.ss-page .ss-price--hl{background:transparent}
+.ss-page.ss-page .ss-note{font-size:.93rem!important;color:var(--ss-muted);margin-top:1.4rem}
+/* fallback for older 2-column price markup on other pages */
+.ss-page .ss-price:not(:has(.ss-price__row)){display:grid;grid-template-columns:1fr auto;gap:.3rem 1.5rem;align-items:baseline}
+.ss-page .ss-price:not(:has(.ss-price__row)) p{grid-column:1/2}
+.ss-page .ss-price:not(:has(.ss-price__row)) .ss-price__amt{grid-row:1/3;grid-column:2;text-align:right}
+
+/* ---------- steps: set numerals, staggered on desktop ---------- */
+.ss-page .ss-steps{counter-reset:ss;list-style:none;padding:0;margin:0;display:grid;gap:clamp(1.25rem,3vw,2.25rem);grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.ss-page .ss-steps li{counter-increment:ss;position:relative;padding:1.4rem 0 0;background:transparent;border:0;border-top:2px solid var(--ss-ink);border-radius:0}
+.ss-page .ss-steps li::before{content:counter(ss,decimal-leading-zero);position:static;display:block;width:auto;height:auto;border-radius:0;background:none;
+  font-family:var(--ss-disp);font-size:2.6rem;font-weight:600;line-height:1;color:var(--ss-ember);margin-bottom:.6rem}
+.ss-page .ss-steps h3{margin-bottom:.4rem}
+.ss-page .ss-steps p{font-size:.99rem!important;margin:0!important;color:var(--ss-muted)}
+@media (min-width:860px){.ss-page .ss-steps li:nth-child(2){margin-top:2.2rem}.ss-page .ss-steps li:nth-child(3){margin-top:4.4rem}}
+
+/* ---------- alerts ---------- */
+.ss-page .ss-alert{display:flex;gap:1rem;align-items:flex-start;padding:1.2rem 1.35rem;border-radius:var(--ss-radius);margin:2rem 0 0;border:1px solid;border-left-width:3px;font-size:1rem;background:#fff}
+.ss-page .ss-alert svg{width:22px;height:22px;flex-shrink:0;margin-top:.22rem;stroke-width:1.6}
+.ss-page .ss-alert p{margin:0!important;font-size:1rem!important}
+.ss-page .ss-alert strong{display:block;margin-bottom:.15rem}
+.ss-page .ss-alert--warn{background:rgba(196,69,31,.055);border-color:rgba(196,69,31,.28);color:#8a2f13}
+.ss-page .ss-alert--danger{background:rgba(163,39,24,.055);border-color:rgba(163,39,24,.3);color:#7e1f12}
+.ss-page .ss-alert--info{background:rgba(47,84,112,.05);border-color:rgba(47,84,112,.25);color:#274a63}
+.ss-page .ss-sec--dark .ss-alert{background:var(--ss-soot-2)}
+.ss-page .ss-sec--dark .ss-alert--warn{color:#e8a583}
+.ss-page .ss-sec--dark .ss-alert--danger{color:#e69d92}
+.ss-page .ss-sec--dark .ss-alert--info{color:#9dbdd4}
+.ss-page .ss-emergency{background:#5e1a10;color:#f2d9d3}
+.ss-page .ss-emergency :is(h2,h3){color:#fff}
+.ss-page .ss-emergency .ss-check li svg{color:#e8a89c}
+.ss-page .ss-emergency .ss-card{background:rgba(0,0,0,.2);border-color:rgba(255,255,255,.16);color:#f2d9d3}
+.ss-page .ss-emergency .ss-card:hover{border-color:rgba(255,255,255,.38)}
+.ss-page.ss-page .ss-emergency a:not(.ss-btn){color:#fff}
+
+/* ---------- stages (creosote) ---------- */
+.ss-page .ss-stage{border-top:3px solid var(--ss-stage,var(--ss-brass))}
+.ss-page .ss-stage .ss-card__tag{color:var(--ss-stage,var(--ss-brass))}
+
+/* ---------- FAQ: ruled rows, no boxes ---------- */
+.ss-page .ss-faq{display:block;border-top:1px solid var(--ss-line)}
+.ss-page .ss-faq details{background:transparent;border:0;border-bottom:1px solid var(--ss-line);border-radius:0}
+.ss-page .ss-faq details[open],.ss-page .ss-faq details:hover{border-color:var(--ss-line)}
+.ss-page .ss-faq summary{list-style:none;cursor:pointer;padding:1.15rem .25rem;font-family:var(--ss-disp);font-weight:600;font-size:1.13rem;line-height:1.3;color:var(--ss-ink);display:flex;justify-content:space-between;gap:1.25rem;align-items:baseline}
+.ss-page .ss-faq summary:hover{color:var(--ss-ember-deep)}
+.ss-page .ss-faq summary::-webkit-details-marker{display:none}
+.ss-page .ss-faq summary::after{content:"+";font-family:var(--ss-sans);font-weight:400;color:var(--ss-ember);font-size:1.4rem;line-height:1;flex-shrink:0}
+.ss-page .ss-faq details[open] summary::after{content:"\2013"}
+.ss-page .ss-faq__a{padding:0 .25rem 1.3rem;border-top:0;max-width:66ch}
+.ss-page .ss-faq__a p{font-size:1rem!important;margin:0!important;color:var(--ss-muted)}
+
+/* ---------- article (guides) ---------- */
+.ss-page .ss-article{max-width:66ch;margin:0 auto}
+.ss-page .ss-article>p{font-size:1.1rem!important}
+.ss-page .ss-byline{font-size:.88rem!important;color:var(--ss-muted)!important;margin-top:1rem!important}
+
+/* ---------- contact ---------- */
+.ss-page .ss-contact{display:grid;gap:clamp(2rem,5vw,4rem);grid-template-columns:1fr;align-items:start}
+@media (min-width:980px){.ss-page .ss-contact{grid-template-columns:.85fr 1.15fr}}
+.ss-page .ss-info{list-style:none;padding:0;margin:2rem 0 0;display:grid;gap:0;border-top:1px solid var(--ss-soot-line)}
+.ss-page .ss-info li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.2rem 1rem;align-items:center;padding:1.05rem 0;border-bottom:1px solid var(--ss-soot-line)}
+.ss-page .ss-info__ic{width:auto;height:auto;border-radius:0;background:none;color:var(--ss-ember-lift);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ss-page .ss-info__ic svg{width:19px;height:19px;stroke-width:1.5}
+.ss-page .ss-info small{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.14em;color:#8a7d71;font-weight:700;margin-bottom:.15rem}
+.ss-page.ss-page .ss-info a,.ss-page .ss-info span{color:var(--ss-paper);font-weight:500;font-size:1.05rem;text-decoration:none;word-break:break-word}
+.ss-page.ss-page .ss-info a:hover{color:var(--ss-ember-lift);text-decoration:underline;text-underline-offset:4px}
+/* form sits on paper inside the soot panel: the one place the page inverts */
+.ss-page .ss-formbox{background:var(--ss-paper);border:0;border-top:3px solid var(--ss-ember);border-radius:var(--ss-radius);padding:clamp(1.35rem,4vw,2.5rem);box-shadow:0 30px 60px -35px rgba(0,0,0,.75)}
+.ss-page .ss-form-fallback{color:var(--ss-muted);text-align:center;margin:0}
+.ss-page.ss-page .ss-formbox a{color:var(--ss-ember-deep)}
+.ss-page .ss-formbox .form-wrapper .field-list .title,.ss-page .ss-formbox .form-wrapper label{color:var(--ss-ink)!important;font-family:var(--ss-sans)!important;font-weight:600!important;font-size:.85rem!important;letter-spacing:.02em!important}
+.ss-page .ss-formbox .form-wrapper :is(input[type=text],input[type=email],input[type=tel],select,textarea){width:100%!important;max-width:100%!important;padding:.8rem .9rem!important;background:#fff!important;border:1px solid var(--ss-line)!important;border-radius:var(--ss-radius)!important;color:var(--ss-ink)!important;font-family:var(--ss-sans)!important;font-size:16px!important}
+.ss-page .ss-formbox .form-wrapper :is(input,select,textarea):focus{outline:none!important;border-color:var(--ss-ember)!important;box-shadow:0 0 0 3px rgba(196,69,31,.16)!important}
+.ss-page .ss-formbox .form-wrapper .form-button-wrapper .button{width:100%!important;background:var(--ss-ember)!important;color:#fff8f3!important;border:0!important;border-radius:var(--ss-radius)!important;padding:1rem 1.5rem!important;font-family:var(--ss-sans)!important;font-weight:600!important;font-size:1.02rem!important;margin-top:.75rem!important;letter-spacing:.01em!important}
+.ss-page .ss-formbox .form-wrapper .form-button-wrapper .button:hover{background:var(--ss-ember-deep)!important}
+
+/* ---------- blog ---------- */
+.ss-page .ss-blog:empty{display:none}
+.ss-page.ss-page a.ss-post{text-decoration:none;color:inherit;padding:0;overflow:hidden;background:transparent;border:0;border-top:1px solid var(--ss-line);border-radius:0}
+.ss-page.ss-page a.ss-post:hover{border-color:var(--ss-ember);background:transparent}
+.ss-page .ss-post__img{aspect-ratio:3/2;background:var(--ss-line);overflow:hidden;margin-top:1.1rem;border-radius:var(--ss-radius)}
+.ss-page .ss-post__img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.ss-page a.ss-post:hover .ss-post__img img{transform:scale(1.03)}
+.ss-page .ss-post__body{padding:1rem 0 0;display:flex;flex-direction:column;gap:.35rem;flex:1}
+.ss-page .ss-post__date{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ss-brass)}
+.ss-page.ss-page .ss-post h3{margin:0;font-size:1.2rem;color:var(--ss-ink)}
+.ss-page a.ss-post:hover h3{color:var(--ss-ember-deep)}
+.ss-page .ss-post p{color:var(--ss-muted);font-size:.97rem!important}
+.ss-page.ss-page .ss-post .ss-card__more{color:var(--ss-ember-deep);padding-top:.9rem}
+
+/* ---------- reviews ---------- */
+.ss-page .ss-reviews{min-height:260px}
+
+/* ---------- Squarespace Fluid Engine: let the code block size to its content ---------- */
+.page-section:has(.ss-page){padding-top:0!important;padding-bottom:0!important;min-height:0!important}
+.page-section:has(.ss-page)>.content-wrapper{padding:0!important;max-width:100%!important;width:100%!important;min-height:0!important}
+.fluid-engine:has(.ss-page),.fluid-engine[data-ss-collapsed]{row-gap:0!important;column-gap:0!important;grid-template-rows:auto!important;min-height:0!important;height:auto!important;padding:0!important}
+.fe-block:has(.ss-page),.fe-block[data-ss-collapsed]{grid-column:1/-1!important;grid-row:1!important;height:auto!important;min-height:0!important;padding:0!important;margin:0!important;overflow:visible!important}
+.fe-block:has(.ss-page) :is(.sqs-block,.sqs-block-code,.sqs-block-content),.sqs-block-code:has(.ss-page) .sqs-block-content{padding:0!important;margin:0!important;height:auto!important;min-height:0!important}
+
+@media (prefers-reduced-motion:reduce){.ss-page *{transition:none!important;animation:none!important}}
+</style>
+<div class="ss-page">
+
+  <section class="ss-hero ss-grain">
+    <div class="ss-hero__bg"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1500w" alt="" width="1500" height="1000" fetchpriority="high" decoding="async"></div>
+    <div class="ss-hero__inner"><div class="ss-hero__text">
+      <p class="ss-eyebrow">Essex &amp; Hertfordshire</p>
+      <h1>Chimney sweeps who <span class="ss-em">clean up</span> after themselves</h1>
+      <p class="ss-lead">Sweep Sisters is Adele and Sian: two HETAS certified sweeps looking after chimneys, wood burners and open fires across Essex and Hertfordshire. A standard sweep, smoke test and certificate is £95.</p>
+      <div class="ss-actions"><a class="ss-btn" href="#quote">Book a sweep</a><a class="ss-btn ss-btn--ghost" href="tel:03301332121"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0330 133 2121</a></div>
+      <ul class="ss-creds">
+        <li>HETAS certified</li>
+        <li>Fully insured</li>
+        <li>Female-led</li>
+        <li>Same-day slots</li>
+      </ul>
+    </div></div>
+  </section>
+
+  <section class="ss-sec"><div class="ss-wrap">
+    <div class="ss-head ss-head--split">
+      <p class="ss-eyebrow">What we do</p>
+      <div><h2>One team for the flue, the stove and the stack</h2><p class="ss-lead">Sweeping is most of our week. The rest is the work that keeps a chimney drawing properly: seals, cowls, pointing and the camera when something doesn't add up.</p></div>
+    </div>
+    <ul class="ss-index">
+      <li><a href="/chimney-services#sweeping"><span class="ss-index__num">01</span><h3>Chimney and stove sweeping</h3><p>Wood burners, multi-fuel stoves and open fires. Swept, smoke-tested and certified in about an hour.</p></a></li>
+      <li><a href="/chimney-services#repairs"><span class="ss-index__num">02</span><h3>Stove servicing and repairs</h3><p>Rope seals, cracked glass and burnt-out baffles, plus re-pointing, pots and stack repairs.</p></a></li>
+      <li><a href="/chimney-services#cowls"><span class="ss-index__num">03</span><h3>Cowls and bird guards</h3><p>Fitted to suit your pot, to keep out nesting jackdaws, rain and downdraughts.</p></a></li>
+      <li><a href="/chimney-services#cctv"><span class="ss-index__num">04</span><h3>CCTV flue inspections</h3><p>The whole flue on camera before you buy a house, reopen a fireplace or fit a stove.</p></a></li>
+    </ul>
+    <div class="ss-grid ss-grid--2" style="margin-top:clamp(2rem,4vw,3rem)">
+      <a class="ss-card" href="/professional-gutter-cleaning"><div class="ss-card__icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="ss-card__tag">While we're there</div><h3>Gutter cleaning</h3><p>High-reach vacuum clearing with camera proof, no ladders against your rendering. Book it with your sweep and we do both in one visit.</p><span class="ss-card__more">Gutter cleaning</span></a>
+      <a class="ss-card" href="/outdoor-cleaning-services"><div class="ss-card__icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div><div class="ss-card__tag">While we're there</div><h3>Outdoor cleaning</h3><p>Patios, drives and render brought back across Essex and Hertfordshire, on the same postcodes we sweep.</p><span class="ss-card__more">Outdoor cleaning</span></a>
+    </div>
+  </div></section>
+
+  <section class="ss-sec ss-sec--grey"><div class="ss-wrap">
+    <div class="ss-head ss-head--split">
+      <p class="ss-eyebrow">Where we work</p>
+      <div><h2>Two counties, two sweeps, no call centre</h2><p class="ss-lead">Book us and you get Adele or Sian at the door, not a franchise that has bought your postcode.</p></div>
+    </div>
+    <div class="ss-grid ss-grid--2">
+      <a class="ss-card" href="/chimney-sweep-essex"><div class="ss-card__tag">Essex</div><h3>Chimney sweep Essex</h3><p>Chelmsford, Colchester, Brentwood, Harlow, Epping and the villages in between.</p><span class="ss-card__more">Essex coverage and prices</span></a>
+      <a class="ss-card" href="/chimney-sweep-hertfordshire"><div class="ss-card__tag">Hertfordshire</div><h3>Chimney sweep Hertfordshire</h3><p>Hertford, St Albans, Watford, Bishop's Stortford, Welwyn Garden City and Bushey.</p><span class="ss-card__more">Hertfordshire coverage and prices</span></a>
+    </div>
+    <h3 style="margin:clamp(2rem,4vw,2.75rem) 0 1rem">Find your town</h3>
+    <ul class="ss-pills"><li><a href="/chimney-cleaning-chelmsford-essex">Chelmsford</a></li><li><a href="/chimney-sweep-colchester">Colchester</a></li><li><a href="/chimney-cleaning-brentwood">Brentwood</a></li><li><a href="/chimney-cleaning-hertford">Hertford</a></li><li><a href="/chimney-sweep-st-albans">St Albans</a></li><li><a href="/chimney-sweep-watford">Watford</a></li><li><a href="/chimney-sweep-near-me">Chimney sweep near me</a></li></ul>
+  </div></section>
+
+  <section class="ss-sec"><div class="ss-wrap">
+    <div class="ss-split">
+      <div>
+        <p class="ss-eyebrow">About us</p>
+        <h2>Meet the Sweep Sisters</h2>
+        <p>Adele and Sian started Sweep Sisters because thorough chimney work and a tidy house should not be a trade-off. Between us we sweep Victorian terraces in Colchester, modern stoves in Brentwood and Georgian flues in Hertford that have not seen a rod since the seventies.</p>
+        <p>Every visit runs the same way. Dust sheets down, vacuum on, flue swept to the pot, smoke test, then a HETAS certificate your insurer will accept. If we find a problem, you get photos of it and an honest answer about whether it needs doing this year.</p>
+        <p>We have never once left a footprint on a carpet, and we would like to keep that record.</p>
+        <p class="ss-sign">Adele &amp; Sian</p>
+        <div class="ss-actions" style="margin-top:1.75rem"><a class="ss-btn" href="#quote">Book a sweep</a><a class="ss-btn ss-btn--outline" href="/about">More about us</a></div>
+      </div>
+      <div>
+        <div class="ss-split__img"><img src="https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/8aa8dc8e-9fb0-4cfe-9549-200192117ddb/IMG_9857.jpg?format=1000w" alt="Sweep Sisters chimney sweep inspecting a wood burning stove" width="1000" height="1250" loading="lazy" decoding="async"></div>
+        <p class="ss-caption">Checking the baffle and rope seal on a stove service in Hertfordshire. Sheets go down before the toolbox does.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="ss-sec ss-sec--grey"><div class="ss-wrap ss-wrap--narrow">
+    <div class="ss-head ss-head--split" style="margin-bottom:2rem">
+      <p class="ss-eyebrow">Prices</p>
+      <div><h2>What a sweep costs</h2><p class="ss-lead">Confirmed on the phone before we book you in. No call-out fee, no card machine surprises.</p></div>
+    </div>
+    <div class="ss-prices">
+      <div class="ss-price ss-price--hl"><div class="ss-price__row"><h3>Standard chimney or stove sweep</h3><span class="ss-price__dots"></span><span class="ss-price__amt">£95</span></div><p>Full sweep, visual inspection, smoke test, clean-up and sweeping certificate.</p></div>
+      <div class="ss-price"><div class="ss-price__row"><h3>CCTV flue inspection, added to a sweep</h3><span class="ss-price__dots"></span><span class="ss-price__amt">+£75</span></div><p>Camera survey of the whole flue, with photos of anything that needs attention.</p></div>
+      <div class="ss-price"><div class="ss-price__row"><h3>Sweep and CCTV inspection together</h3><span class="ss-price__dots"></span><span class="ss-price__amt">£170</span></div><p>The sensible start for a new house, or a flue that has sat unused for a few winters.</p></div>
+      <div class="ss-price"><div class="ss-price__row"><h3>Servicing, cowls, bird guards and repairs</h3><span class="ss-price__dots"></span><span class="ss-price__amt">Quoted</span></div><p>Priced once we have seen the job, and always agreed with you before any work starts.</p></div>
+    </div>
+    <p class="ss-note">Prices are per flue. <a href="/chimney-services">See every chimney service we offer</a>, or read our <a href="/blog/chimney-sweep-cost-guide-essex-amp-hertfordshire-2026">chimney sweep cost guide</a> for what other sweeps charge locally.</p>
+  </div></section>
+
+  <section class="ss-sec"><div class="ss-wrap">
+    <div class="ss-head ss-head--split">
+      <p class="ss-eyebrow">The visit</p>
+      <div><h2>An hour, start to finish</h2></div>
+    </div>
+    <ol class="ss-steps">
+      <li><h3>Book</h3><p>Send the form or call 0330 133 2121. We confirm the date, the price and the one thing we need you to do first: let the fire go cold.</p></li>
+      <li><h3>Sweep and check</h3><p>Sheets down, vacuum running. We rod the flue to the pot, look over the stove or fireplace, then smoke-test the chimney.</p></li>
+      <li><h3>Certificate and advice</h3><p>You get your sweeping certificate for the insurer, plus photos of anything we found and a price for putting it right.</p></li>
+    </ol>
+  </div></section>
+
+  <section class="ss-sec ss-sec--grey"><div class="ss-wrap">
+    <div class="ss-head ss-head--split">
+      <p class="ss-eyebrow">Reviews</p>
+      <div><h2>What our customers say</h2><p class="ss-lead">Homeowners across Essex and Hertfordshire, in their own words.</p></div>
+    </div>
+    <div class="ss-reviews"><script src="https://widget.trustmary.com/ebsaJUe2M"></script></div>
+  </div></section>
+
+  <section class="ss-sec"><div class="ss-wrap ss-wrap--narrow">
+    <div class="ss-head" style="margin-bottom:1.5rem"><p class="ss-eyebrow">Questions</p><h2>Asked often enough to answer here</h2></div>
+    <div class="ss-faq">
+      <details><summary>Who are Sweep Sisters?</summary><div class="ss-faq__a"><p>A female-led, HETAS certified and fully insured chimney sweeping business working across Essex and Hertfordshire. <a href="/about">Read more about us</a>.</p></div></details>
+      <details><summary>Which areas do you cover?</summary><div class="ss-faq__a"><p>Most of Essex and Hertfordshire, including Chelmsford, Colchester, Brentwood, Hertford, St Albans and Watford. See our <a href="/chimney-sweep-essex">Essex</a> and <a href="/chimney-sweep-hertfordshire">Hertfordshire</a> pages, or send your postcode and we'll confirm.</p></div></details>
+      <details><summary>How much does a chimney sweep cost?</summary><div class="ss-faq__a"><p>£95 for a standard sweep, including a visual inspection, smoke test, clean-up and certificate. A CCTV inspection adds £75, or it's £170 for both. See all <a href="/chimney-services">chimney services and prices</a>.</p></div></details>
+      <details><summary>Do I need a sweep or a full inspection?</summary><div class="ss-faq__a"><p>If your fire or stove is in regular, trouble-free use, a standard sweep is usually enough. If you've just moved in, haven't used the chimney for a while, or have noticed smoke, smells or poor draw, a sweep plus CCTV inspection is the safer place to start.</p></div></details>
+      <details><summary>Can you come out urgently?</summary><div class="ss-faq__a"><p>Same-day appointments are often available, and we offer 24/7 emergency cover. If you think your chimney is on fire, call 999 first. Otherwise, call 0330 133 2121.</p></div></details>
+    </div>
+  </div></section>
+
+  <section class="ss-sec ss-sec--grey"><div class="ss-wrap">
+    <div class="ss-head ss-head--split">
+      <p class="ss-eyebrow">From the blog</p>
+      <div><h2>Chimney advice, written between jobs</h2><p class="ss-lead">Guides, prices and the seasonal stuff worth knowing before you light the first fire.</p></div>
+    </div>
+    <div class="ss-blog ss-grid ss-grid--3" id="ss-blog-grid" data-topic="cost,how often,wood burner,winter" aria-live="polite"></div>
+    <div class="ss-actions" style="margin-top:2.25rem"><a class="ss-btn ss-btn--outline" href="/blog">Read all blog posts</a></div>
+  </div></section>
+<script>
+/* Sweep Sisters: pulls posts from /blog (Squarespace JSON) into this section */
+(function () {
+  var grid = document.getElementById('ss-blog-grid');
+  if (!grid || !window.fetch) return;
+  function card(it) {
+    var a = document.createElement('a');
+    a.className = 'ss-card ss-post';
+    a.href = '/' + it.fullUrl.replace(/^\/+/, '');
+    if (it.assetUrl) {
+      var box = document.createElement('div'); box.className = 'ss-post__img';
+      var im = document.createElement('img');
+      im.src = it.assetUrl + (it.assetUrl.indexOf('?') === -1 ? '?format=750w' : '');
+      im.alt = ''; im.loading = 'lazy'; im.decoding = 'async'; im.width = 750; im.height = 500;
+      box.appendChild(im); a.appendChild(box);
+    }
+    var body = document.createElement('div'); body.className = 'ss-post__body';
+    var when = it.publishOn || it.addedOn;
+    if (when) {
+      var d = document.createElement('span'); d.className = 'ss-post__date';
+      d.textContent = new Date(when).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      body.appendChild(d);
+    }
+    var h = document.createElement('h3'); h.textContent = it.title || 'Blog post'; body.appendChild(h);
+    var tmp = document.createElement('div'); tmp.innerHTML = it.excerpt || '';
+    var ex = (tmp.textContent || '').replace(/\s+/g, ' ').trim();
+    if (ex) {
+      if (ex.length > 130) ex = ex.slice(0, 130).replace(/\s+\S*$/, '') + '…';
+      var p = document.createElement('p'); p.textContent = ex; body.appendChild(p);
+    }
+    var more = document.createElement('span'); more.className = 'ss-card__more'; more.textContent = 'Read the post';
+    body.appendChild(more); a.appendChild(body);
+    return a;
+  }
+  function load() {
+    fetch('/blog?format=json', { credentials: 'same-origin', headers: { Accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw new Error('Blog ' + r.status); return r.json(); })
+      .then(function (data) {
+        var items = (data && data.items) || [];
+        var here = location.pathname.replace(/\/+$/, '');
+        var topics = (grid.getAttribute('data-topic') || '').toLowerCase().split(',').map(function (t) { return t.trim(); }).filter(Boolean);
+        var ranked = items
+          .filter(function (it) { return it.fullUrl && it.fullUrl.replace(/\/+$/, '') !== here; })
+          .map(function (it) {
+            var text = ((it.title || '') + ' ' + (it.excerpt || '') + ' ' + (it.urlId || '')).toLowerCase().replace(/-/g, ' ');
+            var score = topics.reduce(function (n, t) { return n + (text.indexOf(t) !== -1 ? 1 : 0); }, 0);
+            return { it: it, score: score, date: it.publishOn || it.addedOn || 0 };
+          })
+          .sort(function (a, b) { return b.score - a.score || b.date - a.date; })
+          .slice(0, 3);
+        grid.textContent = '';
+        ranked.forEach(function (r) { grid.appendChild(card(r.it)); });
+      })
+      .catch(function () { grid.textContent = ''; });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', load); else load();
+})();
+</script>
+  <section class="ss-sec ss-sec--dark ss-grain" id="quote"><div class="ss-wrap">
+    <div class="ss-contact">
+      <div>
+        <p class="ss-eyebrow">Free, no-obligation quote</p>
+        <h2>Book your chimney sweep</h2>
+        <p class="ss-lead">Send us your postcode, what you burn and roughly when suits you. We'll come back with a date and a price, usually the same day.</p>
+        <ul class="ss-info">
+          <li><span class="ss-info__ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><div><small>Phone</small><a href="tel:03301332121">0330 133 2121</a></div></li>
+          <li><span class="ss-info__ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><div><small>Email</small><a href="mailto:contact@sweepsisters.co.uk">contact@sweepsisters.co.uk</a></div></li>
+          <li><span class="ss-info__ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><small>Areas covered</small><span>Essex and Hertfordshire</span></div></li>
+          <li><span class="ss-info__ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><div><small>Hours</small><span>Mon to Sun, 8am to 6pm. 24/7 emergency cover</span></div></li>
+        </ul>
+      </div>
+      <div class="ss-formbox"><div class="ss-form-slot"><p class="ss-form-fallback">Prefer to talk? Call <a href="tel:03301332121">0330 133 2121</a> or email <a href="mailto:contact@sweepsisters.co.uk">contact@sweepsisters.co.uk</a>.</p></div></div>
+    </div>
+  </div></section>
+</div>
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebSite",
+   "@id": "https://www.sweepsisters.co.uk/#website",
+   "url": "https://www.sweepsisters.co.uk/",
+   "name": "Sweep Sisters",
+   "publisher": {
+    "@id": "https://www.sweepsisters.co.uk/#business"
+   }
+  },
+  {
+   "@type": "Service",
+   "name": "Chimney sweeping",
+   "serviceType": "Chimney sweeping",
+   "provider": {
+    "@id": "https://www.sweepsisters.co.uk/#business"
+   },
+   "areaServed": [
+    {
+     "@type": "AdministrativeArea",
+     "name": "Essex"
+    },
+    {
+     "@type": "AdministrativeArea",
+     "name": "Hertfordshire"
+    }
+   ],
+   "offers": {
+    "@type": "Offer",
+    "price": "95",
+    "priceCurrency": "GBP",
+    "description": "Standard chimney or stove sweep with inspection, smoke test and certificate"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Who are Sweep Sisters?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A female-led, HETAS certified and fully insured chimney sweeping business working across Essex and Hertfordshire. Read more about us."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which areas do you cover?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Most of Essex and Hertfordshire, including Chelmsford, Colchester, Brentwood, Hertford, St Albans and Watford. See our Essex and Hertfordshire pages, or send your postcode and we'll confirm."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How much does a chimney sweep cost?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "£95 for a standard sweep, including a visual inspection, smoke test, clean-up and certificate. A CCTV inspection adds £75, or it's £170 for both. See all chimney services and prices."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need a sweep or a full inspection?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "If your fire or stove is in regular, trouble-free use, a standard sweep is usually enough. If you've just moved in, haven't used the chimney for a while, or have noticed smoke, smells or poor draw, a sweep plus CCTV inspection is the safer place to start."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can you come out urgently?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Same-day appointments are often available, and we offer 24/7 emergency cover. If you think your chimney is on fire, call 999 first. Otherwise, call 0330 133 2121."
+     }
+    }
+   ]
+  }
+ ]
+}</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "HomeAndConstructionBusiness",
+ "@id": "https://www.sweepsisters.co.uk/#business",
+ "name": "Sweep Sisters",
+ "url": "https://www.sweepsisters.co.uk/",
+ "telephone": "+44 330 133 2121",
+ "email": "contact@sweepsisters.co.uk",
+ "description": "Female-led, HETAS certified chimney sweeps covering Essex and Hertfordshire.",
+ "image": "https://images.squarespace-cdn.com/content/v1/69f0e08ff485845a18751511/1778342469103-JTWM8I1Y9XXSCTZCNWU1/unsplash-image-vp5umE7ZDyI.jpg?format=1500w",
+ "priceRange": "£95+",
+ "areaServed": [
+  {
+   "@type": "AdministrativeArea",
+   "name": "Essex"
+  },
+  {
+   "@type": "AdministrativeArea",
+   "name": "Hertfordshire"
+  }
+ ],
+ "openingHoursSpecification": [
+  {
+   "@type": "OpeningHoursSpecification",
+   "dayOfWeek": [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+   ],
+   "opens": "08:00",
+   "closes": "18:00"
+  }
+ ],
+ "sameAs": []
+}
+</script>
+<script>
+/* SWEEP SISTERS - shared page script. Lives ONCE in Code Injection > FOOTER. */
+(function () {
+  function pageRoot() { return document.querySelector('.ss-page'); }
+
+  /* 1. Fluid Engine: size the code block's grid to its content (no hidden blocks). */
+  function collapseGrid(root) {
+    var block = root.closest('.fe-block'), grid = root.closest('.fluid-engine');
+    if (block) block.setAttribute('data-ss-collapsed', '');
+    if (grid) grid.setAttribute('data-ss-collapsed', '');
+  }
+
+  /* 2. Only push the hero down when the Squarespace header actually overlays it. */
+  function headerOffset(root) {
+    var header = document.querySelector('#header, header.Header, .header');
+    var sec = root.closest('.page-section');
+    var first = sec && sec.parentNode && sec.parentNode.firstElementChild === sec;
+    var h = 0;
+    if (header && first) {
+      var cs = getComputedStyle(header);
+      var overlays = cs.position === 'fixed' || cs.position === 'absolute' ||
+        document.body.className.indexOf('header--overlay') !== -1;
+      if (overlays) h = Math.min(Math.round(header.getBoundingClientRect().height), 220);
+    }
+    root.style.setProperty('--ss-header-h', h + 'px');
+  }
+
+  /* 3. Move the page's native Squarespace form block into the quote box. */
+  function moveForm() {
+    var slot = document.querySelector('.ss-page .ss-form-slot');
+    if (!slot) return true;
+    if (slot.getAttribute('data-filled')) return true;
+    var forms = document.querySelectorAll('main .form-block, #page .form-block, .sections .form-block');
+    var form = null;
+    for (var i = 0; i < forms.length; i++) { if (!forms[i].closest('.ss-page')) { form = forms[i]; break; } }
+    if (!form) return false;
+    var oldBlock = form.closest('.fe-block');
+    var oldSec = form.closest('.page-section');
+    slot.innerHTML = '';
+    slot.appendChild(form);
+    slot.setAttribute('data-filled', '1');
+    if (oldBlock && !oldBlock.contains(slot)) oldBlock.style.display = 'none';
+    if (oldSec && !oldSec.contains(slot)) {
+      var hasContent = Array.prototype.some.call(oldSec.querySelectorAll('.fe-block'), function (b) {
+        return b.style.display !== 'none' && (b.textContent.trim() || b.querySelector('img,iframe,video,form'));
+      });
+      if (!hasContent) oldSec.style.display = 'none';
+    }
+    return true;
+  }
+
+  function run() {
+    var root = pageRoot();
+    if (!root) return;
+    collapseGrid(root);
+    headerOffset(root);
+    moveForm();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+  window.addEventListener('load', run);
+  var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(function () { var r = pageRoot(); if (r) headerOffset(r); }, 150); });
+
+  /* Squarespace can inject the form late - watch briefly, then stop. */
+  if (window.MutationObserver) {
+    var mo = new MutationObserver(function () { if (pageRoot() && moveForm()) mo.disconnect(); });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+    setTimeout(function () { mo.disconnect(); }, 6000);
+  }
+})();
+</script>
