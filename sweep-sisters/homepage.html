@@ -119,16 +119,6 @@
 .ss-page.ss-page .ss-index p{margin:0!important;font-size:1rem!important;color:var(--ss-muted);max-width:58ch}
 @media (min-width:820px){.ss-page.ss-page .ss-index a{grid-template-columns:minmax(0,19rem) minmax(0,1fr);gap:0 2.5rem;align-items:baseline}}
 
-/* ---------- feature rows: text one side, photo the other, alternating ---------- */
-.ss-page .ss-features{display:grid;gap:clamp(2.5rem,6vw,4.5rem)}
-.ss-page .ss-feature{align-items:center}
-@media (min-width:900px){.ss-page .ss-feature{grid-template-columns:1fr 1fr}}
-.ss-page.ss-page .ss-feature h3{font-size:clamp(1.35rem,2.4vw,1.75rem);margin-bottom:.6rem}
-.ss-page .ss-feature p{max-width:48ch;color:var(--ss-muted)}
-.ss-page .ss-feature .ss-btn{margin-top:.25rem}
-.ss-page .ss-feature__img img{aspect-ratio:4/3}
-@media (max-width:899px){.ss-page .ss-feature>div:first-child{order:2}}
-
 /* ---------- cards: flat sheets with a hairline ---------- */
 .ss-page .ss-grid{display:grid;gap:clamp(1rem,2.2vw,1.5rem);grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
 .ss-page .ss-grid--2{grid-template-columns:repeat(auto-fit,minmax(min(100%,370px),1fr))}
@@ -160,6 +150,16 @@
 @media (max-width:899px){.ss-page .ss-split__img img{aspect-ratio:4/3}}
 .ss-page .ss-caption{display:block;margin-top:.75rem;font-size:.9rem;line-height:1.5;color:var(--ss-muted)}
 .ss-page .ss-sign{font-weight:600;color:var(--ss-ink);margin:1.25rem 0 0}
+
+/* ---------- feature rows: text one side, photo the other, alternating ---------- */
+.ss-page .ss-features{display:grid;gap:0;border-top:1px solid var(--ss-line)}
+.ss-page .ss-feature{align-items:center;gap:clamp(1.5rem,4vw,3.5rem);padding:clamp(1.75rem,4vw,2.75rem) 0;border-bottom:1px solid var(--ss-line)}
+@media (min-width:900px){.ss-page .ss-feature{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}.ss-page .ss-feature.ss-split--flip{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}}
+.ss-page.ss-page .ss-feature h3{font-size:clamp(1.35rem,2.2vw,1.65rem);margin-bottom:.5rem}
+.ss-page .ss-feature p{max-width:44ch;color:var(--ss-muted);margin-bottom:1.25rem}
+.ss-page .ss-feature__img{background:var(--ss-paper-2)}
+.ss-page.ss-page .ss-feature__img img{aspect-ratio:3/2;max-height:380px}
+@media (max-width:899px){.ss-page .ss-feature>div:first-child{order:2}.ss-page.ss-page .ss-feature__img img{aspect-ratio:16/10}}
 
 /* ---------- lists ---------- */
 .ss-page .ss-check{list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:.65rem}
@@ -306,7 +306,7 @@
   </section>
 
   <section class="ss-sec"><div class="ss-wrap">
-    <div class="ss-head"><h2>One team for the flue, the stove and the stack</h2><p class="ss-lead">Everything a chimney, stove or open fire needs, from the sweep itself to the cowl on top.</p></div>
+    <div class="ss-head ss-head--center"><h2>One team for the flue, the stove and the stack</h2><p class="ss-lead">Everything a chimney, stove or open fire needs, from the sweep itself to the cowl on top.</p></div>
     <!-- IMAGE SLOTS: swap each src for a photo of that job. Keep width/height so the page does not jump. -->
     <div class="ss-features">
       <div class="ss-split ss-feature">
