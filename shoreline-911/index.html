@@ -16,7 +16,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- ============ HEADER ============ -->
-<header class="site-header" id="site-header">
+<header class="site-header is-transparent" id="site-header">
   <div class="site-header__inner">
 
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" id="menu-toggle">
@@ -72,12 +72,40 @@
   </div>
 </nav>
 
-<!-- ============ MAIN (placeholder until the next sections are designed) ============ -->
+<!-- ============ MAIN ============ -->
 <main id="main">
+
+  <!-- Section 01 — Hero -->
+  <section class="hero" id="hero">
+    <picture class="hero__media">
+      <source type="image/webp"
+              srcset="assets/hero-gtr-900.webp 900w, assets/hero-gtr-1600.webp 1600w, assets/hero-gtr-2400.webp 2400w"
+              sizes="100vw">
+      <img src="assets/hero-gtr.jpg" width="2000" height="1334" fetchpriority="high" decoding="async"
+           alt="A grey 993 GTR and a light blue 911 backdate parked beneath a concrete overpass">
+    </picture>
+    <div class="hero__scrim" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <p class="hero__eyebrow">Custom Porsche 911 Backdate Builds</p>
+      <h1 class="hero__title">The ultimate<br>air-cooled evolution.</h1>
+      <p class="hero__text">Hand-built 911 backdate masterpieces. Build slots available now.</p>
+      <div class="hero__actions">
+        <a class="btn btn--light" href="#inventory">View the builds</a>
+        <a class="btn btn--ghost" href="#contact">Start a conversation</a>
+      </div>
+    </div>
+
+    <a class="hero__scroll" href="#inventory" aria-label="Scroll to the builds">
+      <span class="hero__scroll-line" aria-hidden="true"></span>
+      <span>Scroll</span>
+    </a>
+  </section>
+
   <section class="placeholder" id="inventory">
-    <p class="placeholder__eyebrow">Header preview</p>
-    <h1 class="placeholder__title">The rest of the page goes here.</h1>
-    <p class="placeholder__text">Scroll to see the header hide and reveal. Open the menu to see the drawer.</p>
+    <p class="placeholder__eyebrow">Section 02</p>
+    <h2 class="placeholder__title">The next section goes here.</h2>
+    <p class="placeholder__text">Scroll to see the header switch from transparent to solid, and hide and reveal.</p>
   </section>
   <section class="placeholder placeholder--alt" id="about"></section>
   <section class="placeholder" id="contact"></section>

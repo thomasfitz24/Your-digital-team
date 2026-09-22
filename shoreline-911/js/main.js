@@ -68,9 +68,14 @@
 
   function showHeader() { header.classList.remove('is-hidden'); }
 
+  var hero = document.getElementById('hero');
+
   function onScroll() {
     var y = window.scrollY;
-    header.classList.toggle('is-scrolled', y > 4);
+    // transparent while the header sits over the hero, solid grey once past it
+    var overHero = hero ? y < hero.offsetHeight - header.offsetHeight : false;
+    header.classList.toggle('is-transparent', overHero);
+    header.classList.toggle('is-scrolled', !overHero && y > 4);
     if (!isOpen) {
       if (y > lastY + THRESHOLD && y > header.offsetHeight) header.classList.add('is-hidden');
       else if (y < lastY - THRESHOLD) showHeader();
