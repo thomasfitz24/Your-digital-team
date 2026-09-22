@@ -302,6 +302,18 @@ body.menu-open .site-header .site-logo img{ filter:none; }
 .btn--outline{ border:1px solid var(--ink); color:var(--ink); }
 .btn--outline:hover{ background:var(--ink); color:#fff; }
 .btn--ghost{ border:1px solid rgba(255,255,255,.55); color:#fff; }
+/* frosted glass, for use over photography */
+.btn--glass{
+  min-height:52px; padding:0 28px; border-radius:12px;
+  color:#fff;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18), 0 8px 30px rgba(0,0,0,.18);
+  -webkit-backdrop-filter:blur(18px) saturate(140%); backdrop-filter:blur(18px) saturate(140%);
+}
+.btn--glass:hover{ background:rgba(255,255,255,.24); border-color:rgba(255,255,255,.34); }
+.btn__arrow{ width:20px; height:20px; flex:none; transition:transform var(--dur-fast) var(--ease-out); }
+.btn--glass:hover .btn__arrow{ transform:translateX(4px); }
 .btn--ghost:hover{ border-color:#fff; background:rgba(255,255,255,.08); }
 
 /* ---------- Section 01 — Hero ---------- */
