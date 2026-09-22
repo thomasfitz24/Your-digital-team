@@ -99,6 +99,27 @@
     checkDark();
   }
 
+  /* ---------- Contact form (front-end only until wired to an email service) ---------- */
+  var form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = document.getElementById('cf-error');
+      var ok = document.getElementById('cf-success');
+      var bad = ['cf-name', 'cf-email', 'cf-message'].filter(function (id) {
+        var el = document.getElementById(id);
+        var invalid = !el.value.trim() || (el.type === 'email' && !el.checkValidity());
+        el.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+        return invalid;
+      });
+      if (bad.length) { err.hidden = false; ok.hidden = true; document.getElementById(bad[0]).focus(); return; }
+      err.hidden = true;
+      // TODO: post to the email/CRM endpoint here. For now show the success state.
+      form.querySelector('button[type="submit"]').disabled = true;
+      ok.hidden = false;
+    });
+  }
+
   /* ---------- Builds carousel arrows ---------- */
   var track = document.getElementById('builds-track');
   if (track) {

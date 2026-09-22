@@ -315,6 +315,8 @@ body.menu-open .site-header .site-logo img{ filter:none; }
 .btn--light{ background:#fff; color:var(--ink); }
 .btn--light:hover{ background:var(--surface); }
 .btn--outline{ border:1px solid var(--ink); color:var(--ink); background:transparent; }
+.btn--dark{ background:#111113; color:#fff; }
+.btn--dark:hover{ background:#2a2a2f; }
 .btn--outline:hover{ background:var(--ink); color:var(--paper); }
 .btn--ghost{ border:1px solid rgba(255,255,255,.55); color:#fff; }
 /* frosted glass, for use over photography */
@@ -613,8 +615,7 @@ body.is-dark{
 .defender__scrim{
   position:absolute; inset:0; z-index:1; pointer-events:none;
   background:
-    linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.35) 40%, rgba(0,0,0,0) 70%),
-    linear-gradient(to right, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 55%),
+    linear-gradient(to top, rgba(0,0,0,.78) 0%, rgba(0,0,0,.4) 40%, rgba(0,0,0,0) 70%),
     linear-gradient(to bottom, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 30%);
 }
 @media (max-width:767px){
@@ -629,9 +630,10 @@ body.is-dark{
   position:absolute; z-index:2; left:0; right:0; bottom:0;
   padding:20px;
 }
-@media (min-width:768px){ .defender__content{ padding:40px; max-width:640px; } }
+@media (min-width:768px){ .defender__content{ padding:40px; } }
+.defender__content{ text-align:center; display:flex; flex-direction:column; align-items:center; }
 .defender__eyebrow{ margin:0 0 12px; font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.82); }
-.defender__title{ margin:0 0 14px; font-size:clamp(30px, 3.6vw, 48px); font-weight:500; line-height:1.06; letter-spacing:-.02em; text-wrap:balance; }
+.defender__title{ margin:0 0 24px; font-size:clamp(30px, 3.6vw, 48px); font-weight:500; line-height:1.06; letter-spacing:-.02em; text-wrap:balance; }
 .defender__text{ margin:0 0 24px; font-size:clamp(15px, 1.15vw, 17px); line-height:1.55; color:rgba(255,255,255,.9); max-width:52ch; }
 .defender__panel .btn{ pointer-events:none; }
 
@@ -643,6 +645,42 @@ body.is-dark{
 .edition:hover img{ transform:scale(1.05); }
 .edition__name{ display:block; font-size:17px; font-weight:500; letter-spacing:-.01em; }
 .edition__tag{ display:block; font-size:14px; line-height:1.4; color:var(--ink-soft); margin-top:2px; transition:color var(--theme-dur) var(--ease-out); }
+
+/* ---------- Section 06 — Contact (always white) ---------- */
+.contact{ background:#FFFFFF; color:#111113; padding:clamp(72px, 10vw, 140px) 0; }
+.contact__inner{ max-width:1280px; margin:0 auto; padding:0 var(--gutter); display:grid; gap:48px; }
+@media (min-width:1024px){ .contact__inner{ grid-template-columns:5fr 7fr; column-gap:clamp(48px, 7vw, 112px); align-items:start; } }
+.contact .eyebrow{ color:#4B4B52; }
+.contact__title{ margin:0 0 20px; font-size:clamp(32px, 4vw, 56px); font-weight:500; line-height:1.05; letter-spacing:-.025em; }
+.contact__text{ margin:0 0 36px; max-width:46ch; font-size:clamp(16px, 1.2vw, 18px); line-height:1.6; color:#4B4B52; }
+.contact__details{ list-style:none; margin:0; padding:0; border-top:1px solid #DCDCE2; }
+.contact__details li{ display:grid; grid-template-columns:88px 1fr; gap:16px; padding:16px 0; border-bottom:1px solid #DCDCE2; font-size:16px; }
+.contact__label{ font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#4B4B52; padding-top:3px; }
+.contact__details a{ color:#111113; text-decoration:none; }
+.contact__details a:hover{ text-decoration:underline; }
+.contact__social{ display:flex; flex-wrap:wrap; gap:20px; }
+
+.contact__form{ background:#F2F2F5; border-radius:16px; padding:24px; }
+@media (min-width:768px){ .contact__form{ padding:36px; } }
+.field-row{ display:grid; gap:16px; }
+@media (min-width:640px){ .field-row{ grid-template-columns:1fr 1fr; } }
+.field{ display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+.field label{ font-size:14px; font-weight:500; color:#111113; }
+.field label span{ color:#B42318; }
+.field input, .field select, .field textarea{
+  font:inherit; font-size:16px; color:#111113;
+  background:#fff; border:1px solid #DCDCE2; border-radius:8px;
+  min-height:48px; padding:12px 14px;
+  transition:border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.field textarea{ resize:vertical; min-height:140px; line-height:1.5; }
+.field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:#111113; box-shadow:0 0 0 3px rgba(17,17,19,.12); }
+.field input[aria-invalid="true"], .field textarea[aria-invalid="true"]{ border-color:#B42318; }
+.field-error{ margin:0 0 16px; font-size:14px; color:#B42318; }
+.contact__form .btn{ width:100%; }
+@media (min-width:640px){ .contact__form .btn{ width:auto; min-width:200px; } }
+.contact__note{ margin:14px 0 0; font-size:14px; color:#4B4B52; }
+.contact__success{ margin:16px 0 0; padding:14px 16px; border-radius:8px; background:#E7F5EC; color:#0F5132; font-size:15px; }
 
 /* ---------- Placeholder content (temporary) ---------- */
 .placeholder{
@@ -951,7 +989,6 @@ body.is-dark{
         <div class="defender__content">
           <p class="defender__eyebrow">From the same workshops</p>
           <h2 class="defender__title">We build Defenders too.</h2>
-          <p class="defender__text">Shoreline Vehicle Design restores and customises Land Rover Defender 90s and 110s from our workshops in the UK and Miami. Genuine donors, bare-chassis rebuilds, and four editions: Beach, Heritage, Modern and Villain.</p>
           <span class="btn btn--glass">Visit Shoreline Vehicles
             <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg>
           </span>
@@ -975,7 +1012,65 @@ body.is-dark{
     </div>
   </section>
 
-  <section class="placeholder" id="contact"></section>
+  <!-- Section 06 — Contact -->
+  <section class="contact" id="contact">
+    <div class="contact__inner">
+      <div class="contact__info">
+        <p class="eyebrow">Contact</p>
+        <h2 class="contact__title">Start your journey</h2>
+        <p class="contact__text">Would you like to enquire about a custom 911 backdate build? Tell us your platform preference, timeline and vision, and our team will walk you through the options, from donor sourcing to final specification.</p>
+        <ul class="contact__details">
+          <li><span class="contact__label">Email</span><a href="mailto:info@shorelinevehicles.com">info@shorelinevehicles.com</a></li>
+          <li><span class="contact__label">Phone</span><a href="tel:+19544182008">+1 954-418-2008</a></li>
+          <li><span class="contact__label">Follow</span>
+            <span class="contact__social">
+              <a href="https://www.instagram.com/shoreline911s/" target="_blank" rel="noopener">Instagram</a>
+              <a href="https://www.facebook.com/people/Shoreline911/61574831882325/" target="_blank" rel="noopener">Facebook</a>
+              <a href="https://linkedin.com/company/shoreline-911" target="_blank" rel="noopener">LinkedIn</a>
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <form class="contact__form" id="contact-form" action="#" method="post" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="cf-name">Name <span aria-hidden="true">*</span></label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="cf-email">Email <span aria-hidden="true">*</span></label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="cf-phone">Phone</label>
+            <input id="cf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+          </div>
+          <div class="field">
+            <label for="cf-model">Model of interest</label>
+            <select id="cf-model" name="model">
+              <option value="">Not sure yet</option>
+              <option>911 GTR Classic</option>
+              <option>911 GTR Evo</option>
+              <option>911 GTR Modern</option>
+              <option>911 GTR Targa</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="cf-message">Message <span aria-hidden="true">*</span></label>
+          <textarea id="cf-message" name="message" rows="5" required placeholder="Tell us how you plan to use the car, your timeline, and anything you already have in mind."></textarea>
+        </div>
+        <p class="field-error" id="cf-error" role="alert" hidden>Please fill in your name, email and message.</p>
+        <button class="btn btn--dark" type="submit">Send enquiry</button>
+        <p class="contact__note">We reply within one working day.</p>
+        <p class="contact__success" id="cf-success" role="status" hidden>Thanks, your enquiry is on its way. We'll be in touch shortly.</p>
+      </form>
+    </div>
+  </section>
+
 </main>
 
 <script>
@@ -1078,6 +1173,27 @@ body.is-dark{
     }, { passive: true });
     window.addEventListener('resize', checkDark);
     checkDark();
+  }
+
+  /* ---------- Contact form (front-end only until wired to an email service) ---------- */
+  var form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = document.getElementById('cf-error');
+      var ok = document.getElementById('cf-success');
+      var bad = ['cf-name', 'cf-email', 'cf-message'].filter(function (id) {
+        var el = document.getElementById(id);
+        var invalid = !el.value.trim() || (el.type === 'email' && !el.checkValidity());
+        el.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+        return invalid;
+      });
+      if (bad.length) { err.hidden = false; ok.hidden = true; document.getElementById(bad[0]).focus(); return; }
+      err.hidden = true;
+      // TODO: post to the email/CRM endpoint here. For now show the success state.
+      form.querySelector('button[type="submit"]').disabled = true;
+      ok.hidden = false;
+    });
   }
 
   /* ---------- Builds carousel arrows ---------- */

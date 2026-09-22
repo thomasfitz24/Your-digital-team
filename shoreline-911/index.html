@@ -298,7 +298,6 @@
         <div class="defender__content">
           <p class="defender__eyebrow">From the same workshops</p>
           <h2 class="defender__title">We build Defenders too.</h2>
-          <p class="defender__text">Shoreline Vehicle Design restores and customises Land Rover Defender 90s and 110s from our workshops in the UK and Miami. Genuine donors, bare-chassis rebuilds, and four editions: Beach, Heritage, Modern and Villain.</p>
           <span class="btn btn--glass">Visit Shoreline Vehicles
             <svg class="btn__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg>
           </span>
@@ -322,7 +321,65 @@
     </div>
   </section>
 
-  <section class="placeholder" id="contact"></section>
+  <!-- Section 06 — Contact -->
+  <section class="contact" id="contact">
+    <div class="contact__inner">
+      <div class="contact__info">
+        <p class="eyebrow">Contact</p>
+        <h2 class="contact__title">Start your journey</h2>
+        <p class="contact__text">Would you like to enquire about a custom 911 backdate build? Tell us your platform preference, timeline and vision, and our team will walk you through the options, from donor sourcing to final specification.</p>
+        <ul class="contact__details">
+          <li><span class="contact__label">Email</span><a href="mailto:info@shorelinevehicles.com">info@shorelinevehicles.com</a></li>
+          <li><span class="contact__label">Phone</span><a href="tel:+19544182008">+1 954-418-2008</a></li>
+          <li><span class="contact__label">Follow</span>
+            <span class="contact__social">
+              <a href="https://www.instagram.com/shoreline911s/" target="_blank" rel="noopener">Instagram</a>
+              <a href="https://www.facebook.com/people/Shoreline911/61574831882325/" target="_blank" rel="noopener">Facebook</a>
+              <a href="https://linkedin.com/company/shoreline-911" target="_blank" rel="noopener">LinkedIn</a>
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <form class="contact__form" id="contact-form" action="#" method="post" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="cf-name">Name <span aria-hidden="true">*</span></label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="cf-email">Email <span aria-hidden="true">*</span></label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="cf-phone">Phone</label>
+            <input id="cf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+          </div>
+          <div class="field">
+            <label for="cf-model">Model of interest</label>
+            <select id="cf-model" name="model">
+              <option value="">Not sure yet</option>
+              <option>911 GTR Classic</option>
+              <option>911 GTR Evo</option>
+              <option>911 GTR Modern</option>
+              <option>911 GTR Targa</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="cf-message">Message <span aria-hidden="true">*</span></label>
+          <textarea id="cf-message" name="message" rows="5" required placeholder="Tell us how you plan to use the car, your timeline, and anything you already have in mind."></textarea>
+        </div>
+        <p class="field-error" id="cf-error" role="alert" hidden>Please fill in your name, email and message.</p>
+        <button class="btn btn--dark" type="submit">Send enquiry</button>
+        <p class="contact__note">We reply within one working day.</p>
+        <p class="contact__success" id="cf-success" role="status" hidden>Thanks, your enquiry is on its way. We'll be in touch shortly.</p>
+      </form>
+    </div>
+  </section>
+
 </main>
 
 <script src="js/main.js"></script>
