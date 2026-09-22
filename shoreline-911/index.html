@@ -44,32 +44,59 @@
 <!-- ============ MENU DRAWER ============ -->
 <div class="menu-backdrop" id="menu-backdrop" hidden></div>
 <nav class="site-menu" id="site-menu" aria-label="Main" hidden>
-  <div class="site-menu__inner">
-    <ul class="site-menu__list">
-      <li><a href="index.html" aria-current="page">Home</a></li>
-      <li><a href="#inventory">Inventory</a></li>
-      <li class="site-menu__group">
-        <span class="site-menu__eyebrow">The Builds</span>
-        <ul>
-          <li><a href="#gtr-classic">911 GTR Classic</a></li>
-          <li><a href="#gtr-evo">911 GTR Evo</a></li>
-          <li><a href="#gtr-modern">911 GTR Modern</a></li>
-          <li><a href="#gtr-targa">911 GTR Targa</a></li>
-        </ul>
+
+  <ul class="site-menu__list">
+    <li><a href="index.html" aria-current="page">Home</a></li>
+    <li><a href="#inventory">Inventory</a></li>
+    <li class="site-menu__list-builds"><a href="#inventory" class="is-active">The Builds</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <section class="site-menu__builds" aria-labelledby="menu-builds-heading">
+    <h2 class="site-menu__eyebrow" id="menu-builds-heading">The Builds</h2>
+    <ul class="build-list">
+      <li>
+        <a class="build-card" href="#gtr-classic">
+          <span class="build-card__name">911 GTR Classic</span>
+          <img class="build-card__img" src="assets/build-classic-750.webp" srcset="assets/build-classic-750.webp 750w, assets/build-classic.webp 1500w" sizes="(min-width:1024px) 440px, 40vw" width="1500" height="640" alt="" loading="lazy" decoding="async">
+          <span class="build-card__meta"><span class="chip">993</span><span class="chip">From $350,000</span></span>
+        </a>
       </li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li>
+        <a class="build-card" href="#gtr-evo">
+          <span class="build-card__name">911 GTR Evo</span>
+          <img class="build-card__img" src="assets/build-evo-750.webp" srcset="assets/build-evo-750.webp 750w, assets/build-evo.webp 1500w" sizes="(min-width:1024px) 440px, 40vw" width="1500" height="640" alt="" loading="lazy" decoding="async">
+          <span class="build-card__meta"><span class="chip">993</span><span class="chip">From $400,000</span></span>
+        </a>
+      </li>
+      <li>
+        <a class="build-card" href="#gtr-modern">
+          <span class="build-card__name">911 GTR Modern</span>
+          <img class="build-card__img" src="assets/build-modern-750.webp" srcset="assets/build-modern-750.webp 750w, assets/build-modern.webp 1500w" sizes="(min-width:1024px) 440px, 40vw" width="1500" height="640" alt="" loading="lazy" decoding="async">
+          <span class="build-card__meta"><span class="chip">993</span><span class="chip">From $375,000</span></span>
+        </a>
+      </li>
+      <li>
+        <a class="build-card" href="#gtr-targa">
+          <span class="build-card__name">911 GTR Targa</span>
+          <img class="build-card__img" src="assets/build-targa-750.webp" srcset="assets/build-targa-750.webp 750w, assets/build-targa.webp 1500w" sizes="(min-width:1024px) 440px, 40vw" width="1500" height="640" alt="" loading="lazy" decoding="async">
+          <span class="build-card__meta"><span class="chip">964</span><span class="chip">From $375,000</span></span>
+        </a>
+      </li>
     </ul>
-    <div class="site-menu__footer">
-      <a href="tel:+19544182008">+1 954-418-2008</a>
-      <a href="mailto:info@shorelinevehicles.com">info@shorelinevehicles.com</a>
-      <div class="site-menu__social">
-        <a href="https://www.instagram.com/shoreline911s/" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.facebook.com/people/Shoreline911/61574831882325/" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://linkedin.com/company/shoreline-911" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
+  </section>
+
+  <div class="site-menu__footer">
+    <a href="tel:+19544182008">+1 954-418-2008</a>
+    <a href="mailto:info@shorelinevehicles.com">info@shorelinevehicles.com</a>
+    <div class="site-menu__social">
+      <a href="https://www.instagram.com/shoreline911s/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/people/Shoreline911/61574831882325/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://linkedin.com/company/shoreline-911" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </div>
+
 </nav>
 
 <!-- ============ MAIN ============ -->
