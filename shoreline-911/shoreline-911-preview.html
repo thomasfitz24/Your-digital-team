@@ -59,7 +59,8 @@ body{
   line-height:1.5;
   color:var(--ink);
   background:var(--paper);
-  transition:background-color .9s var(--ease-out), color .9s var(--ease-out);
+  --theme-dur:1.8s;                 /* back to light: slow */
+  transition:background-color var(--theme-dur) var(--ease-out), color var(--theme-dur) var(--ease-out);
   -webkit-font-smoothing:antialiased;
 }
 body.menu-open{ overflow:hidden; }
@@ -393,15 +394,16 @@ body.menu-open .site-header .site-logo img{ filter:none; }
 
 /* Page goes dark from the Builds section down (Porsche-style) */
 body.is-dark{
+  --theme-dur:1.1s;                 /* into dark: a touch quicker */
   --paper:#0A0A0B;
   --ink:#FFFFFF;
   --ink-soft:#B7B7BE;
   --surface:#151518;
   --line:#2A2A30;
 }
-.about, .builds{ transition:background-color .9s var(--ease-out), color .9s var(--ease-out); }
-.about__body, .builds__intro, .eyebrow{ transition:color .9s var(--ease-out); }
-.btn--outline{ transition:background-color var(--dur-fast) var(--ease-out), color .9s var(--ease-out), border-color .9s var(--ease-out); }
+.about, .builds{ transition:background-color var(--theme-dur) var(--ease-out), color var(--theme-dur) var(--ease-out); }
+.about__body, .builds__intro, .eyebrow{ transition:color var(--theme-dur) var(--ease-out); }
+.btn--outline{ transition:background-color var(--dur-fast) var(--ease-out), color var(--theme-dur) var(--ease-out), border-color var(--theme-dur) var(--ease-out); }
 
 /* ---------- Shared ---------- */
 .eyebrow{
@@ -482,13 +484,24 @@ body.is-dark{
 .builds__track::-webkit-scrollbar{ display:none; }
 .builds__track > li{ flex:0 0 88vw; scroll-snap-align:start; }
 @media (min-width:768px){ .builds__track > li{ flex-basis:60vw; } }
+.builds__track > li.builds__break{ display:none; }
 @media (min-width:1024px){
+  /* 2 x 2: two rows of two; the hovered card widens and its neighbour gives way */
   .builds__track{
-    gap:24px;
-    padding-left:max(var(--gutter), calc((100vw - 1280px) / 2 + var(--gutter))); padding-right:var(--gutter);
-    scroll-padding-left:max(var(--gutter), calc((100vw - 1280px) / 2 + var(--gutter)));
+    max-width:1280px; margin:0 auto; padding:0 var(--gutter);
+    display:flex; flex-wrap:wrap; gap:0 16px;
+    overflow:visible; scroll-snap-type:none;
   }
-  .builds__track > li{ flex-basis:min(620px, calc((1280px - 2 * var(--gutter) - 24px) / 2)); }
+  .builds__track > li{
+    flex:1 1 0; min-width:0;
+    height:clamp(420px, 40vw, 580px);
+    transition:flex-grow .7s var(--ease-out);
+  }
+  .builds__track > li:hover{ flex-grow:1.5; }
+  .builds__track > li.builds__break{ display:block; flex:0 0 100%; height:0; margin:0; }
+  .builds__track > li:nth-child(n+4){ margin-top:16px; }
+  .builds__nav{ display:none; }
+  .model-card{ height:100%; aspect-ratio:auto; }
 }
 
 /* the card */
@@ -508,7 +521,7 @@ body.is-dark{
     linear-gradient(to bottom, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 28%),
     linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.2) 30%, rgba(0,0,0,0) 48%);
 }
-.model-card:hover img{ transform:scale(1.045); }
+.model-card:hover img{ transform:scale(1.04); }
 .model-card__name{
   position:absolute; top:22px; left:0; right:0; z-index:2; margin:0;
   text-align:center;
@@ -749,6 +762,7 @@ body.is-dark{
           </div>
         </a>
       </li>
+      <li class="builds__break" aria-hidden="true"></li>
       <li>
         <a class="model-card" href="#gtr-modern">
           <picture>
@@ -877,8 +891,9 @@ body.is-dark{
   if (builds) {
     var darkTick = false;
     function checkDark() {
+      // only once the section has actually arrived at the top of the screen
       var top = builds.getBoundingClientRect().top;
-      document.body.classList.toggle('is-dark', top < window.innerHeight * 0.55);
+      document.body.classList.toggle('is-dark', top <= window.innerHeight * 0.12);
       darkTick = false;
     }
     window.addEventListener('scroll', function () {

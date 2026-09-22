@@ -87,8 +87,9 @@
   if (builds) {
     var darkTick = false;
     function checkDark() {
+      // only once the section has actually arrived at the top of the screen
       var top = builds.getBoundingClientRect().top;
-      document.body.classList.toggle('is-dark', top < window.innerHeight * 0.55);
+      document.body.classList.toggle('is-dark', top <= window.innerHeight * 0.12);
       darkTick = false;
     }
     window.addEventListener('scroll', function () {
