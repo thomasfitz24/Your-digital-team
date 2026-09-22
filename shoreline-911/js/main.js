@@ -61,7 +61,7 @@
     }
   });
 
-  /* ---------- Hide on scroll down, reveal on scroll up ---------- */
+  /* ---------- Header stays fixed; only its transparent/solid state changes ---------- */
   var lastY = window.scrollY;
   var ticking = false;
   var THRESHOLD = 8;
@@ -76,10 +76,6 @@
     var overHero = hero ? y < hero.offsetHeight - header.offsetHeight : false;
     header.classList.toggle('is-transparent', overHero);
     header.classList.toggle('is-scrolled', !overHero && y > 4);
-    if (!isOpen) {
-      if (y > lastY + THRESHOLD && y > header.offsetHeight) header.classList.add('is-hidden');
-      else if (y < lastY - THRESHOLD) showHeader();
-    }
     lastY = y;
     ticking = false;
   }
