@@ -573,26 +573,29 @@ body.is-dark{
   .process__intro{ justify-self:start; }
 }
 
-.process__photos{ display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-bottom:clamp(48px, 6vw, 80px); }
+.process__photos{ display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-bottom:clamp(36px, 4vw, 56px); }
 @media (min-width:768px){ .process__photos{ gap:16px; } }
 .process__photo{ margin:0; }
 .process__photo img{ width:100%; height:auto; aspect-ratio:4 / 5; object-fit:cover; border-radius:12px; display:block; }
 @media (min-width:1024px){ .process__photo img{ border-radius:16px; } }
 
-.stages{ list-style:none; margin:0; padding:0; display:grid; gap:0; }
-.stage{ padding:28px 0; border-top:1px solid var(--line); transition:border-color var(--theme-dur) var(--ease-out); }
-.stage__num{ display:block; font-size:13px; font-weight:600; letter-spacing:.12em; color:var(--ink-soft); margin-bottom:12px; font-variant-numeric:tabular-nums; }
-.stage__title{ margin:0 0 12px; font-size:20px; font-weight:500; letter-spacing:-.01em; line-height:1.2; }
-.stage__text{ margin:0; font-size:15.5px; line-height:1.6; color:var(--ink-soft); max-width:46ch; transition:color var(--theme-dur) var(--ease-out); }
+.stages{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr; }
+.stage{
+  display:flex; align-items:baseline; gap:16px;
+  padding:14px 0; border-top:1px solid var(--line);
+  transition:border-color var(--theme-dur) var(--ease-out);
+}
+.stages > li:last-child{ border-bottom:1px solid var(--line); }
+.stage__num{ font-size:12px; font-weight:600; letter-spacing:.12em; color:var(--ink-soft); font-variant-numeric:tabular-nums; flex:none; width:28px; }
+.stage__title{ font-size:17px; font-weight:500; letter-spacing:-.01em; line-height:1.3; }
 @media (min-width:768px){
-  .stages{ grid-template-columns:1fr 1fr; column-gap:40px; }
+  .stages{ grid-template-columns:repeat(3, 1fr); column-gap:40px; }
+  .stages > li:nth-last-child(-n+3){ border-bottom:1px solid var(--line); }
+  .stages > li:last-child{ border-bottom:1px solid var(--line); }
+  .stage{ padding:18px 0; }
+  .stage__title{ font-size:18px; }
 }
-@media (min-width:1024px){
-  .stages{ grid-template-columns:repeat(3, 1fr); column-gap:48px; }
-  .stage{ padding:32px 0 40px; }
-  .stage__title{ font-size:22px; }
-}
-.process__cta{ display:flex; justify-content:center; margin-top:clamp(24px, 4vw, 48px); }
+.process__cta{ display:flex; justify-content:center; margin-top:clamp(32px, 4vw, 48px); }
 
 /* ---------- Placeholder content (temporary) ---------- */
 .placeholder{
@@ -869,55 +872,19 @@ body.is-dark{
       </div>
 
       <ol class="stages">
-      <li class="stage">
-        <span class="stage__num" aria-hidden="true">01</span>
-        <h3 class="stage__title">Design Consultation</h3>
-        <p class="stage__text">Every Shoreline build starts with a conversation. You tell us how you want to use the car, how you want it to look, and what you want out of it. Weekend driver, daily driver, long-distance tourer. This is where we walk you through our model lineup, GTR Modern, GTR Classic, GTR Evo, or Targa, and help you find the starting point that fits how you actually live.</p>
-      </li>
-      <li class="stage">
-        <span class="stage__num" aria-hidden="true">02</span>
-        <h3 class="stage__title">Order Confirmation</h3>
-        <p class="stage__text">Once the model and base spec are locked in, we send across a contract covering your build slot, core specification, and timeline. From the day you sign, the clock starts on your build. You get weekly photo updates and a dedicated customer portal to approve materials and track each stage as the car takes shape.</p>
-      </li>
-      <li class="stage">
-        <span class="stage__num" aria-hidden="true">03</span>
-        <h3 class="stage__title">Custom Samples</h3>
-        <p class="stage__text">Before we order any custom components, we send you a physical sample pack. Paint cards, leather swatches, stitching colours, dashboard finishes, carpet options. You hold the material in your own light. This is where the interior stops being a spec sheet and starts being a car.</p>
-      </li>
-      <li class="stage">
-        <span class="stage__num" aria-hidden="true">04</span>
-        <h3 class="stage__title">Donor Car &amp; Chassis</h3>
-        <p class="stage__text">Every Shoreline build starts with a genuine donor, a hand-picked 911 sourced for the right generation, the right wheelbase, and the right starting condition. The car is stripped to bare metal. Chassis inspected, strengthened, and treated for corrosion. What you start with dictates what you finish with.</p>
-      </li>
-      <li class="stage">
-        <span class="stage__num" aria-hidden="true">05</span>
-        <h3 class="stage__title">Confirm Build Spec</h3>
-        <p class="stage__text">At this stage the car is stripped, the chassis prepped, and the body ready. Before we order the final custom parts, we walk you through the specification one more time: wheels, exhaust finish, trim options, badgework. This is the last window to change your mind on the finishing details. After this, the parts are on their way.</p>
-      </li>
-      <li class="stage">
-        <span class="stage__num" aria-hidden="true">06</span>
-        <h3 class="stage__title">Bodywork &amp; Paint</h3>
-        <p class="stage__text">The backdate transformation begins. Period-correct wide arches, ducktail, front bumper, and bespoke details shaped and fitted by hand. Full rust treatment and seam sealing before paint prep. Colour applied to a show-quality standard: classic Porsche shades, bespoke mixes, or a tone pulled from your world. Every panel colour-sanded and polished before reassembly.</p>
-      </li>
-      <li class="stage">
-        <span class="stage__num" aria-hidden="true">07</span>
-        <h3 class="stage__title">Mechanical Build &amp; Engine</h3>
-        <p class="stage__text">Engine and transmission are fully rebuilt or upgraded depending on spec. Suspension tuned for the road, not a track car, not a luxury cruiser. Axles, brakes, and the entire wiring loom are rebuilt or replaced. The drivetrain runs in parallel with the body, so both arrive at final assembly at the same point.</p>
-      </li>
-      <li class="stage">
-        <span class="stage__num" aria-hidden="true">08</span>
-        <h3 class="stage__title">Interior Refit</h3>
-        <p class="stage__text">The interior is built, not assembled. Hand-stitched leather on the seats and dashboard. Modern gauges, climate control, premium audio, and Apple CarPlay if you want it. Every stitch, every panel, every switch built around how you said you wanted to use the car. That's what turns a restored 911 into a Shoreline 911.</p>
-      </li>
-      <li class="stage">
-        <span class="stage__num" aria-hidden="true">09</span>
-        <h3 class="stage__title">Final Fit, Testing &amp; Delivery</h3>
-        <p class="stage__text">Final detailing, badging, and finishing work. Then a full road test: every electrical system, every mechanical system, every creak and rattle checked and signed off. Nothing leaves the workshop unproven. Delivery in person where possible, with a full handover, build history, photographs, a one-year Shoreline warranty, and the keys.</p>
-      </li>
+        <li class="stage"><span class="stage__num" aria-hidden="true">01</span><span class="stage__title">Design Consultation</span></li>
+        <li class="stage"><span class="stage__num" aria-hidden="true">02</span><span class="stage__title">Order Confirmation</span></li>
+        <li class="stage"><span class="stage__num" aria-hidden="true">03</span><span class="stage__title">Custom Samples</span></li>
+        <li class="stage"><span class="stage__num" aria-hidden="true">04</span><span class="stage__title">Donor Car &amp; Chassis</span></li>
+        <li class="stage"><span class="stage__num" aria-hidden="true">05</span><span class="stage__title">Confirm Build Spec</span></li>
+        <li class="stage"><span class="stage__num" aria-hidden="true">06</span><span class="stage__title">Bodywork &amp; Paint</span></li>
+        <li class="stage"><span class="stage__num" aria-hidden="true">07</span><span class="stage__title">Mechanical Build &amp; Engine</span></li>
+        <li class="stage"><span class="stage__num" aria-hidden="true">08</span><span class="stage__title">Interior Refit</span></li>
+        <li class="stage"><span class="stage__num" aria-hidden="true">09</span><span class="stage__title">Final Fit, Testing &amp; Delivery</span></li>
       </ol>
 
       <div class="process__cta">
-        <a class="btn btn--outline" href="#contact">Start your build</a>
+        <a class="btn btn--outline" href="process.html">View the process</a>
       </div>
     </div>
   </section>
