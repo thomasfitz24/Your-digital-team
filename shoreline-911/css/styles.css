@@ -366,6 +366,50 @@ body.menu-open .site-header .site-logo img{ filter:none; }
   .hero__cta{ position:static; margin-top:auto; padding-top:40px; }
 }
 
+/* ---------- Shared ---------- */
+.eyebrow{
+  margin:0 0 20px;
+  font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-soft);
+}
+
+/* ---------- Section 02 — About ---------- */
+.about{ background:var(--paper); padding:clamp(72px, 10vw, 140px) 0; }
+.about__inner{
+  max-width:1280px; margin:0 auto; padding:0 var(--gutter);
+  display:grid; gap:48px; align-items:center;
+}
+.about__title{
+  margin:0 0 24px; max-width:16ch;
+  font-size:clamp(30px, 3.6vw, 48px); font-weight:500;
+  line-height:1.1; letter-spacing:-.02em; text-wrap:balance;
+}
+.about__body{
+  margin:0 0 36px; max-width:58ch;
+  font-size:clamp(16px, 1.2vw, 18px); line-height:1.65; color:var(--ink-soft);
+}
+.about__media{ margin:0; }
+.about__media img{ width:100%; height:auto; aspect-ratio:4 / 5; object-fit:cover; border-radius:6px; }
+@media (min-width:1024px){
+  .about__inner{ grid-template-columns:1fr 1fr; gap:clamp(48px, 7vw, 112px); }
+  .about__media{ order:2; }
+}
+/* text-only variant: no photo, heading left and copy right */
+.about.about--text-only .about__media{ display:none; }
+.about.about--text-only .about__title{ max-width:14ch; }
+@media (min-width:1024px){
+  .about.about--text-only .about__inner{ grid-template-columns:1fr; }
+  .about.about--text-only .about__text{
+    display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto 1fr;
+    grid-template-areas:"eyebrow eyebrow" "title body" "title btn";
+    column-gap:clamp(48px, 7vw, 112px); align-items:start;
+  }
+  .about.about--text-only .eyebrow{ grid-area:eyebrow; }
+  .about.about--text-only .about__title{ grid-area:title; margin:0; max-width:none; }
+  .about.about--text-only .about__body{ grid-area:body; margin:12px 0 28px; max-width:none; }
+  .about.about--text-only .btn{ grid-area:btn; justify-self:start; align-self:start; }
+}
+
 /* ---------- Placeholder content (temporary) ---------- */
 .placeholder{
   min-height:100vh; min-height:100dvh;
