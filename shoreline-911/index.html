@@ -108,6 +108,12 @@
   <!-- Section 01 — Hero -->
   <section class="hero" id="hero">
     <picture class="hero__media">
+      <!-- phones: portrait shot -->
+      <source media="(max-width:767px)" type="image/webp"
+              srcset="assets/hero-gtr-portrait-800.webp 800w, assets/hero-gtr-portrait-1200.webp 1200w"
+              sizes="100vw">
+      <source media="(max-width:767px)" srcset="assets/hero-gtr-portrait.jpg">
+      <!-- tablets and up: wide two-car shot -->
       <source type="image/webp"
               srcset="assets/hero-gtr-900.webp 900w, assets/hero-gtr-1600.webp 1600w, assets/hero-gtr-2400.webp 2400w"
               sizes="100vw">
