@@ -81,4 +81,42 @@
     if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
   }, { passive: true });
   onScroll();
+
+  /* ---------- Page turns dark from the Builds section down ---------- */
+  var builds = document.querySelector('.builds');
+  if (builds) {
+    var darkTick = false;
+    function checkDark() {
+      var top = builds.getBoundingClientRect().top;
+      document.body.classList.toggle('is-dark', top < window.innerHeight * 0.55);
+      darkTick = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!darkTick) { requestAnimationFrame(checkDark); darkTick = true; }
+    }, { passive: true });
+    window.addEventListener('resize', checkDark);
+    checkDark();
+  }
+
+  /* ---------- Builds carousel arrows ---------- */
+  var track = document.getElementById('builds-track');
+  if (track) {
+    var arrows = document.querySelectorAll('.builds__arrow');
+    function step() { var li = track.querySelector('li'); return li ? li.getBoundingClientRect().width + 24 : 600; }
+    function updateArrows() {
+      var max = track.scrollWidth - track.clientWidth - 2;
+      arrows.forEach(function (b) {
+        var dir = +b.dataset.dir;
+        b.disabled = dir < 0 ? track.scrollLeft <= 2 : track.scrollLeft >= max;
+      });
+    }
+    arrows.forEach(function (b) {
+      b.addEventListener('click', function () {
+        track.scrollBy({ left: +b.dataset.dir * step(), behavior: 'smooth' });
+      });
+    });
+    track.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
+  }
 })();

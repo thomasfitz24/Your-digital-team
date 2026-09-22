@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="theme-light">
 
 <a class="skip-link" href="#main">Skip to content</a>
 
@@ -137,11 +137,6 @@
     </div>
   </section>
 
-  <section class="placeholder" id="inventory">
-    <p class="placeholder__eyebrow">Section 03</p>
-    <h2 class="placeholder__title">Models go here.</h2>
-  </section>
-
   <!-- Section 02 — About -->
   <section class="about about--text-only" id="about">
     <div class="about__inner">
@@ -154,7 +149,88 @@
     </div>
   </section>
 
-  <section class="placeholder placeholder--alt" id="about"></section>
+  <!-- Section 03 — Builds -->
+  <section class="builds" id="inventory">
+    <div class="builds__head">
+      <div>
+        <p class="eyebrow">Our Builds</p>
+        <h2 class="builds__title">Discover our available hand built Porsche 911 backdates</h2>
+        <p class="builds__intro">Each one crafted with precision, passion and a deep respect for the original. Built in limited numbers and ready for the road.</p>
+      </div>
+      <div class="builds__nav" aria-hidden="true">
+        <button class="builds__arrow" type="button" data-dir="-1" aria-label="Previous model">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M11 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="builds__arrow" type="button" data-dir="1" aria-label="Next model">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <ul class="builds__track" id="builds-track">
+      <li>
+        <a class="model-card" href="#gtr-classic">
+          <picture>
+            <source type="image/webp" srcset="assets/card-classic-800.webp 800w, assets/card-classic-1400.webp 1400w" sizes="(min-width:1024px) 48vw, 88vw">
+            <img src="assets/card-classic.jpg" width="1200" height="960" loading="lazy" decoding="async" alt="911 GTR Classic in a dark car park with its headlights on">
+          </picture>
+          <h3 class="model-card__name">Classic</h3>
+          <div class="model-card__foot">
+            <div class="model-card__chips"><span class="chip chip--glass">993</span><span class="chip chip--glass">From $350,000</span></div>
+            <p class="model-card__desc">Full body-off 993 backdate: 3.8L air-cooled flat six, wide body, woven leather interior.</p>
+            <span class="model-card__cta"><span class="model-card__cta-label">Explore</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="model-card" href="#gtr-evo">
+          <picture>
+            <source type="image/webp" srcset="assets/card-evo-800.webp 800w, assets/card-evo-1400.webp 1400w" sizes="(min-width:1024px) 48vw, 88vw">
+            <img src="assets/card-evo.jpg" width="1200" height="960" loading="lazy" decoding="async" alt="911 GTR Evo in a white studio">
+          </picture>
+          <h3 class="model-card__name">Evo</h3>
+          <div class="model-card__foot">
+            <div class="model-card__chips"><span class="chip chip--glass">993</span><span class="chip chip--glass">From $400,000</span></div>
+            <p class="model-card__desc">The most focused build in the range: 3.8L Performance Pack, Evo wide body, aggressive aero.</p>
+            <span class="model-card__cta"><span class="model-card__cta-label">Explore</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="model-card" href="#gtr-modern">
+          <picture>
+            <source type="image/webp" srcset="assets/card-modern-800.webp 800w, assets/card-modern-1400.webp 1400w" sizes="(min-width:1024px) 48vw, 88vw">
+            <img src="assets/card-modern.jpg" width="1200" height="960" loading="lazy" decoding="async" alt="911 GTR Modern beneath a concrete overpass">
+          </picture>
+          <h3 class="model-card__name">Modern</h3>
+          <div class="model-card__foot">
+            <div class="model-card__chips"><span class="chip chip--glass">993</span><span class="chip chip--glass">From $375,000</span></div>
+            <p class="model-card__desc">993-based grand touring backdate: 3.8L Performance Pack, 2+2 seating, bespoke leather.</p>
+            <span class="model-card__cta"><span class="model-card__cta-label">Explore</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="model-card" href="#gtr-targa">
+          <picture>
+            <source type="image/webp" srcset="assets/card-targa-800.webp 800w, assets/card-targa-1400.webp 1400w" sizes="(min-width:1024px) 48vw, 88vw">
+            <img src="assets/card-targa.jpg" width="1200" height="960" loading="lazy" decoding="async" alt="911 GTR Targa on a gravel drive">
+          </picture>
+          <h3 class="model-card__name">Targa</h3>
+          <div class="model-card__foot">
+            <div class="model-card__chips"><span class="chip chip--glass">964</span><span class="chip chip--glass">From $375,000</span></div>
+            <p class="model-card__desc">Open-air 964 backdate: up to 4.0L and 400 bhp, two or four wheel drive.</p>
+            <span class="model-card__cta"><span class="model-card__cta-label">Explore</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M13 5l7 7-7 7"/></svg></span>
+          </div>
+        </a>
+      </li>
+    </ul>
+
+    <div class="builds__cta">
+      <a class="btn btn--outline" href="#inventory">View all models</a>
+    </div>
+  </section>
+
   <section class="placeholder" id="contact"></section>
 </main>
 
