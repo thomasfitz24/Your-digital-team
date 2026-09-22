@@ -252,7 +252,7 @@ body.menu-open .site-header .site-logo img{ filter:none; }
   background:
     linear-gradient(to bottom, rgba(10,10,12,.62) 0%, rgba(10,10,12,.34) 26%, rgba(10,10,12,0) 52%),
     linear-gradient(to right, rgba(10,10,12,.5) 0%, rgba(10,10,12,.18) 32%, rgba(10,10,12,0) 58%),
-    linear-gradient(to top, rgba(10,10,12,.45) 0%, rgba(10,10,12,0) 30%);
+    linear-gradient(to top, rgba(10,10,12,.72) 0%, rgba(10,10,12,.3) 26%, rgba(10,10,12,0) 46%);
 }
 
 /* Title block — top left, under the header */
@@ -273,15 +273,13 @@ body.menu-open .site-header .site-logo img{ filter:none; }
   line-height:1.04; letter-spacing:-.025em; text-wrap:balance;
 }
 
-/* Copy + buttons — centred in the middle of the hero */
+/* Copy + buttons — centred horizontally, sitting at the bottom of the hero */
 .hero__cta{
-  position:absolute; inset:0;
-  display:grid; place-content:center; justify-items:center;
+  position:absolute; left:0; right:0; bottom:0;
+  display:grid; justify-items:center;
   text-align:center;
-  padding:0 var(--gutter);
-  pointer-events:none;           /* only the buttons should catch clicks */
+  padding:0 var(--gutter) clamp(48px, 8vh, 88px);
 }
-.hero__cta > *{ pointer-events:auto; }
 .hero__text{
   margin:0 0 28px; max-width:44ch;
   font-size:clamp(17px, 1.4vw, 21px); line-height:1.5;
