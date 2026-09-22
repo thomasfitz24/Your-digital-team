@@ -64,7 +64,7 @@ button{ font:inherit; color:inherit; background:none; border:0; padding:0; curso
 
 /* ---------- Header ---------- */
 .site-header{
-  position:fixed; inset:0 0 auto 0;
+  position:absolute; inset:0 0 auto 0;   /* sits at the top of the page and scrolls away with it */
   height:var(--header-h);
   background:var(--surface);
   z-index:var(--z-header);
@@ -82,7 +82,7 @@ button{ font:inherit; color:inherit; background:none; border:0; padding:0; curso
 .site-header.is-transparent .site-logo{ color:#fff; mix-blend-mode:difference; }
 .site-header.is-transparent .site-logo img{ filter:invert(1) brightness(1.1); }
 .site-header{ transition:transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), background-color var(--dur-base) var(--ease-out); }
-body.menu-open .site-header{ background:var(--surface); }
+body.menu-open .site-header{ position:fixed; background:var(--surface); }   /* keep Close reachable while the menu is open */
 body.menu-open .site-header .menu-toggle,
 body.menu-open .site-header .header-contact,
 body.menu-open .site-header .site-logo{ color:var(--ink); mix-blend-mode:normal; }

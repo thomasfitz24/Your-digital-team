@@ -61,10 +61,8 @@
     }
   });
 
-  /* ---------- Header stays fixed; only its transparent/solid state changes ---------- */
-  var lastY = window.scrollY;
+  /* ---------- Header sits at the top of the page; transparent over the hero, solid when the menu is open ---------- */
   var ticking = false;
-  var THRESHOLD = 8;
 
   function showHeader() { header.classList.remove('is-hidden'); }
 
@@ -76,7 +74,6 @@
     var overHero = hero ? y < hero.offsetHeight - header.offsetHeight : false;
     header.classList.toggle('is-transparent', overHero);
     header.classList.toggle('is-scrolled', !overHero && y > 4);
-    lastY = y;
     ticking = false;
   }
 
