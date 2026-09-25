@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Wonder">
+  <rect width="64" height="64" rx="14" fill="#1F3129"/>
+  <!-- the doorway arch that the site uses as its signature shape -->
+  <path d="M32 13c9.4 0 17 7.6 17 17v21H15V30c0-9.4 7.6-17 17-17z" fill="#F4F5EF"/>
+  <path d="M32 24c4.4 0 8 3.6 8 8v19H24V32c0-4.4 3.6-8 8-8z" fill="#7E9484"/>
+  <circle cx="37" cy="40" r="2" fill="#F4F5EF"/>
+</svg>
