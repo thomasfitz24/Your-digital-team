@@ -1,0 +1,29 @@
+# KSL page SEO
+
+One row per page. Titles are under 60 characters and descriptions under 155. Image URLs are the stock photos currently in each page, listed so they can be swapped for client photography.
+
+| Slug | Title | Meta description | Images |
+|---|---|---|---|
+| / | Commercial Cleaning London | Kemp Services Ltd | Commercial cleaning company in London with over 30 years' experience. Contract, office and builders cleaning across London and the UK. Call 020 8983 8593. | https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=2000&q=76&auto=format&fit=crop<br>https://images.unsplash.com/photo-1718152421680-d1580e843cc9?w=900&q=76&auto=format&fit=crop<br>https://images.unsplash.com/photo-1577412647305-991150c7d163?w=900&q=76&auto=format&fit=crop<br>https://images.unsplash.com/photo-1504297050568-910d24c426d3?w=900&q=76&auto=format&fit=crop<br>https://images.unsplash.com/photo-1669101602108-fa5ba89507ee?w=2000&q=76&auto=format&fit=crop |
+| /contract-cleaning | Contract Cleaning Services London | Kemp Services | Bespoke contract cleaning services for offices, retail, warehouses and welfare facilities in London and the Home Counties. DBS checked cleaners. |  |
+| /office-cleaning | Office Cleaning London | Kemp Services Ltd | Professional office cleaning in London from vetted, trained cleaners. Daily or out-of-hours office cleaning tailored to your budget. Free site survey. |  |
+| /construction-cleaning | Post Construction Cleaning London | Kemp Services | Post construction cleaning in London and across the UK: builders cleans, sparkle cleans and welfare area cleaning for construction and fit out firms. |  |
+| /builders-clean | Builders Cleaning Services London | Kemp Services | Specialist builders cleaning services: after builders, final and sparkle cleans in London and across the UK. CSCS qualified staff, site-specific RAMS. |  |
+| /welfare-area-cleaning | Welfare Cleaning for Construction Sites | Kemp Services | Welfare cleaning for construction sites: ad hoc, daily or weekly cabin and welfare facility cleaning, from small site offices to multi-bay accommodation. |  |
+| /property-management-cleaning | Communal Area Cleaning London | Property Management | Communal area cleaning in London for property managers, landlords and letting agents: communal block cleaning, tenancy cleans, deep cleans and more. |  |
+| /communal-block-cleaning | Communal Block Cleaning London | Kemp Services | Regular communal block cleaning for lobbies, stairwells and corridors, plus bin stores, car parks and windows, for housing associations and landlords. |  |
+| /pre-post-tenancy-cleans | End of Tenancy Cleaning London | Kemp Services | End of tenancy cleaning in London for letting agents and landlords. Thorough pre and post tenancy cleans with before and after photos and a full checklist. |  |
+| /carpet-floor-cleaning | Commercial Carpet Cleaning London | Kemp Services | Commercial carpet cleaning in London for offices, retail, construction and homes. Bespoke cleaning for any flooring material, restoring tired carpets. |  |
+| /deep-cleaning | Deep Cleaning London | Kemp Services Ltd | Professional one-off deep cleaning in London and the Home Counties for commercial and residential properties. Trained, vetted and fully insured cleaners. |  |
+| /window-cleaning-london | Commercial Window Cleaning London | Kemp Services | Commercial window cleaning in London and across the UK by certified window cleaners. Internal and external window cleaning for all types of business. |  |
+| /our-services | Commercial Cleaning Services London | Kemp Services | All our commercial cleaning services in London: contract, office, construction, builders, welfare, communal, tenancy, carpet, deep and window cleaning. |  |
+| /area-london | Contract Cleaning London | Kemp Services Ltd | Contract cleaning across London, from Havering in the east to Ealing in the west. Based in Stratford, with cleaning teams covering every London borough. |  |
+| /contract-cleaning-essex | Office Cleaning Essex | Kemp Services Ltd | Office cleaning in Essex from a contractor based just over the border in Stratford. Vetted cleaners for offices, retail, warehouses and sites across Essex. |  |
+| /area-kent | Commercial Cleaning Kent | Kemp Services Ltd | Commercial cleaning across Kent, from Dartford to Dover. Contract, office and builders cleaning from a London contractor with over 30 years' experience. |  |
+| /area-surrey | Office Cleaning Surrey | Kemp Services Ltd | Office cleaning in Surrey from Guildford to Kingston. Flexible, vetted office and commercial cleaners from a contractor with over 30 years' experience. |  |
+| /area-middlesex | Commercial Cleaning Middlesex | Kemp Services Ltd | Commercial cleaning across Middlesex: Harrow, Hounslow, Uxbridge, Wembley and more. Contract, office and builders cleaning from a London contractor. |  |
+| /about-us | About Us | Contract Cleaning Company London | Kemp Services Ltd is an expert contract cleaning company in London with 30 years' experience across the Home Counties and the UK. Client focused. |  |
+| /contact | Contact Us | Cleaning Contractors London | Contact Kemp Services, cleaning contractors in London covering the Home Counties and beyond. Call 020 8983 8593 or send an enquiry online. |  |
+| /disclaimer | Disclaimer | Kemp Services Ltd | Disclaimer for the Kemp Services Ltd website: content is provided for information only and use of the information on these pages is at your sole risk. |  |
+| /privacy-policy | Privacy Policy | Kemp Services Ltd | How Kemp Services Ltd collects, uses and shares your personal information, and your rights under this privacy notice. |  |
+| /terms-conditions | Terms and Conditions | Kemp Services Ltd | Terms and conditions for cleaning services provided by Kemp Services Ltd. |  |

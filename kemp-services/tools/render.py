@@ -39,8 +39,8 @@ def check(url, tag, outdir, shots=True):
             for y in range(0,H,600): pg.evaluate(f"window.scrollTo(0,{y})"); pg.wait_for_timeout(80)
             pg.wait_for_timeout(1200); pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(300)
             r=pg.evaluate("""(()=>{
-              const small=[...document.querySelectorAll('a,button,label.nbtn,input[type=submit]')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&(r.width<44||r.height<44)}).map(e=>(e.className||'')+':'+e.textContent.trim().slice(0,20)+' '+Math.round(e.getBoundingClientRect().width)+'x'+Math.round(e.getBoundingClientRect().height));
-              const imgs=[...document.images].filter(i=>!i.complete||i.naturalWidth==0).map(i=>i.src.slice(0,80));
+              const small=[...document.querySelectorAll('a,button,label.nbtn,input[type=submit]')].filter(e=>!e.classList.contains('inl')).filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&(r.width<44||r.height<44)}).map(e=>(e.className||'')+':'+e.textContent.trim().slice(0,20)+' '+Math.round(e.getBoundingClientRect().width)+'x'+Math.round(e.getBoundingClientRect().height));
+              const imgs=[...document.images].filter(i=>i.getBoundingClientRect().width>0).filter(i=>!i.complete||i.naturalWidth==0).map(i=>i.src.slice(0,80));
               const h1=document.querySelectorAll('h1').length;
               const hs=[...document.querySelectorAll('h1,h2,h3,h4')].map(h=>h.tagName+':'+h.textContent.trim().slice(0,50));
               const hidden=[...document.querySelectorAll('#header,#footer-sections')].map(e=>getComputedStyle(e).display);
