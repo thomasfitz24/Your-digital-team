@@ -25,7 +25,7 @@ FORM='''<section class="page-section" id="formsec"><div class="content-wrapper">
 
 def build_mock(page_path, out_path, sqs_dir):
     h=open(os.path.join(sqs_dir,'header.html')).read(); f=open(os.path.join(sqs_dir,'footer.html')).read(); p=open(page_path).read()
-    form=FORM if 'fslot' in p else ''
+    form=FORM if 'class="fslot"' in p else ''
     open(out_path,'w').write(MOCK.replace('__HEAD__',h).replace('__PAGE__',p).replace('__FORM__',form).replace('__FOOT__',f))
 
 def check(url, tag, outdir, shots=True):
