@@ -99,12 +99,13 @@ def scard(slug,w=900):
     name,pid,alt,_=SERVICES[slug]
     return f'<a class="scard" href="/{slug}">{img(pid,alt,w)}<h3>{name}{ARROW}</h3></a>'
 
-def related(slugs,heading='Related services',intro='',four=False):
+def related(slugs,heading='Related services',intro='',four=False,extra=''):
     cards='\n'.join(scard(s) for s in slugs)
     return f'''<section class="related">
   <div class="w">
     <div class="head"><h2 style="padding-top:28px;position:relative;margin:0;font-size:clamp(1.8rem,1.3rem + 1.6vw,2.6rem);font-weight:500;line-height:1.12;letter-spacing:-.03em;color:var(--navy)">{heading}</h2>{('<p>'+intro+'</p>') if intro else ''}<a class="more" href="/our-services">All our services{ARROW}</a></div>
     <div class="grid{' four' if four else ''}">{cards}</div>
+    {extra}
   </div>
 </section>'''
 
@@ -115,8 +116,8 @@ def hublist(heading,intro,items,white=True,id=''):
             name,pid,alt,desc=SERVICES[it]; href='/'+it; sub=False
         else:
             name,href,pid,alt,desc,sub=it
-        sc=' class="sub"' if sub else ''
-        lis.append(f'<li{sc}><a href="{href}"><span class="n">{i:02d}</span><span class="pic">{img(pid,alt,600)}</span><span><h3>{name}</h3><p>{desc}</p></span><span class="arr">{ARROW}</span></a></li>')
+        pl=f'<span class="plabel">Part of {sub}</span>' if sub else ''
+        lis.append(f'<li><a href="{href}"><span class="n">{i:02d}</span><span class="pic">{img(pid,alt,600)}</span><span>{pl}<h3>{name}</h3><p>{desc}</p></span><span class="arr">{ARROW}</span></a></li>')
     return f'''<section class="sec {'white' if white else 'navy'}"{f' id="{id}"' if id else ''}>
   <div class="w">
     <h2>{heading}</h2>
@@ -124,6 +125,11 @@ def hublist(heading,intro,items,white=True,id=''):
     <ol class="hublist" style="margin-top:40px">{''.join(lis)}</ol>
   </div>
 </section>'''
+
+def compact(featured,white=True):
+    rest=[k for k in SERVICES if k not in featured]
+    lis=''.join(f'<li><a href="/{k}">{SERVICES[k][0]}</a></li>' for k in rest)
+    return f'<div class="compact"><p>Everything else we offer:</p><ul>{lis}</ul></div>'
 
 def towns(heading,intro,names,white=True):
     lis=''.join(f'<li>{n}</li>' for n in names)

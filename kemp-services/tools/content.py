@@ -54,17 +54,13 @@ def build(g):
         'If you would prefer us to clean when your offices are empty, we can work outside of usual business hours. Alternatively, our cleaners can work alongside your staff without disrupting them.'],
         '1781637590564-01c65dbf2039','Cleaner vacuuming a carpeted office floor',buttons=[btn('See our contract cleaning services','/contract-cleaning')]),
       rows('Where an office needs cleaning most.',
-        'Office cleaning usually happens overnight. Bacteria counts are lower at the start of the workday, but a University of Arizona study found contamination can spread through an office within two to four hours. These are the hotspots our office cleaning services in London focus on.',
-        [('Touch points','Lift buttons, doorknobs and hand railings.'),
-         ('Kitchens','Spillages, cupboards and fridges.'),
-         ('Bathrooms','Cleaned and sanitised on every visit.'),
-         ('Shared equipment','Copiers, franking machines, water coolers and vending machines.'),
-         ('Desks','Individual desks, phones, keyboards and mice.')],white=False),
+        'Office cleaning usually happens overnight. Bacteria counts are lower at the start of the workday, but a University of Arizona study found contamination can spread through an office within two to four hours. These are the office hotspots.',
+        ['Lift buttons, doorknobs and hand railings','Kitchens: spillages, cupboards and fridges','Bathrooms','Shared office equipment: copiers, franking machines, water coolers and vending machines','Individual desks, phones, keyboards and mice'],white=False,plain=True,cols=True),
       two('Leave the office cleaning to us.',[
         '!At Kemp Services, we want to build a long-term relationship with our clients to ensure you know you can concentrate on running your business and leave the cleaning to us.',
         'By building great relationships with our clients, we get to know and adapt to your changing needs and tailor our service specifically to meet and exceed your expectations.',
         'What you get: peace of mind, a motivated workforce, a positive message to visitors, and high quality cleaning managed by an experienced team. The cost of office cleaning varies with the size of your premises and the hours required for the daily clean, so we quote after a site survey.',
-        'Many offices also book our '+L('carpet-floor-cleaning','office carpet cleaning')+' and '+L('window-cleaning-london','commercial window cleaning')+' alongside the regular clean.'],
+        'Related services: '+L('carpet-floor-cleaning','carpet cleaning')+' and '+L('window-cleaning-london')+'.'],
         side='<a class="btn-dark" href="/contact">Arrange a free site survey'+ARROW+'</a>'),
       related(['contract-cleaning','carpet-floor-cleaning','window-cleaning-london']),
       contact('Get an office cleaning quote.','Tell us about your office, how many staff you have and when you would like us to clean, and we will come back to you with a quote.'),
@@ -123,36 +119,36 @@ def build(g):
       phero('Welfare cleaning that keeps your site safe, tidy and compliant.',
         'On any construction site, keeping your welfare facilities clean and hygienic is vital. We offer an excellent, cost effective and consistent building site cabin cleaning service at a frequency to suit your requirements.',
         '1772209415876-76ea6cbc2f0c','Operatives working on the floor of a large empty building',crumb=('Construction cleaning','/construction-cleaning')),
-      rows('Cleaning at the frequency your site needs.','Kemp Services have specialist experience working with the construction industry. We focus our efforts on keeping your environment safe and tidy.',
-        [('Ad hoc','A one-off welfare clean when you need it.'),
-         ('Daily','Daily welfare cleaning services for busy sites.'),
-         ('Weekly','A weekly welfare cleaning service to keep facilities in order between visits.')]),
+      rows('Cleaning at the frequency your site needs.','Kemp Services have specialist experience working with the construction industry. We focus our efforts on keeping your environment safe and tidy. When it comes to welfare areas, we can provide cleaning on a one-off ad hoc basis or schedule daily or weekly cleans.',
+        [('Ad hoc','One-off welfare cleaning when you need it.'),
+         ('Daily','Daily welfare cleaning services.'),
+         ('Weekly','A weekly welfare cleaning service.')]),
       split('From small site offices to multi-bay accommodation.',[
         'We cover all types of welfare from small office accommodation to multi-bay construction site offices. A clean site will lower the risk of injury and the spread of viruses as well as improve morale as it provides your trades a place to refocus.',
-        'We offer excellent and cost-effective welfare cleaning services. We can attend your premises as frequently as you need it; for contractors of all sizes. Many site teams also book our '+L('builders-clean')+' for handover.'],
+        'We offer excellent and cost-effective welfare cleaning services. We can attend your premises as frequently as you need it; for contractors of all sizes. We also provide '+L('builders-clean','builders cleans')+' at the end of a project, before handover.'],
         '1790156247557-4f4e22b6fca2','Stepladder in a room with bare walls and a concrete floor',rev=True,white=False,buttons=[btn('Get a welfare cleaning quote','/contact')]),
       related(['builders-clean','construction-cleaning','contract-cleaning']),
       contact('Get a welfare cleaning quote.','Tell us how many cabins or welfare units you have, where the site is and how often you want us there.'),
       ], ld=ld('Welfare cleaning','Ad hoc, daily or weekly welfare area and site cabin cleaning for construction sites.','welfare-area-cleaning'), needs_form=True)
 
     # ================= PROPERTY MANAGEMENT HUB =================
-    page('property-management-cleaning','Communal Area Cleaning London | Property Management',
-      'Communal area cleaning in London for property managers, landlords and letting agents: communal block cleaning, tenancy cleans, deep cleans and more.',
+    page('property-management-cleaning','Property Management Cleaning London | Kemp Services',
+      'Property management cleaning in London for property managers, landlords and letting agents: communal block cleaning, tenancy cleans, deep cleans and more.',
       [
-      phero('Communal area cleaning in London for landlords and property managers.',
+      phero('Property management cleaning in London for landlords and property managers.',
         'Whether you are a private landlord or manage a local, regional or national property portfolio, Kemp Services have the experience and expertise to ensure your property always makes the right first impression.',
         '1760160134936-14284be2a811','Balconies of a modern apartment building at dusk',crumb=HUB,wash=True),
       two('Over 30 years working with property professionals.',[
         '!We have been working in partnership with property management companies, private landlords and letting agents for over 30 years, providing professional comprehensive and tailored cleaning solutions for all types of residential and commercial tenanted properties.',
-        'Our range of services includes pre and post tenancy cleans, regular communal block cleaning, deep cleans, periodic cleaning, carpet and upholstery cleaning, specialist floor cleaning, window cleaning, bin store and car park cleaning and waste and large item removal.'],white=False),
+        'Our range of services includes pre and post tenancy cleans, regular communal block cleaning, deep cleans, periodic cleaning, carpet and upholstery cleaning, specialist floor cleaning, window cleaning, bin store and car park cleaning and waste and large item removal.']),
       hublist('Two services for your portfolio.','',
         [('Communal block cleaning','/communal-block-cleaning','1635151925996-cf34cc3805d4','Long communal hallway with doors on both sides','Our regular communal block cleaning services ensure that your lobbies, stairwells and corridors remain in top condition and provide you and your residents and visitors with peace of mind.',False),
-         ('Pre and post tenancy cleans','/pre-post-tenancy-cleans','1789352844327-765b16a51b9b','Empty carpeted living area opening into a kitchen','As a Letting Agency or Private Landlord, it\'s your duty to provide a property in a clean and well-maintained condition for your tenants.',False)]),
+         ('Pre and post tenancy cleans','/pre-post-tenancy-cleans','1789352844327-765b16a51b9b','Empty carpeted living area opening into a kitchen','As a Letting Agency or Private Landlord, it\'s your duty to provide a property in a clean and well-maintained condition for your tenants.',False)],white=False),
       rows('Everything a tenanted property needs.','',
         ['Pre and post tenancy cleans','Regular communal block cleaning','Deep cleans','Periodic cleaning','Carpet and upholstery cleaning','Specialist floor cleaning','Window cleaning','Bin store and car park cleaning','Waste and large item removal'],plain=True,cols=True),
       related(['deep-cleaning','carpet-floor-cleaning','window-cleaning-london'],heading='Often added to a portfolio contract'),
       contact('Tell us about your portfolio.','Whether it is one block or a national portfolio, tell us what you manage and we will put together a tailored proposal.'),
-      ], ld=ld('Communal area cleaning London','Cleaning for property management companies, private landlords and letting agents: communal blocks, tenancy cleans, deep cleans and more.','property-management-cleaning'), needs_form=True)
+      ], ld=ld('Property management cleaning London','Cleaning for property management companies, private landlords and letting agents: communal blocks, tenancy cleans, deep cleans and more.','property-management-cleaning'), needs_form=True)
 
     # ================= COMMUNAL BLOCK =================
     page('communal-block-cleaning','Communal Block Cleaning London | Kemp Services',
@@ -208,10 +204,11 @@ def build(g):
         'Kemp Services provides a bespoke carpet cleaning service, regardless of the fabric your flooring is made from. We can help restore the look of tired and stained carpets. Our carpet cleaners will take care of your flooring and have it looking like new in no time.',
         'Our prices are competitive and tailored to your individual needs, which provides you with better value for money. Carpet and upholstery cleaning has a minimum call out charge of £65 excluding VAT.'],
         '1527515637462-cff94eecc1ac','Vacuum cleaner being used on a carpet',buttons=[btn('Get a carpet cleaning quote','/contact')]),
-      rows('Often booked alongside.','Carpet and floor cleaning is a regular add-on to our other services.',
-        [('Office cleaning','Periodic carpet cleaning as part of a regular '+L('office-cleaning','office cleaning')+' contract.'),
-         ('Tenancy cleans','Steam cleaning for carpets and upholstery at the '+L('pre-post-tenancy-cleans','end of a tenancy')+'.'),
-         ('Builders cleans','Carpet cleaning and floor scrubbing after a '+L('builders-clean')+' before handover.')],white=False),
+      two('Part of our other services too.',[
+        '!Carpet and floor cleaning is one of the additional services we offer alongside our other cleaning work.',
+        'Our '+L('builders-clean','builders cleans')+' are fully customisable and we can provide additional services such as window cleaning, carpet cleaning, floor scrubbing, high wall/cladding and jet washing.',
+        'With our '+L('pre-post-tenancy-cleans','pre and post tenancy cleans')+' you may also wish to make use of the additional services we offer such as steam cleaning for carpets and upholstery, mattress sanitising, oven cleaning, window cleaning and external rubbish clearance.',
+        'Before a '+L('contract-cleaning','cleaning contract')+' starts, we recommend an initial deep clean of the entire premises, including window cleaning and specialist floor cleaning, if required.'],white=False),
       related(['office-cleaning','deep-cleaning','pre-post-tenancy-cleans']),
       contact('Get a carpet cleaning quote.','Tell us the type of flooring, the approximate floor area and where the premises are.'),
       ], ld=ld('Commercial carpet cleaning London','Bespoke carpet and floor cleaning for offices, retail, construction and homes across Greater London.','carpet-floor-cleaning'), needs_form=True)
@@ -223,11 +220,10 @@ def build(g):
       phero('Professional one-off deep cleaning in London and the Home Counties.',
         'Our cleaners are professionally trained, vetted and fully insured. When the task has become overwhelming, it might be time to book us in for a deep clean.',
         '1740657254989-42fe9c3b8cce','Gloved operative cleaning a hard floor',crumb=HUB,cta='Book a deep clean'),
-      rows('Why people book a deep clean.','The reasons why people choose a deep cleaning service vary. The most common ones include:',
-        [('An extra clean','When the task of cleaning a residential or commercial property is much but there is a need for an extra clean.'),
-         ('Before a sale','Before selling a property, a deep clean can help with a sale.'),
-         ('For visitors and occasions','Deep cleaning for visitors, before or after a party, or before the arrival of a new baby.'),
-         ('An annual spring clean','When you need an extra clean as an annual spring clean.')]),
+      two('Why people book a deep clean.',[
+        '!The reasons why people choose a deep cleaning service vary. The most common ones include:',
+        'When the task of cleaning a residential or commercial property is much but there is a need for an extra clean. Before selling a property, a deep clean can help with a sale. Deep cleaning for visitors, before or after a party, or before the arrival of a new baby. Or when you need an extra clean as an annual spring clean.'],
+        side='<ul class="rows plain" style="margin-top:30px"><li>An extra clean</li><li>Before selling a property</li><li>Visitors, parties, a new baby</li><li>An annual spring clean</li></ul>'),
       split('The right start to a cleaning contract.',[
         'Prior to commencing a regular cleaning contract, we recommend that you hire us to undertake an initial deep clean of the entire premises from top to bottom, including '+L('window-cleaning-london')+' and specialist '+L('carpet-floor-cleaning','floor cleaning')+', if required. This allows our clients to immediately see the difference our professional cleaning services make.',
         'An initial deep clean also increases the likelihood of your premises staying cleaner for longer. For any contract cleaner, it is much easier to maintain a clean environment than one that has never had a professional deep clean.'],
@@ -254,21 +250,21 @@ def build(g):
       ], ld=ld('Commercial window cleaning London','Internal and external window cleaning for businesses throughout London and across the UK by certified window cleaners.','window-cleaning-london'), needs_form=True)
 
     # ================= OUR SERVICES HUB =================
-    page('our-services','Commercial Cleaning Services London | Kemp Services',
-      'All our commercial cleaning services in London: contract, office, construction, builders, welfare, communal, tenancy, carpet, deep and window cleaning.',
+    page('our-services','Commercial Cleaning Services | Kemp Services Ltd',
+      'All our commercial cleaning services: contract, office, construction, builders, welfare, communal, tenancy, carpet, deep and window cleaning.',
       [
-      phero('Commercial cleaning services in London and across the UK.',
+      phero('Commercial cleaning services for every type of premises.',
         'We will be your one stop shop for cleaning services offering one-off or regular cleaning. Regardless of the type of property, office, retail, welfare facilities or warehouse, we can help keep your premises looking sparkling clean at all times.',
         '1758448093806-88b2089068ab','Modern office lobby with reception desk and seating',wash=True),
       hublist('Every service we offer.','We professionally clean buildings of all shapes and sizes for customers across the UK, creating a clean and healthy environment.',
         [('Contract cleaning','/contract-cleaning','1718152421680-d1580e843cc9','Operative machine-cleaning a commercial floor','We professionally clean buildings of all shapes and sizes for customers across the UK, creating a clean and healthy environment.',False),
          ('Office cleaning','/office-cleaning','1577412647305-991150c7d163','Clean open-plan office floor','A clean office presents a welcoming, positive and professional first impression to your clients right from the outset.',False),
          ('Construction cleaning','/construction-cleaning','1768321903661-87da7d2962b0','Interior construction site with metal studs','Cleaning services for the construction industry. We professionally clean buildings of all shapes and sizes for customers across the UK.',False),
-         ('Builders clean','/builders-clean','1504297050568-910d24c426d3','Newly fitted-out office corridor after a builders clean','At the end of any new building, refurbishment or renovation project, the last trade on site before that all-important handover.',True),
-         ('Welfare area cleaning','/welfare-area-cleaning','1772209415876-76ea6cbc2f0c','Operatives working on the floor of a large empty building','When it comes to welfare areas, we can provide cleaning on a one-off ad hoc basis or schedule daily or weekly cleans.',True),
+         ('Builders clean','/builders-clean','1504297050568-910d24c426d3','Newly fitted-out office corridor after a builders clean','At the end of any new building, refurbishment or renovation project, the last trade on site before that all-important handover.','construction cleaning'),
+         ('Welfare area cleaning','/welfare-area-cleaning','1772209415876-76ea6cbc2f0c','Operatives working on the floor of a large empty building','When it comes to welfare areas, we can provide cleaning on a one-off ad hoc basis or schedule daily or weekly cleans.','construction cleaning'),
          ('Property management cleaning','/property-management-cleaning','1760160134936-14284be2a811','Balconies of a modern apartment building at dusk','We have been working in partnership with property management companies, private landlords and letting agents for over 30 years.',False),
-         ('Communal block cleaning','/communal-block-cleaning','1635151925996-cf34cc3805d4','Long communal hallway with doors on both sides','Our regular communal block cleaning services ensure that your lobbies, stairwells and corridors remain in top condition and provide you and your residents and visitors with peace of mind.',True),
-         ('Pre and post tenancy cleans','/pre-post-tenancy-cleans','1789352844327-765b16a51b9b','Empty carpeted living area opening into a kitchen','As a Letting Agency or Private Landlord, it\'s your duty to provide a property in a clean and well-maintained condition for your tenants.',True),
+         ('Communal block cleaning','/communal-block-cleaning','1635151925996-cf34cc3805d4','Long communal hallway with doors on both sides','Our regular communal block cleaning services ensure that your lobbies, stairwells and corridors remain in top condition and provide you and your residents and visitors with peace of mind.','property management cleaning'),
+         ('Pre and post tenancy cleans','/pre-post-tenancy-cleans','1789352844327-765b16a51b9b','Empty carpeted living area opening into a kitchen','As a Letting Agency or Private Landlord, it\'s your duty to provide a property in a clean and well-maintained condition for your tenants.','property management cleaning'),
          ('Carpet and floor cleaning','/carpet-floor-cleaning','1742483359033-13315b247c74','Operative in protective clothing cleaning a carpet','With over 30 years of experience in the cleaning industry, we provide tailored carpet cleaning to both domestic and commercial clients.',False),
          ('Deep cleaning','/deep-cleaning','1740657254989-42fe9c3b8cce','Gloved operative cleaning a hard floor','Professional one-off deep cleaning services in London and the Home Counties. Our cleaners are professionally trained, vetted and fully insured.',False),
          ('Window cleaning','/window-cleaning-london','1482449609509-eae2a7ea42b7','Window cleaner on a platform cleaning a large glass window','We provide a commercial window cleaning service throughout London and across the UK. We clean windows both internally and externally.',False)]),
@@ -281,90 +277,81 @@ def build(g):
       ], needs_form=True)
 
     # ================= AREAS =================
-    ALL=['contract-cleaning','office-cleaning','builders-clean','welfare-area-cleaning','communal-block-cleaning','pre-post-tenancy-cleans','carpet-floor-cleaning','deep-cleaning','window-cleaning-london']
-    def area_services(white=True,heading='Our services across the area.',intro=''):
-        items=[]
-        for s in ALL:
-            n,pid,alt,d=SERVICES[s]; items.append((n,'/'+s,pid,alt,d,False))
-        return hublist(heading,intro,items,white=white)
+    compact=g['compact']
+    def area_services(featured,heading,white=True):
+        return related(featured,heading=heading,four=(len(featured)==4),extra=compact(featured))
+    VET='All our cleaning staff are fully vetted. When it comes to working hours and patterns, we offer great flexibility. If you would prefer us to clean when your offices are empty, we can work outside of usual business hours. Alternatively, our cleaners can work alongside your staff without disrupting them.'
+    PREM='Clean and presentable premises not only make a difference to the general health and wellbeing of staff, but it also creates a positive first impression to visitors. Regardless of the type of property, office, retail, welfare facilities or warehouse, we can help keep your premises looking sparkling clean at all times.'
+    CHECKS='<ul class="rows plain" style="margin-top:30px"><li>Competitive rates</li><li>Flexible contracts</li><li>Fully insured, trained and vetted staff</li><li>Tailored cleaning schedule</li><li>Regular site inspections</li></ul>'
 
-    # LONDON: borough list is the spine
-    page('area-london','Contract Cleaning London | Kemp Services Ltd',
-      'Contract cleaning across London, from Havering in the east to Ealing in the west. Based in Stratford, with cleaning teams covering every London borough.',
+    # LONDON: boroughs first, the Stratford base, four featured services
+    page('area-london','Cleaning Contractors London | Kemp Services Ltd',
+      'Cleaning contractors in London, from Havering in the east to Ealing in the west. Based in Stratford, covering every London borough.',
       [
-      phero('Contract cleaning in London, from Havering in the east to Ealing in the west.',
+      phero('Cleaning contractors in London, from Havering in the east to Ealing in the west.',
         'Kemp Services is a contract cleaning company based in Stratford, east London. For over 30 years we have been offering professional commercial cleaning services. We pride ourselves on being a flexible and responsive London cleaning contractor.',
         '1632897271846-b6e3ca78aded','Red double-decker bus on a busy London street',wash=True,cta='Get a London quote'),
       towns('Every London borough.','We offer our cleaning services to businesses across the whole of London.',
         ['Barking and Dagenham','Barnet','Bexley','Brent','Bromley','Camden','Croydon','Ealing','Enfield','Fulham','Greenwich','Hackney','Haringey','Harrow','Havering','Hillingdon','Hounslow','Islington','Kensington and Chelsea','Kingston upon Thames','Lambeth','Lewisham','Merton','Newham','Redbridge','Richmond upon Thames','Southwark','Sutton','Tower Hamlets','Waltham Forest','Wandsworth','Westminster']),
-      split('Why London businesses choose us.',[
-        'Clean and presentable premises not only make a difference to the general health and wellbeing of staff, but it also creates a positive first impression to visitors. Regardless of the type of property, office, retail, welfare facilities or warehouse, we can help keep your premises looking sparkling clean at all times.',
-        'All our cleaning staff are fully vetted. When it comes to working hours and patterns, we offer great flexibility. If you would prefer us to clean when your offices are empty, we can work outside of usual business hours. Alternatively, our cleaners can work alongside your staff without disrupting them.'],
+      split('Based in Stratford, working across the capital.',[PREM,VET],
         '1606757898266-5dcb04600340','People walking between high-rise office buildings in London',white=False,rev=True,buttons=[btn('Our F.A.C.T. Guarantee','/#guarantee')]),
-      area_services(heading='Cleaning services in London.'),
+      area_services(['contract-cleaning','office-cleaning','builders-clean','communal-block-cleaning'],'What we clean in London.'),
       band('We also cover Essex, Kent, Surrey and Middlesex.','Most of our customers are based across London and the Home Counties, with contracts in Manchester, Newcastle, Nottingham, Liverpool, Cardiff and Birmingham too.'),
       contact('Get a quote for your London premises.'),
-      ], ld=ld('Contract cleaning London','Contract and commercial cleaning across every London borough from a contractor based in Stratford, east London.','area-london',area='London'), needs_form=True)
+      ], ld=ld('Cleaning contractors London','Contract and commercial cleaning across every London borough from a contractor based in Stratford, east London.','area-london',area='London'), needs_form=True)
 
-    # ESSEX: office cleaning focus, towns in the hero half, promise-led
+    # ESSEX: offices lead, towns in a navy band, services third
     page('contract-cleaning-essex','Office Cleaning Essex | Kemp Services Ltd',
-      'Office cleaning in Essex from a contractor based just over the border in Stratford. Vetted cleaners for offices, retail, warehouses and sites across Essex.',
+      'Office cleaning in Essex from a contract cleaning company based in Stratford, east London. Vetted cleaners for offices, retail and warehouses across Essex.',
       [
-      phero('Office cleaning in Essex from your neighbours in east London.',
-        'Kemp Services is a contract cleaning company based in Stratford, east London, on the Essex border. For over 30 years we have been offering professional commercial cleaning services, and we pride ourselves on being a flexible and responsive Essex cleaning contractor.',
+      phero('Office cleaning in Essex, in or out of hours.',
+        'Kemp Services is a contract cleaning company based in Stratford, east London. For over 30 years we have been offering professional commercial cleaning services, and we pride ourselves on being a flexible and responsive Essex cleaning contractor.',
         '1746998032579-53288033500d','Buildings along a town street on a sunny day',cta='Get an Essex quote'),
-      rows('What we clean in Essex.','We offer our cleaning services to businesses across the whole of Essex. Regardless of the type of property, we can help keep your premises looking sparkling clean at all times.',
-        [('Offices','Daily or weekly '+L('office-cleaning')+' with vetted, trained staff, in or out of hours.'),
-         ('Retail and commercial units','Shops, showrooms and commercial premises on a '+L('contract-cleaning','contract cleaning')+' schedule.'),
-         ('Warehouses and welfare facilities','Warehouse floors, site cabins and '+L('welfare-area-cleaning','welfare areas')+' at the frequency you need.')]),
+      split('Offices, retail, warehouses and welfare facilities.',[
+        'We offer our cleaning services to businesses across the whole of Essex. Regardless of the type of property, office, retail, welfare facilities or warehouse, we can help keep your premises looking sparkling clean at all times.',
+        VET],
+        '1497366754035-f200968a6e72','Office hallway between glass-panel doors',buttons=[btn('Office cleaning','/office-cleaning'),btn('Our F.A.C.T. Guarantee','/#guarantee','btn-line')]),
       towns('Essex towns we cover.','',['Basildon','Braintree','Brentwood','Chelmsford','Colchester','Grays','Harlow','Kelvedon','Maldon','Romford'],white=False),
-      area_services(heading='All our services in Essex.'),
-      split('Clean premises make a difference.',[
-        'Clean and presentable premises not only make a difference to the general health and wellbeing of staff, but it also creates a positive first impression to visitors.',
-        'All our cleaning staff are fully vetted. If you would prefer us to clean when your offices are empty, we can work outside of usual business hours. Alternatively, our cleaners can work alongside your staff without disrupting them.'],
-        '1497366754035-f200968a6e72','Office hallway between glass-panel doors',white=False,buttons=[btn('Our F.A.C.T. Guarantee','/#guarantee')]),
+      area_services(['office-cleaning','contract-cleaning','welfare-area-cleaning'],'Cleaning services in Essex.'),
       contact('Get a quote for your Essex premises.'),
       ], ld=ld('Office cleaning Essex','Office and commercial cleaning across Essex from a contractor based in Stratford, east London.','contract-cleaning-essex',area='Essex'), needs_form=True)
 
-    # KENT: commercial cleaning, split-led with towns in prose
+    # KENT: the guarantee is the unique section, towns in prose order
     page('area-kent','Commercial Cleaning Kent | Kemp Services Ltd',
       'Commercial cleaning across Kent, from Dartford to Dover. Contract, office and builders cleaning from a London contractor with over 30 years\' experience.',
       [
       phero('Commercial cleaning in Kent, from Dartford to Dover.',
         'Kemp Services is a contract cleaning company based in Stratford, east London. We offer our cleaning services to businesses across the whole of Kent, and pride ourselves on being a flexible and responsive Kent cleaning contractor.',
-        '1600379877371-091ccbd74267','Brown brick building under a blue sky in Kent',wash=True,cta='Get a Kent quote'),
-      split('Thirty years of commercial cleaning, now across Kent.',[
-        'For over 30 years we have been offering professional commercial cleaning services. Clean and presentable premises not only make a difference to the general health and wellbeing of staff, but it also creates a positive first impression to visitors.',
-        'Regardless of the type of property, office, retail, welfare facilities or warehouse, we can help keep your premises looking sparkling clean at all times. Our Kent clients book '+L('office-cleaning')+', '+L('contract-cleaning')+' and '+L('builders-clean','builders cleans')+' most often.'],
-        '1612791119418-36f22ce00cd4','Street light beside a brick building',buttons=[btn('Get a quote','/contact')]),
-      towns('Where we work in Kent.','',['Ashford','Canterbury','Dartford','Dover','Faversham','Gillingham','Hastings','Maidstone','Orpington','Sevenoaks','Tunbridge Wells']),
-      two('Vetted staff, flexible hours.',[
-        '!All our cleaning staff are fully vetted. When it comes to working hours and patterns, we offer great flexibility.',
-        'If you would prefer us to clean when your offices are empty, we can work outside of usual business hours. Alternatively, our cleaners can work alongside your staff without disrupting them.',
-        'Our contract cleaning work is covered by our <a class="inl" href="/#guarantee">F.A.C.T. Guarantee</a>: if you are not completely satisfied in the first month of your cleaning contract, we will refund that month.'],white=False,
-        side='<ul class="rows plain" style="margin-top:30px"><li>Competitive rates</li><li>Flexible contracts</li><li>Fully insured, trained and vetted staff</li><li>Tailored cleaning schedule</li><li>Regular site inspections</li></ul>'),
-      area_services(heading='All our services in Kent.'),
+        '1600379877371-091ccbd74267','Brick building under a blue sky',wash=True,cta='Get a Kent quote'),
+      two('Thirty years of commercial cleaning.',[
+        '!For over 30 years we have been offering professional commercial cleaning services.',
+        PREM, VET],side=CHECKS),
+      towns('Where we work in Kent.','',['Ashford','Canterbury','Dartford','Dover','Faversham','Gillingham','Hastings','Maidstone','Orpington','Sevenoaks','Tunbridge Wells'],white=False),
+      area_services(['contract-cleaning','office-cleaning','builders-clean','welfare-area-cleaning'],'Cleaning services in Kent.'),
+      split('Risk free for Kent contract clients.',[
+        'We are confident in the services we provide, which is why we make signing up with us a risk free process. If you are not completely satisfied with our service in the first month of your cleaning contract, we will provide you a full refund for that month. Only applies to contract services.'],
+        '1612791119418-36f22ce00cd4','Street light beside a brick building',white=False,buttons=[btn('Our F.A.C.T. Guarantee','/#guarantee')]),
       contact('Get a quote for your Kent premises.'),
       ], ld=ld('Commercial cleaning Kent','Contract, office and builders cleaning for businesses across Kent.','area-kent',area='Kent'), needs_form=True)
 
-    # SURREY: office cleaning focus, towns first, then services list
+    # SURREY: the longest town list leads after a white intro; office angle
     page('area-surrey','Office Cleaning Surrey | Kemp Services Ltd',
       'Office cleaning in Surrey from Guildford to Kingston. Flexible, vetted office and commercial cleaners from a contractor with over 30 years\' experience.',
       [
       phero('Office cleaning in Surrey, from Guildford to Kingston.',
         'Kemp Services is a contract cleaning company based in Stratford, east London. For over 30 years we have been offering professional commercial cleaning services, and we pride ourselves on being a flexible and responsive Surrey cleaning contractor.',
         '1581276002303-3c0e4f6bf633','Red bus on a road beside a building',cta='Get a Surrey quote'),
-      towns('Surrey towns we cover.','We offer our cleaning services to businesses across the whole of Surrey.',
+      split('A healthier office for your Surrey team.',[
+        'Our '+L('office-cleaning','office cleaning')+' team will work to reducing allergens, dust, and mould, which will make your team healthier and more productive. A clean office presents a welcoming, positive and professional first impression to your clients right from the outset.',
+        VET],
+        '1771678040129-477a44bd37ea','Modern white office interior with large windows',rev=True,buttons=[btn('Office cleaning','/office-cleaning')]),
+      towns('Twenty-seven Surrey towns.','We offer our cleaning services to businesses across the whole of Surrey.',
         ['Aldershot','Chertsey','Coulsdon','Croydon','Dorking','Egham','Epsom','Esher','Farnham','Guildford','Haslemere','Kew','Kingston','Leatherhead','Mitcham','Morden','New Malden','Oxshott','Purley','Redhill','Reigate','Richmond','Staines','Surbiton','Sutton','Weybridge','Woking'],white=False),
-      split('A cleaner office, in or out of hours.',[
-        'Clean and presentable premises not only make a difference to the general health and wellbeing of staff, but it also creates a positive first impression to visitors. Our '+L('office-cleaning','office cleaning')+' team will work to reducing allergens, dust, and mould.',
-        'All our cleaning staff are fully vetted. If you would prefer us to clean when your offices are empty, we can work outside of usual business hours. Alternatively, our cleaners can work alongside your staff without disrupting them.'],
-        '1771678040129-477a44bd37ea','Modern white office interior with large windows',rev=True,buttons=[btn('Office cleaning','/office-cleaning'),btn('Our F.A.C.T. Guarantee','/#guarantee','btn-line')]),
-      area_services(white=False,heading='All our services in Surrey.'),
+      area_services(['office-cleaning','carpet-floor-cleaning','window-cleaning-london','deep-cleaning'],'Office services in Surrey.'),
       contact('Get a quote for your Surrey premises.'),
       ], ld=ld('Office cleaning Surrey','Office and commercial cleaning for businesses across Surrey.','area-surrey',area='Surrey'), needs_form=True)
 
-    # MIDDLESEX: lean on towns, long list front and centre, facts strip
+    # MIDDLESEX: facts strip, then towns, construction and property angle
     page('area-middlesex','Commercial Cleaning Middlesex | Kemp Services Ltd',
       'Commercial cleaning across Middlesex: Harrow, Hounslow, Uxbridge, Wembley and more. Contract, office and builders cleaning from a London contractor.',
       [
@@ -376,11 +363,11 @@ def build(g):
              ('In or <b>out of hours</b>','We can work outside of usual business hours, or alongside your staff.'),
              ('<b>F.A.C.T.</b> guaranteed','Our contract cleaning work is covered by our guarantee.')]),
       towns('Middlesex towns we cover.','',['Brentford','Ealing','Edgware','Feltham','Hampton','Harefield','Harrow','Hayes','Hillingdon','Hounslow','Isleworth','Northolt','Northwood','Pinner','Ruislip','Stanmore','Teddington','Twickenham','Uxbridge','Wealdstone','Wembley','West Drayton']),
-      two('Clean premises make a difference.',[
-        '!Clean and presentable premises not only make a difference to the general health and wellbeing of staff, but it also creates a positive first impression to visitors.',
-        'Regardless of the type of property, office, retail, welfare facilities or warehouse, we can help keep your premises looking sparkling clean at all times. If you would prefer us to clean when your offices are empty, we can work outside of usual business hours. Alternatively, our cleaners can work alongside your staff without disrupting them.'],white=False,
-        side='<a class="btn-dark" href="/contact" style="background:var(--sky);color:var(--navy)">Get a quote'+ARROW+'</a>'),
-      area_services(heading='All our services in Middlesex.'),
+      area_services(['contract-cleaning','builders-clean','communal-block-cleaning','pre-post-tenancy-cleans'],'Cleaning services in Middlesex.',white=False),
+      two('Office, retail, welfare and warehouse premises.',[
+        '!'+PREM,
+        'If you would prefer us to clean when your offices are empty, we can work outside of usual business hours. Alternatively, our cleaners can work alongside your staff without disrupting them.'],white=False,
+        side='<a class="btn-dark" href="/contact">Get a quote'+ARROW+'</a>'),
       contact('Get a quote for your Middlesex premises.'),
       ], ld=ld('Commercial cleaning Middlesex','Contract, office and builders cleaning for businesses across Middlesex.','area-middlesex',area='Middlesex'), needs_form=True)
 
@@ -400,12 +387,8 @@ def build(g):
         'The reputation of Kemp Services has been built on a foundation of delivering professional contract cleaning services, of a high standard, to a wide variety of clients. We offer outstanding customer service, and we continue to improve upon our best.',
         'Our experience as UK cleaning contractors covers a broad range of sectors, including construction, offices, retail outlets, warehouses and welfare facilities. We know how to get the job done to your exact standards, safely, on time and on budget. Your premises need to make the right first impression to your customers and as our customer, we\'ll make sure that happens.'],
         '1437326300822-01d8f13c024f','Cleaner working on a floor beside a white wall',rev=True,white=False),
-      rows('Why businesses choose Kemp Services.','',
-        [('Customer centric','We meet our customers\' requirements through our knowledge, responsiveness, reliability and our hard-working loyal staff.'),
-         ('Over 30 years\' commercial cleaning experience','One-off and contract cleaning in London, the Home Counties and across the UK.'),
-         ('Flexible and fair business ethos','We are flexible when the unexpected happens, and our prices are competitive, which benefits your business and ours.'),
-         ('National coverage, local cleaning operatives','Wherever you are, we have local cleaning teams to take care of your property.'),
-         ('F.A.C.T. guaranteed','Our contract cleaning work is F.A.C.T. Guaranteed.')]),
+      rows('Why choose Kemp Services.','',
+        ['Customer centric','Over 30 years\' commercial cleaning experience','Flexible and fair business ethos','National coverage, local cleaning operatives','Our contract cleaning work is F.A.C.T. Guaranteed'],plain=True,cols=True),
       two('Your one stop shop for cleaning services.',[
         '!Initially, we will talk through your requirements. We will arrange a site survey to provide you with a free, no obligation, contract cleaning quote. We will tailor our service to meet your budget.',
         'We will be your one stop shop for cleaning services offering one-off or regular cleaning. Our services include '+L('contract-cleaning')+', '+L('office-cleaning')+', '+L('builders-clean')+', '+L('welfare-area-cleaning','welfare clean')+', '+L('communal-block-cleaning')+', '+L('pre-post-tenancy-cleans','pre and post tenancy cleans')+', '+L('carpet-floor-cleaning')+', '+L('deep-cleaning')+' and '+L('window-cleaning-london')+'.'],white=False,
@@ -415,10 +398,10 @@ def build(g):
       ], needs_guar=True, needs_form=True)
 
     # ================= CONTACT =================
-    page('contact','Contact Us | Cleaning Contractors London',
-      'Contact Kemp Services, cleaning contractors in London covering the Home Counties and beyond. Call 020 8983 8593 or send an enquiry online.',
+    page('contact','Contact Kemp Services | Kemp Services Ltd',
+      'Contact Kemp Services. Call 020 8983 8593, email info@kempservices.co.uk or send an enquiry. Office hours Monday to Sunday, 7:30am to 7:30pm.',
       [
-      phero('Contact your London cleaning contractors.',
+      phero('Contact Kemp Services.',
         'Are you ready to book your premises a clean and positive atmosphere? We are ready to deliver! Cleaning contractors covering London, the Home Counties and beyond.',
         '1758448500688-3ababa93fd67','Modern lobby with a marble reception desk and plants',cta='Send an enquiry'),
       contact('Get in touch.','Kemp Services is a London-based cleaning contractor based in east London. Most of our customers are based across London, Essex, Kent, Surrey, Middlesex and Hertfordshire. We also have contracts in Manchester, Newcastle, Nottingham, Liverpool, Cardiff and Birmingham. So wherever you are, we have local cleaning teams to take care of your property.',
@@ -446,4 +429,4 @@ def build(g):
       '<p>We take the privacy of your information seriously and we ask that you read this Privacy Notice carefully as it contains important information on: the personal information we collect about you; what we do with your information, and who your information might be shared with.</p>'
       '<p>We won\'t disclose your information to anyone without your consent and prior knowledge, other than as set out in this Privacy Notice and any applicable terms and conditions.</p>')
     legal('terms-conditions','Terms and Conditions | Kemp Services Ltd','Terms and conditions for cleaning services provided by Kemp Services Ltd.','Terms and conditions',
-      '<p>Terms and conditions for cleaning services provided by Kemp Services Ltd.</p>')
+      '')

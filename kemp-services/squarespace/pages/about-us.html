@@ -70,6 +70,7 @@ body{overflow-x:clip;}
   padding:100px 60px 100px max(40px, calc((100vw - 1280px)/2 + 40px));
 }
 .ksl-home .copy{max-width:540px;}
+.ksl-home h1 .kick{display:block;margin-bottom:18px;color:var(--sky);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;line-height:1.3;}
 .ksl-home h1{
   color:#fff;
   font-weight:600;
@@ -804,12 +805,13 @@ body{overflow-x:clip;}
 .ksl-home .split .pic::after{content:"";position:absolute;left:0;bottom:0;width:120px;height:6px;background:var(--sky);}
 .ksl-home .split .text p{max-width:56ch;}
 .ksl-home .split .text .btn-dark,.ksl-home .split .text .btn-line{display:inline-flex;align-self:auto;margin-top:26px;min-width:240px;}
-.ksl-home .split .text .btn-line{margin-left:12px;margin-top:26px;}
+.ksl-home .split .text .btn-dark + .btn-line{margin-left:12px;}
 @media (max-width:900px){.ksl-home .split{grid-template-columns:1fr;gap:34px;}
 .ksl-home .split.rev .pic{order:0;}
 .ksl-home .split .text .btn-line{margin-left:0;margin-top:10px;}}
 @media (max-width:620px){.ksl-home .split .text .btn-dark,.ksl-home .split .text .btn-line{width:100%;justify-content:center;}}
-.ksl-home .related{background:#fff;padding:96px 0;}
+.ksl-home .related{background:#fff;padding:72px 0 96px;}
+.ksl-home .sec.white + .related{padding-top:0;}
 .ksl-home .related .head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:40px;}
 .ksl-home .related .head p{margin:0;color:var(--body);}
 .ksl-home .related .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
@@ -819,7 +821,7 @@ body{overflow-x:clip;}
 .ksl-home .related .more svg{width:12px;height:12px;}
 .ksl-home .related .more:hover{color:var(--navy);}
 @media (max-width:1000px){.ksl-home .related .grid,.ksl-home .related .grid.four{grid-template-columns:1fr 1fr;}}
-@media (max-width:900px){.ksl-home .related{padding:72px 0;}}
+@media (max-width:900px){.ksl-home .related{padding:56px 0 72px;}}
 @media (max-width:560px){.ksl-home .related .grid,.ksl-home .related .grid.four{grid-template-columns:1fr;}
 .ksl-home .related .scard{aspect-ratio:16/10;}}
 .ksl-home .hublist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line);}
@@ -841,10 +843,10 @@ body{overflow-x:clip;}
 .ksl-home .hublist a:hover .arr{background:var(--sky);border-color:var(--sky);color:var(--navy);}
 .ksl-home .hublist a:hover h3{color:var(--deep);}
 .ksl-home .navy .hublist a:hover h3{color:var(--sky);}
-.ksl-home .hublist .sub{padding-left:104px;}
+.ksl-home .hublist .plabel{display:block;margin-bottom:6px;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);}
+.ksl-home .navy .hublist .plabel{color:var(--sky);}
 @media (max-width:900px){.ksl-home .hublist a{grid-template-columns:48px minmax(0,1fr) 44px;gap:0 18px;}
-.ksl-home .hublist .pic{display:none;}
-.ksl-home .hublist .sub{padding-left:0;}}
+.ksl-home .hublist .pic{display:none;}}
 @media (max-width:560px){.ksl-home .hublist a{grid-template-columns:minmax(0,1fr) 44px;}
 .ksl-home .hublist .n{display:none;}}
 .ksl-home .towns{margin-top:36px;}
@@ -894,6 +896,22 @@ body{overflow-x:clip;}
 .ksl-home .sec.navy .btn-line{border-color:#fff;color:#fff;}
 .ksl-home .sec.navy .btn-line:hover{background:var(--sky);border-color:var(--sky);color:var(--navy);}
 .ksl-home .sec.navy .btn-dark:focus-visible,.ksl-home .sec.navy .btn-line:focus-visible{outline-color:#fff;}
+.ksl-home .legal-body h2:first-child{margin-top:0;}
+.ksl-home .legal-body strong,.ksl-home .legal-body b{color:var(--navy);font-weight:600;}
+.ksl-home .legal-body table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:.95rem;}
+.ksl-home .legal-body th,.ksl-home .legal-body td{text-align:left;vertical-align:top;padding:10px 12px;border:1px solid var(--line);}
+.ksl-home .legal-body th{color:var(--navy);background:#F4F7F9;}
+.ksl-home .legal-body hr{border:0;border-top:1px solid var(--line);margin:28px 0;}
+.ksl-home .legal-body blockquote{margin:0 0 16px;padding-left:18px;border-left:3px solid var(--sky);}
+.ksl-home .legal-body li p{margin-bottom:6px;}
+.ksl-home .compact{margin-top:40px;}
+.ksl-home .compact p{color:var(--body);margin-bottom:14px;}
+.ksl-home .compact ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}
+.ksl-home .compact li a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--line);color:var(--navy);font-size:14.5px;font-weight:500;}
+.ksl-home .compact li a:hover{border-color:var(--navy);}
+.ksl-home .navy .compact p{color:#B6C9D6;}
+.ksl-home .navy .compact li a{border-color:rgba(255,255,255,.25);color:#fff;}
+.ksl-home .navy .compact li a:hover{border-color:var(--sky);color:var(--sky);}
 </style>
 <div class="ksl-home">
 <section class="hero phero">
@@ -926,12 +944,12 @@ body{overflow-x:clip;}
 </section>
 <section class="sec white">
   <div class="w">
-    <h2>Why businesses choose Kemp Services.</h2>
-    <ul class="rows" style="margin-top:40px"><li><div><h3>Customer centric</h3><p>We meet our customers' requirements through our knowledge, responsiveness, reliability and our hard-working loyal staff.</p></div></li>
-<li><div><h3>Over 30 years' commercial cleaning experience</h3><p>One-off and contract cleaning in London, the Home Counties and across the UK.</p></div></li>
-<li><div><h3>Flexible and fair business ethos</h3><p>We are flexible when the unexpected happens, and our prices are competitive, which benefits your business and ours.</p></div></li>
-<li><div><h3>National coverage, local cleaning operatives</h3><p>Wherever you are, we have local cleaning teams to take care of your property.</p></div></li>
-<li><div><h3>F.A.C.T. guaranteed</h3><p>Our contract cleaning work is F.A.C.T. Guaranteed.</p></div></li></ul>
+    <h2>Why choose Kemp Services.</h2>
+    <ul class="rows plain cols" style="margin-top:40px"><li>Customer centric</li>
+<li>Over 30 years' commercial cleaning experience</li>
+<li>Flexible and fair business ethos</li>
+<li>National coverage, local cleaning operatives</li>
+<li>Our contract cleaning work is F.A.C.T. Guaranteed</li></ul>
   </div>
 </section>
 <section class="sec navy">

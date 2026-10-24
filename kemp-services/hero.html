@@ -76,6 +76,7 @@ a{text-decoration:none;color:inherit;}
 
 .copy{max-width:540px;}
 
+h1 .kick{display:block;margin-bottom:18px;color:var(--sky);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;line-height:1.3;}
 h1{
   color:#fff;
   font-weight:600;
@@ -884,7 +885,7 @@ p{
 .site-hdr .sub{
   display:none;position:absolute;top:100%;left:-10px;z-index:30;
   min-width:520px;padding:18px 10px;margin:0;list-style:none;
-  background:var(--navy);border-top:3px solid var(--sky);box-shadow:0 18px 40px rgba(13,29,39,.35);
+  background:var(--navy);border:1px solid rgba(255,255,255,.18);border-top:3px solid var(--sky);box-shadow:0 18px 40px rgba(0,0,0,.45);
   columns:2;column-gap:10px;
 }
 .site-hdr .sub li{break-inside:avoid;}
@@ -897,7 +898,7 @@ p{
   .site-hdr .has-sub{display:block;}
   .site-hdr .subtog{position:absolute;right:0;top:0;width:50px;height:50px;margin:0;}
   .site-hdr .sub{
-    position:static;display:none;min-width:0;columns:1;padding:0 0 8px 16px;
+    position:static;display:none;min-width:0;columns:1;padding:6px 0 10px 16px;
     border-top:0;box-shadow:none;border-left:2px solid rgba(255,255,255,.14);margin:0 0 8px;
   }
   .site-hdr .has-sub.open .sub{display:block;}
@@ -915,7 +916,7 @@ p{
 /* ---------- Footer (link columns) ---------- */
 .site-ftr{background:var(--navy);color:#C6D5DE;padding:72px 0 0;border-top:1px solid rgba(255,255,255,.08);}
 .site-ftr .fw{max-width:1280px;margin-inline:auto;padding-inline:40px;}
-.site-ftr .top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;}
+.site-ftr .top{display:grid;grid-template-columns:1.3fr 1fr .9fr .7fr 1fr;gap:40px;}
 .site-ftr .flogo{display:inline-block;}
 .site-ftr .flogo img{height:56px;width:auto;}
 .site-ftr .top p{margin-top:20px;font-size:14.5px;max-width:34ch;line-height:1.6;color:#C6D5DE;}
@@ -924,7 +925,7 @@ p{
   color:var(--sky);margin-bottom:8px;
 }
 .site-ftr ul{list-style:none;}
-.site-ftr li a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px;margin-left:-6px;font-size:14.5px;}
+.site-ftr li a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;padding:0 6px;margin-left:-6px;font-size:14.5px;}
 .site-ftr a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px;}
 .site-ftr a:focus-visible{outline:3px solid var(--sky);outline-offset:2px;}
 .site-ftr .legal{
@@ -932,7 +933,7 @@ p{
   display:flex;flex-wrap:wrap;gap:6px 26px;align-items:center;font-size:12.5px;
 }
 .site-ftr .legal a{min-height:44px;padding:0 6px;display:inline-flex;align-items:center;}
-.site-ftr .legal span{margin-right:auto;}
+.site-ftr .legal span{margin-right:auto;max-width:62ch;line-height:1.5;}
 @media (max-width:900px){
   .site-ftr .top{grid-template-columns:1fr 1fr;gap:36px 28px;}
   .site-ftr .top > div:first-child{grid-column:1 / -1;}
@@ -1020,7 +1021,7 @@ p{
 
   <div class="inner">
     <div class="copy">
-      <h1>Leave the cleaning to us.</h1>
+      <h1><span class="kick">Commercial cleaning in London</span>Leave the cleaning to us.</h1>
       <p>
         At Kemp Services, we want to build a long-term relationship with our
         commercial cleaning clients to ensure you know you can concentrate on
@@ -1135,7 +1136,7 @@ p{
 <section class="about" aria-labelledby="about-heading">
   <div class="aw">
     <div>
-      <h2 id="about-heading">Our specialist London commercial cleaning contractors are ready to help you.</h2>
+      <h2 id="about-heading">Our specialist London cleaning contractors are ready to help you.</h2>
 
       <div class="where">
         <h3>Where we work</h3>
@@ -1264,6 +1265,13 @@ p{
         <li><a href="/#guarantee">Our F.A.C.T. Guarantee</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul></div>
+      <div><p class="fh">Areas</p><ul>
+        <li><a href="/area-london">London</a></li>
+        <li><a href="/contract-cleaning-essex">Essex</a></li>
+        <li><a href="/area-kent">Kent</a></li>
+        <li><a href="/area-surrey">Surrey</a></li>
+        <li><a href="/area-middlesex">Middlesex</a></li>
+      </ul></div>
       <div><p class="fh">Contact</p><ul>
         <li><a href="tel:+442089838593">020 8983 8593</a></li>
         <li><a href="mailto:info@kempservices.co.uk">info@kempservices.co.uk</a></li>
@@ -1272,7 +1280,7 @@ p{
       </ul></div>
     </div>
     <div class="legal">
-      <span>&copy; Kemp Services Ltd. Company registration 11349274.</span>
+      <span>&copy; Kemp Services Ltd. Company registration 11349274. Registered office: 19th Floor, 1 Westfield Avenue, London E20 1HZ.</span>
       <a href="/privacy-policy">Privacy policy</a><a href="/terms-conditions">Terms and conditions</a><a href="/disclaimer">Disclaimer</a>
     </div>
   </div>

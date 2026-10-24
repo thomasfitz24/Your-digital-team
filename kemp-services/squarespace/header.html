@@ -97,7 +97,7 @@
 .ksl-hdr .sub{
   display:none;position:absolute;top:100%;left:-10px;z-index:30;
   min-width:520px;padding:18px 10px;margin:0;list-style:none;
-  background:var(--navy);border-top:3px solid var(--sky);box-shadow:0 18px 40px rgba(13,29,39,.35);
+  background:var(--navy);border:1px solid rgba(255,255,255,.18);border-top:3px solid var(--sky);box-shadow:0 18px 40px rgba(0,0,0,.45);
   columns:2;column-gap:10px;
 }
 .ksl-hdr .sub li{break-inside:avoid;}
@@ -109,7 +109,7 @@
 @media (max-width:860px){.ksl-hdr .has-sub{display:block;}
 .ksl-hdr .subtog{position:absolute;right:0;top:0;width:50px;height:50px;margin:0;}
 .ksl-hdr .sub{
-    position:static;display:none;min-width:0;columns:1;padding:0 0 8px 16px;
+    position:static;display:none;min-width:0;columns:1;padding:6px 0 10px 16px;
     border-top:0;box-shadow:none;border-left:2px solid rgba(255,255,255,.14);margin:0 0 8px;
   }
 .ksl-hdr .has-sub.open .sub{display:block;}
