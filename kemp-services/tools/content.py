@@ -85,7 +85,7 @@ def build(g):
         'Health and safety is paramount and the majority of our staff are CSCS qualified and our RAMS are site specific and have been passed by contractors such as Kier, Galliford Try and Willmott Dixon.',
         'We can help if you are tendering for a project or short on time and need a quote off plan, or we can arrange a visit and carry out a comprehensive site survey to ensure a more specific quote.'],
         '1772300164438-f73307d3b645','Large empty building with polished floors after construction',rev=True,white=False,buttons=[btn('Get a quote off plan','/contact')]),
-      related(['builders-clean','welfare-area-cleaning','window-cleaning-london']),
+      related(['contract-cleaning','window-cleaning-london','carpet-floor-cleaning'],heading='Also for site teams'),
       contact('Tell us about your project.','Send us the plans or the site address and your handover date, and we will come back with a quote.'),
       ], ld=ld('Post construction cleaning London','Builders cleans and welfare area cleaning for construction, refurbishment, fit out and modular companies in London and across the UK.','construction-cleaning'), needs_form=True)
 
@@ -150,7 +150,7 @@ def build(g):
          ('Pre and post tenancy cleans','/pre-post-tenancy-cleans','1789352844327-765b16a51b9b','Empty carpeted living area opening into a kitchen','As a Letting Agency or Private Landlord, it\'s your duty to provide a property in a clean and well-maintained condition for your tenants.',False)]),
       rows('Everything a tenanted property needs.','',
         ['Pre and post tenancy cleans','Regular communal block cleaning','Deep cleans','Periodic cleaning','Carpet and upholstery cleaning','Specialist floor cleaning','Window cleaning','Bin store and car park cleaning','Waste and large item removal'],plain=True,cols=True),
-      related(['communal-block-cleaning','pre-post-tenancy-cleans','deep-cleaning']),
+      related(['deep-cleaning','carpet-floor-cleaning','window-cleaning-london'],heading='Often added to a portfolio contract'),
       contact('Tell us about your portfolio.','Whether it is one block or a national portfolio, tell us what you manage and we will put together a tailored proposal.'),
       ], ld=ld('Communal area cleaning London','Cleaning for property management companies, private landlords and letting agents: communal blocks, tenancy cleans, deep cleans and more.','property-management-cleaning'), needs_form=True)
 
